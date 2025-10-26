@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useRoute, useLocation } from "wouter";
-import { Mic, MicOff, PhoneOff, Copy, Check, Settings, Share2, ArrowLeftRight } from "lucide-react";
+import { Mic, MicOff, PhoneOff, Copy, Check, Share2, Volume2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ConnectionStatus } from "@/components/ConnectionStatus";
 import { TranscriptionPanel } from "@/components/TranscriptionPanel";
@@ -13,7 +13,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { SUPPORTED_LANGUAGES } from "@shared/schema";
 import * as SpeechSDK from "microsoft-cognitiveservices-speech-sdk";
 
@@ -300,174 +299,172 @@ export default function Room() {
       {/* Background effects */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent" />
       <div className="absolute inset-0 bg-[linear-gradient(rgba(99,102,241,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(99,102,241,0.03)_1px,transparent_1px)] bg-[size:72px_72px]" />
-      <div className="absolute top-0 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse" />
-      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl animate-pulse delay-1000" />
       
       {/* Header */}
-      <header className="h-20 border-b border-slate-800/50 bg-slate-900/50 backdrop-blur-xl flex items-center justify-between px-6 md:px-12 relative z-10 pt-20">
-        <div className="flex items-center gap-4">
-          <ConnectionStatus status={connectionStatus} latency={connectionStatus === "connected" ? 45 : undefined} />
-        </div>
-        
-        <div className="flex items-center gap-3">
-          {myLanguage && theirLanguage ? (
-            <div className="flex items-center gap-3 px-4 py-2 rounded-xl bg-gradient-to-r from-primary/10 to-accent/10 border border-slate-700">
-              <div className="flex items-center gap-2">
-                <img 
-                  src={`https://flagcdn.com/w40/${myLanguage.countryCode.toLowerCase()}.png`}
-                  width="28"
-                  height="21"
-                  alt={myLanguage.code}
-                  className="rounded border border-slate-600"
-                />
-                <span className="font-semibold text-sm text-white">{myLanguage.name}</span>
+      <header className="border-b border-slate-800/50 bg-slate-900/50 backdrop-blur-xl relative z-10 pt-20">
+        <div className="container mx-auto px-6 md:px-12 py-6">
+          <div className="flex items-center justify-between">
+            <ConnectionStatus status={connectionStatus} latency={connectionStatus === "connected" ? 45 : undefined} />
+            
+            {myLanguage && theirLanguage && (
+              <div className="flex items-center gap-4 px-6 py-3 rounded-2xl bg-gradient-to-r from-primary/10 to-accent/10 border border-slate-700/50 backdrop-blur-sm">
+                <div className="flex items-center gap-3">
+                  <img 
+                    src={`https://flagcdn.com/w40/${myLanguage.countryCode.toLowerCase()}.png`}
+                    width="32"
+                    height="24"
+                    alt={myLanguage.code}
+                    className="rounded border border-slate-600"
+                  />
+                  <div>
+                    <div className="text-sm font-bold text-white">{myLanguage.name}</div>
+                    <div className="text-xs text-slate-400">You</div>
+                  </div>
+                </div>
+                <div className="h-10 w-px bg-slate-700" />
+                <div className="flex items-center gap-3">
+                  <img 
+                    src={`https://flagcdn.com/w40/${theirLanguage.countryCode.toLowerCase()}.png`}
+                    width="32"
+                    height="24"
+                    alt={theirLanguage.code}
+                    className="rounded border border-slate-600"
+                  />
+                  <div>
+                    <div className="text-sm font-bold text-white">{theirLanguage.name}</div>
+                    <div className="text-xs text-slate-400">Partner</div>
+                  </div>
+                </div>
               </div>
-              <ArrowLeftRight className="h-4 w-4 text-slate-400" />
-              <div className="flex items-center gap-2">
-                <img 
-                  src={`https://flagcdn.com/w40/${theirLanguage.countryCode.toLowerCase()}.png`}
-                  width="28"
-                  height="21"
-                  alt={theirLanguage.code}
-                  className="rounded border border-slate-600"
-                />
-                <span className="font-semibold text-sm text-white">{theirLanguage.name}</span>
-              </div>
-            </div>
-          ) : (
-            <div className="px-4 py-2 rounded-xl bg-slate-800/50 border border-slate-700">
-              <span className="text-sm text-slate-400">Waiting for partner...</span>
-            </div>
-          )}
-        </div>
+            )}
 
-        <div className="flex items-center gap-3">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="text-slate-300 hover:text-white border-slate-700 hover:bg-slate-800/50"
-            data-testid="button-settings"
-          >
-            <Settings className="h-5 w-5" />
-          </Button>
-          <Button
-            variant="destructive"
-            onClick={handleEndCall}
-            className="gap-2"
-            data-testid="button-end-call"
-          >
-            <PhoneOff className="h-4 w-4" />
-            <span className="hidden sm:inline">End Call</span>
-          </Button>
+            <Button
+              variant="destructive"
+              onClick={handleEndCall}
+              className="gap-2"
+              data-testid="button-end-call"
+            >
+              <PhoneOff className="h-4 w-4" />
+              <span className="hidden sm:inline">End Call</span>
+            </Button>
+          </div>
         </div>
       </header>
 
-      {/* Main Translation Panels */}
-      <main className="flex-1 overflow-hidden p-6 md:p-12 relative z-10">
-        <div className="h-full grid md:grid-cols-2 gap-6 md:gap-8 max-w-7xl mx-auto">
-          <TranscriptionPanel
-            title="You"
-            isActive={isSpeaking}
-            messages={myMessages}
-            isSpeaking={isSpeaking}
-          />
-          <TranscriptionPanel
-            title="Partner"
-            isActive={partnerSpeaking}
-            messages={partnerMessages}
-            isSpeaking={partnerSpeaking}
-          />
+      {/* Main Content */}
+      <main className="flex-1 overflow-hidden relative z-10">
+        <div className="h-full container mx-auto px-6 md:px-12 py-8">
+          <div className="h-full grid md:grid-cols-2 gap-6 max-w-7xl mx-auto">
+            <TranscriptionPanel
+              title="You"
+              isActive={isSpeaking}
+              messages={myMessages}
+              isSpeaking={isSpeaking}
+            />
+            <TranscriptionPanel
+              title="Partner"
+              isActive={partnerSpeaking}
+              messages={partnerMessages}
+              isSpeaking={partnerSpeaking}
+            />
+          </div>
         </div>
       </main>
 
-      {/* Footer Controls */}
-      <footer className="h-24 border-t border-slate-800/50 bg-slate-900/50 backdrop-blur-xl flex items-center justify-center gap-6 px-6 relative z-10">
-        {!conversationStarted && connectionStatus === "connected" ? (
-          <div className="flex flex-col items-center gap-3">
-            <Button
-              size="lg"
-              onClick={startConversation}
-              className="h-14 px-10 text-base bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 shadow-lg shadow-primary/25"
-              data-testid="button-start-conversation"
-            >
-              <Mic className="h-5 w-5 mr-2" />
-              Start Conversation
-            </Button>
-            <p className="text-xs text-slate-400">
-              Click to enable microphone and begin speaking
-            </p>
-          </div>
-        ) : (
-          <div className="flex items-center gap-6">
-            <Button
-              size="lg"
-              variant={isMuted ? "secondary" : "default"}
-              onClick={toggleMute}
-              className={`h-16 w-16 rounded-full shadow-lg ${
-                !isMuted ? "bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 shadow-primary/25" : ""
-              }`}
-              data-testid="button-toggle-mic"
-            >
-              {isMuted ? <MicOff className="h-7 w-7" /> : <Mic className="h-7 w-7" />}
-            </Button>
-            <div className="text-center">
-              <div className="font-semibold text-base text-white">
-                {isMuted ? "Microphone Off" : partnerConnected ? "Ready to speak" : "Waiting for partner"}
-              </div>
-              <div className="text-sm text-slate-400">
-                {isMuted ? "Click to unmute" : "Click to mute"}
+      {/* Footer */}
+      <footer className="border-t border-slate-800/50 bg-slate-900/50 backdrop-blur-xl relative z-10">
+        <div className="container mx-auto px-6 md:px-12 py-6">
+          {!conversationStarted && connectionStatus === "connected" ? (
+            <div className="flex flex-col items-center gap-4">
+              <Button
+                size="lg"
+                onClick={startConversation}
+                className="h-16 px-12 text-lg bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 shadow-lg shadow-primary/25 group"
+                data-testid="button-start-conversation"
+              >
+                <Mic className="h-6 w-6 mr-3 group-hover:scale-110 transition-transform" />
+                Start Conversation
+              </Button>
+              <p className="text-sm text-slate-400">
+                Click to enable your microphone and begin speaking
+              </p>
+            </div>
+          ) : (
+            <div className="flex items-center justify-center gap-8">
+              <Button
+                size="lg"
+                variant={isMuted ? "secondary" : "default"}
+                onClick={toggleMute}
+                className={`h-20 w-20 rounded-full shadow-xl ${
+                  !isMuted ? "bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 shadow-primary/25" : ""
+                }`}
+                data-testid="button-toggle-mic"
+              >
+                {isMuted ? <MicOff className="h-8 w-8" /> : <Mic className="h-8 w-8" />}
+              </Button>
+              
+              <div className="text-center">
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  {!isMuted && (
+                    <div className="h-2 w-2 rounded-full bg-success animate-pulse" />
+                  )}
+                  <span className="font-bold text-lg text-white">
+                    {isMuted ? "Microphone Off" : partnerConnected ? "Ready to speak" : "Waiting for partner"}
+                  </span>
+                </div>
+                <p className="text-sm text-slate-400">
+                  {isMuted ? "Click the button to unmute" : "Click to mute your microphone"}
+                </p>
               </div>
             </div>
-          </div>
-        )}
+          )}
+        </div>
       </footer>
 
       {/* Share Dialog */}
       <Dialog open={showShareDialog} onOpenChange={setShowShareDialog}>
-        <DialogContent className="sm:max-w-md" data-testid="dialog-share-link">
-          <DialogHeader className="space-y-3">
+        <DialogContent className="sm:max-w-lg bg-slate-800/95 border-slate-700/50 backdrop-blur-xl" data-testid="dialog-share-link">
+          <DialogHeader className="space-y-4">
             <div className="flex items-center justify-between">
-              <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center ring-1 ring-primary/20">
-                <Share2 className="h-6 w-6 text-primary" />
+              <div className="h-14 w-14 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center ring-2 ring-primary/30">
+                <Share2 className="h-7 w-7 text-primary" />
+              </div>
+              <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-success/10 border border-success/20">
+                <Sparkles className="h-3.5 w-3.5 text-success animate-pulse" />
+                <span className="text-xs font-semibold text-success">Room Created</span>
               </div>
             </div>
             <div>
-              <DialogTitle className="text-2xl">Share Room Link</DialogTitle>
-              <DialogDescription className="text-base mt-2">
+              <DialogTitle className="text-3xl text-white">Share Room Link</DialogTitle>
+              <DialogDescription className="text-base mt-2 text-slate-300">
                 Send this link to your conversation partner to start translating
               </DialogDescription>
             </div>
           </DialogHeader>
           <div className="space-y-6 pt-4">
-            <div className="space-y-3">
-              <Label className="text-sm font-semibold">Room Link</Label>
-              <div className="flex gap-2">
-                <Input
-                  readOnly
-                  value={`${window.location.origin}/join/${roomId}`}
-                  className="font-mono text-sm bg-muted/50"
-                  data-testid="input-share-link"
-                />
-                <Button
-                  onClick={handleCopyLink}
-                  variant="outline"
-                  className="shrink-0 hover-elevate active-elevate-2"
-                  data-testid="button-copy-link"
-                >
-                  {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
-                </Button>
-              </div>
-              <p className="text-sm text-muted-foreground">
-                {copied ? "Link copied to clipboard!" : "Click to copy the link"}
-              </p>
+            <div className="flex gap-2">
+              <Input
+                readOnly
+                value={`${window.location.origin}/join/${roomId}`}
+                className="font-mono text-sm bg-slate-900/50 border-slate-700 text-white"
+                data-testid="input-share-link"
+              />
+              <Button
+                onClick={handleCopyLink}
+                variant="outline"
+                className="shrink-0 border-slate-700 hover:bg-slate-800"
+                data-testid="button-copy-link"
+              >
+                {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+              </Button>
             </div>
             <Button
               onClick={() => setShowShareDialog(false)}
-              className="w-full h-12 bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 shadow-lg shadow-primary/25"
-              data-testid="button-start-conversation"
+              className="w-full h-14 text-base bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 shadow-lg shadow-primary/25"
+              data-testid="button-close-dialog"
             >
               <Mic className="mr-2 h-5 w-5" />
-              Start Conversation
+              {partnerConnected ? "Start Conversation" : "Got it"}
             </Button>
           </div>
         </DialogContent>

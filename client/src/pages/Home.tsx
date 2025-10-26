@@ -27,7 +27,7 @@ export default function Home() {
               {/* Badge */}
               <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-success/20 to-emerald-500/20 border border-success/30 backdrop-blur-sm">
                 <Sparkles className="h-4 w-4 text-success animate-pulse" />
-                <span className="text-sm font-semibold text-success">Powered by Azure AI</span>
+                <span className="text-sm font-semibold text-success">Real-Time Translation</span>
               </div>
               
               {/* Main Heading */}
