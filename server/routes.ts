@@ -198,13 +198,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
 async function transcribeAudio(base64Audio: string, language: string): Promise<string> {
   try {
     const audioBuffer = Buffer.from(base64Audio, 'base64');
+    console.log(`[Transcription] Audio buffer size: ${audioBuffer.length} bytes, Language: ${language}`);
     
     const speechKey = process.env.AZURE_SPEECH_KEY;
     const speechRegion = process.env.AZURE_SPEECH_REGION;
 
     if (!speechKey || !speechRegion) {
+      console.error('[Transcription] Azure Speech credentials not configured');
       throw new Error('Azure Speech credentials not configured');
     }
+
+    console.log(`[Transcription] Calling Azure STT API: ${speechRegion}, locale: ${getAzureLanguageCode(language)}`);
 
     const response = await axios.post(
       `https://${speechRegion}.stt.speech.microsoft.com/speech/recognition/conversation/cognitiveservices/v1`,
@@ -221,14 +225,18 @@ async function transcribeAudio(base64Audio: string, language: string): Promise<s
       }
     );
 
+    console.log('[Transcription] Azure response:', JSON.stringify(response.data));
+
     if (response.data.RecognitionStatus === 'Success') {
-      return response.data.DisplayText || 'Speech recognized but no text returned';
+      const text = response.data.DisplayText || 'Speech recognized but no text returned';
+      console.log(`[Transcription] Success: "${text}"`);
+      return text;
     } else {
-      console.warn('Speech recognition failed:', response.data);
+      console.warn('[Transcription] Recognition failed:', response.data);
       return 'Could not recognize speech';
     }
-  } catch (error) {
-    console.error('Transcription error:', error);
+  } catch (error: any) {
+    console.error('[Transcription] Error:', error.response?.data || error.message);
     return 'Audio transcription failed';
   }
 }
