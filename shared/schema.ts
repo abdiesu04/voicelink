@@ -2,21 +2,21 @@ import { z } from "zod";
 
 // Supported languages for translation
 export const SUPPORTED_LANGUAGES = [
-  { code: "en", name: "English", flag: "🇺🇸" },
-  { code: "es", name: "Spanish", flag: "🇪🇸" },
-  { code: "fr", name: "French", flag: "🇫🇷" },
-  { code: "de", name: "German", flag: "🇩🇪" },
-  { code: "it", name: "Italian", flag: "🇮🇹" },
-  { code: "pt", name: "Portuguese", flag: "🇵🇹" },
-  { code: "ru", name: "Russian", flag: "🇷🇺" },
-  { code: "ja", name: "Japanese", flag: "🇯🇵" },
-  { code: "ko", name: "Korean", flag: "🇰🇷" },
-  { code: "zh", name: "Chinese", flag: "🇨🇳" },
-  { code: "ar", name: "Arabic", flag: "🇸🇦" },
-  { code: "hi", name: "Hindi", flag: "🇮🇳" },
-  { code: "nl", name: "Dutch", flag: "🇳🇱" },
-  { code: "pl", name: "Polish", flag: "🇵🇱" },
-  { code: "tr", name: "Turkish", flag: "🇹🇷" },
+  { code: "en", name: "English", countryCode: "US" },
+  { code: "es", name: "Spanish", countryCode: "ES" },
+  { code: "fr", name: "French", countryCode: "FR" },
+  { code: "de", name: "German", countryCode: "DE" },
+  { code: "it", name: "Italian", countryCode: "IT" },
+  { code: "pt", name: "Portuguese", countryCode: "PT" },
+  { code: "ru", name: "Russian", countryCode: "RU" },
+  { code: "ja", name: "Japanese", countryCode: "JP" },
+  { code: "ko", name: "Korean", countryCode: "KR" },
+  { code: "zh", name: "Chinese", countryCode: "CN" },
+  { code: "ar", name: "Arabic", countryCode: "SA" },
+  { code: "hi", name: "Hindi", countryCode: "IN" },
+  { code: "nl", name: "Dutch", countryCode: "NL" },
+  { code: "pl", name: "Polish", countryCode: "PL" },
+  { code: "tr", name: "Turkish", countryCode: "TR" },
 ] as const;
 
 export type LanguageCode = typeof SUPPORTED_LANGUAGES[number]["code"];
