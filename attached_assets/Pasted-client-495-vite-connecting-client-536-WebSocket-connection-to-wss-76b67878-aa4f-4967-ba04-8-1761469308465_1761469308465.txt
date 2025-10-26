@@ -1,0 +1,46 @@
+client:495 [vite] connecting...
+client:536 WebSocket connection to 'wss://76b67878-aa4f-4967-ba04-88458384b912-00-2pvz6t58xfuz3.worf.replit.dev/?token=iW0U-8KXIYLl' failed: 
+setupWebSocket @ client:536
+client:536 Uncaught (in promise) SyntaxError: Failed to construct 'WebSocket': The URL 'wss://localhost:undefined/?token=iW0U-8KXIYLl' is invalid.
+    at setupWebSocket (client:536:19)
+    at fallback (client:509:16)
+    at WebSocket.<anonymous> (client:555:7)
+chunk-WERSD76P.js?v=8b448d31:21551 Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+Room.tsx:78 [TTS] Audio played successfully
+Room.tsx:78 [TTS] Audio played successfully
+Room.tsx:78 [TTS] Audio played successfully
+Room.tsx:78 [TTS] Audio played successfully
+Room.tsx:78 [TTS] Audio played successfully
+Room.tsx:78 [TTS] Audio played successfully
+Room.tsx:78 [TTS] Audio played successfully
+Room.tsx:78 [TTS] Audio played successfully
+Room.tsx:78 [TTS] Audio played successfully
+Room.tsx:78 [TTS] Audio played successfully
+Room.tsx:78 [TTS] Audio played successfully
+Room.tsx:78 [TTS] Audio played successfully
+Room.tsx:78 [TTS] Audio played successfully
+Room.tsx:78 [TTS] Audio played successfully
+Room.tsx:78 [TTS] Audio played successfully
+Room.tsx:78 [TTS] Audio played successfully
+Room.tsx:65  GET https://76b67878-aa4f-4967-ba04-88458384b912-00-2pvz6t58xfuz3.worf.replit.dev/api/speech/token 500 (Internal Server Error)
+speakText @ Room.tsx:65
+ws.onmessage @ Room.tsx:152
+Room.tsx:88 [TTS] Failed to speak text: Error: throwIfNullOrUndefined:region
+    at _Contracts.throwIfNullOrUndefined (microsoft-cognitiveservices-speech-sdk.js?v=8b448d31:2643:17)
+    at _Contracts.throwIfNullOrWhitespace (microsoft-cognitiveservices-speech-sdk.js?v=8b448d31:2652:20)
+    at SpeechConfig.fromAuthorizationToken (microsoft-cognitiveservices-speech-sdk.js?v=8b448d31:6154:34)
+    at speakText (Room.tsx:68:51)
+speakText @ Room.tsx:88
+await in speakText
+ws.onmessage @ Room.tsx:152
+Room.tsx:65  GET https://76b67878-aa4f-4967-ba04-88458384b912-00-2pvz6t58xfuz3.worf.replit.dev/api/speech/token 500 (Internal Server Error)
+speakText @ Room.tsx:65
+ws.onmessage @ Room.tsx:152
+Room.tsx:88 [TTS] Failed to speak text: Error: throwIfNullOrUndefined:region
+    at _Contracts.throwIfNullOrUndefined (microsoft-cognitiveservices-speech-sdk.js?v=8b448d31:2643:17)
+    at _Contracts.throwIfNullOrWhitespace (microsoft-cognitiveservices-speech-sdk.js?v=8b448d31:2652:20)
+    at SpeechConfig.fromAuthorizationToken (microsoft-cognitiveservices-speech-sdk.js?v=8b448d31:6154:34)
+    at speakText (Room.tsx:68:51)
+speakText @ Room.tsx:88
+await in speakText
+ws.onmessage @ Room.tsx:152
