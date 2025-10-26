@@ -48,7 +48,8 @@ export default function Room() {
 
   const wsRef = useRef<WebSocket | null>(null);
   const recognizerRef = useRef<SpeechSDK.SpeechRecognizer | null>(null);
-  const synthesizerRef = useRef<SpeechSDK.SpeechSynthesizer | null>(null);
+  const azureTokenRef = useRef<{ token: string; region: string } | null>(null);
+  const spokenMessageIdsRef = useRef<Set<string>>(new Set());
 
   const myLanguage = SUPPORTED_LANGUAGES.find(l => l.code === language);
   const theirLanguage = SUPPORTED_LANGUAGES.find(l => l.code === partnerLanguage);
@@ -60,10 +61,31 @@ export default function Room() {
     'nl': 'nl-NL', 'pl': 'pl-PL', 'tr': 'tr-TR',
   };
 
-  const speakText = async (text: string, languageCode: string) => {
+  const getAzureToken = async () => {
+    if (azureTokenRef.current) {
+      return azureTokenRef.current;
+    }
+    
+    const tokenResponse = await fetch('/api/speech/token');
+    const tokenData = await tokenResponse.json();
+    azureTokenRef.current = tokenData;
+    
+    setTimeout(() => {
+      azureTokenRef.current = null;
+    }, 540000);
+    
+    return tokenData;
+  };
+
+  const speakText = async (text: string, languageCode: string, messageId: string) => {
+    if (spokenMessageIdsRef.current.has(messageId)) {
+      return;
+    }
+    
+    spokenMessageIdsRef.current.add(messageId);
+    
     try {
-      const tokenResponse = await fetch('/api/speech/token');
-      const { token, region } = await tokenResponse.json();
+      const { token, region } = await getAzureToken();
       
       const speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(token, region);
       speechConfig.speechSynthesisLanguage = azureLanguageMap[languageCode] || 'en-US';
@@ -138,8 +160,9 @@ export default function Room() {
 
       if (message.type === "translation") {
         const isOwn = message.speaker === role;
+        const messageId = `${message.speaker}-${Date.now()}-${message.originalText}`;
         const newMessage: TranscriptionMessage = {
-          id: Date.now().toString(),
+          id: messageId,
           originalText: message.originalText,
           translatedText: message.translatedText,
           isOwn,
@@ -149,7 +172,7 @@ export default function Room() {
           setMyMessages(prev => [...prev, newMessage]);
         } else {
           setPartnerMessages(prev => [...prev, newMessage]);
-          speakText(message.translatedText, language);
+          speakText(message.translatedText, language, messageId);
         }
       }
 
@@ -193,6 +216,52 @@ export default function Room() {
     };
   }, [roomId, language, role, toast, setLocation]);
 
+  const startMicrophone = async () => {
+    try {
+      const { token, region } = await getAzureToken();
+      
+      const speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(token, region);
+      speechConfig.speechRecognitionLanguage = azureLanguageMap[language] || 'en-US';
+      
+      const audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
+      const recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
+      
+      recognizer.recognizing = (s, e) => {
+        if (e.result.text) {
+          setIsSpeaking(true);
+        }
+      };
+      
+      recognizer.recognized = (s, e) => {
+        if (e.result.reason === SpeechSDK.ResultReason.RecognizedSpeech && e.result.text) {
+          setIsSpeaking(false);
+          
+          if (wsRef.current?.readyState === WebSocket.OPEN) {
+            wsRef.current.send(JSON.stringify({
+              type: "transcription",
+              roomId,
+              text: e.result.text,
+              language,
+            }));
+          }
+        }
+      };
+      
+      recognizer.startContinuousRecognitionAsync();
+      recognizerRef.current = recognizer;
+      setIsMuted(false);
+      
+    } catch (error) {
+      console.error('Speech recognition error:', error);
+      toast({
+        title: "Microphone Access Denied",
+        description: "Please enable microphone access to use voice features",
+        variant: "destructive",
+      });
+      setIsMuted(true);
+    }
+  };
+
   const toggleMute = async () => {
     if (!isMuted) {
       setIsMuted(true);
@@ -202,52 +271,15 @@ export default function Room() {
         recognizerRef.current = null;
       }
     } else {
-      setIsMuted(false);
-      try {
-        const tokenResponse = await fetch('/api/speech/token');
-        const { token, region } = await tokenResponse.json();
-        
-        const speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(token, region);
-        speechConfig.speechRecognitionLanguage = azureLanguageMap[language] || 'en-US';
-        
-        const audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
-        const recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
-        
-        recognizer.recognizing = (s, e) => {
-          if (e.result.text) {
-            setIsSpeaking(true);
-          }
-        };
-        
-        recognizer.recognized = (s, e) => {
-          if (e.result.reason === SpeechSDK.ResultReason.RecognizedSpeech && e.result.text) {
-            setIsSpeaking(false);
-            
-            if (wsRef.current?.readyState === WebSocket.OPEN) {
-              wsRef.current.send(JSON.stringify({
-                type: "transcription",
-                roomId,
-                text: e.result.text,
-                language,
-              }));
-            }
-          }
-        };
-        
-        recognizer.startContinuousRecognitionAsync();
-        recognizerRef.current = recognizer;
-        
-      } catch (error) {
-        console.error('Speech recognition error:', error);
-        toast({
-          title: "Microphone Access Denied",
-          description: "Please enable microphone access to use voice features",
-          variant: "destructive",
-        });
-        setIsMuted(true);
-      }
+      startMicrophone();
     }
   };
+
+  useEffect(() => {
+    if (connectionStatus === 'connected' && isMuted) {
+      startMicrophone();
+    }
+  }, [connectionStatus]);
 
   const handleEndCall = () => {
     if (wsRef.current?.readyState === WebSocket.OPEN) {
