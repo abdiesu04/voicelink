@@ -164,12 +164,36 @@ export default function Room() {
     } else {
       setIsMuted(false);
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        const mediaRecorder = new MediaRecorder(stream);
+        const stream = await navigator.mediaDevices.getUserMedia({ 
+          audio: {
+            channelCount: 1,
+            sampleRate: 16000,
+            echoCancellation: true,
+            noiseSuppression: true,
+          }
+        });
+        
+        const options: MediaRecorderOptions = { mimeType: 'audio/webm;codecs=opus' };
+        if (!MediaRecorder.isTypeSupported(options.mimeType!)) {
+          options.mimeType = 'audio/webm';
+        }
+        if (!MediaRecorder.isTypeSupported(options.mimeType!)) {
+          options.mimeType = '';
+        }
+        
+        const mediaRecorder = new MediaRecorder(stream, options);
+        
+        const audioChunks: Blob[] = [];
         
         mediaRecorder.ondataavailable = (event) => {
-          if (event.data.size > 0 && wsRef.current?.readyState === WebSocket.OPEN) {
-            setIsSpeaking(true);
+          if (event.data.size > 0) {
+            audioChunks.push(event.data);
+          }
+        };
+
+        mediaRecorder.onstop = () => {
+          if (audioChunks.length > 0 && wsRef.current?.readyState === WebSocket.OPEN) {
+            const audioBlob = new Blob(audioChunks, { type: options.mimeType || 'audio/webm' });
             const reader = new FileReader();
             reader.onloadend = () => {
               const base64Audio = (reader.result as string).split(",")[1];
@@ -178,13 +202,23 @@ export default function Room() {
                 roomId,
                 audioData: base64Audio,
                 language,
+                mimeType: options.mimeType || 'audio/webm',
               }));
             };
-            reader.readAsDataURL(event.data);
+            reader.readAsDataURL(audioBlob);
+            audioChunks.length = 0;
           }
         };
 
-        mediaRecorder.start(1000);
+        mediaRecorder.start();
+        
+        setInterval(() => {
+          if (mediaRecorder.state === 'recording') {
+            mediaRecorder.stop();
+            mediaRecorder.start();
+          }
+        }, 3000);
+        
         mediaRecorderRef.current = mediaRecorder;
       } catch (error) {
         toast({
