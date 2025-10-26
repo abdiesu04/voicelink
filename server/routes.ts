@@ -3,7 +3,6 @@ import { createServer, type Server } from "http";
 import { WebSocketServer, WebSocket } from "ws";
 import { storage } from "./storage";
 import axios from "axios";
-import * as sdk from "microsoft-cognitiveservices-speech-sdk";
 
 interface RoomConnection {
   ws: WebSocket;
@@ -46,6 +45,35 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error fetching room:", error);
       res.status(500).json({ error: "Failed to fetch room" });
+    }
+  });
+
+  app.get("/api/speech/token", async (req, res) => {
+    try {
+      const speechKey = process.env.AZURE_SPEECH_KEY;
+      const speechRegion = process.env.AZURE_SPEECH_REGION;
+
+      if (!speechKey || !speechRegion) {
+        return res.status(500).json({ error: "Azure Speech credentials not configured" });
+      }
+
+      const tokenResponse = await axios.post(
+        `https://${speechRegion}.api.cognitive.microsoft.com/sts/v1.0/issueToken`,
+        null,
+        {
+          headers: {
+            'Ocp-Apim-Subscription-Key': speechKey,
+          },
+        }
+      );
+
+      res.json({
+        token: tokenResponse.data,
+        region: speechRegion,
+      });
+    } catch (error) {
+      console.error("Error getting speech token:", error);
+      res.status(500).json({ error: "Failed to get speech token" });
     }
   });
 
@@ -103,19 +131,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
           }
         }
 
-        if (message.type === 'audio') {
-          const { roomId, audioData, language, mimeType } = message;
+        if (message.type === 'transcription') {
+          const { roomId, text, language } = message;
           const connection = connections.get(ws);
           
           if (!connection) return;
 
           try {
-            console.log(`[Audio] Received audio, size: ${audioData.length}, mimeType: ${mimeType}, language: ${language}`);
+            console.log(`[Transcription] Received text: "${text}", language: ${language}`);
             
-            const transcribedText = await transcribeAudio(audioData, language, mimeType);
-            
-            if (!transcribedText || transcribedText === 'Speech recognized but no text returned') {
-              console.warn('[Audio] No transcription result');
+            if (!text || text.trim().length === 0) {
               return;
             }
             
@@ -134,7 +159,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
               return;
             }
 
-            const translatedText = await translateText(transcribedText, language, targetLanguage);
+            const translatedText = await translateText(text, language, targetLanguage);
 
             const roomClients = roomConnections.get(roomId) || [];
             roomClients.forEach(client => {
@@ -142,7 +167,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
                 client.send(JSON.stringify({
                   type: 'translation',
                   roomId,
-                  originalText: transcribedText,
+                  originalText: text,
                   translatedText,
                   speaker: connection.role,
                   originalLanguage: language,
@@ -152,10 +177,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
             });
 
           } catch (error) {
-            console.error('[Audio] Error processing audio:', error);
+            console.error('[Transcription] Error processing text:', error);
             ws.send(JSON.stringify({
               type: 'error',
-              message: 'Failed to process audio'
+              message: 'Failed to process transcription'
             }));
           }
         }
@@ -201,83 +226,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   return httpServer;
-}
-
-async function transcribeAudio(base64Audio: string, language: string, mimeType?: string): Promise<string> {
-  return new Promise((resolve) => {
-    try {
-      const audioBuffer = Buffer.from(base64Audio, 'base64');
-      console.log(`[Transcription] Audio buffer size: ${audioBuffer.length} bytes, Language: ${language}, MimeType: ${mimeType}`);
-      
-      const speechKey = process.env.AZURE_SPEECH_KEY;
-      const speechRegion = process.env.AZURE_SPEECH_REGION;
-
-      if (!speechKey || !speechRegion) {
-        console.error('[Transcription] Azure Speech credentials not configured');
-        resolve('');
-        return;
-      }
-
-      const speechConfig = sdk.SpeechConfig.fromSubscription(speechKey, speechRegion);
-      speechConfig.speechRecognitionLanguage = getAzureLanguageCode(language);
-      
-      const pushStream = sdk.AudioInputStream.createPushStream();
-      pushStream.write(audioBuffer);
-      pushStream.close();
-      
-      const audioConfig = sdk.AudioConfig.fromStreamInput(pushStream);
-      const recognizer = new sdk.SpeechRecognizer(speechConfig, audioConfig);
-
-      let recognized = false;
-
-      recognizer.recognized = (s, e) => {
-        if (e.result.reason === sdk.ResultReason.RecognizedSpeech) {
-          const text = e.result.text;
-          console.log(`[Transcription] Recognized: "${text}"`);
-          recognized = true;
-          recognizer.close();
-          resolve(text);
-        } else if (e.result.reason === sdk.ResultReason.NoMatch) {
-          console.log('[Transcription] No speech could be recognized');
-          recognizer.close();
-          resolve('');
-        }
-      };
-
-      recognizer.canceled = (s, e) => {
-        console.log(`[Transcription] Canceled: ${e.reason}`);
-        if (e.reason === sdk.CancellationReason.Error) {
-          console.error(`[Transcription] Error: ${e.errorDetails}`);
-        }
-        recognizer.close();
-        if (!recognized) {
-          resolve('');
-        }
-      };
-
-      recognizer.sessionStopped = (s, e) => {
-        console.log('[Transcription] Session stopped');
-        recognizer.close();
-        if (!recognized) {
-          resolve('');
-        }
-      };
-
-      recognizer.recognizeOnceAsync();
-      
-      setTimeout(() => {
-        if (!recognized) {
-          console.log('[Transcription] Timeout');
-          recognizer.close();
-          resolve('');
-        }
-      }, 10000);
-
-    } catch (error: any) {
-      console.error('[Transcription] Error:', error.message);
-      resolve('');
-    }
-  });
 }
 
 async function translateText(text: string, fromLanguage: string, toLanguage: string): Promise<string> {
