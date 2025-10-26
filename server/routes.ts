@@ -62,6 +62,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
         if (message.type === 'join') {
           const { roomId, language, role } = message;
           
+          if (!language) {
+            ws.send(JSON.stringify({
+              type: 'error',
+              message: 'Language is required'
+            }));
+            return;
+          }
+          
           const room = await storage.getRoom(roomId);
           if (!room) {
             ws.send(JSON.stringify({

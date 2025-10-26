@@ -17,10 +17,11 @@ export default function CreateRoom() {
 
   const createRoomMutation = useMutation({
     mutationFn: async () => {
-      return await apiRequest("POST", "/api/rooms/create", { language: selectedLanguage });
+      const response = await apiRequest("POST", "/api/rooms/create", { language: selectedLanguage });
+      return await response.json();
     },
     onSuccess: (data: any) => {
-      setLocation(`/room/${data.roomId}`);
+      setLocation(`/room/${data.roomId}?role=creator&language=${selectedLanguage}`);
     },
     onError: (error: Error) => {
       toast({
