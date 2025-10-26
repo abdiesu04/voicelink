@@ -94,21 +94,18 @@ export function LanguageSelector({ value, onValueChange, disabled }: LanguageSel
                   className={cn(
                     "flex items-center gap-3 px-3 py-3 rounded-lg cursor-pointer",
                     "hover-elevate transition-colors",
-                    value === language.code && "bg-primary/10"
+                    value === language.code && "bg-primary text-white"
                   )}
                   data-testid={`option-language-${language.code}`}
                 >
                   <Check
                     className={cn(
-                      "h-4 w-4 text-primary flex-shrink-0",
-                      value === language.code ? "opacity-100" : "opacity-0"
+                      "h-4 w-4 flex-shrink-0",
+                      value === language.code ? "opacity-100 text-white" : "opacity-0 text-primary"
                     )}
                   />
                   <CountryFlag countryCode={language.countryCode} />
-                  <span className={cn(
-                    "font-medium",
-                    value === language.code && "text-primary"
-                  )}>
+                  <span className="font-medium">
                     {language.name}
                   </span>
                 </CommandItem>
