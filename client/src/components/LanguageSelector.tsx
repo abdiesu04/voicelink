@@ -1,4 +1,4 @@
-import { Check, ChevronDown, Globe, Languages } from "lucide-react";
+import { Check, ChevronDown, Languages } from "lucide-react";
 import { useState } from "react";
 import { SUPPORTED_LANGUAGES } from "@shared/schema";
 import { Button } from "@/components/ui/button";
@@ -23,6 +23,14 @@ interface LanguageSelectorProps {
   disabled?: boolean;
 }
 
+function CountryFlag({ countryCode }: { countryCode: string }) {
+  return (
+    <div className="h-6 w-8 rounded flex items-center justify-center bg-gradient-to-br from-primary/20 to-primary/10 border border-primary/30 flex-shrink-0">
+      <span className="text-[10px] font-bold text-primary">{countryCode}</span>
+    </div>
+  );
+}
+
 export function LanguageSelector({ value, onValueChange, disabled }: LanguageSelectorProps) {
   const [open, setOpen] = useState(false);
 
@@ -41,7 +49,7 @@ export function LanguageSelector({ value, onValueChange, disabled }: LanguageSel
         >
           {selectedLanguage ? (
             <span className="flex items-center gap-3">
-              <span className="text-2xl">{selectedLanguage.flag}</span>
+              <CountryFlag countryCode={selectedLanguage.countryCode} />
               <span className="font-medium">{selectedLanguage.name}</span>
             </span>
           ) : (
@@ -65,7 +73,7 @@ export function LanguageSelector({ value, onValueChange, disabled }: LanguageSel
           />
           <CommandList>
             <CommandEmpty className="py-8 text-center">
-              <Globe className="h-8 w-8 mx-auto mb-3 text-muted-foreground/50" />
+              <Languages className="h-8 w-8 mx-auto mb-3 text-muted-foreground/50" />
               <p className="text-sm text-muted-foreground">No language found.</p>
             </CommandEmpty>
             <CommandGroup className="p-2">
@@ -90,7 +98,7 @@ export function LanguageSelector({ value, onValueChange, disabled }: LanguageSel
                       value === language.code ? "opacity-100" : "opacity-0"
                     )}
                   />
-                  <span className="text-2xl flex-shrink-0">{language.flag}</span>
+                  <CountryFlag countryCode={language.countryCode} />
                   <span className={cn(
                     "font-medium",
                     value === language.code && "text-primary"
