@@ -296,29 +296,47 @@ export default function Room() {
   };
 
   return (
-    <div className="h-screen flex flex-col bg-background">
+    <div className="h-screen flex flex-col bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden">
+      {/* Background effects */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent" />
+      <div className="absolute inset-0 bg-[linear-gradient(rgba(99,102,241,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(99,102,241,0.03)_1px,transparent_1px)] bg-[size:72px_72px]" />
+      <div className="absolute top-0 right-1/4 w-96 h-96 bg-primary/5 rounded-full blur-3xl animate-pulse" />
+      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-accent/5 rounded-full blur-3xl animate-pulse delay-1000" />
+      
       {/* Header */}
-      <header className="h-20 border-b bg-card/30 backdrop-blur-sm flex items-center justify-between px-6 md:px-12">
+      <header className="h-20 border-b border-slate-800/50 bg-slate-900/50 backdrop-blur-xl flex items-center justify-between px-6 md:px-12 relative z-10 pt-20">
         <div className="flex items-center gap-4">
           <ConnectionStatus status={connectionStatus} latency={connectionStatus === "connected" ? 45 : undefined} />
         </div>
         
         <div className="flex items-center gap-3">
           {myLanguage && theirLanguage ? (
-            <div className="flex items-center gap-3 px-4 py-2 rounded-xl bg-gradient-to-r from-primary/5 to-accent/5 border border-border/50">
+            <div className="flex items-center gap-3 px-4 py-2 rounded-xl bg-gradient-to-r from-primary/10 to-accent/10 border border-slate-700">
               <div className="flex items-center gap-2">
-                <span className="text-2xl">{myLanguage.flag}</span>
-                <span className="font-semibold text-sm">{myLanguage.name}</span>
+                <img 
+                  src={`https://flagcdn.com/w40/${myLanguage.countryCode.toLowerCase()}.png`}
+                  width="28"
+                  height="21"
+                  alt={myLanguage.code}
+                  className="rounded border border-slate-600"
+                />
+                <span className="font-semibold text-sm text-white">{myLanguage.name}</span>
               </div>
-              <ArrowLeftRight className="h-4 w-4 text-muted-foreground" />
+              <ArrowLeftRight className="h-4 w-4 text-slate-400" />
               <div className="flex items-center gap-2">
-                <span className="text-2xl">{theirLanguage.flag}</span>
-                <span className="font-semibold text-sm">{theirLanguage.name}</span>
+                <img 
+                  src={`https://flagcdn.com/w40/${theirLanguage.countryCode.toLowerCase()}.png`}
+                  width="28"
+                  height="21"
+                  alt={theirLanguage.code}
+                  className="rounded border border-slate-600"
+                />
+                <span className="font-semibold text-sm text-white">{theirLanguage.name}</span>
               </div>
             </div>
           ) : (
-            <div className="px-4 py-2 rounded-xl bg-muted/50 border border-border/50">
-              <span className="text-sm text-muted-foreground">Waiting for partner...</span>
+            <div className="px-4 py-2 rounded-xl bg-slate-800/50 border border-slate-700">
+              <span className="text-sm text-slate-400">Waiting for partner...</span>
             </div>
           )}
         </div>
@@ -327,7 +345,7 @@ export default function Room() {
           <Button
             variant="ghost"
             size="icon"
-            className="hover-elevate active-elevate-2"
+            className="text-slate-300 hover:text-white border-slate-700 hover:bg-slate-800/50"
             data-testid="button-settings"
           >
             <Settings className="h-5 w-5" />
@@ -335,7 +353,7 @@ export default function Room() {
           <Button
             variant="destructive"
             onClick={handleEndCall}
-            className="gap-2 hover-elevate active-elevate-2"
+            className="gap-2"
             data-testid="button-end-call"
           >
             <PhoneOff className="h-4 w-4" />
@@ -345,7 +363,7 @@ export default function Room() {
       </header>
 
       {/* Main Translation Panels */}
-      <main className="flex-1 overflow-hidden p-6 md:p-12 bg-gradient-to-br from-background via-background to-card/20">
+      <main className="flex-1 overflow-hidden p-6 md:p-12 relative z-10">
         <div className="h-full grid md:grid-cols-2 gap-6 md:gap-8 max-w-7xl mx-auto">
           <TranscriptionPanel
             title="You"
@@ -363,19 +381,19 @@ export default function Room() {
       </main>
 
       {/* Footer Controls */}
-      <footer className="h-24 border-t bg-card/30 backdrop-blur-sm flex items-center justify-center gap-6 px-6">
+      <footer className="h-24 border-t border-slate-800/50 bg-slate-900/50 backdrop-blur-xl flex items-center justify-center gap-6 px-6 relative z-10">
         {!conversationStarted && connectionStatus === "connected" ? (
           <div className="flex flex-col items-center gap-3">
             <Button
               size="lg"
               onClick={startConversation}
-              className="h-14 px-10 text-base hover-elevate active-elevate-2 shadow-lg"
+              className="h-14 px-10 text-base bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 shadow-lg shadow-primary/25"
               data-testid="button-start-conversation"
             >
               <Mic className="h-5 w-5 mr-2" />
               Start Conversation
             </Button>
-            <p className="text-xs text-muted-foreground">
+            <p className="text-xs text-slate-400">
               Click to enable microphone and begin speaking
             </p>
           </div>
@@ -385,16 +403,18 @@ export default function Room() {
               size="lg"
               variant={isMuted ? "secondary" : "default"}
               onClick={toggleMute}
-              className="h-16 w-16 rounded-full hover-elevate active-elevate-2 shadow-lg"
+              className={`h-16 w-16 rounded-full shadow-lg ${
+                !isMuted ? "bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 shadow-primary/25" : ""
+              }`}
               data-testid="button-toggle-mic"
             >
               {isMuted ? <MicOff className="h-7 w-7" /> : <Mic className="h-7 w-7" />}
             </Button>
             <div className="text-center">
-              <div className="font-semibold text-base">
+              <div className="font-semibold text-base text-white">
                 {isMuted ? "Microphone Off" : partnerConnected ? "Ready to speak" : "Waiting for partner"}
               </div>
-              <div className="text-sm text-muted-foreground">
+              <div className="text-sm text-slate-400">
                 {isMuted ? "Click to unmute" : "Click to mute"}
               </div>
             </div>
@@ -443,7 +463,7 @@ export default function Room() {
             </div>
             <Button
               onClick={() => setShowShareDialog(false)}
-              className="w-full h-12 hover-elevate active-elevate-2"
+              className="w-full h-12 bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 shadow-lg shadow-primary/25"
               data-testid="button-start-conversation"
             >
               <Mic className="mr-2 h-5 w-5" />
