@@ -353,8 +353,8 @@ export default function Room() {
 
       {/* Main Content */}
       <main className="flex-1 overflow-hidden relative z-10">
-        <div className="h-full container mx-auto px-6 md:px-12 py-8">
-          <div className="h-full grid md:grid-cols-2 gap-6 max-w-7xl mx-auto">
+        <div className="h-full container mx-auto px-6 md:px-12 py-6">
+          <div className="h-full grid md:grid-cols-2 gap-4 max-w-7xl mx-auto">
             <TranscriptionPanel
               title="You"
               isActive={isSpeaking}
