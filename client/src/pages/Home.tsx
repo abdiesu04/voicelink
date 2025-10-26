@@ -23,65 +23,63 @@ export default function Home() {
         <div className="container mx-auto px-6 md:px-12 relative z-10">
           <div className="grid lg:grid-cols-2 gap-16 items-center max-w-7xl mx-auto py-20">
             {/* Left Content */}
-            <div className="space-y-8 animate-in fade-in slide-in-from-left duration-700">
+            <div className="space-y-6 animate-in fade-in slide-in-from-left duration-700">
               {/* Main Heading */}
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.1]">
-                <span className="text-white">Break Language</span>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight leading-tight">
+                <span className="text-white">Break Language Barriers</span>
                 <br />
-                <span className="text-white">Barriers with</span>
-                <br />
-                <span className="bg-gradient-to-r from-primary via-indigo-400 to-accent bg-clip-text text-transparent animate-in fade-in slide-in-from-bottom duration-1000 delay-300">
+                <span className="text-white">with </span>
+                <span className="bg-gradient-to-r from-primary via-indigo-400 to-accent bg-clip-text text-transparent">
                   AI Translation
                 </span>
               </h1>
               
               {/* Subheading */}
-              <p className="text-xl md:text-2xl text-slate-300 max-w-xl leading-relaxed">
-                Speak naturally in your language. Your partner hears it in theirs.
-                <span className="text-white font-semibold"> Instantly.</span>
+              <p className="text-lg md:text-xl text-slate-400 max-w-xl leading-relaxed">
+                Speak naturally in your language. Your partner hears it in theirs—instantly.
               </p>
               
               {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+              <div className="flex flex-col sm:flex-row gap-3 pt-2">
                 <Link href="/create">
                   <Button 
                     size="lg" 
-                    className="text-base px-8 py-7 h-auto bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 shadow-lg shadow-primary/25 group" 
+                    className="text-sm px-6 py-6 h-auto bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 shadow-lg shadow-primary/25 group" 
                     data-testid="button-create-room"
                   >
-                    <Mic className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
+                    <Mic className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform" />
                     Start Conversation
-                    <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                    <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </Link>
                 <a href="#features">
                   <Button
                     variant="outline"
                     size="lg"
-                    className="text-base px-8 py-7 h-auto border-slate-700 bg-slate-800/50 hover:bg-slate-800 text-white backdrop-blur-sm"
+                    className="text-sm px-6 py-6 h-auto border-slate-700 bg-slate-800/50 hover:bg-slate-800 text-white backdrop-blur-sm"
                     data-testid="button-learn-more"
                   >
-                    <Globe className="mr-2 h-5 w-5" />
+                    <Globe className="mr-2 h-4 w-4" />
                     Explore Features
                   </Button>
                 </a>
               </div>
               
               {/* Stats */}
-              <div className="flex items-center gap-8 pt-4">
-                <div className="space-y-1">
-                  <div className="text-3xl font-bold text-white">15+</div>
-                  <div className="text-sm text-slate-400">Languages</div>
+              <div className="flex items-center gap-6 pt-2">
+                <div className="space-y-0.5">
+                  <div className="text-2xl font-semibold text-white">15+</div>
+                  <div className="text-xs text-slate-500 uppercase tracking-wide">Languages</div>
                 </div>
-                <div className="h-12 w-px bg-slate-700" />
-                <div className="space-y-1">
-                  <div className="text-3xl font-bold text-white">&lt;100ms</div>
-                  <div className="text-sm text-slate-400">Latency</div>
+                <div className="h-10 w-px bg-slate-800" />
+                <div className="space-y-0.5">
+                  <div className="text-2xl font-semibold text-white">&lt;100ms</div>
+                  <div className="text-xs text-slate-500 uppercase tracking-wide">Latency</div>
                 </div>
-                <div className="h-12 w-px bg-slate-700" />
-                <div className="space-y-1">
-                  <div className="text-3xl font-bold text-white">100%</div>
-                  <div className="text-sm text-slate-400">Secure</div>
+                <div className="h-10 w-px bg-slate-800" />
+                <div className="space-y-0.5">
+                  <div className="text-2xl font-semibold text-white">100%</div>
+                  <div className="text-xs text-slate-500 uppercase tracking-wide">Secure</div>
                 </div>
               </div>
             </div>
