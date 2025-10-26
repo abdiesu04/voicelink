@@ -1,37 +1,54 @@
-import { type User, type InsertUser } from "@shared/schema";
 import { randomUUID } from "crypto";
 
-// modify the interface with any CRUD methods
-// you might need
+export interface Room {
+  id: string;
+  creatorLanguage: string;
+  participantLanguage?: string;
+  createdAt: Date;
+  isActive: boolean;
+}
 
 export interface IStorage {
-  getUser(id: string): Promise<User | undefined>;
-  getUserByUsername(username: string): Promise<User | undefined>;
-  createUser(user: InsertUser): Promise<User>;
+  createRoom(language: string): Promise<Room>;
+  getRoom(id: string): Promise<Room | undefined>;
+  updateRoom(id: string, data: Partial<Room>): Promise<Room | undefined>;
+  deleteRoom(id: string): Promise<void>;
 }
 
 export class MemStorage implements IStorage {
-  private users: Map<string, User>;
+  private rooms: Map<string, Room>;
 
   constructor() {
-    this.users = new Map();
+    this.rooms = new Map();
   }
 
-  async getUser(id: string): Promise<User | undefined> {
-    return this.users.get(id);
-  }
-
-  async getUserByUsername(username: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(
-      (user) => user.username === username,
-    );
-  }
-
-  async createUser(insertUser: InsertUser): Promise<User> {
+  async createRoom(language: string): Promise<Room> {
     const id = randomUUID();
-    const user: User = { ...insertUser, id };
-    this.users.set(id, user);
-    return user;
+    const room: Room = {
+      id,
+      creatorLanguage: language,
+      createdAt: new Date(),
+      isActive: true,
+    };
+    this.rooms.set(id, room);
+    return room;
+  }
+
+  async getRoom(id: string): Promise<Room | undefined> {
+    return this.rooms.get(id);
+  }
+
+  async updateRoom(id: string, data: Partial<Room>): Promise<Room | undefined> {
+    const room = this.rooms.get(id);
+    if (!room) return undefined;
+    
+    const updated = { ...room, ...data };
+    this.rooms.set(id, updated);
+    return updated;
+  }
+
+  async deleteRoom(id: string): Promise<void> {
+    this.rooms.delete(id);
   }
 }
 
