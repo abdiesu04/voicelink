@@ -25,9 +25,15 @@ interface LanguageSelectorProps {
 
 function CountryFlag({ countryCode }: { countryCode: string }) {
   return (
-    <div className="h-6 w-8 rounded flex items-center justify-center bg-gradient-to-br from-primary/20 to-primary/10 border border-primary/30 flex-shrink-0">
-      <span className="text-[10px] font-bold text-primary">{countryCode}</span>
-    </div>
+    <img 
+      src={`https://flagcdn.com/w40/${countryCode.toLowerCase()}.png`}
+      srcSet={`https://flagcdn.com/w80/${countryCode.toLowerCase()}.png 2x`}
+      width="28"
+      height="21"
+      alt={countryCode}
+      className="rounded border border-border/30 flex-shrink-0"
+      loading="lazy"
+    />
   );
 }
 
