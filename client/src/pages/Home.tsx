@@ -272,7 +272,7 @@ export default function Home() {
       </section>
 
       {/* How It Works Section */}
-      <section className="py-20 md:py-32 bg-muted/30">
+      <section id="how-it-works" className="py-20 md:py-32 bg-muted/30">
         <div className="container mx-auto px-6 md:px-12">
           <div className="text-center mb-16 space-y-4">
             <h2 className="text-4xl md:text-5xl font-bold">
