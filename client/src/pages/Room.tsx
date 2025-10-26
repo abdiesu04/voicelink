@@ -48,9 +48,46 @@ export default function Room() {
 
   const wsRef = useRef<WebSocket | null>(null);
   const recognizerRef = useRef<SpeechSDK.SpeechRecognizer | null>(null);
+  const synthesizerRef = useRef<SpeechSDK.SpeechSynthesizer | null>(null);
 
   const myLanguage = SUPPORTED_LANGUAGES.find(l => l.code === language);
   const theirLanguage = SUPPORTED_LANGUAGES.find(l => l.code === partnerLanguage);
+
+  const azureLanguageMap: Record<string, string> = {
+    'en': 'en-US', 'es': 'es-ES', 'fr': 'fr-FR', 'de': 'de-DE',
+    'it': 'it-IT', 'pt': 'pt-PT', 'ru': 'ru-RU', 'ja': 'ja-JP',
+    'ko': 'ko-KR', 'zh': 'zh-CN', 'ar': 'ar-SA', 'hi': 'hi-IN',
+    'nl': 'nl-NL', 'pl': 'pl-PL', 'tr': 'tr-TR',
+  };
+
+  const speakText = async (text: string, languageCode: string) => {
+    try {
+      const tokenResponse = await fetch('/api/speech/token');
+      const { token, region } = await tokenResponse.json();
+      
+      const speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(token, region);
+      speechConfig.speechSynthesisLanguage = azureLanguageMap[languageCode] || 'en-US';
+      
+      const audioConfig = SpeechSDK.AudioConfig.fromDefaultSpeakerOutput();
+      const synthesizer = new SpeechSDK.SpeechSynthesizer(speechConfig, audioConfig);
+      
+      synthesizer.speakTextAsync(
+        text,
+        (result) => {
+          if (result.reason === SpeechSDK.ResultReason.SynthesizingAudioCompleted) {
+            console.log('[TTS] Audio played successfully');
+          }
+          synthesizer.close();
+        },
+        (error) => {
+          console.error('[TTS] Error:', error);
+          synthesizer.close();
+        }
+      );
+    } catch (error) {
+      console.error('[TTS] Failed to speak text:', error);
+    }
+  };
 
   useEffect(() => {
     if (!roomId) {
@@ -112,6 +149,7 @@ export default function Room() {
           setMyMessages(prev => [...prev, newMessage]);
         } else {
           setPartnerMessages(prev => [...prev, newMessage]);
+          speakText(message.translatedText, language);
         }
       }
 
@@ -170,14 +208,6 @@ export default function Room() {
         const { token, region } = await tokenResponse.json();
         
         const speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(token, region);
-        
-        const azureLanguageMap: Record<string, string> = {
-          'en': 'en-US', 'es': 'es-ES', 'fr': 'fr-FR', 'de': 'de-DE',
-          'it': 'it-IT', 'pt': 'pt-PT', 'ru': 'ru-RU', 'ja': 'ja-JP',
-          'ko': 'ko-KR', 'zh': 'zh-CN', 'ar': 'ar-SA', 'hi': 'hi-IN',
-          'nl': 'nl-NL', 'pl': 'pl-PL', 'tr': 'tr-TR',
-        };
-        
         speechConfig.speechRecognitionLanguage = azureLanguageMap[language] || 'en-US';
         
         const audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
