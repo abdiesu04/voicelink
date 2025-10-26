@@ -3,6 +3,7 @@ import { createServer, type Server } from "http";
 import { WebSocketServer, WebSocket } from "ws";
 import { storage } from "./storage";
 import axios from "axios";
+import * as sdk from "microsoft-cognitiveservices-speech-sdk";
 
 interface RoomConnection {
   ws: WebSocket;
@@ -203,65 +204,80 @@ export async function registerRoutes(app: Express): Promise<Server> {
 }
 
 async function transcribeAudio(base64Audio: string, language: string, mimeType?: string): Promise<string> {
-  try {
-    const audioBuffer = Buffer.from(base64Audio, 'base64');
-    console.log(`[Transcription] Audio buffer size: ${audioBuffer.length} bytes, Language: ${language}, MimeType: ${mimeType}`);
-    
-    const speechKey = process.env.AZURE_SPEECH_KEY;
-    const speechRegion = process.env.AZURE_SPEECH_REGION;
+  return new Promise((resolve) => {
+    try {
+      const audioBuffer = Buffer.from(base64Audio, 'base64');
+      console.log(`[Transcription] Audio buffer size: ${audioBuffer.length} bytes, Language: ${language}, MimeType: ${mimeType}`);
+      
+      const speechKey = process.env.AZURE_SPEECH_KEY;
+      const speechRegion = process.env.AZURE_SPEECH_REGION;
 
-    if (!speechKey || !speechRegion) {
-      console.error('[Transcription] Azure Speech credentials not configured');
-      throw new Error('Azure Speech credentials not configured');
-    }
-
-    console.log(`[Transcription] Calling Azure STT API: ${speechRegion}, locale: ${getAzureLanguageCode(language)}`);
-
-    let contentType = 'audio/wav';
-    if (mimeType && mimeType.includes('webm')) {
-      contentType = 'audio/webm;codecs=opus';
-    }
-
-    const response = await axios.post(
-      `https://${speechRegion}.stt.speech.microsoft.com/speech/recognition/conversation/cognitiveservices/v1`,
-      audioBuffer,
-      {
-        headers: {
-          'Ocp-Apim-Subscription-Key': speechKey,
-          'Content-Type': contentType,
-        },
-        params: {
-          language: getAzureLanguageCode(language),
-          format: 'detailed',
-        },
-        validateStatus: () => true,
+      if (!speechKey || !speechRegion) {
+        console.error('[Transcription] Azure Speech credentials not configured');
+        resolve('');
+        return;
       }
-    );
 
-    console.log('[Transcription] Azure response status:', response.status);
-    console.log('[Transcription] Azure response:', JSON.stringify(response.data));
+      const speechConfig = sdk.SpeechConfig.fromSubscription(speechKey, speechRegion);
+      speechConfig.speechRecognitionLanguage = getAzureLanguageCode(language);
+      
+      const pushStream = sdk.AudioInputStream.createPushStream();
+      pushStream.write(audioBuffer);
+      pushStream.close();
+      
+      const audioConfig = sdk.AudioConfig.fromStreamInput(pushStream);
+      const recognizer = new sdk.SpeechRecognizer(speechConfig, audioConfig);
 
-    if (response.status === 200 && response.data.RecognitionStatus === 'Success') {
-      const text = response.data.DisplayText;
-      if (text && text.trim().length > 0) {
-        console.log(`[Transcription] Success: "${text}"`);
-        return text;
-      } else {
-        console.warn('[Transcription] Success but no text');
-        return '';
-      }
-    } else {
-      console.warn('[Transcription] Recognition failed:', response.status, response.data);
-      return '';
+      let recognized = false;
+
+      recognizer.recognized = (s, e) => {
+        if (e.result.reason === sdk.ResultReason.RecognizedSpeech) {
+          const text = e.result.text;
+          console.log(`[Transcription] Recognized: "${text}"`);
+          recognized = true;
+          recognizer.close();
+          resolve(text);
+        } else if (e.result.reason === sdk.ResultReason.NoMatch) {
+          console.log('[Transcription] No speech could be recognized');
+          recognizer.close();
+          resolve('');
+        }
+      };
+
+      recognizer.canceled = (s, e) => {
+        console.log(`[Transcription] Canceled: ${e.reason}`);
+        if (e.reason === sdk.CancellationReason.Error) {
+          console.error(`[Transcription] Error: ${e.errorDetails}`);
+        }
+        recognizer.close();
+        if (!recognized) {
+          resolve('');
+        }
+      };
+
+      recognizer.sessionStopped = (s, e) => {
+        console.log('[Transcription] Session stopped');
+        recognizer.close();
+        if (!recognized) {
+          resolve('');
+        }
+      };
+
+      recognizer.recognizeOnceAsync();
+      
+      setTimeout(() => {
+        if (!recognized) {
+          console.log('[Transcription] Timeout');
+          recognizer.close();
+          resolve('');
+        }
+      }, 10000);
+
+    } catch (error: any) {
+      console.error('[Transcription] Error:', error.message);
+      resolve('');
     }
-  } catch (error: any) {
-    console.error('[Transcription] Error:', error.response?.data || error.message);
-    if (error.response) {
-      console.error('[Transcription] Response status:', error.response.status);
-      console.error('[Transcription] Response headers:', error.response.headers);
-    }
-    return '';
-  }
+  });
 }
 
 async function translateText(text: string, fromLanguage: string, toLanguage: string): Promise<string> {
