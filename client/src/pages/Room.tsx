@@ -15,6 +15,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { SUPPORTED_LANGUAGES } from "@shared/schema";
+import * as SpeechSDK from "microsoft-cognitiveservices-speech-sdk";
 
 interface TranscriptionMessage {
   id: string;
@@ -46,8 +47,7 @@ export default function Room() {
   const [partnerMessages, setPartnerMessages] = useState<TranscriptionMessage[]>([]);
 
   const wsRef = useRef<WebSocket | null>(null);
-  const mediaRecorderRef = useRef<MediaRecorder | null>(null);
-  const audioContextRef = useRef<AudioContext | null>(null);
+  const recognizerRef = useRef<SpeechSDK.SpeechRecognizer | null>(null);
 
   const myLanguage = SUPPORTED_LANGUAGES.find(l => l.code === language);
   const theirLanguage = SUPPORTED_LANGUAGES.find(l => l.code === partnerLanguage);
@@ -158,69 +158,57 @@ export default function Room() {
   const toggleMute = async () => {
     if (!isMuted) {
       setIsMuted(true);
-      if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") {
-        mediaRecorderRef.current.stop();
+      if (recognizerRef.current) {
+        recognizerRef.current.stopContinuousRecognitionAsync();
+        recognizerRef.current.close();
+        recognizerRef.current = null;
       }
     } else {
       setIsMuted(false);
       try {
-        const stream = await navigator.mediaDevices.getUserMedia({ 
-          audio: {
-            channelCount: 1,
-            sampleRate: 16000,
-            echoCancellation: true,
-            noiseSuppression: true,
-          }
-        });
+        const tokenResponse = await fetch('/api/speech/token');
+        const { token, region } = await tokenResponse.json();
         
-        const options: MediaRecorderOptions = { mimeType: 'audio/webm;codecs=opus' };
-        if (!MediaRecorder.isTypeSupported(options.mimeType!)) {
-          options.mimeType = 'audio/webm';
-        }
-        if (!MediaRecorder.isTypeSupported(options.mimeType!)) {
-          options.mimeType = '';
-        }
+        const speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(token, region);
         
-        const mediaRecorder = new MediaRecorder(stream, options);
+        const azureLanguageMap: Record<string, string> = {
+          'en': 'en-US', 'es': 'es-ES', 'fr': 'fr-FR', 'de': 'de-DE',
+          'it': 'it-IT', 'pt': 'pt-PT', 'ru': 'ru-RU', 'ja': 'ja-JP',
+          'ko': 'ko-KR', 'zh': 'zh-CN', 'ar': 'ar-SA', 'hi': 'hi-IN',
+          'nl': 'nl-NL', 'pl': 'pl-PL', 'tr': 'tr-TR',
+        };
         
-        const audioChunks: Blob[] = [];
+        speechConfig.speechRecognitionLanguage = azureLanguageMap[language] || 'en-US';
         
-        mediaRecorder.ondataavailable = (event) => {
-          if (event.data.size > 0) {
-            audioChunks.push(event.data);
+        const audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
+        const recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
+        
+        recognizer.recognizing = (s, e) => {
+          if (e.result.text) {
+            setIsSpeaking(true);
           }
         };
-
-        mediaRecorder.onstop = () => {
-          if (audioChunks.length > 0 && wsRef.current?.readyState === WebSocket.OPEN) {
-            const audioBlob = new Blob(audioChunks, { type: options.mimeType || 'audio/webm' });
-            const reader = new FileReader();
-            reader.onloadend = () => {
-              const base64Audio = (reader.result as string).split(",")[1];
-              wsRef.current?.send(JSON.stringify({
-                type: "audio",
+        
+        recognizer.recognized = (s, e) => {
+          if (e.result.reason === SpeechSDK.ResultReason.RecognizedSpeech && e.result.text) {
+            setIsSpeaking(false);
+            
+            if (wsRef.current?.readyState === WebSocket.OPEN) {
+              wsRef.current.send(JSON.stringify({
+                type: "transcription",
                 roomId,
-                audioData: base64Audio,
+                text: e.result.text,
                 language,
-                mimeType: options.mimeType || 'audio/webm',
               }));
-            };
-            reader.readAsDataURL(audioBlob);
-            audioChunks.length = 0;
+            }
           }
         };
-
-        mediaRecorder.start();
         
-        setInterval(() => {
-          if (mediaRecorder.state === 'recording') {
-            mediaRecorder.stop();
-            mediaRecorder.start();
-          }
-        }, 3000);
+        recognizer.startContinuousRecognitionAsync();
+        recognizerRef.current = recognizer;
         
-        mediaRecorderRef.current = mediaRecorder;
       } catch (error) {
+        console.error('Speech recognition error:', error);
         toast({
           title: "Microphone Access Denied",
           description: "Please enable microphone access to use voice features",
