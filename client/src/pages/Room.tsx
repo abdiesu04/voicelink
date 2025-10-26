@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useRoute, useLocation } from "wouter";
-import { Mic, MicOff, PhoneOff, Copy, Check, Settings } from "lucide-react";
+import { Mic, MicOff, PhoneOff, Copy, Check, Settings, Share2, ArrowLeftRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ConnectionStatus } from "@/components/ConnectionStatus";
 import { TranscriptionPanel } from "@/components/TranscriptionPanel";
@@ -297,24 +297,33 @@ export default function Room() {
 
   return (
     <div className="h-screen flex flex-col bg-background">
-      <header className="h-16 border-b flex items-center justify-between px-4 md:px-8">
-        <ConnectionStatus status={connectionStatus} latency={connectionStatus === "connected" ? 45 : undefined} />
+      {/* Header */}
+      <header className="h-20 border-b bg-card/30 backdrop-blur-sm flex items-center justify-between px-6 md:px-12">
+        <div className="flex items-center gap-4">
+          <ConnectionStatus status={connectionStatus} latency={connectionStatus === "connected" ? 45 : undefined} />
+        </div>
         
-        <div className="flex items-center gap-2 text-sm font-medium">
+        <div className="flex items-center gap-3">
           {myLanguage && theirLanguage ? (
-            <>
-              <span className="text-lg">{myLanguage.flag}</span>
-              <span>{myLanguage.name}</span>
-              <span className="text-muted-foreground">↔</span>
-              <span className="text-lg">{theirLanguage.flag}</span>
-              <span>{theirLanguage.name}</span>
-            </>
+            <div className="flex items-center gap-3 px-4 py-2 rounded-xl bg-gradient-to-r from-primary/5 to-accent/5 border border-border/50">
+              <div className="flex items-center gap-2">
+                <span className="text-2xl">{myLanguage.flag}</span>
+                <span className="font-semibold text-sm">{myLanguage.name}</span>
+              </div>
+              <ArrowLeftRight className="h-4 w-4 text-muted-foreground" />
+              <div className="flex items-center gap-2">
+                <span className="text-2xl">{theirLanguage.flag}</span>
+                <span className="font-semibold text-sm">{theirLanguage.name}</span>
+              </div>
+            </div>
           ) : (
-            <span className="text-muted-foreground">Waiting for partner...</span>
+            <div className="px-4 py-2 rounded-xl bg-muted/50 border border-border/50">
+              <span className="text-sm text-muted-foreground">Waiting for partner...</span>
+            </div>
           )}
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-3">
           <Button
             variant="ghost"
             size="icon"
@@ -330,13 +339,14 @@ export default function Room() {
             data-testid="button-end-call"
           >
             <PhoneOff className="h-4 w-4" />
-            <span className="hidden sm:inline">End</span>
+            <span className="hidden sm:inline">End Call</span>
           </Button>
         </div>
       </header>
 
-      <main className="flex-1 overflow-hidden p-4 md:p-8">
-        <div className="h-full grid md:grid-cols-2 gap-4 md:gap-8">
+      {/* Main Translation Panels */}
+      <main className="flex-1 overflow-hidden p-6 md:p-12 bg-gradient-to-br from-background via-background to-card/20">
+        <div className="h-full grid md:grid-cols-2 gap-6 md:gap-8 max-w-7xl mx-auto">
           <TranscriptionPanel
             title="You"
             isActive={isSpeaking}
@@ -352,56 +362,70 @@ export default function Room() {
         </div>
       </main>
 
-      <footer className="h-20 border-t flex items-center justify-center gap-4 px-4">
+      {/* Footer Controls */}
+      <footer className="h-24 border-t bg-card/30 backdrop-blur-sm flex items-center justify-center gap-6 px-6">
         {!conversationStarted && connectionStatus === "connected" ? (
-          <Button
-            size="lg"
-            onClick={startConversation}
-            className="h-12 px-8 text-base hover-elevate active-elevate-2"
-            data-testid="button-start-conversation"
-          >
-            <Mic className="h-5 w-5 mr-2" />
-            Start Conversation
-          </Button>
+          <div className="flex flex-col items-center gap-3">
+            <Button
+              size="lg"
+              onClick={startConversation}
+              className="h-14 px-10 text-base hover-elevate active-elevate-2 shadow-lg"
+              data-testid="button-start-conversation"
+            >
+              <Mic className="h-5 w-5 mr-2" />
+              Start Conversation
+            </Button>
+            <p className="text-xs text-muted-foreground">
+              Click to enable microphone and begin speaking
+            </p>
+          </div>
         ) : (
-          <>
+          <div className="flex items-center gap-6">
             <Button
               size="lg"
               variant={isMuted ? "secondary" : "default"}
               onClick={toggleMute}
-              className="h-14 w-14 rounded-full hover-elevate active-elevate-2"
+              className="h-16 w-16 rounded-full hover-elevate active-elevate-2 shadow-lg"
               data-testid="button-toggle-mic"
             >
-              {isMuted ? <MicOff className="h-6 w-6" /> : <Mic className="h-6 w-6" />}
+              {isMuted ? <MicOff className="h-7 w-7" /> : <Mic className="h-7 w-7" />}
             </Button>
-            <div className="text-sm text-center">
-              <div className="font-medium">
+            <div className="text-center">
+              <div className="font-semibold text-base">
                 {isMuted ? "Microphone Off" : partnerConnected ? "Ready to speak" : "Waiting for partner"}
               </div>
-              <div className="text-xs text-muted-foreground">
+              <div className="text-sm text-muted-foreground">
                 {isMuted ? "Click to unmute" : "Click to mute"}
               </div>
             </div>
-          </>
+          </div>
         )}
       </footer>
 
+      {/* Share Dialog */}
       <Dialog open={showShareDialog} onOpenChange={setShowShareDialog}>
-        <DialogContent data-testid="dialog-share-link">
-          <DialogHeader>
-            <DialogTitle>Share Room Link</DialogTitle>
-            <DialogDescription>
-              Send this link to your conversation partner to start translating
-            </DialogDescription>
+        <DialogContent className="sm:max-w-md" data-testid="dialog-share-link">
+          <DialogHeader className="space-y-3">
+            <div className="flex items-center justify-between">
+              <div className="h-12 w-12 rounded-xl bg-primary/10 flex items-center justify-center ring-1 ring-primary/20">
+                <Share2 className="h-6 w-6 text-primary" />
+              </div>
+            </div>
+            <div>
+              <DialogTitle className="text-2xl">Share Room Link</DialogTitle>
+              <DialogDescription className="text-base mt-2">
+                Send this link to your conversation partner to start translating
+              </DialogDescription>
+            </div>
           </DialogHeader>
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <Label>Room Link</Label>
+          <div className="space-y-6 pt-4">
+            <div className="space-y-3">
+              <Label className="text-sm font-semibold">Room Link</Label>
               <div className="flex gap-2">
                 <Input
                   readOnly
                   value={`${window.location.origin}/join/${roomId}`}
-                  className="font-mono text-sm"
+                  className="font-mono text-sm bg-muted/50"
                   data-testid="input-share-link"
                 />
                 <Button
@@ -413,12 +437,16 @@ export default function Room() {
                   {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
                 </Button>
               </div>
+              <p className="text-sm text-muted-foreground">
+                {copied ? "Link copied to clipboard!" : "Click to copy the link"}
+              </p>
             </div>
             <Button
               onClick={() => setShowShareDialog(false)}
-              className="w-full hover-elevate active-elevate-2"
+              className="w-full h-12 hover-elevate active-elevate-2"
               data-testid="button-start-conversation"
             >
+              <Mic className="mr-2 h-5 w-5" />
               Start Conversation
             </Button>
           </div>

@@ -4,46 +4,74 @@
 
 **Selected Approach**: Design System-Based with Communication Tool Inspiration
 
-Drawing from modern communication platforms like Discord, Zoom, and Linear, this design prioritizes clarity, real-time feedback, and minimal cognitive load during active conversations. The interface must feel professional yet approachable, with instant visual feedback for all translation states.
+Drawing from Discord, Linear, and Zoom, this design prioritizes clarity and real-time feedback with a premium, professional aesthetic. The Aurora Slate palette creates a sophisticated atmosphere that inspires trust while maintaining excellent readability during active translation.
 
 **Core Principles**:
-- Immediate clarity: Users should instantly understand connection state and active speaker
-- Focused communication: Minimize visual noise during active translation
-- Trust and reliability: Professional design that instills confidence in real-time translation
-- Accessibility: Clear visual and auditory feedback for all states
+- Premium professionalism: Elevated design that works for business and personal contexts
+- Immediate clarity: Instant understanding of connection state and active speaker
+- Spacious hierarchy: Generous whitespace with color-coded visual organization
+- Color communication: Language pairs and statuses distinguished through strategic color use
+
+---
+
+## Color System: Aurora Slate Palette
+
+**Foundation Colors**:
+- Deep Slate: `#0f172a` - Primary background
+- Slate 800: `#1e293b` - Secondary background, cards
+- Slate 700: `#334155` - Tertiary surfaces
+- Slate 600: `#475569` - Borders, dividers
+- Slate 400: `#94a3b8` - Muted text
+- Slate 100: `#f1f5f9` - Primary text on dark
+
+**Brand & Interactive Colors**:
+- Desaturated Indigo: `#6366f1` (primary indigo-500)
+- Indigo Muted: `#4f46e5` (indigo-600) - Hover states
+- Indigo Glow: `#818cf8` (indigo-400) - Active indicators
+- Emerald Success: `#10b981` (emerald-500) - Connected, speaking states
+- Emerald Dim: `#059669` (emerald-600) - Success elements
+- Amber Warning: `#f59e0b` (amber-500) - Caution states
+- Rose Danger: `#f43f5e` (rose-500) - Disconnected, error states
+
+**Language Color Coding**:
+- Language A (User): Indigo `#6366f1` - Used for user's language indicators
+- Language B (Partner): Cyan `#06b6d4` (cyan-500) - Partner's language indicators
+- Translation Flow: Gradient transitions between language colors
+
+**Application**:
+- Backgrounds: Deep slate foundation with slate-800 elevated cards
+- Text: Slate-100 primary, slate-400 secondary
+- Interactive elements: Indigo primary, emerald success feedback
+- Status indicators: Color-coded by state (emerald=active, amber=processing, rose=error)
+- Language panels: Subtle indigo/cyan tinted backgrounds for user/partner sections
 
 ---
 
 ## Typography System
 
-**Font Family**: 
-- Primary: Inter (via Google Fonts) - for UI elements, labels, and controls
-- Secondary: System font stack for real-time transcription displays (performance)
+**Font Family**: Inter (Google Fonts) for all text
 
 **Hierarchy**:
-- Hero/Landing Headlines: text-4xl to text-6xl, font-bold
-- Page Titles: text-3xl, font-semibold
-- Section Headers: text-xl, font-semibold
-- Body Text: text-base, font-normal
-- UI Labels: text-sm, font-medium
-- Real-time Transcription: text-lg, font-normal (high readability)
-- Status Indicators: text-xs to text-sm, font-medium, uppercase tracking-wide
+- Hero Headlines: text-5xl to text-6xl, font-bold, text-slate-100
+- Page Titles: text-3xl, font-semibold, text-slate-100
+- Section Headers: text-xl, font-semibold, text-slate-200
+- Body Text: text-base, font-normal, text-slate-300
+- Real-time Transcription: text-lg, font-normal, text-slate-100
+- UI Labels: text-sm, font-medium, text-slate-400, uppercase tracking-wide
+- Status Text: text-xs, font-semibold, uppercase tracking-wider
 
 ---
 
 ## Layout System
 
-**Spacing Primitives**: Use Tailwind units of **2, 4, 8, 12, 16** for consistent rhythm
-- Component padding: p-4, p-8
-- Section spacing: space-y-8, space-y-12
-- Element margins: m-2, m-4
-- Grid gaps: gap-4, gap-8
+**Spacing Primitives**: Tailwind units of **4, 6, 8, 12, 16, 20**
 
-**Container Strategy**:
-- Landing page: max-w-7xl mx-auto
-- App interface: Full viewport with sidebar (if needed) or centered max-w-5xl
-- Room interface: Full-screen experience with minimal chrome
-- Form containers: max-w-md for focused input
+**Application**:
+- Component padding: p-6, p-8
+- Section spacing: py-16, py-20, gap-12
+- Card padding: p-8, p-12
+- Element gaps: gap-4, gap-6, gap-8
+- Generous margins for spacious feel
 
 ---
 
@@ -51,188 +79,139 @@ Drawing from modern communication platforms like Discord, Zoom, and Linear, this
 
 ### Landing Page Components
 
-**Hero Section** (60-70vh):
-- Large centered headline explaining the value proposition
-- Subheadline describing key benefit (speak any language, real-time translation)
-- Primary CTA: "Create Room" button (large, prominent)
-- Secondary CTA: "Learn How It Works" (ghost/outline style)
-- Visual: Abstract illustration showing two people with speech bubbles containing different languages (use placeholder image)
-- No background video/animation - static, professional
+**Hero Section** (80vh):
+- Full-width dark slate gradient background
+- Max-w-7xl centered content with two-column layout
+- Left (55%): 
+  - Headline with indigo accent word
+  - Subheadline in slate-300
+  - Button group: Primary indigo CTA + secondary outline
+  - Trust badge: "Powered by Azure AI" with emerald check icon
+- Right (45%): Hero image showing translation visualization
+- Buttons over background have backdrop-blur-md with semi-transparent backgrounds
 
-**Features Grid** (3 columns on desktop, 1 on mobile):
-- Icon + Title + Description cards for:
-  - Real-Time Translation (Heroicons: language icon)
-  - Low Latency Communication (Heroicons: bolt icon)
-  - Secure Rooms (Heroicons: lock-closed icon)
-  - Easy Sharing (Heroicons: link icon)
-- Cards with subtle borders, generous padding (p-8)
+**Features Grid** (py-20):
+- 4 cards in grid (2x2 on desktop, 1 column mobile)
+- Each card: slate-800 background, p-8, rounded-xl, border border-slate-700
+- Indigo icon in rounded background (p-4, bg-indigo-500/10)
+- Features: Real-Time Translation, Enterprise Security, 100+ Languages, HD Audio Quality
+- Icons from Heroicons: language, lock-closed, globe-alt, speaker-wave
 
-**How It Works Section**:
-- 3-step visual flow (horizontal on desktop, vertical on mobile)
-- Step 1: Create room & select language
-- Step 2: Share link with conversation partner
-- Step 3: Start speaking, hear translation
-- Use numbered circles with connecting lines between steps
+**How It Works** (py-20):
+- 3-step horizontal flow with connecting gradient lines
+- Numbered badges (indigo gradient circles)
+- Step cards: slate-800, p-8, with illustrations
+- Step 1: Create & Select (user icon + language dropdown visual)
+- Step 2: Share Link (link icon + QR code visual)  
+- Step 3: Speak Naturally (waveform + translation visual)
 
-**Supported Languages Section**:
-- Grid display of flag icons or language names
-- 4-6 columns on desktop, 2-3 on mobile
-- Shows breadth of Azure translation support
+**Language Showcase** (py-16):
+- Grid of 12 language pills (3 rows × 4 columns)
+- Each pill: slate-700 background, px-6 py-3, rounded-full
+- Flag emoji + language name in slate-200
 
-**CTA Section** (py-20):
-- Centered heading: "Ready to break language barriers?"
-- Primary action button
-- Trust indicator: "Powered by Azure AI Services" with logo
+**Social Proof** (py-20):
+- 3 testimonial cards with slate-800 backgrounds
+- Avatar placeholder, quote, name, role in slate-400
+- 5-star rating in amber-400
 
-**Footer**:
-- Simple single-row layout
-- Links: About, Privacy, Terms, Contact
-- Social links if applicable
-- Copyright notice
+**Final CTA** (py-24):
+- Centered content max-w-3xl
+- Large heading with indigo accent
+- Primary CTA button (large, px-10 py-5)
+- Subtext: "No credit card required • Start translating in 30 seconds"
 
-### Application Interface Components
+**Footer** (py-12):
+- Slate-900 background
+- 4-column grid: Product, Company, Legal, Connect
+- Bottom bar: Copyright in slate-500, social icons in slate-400
 
-**Pre-Room Interface** (Room Creation/Join):
+### Application Interface
 
-Create Room View:
-- Centered card (max-w-md) with generous padding (p-8)
-- Clear heading: "Create Translation Room"
-- Language selector (dropdown with flag icons, searchable)
-- Large "Create Room" button
-- Below card: Small text explaining how it works
+**Room Creation Card**:
+- Centered max-w-lg card, slate-800 background, p-10, rounded-2xl
+- Heading with indigo underline accent
+- Language selector: slate-700 dropdown with indigo focus ring
+- Create button: Full-width indigo gradient with emerald glow on hover
 
-Join Room View:
-- Similar centered card layout
-- Display room ID prominently (large text, monospace font)
-- Language selector for joining user
-- "Join Conversation" button
-- Connection status indicator below button
+**Active Translation Interface**:
 
-Room Link Sharing Modal:
-- Overlay modal with backdrop blur
-- Room link displayed in copyable input field
-- Large "Copy Link" button
-- QR code for easy mobile sharing (placeholder)
-- "Start Conversation" button to proceed
+Top Bar (h-16, slate-900/95 backdrop-blur):
+- Left: Emerald connection dot + "Connected • 45ms"
+- Center: Language pair "English → Español" with color-coded arrows
+- Right: Settings icon, End button (rose-500 outline)
 
-**Active Translation Interface** (Full Screen):
+Main Display (split 50/50):
+- Left Panel (User - indigo-tinted):
+  - Header: "You (English)" with indigo accent
+  - Speaking indicator: Emerald pulsing ring when active
+  - Transcription area: slate-800 background, scrollable
+  - Your text: slate-100, translation below in cyan-400/60
+- Right Panel (Partner - cyan-tinted):
+  - Header: "Partner (Español)" with cyan accent
+  - Mirror layout with cyan speaking indicator
+  - Partner text: slate-100, translation in indigo-400/60
 
-Layout: Single-page full-viewport layout with these zones:
+Bottom Control Bar (h-20):
+- Center controls:
+  - Mic toggle: Large circular (w-16 h-16), emerald when active, slate-700 when muted
+  - Volume slider: Indigo track with emerald thumb
+  - End call: Rose-500 outline button
 
-Top Bar (h-16, fixed):
-- Left: Room status indicator (dot + "Connected" text)
-- Center: Active language pair display "English ↔ Spanish"
-- Right: Settings icon, End call button
+Status Bar (top of main display):
+- Translation status pills: "Listening..." (emerald), "Translating..." (amber), "Ready" (slate-600)
 
-Main Translation Display (flex-1):
-- Two-panel horizontal split (50/50) on desktop, stacked on mobile
-- Left Panel: "You" section
-  - Speaking indicator (animated pulse when active)
-  - Real-time transcription of your speech (scrollable, latest at bottom)
-  - Translation of what you said (in partner's language, lighter treatment)
-- Right Panel: "Partner" section  
-  - Mirror layout of left panel
-  - Shows partner's transcription and translation
-
-Visual Treatment:
-- Speaking panels get subtle glow/border treatment when active
-- Transcription appears with fade-in animation
-- Scrollable transcript areas with subtle scrollbar
-
-Bottom Control Bar (h-20, fixed):
-- Center-aligned controls:
-  - Microphone toggle (large circular button, visual on/off state)
-  - Speaker volume control (icon + slider on hover)
-  - End conversation button (subtle, outline style)
-
-Status Indicators:
-- Connection quality indicator (dot: green/yellow/red with latency ms)
-- Translation status ("Listening...", "Translating...", "Speaking...")
-- Microphone permission status if needed
-
-**Settings Panel** (Slide-in from right):
-- Language selection for both participants
-- Audio input/output device selection
-- Voice settings (speech rate, pitch if applicable)
-- Audio quality toggle
-- Close button
-
-### Form Elements
-
-**Language Selector**:
-- Custom dropdown with search capability
-- Each option shows flag icon + language name
-- Selected language prominently displayed
-- Dropdown menu with max-h-60, scrollable
-
-**Input Fields**:
-- Consistent height (h-12)
-- Padding: px-4
-- Border treatment with focus states
-- Labels positioned above (text-sm, font-medium)
-
-**Buttons**:
-Primary: Large padding (px-8 py-4), rounded-lg, font-semibold
-Secondary: Similar size, outline style with transparent background
-Icon buttons: Square (h-12 w-12), rounded-full for microphone toggle
-Destructive (End call): Outline style with warning treatment
-
----
-
-## Animation & Interaction
-
-**Use Sparingly**:
-- Speaking indicator: Subtle pulse animation (scale and opacity)
-- Transcription appearance: Quick fade-in (0.2s)
-- Modal/panel transitions: Slide-in with ease-out (0.3s)
-- Button interactions: Scale on press (transform: scale(0.98))
-
-**No Animations On**:
-- Real-time transcription text
-- Language switching
-- Connection status changes (instant feedback preferred)
-
----
-
-## Responsive Behavior
-
-**Breakpoints**:
-- Mobile (< 768px): Single column, stacked panels, simplified navigation
-- Tablet (768px - 1024px): Maintain desktop layout with adjusted spacing
-- Desktop (> 1024px): Full featured layout as described
-
-**Mobile Specific**:
-- Translation panels stack vertically instead of side-by-side
-- Top bar condenses to essential info only
-- Settings panel becomes full-screen modal
-- Hero section uses text-3xl instead of text-6xl
-
----
-
-## Icon Library
-
-**Use Heroicons (via CDN)** exclusively for all icons:
-- Microphone, microphone-slash (mute)
-- Speaker wave, speaker-x-mark
-- Language, globe-alt
-- Link, clipboard
-- Cog (settings)
-- Phone-x-mark (end call)
-- Signal (connection quality)
+**Settings Panel** (slide-in from right):
+- Full-height slate-800 panel, w-96
+- Sections with slate-700 dividers
+- Language dropdowns with indigo accents
+- Toggle switches for audio settings (indigo/emerald states)
 
 ---
 
 ## Images
 
-**Hero Section Image**:
-- Placement: Background or alongside hero text (60% width on desktop)
-- Description: Modern illustration showing two diverse people having a conversation with floating speech bubbles containing different scripts (Latin, Arabic, Asian characters) transforming between them. Clean, professional style with subtle gradients.
-- Style: Vector illustration or high-quality graphic, not photographic
-- Treatment: If background, use overlay for text legibility
+**Hero Section**:
+- Placement: Right side of hero (45% width)
+- Description: Abstract 3D visualization of voice translation - two floating spheres connected by flowing particle streams, with holographic language text fragments floating around them. Dark background with indigo and cyan accent lighting. Premium, futuristic aesthetic.
+- Treatment: PNG with transparency, subtle glow effects
 
-**How It Works Section**:
-- 3 simple iconographic illustrations for each step
-- Style: Line art or simple 2D illustrations matching hero style
-- Placement: Above each step description
+**How It Works Steps**:
+- Step 1: Minimalist illustration of device with language selection interface
+- Step 2: Stylized link/QR code with connection visualization  
+- Step 3: Waveform visualization transforming between two language scripts
+- Style: Line art with indigo/cyan accents on transparent backgrounds
 
-No other images needed - keep interface clean and functional during active use.
+---
+
+## Animations
+
+**Strategic Use**:
+- Speaking indicator: Emerald pulse (scale 1.0 to 1.1, opacity 1 to 0.5)
+- Transcription text: Fade-in 0.2s with slight slide-up
+- Panel transitions: 0.3s ease-out
+- Status changes: Color transition 0.15s
+- Button press: Scale 0.98 with brightness shift
+
+---
+
+## Responsive Behavior
+
+**Mobile** (<768px):
+- Hero: Single column, image below text
+- Features: 1 column grid
+- Translation panels: Stacked vertically
+- Top bar: Condensed with hamburger menu
+- All px-6 container padding
+
+**Desktop** (>1024px):
+- Full layout as described
+- Translation panels side-by-side
+- px-8 to px-12 container padding
+
+---
+
+## Icons
+
+**Heroicons Library** (outline style):
+- language, microphone, speaker-wave, link, cog-6-tooth, phone-x-mark, signal, lock-closed, globe-alt, check-circle, clipboard-document

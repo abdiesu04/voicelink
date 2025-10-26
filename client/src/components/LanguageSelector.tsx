@@ -1,4 +1,4 @@
-import { Check, ChevronDown, Globe } from "lucide-react";
+import { Check, ChevronDown, Globe, Languages } from "lucide-react";
 import { useState } from "react";
 import { SUPPORTED_LANGUAGES } from "@shared/schema";
 import { Button } from "@/components/ui/button";
@@ -36,29 +36,39 @@ export function LanguageSelector({ value, onValueChange, disabled }: LanguageSel
           role="combobox"
           aria-expanded={open}
           disabled={disabled}
-          className="w-full justify-between hover-elevate active-elevate-2"
+          className="w-full justify-between h-12 px-4 hover-elevate active-elevate-2 border-border/50"
           data-testid="button-language-selector"
         >
           {selectedLanguage ? (
-            <span className="flex items-center gap-2">
-              <span className="text-lg">{selectedLanguage.flag}</span>
-              <span>{selectedLanguage.name}</span>
+            <span className="flex items-center gap-3">
+              <span className="text-2xl">{selectedLanguage.flag}</span>
+              <span className="font-medium">{selectedLanguage.name}</span>
             </span>
           ) : (
-            <span className="flex items-center gap-2 text-muted-foreground">
-              <Globe className="h-4 w-4" />
+            <span className="flex items-center gap-3 text-muted-foreground">
+              <Languages className="h-5 w-5" />
               <span>Select language...</span>
             </span>
           )}
-          <ChevronDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+          <ChevronDown className={cn(
+            "ml-2 h-4 w-4 shrink-0 opacity-50 transition-transform duration-200",
+            open && "rotate-180"
+          )} />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="w-full p-0" align="start">
-        <Command>
-          <CommandInput placeholder="Search language..." data-testid="input-language-search" />
+      <PopoverContent className="w-full p-0 border-border/50 shadow-xl" align="start">
+        <Command className="rounded-xl">
+          <CommandInput 
+            placeholder="Search language..." 
+            className="h-12 text-base" 
+            data-testid="input-language-search" 
+          />
           <CommandList>
-            <CommandEmpty>No language found.</CommandEmpty>
-            <CommandGroup>
+            <CommandEmpty className="py-8 text-center">
+              <Globe className="h-8 w-8 mx-auto mb-3 text-muted-foreground/50" />
+              <p className="text-sm text-muted-foreground">No language found.</p>
+            </CommandEmpty>
+            <CommandGroup className="p-2">
               {SUPPORTED_LANGUAGES.map((language) => (
                 <CommandItem
                   key={language.code}
@@ -67,16 +77,26 @@ export function LanguageSelector({ value, onValueChange, disabled }: LanguageSel
                     onValueChange(language.code);
                     setOpen(false);
                   }}
+                  className={cn(
+                    "flex items-center gap-3 px-3 py-3 rounded-lg cursor-pointer",
+                    "hover-elevate transition-colors",
+                    value === language.code && "bg-primary/10"
+                  )}
                   data-testid={`option-language-${language.code}`}
                 >
                   <Check
                     className={cn(
-                      "mr-2 h-4 w-4",
+                      "h-4 w-4 text-primary flex-shrink-0",
                       value === language.code ? "opacity-100" : "opacity-0"
                     )}
                   />
-                  <span className="mr-2 text-lg">{language.flag}</span>
-                  <span>{language.name}</span>
+                  <span className="text-2xl flex-shrink-0">{language.flag}</span>
+                  <span className={cn(
+                    "font-medium",
+                    value === language.code && "text-primary"
+                  )}>
+                    {language.name}
+                  </span>
                 </CommandItem>
               ))}
             </CommandGroup>
