@@ -103,13 +103,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
 
         if (message.type === 'audio') {
-          const { roomId, audioData, language } = message;
+          const { roomId, audioData, language, mimeType } = message;
           const connection = connections.get(ws);
           
           if (!connection) return;
 
           try {
-            const transcribedText = await transcribeAudio(audioData, language);
+            console.log(`[Audio] Received audio, size: ${audioData.length}, mimeType: ${mimeType}, language: ${language}`);
+            
+            const transcribedText = await transcribeAudio(audioData, language, mimeType);
+            
+            if (!transcribedText || transcribedText === 'Speech recognized but no text returned') {
+              console.warn('[Audio] No transcription result');
+              return;
+            }
             
             const room = await storage.getRoom(roomId);
             if (!room) return;
@@ -144,7 +151,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             });
 
           } catch (error) {
-            console.error('Error processing audio:', error);
+            console.error('[Audio] Error processing audio:', error);
             ws.send(JSON.stringify({
               type: 'error',
               message: 'Failed to process audio'
@@ -195,10 +202,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
   return httpServer;
 }
 
-async function transcribeAudio(base64Audio: string, language: string): Promise<string> {
+async function transcribeAudio(base64Audio: string, language: string, mimeType?: string): Promise<string> {
   try {
     const audioBuffer = Buffer.from(base64Audio, 'base64');
-    console.log(`[Transcription] Audio buffer size: ${audioBuffer.length} bytes, Language: ${language}`);
+    console.log(`[Transcription] Audio buffer size: ${audioBuffer.length} bytes, Language: ${language}, MimeType: ${mimeType}`);
     
     const speechKey = process.env.AZURE_SPEECH_KEY;
     const speechRegion = process.env.AZURE_SPEECH_REGION;
@@ -210,34 +217,50 @@ async function transcribeAudio(base64Audio: string, language: string): Promise<s
 
     console.log(`[Transcription] Calling Azure STT API: ${speechRegion}, locale: ${getAzureLanguageCode(language)}`);
 
+    let contentType = 'audio/wav';
+    if (mimeType && mimeType.includes('webm')) {
+      contentType = 'audio/webm;codecs=opus';
+    }
+
     const response = await axios.post(
       `https://${speechRegion}.stt.speech.microsoft.com/speech/recognition/conversation/cognitiveservices/v1`,
       audioBuffer,
       {
         headers: {
           'Ocp-Apim-Subscription-Key': speechKey,
-          'Content-Type': 'audio/wav',
+          'Content-Type': contentType,
         },
         params: {
           language: getAzureLanguageCode(language),
           format: 'detailed',
         },
+        validateStatus: () => true,
       }
     );
 
+    console.log('[Transcription] Azure response status:', response.status);
     console.log('[Transcription] Azure response:', JSON.stringify(response.data));
 
-    if (response.data.RecognitionStatus === 'Success') {
-      const text = response.data.DisplayText || 'Speech recognized but no text returned';
-      console.log(`[Transcription] Success: "${text}"`);
-      return text;
+    if (response.status === 200 && response.data.RecognitionStatus === 'Success') {
+      const text = response.data.DisplayText;
+      if (text && text.trim().length > 0) {
+        console.log(`[Transcription] Success: "${text}"`);
+        return text;
+      } else {
+        console.warn('[Transcription] Success but no text');
+        return '';
+      }
     } else {
-      console.warn('[Transcription] Recognition failed:', response.data);
-      return 'Could not recognize speech';
+      console.warn('[Transcription] Recognition failed:', response.status, response.data);
+      return '';
     }
   } catch (error: any) {
     console.error('[Transcription] Error:', error.response?.data || error.message);
-    return 'Audio transcription failed';
+    if (error.response) {
+      console.error('[Transcription] Response status:', error.response.status);
+      console.error('[Transcription] Response headers:', error.response.headers);
+    }
+    return '';
   }
 }
 
