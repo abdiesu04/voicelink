@@ -35,13 +35,14 @@ export default function Room() {
   const language = urlParams.get("language") || "en";
 
   const [connectionStatus, setConnectionStatus] = useState<"connected" | "connecting" | "disconnected">("connecting");
-  const [isMuted, setIsMuted] = useState(false);
+  const [isMuted, setIsMuted] = useState(true);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [partnerSpeaking, setPartnerSpeaking] = useState(false);
   const [showShareDialog, setShowShareDialog] = useState(role === "creator");
   const [copied, setCopied] = useState(false);
   const [partnerConnected, setPartnerConnected] = useState(false);
   const [partnerLanguage, setPartnerLanguage] = useState<string>("");
+  const [conversationStarted, setConversationStarted] = useState(false);
 
   const [myMessages, setMyMessages] = useState<TranscriptionMessage[]>([]);
   const [partnerMessages, setPartnerMessages] = useState<TranscriptionMessage[]>([]);
@@ -216,7 +217,8 @@ export default function Room() {
     };
   }, [roomId, language, role, toast, setLocation]);
 
-  const startMicrophone = async () => {
+  const startConversation = async () => {
+    setConversationStarted(true);
     try {
       const { token, region } = await getAzureToken();
       
@@ -271,15 +273,9 @@ export default function Room() {
         recognizerRef.current = null;
       }
     } else {
-      startMicrophone();
+      startConversation();
     }
   };
-
-  useEffect(() => {
-    if (connectionStatus === 'connected' && isMuted) {
-      startMicrophone();
-    }
-  }, [connectionStatus]);
 
   const handleEndCall = () => {
     if (wsRef.current?.readyState === WebSocket.OPEN) {
@@ -357,23 +353,37 @@ export default function Room() {
       </main>
 
       <footer className="h-20 border-t flex items-center justify-center gap-4 px-4">
-        <Button
-          size="lg"
-          variant={isMuted ? "secondary" : "default"}
-          onClick={toggleMute}
-          className="h-14 w-14 rounded-full hover-elevate active-elevate-2"
-          data-testid="button-toggle-mic"
-        >
-          {isMuted ? <MicOff className="h-6 w-6" /> : <Mic className="h-6 w-6" />}
-        </Button>
-        <div className="text-sm text-center">
-          <div className="font-medium">
-            {isMuted ? "Microphone Off" : partnerConnected ? "Ready to speak" : "Waiting for partner"}
-          </div>
-          <div className="text-xs text-muted-foreground">
-            {isMuted ? "Click to unmute" : "Click to mute"}
-          </div>
-        </div>
+        {!conversationStarted && connectionStatus === "connected" ? (
+          <Button
+            size="lg"
+            onClick={startConversation}
+            className="h-12 px-8 text-base hover-elevate active-elevate-2"
+            data-testid="button-start-conversation"
+          >
+            <Mic className="h-5 w-5 mr-2" />
+            Start Conversation
+          </Button>
+        ) : (
+          <>
+            <Button
+              size="lg"
+              variant={isMuted ? "secondary" : "default"}
+              onClick={toggleMute}
+              className="h-14 w-14 rounded-full hover-elevate active-elevate-2"
+              data-testid="button-toggle-mic"
+            >
+              {isMuted ? <MicOff className="h-6 w-6" /> : <Mic className="h-6 w-6" />}
+            </Button>
+            <div className="text-sm text-center">
+              <div className="font-medium">
+                {isMuted ? "Microphone Off" : partnerConnected ? "Ready to speak" : "Waiting for partner"}
+              </div>
+              <div className="text-xs text-muted-foreground">
+                {isMuted ? "Click to unmute" : "Click to mute"}
+              </div>
+            </div>
+          </>
+        )}
       </footer>
 
       <Dialog open={showShareDialog} onOpenChange={setShowShareDialog}>
