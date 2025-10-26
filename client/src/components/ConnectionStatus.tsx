@@ -1,5 +1,6 @@
 import { Signal, SignalHigh, SignalLow, SignalMedium } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { cn } from "@/lib/utils";
 
 interface ConnectionStatusProps {
   status: "connected" | "connecting" | "disconnected";
@@ -7,31 +8,78 @@ interface ConnectionStatusProps {
 }
 
 export function ConnectionStatus({ status, latency }: ConnectionStatusProps) {
-  const getStatusColor = () => {
-    if (status === "connected") return "bg-status-online";
-    if (status === "connecting") return "bg-status-away";
-    return "bg-status-busy";
-  };
-
-  const getStatusText = () => {
-    if (status === "connected") return "Connected";
-    if (status === "connecting") return "Connecting...";
-    return "Disconnected";
+  const getStatusConfig = () => {
+    if (status === "connected") {
+      return {
+        color: "bg-success",
+        ringColor: "ring-success/20",
+        bgColor: "bg-success/10",
+        textColor: "text-success",
+        borderColor: "border-success/20",
+        text: "Connected",
+      };
+    }
+    if (status === "connecting") {
+      return {
+        color: "bg-warning",
+        ringColor: "ring-warning/20",
+        bgColor: "bg-warning/10",
+        textColor: "text-warning",
+        borderColor: "border-warning/20",
+        text: "Connecting...",
+      };
+    }
+    return {
+      color: "bg-destructive",
+      ringColor: "ring-destructive/20",
+      bgColor: "bg-destructive/10",
+      textColor: "text-destructive",
+      borderColor: "border-destructive/20",
+      text: "Disconnected",
+    };
   };
 
   const getSignalIcon = () => {
-    if (!latency || status !== "connected") return <Signal className="h-3 w-3" />;
-    if (latency < 100) return <SignalHigh className="h-3 w-3" />;
-    if (latency < 300) return <SignalMedium className="h-3 w-3" />;
-    return <SignalLow className="h-3 w-3" />;
+    if (!latency || status !== "connected") return <Signal className="h-3.5 w-3.5" />;
+    if (latency < 100) return <SignalHigh className="h-3.5 w-3.5 text-success" />;
+    if (latency < 300) return <SignalMedium className="h-3.5 w-3.5 text-warning" />;
+    return <SignalLow className="h-3.5 w-3.5 text-destructive" />;
   };
 
+  const config = getStatusConfig();
+
   return (
-    <div className="flex items-center gap-2" data-testid="status-connection">
-      <div className={`h-2 w-2 rounded-full ${getStatusColor()}`} />
-      <span className="text-sm font-medium">{getStatusText()}</span>
+    <div className="flex items-center gap-3" data-testid="status-connection">
+      <div className={cn(
+        "flex items-center gap-3 px-4 py-2 rounded-xl border ring-1",
+        config.bgColor,
+        config.borderColor,
+        config.ringColor
+      )}>
+        <div className="relative">
+          <div className={cn(
+            "h-3 w-3 rounded-full",
+            config.color,
+            status === "connecting" && "animate-pulse"
+          )} />
+          {status === "connected" && (
+            <div className={cn(
+              "absolute inset-0 h-3 w-3 rounded-full animate-ping",
+              config.color,
+              "opacity-75"
+            )} />
+          )}
+        </div>
+        <span className={cn("text-sm font-semibold", config.textColor)}>
+          {config.text}
+        </span>
+      </div>
+      
       {status === "connected" && latency && (
-        <Badge variant="secondary" className="gap-1 text-xs">
+        <Badge 
+          variant="secondary" 
+          className="gap-2 px-3 py-1.5 text-xs font-semibold hover-elevate"
+        >
           {getSignalIcon()}
           <span>{latency}ms</span>
         </Badge>
