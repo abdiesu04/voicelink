@@ -7,7 +7,7 @@ VoiceLink is a real-time voice translation application that enables two users to
 Break language barriers by allowing users to speak naturally in their preferred language while their conversation partner hears real-time translations in theirs.
 
 ## Current State
-**Phase**: MVP Complete ✅
+**Phase**: MVP Complete with Real-Time Interim Transcription ✅
 
 ### Completed Features
 - ✅ Data schemas and TypeScript interfaces defined
@@ -29,6 +29,12 @@ Break language barriers by allowing users to speak naturally in their preferred 
 - ✅ WebSocket server for real-time communication
 - ✅ Azure Speech-to-Text integration for voice transcription
 - ✅ Azure Translator API integration for text translation
+- ✅ **Hybrid Real-Time Transcription System** (NEW):
+  - Interim transcription display (300ms throttled updates)
+  - Live visual feedback as users speak
+  - Final translation + TTS on complete phrases
+  - Distinguishable UI for interim (dashed border, italic) vs final messages
+  - Optimized API costs (no translation for interim results)
 - ✅ Connection and session management
 - ✅ End-to-end testing with successful test results
 - ✅ Architect review passed
@@ -52,6 +58,35 @@ The application is ready for deployment with the following notes:
 - Recommended: Document operational runbook for environment variables and Azure service management
 
 ## Recent Changes
+**Date**: 2025-10-28
+
+### Task 4: Hybrid Real-Time Transcription Implementation (Complete)
+Implemented a hybrid approach that provides instant visual feedback while maintaining translation quality:
+
+**Architecture:**
+- **Interim Results**: Azure Speech SDK `recognizing` events capture partial transcriptions every 300ms
+- **Final Results**: Azure Speech SDK `recognized` events trigger translation and TTS
+- **Cost Optimization**: Interim transcriptions bypass translation API to reduce costs
+- **Visual Distinction**: Interim text shown with dashed border, italic style, and "Transcribing..." indicator
+
+**Implementation Details:**
+- Added `interim` boolean flag to transcription message schema
+- Throttled interim updates in Room.tsx using `lastInterimSentRef` (300ms intervals)
+- Server broadcasts interim transcriptions directly without translation
+- State management clears interim text when final translation arrives
+- TranscriptionPanel displays interim with animated pulse indicator
+
+**Benefits:**
+- ✅ Users see immediate visual feedback while speaking
+- ✅ Translation quality remains high (complete sentences only)
+- ✅ TTS playback stays smooth (no choppy corrections)
+- ✅ Reduced API costs (fewer translation calls)
+- ✅ Better perceived latency for long continuous speech
+
+**Architect Review**: Passed - Implementation follows hybrid approach correctly, throttling is efficient, no race conditions observed.
+
+---
+
 **Date**: 2025-10-26
 
 ### Task 1: Schema & Frontend (Complete)
@@ -127,11 +162,26 @@ The application is ready for deployment with the following notes:
 - `server/routes.ts`: API routes (to be implemented)
 
 ### Design System
-- Primary color: Blue (#3B82F6) for interactive elements
+- Primary color: Indigo/Blue for interactive elements
+- Accent color: Cyan for highlights
+- Background: Dark slate (Aurora Slate palette)
 - Font: Inter for all text
 - Spacing: Consistent 4px, 8px, 16px units
 - Components: Using Shadcn UI with custom theming
 - Responsive: Mobile-first design with breakpoints at 768px and 1024px
+
+### Real-Time Transcription Flow
+1. User speaks → Azure Speech SDK `recognizing` event fires (~100ms)
+2. Client throttles updates to 300ms intervals
+3. Interim text sent via WebSocket with `interim: true` flag
+4. Server broadcasts interim directly to both users (no translation)
+5. UI displays interim with dashed border and "Transcribing..." indicator
+6. User pauses → Azure Speech SDK `recognized` event fires
+7. Final text sent via WebSocket with `interim: false` flag
+8. Server translates text using Azure Translator API
+9. Server broadcasts translation to both users
+10. Client plays TTS audio and clears interim text
+11. Final message added to conversation history
 
 ## User Preferences
 None specified yet.
@@ -143,13 +193,12 @@ Required secrets (already configured):
 - `AZURE_TRANSLATOR_KEY`: Azure Translator API key
 - `AZURE_TRANSLATOR_REGION`: eastus
 
-## Next Steps
-1. Implement backend API routes for room creation
-2. Set up WebSocket server for real-time communication
-3. Integrate Azure Speech-to-Text for voice recognition
-4. Integrate Azure Translator for text translation
-5. Implement Text-to-Speech for audio playback
-6. Connect frontend to backend with error handling
-7. Test complete user journey
-8. Get architect review
-9. Run end-to-end tests
+## Potential Future Enhancements
+1. Add lightweight analytics/logging for interim vs final throughput
+2. Monitor Azure usage/quotas during continuous sessions
+3. Add user preference for interim display on/off
+4. Implement noise cancellation for better transcription accuracy
+5. Add conversation history persistence to database
+6. Implement multi-user rooms (3+ participants)
+7. Add recording and playback features
+8. Implement real-time translation confidence scores
