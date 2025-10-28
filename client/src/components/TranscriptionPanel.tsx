@@ -15,6 +15,7 @@ interface TranscriptionPanelProps {
   isActive: boolean;
   messages: TranscriptionMessage[];
   isSpeaking?: boolean;
+  interimText?: string;
 }
 
 export function TranscriptionPanel({
@@ -22,6 +23,7 @@ export function TranscriptionPanel({
   isActive,
   messages,
   isSpeaking = false,
+  interimText = "",
 }: TranscriptionPanelProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const isUser = title === "You";
@@ -83,7 +85,7 @@ export function TranscriptionPanel({
 
       {/* Messages Area */}
       <ScrollArea className="flex-1 px-6 py-6" ref={scrollRef}>
-        {messages.length === 0 ? (
+        {messages.length === 0 && !interimText ? (
           <div className="flex flex-col items-center justify-center h-full text-center px-4">
             <div className={cn(
               "h-16 w-16 rounded-xl flex items-center justify-center mb-4",
@@ -149,6 +151,32 @@ export function TranscriptionPanel({
                 )}
               </div>
             ))}
+            
+            {/* Interim Text Display */}
+            {interimText && (
+              <div className="space-y-2 animate-in fade-in slide-in-from-bottom-1 duration-200">
+                <div className="flex items-center gap-2">
+                  <div className={cn(
+                    "h-1.5 w-1.5 rounded-full animate-pulse",
+                    isUser ? "bg-primary" : "bg-accent"
+                  )} />
+                  <span className="text-xs text-slate-600 uppercase tracking-wider font-medium flex items-center gap-1">
+                    <Languages className="h-3 w-3 animate-pulse" />
+                    Transcribing...
+                  </span>
+                </div>
+                <div className={cn(
+                  "p-4 rounded-xl border-2 border-dashed",
+                  isUser
+                    ? "bg-primary/5 border-primary/20"
+                    : "bg-accent/5 border-accent/20"
+                )}>
+                  <p className="text-base leading-relaxed text-slate-400 italic">
+                    {interimText}
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
         )}
       </ScrollArea>
