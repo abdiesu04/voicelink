@@ -45,6 +45,8 @@ export default function Room() {
 
   const [myMessages, setMyMessages] = useState<TranscriptionMessage[]>([]);
   const [partnerMessages, setPartnerMessages] = useState<TranscriptionMessage[]>([]);
+  const [myInterimText, setMyInterimText] = useState<string>("");
+  const [partnerInterimText, setPartnerInterimText] = useState<string>("");
 
   const wsRef = useRef<WebSocket | null>(null);
   const recognizerRef = useRef<SpeechSDK.SpeechRecognizer | null>(null);
@@ -152,10 +154,25 @@ export default function Room() {
 
       if (message.type === "transcription") {
         const isOwn = message.speaker === role;
+        
+        // Handle interim transcriptions (partial results)
+        if (message.interim === true) {
+          if (isOwn) {
+            setMyInterimText(message.text);
+          } else {
+            setPartnerInterimText(message.text);
+            setPartnerSpeaking(true);
+          }
+          return;
+        }
+        
+        // Handle final transcriptions
         if (isOwn) {
           setIsSpeaking(false);
+          setMyInterimText(""); // Clear interim text
         } else {
           setPartnerSpeaking(false);
+          setPartnerInterimText(""); // Clear interim text
         }
       }
 
@@ -171,8 +188,10 @@ export default function Room() {
 
         if (isOwn) {
           setMyMessages(prev => [...prev, newMessage]);
+          setMyInterimText(""); // Clear interim when final arrives
         } else {
           setPartnerMessages(prev => [...prev, newMessage]);
+          setPartnerInterimText(""); // Clear interim when final arrives
           speakText(message.translatedText, language, messageId);
         }
       }
@@ -378,12 +397,14 @@ export default function Room() {
               isActive={isSpeaking}
               messages={myMessages}
               isSpeaking={isSpeaking}
+              interimText={myInterimText}
             />
             <TranscriptionPanel
               title="Partner"
               isActive={partnerSpeaking}
               messages={partnerMessages}
               isSpeaking={partnerSpeaking}
+              interimText={partnerInterimText}
             />
           </div>
         </div>
