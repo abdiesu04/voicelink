@@ -132,17 +132,39 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
 
         if (message.type === 'transcription') {
-          const { roomId, text, language } = message;
+          const { roomId, text, language, interim } = message;
           const connection = connections.get(ws);
           
           if (!connection) return;
 
           try {
-            console.log(`[Transcription] Received text: "${text}", language: ${language}`);
-            
             if (!text || text.trim().length === 0) {
               return;
             }
+            
+            // Handle interim transcriptions (partial results)
+            if (interim === true) {
+              console.log(`[Transcription-Interim] Received text: "${text}", language: ${language}`);
+              
+              // Broadcast interim transcription directly without translation
+              const roomClients = roomConnections.get(roomId) || [];
+              roomClients.forEach(client => {
+                if (client.readyState === WebSocket.OPEN) {
+                  client.send(JSON.stringify({
+                    type: 'transcription',
+                    roomId,
+                    text,
+                    speaker: connection.role,
+                    language,
+                    interim: true
+                  }));
+                }
+              });
+              return;
+            }
+            
+            // Handle final transcriptions (recognized speech)
+            console.log(`[Transcription-Final] Received text: "${text}", language: ${language}`);
             
             const room = await storage.getRoom(roomId);
             if (!room) return;
