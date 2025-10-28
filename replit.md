@@ -7,7 +7,7 @@ VoiceLink is a real-time voice translation application that enables two users to
 Break language barriers by allowing users to speak naturally in their preferred language while their conversation partner hears real-time translations in theirs.
 
 ## Current State
-**Phase**: MVP Complete with Real-Time Interim Transcription ✅
+**Phase**: MVP Complete with Real-Time Interim Transcription + Voice Selection ✅
 
 ### Completed Features
 - ✅ Data schemas and TypeScript interfaces defined
@@ -15,6 +15,7 @@ Break language barriers by allowing users to speak naturally in their preferred 
   - Landing page with hero section and feature cards
   - Room creation interface with language selection
   - Room joining interface with language selection
+  - **Voice gender selection (male/female) during room creation/joining** (NEW)
   - Active translation interface with dual-panel layout
   - Language selector with 15+ supported languages
   - Connection status indicators with latency display
@@ -26,10 +27,15 @@ Break language barriers by allowing users to speak naturally in their preferred 
   - Room creation endpoint (POST /api/rooms/create)
   - Room retrieval endpoint (GET /api/rooms/:roomId)
   - In-memory storage for room management
+  - Voice gender preference storage and propagation
 - ✅ WebSocket server for real-time communication
 - ✅ Azure Speech-to-Text integration for voice transcription
 - ✅ Azure Translator API integration for text translation
-- ✅ **Hybrid Real-Time Transcription System** (NEW):
+- ✅ **Azure Text-to-Speech with Gender-Specific Neural Voices** (NEW):
+  - 30 neural voices (15 languages × 2 genders)
+  - High-quality, natural-sounding speech synthesis
+  - User-selectable voice preference (male/female)
+- ✅ **Hybrid Real-Time Transcription System**:
   - Interim transcription display (300ms throttled updates)
   - Live visual feedback as users speak
   - Final translation + TTS on complete phrases
@@ -58,6 +64,54 @@ The application is ready for deployment with the following notes:
 - Recommended: Document operational runbook for environment variables and Azure service management
 
 ## Recent Changes
+**Date**: 2025-10-28
+
+### Task 5: Male/Female Voice Selection (Complete)
+Implemented user-selectable voice gender preference for Text-to-Speech output:
+
+**Features:**
+- **VoiceGenderSelector Component**: Radio button UI with visual distinction (User/UserRound icons)
+- **Room Creation**: Users select their voice gender preference during room setup
+- **Room Joining**: Participants select their voice gender when joining
+- **State Propagation**: Voice gender stored in room data and passed via WebSocket
+- **Azure TTS Integration**: Maps language + gender to specific Azure Neural voices
+
+**Implementation Details:**
+- Updated schema to include `voiceGender` ("male" | "female") for both creator and participant
+- Extended Room interface with `creatorVoiceGender` and `participantVoiceGender` fields
+- Created `getAzureVoiceName()` helper with 15 languages × 2 genders (30 voices)
+- Modified `speakText()` to accept gender parameter and set `speechSynthesisVoiceName`
+- Enhanced WebSocket flow to exchange voice preferences between users
+- Fixed late-joiner scenario: Participant receives creator's voice gender on join
+
+**Supported Azure Neural Voices:**
+- English: GuyNeural (male), JennyNeural (female)
+- Spanish: AlvaroNeural (male), ElviraNeural (female)
+- French: HenriNeural (male), DeniseNeural (female)
+- German: ConradNeural (male), KatjaNeural (female)
+- Italian: DiegoNeural (male), ElsaNeural (female)
+- Portuguese: DuarteNeural (male), RaquelNeural (female)
+- Russian: DmitryNeural (male), SvetlanaNeural (female)
+- Japanese: KeitaNeural (male), NanamiNeural (female)
+- Korean: InJoonNeural (male), SunHiNeural (female)
+- Chinese: YunxiNeural (male), XiaoxiaoNeural (female)
+- Arabic: HamedNeural (male), ZariyahNeural (female)
+- Hindi: MadhurNeural (male), SwaraNeural (female)
+- Dutch: MaartenNeural (male), ColetteNeural (female)
+- Polish: MarekNeural (male), ZofiaNeural (female)
+- Turkish: AhmetNeural (male), EmelNeural (female)
+
+**User Experience:**
+- ✅ Clean, accessible voice selection UI on create/join pages
+- ✅ Voice preference visible in form before room creation
+- ✅ Partner's voice gender automatically detected and used for TTS
+- ✅ Natural-sounding, gender-appropriate voices for all languages
+- ✅ Consistent voice experience throughout conversation
+
+**Architect Review**: Passed - Voice flow propagates correctly, late-joiner edge case handled, all languages covered with valid Azure voice names.
+
+---
+
 **Date**: 2025-10-28
 
 ### Task 4: Hybrid Real-Time Transcription Implementation (Complete)
@@ -180,8 +234,18 @@ Implemented a hybrid approach that provides instant visual feedback while mainta
 7. Final text sent via WebSocket with `interim: false` flag
 8. Server translates text using Azure Translator API
 9. Server broadcasts translation to both users
-10. Client plays TTS audio and clears interim text
+10. Client plays TTS audio using partner's selected voice gender
 11. Final message added to conversation history
+
+### Voice Selection Flow
+1. User creates/joins room → Selects language and voice gender (male/female)
+2. Voice preference stored in room data (creator/participant)
+3. User navigates to room with voiceGender in URL params
+4. WebSocket join message includes voiceGender
+5. When participant joins, both users exchange voice preferences via WebSocket
+6. Room.tsx stores partner's voice gender in state
+7. During translation, TTS uses partner's language + voice gender
+8. Azure Speech SDK synthesizes speech with appropriate Neural voice
 
 ## User Preferences
 None specified yet.

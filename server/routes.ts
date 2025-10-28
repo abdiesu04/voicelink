@@ -134,6 +134,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
               participantVoiceGender: voiceGender 
             });
             
+            // Send creator's info to the participant
+            ws.send(JSON.stringify({
+              type: 'participant-joined',
+              roomId,
+              language: room.creatorLanguage,
+              voiceGender: room.creatorVoiceGender
+            }));
+            
+            // Notify creator that participant joined
             const roomClients = roomConnections.get(roomId) || [];
             roomClients.forEach(client => {
               if (client !== ws && client.readyState === WebSocket.OPEN) {
