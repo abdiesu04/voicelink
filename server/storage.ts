@@ -3,13 +3,15 @@ import { randomUUID } from "crypto";
 export interface Room {
   id: string;
   creatorLanguage: string;
+  creatorVoiceGender: "male" | "female";
   participantLanguage?: string;
+  participantVoiceGender?: "male" | "female";
   createdAt: Date;
   isActive: boolean;
 }
 
 export interface IStorage {
-  createRoom(language: string): Promise<Room>;
+  createRoom(language: string, voiceGender: "male" | "female"): Promise<Room>;
   getRoom(id: string): Promise<Room | undefined>;
   updateRoom(id: string, data: Partial<Room>): Promise<Room | undefined>;
   deleteRoom(id: string): Promise<void>;
@@ -22,11 +24,12 @@ export class MemStorage implements IStorage {
     this.rooms = new Map();
   }
 
-  async createRoom(language: string): Promise<Room> {
+  async createRoom(language: string, voiceGender: "male" | "female"): Promise<Room> {
     const id = randomUUID();
     const room: Room = {
       id,
       creatorLanguage: language,
+      creatorVoiceGender: voiceGender,
       createdAt: new Date(),
       isActive: true,
     };

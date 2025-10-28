@@ -8,6 +8,7 @@ interface RoomConnection {
   ws: WebSocket;
   roomId: string;
   language: string;
+  voiceGender: "male" | "female";
   role: "creator" | "participant";
 }
 
@@ -17,13 +18,17 @@ const roomConnections = new Map<string, WebSocket[]>();
 export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/rooms/create", async (req, res) => {
     try {
-      const { language } = req.body;
+      const { language, voiceGender } = req.body;
       
       if (!language) {
         return res.status(400).json({ error: "Language is required" });
       }
+      
+      if (!voiceGender) {
+        return res.status(400).json({ error: "Voice gender is required" });
+      }
 
-      const room = await storage.createRoom(language);
+      const room = await storage.createRoom(language, voiceGender);
       
       res.json({ roomId: room.id });
     } catch (error) {
@@ -89,12 +94,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const message = JSON.parse(data.toString());
         
         if (message.type === 'join') {
-          const { roomId, language, role } = message;
+          const { roomId, language, voiceGender, role } = message;
           
           if (!language) {
             ws.send(JSON.stringify({
               type: 'error',
               message: 'Language is required'
+            }));
+            return;
+          }
+          
+          if (!voiceGender) {
+            ws.send(JSON.stringify({
+              type: 'error',
+              message: 'Voice gender is required'
             }));
             return;
           }
@@ -108,7 +121,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             return;
           }
 
-          connections.set(ws, { ws, roomId, language, role });
+          connections.set(ws, { ws, roomId, language, voiceGender, role });
           
           if (!roomConnections.has(roomId)) {
             roomConnections.set(roomId, []);
@@ -116,7 +129,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
           roomConnections.get(roomId)?.push(ws);
 
           if (role === 'participant') {
-            await storage.updateRoom(roomId, { participantLanguage: language });
+            await storage.updateRoom(roomId, { 
+              participantLanguage: language,
+              participantVoiceGender: voiceGender 
+            });
             
             const roomClients = roomConnections.get(roomId) || [];
             roomClients.forEach(client => {
@@ -124,7 +140,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
                 client.send(JSON.stringify({
                   type: 'participant-joined',
                   roomId,
-                  language
+                  language,
+                  voiceGender
                 }));
               }
             });
