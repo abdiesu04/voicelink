@@ -71,6 +71,7 @@ export const wsMessageSchema = z.discriminatedUnion("type", [
     text: z.string(),
     speaker: z.enum(["creator", "participant"]),
     language: z.string(),
+    interim: z.boolean().optional(), // true for partial results, false/undefined for final
   }),
   z.object({
     type: z.literal("translation"),
