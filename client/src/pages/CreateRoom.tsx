@@ -1,24 +1,30 @@
 import { useState } from "react";
 import { useLocation } from "wouter";
 import { useMutation } from "@tanstack/react-query";
-import { Loader2, Globe2, ArrowRight, Sparkles } from "lucide-react";
+import { Loader2, Globe2, ArrowRight, Sparkles, Mic } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LanguageSelector } from "@/components/LanguageSelector";
+import { VoiceGenderSelector } from "@/components/VoiceGenderSelector";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
+import type { VoiceGender } from "@shared/schema";
 
 export default function CreateRoom() {
   const [, setLocation] = useLocation();
   const [selectedLanguage, setSelectedLanguage] = useState("en");
+  const [selectedVoiceGender, setSelectedVoiceGender] = useState<VoiceGender>("female");
   const { toast } = useToast();
 
   const createRoomMutation = useMutation({
     mutationFn: async () => {
-      const response = await apiRequest("POST", "/api/rooms/create", { language: selectedLanguage });
+      const response = await apiRequest("POST", "/api/rooms/create", { 
+        language: selectedLanguage,
+        voiceGender: selectedVoiceGender
+      });
       return await response.json();
     },
     onSuccess: (data: any) => {
-      setLocation(`/room/${data.roomId}?role=creator&language=${selectedLanguage}`);
+      setLocation(`/room/${data.roomId}?role=creator&language=${selectedLanguage}&voiceGender=${selectedVoiceGender}`);
     },
     onError: (error: Error) => {
       toast({
@@ -81,6 +87,24 @@ export default function CreateRoom() {
               <LanguageSelector
                 value={selectedLanguage}
                 onValueChange={setSelectedLanguage}
+                disabled={createRoomMutation.isPending}
+              />
+            </div>
+
+            <div className="space-y-4">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center ring-2 ring-primary/30">
+                  <Mic className="h-6 w-6 text-primary" />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold text-white">Voice Preference</h2>
+                  <p className="text-sm text-slate-400">What your partner will hear</p>
+                </div>
+              </div>
+              
+              <VoiceGenderSelector
+                value={selectedVoiceGender}
+                onValueChange={setSelectedVoiceGender}
                 disabled={createRoomMutation.isPending}
               />
             </div>

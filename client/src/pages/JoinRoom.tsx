@@ -1,14 +1,17 @@
 import { useState, useEffect } from "react";
 import { useLocation, useRoute } from "wouter";
-import { Loader2, Users2, ArrowRight, Sparkles, Copy, Check } from "lucide-react";
+import { Loader2, Users2, ArrowRight, Sparkles, Copy, Check, Mic } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LanguageSelector } from "@/components/LanguageSelector";
+import { VoiceGenderSelector } from "@/components/VoiceGenderSelector";
 import { useToast } from "@/hooks/use-toast";
+import type { VoiceGender } from "@shared/schema";
 
 export default function JoinRoom() {
   const [, params] = useRoute("/join/:roomId");
   const [, setLocation] = useLocation();
   const [selectedLanguage, setSelectedLanguage] = useState("en");
+  const [selectedVoiceGender, setSelectedVoiceGender] = useState<VoiceGender>("female");
   const [isJoining, setIsJoining] = useState(false);
   const [copied, setCopied] = useState(false);
   const { toast } = useToast();
@@ -38,7 +41,7 @@ export default function JoinRoom() {
 
     setIsJoining(true);
     setTimeout(() => {
-      setLocation(`/room/${roomId}?role=participant&language=${selectedLanguage}`);
+      setLocation(`/room/${roomId}?role=participant&language=${selectedLanguage}&voiceGender=${selectedVoiceGender}`);
     }, 500);
   };
 
@@ -119,6 +122,25 @@ export default function JoinRoom() {
               <LanguageSelector
                 value={selectedLanguage}
                 onValueChange={setSelectedLanguage}
+                disabled={isJoining}
+              />
+            </div>
+
+            {/* Voice Gender Selection */}
+            <div className="space-y-4">
+              <div className="flex items-center gap-3">
+                <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-accent/20 to-accent/10 flex items-center justify-center ring-2 ring-accent/30">
+                  <Mic className="h-6 w-6 text-accent" />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold text-white">Voice Preference</h2>
+                  <p className="text-sm text-slate-400">What your partner will hear</p>
+                </div>
+              </div>
+              
+              <VoiceGenderSelector
+                value={selectedVoiceGender}
+                onValueChange={setSelectedVoiceGender}
                 disabled={isJoining}
               />
             </div>

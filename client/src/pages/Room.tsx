@@ -32,6 +32,7 @@ export default function Room() {
   const urlParams = new URLSearchParams(window.location.search);
   const role = urlParams.get("role") || "creator";
   const language = urlParams.get("language") || "en";
+  const voiceGender = (urlParams.get("voiceGender") || "female") as "male" | "female";
 
   const [connectionStatus, setConnectionStatus] = useState<"connected" | "connecting" | "disconnected">("connecting");
   const [isMuted, setIsMuted] = useState(true);
@@ -41,6 +42,7 @@ export default function Room() {
   const [copied, setCopied] = useState(false);
   const [partnerConnected, setPartnerConnected] = useState(false);
   const [partnerLanguage, setPartnerLanguage] = useState<string>("");
+  const [partnerVoiceGender, setPartnerVoiceGender] = useState<"male" | "female">("female");
   const [conversationStarted, setConversationStarted] = useState(false);
 
   const [myMessages, setMyMessages] = useState<TranscriptionMessage[]>([]);
@@ -64,6 +66,30 @@ export default function Room() {
     'nl': 'nl-NL', 'pl': 'pl-PL', 'tr': 'tr-TR',
   };
 
+  // Azure TTS voice names for each language and gender
+  const getAzureVoiceName = (languageCode: string, gender: "male" | "female"): string => {
+    const voiceMap: Record<string, { male: string, female: string }> = {
+      'en': { male: 'en-US-GuyNeural', female: 'en-US-JennyNeural' },
+      'es': { male: 'es-ES-AlvaroNeural', female: 'es-ES-ElviraNeural' },
+      'fr': { male: 'fr-FR-HenriNeural', female: 'fr-FR-DeniseNeural' },
+      'de': { male: 'de-DE-ConradNeural', female: 'de-DE-KatjaNeural' },
+      'it': { male: 'it-IT-DiegoNeural', female: 'it-IT-ElsaNeural' },
+      'pt': { male: 'pt-PT-DuarteNeural', female: 'pt-PT-RaquelNeural' },
+      'ru': { male: 'ru-RU-DmitryNeural', female: 'ru-RU-SvetlanaNeural' },
+      'ja': { male: 'ja-JP-KeitaNeural', female: 'ja-JP-NanamiNeural' },
+      'ko': { male: 'ko-KR-InJoonNeural', female: 'ko-KR-SunHiNeural' },
+      'zh': { male: 'zh-CN-YunxiNeural', female: 'zh-CN-XiaoxiaoNeural' },
+      'ar': { male: 'ar-SA-HamedNeural', female: 'ar-SA-ZariyahNeural' },
+      'hi': { male: 'hi-IN-MadhurNeural', female: 'hi-IN-SwaraNeural' },
+      'nl': { male: 'nl-NL-MaartenNeural', female: 'nl-NL-ColetteNeural' },
+      'pl': { male: 'pl-PL-MarekNeural', female: 'pl-PL-ZofiaNeural' },
+      'tr': { male: 'tr-TR-AhmetNeural', female: 'tr-TR-EmelNeural' },
+    };
+    
+    const voices = voiceMap[languageCode] || voiceMap['en'];
+    return voices[gender];
+  };
+
   const getAzureToken = async () => {
     if (azureTokenRef.current) {
       return azureTokenRef.current;
@@ -80,7 +106,7 @@ export default function Room() {
     return tokenData;
   };
 
-  const speakText = async (text: string, languageCode: string, messageId: string) => {
+  const speakText = async (text: string, languageCode: string, gender: "male" | "female", messageId: string) => {
     if (spokenMessageIdsRef.current.has(messageId)) {
       return;
     }
@@ -92,6 +118,7 @@ export default function Room() {
       
       const speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(token, region);
       speechConfig.speechSynthesisLanguage = azureLanguageMap[languageCode] || 'en-US';
+      speechConfig.speechSynthesisVoiceName = getAzureVoiceName(languageCode, gender);
       
       const audioConfig = SpeechSDK.AudioConfig.fromDefaultSpeakerOutput();
       const synthesizer = new SpeechSDK.SpeechSynthesizer(speechConfig, audioConfig);
@@ -130,6 +157,7 @@ export default function Room() {
         type: "join",
         roomId,
         language,
+        voiceGender,
         role,
       }));
 
@@ -145,6 +173,7 @@ export default function Room() {
       if (message.type === "participant-joined") {
         setPartnerConnected(true);
         setPartnerLanguage(message.language);
+        setPartnerVoiceGender(message.voiceGender);
         setShowShareDialog(false);
         toast({
           title: "Partner Joined",
@@ -192,7 +221,7 @@ export default function Room() {
         } else {
           setPartnerMessages(prev => [...prev, newMessage]);
           setPartnerInterimText(""); // Clear interim when final arrives
-          speakText(message.translatedText, language, messageId);
+          speakText(message.translatedText, language, voiceGender, messageId);
         }
       }
 
@@ -234,7 +263,7 @@ export default function Room() {
         ws.close();
       }
     };
-  }, [roomId, language, role, toast, setLocation]);
+  }, [roomId, language, voiceGender, role, toast, setLocation]);
 
   const startConversation = async () => {
     setConversationStarted(true);

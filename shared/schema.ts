@@ -21,17 +21,24 @@ export const SUPPORTED_LANGUAGES = [
 
 export type LanguageCode = typeof SUPPORTED_LANGUAGES[number]["code"];
 
+// Voice gender options
+export const VOICE_GENDERS = ["male", "female"] as const;
+export type VoiceGender = typeof VOICE_GENDERS[number];
+
 // Room schema
 export const roomSchema = z.object({
   id: z.string(),
   creatorLanguage: z.string(),
+  creatorVoiceGender: z.enum(VOICE_GENDERS),
   participantLanguage: z.string().optional(),
+  participantVoiceGender: z.enum(VOICE_GENDERS).optional(),
   createdAt: z.date(),
   isActive: z.boolean(),
 });
 
 export const createRoomSchema = z.object({
   language: z.string(),
+  voiceGender: z.enum(VOICE_GENDERS),
 });
 
 export type Room = z.infer<typeof roomSchema>;
@@ -57,6 +64,7 @@ export const wsMessageSchema = z.discriminatedUnion("type", [
     type: z.literal("join"),
     roomId: z.string(),
     language: z.string(),
+    voiceGender: z.enum(VOICE_GENDERS),
     role: z.enum(["creator", "participant"]),
   }),
   z.object({
@@ -92,6 +100,7 @@ export const wsMessageSchema = z.discriminatedUnion("type", [
     type: z.literal("participant-joined"),
     roomId: z.string(),
     language: z.string(),
+    voiceGender: z.enum(VOICE_GENDERS),
   }),
   z.object({
     type: z.literal("participant-left"),
