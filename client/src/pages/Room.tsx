@@ -50,6 +50,7 @@ export default function Room() {
   const recognizerRef = useRef<SpeechSDK.SpeechRecognizer | null>(null);
   const azureTokenRef = useRef<{ token: string; region: string } | null>(null);
   const spokenMessageIdsRef = useRef<Set<string>>(new Set());
+  const lastInterimSentRef = useRef<number>(0);
 
   const myLanguage = SUPPORTED_LANGUAGES.find(l => l.code === language);
   const theirLanguage = SUPPORTED_LANGUAGES.find(l => l.code === partnerLanguage);
@@ -230,6 +231,22 @@ export default function Room() {
       recognizer.recognizing = (s, e) => {
         if (e.result.text) {
           setIsSpeaking(true);
+          
+          // Throttle interim updates to every 300ms
+          const now = Date.now();
+          if (now - lastInterimSentRef.current >= 300) {
+            lastInterimSentRef.current = now;
+            
+            if (wsRef.current?.readyState === WebSocket.OPEN) {
+              wsRef.current.send(JSON.stringify({
+                type: "transcription",
+                roomId,
+                text: e.result.text,
+                language,
+                interim: true, // Mark as interim result
+              }));
+            }
+          }
         }
       };
       
@@ -243,6 +260,7 @@ export default function Room() {
               roomId,
               text: e.result.text,
               language,
+              interim: false, // Mark as final result
             }));
           }
         }
