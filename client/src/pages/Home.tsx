@@ -1,108 +1,163 @@
 import { Link } from "wouter";
-import { Languages, Zap, Lock, Link as LinkIcon, Globe, Mic, CheckCircle, Sparkles, MessageSquare, ArrowRight } from "lucide-react";
+import { Languages, Zap, Lock, Link as LinkIcon, Globe, Mic, CheckCircle, Sparkles, MessageSquare, ArrowRight, Volume2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 
 export default function Home() {
   return (
     <div className="min-h-screen">
-      {/* Hero Section - Simplistic Modern Design */}
-      <section className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-b from-slate-950 to-slate-900">
-        {/* Subtle accent glow */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-primary/5 rounded-full blur-3xl" />
+      {/* Hero Section - Modern Engaging Design */}
+      <section className="relative min-h-screen flex items-center overflow-hidden">
+        {/* Dynamic Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950" />
+        <div className="absolute inset-0">
+          <div className="absolute top-0 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-[128px] animate-pulse" />
+          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-accent/20 rounded-full blur-[128px] animate-pulse" style={{ animationDelay: '2s' }} />
+        </div>
         
-        <div className="container mx-auto px-6 md:px-12 relative z-10 max-w-6xl">
-          {/* Centered Content */}
-          <div className="text-center space-y-8 py-20 animate-in fade-in duration-1000">
-            {/* Main Heading */}
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight">
-              <span className="block text-white mb-3">Talk Freely</span>
-              <span className="block bg-gradient-to-r from-primary via-purple-400 to-accent bg-clip-text text-transparent">
-                Understand Perfectly
-              </span>
-            </h1>
-            
-            {/* Subheading */}
-            <p className="text-xl md:text-2xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
-              Real-time voice translation powered by AI. Speak your language, they hear theirs.
-            </p>
-            
-            {/* CTA Button */}
-            <div className="flex flex-col sm:flex-row gap-4 justify-center pt-6">
-              <Link href="/create">
-                <Button 
-                  size="lg" 
-                  className="text-base px-8 h-14 bg-primary hover:bg-primary/90 shadow-lg shadow-primary/20 group" 
-                  data-testid="button-create-room"
-                >
-                  <Mic className="mr-2 h-5 w-5 group-hover:scale-110 transition-transform" />
-                  Start Conversation
-                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                </Button>
-              </Link>
-            </div>
-            
-            {/* Simple Stats */}
-            <div className="flex flex-wrap items-center justify-center gap-8 md:gap-12 pt-12">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-white mb-1">15+</div>
-                <div className="text-sm text-slate-500">Languages</div>
+        <div className="container mx-auto px-6 md:px-12 relative z-10">
+          <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center py-20">
+            {/* Left: Content */}
+            <div className="space-y-8">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 backdrop-blur-sm">
+                <Sparkles className="h-4 w-4 text-primary" />
+                <span className="text-sm text-primary font-medium">Powered by Azure AI</span>
               </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-white mb-1">&lt;100ms</div>
-                <div className="text-sm text-slate-500">Latency</div>
+              
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
+                <span className="block text-white">Speak Any</span>
+                <span className="block text-white">Language,</span>
+                <span className="block mt-2 bg-gradient-to-r from-primary via-purple-400 to-accent bg-clip-text text-transparent">
+                  Connect Everyone
+                </span>
+              </h1>
+              
+              <p className="text-xl text-slate-300 max-w-lg leading-relaxed">
+                Break down language barriers with AI-powered real-time voice translation. 
+                Natural conversations across 15+ languages, instantly.
+              </p>
+              
+              <div className="flex flex-col sm:flex-row gap-4 pt-4">
+                <Link href="/create">
+                  <Button 
+                    size="lg" 
+                    className="text-base px-8 h-14 bg-primary hover:bg-primary/90 shadow-xl shadow-primary/25 group relative overflow-hidden" 
+                    data-testid="button-create-room"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000" />
+                    <Mic className="mr-2 h-5 w-5 relative z-10" />
+                    <span className="relative z-10">Start Now</span>
+                    <ArrowRight className="ml-2 h-5 w-5 relative z-10 group-hover:translate-x-1 transition-transform" />
+                  </Button>
+                </Link>
+                <a href="#how-it-works">
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="text-base px-8 h-14 border-slate-700 bg-slate-800/50 hover:bg-slate-800 text-white backdrop-blur-sm"
+                    data-testid="button-learn-more"
+                  >
+                    How It Works
+                  </Button>
+                </a>
               </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-white mb-1">AI Powered</div>
-                <div className="text-sm text-slate-500">Azure Speech</div>
+
+              <div className="grid grid-cols-3 gap-8 pt-8">
+                <div>
+                  <div className="text-3xl font-bold text-white">15+</div>
+                  <div className="text-sm text-slate-400 mt-1">Languages</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-bold text-white">&lt;100ms</div>
+                  <div className="text-sm text-slate-400 mt-1">Latency</div>
+                </div>
+                <div>
+                  <div className="text-3xl font-bold text-white">Live</div>
+                  <div className="text-sm text-slate-400 mt-1">Translation</div>
+                </div>
               </div>
             </div>
 
-            {/* Visual Demo - Simplified */}
-            <div className="max-w-2xl mx-auto pt-12">
-              <div className="relative bg-slate-800/40 backdrop-blur-sm border border-slate-700/50 rounded-2xl p-8 md:p-12">
-                {/* Subtle glow */}
-                <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-accent/5 rounded-2xl" />
-                
-                <div className="relative space-y-6">
-                  {/* Speaker 1 */}
-                  <div className="flex items-center gap-4 p-4 bg-slate-800/60 rounded-xl">
-                    <div className="h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center ring-1 ring-primary/20">
-                      <img 
-                        src="https://flagcdn.com/w80/us.png"
-                        width="28"
-                        height="21"
-                        alt="US"
-                        className="rounded"
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <div className="text-white font-medium">Hello, how are you?</div>
-                      <div className="text-xs text-slate-500">English</div>
+            {/* Right: Interactive Demo */}
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-to-tr from-primary/30 to-accent/30 rounded-3xl blur-3xl opacity-50" />
+              
+              <div className="relative bg-slate-900/80 backdrop-blur-xl border border-slate-700/50 rounded-3xl p-8 shadow-2xl">
+                <div className="space-y-6">
+                  {/* User 1 - Speaking */}
+                  <div className="relative group">
+                    <div className="absolute -inset-1 bg-gradient-to-r from-primary/50 to-purple-500/50 rounded-2xl blur opacity-25 group-hover:opacity-40 transition" />
+                    <div className="relative flex items-start gap-4 p-5 bg-slate-800/80 rounded-2xl">
+                      <div className="relative flex-shrink-0">
+                        <div className="h-14 w-14 rounded-full bg-gradient-to-br from-primary/30 to-primary/10 flex items-center justify-center ring-2 ring-primary/40">
+                          <img 
+                            src="https://flagcdn.com/w80/us.png"
+                            width="32"
+                            height="24"
+                            alt="US"
+                            className="rounded"
+                          />
+                        </div>
+                        <div className="absolute -bottom-1 -right-1">
+                          <div className="h-4 w-4 bg-success rounded-full border-2 border-slate-900 animate-pulse" />
+                        </div>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-sm font-medium text-white">You</span>
+                          <span className="text-xs text-slate-500">English</span>
+                        </div>
+                        <p className="text-white font-medium">"Hello! How are you today?"</p>
+                        <div className="flex gap-1 mt-3">
+                          <div className="h-1 w-12 bg-primary rounded-full animate-pulse" />
+                          <div className="h-1 w-8 bg-primary/60 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }} />
+                          <div className="h-1 w-6 bg-primary/30 rounded-full animate-pulse" style={{ animationDelay: '0.4s' }} />
+                        </div>
+                      </div>
                     </div>
                   </div>
 
-                  {/* Translation Icon */}
-                  <div className="flex justify-center">
-                    <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center">
-                      <Languages className="h-4 w-4 text-primary" />
+                  {/* Translation Flow */}
+                  <div className="flex items-center justify-center gap-3">
+                    <div className="h-px flex-1 bg-gradient-to-r from-transparent via-slate-600 to-transparent" />
+                    <div className="relative">
+                      <div className="absolute inset-0 bg-gradient-to-r from-primary to-accent rounded-full blur-lg opacity-50 animate-pulse" />
+                      <div className="relative h-12 w-12 rounded-full bg-gradient-to-br from-primary/20 to-accent/20 backdrop-blur-sm flex items-center justify-center ring-1 ring-white/10">
+                        <Languages className="h-6 w-6 text-white" />
+                      </div>
                     </div>
+                    <div className="h-px flex-1 bg-gradient-to-r from-transparent via-slate-600 to-transparent" />
                   </div>
 
-                  {/* Speaker 2 */}
-                  <div className="flex items-center gap-4 p-4 bg-slate-800/60 rounded-xl">
-                    <div className="h-12 w-12 rounded-full bg-accent/10 flex items-center justify-center ring-1 ring-accent/20">
-                      <img 
-                        src="https://flagcdn.com/w80/es.png"
-                        width="28"
-                        height="21"
-                        alt="ES"
-                        className="rounded"
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <div className="text-white font-medium">Hola, ¿cómo estás?</div>
-                      <div className="text-xs text-slate-500">Español</div>
+                  {/* User 2 - Listening */}
+                  <div className="relative group">
+                    <div className="absolute -inset-1 bg-gradient-to-r from-accent/50 to-cyan-500/50 rounded-2xl blur opacity-25 group-hover:opacity-40 transition" />
+                    <div className="relative flex items-start gap-4 p-5 bg-slate-800/80 rounded-2xl">
+                      <div className="relative flex-shrink-0">
+                        <div className="h-14 w-14 rounded-full bg-gradient-to-br from-accent/30 to-accent/10 flex items-center justify-center ring-2 ring-accent/40">
+                          <img 
+                            src="https://flagcdn.com/w80/es.png"
+                            width="32"
+                            height="24"
+                            alt="ES"
+                            className="rounded"
+                          />
+                        </div>
+                        <div className="absolute -bottom-1 -right-1">
+                          <div className="h-4 w-4 bg-success rounded-full border-2 border-slate-900" />
+                        </div>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 mb-2">
+                          <span className="text-sm font-medium text-white">Partner</span>
+                          <span className="text-xs text-slate-500">Español</span>
+                        </div>
+                        <p className="text-white font-medium">"¡Hola! ¿Cómo estás hoy?"</p>
+                        <div className="flex items-center gap-2 mt-3">
+                          <Volume2 className="h-4 w-4 text-accent" />
+                          <span className="text-xs text-accent font-medium">Playing...</span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
