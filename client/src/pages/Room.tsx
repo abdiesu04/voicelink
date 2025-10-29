@@ -520,10 +520,10 @@ export default function Room() {
               <Button
                 onClick={handleCopyLink}
                 variant="outline"
-                className="shrink-0 border-slate-700 hover:bg-slate-800"
+                className="shrink-0 border-slate-700 hover:bg-slate-800 text-white"
                 data-testid="button-copy-link"
               >
-                {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+                {copied ? <Check className="h-4 w-4 text-white" /> : <Copy className="h-4 w-4 text-white" />}
               </Button>
             </div>
             <Button
