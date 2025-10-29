@@ -270,7 +270,7 @@ export default function Room() {
         } else {
           setPartnerMessages(prev => [...prev, newMessage]);
           setPartnerInterimText(""); // Clear interim when final arrives
-          speakText(message.translatedText, language, voiceGender, messageId);
+          speakText(message.translatedText, language, partnerVoiceGender, messageId);
         }
       }
 
