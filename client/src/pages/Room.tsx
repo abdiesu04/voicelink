@@ -56,7 +56,8 @@ export default function Room() {
   const spokenMessageIdsRef = useRef<Set<string>>(new Set());
   const lastInterimSentRef = useRef<number>(0);
   const activeSynthesizerRef = useRef<SpeechSDK.SpeechSynthesizer | null>(null);
-  const ttsGenerationRef = useRef<number>(0);
+  const ttsQueueRef = useRef<Array<{ text: string; languageCode: string; gender: "male" | "female"; messageId: string }>>([]);
+  const isProcessingTTSRef = useRef<boolean>(false);
 
   const myLanguage = SUPPORTED_LANGUAGES.find(l => l.code === language);
   const theirLanguage = SUPPORTED_LANGUAGES.find(l => l.code === partnerLanguage);
@@ -108,79 +109,85 @@ export default function Room() {
     return tokenData;
   };
 
-  const speakText = async (text: string, languageCode: string, gender: "male" | "female", messageId: string) => {
+  // Process the TTS queue - plays one item at a time
+  const processTTSQueue = async () => {
+    // If already processing or queue is empty, do nothing
+    if (isProcessingTTSRef.current || ttsQueueRef.current.length === 0) {
+      return;
+    }
+
+    isProcessingTTSRef.current = true;
+
+    while (ttsQueueRef.current.length > 0) {
+      const item = ttsQueueRef.current.shift()!;
+      
+      // Skip if already spoken
+      if (spokenMessageIdsRef.current.has(item.messageId)) {
+        continue;
+      }
+
+      try {
+        console.log('[TTS Queue] Playing:', item.text.substring(0, 50));
+
+        const { token, region } = await getAzureToken();
+        
+        const speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(token, region);
+        speechConfig.speechSynthesisLanguage = azureLanguageMap[item.languageCode] || 'en-US';
+        speechConfig.speechSynthesisVoiceName = getAzureVoiceName(item.languageCode, item.gender);
+        
+        const audioConfig = SpeechSDK.AudioConfig.fromDefaultSpeakerOutput();
+        const synthesizer = new SpeechSDK.SpeechSynthesizer(speechConfig, audioConfig);
+        
+        // Store the active synthesizer
+        activeSynthesizerRef.current = synthesizer;
+        
+        // Wait for the audio to complete before processing next item
+        await new Promise<void>((resolve, reject) => {
+          synthesizer.speakTextAsync(
+            item.text,
+            (result) => {
+              if (result.reason === SpeechSDK.ResultReason.SynthesizingAudioCompleted) {
+                console.log('[TTS Queue] Audio played successfully');
+                // Mark as spoken only after successful playback
+                spokenMessageIdsRef.current.add(item.messageId);
+              }
+              synthesizer.close();
+              if (activeSynthesizerRef.current === synthesizer) {
+                activeSynthesizerRef.current = null;
+              }
+              resolve();
+            },
+            (error) => {
+              console.error('[TTS Queue] Error:', error);
+              synthesizer.close();
+              if (activeSynthesizerRef.current === synthesizer) {
+                activeSynthesizerRef.current = null;
+              }
+              reject(error);
+            }
+          );
+        });
+      } catch (error) {
+        console.error('[TTS Queue] Failed to speak text:', error);
+      }
+    }
+
+    isProcessingTTSRef.current = false;
+  };
+
+  // Add translation to queue and start processing
+  const speakText = (text: string, languageCode: string, gender: "male" | "female", messageId: string) => {
     if (spokenMessageIdsRef.current.has(messageId)) {
       return;
     }
+
+    console.log('[TTS Queue] Adding to queue (queue size: ' + ttsQueueRef.current.length + '):', text.substring(0, 50));
     
-    // Increment generation to invalidate any in-flight older requests
-    ttsGenerationRef.current += 1;
-    const currentGeneration = ttsGenerationRef.current;
+    // Add translation to queue - all translations will play in order
+    ttsQueueRef.current.push({ text, languageCode, gender, messageId });
     
-    // Stop any currently playing audio to prevent overlap
-    if (activeSynthesizerRef.current) {
-      try {
-        console.log('[TTS] Stopping previous audio to play new translation');
-        activeSynthesizerRef.current.close();
-        activeSynthesizerRef.current = null;
-      } catch (error) {
-        console.error('[TTS] Error stopping previous audio:', error);
-      }
-    }
-    
-    try {
-      const { token, region } = await getAzureToken();
-      
-      // Check if this request is still the latest after async operation
-      if (currentGeneration !== ttsGenerationRef.current) {
-        console.log('[TTS] Skipping outdated TTS request (newer translation arrived)');
-        return;
-      }
-      
-      const speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(token, region);
-      speechConfig.speechSynthesisLanguage = azureLanguageMap[languageCode] || 'en-US';
-      speechConfig.speechSynthesisVoiceName = getAzureVoiceName(languageCode, gender);
-      
-      const audioConfig = SpeechSDK.AudioConfig.fromDefaultSpeakerOutput();
-      const synthesizer = new SpeechSDK.SpeechSynthesizer(speechConfig, audioConfig);
-      
-      // Final check before starting playback
-      if (currentGeneration !== ttsGenerationRef.current) {
-        console.log('[TTS] Skipping outdated TTS request before playback (newer translation arrived)');
-        synthesizer.close();
-        return;
-      }
-      
-      // Mark as spoken only when we're actually about to play it
-      spokenMessageIdsRef.current.add(messageId);
-      
-      // Store the active synthesizer
-      activeSynthesizerRef.current = synthesizer;
-      
-      synthesizer.speakTextAsync(
-        text,
-        (result) => {
-          if (result.reason === SpeechSDK.ResultReason.SynthesizingAudioCompleted) {
-            console.log('[TTS] Audio played successfully');
-          }
-          synthesizer.close();
-          // Clear the active synthesizer when done (only if it's still this one)
-          if (activeSynthesizerRef.current === synthesizer) {
-            activeSynthesizerRef.current = null;
-          }
-        },
-        (error) => {
-          console.error('[TTS] Error:', error);
-          synthesizer.close();
-          // Clear the active synthesizer on error (only if it's still this one)
-          if (activeSynthesizerRef.current === synthesizer) {
-            activeSynthesizerRef.current = null;
-          }
-        }
-      );
-    } catch (error) {
-      console.error('[TTS] Failed to speak text:', error);
-    }
+    // Start processing the queue if not already processing
+    processTTSQueue();
   };
 
   useEffect(() => {
@@ -301,14 +308,17 @@ export default function Room() {
     wsRef.current = ws;
 
     return () => {
-      // Stop any playing audio when leaving the room
+      // Clear the TTS queue and stop any playing audio when leaving the room
+      ttsQueueRef.current = [];
+      isProcessingTTSRef.current = false;
+      
       if (activeSynthesizerRef.current) {
         try {
-          console.log('[TTS] Stopping audio on component unmount');
+          console.log('[TTS Queue] Stopping audio on component unmount');
           activeSynthesizerRef.current.close();
           activeSynthesizerRef.current = null;
         } catch (error) {
-          console.error('[TTS] Error stopping audio on unmount:', error);
+          console.error('[TTS Queue] Error stopping audio on unmount:', error);
         }
       }
       
