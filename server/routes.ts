@@ -88,6 +88,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   wss.on('connection', (ws: WebSocket) => {
     console.log('New WebSocket connection');
+    
+    // Keep connection alive with ping/pong every 30 seconds
+    let isAlive = true;
+    ws.on('pong', () => {
+      isAlive = true;
+    });
+
+    const pingInterval = setInterval(() => {
+      if (!isAlive) {
+        console.log('WebSocket connection terminated - no pong received');
+        clearInterval(pingInterval);
+        return ws.terminate();
+      }
+      isAlive = false;
+      ws.ping();
+    }, 30000); // 30 seconds
 
     ws.on('message', async (data: Buffer) => {
       try {
@@ -242,6 +258,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     });
 
     ws.on('close', () => {
+      console.log('WebSocket connection closed');
+      clearInterval(pingInterval);
+      
       const connection = connections.get(ws);
       if (connection) {
         const { roomId } = connection;
@@ -270,6 +289,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
         connections.delete(ws);
       }
+    });
+
+    ws.on('error', (error) => {
+      console.error('WebSocket error:', error);
+      clearInterval(pingInterval);
     });
   });
 
