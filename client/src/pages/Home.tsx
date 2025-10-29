@@ -19,7 +19,7 @@ export default function Home() {
           <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 items-center py-20">
             {/* Left: Content */}
             <div className="space-y-8">
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
                 <span className="block text-white">Speak Any</span>
                 <span className="block text-white">Language,</span>
                 <span className="block mt-2 bg-gradient-to-r from-primary via-purple-400 to-accent bg-clip-text text-transparent">
@@ -27,7 +27,7 @@ export default function Home() {
                 </span>
               </h1>
               
-              <p className="text-xl text-slate-300 max-w-lg leading-relaxed">
+              <p className="text-lg text-slate-300 max-w-lg leading-relaxed">
                 Break down language barriers with AI-powered real-time voice translation. 
                 Natural conversations across 15+ languages, instantly.
               </p>
@@ -59,15 +59,15 @@ export default function Home() {
 
               <div className="grid grid-cols-3 gap-8 pt-8">
                 <div>
-                  <div className="text-3xl font-bold text-white">15+</div>
+                  <div className="text-2xl font-bold text-white">15+</div>
                   <div className="text-sm text-slate-400 mt-1">Languages</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-white">&lt;100ms</div>
+                  <div className="text-2xl font-bold text-white">&lt;100ms</div>
                   <div className="text-sm text-slate-400 mt-1">Latency</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold text-white">Live</div>
+                  <div className="text-2xl font-bold text-white">Live</div>
                   <div className="text-sm text-slate-400 mt-1">Translation</div>
                 </div>
               </div>
