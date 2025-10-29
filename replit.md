@@ -19,7 +19,7 @@ The application features a dark slate background with Indigo/Blue for interactiv
 - **Backend**: Express.js server, WebSocket server (using `ws` package), and in-memory storage for room management.
 - **Real-Time Transcription**: A hybrid system uses Azure Speech SDK's `recognizing` events for throttled (300ms) interim visual feedback (without translation) and `recognized` events for final translation and Text-to-Speech (TTS). This optimizes API costs and user experience.
 - **Voice Selection**: Users select a preferred voice gender (male/female) during room creation/joining. This preference is stored, propagated via WebSockets, and used to select gender-specific Azure Neural Voices for TTS (30 voices across 15 languages).
-- **Audio Overlap Prevention**: Implemented a queue-based TTS system that ensures only one voice plays at a time. When a new translation arrives, it immediately stops the current audio, clears the queue, and plays the latest translation. The queue processor uses async/await to guarantee sequential playback, completely preventing audio overlap.
+- **Audio Overlap Prevention**: Implemented a queue-based TTS system that ensures only one voice plays at a time. All translations are added to a FIFO queue and processed sequentially. The queue processor uses async/await to wait for each audio clip to complete before playing the next, guaranteeing no audio overlap. Messages are only marked as "spoken" after successful playback. The system uses `isProcessingTTSRef` to prevent concurrent queue processing and ensures clean cleanup on component unmount.
 
 ### Feature Specifications
 - **Core Functionality**: Real-time voice translation between two users speaking different languages.
