@@ -30,9 +30,13 @@ export function TranscriptionPanel({
 
   useEffect(() => {
     if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+      // ScrollArea creates a viewport div that is the actual scrollable container
+      const viewport = scrollRef.current.querySelector('[data-radix-scroll-area-viewport]') as HTMLDivElement;
+      if (viewport) {
+        viewport.scrollTop = viewport.scrollHeight;
+      }
     }
-  }, [messages]);
+  }, [messages, interimText]);
 
   return (
     <div
