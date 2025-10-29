@@ -135,30 +135,62 @@ export default function Room() {
         speechConfig.speechSynthesisLanguage = azureLanguageMap[item.languageCode] || 'en-US';
         speechConfig.speechSynthesisVoiceName = getAzureVoiceName(item.languageCode, item.gender);
         
-        const audioConfig = SpeechSDK.AudioConfig.fromDefaultSpeakerOutput();
+        // Create a speaker audio destination to detect when audio truly finishes playing
+        const player = new SpeechSDK.SpeakerAudioDestination();
+        const audioConfig = SpeechSDK.AudioConfig.fromSpeakerOutput(player);
         const synthesizer = new SpeechSDK.SpeechSynthesizer(speechConfig, audioConfig);
         
         // Store the active synthesizer
         activeSynthesizerRef.current = synthesizer;
         
-        // Wait for the audio to complete before processing next item
+        // Wait for the audio to ACTUALLY finish playing (not just synthesis)
         await new Promise<void>((resolve, reject) => {
-          synthesizer.speakTextAsync(
-            item.text,
-            (result) => {
-              if (result.reason === SpeechSDK.ResultReason.SynthesizingAudioCompleted) {
-                console.log('[TTS Queue] Audio played successfully');
-                // Mark as spoken only after successful playback
-                spokenMessageIdsRef.current.add(item.messageId);
-              }
+          let synthCompleted = false;
+          let audioEnded = false;
+          
+          // This fires when audio ACTUALLY finishes playing
+          player.onAudioEnd = () => {
+            console.log('[TTS Queue] Audio playback ended');
+            audioEnded = true;
+            
+            // Only resolve when both synthesis AND playback are complete
+            if (synthCompleted && audioEnded) {
+              spokenMessageIdsRef.current.add(item.messageId);
               synthesizer.close();
               if (activeSynthesizerRef.current === synthesizer) {
                 activeSynthesizerRef.current = null;
               }
               resolve();
+            }
+          };
+          
+          synthesizer.speakTextAsync(
+            item.text,
+            (result) => {
+              if (result.reason === SpeechSDK.ResultReason.SynthesizingAudioCompleted) {
+                console.log('[TTS Queue] Synthesis completed, waiting for playback to finish...');
+                synthCompleted = true;
+                
+                // Only resolve when both synthesis AND playback are complete
+                if (synthCompleted && audioEnded) {
+                  spokenMessageIdsRef.current.add(item.messageId);
+                  synthesizer.close();
+                  if (activeSynthesizerRef.current === synthesizer) {
+                    activeSynthesizerRef.current = null;
+                  }
+                  resolve();
+                }
+              } else {
+                console.error('[TTS Queue] Synthesis failed with reason:', result.reason);
+                synthesizer.close();
+                if (activeSynthesizerRef.current === synthesizer) {
+                  activeSynthesizerRef.current = null;
+                }
+                reject(new Error(`Synthesis failed: ${result.reason}`));
+              }
             },
             (error) => {
-              console.error('[TTS Queue] Error:', error);
+              console.error('[TTS Queue] Synthesis error:', error);
               synthesizer.close();
               if (activeSynthesizerRef.current === synthesizer) {
                 activeSynthesizerRef.current = null;
