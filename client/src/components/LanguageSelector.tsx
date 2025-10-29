@@ -50,13 +50,13 @@ export function LanguageSelector({ value, onValueChange, disabled }: LanguageSel
           role="combobox"
           aria-expanded={open}
           disabled={disabled}
-          className="w-full justify-between h-12 px-4 hover-elevate active-elevate-2 border-border/50"
+          className="w-full justify-between h-12 px-4 hover-elevate active-elevate-2 border-border/50 text-white"
           data-testid="button-language-selector"
         >
           {selectedLanguage ? (
-            <span className="flex items-center gap-3">
+            <span className="flex items-center gap-3 text-white">
               <CountryFlag countryCode={selectedLanguage.countryCode} />
-              <span className="font-medium">{selectedLanguage.name}</span>
+              <span className="font-medium text-white">{selectedLanguage.name}</span>
             </span>
           ) : (
             <span className="flex items-center gap-3 text-muted-foreground">
