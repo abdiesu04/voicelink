@@ -1,6 +1,7 @@
 import { User, UserRound } from "lucide-react";
 import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 import type { VoiceGender } from "@shared/schema";
 
@@ -39,17 +40,19 @@ export function VoiceGenderSelector({
           id="male"
           className="sr-only"
         />
-        <div className={cn(
-          "flex h-12 w-12 items-center justify-center rounded-xl ring-2",
+        <Avatar className={cn(
+          "h-14 w-14 ring-2",
           value === "male"
             ? "bg-primary/10 ring-primary/30"
             : "bg-slate-700/30 ring-slate-600/30"
         )}>
-          <User className={cn(
-            "h-6 w-6",
+          <AvatarFallback className={cn(
+            "bg-transparent",
             value === "male" ? "text-primary" : "text-slate-400"
-          )} />
-        </div>
+          )}>
+            <User className="h-7 w-7" />
+          </AvatarFallback>
+        </Avatar>
         <div className="flex-1">
           <Label
             htmlFor="male"
@@ -85,17 +88,19 @@ export function VoiceGenderSelector({
           id="female"
           className="sr-only"
         />
-        <div className={cn(
-          "flex h-12 w-12 items-center justify-center rounded-xl ring-2",
+        <Avatar className={cn(
+          "h-14 w-14 ring-2",
           value === "female"
             ? "bg-primary/10 ring-primary/30"
             : "bg-slate-700/30 ring-slate-600/30"
         )}>
-          <UserRound className={cn(
-            "h-6 w-6",
+          <AvatarFallback className={cn(
+            "bg-transparent",
             value === "female" ? "text-primary" : "text-slate-400"
-          )} />
-        </div>
+          )}>
+            <UserRound className="h-7 w-7" />
+          </AvatarFallback>
+        </Avatar>
         <div className="flex-1">
           <Label
             htmlFor="female"
