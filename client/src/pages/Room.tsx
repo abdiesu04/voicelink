@@ -110,6 +110,43 @@ export default function Room() {
     return tokenData;
   };
 
+  // Synthesize speech using Azure REST TTS API - returns audio blob for reliable playback
+  const synthesizeSpeechToBlob = async (
+    text: string,
+    languageCode: string,
+    gender: "male" | "female"
+  ): Promise<Blob> => {
+    const { token, region } = await getAzureToken();
+    
+    const azureLang = azureLanguageMap[languageCode] || 'en-US';
+    const voiceName = getAzureVoiceName(languageCode, gender);
+    
+    // SSML for Azure TTS REST API
+    const ssml = `
+      <speak version='1.0' xml:lang='${azureLang}'>
+        <voice xml:lang='${azureLang}' name='${voiceName}'>
+          ${text}
+        </voice>
+      </speak>
+    `.trim();
+    
+    const response = await fetch(`https://${region}.tts.speech.microsoft.com/cognitiveservices/v1`, {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/ssml+xml',
+        'X-Microsoft-OutputFormat': 'audio-16khz-128kbitrate-mono-mp3',
+      },
+      body: ssml,
+    });
+    
+    if (!response.ok) {
+      throw new Error(`Azure TTS failed: ${response.status} ${response.statusText}`);
+    }
+    
+    return await response.blob();
+  };
+
   // Process the TTS queue - plays one item at a time with ABSOLUTE guarantee of no overlaps
   const processTTSQueue = async () => {
     // CRITICAL: Atomic check-and-set - prevents race conditions
@@ -143,10 +180,11 @@ export default function Room() {
           if (currentAudioRef.current) {
             currentAudioRef.current.pause();
             currentAudioRef.current.src = '';
+            currentAudioRef.current.load();
             currentAudioRef.current = null;
           }
 
-          // CRITICAL: Close any active Azure synthesizer
+          // CRITICAL: Close any active Azure synthesizer (legacy cleanup)
           if (activeSynthesizerRef.current) {
             try {
               activeSynthesizerRef.current.close();
@@ -156,93 +194,71 @@ export default function Room() {
             activeSynthesizerRef.current = null;
           }
 
-          const { token, region } = await getAzureToken();
+          // Synthesize speech using Azure REST TTS API
+          console.log('[TTS Queue] Synthesizing audio via REST API...');
+          const startTime = Date.now();
+          const audioBlob = await synthesizeSpeechToBlob(item.text, item.languageCode, item.gender);
+          const synthesisTime = Date.now() - startTime;
+          console.log(`[TTS Queue] Synthesis completed in ${synthesisTime}ms, audio size: ${audioBlob.size} bytes`);
+
+          // Create HTML5 Audio element for reliable playback
+          const audio = new Audio();
+          currentAudioRef.current = audio;
           
-          const speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(token, region);
-          speechConfig.speechSynthesisLanguage = azureLanguageMap[item.languageCode] || 'en-US';
-          speechConfig.speechSynthesisVoiceName = getAzureVoiceName(item.languageCode, item.gender);
-          
-          // CRITICAL: Use SpeakerAudioDestination with timeout fallback
-          const player = new SpeechSDK.SpeakerAudioDestination();
-          const audioConfig = SpeechSDK.AudioConfig.fromSpeakerOutput(player);
-          const synthesizer = new SpeechSDK.SpeechSynthesizer(speechConfig, audioConfig);
-          
-          // Store the active synthesizer
-          activeSynthesizerRef.current = synthesizer;
-          
-          // Wait for ACTUAL audio playback to complete with timeout fallback
+          // Wait for audio to finish playing - using 'ended' event for precision
           await new Promise<void>((resolve, reject) => {
             let hasResolved = false;
-            let timeoutId: number | null = null;
             
             const cleanup = () => {
               if (!hasResolved) {
                 hasResolved = true;
-                if (timeoutId) clearTimeout(timeoutId);
                 spokenMessageIdsRef.current.add(item.messageId);
-                synthesizer.close();
-                if (activeSynthesizerRef.current === synthesizer) {
-                  activeSynthesizerRef.current = null;
+                
+                // Clean up event listeners
+                audio.removeEventListener('ended', onEnded);
+                audio.removeEventListener('error', onError);
+                
+                // Clean up audio element
+                audio.pause();
+                audio.src = '';
+                audio.load();
+                if (currentAudioRef.current === audio) {
+                  currentAudioRef.current = null;
                 }
+                
                 resolve();
               }
             };
             
-            // PRIMARY: This fires when audio PLAYBACK actually finishes (if supported)
-            player.onAudioEnd = () => {
-              console.log('[TTS Queue] Playback completed (onAudioEnd event)');
+            const onEnded = () => {
+              console.log('[TTS Queue] Playback completed (audio ended)');
               cleanup();
             };
             
-            player.onAudioStart = () => {
-              console.log('[TTS Queue] Playback started');
+            const onError = (e: ErrorEvent) => {
+              console.error('[TTS Queue] Audio playback error:', e);
+              cleanup();
+              reject(new Error('Audio playback failed'));
             };
             
-            synthesizer.speakTextAsync(
-              item.text,
-              (result) => {
-                if (result.reason === SpeechSDK.ResultReason.SynthesizingAudioCompleted) {
-                  console.log('[TTS Queue] Synthesis completed');
-                  
-                  // FALLBACK: Calculate duration for timeout in case onAudioEnd doesn't fire
-                  let audioDurationMs = 0;
-                  if (result.audioData && result.audioData.byteLength > 0) {
-                    const sampleRate = 16000;
-                    const bytesPerSample = 2;
-                    const channels = 1;
-                    audioDurationMs = (result.audioData.byteLength / (sampleRate * bytesPerSample * channels)) * 1000;
-                    audioDurationMs += 500; // Small buffer
-                    console.log(`[TTS Queue] Audio duration: ${Math.round(audioDurationMs - 500)}ms + 500ms buffer`);
-                  } else {
-                    const words = item.text.split(/\s+/).length;
-                    audioDurationMs = Math.max((words / 100) * 60 * 1000 + 1000, 2000);
-                    console.log(`[TTS Queue] Fallback duration for ${words} words: ${Math.round(audioDurationMs)}ms`);
-                  }
-                  
-                  // Set timeout as fallback
-                  console.log(`[TTS Queue] Setting ${Math.round(audioDurationMs)}ms timeout fallback`);
-                  timeoutId = window.setTimeout(() => {
-                    console.log('[TTS Queue] Playback completed (timeout fallback)');
-                    cleanup();
-                  }, audioDurationMs);
-                } else {
-                  console.error('[TTS Queue] Synthesis failed:', result.reason);
-                  synthesizer.close();
-                  if (activeSynthesizerRef.current === synthesizer) {
-                    activeSynthesizerRef.current = null;
-                  }
-                  reject(new Error(`Synthesis failed: ${result.reason}`));
-                }
-              },
-              (error) => {
-                console.error('[TTS Queue] Synthesis error:', error);
-                synthesizer.close();
-                if (activeSynthesizerRef.current === synthesizer) {
-                  activeSynthesizerRef.current = null;
-                }
-                reject(error);
-              }
-            );
+            // Attach event listeners
+            audio.addEventListener('ended', onEnded);
+            audio.addEventListener('error', onError);
+            
+            // Create blob URL and play
+            const blobUrl = URL.createObjectURL(audioBlob);
+            audio.src = blobUrl;
+            
+            audio.play().then(() => {
+              console.log('[TTS Queue] Playback started');
+              // Clean up blob URL after playback starts
+              setTimeout(() => URL.revokeObjectURL(blobUrl), 100);
+            }).catch((err) => {
+              console.error('[TTS Queue] Failed to play audio:', err);
+              URL.revokeObjectURL(blobUrl);
+              cleanup();
+              reject(err);
+            });
           });
         } catch (error) {
           console.error('[TTS Queue] Failed to speak text:', error);
