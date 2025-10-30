@@ -56,7 +56,7 @@ export default function Room() {
   const spokenMessageIdsRef = useRef<Set<string>>(new Set());
   const lastInterimSentRef = useRef<number>(0);
   const activeSynthesizerRef = useRef<SpeechSDK.SpeechSynthesizer | null>(null);
-  const ttsQueueRef = useRef<Array<{ text: string; languageCode: string; gender: "male" | "female"; messageId: string }>>([]);
+  const ttsQueueRef = useRef<Array<{ text: string; languageCode: string; gender: "male" | "female"; messageId: string; retryCount?: number }>>([]);
   const isProcessingTTSRef = useRef<boolean>(false);
   const currentAudioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -110,6 +110,16 @@ export default function Room() {
     return tokenData;
   };
 
+  // Escape XML special characters for SSML
+  const escapeXml = (text: string): string => {
+    return text
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&apos;');
+  };
+
   // Synthesize speech using Azure REST TTS API - returns audio blob for reliable playback
   const synthesizeSpeechToBlob = async (
     text: string,
@@ -121,11 +131,14 @@ export default function Room() {
     const azureLang = azureLanguageMap[languageCode] || 'en-US';
     const voiceName = getAzureVoiceName(languageCode, gender);
     
+    // Escape text for SSML (prevents XML parsing errors with &, <, >, etc.)
+    const escapedText = escapeXml(text);
+    
     // SSML for Azure TTS REST API
     const ssml = `
       <speak version='1.0' xml:lang='${azureLang}'>
         <voice xml:lang='${azureLang}' name='${voiceName}'>
-          ${text}
+          ${escapedText}
         </voice>
       </speak>
     `.trim();
@@ -173,8 +186,12 @@ export default function Room() {
           continue;
         }
 
+        // Initialize retry count if not present
+        const retryCount = item.retryCount || 0;
+        const maxRetries = 3;
+
         try {
-          console.log('[TTS Queue] Playing:', item.text.substring(0, 50));
+          console.log('[TTS Queue] Playing:', item.text.substring(0, 50), retryCount > 0 ? `(retry ${retryCount}/${maxRetries})` : '');
 
           // CRITICAL: Stop any currently playing HTML5 audio
           if (currentAudioRef.current) {
@@ -207,11 +224,11 @@ export default function Room() {
           
           // Wait for audio to finish playing - using 'ended' event for precision
           await new Promise<void>((resolve, reject) => {
-            let hasResolved = false;
+            let hasCompleted = false;
             
-            const cleanup = () => {
-              if (!hasResolved) {
-                hasResolved = true;
+            const cleanupSuccess = () => {
+              if (!hasCompleted) {
+                hasCompleted = true;
                 spokenMessageIdsRef.current.add(item.messageId);
                 
                 // Clean up event listeners
@@ -230,15 +247,35 @@ export default function Room() {
               }
             };
             
-            const onEnded = () => {
-              console.log('[TTS Queue] Playback completed (audio ended)');
-              cleanup();
+            const cleanupError = (error: Error) => {
+              if (!hasCompleted) {
+                hasCompleted = true;
+                
+                // Clean up event listeners
+                audio.removeEventListener('ended', onEnded);
+                audio.removeEventListener('error', onError);
+                
+                // Clean up audio element
+                audio.pause();
+                audio.src = '';
+                audio.load();
+                if (currentAudioRef.current === audio) {
+                  currentAudioRef.current = null;
+                }
+                
+                // Do NOT mark as spoken - allow retry
+                reject(error);
+              }
             };
             
-            const onError = (e: ErrorEvent) => {
+            const onEnded = () => {
+              console.log('[TTS Queue] Playback completed (audio ended)');
+              cleanupSuccess();
+            };
+            
+            const onError = (e: Event) => {
               console.error('[TTS Queue] Audio playback error:', e);
-              cleanup();
-              reject(new Error('Audio playback failed'));
+              cleanupError(new Error('Audio playback failed'));
             };
             
             // Attach event listeners
@@ -256,12 +293,25 @@ export default function Room() {
             }).catch((err) => {
               console.error('[TTS Queue] Failed to play audio:', err);
               URL.revokeObjectURL(blobUrl);
-              cleanup();
-              reject(err);
+              cleanupError(err);
             });
           });
         } catch (error) {
           console.error('[TTS Queue] Failed to speak text:', error);
+          
+          // Retry logic: if we haven't exceeded max retries, push back to queue
+          if (retryCount < maxRetries) {
+            console.log(`[TTS Queue] Retrying (${retryCount + 1}/${maxRetries})...`);
+            // Push to FRONT of queue for immediate retry
+            ttsQueueRef.current.unshift({
+              ...item,
+              retryCount: retryCount + 1,
+            });
+          } else {
+            console.error(`[TTS Queue] Max retries (${maxRetries}) exceeded, skipping message:`, item.text.substring(0, 50));
+            // Mark as spoken to prevent infinite retry loop
+            spokenMessageIdsRef.current.add(item.messageId);
+          }
         }
       }
     } finally {
