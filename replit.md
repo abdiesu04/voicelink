@@ -18,7 +18,7 @@ The application features a dark slate background with Indigo/Blue for interactiv
 - **Frontend**: React with TypeScript, Wouter for routing, TanStack Query for data fetching, WebSocket client, Web Audio API, and Microsoft Cognitive Services Speech SDK.
 - **Backend**: Express.js server, WebSocket server (using `ws` package), and in-memory storage for room management.
 - **Real-Time Transcription**: A hybrid system uses Azure Speech SDK's `recognizing` events for throttled (300ms) interim visual feedback (without translation) and `recognized` events for final translation and Text-to-Speech (TTS). This optimizes API costs and user experience.
-- **Voice Selection**: Users select a preferred voice gender (male/female) during room creation/joining. This preference is stored, propagated via WebSockets, and used to select gender-specific Azure Neural Voices for TTS (30 voices across 15 languages).
+- **Voice Selection**: Users select a preferred voice gender (male/female) during room creation/joining. This preference is stored, propagated via WebSockets, and used to select gender-specific Azure Neural Voices for TTS (94 voices across 47 languages).
 - **Audio Overlap Prevention**: Implemented a professional queue-based TTS system using Azure REST API + HTML5 Audio that GUARANTEES only one voice plays at a time in both directions. All translations are added to a FIFO queue and processed sequentially. Critical features include: (1) **Azure REST TTS API** (`synthesizeSpeechToBlob`) retrieves complete audio files as blobs before playback, enabling precise timing control, (2) **HTML5 Audio element** with native 'ended' event provides reliable playback completion detection (no estimation needed), (3) **SSML XML escaping** prevents Azure rejection when translations contain special characters (`&`, `<`, `>`, `"`, `'`), (4) **Retry mechanism** with up to 3 attempts for transient failures, preventing silent audio loss while avoiding infinite loops, (5) **Synchronous boolean flag** (`isProcessingTTSRef`) prevents race conditions through atomic check-and-set. Failed items are re-queued with exponential backoff, successful items are marked as spoken. This production-ready approach provides 100% reliable sequential playback with professional error handling.
 - **WebSocket Keepalive**: Implemented ping/pong mechanism (30-second intervals) to prevent idle connection timeouts and ensure stable long-duration conversations.
 
@@ -27,8 +27,8 @@ The application features a dark slate background with Indigo/Blue for interactiv
 - **Room Management**: Creation and retrieval of rooms with language and voice gender preferences.
 - **Real-time Communication**: WebSocket server for instant message exchange, interim transcriptions, and final translations.
 - **Microphone Control**: Mute/unmute functionality.
-- **Language Support**: 15+ supported languages with corresponding flag icons.
-- **Voice Customization**: User-selectable male/female voice gender for TTS output, leveraging Azure Neural voices.
+- **Language Support**: 47 supported languages across all major regions with corresponding flag icons. Languages include: English, Spanish, French, German, Italian, Portuguese (Portugal & Brazil), Russian, Japanese, Korean, Chinese, Arabic, Hindi, Dutch, Polish, Turkish, Swedish, Norwegian, Danish, Finnish, Greek, Czech, Romanian, Ukrainian, Hungarian, Vietnamese, Thai, Indonesian, Hebrew, Bengali, Tamil, Telugu, Marathi, Bulgarian, Croatian, Slovak, Slovenian, Catalan, Malay, Afrikaans, Swahili, Gujarati, Kannada, Malayalam, Serbian, Estonian, and Latvian.
+- **Voice Customization**: User-selectable male/female voice gender for TTS output, leveraging 94 Azure Neural voices (47 languages × 2 genders each).
 
 ## External Dependencies
 
