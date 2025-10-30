@@ -59,6 +59,8 @@ export default function Room() {
   const ttsQueueRef = useRef<Array<{ text: string; languageCode: string; gender: "male" | "female"; messageId: string; retryCount?: number }>>([]);
   const isProcessingTTSRef = useRef<boolean>(false);
   const currentAudioRef = useRef<HTMLAudioElement | null>(null);
+  const currentBlobUrlRef = useRef<string | null>(null);
+  const audioUnlockedRef = useRef<boolean>(false);
 
   const myLanguage = SUPPORTED_LANGUAGES.find(l => l.code === language);
   const theirLanguage = SUPPORTED_LANGUAGES.find(l => l.code === partnerLanguage);
@@ -151,6 +153,47 @@ export default function Room() {
     return tokenData;
   };
 
+  // Unlock audio on mobile by playing silent audio on user interaction
+  const unlockAudioForMobile = async () => {
+    if (audioUnlockedRef.current) {
+      return;
+    }
+
+    try {
+      console.log('[Audio Unlock] Attempting to unlock audio for mobile...');
+      
+      // Create a silent audio blob (very short, minimal data)
+      const silentAudioBlob = new Blob(
+        [new Uint8Array([
+          0xff, 0xfb, 0x90, 0x64, 0x00, 0x03, 0xf0, 0x00,
+          0x00, 0x69, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00,
+          0x0d, 0x20, 0x00, 0x00, 0x01, 0x00, 0x00, 0x01
+        ])],
+        { type: 'audio/mpeg' }
+      );
+      
+      // Play silent audio to unlock
+      if (!currentAudioRef.current) {
+        currentAudioRef.current = new Audio();
+      }
+      
+      const audio = currentAudioRef.current;
+      const silentUrl = URL.createObjectURL(silentAudioBlob);
+      audio.src = silentUrl;
+      
+      await audio.play();
+      audio.pause();
+      audio.currentTime = 0;
+      
+      URL.revokeObjectURL(silentUrl);
+      audioUnlockedRef.current = true;
+      
+      console.log('[Audio Unlock] Audio successfully unlocked for mobile');
+    } catch (error) {
+      console.warn('[Audio Unlock] Failed to unlock audio:', error);
+    }
+  };
+
   // Escape XML special characters for SSML
   const escapeXml = (text: string): string => {
     return text
@@ -234,13 +277,17 @@ export default function Room() {
         try {
           console.log('[TTS Queue] Playing:', item.text.substring(0, 50), retryCount > 0 ? `(retry ${retryCount}/${maxRetries})` : '');
 
-          // CRITICAL: Stop any currently playing HTML5 audio
-          if (currentAudioRef.current) {
-            currentAudioRef.current.pause();
-            currentAudioRef.current.src = '';
-            currentAudioRef.current.load();
-            currentAudioRef.current = null;
+          // CRITICAL: Create single Audio element on first use and reuse it (mobile-friendly)
+          if (!currentAudioRef.current) {
+            currentAudioRef.current = new Audio();
+            console.log('[TTS Queue] Created single reusable Audio element');
           }
+
+          const audio = currentAudioRef.current;
+
+          // Stop current playback if any
+          audio.pause();
+          audio.currentTime = 0;
 
           // CRITICAL: Close any active Azure synthesizer (legacy cleanup)
           if (activeSynthesizerRef.current) {
@@ -259,9 +306,11 @@ export default function Room() {
           const synthesisTime = Date.now() - startTime;
           console.log(`[TTS Queue] Synthesis completed in ${synthesisTime}ms, audio size: ${audioBlob.size} bytes`);
 
-          // Create HTML5 Audio element for reliable playback
-          const audio = new Audio();
-          currentAudioRef.current = audio;
+          // Revoke previous blob URL before creating new one
+          if (currentBlobUrlRef.current) {
+            URL.revokeObjectURL(currentBlobUrlRef.current);
+            currentBlobUrlRef.current = null;
+          }
           
           // Wait for audio to finish playing - using 'ended' event for precision
           await new Promise<void>((resolve, reject) => {
@@ -276,14 +325,6 @@ export default function Room() {
                 audio.removeEventListener('ended', onEnded);
                 audio.removeEventListener('error', onError);
                 
-                // Clean up audio element
-                audio.pause();
-                audio.src = '';
-                audio.load();
-                if (currentAudioRef.current === audio) {
-                  currentAudioRef.current = null;
-                }
-                
                 resolve();
               }
             };
@@ -295,14 +336,6 @@ export default function Room() {
                 // Clean up event listeners
                 audio.removeEventListener('ended', onEnded);
                 audio.removeEventListener('error', onError);
-                
-                // Clean up audio element
-                audio.pause();
-                audio.src = '';
-                audio.load();
-                if (currentAudioRef.current === audio) {
-                  currentAudioRef.current = null;
-                }
                 
                 // Do NOT mark as spoken - allow retry
                 reject(error);
@@ -323,17 +356,15 @@ export default function Room() {
             audio.addEventListener('ended', onEnded);
             audio.addEventListener('error', onError);
             
-            // Create blob URL and play
+            // Create blob URL and set it
             const blobUrl = URL.createObjectURL(audioBlob);
+            currentBlobUrlRef.current = blobUrl;
             audio.src = blobUrl;
             
             audio.play().then(() => {
-              console.log('[TTS Queue] Playback started');
-              // Clean up blob URL after playback starts
-              setTimeout(() => URL.revokeObjectURL(blobUrl), 100);
+              console.log('[TTS Queue] Playback started successfully');
             }).catch((err) => {
               console.error('[TTS Queue] Failed to play audio:', err);
-              URL.revokeObjectURL(blobUrl);
               cleanupError(err);
             });
           });
@@ -499,13 +530,25 @@ export default function Room() {
       ttsQueueRef.current = [];
       isProcessingTTSRef.current = false;
       
+      // Clean up the single audio element
       if (currentAudioRef.current) {
         try {
           currentAudioRef.current.pause();
           currentAudioRef.current.src = '';
+          currentAudioRef.current.load();
           currentAudioRef.current = null;
         } catch (error) {
           console.error('[TTS Queue] Error stopping HTML5 audio on unmount:', error);
+        }
+      }
+      
+      // Clean up blob URL
+      if (currentBlobUrlRef.current) {
+        try {
+          URL.revokeObjectURL(currentBlobUrlRef.current);
+          currentBlobUrlRef.current = null;
+        } catch (error) {
+          console.error('[TTS Queue] Error revoking blob URL on unmount:', error);
         }
       }
       
@@ -527,6 +570,10 @@ export default function Room() {
 
   const startConversation = async () => {
     setConversationStarted(true);
+    
+    // MOBILE FIX: Unlock audio on first microphone activation
+    await unlockAudioForMobile();
+    
     try {
       const { token, region } = await getAzureToken();
       
@@ -588,6 +635,26 @@ export default function Room() {
       setIsMuted(true);
     }
   };
+
+  // MOBILE FIX: Resume audio on any user interaction if it gets suspended
+  useEffect(() => {
+    const resumeAudioOnInteraction = () => {
+      if (currentAudioRef.current && currentAudioRef.current.paused && currentBlobUrlRef.current) {
+        currentAudioRef.current.play().catch(() => {
+          // Ignore errors - audio might not be ready to play
+        });
+      }
+    };
+
+    // Add listeners for user interactions to resume suspended audio
+    document.addEventListener('click', resumeAudioOnInteraction);
+    document.addEventListener('touchstart', resumeAudioOnInteraction);
+
+    return () => {
+      document.removeEventListener('click', resumeAudioOnInteraction);
+      document.removeEventListener('touchstart', resumeAudioOnInteraction);
+    };
+  }, []);
 
   const toggleMute = async () => {
     if (!isMuted) {
