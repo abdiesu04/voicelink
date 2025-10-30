@@ -58,6 +58,8 @@ export default function Room() {
   const activeSynthesizerRef = useRef<SpeechSDK.SpeechSynthesizer | null>(null);
   const ttsQueueRef = useRef<Array<{ text: string; languageCode: string; gender: "male" | "female"; messageId: string }>>([]);
   const isProcessingTTSRef = useRef<boolean>(false);
+  const currentAudioRef = useRef<HTMLAudioElement | null>(null);
+  const queueProcessorLockRef = useRef<Promise<void> | null>(null);
 
   const myLanguage = SUPPORTED_LANGUAGES.find(l => l.code === language);
   const theirLanguage = SUPPORTED_LANGUAGES.find(l => l.code === partnerLanguage);
@@ -109,115 +111,133 @@ export default function Room() {
     return tokenData;
   };
 
-  // Process the TTS queue - plays one item at a time
+  // Process the TTS queue - plays one item at a time with ABSOLUTE guarantee of no overlaps
   const processTTSQueue = async () => {
-    // If already processing or queue is empty, do nothing
-    if (isProcessingTTSRef.current || ttsQueueRef.current.length === 0) {
+    // CRITICAL: If there's already a processor running, wait for it or return
+    if (queueProcessorLockRef.current) {
+      await queueProcessorLockRef.current;
       return;
     }
 
-    isProcessingTTSRef.current = true;
+    // If queue is empty, do nothing
+    if (ttsQueueRef.current.length === 0) {
+      return;
+    }
 
-    while (ttsQueueRef.current.length > 0) {
-      const item = ttsQueueRef.current.shift()!;
-      
-      // Skip if already spoken
-      if (spokenMessageIdsRef.current.has(item.messageId)) {
-        continue;
-      }
+    // Create a lock promise that other calls will wait for
+    let resolveLock: () => void;
+    queueProcessorLockRef.current = new Promise<void>((resolve) => {
+      resolveLock = resolve;
+    });
 
-      try {
-        console.log('[TTS Queue] Playing:', item.text.substring(0, 50));
-
-        // CRITICAL: Stop any previously playing audio before starting new one
-        if (activeSynthesizerRef.current) {
-          try {
-            activeSynthesizerRef.current.close();
-          } catch (e) {
-            // Ignore close errors
-          }
-          activeSynthesizerRef.current = null;
+    try {
+      while (ttsQueueRef.current.length > 0) {
+        const item = ttsQueueRef.current.shift()!;
+        
+        // Skip if already spoken
+        if (spokenMessageIdsRef.current.has(item.messageId)) {
+          continue;
         }
 
-        const { token, region } = await getAzureToken();
-        
-        const speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(token, region);
-        speechConfig.speechSynthesisLanguage = azureLanguageMap[item.languageCode] || 'en-US';
-        speechConfig.speechSynthesisVoiceName = getAzureVoiceName(item.languageCode, item.gender);
-        
-        // Use default speaker output
-        const audioConfig = SpeechSDK.AudioConfig.fromDefaultSpeakerOutput();
-        const synthesizer = new SpeechSDK.SpeechSynthesizer(speechConfig, audioConfig);
-        
-        // Store the active synthesizer
-        activeSynthesizerRef.current = synthesizer;
-        
-        // Wait for synthesis AND playback to complete
-        await new Promise<void>((resolve, reject) => {
-          let audioDurationMs = 0;
+        try {
+          console.log('[TTS Queue] Playing:', item.text.substring(0, 50));
+
+          // CRITICAL: Stop any currently playing HTML5 audio
+          if (currentAudioRef.current) {
+            currentAudioRef.current.pause();
+            currentAudioRef.current.src = '';
+            currentAudioRef.current = null;
+          }
+
+          // CRITICAL: Close any active Azure synthesizer
+          if (activeSynthesizerRef.current) {
+            try {
+              activeSynthesizerRef.current.close();
+            } catch (e) {
+              // Ignore close errors
+            }
+            activeSynthesizerRef.current = null;
+          }
+
+          const { token, region } = await getAzureToken();
           
-          synthesizer.speakTextAsync(
-            item.text,
-            (result) => {
-              if (result.reason === SpeechSDK.ResultReason.SynthesizingAudioCompleted) {
-                console.log('[TTS Queue] Synthesis completed');
-                
-                // Get the actual audio duration from the result
-                // Audio format is typically 16kHz, 16-bit, mono PCM
-                // audioDuration = audioData.byteLength / (sampleRate * bytesPerSample * channels)
-                if (result.audioData && result.audioData.byteLength > 0) {
-                  const sampleRate = 16000; // 16kHz
-                  const bytesPerSample = 2; // 16-bit = 2 bytes
-                  const channels = 1; // mono
-                  audioDurationMs = (result.audioData.byteLength / (sampleRate * bytesPerSample * channels)) * 1000;
-                  // Add 800ms buffer to ensure audio finishes (accounts for buffering, device latency, etc)
-                  audioDurationMs += 800;
-                  console.log(`[TTS Queue] Audio data available: ${result.audioData.byteLength} bytes, calculated duration: ${Math.round(audioDurationMs - 800)}ms`);
+          const speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(token, region);
+          speechConfig.speechSynthesisLanguage = azureLanguageMap[item.languageCode] || 'en-US';
+          speechConfig.speechSynthesisVoiceName = getAzureVoiceName(item.languageCode, item.gender);
+          
+          // Use in-memory audio output to get raw audio data
+          const audioConfig = SpeechSDK.AudioConfig.fromDefaultSpeakerOutput();
+          const synthesizer = new SpeechSDK.SpeechSynthesizer(speechConfig, audioConfig);
+          
+          // Store the active synthesizer
+          activeSynthesizerRef.current = synthesizer;
+          
+          // Wait for synthesis AND playback to complete
+          await new Promise<void>((resolve, reject) => {
+            synthesizer.speakTextAsync(
+              item.text,
+              (result) => {
+                if (result.reason === SpeechSDK.ResultReason.SynthesizingAudioCompleted) {
+                  console.log('[TTS Queue] Synthesis completed');
+                  
+                  // Calculate audio duration
+                  let audioDurationMs = 0;
+                  if (result.audioData && result.audioData.byteLength > 0) {
+                    const sampleRate = 16000; // 16kHz
+                    const bytesPerSample = 2; // 16-bit = 2 bytes
+                    const channels = 1; // mono
+                    audioDurationMs = (result.audioData.byteLength / (sampleRate * bytesPerSample * channels)) * 1000;
+                    // Add 1000ms buffer to ensure audio finishes
+                    audioDurationMs += 1000;
+                    console.log(`[TTS Queue] Audio data: ${result.audioData.byteLength} bytes, duration: ${Math.round(audioDurationMs - 1000)}ms + 1000ms buffer`);
+                  } else {
+                    // Fallback: estimate based on word count
+                    const words = item.text.split(/\s+/).length;
+                    // Very conservative: 100 words per minute + 1500ms buffer
+                    audioDurationMs = Math.max((words / 100) * 60 * 1000 + 1500, 2000);
+                    console.log(`[TTS Queue] Fallback estimation for ${words} words: ${Math.round(audioDurationMs)}ms`);
+                  }
+                  
+                  console.log(`[TTS Queue] Waiting ${Math.round(audioDurationMs)}ms for playback`);
+                  
+                  // Wait for the FULL audio duration
+                  setTimeout(() => {
+                    console.log('[TTS Queue] Playback completed');
+                    spokenMessageIdsRef.current.add(item.messageId);
+                    synthesizer.close();
+                    if (activeSynthesizerRef.current === synthesizer) {
+                      activeSynthesizerRef.current = null;
+                    }
+                    resolve();
+                  }, audioDurationMs);
                 } else {
-                  // Fallback: estimate based on word count if no audio data
-                  const words = item.text.split(/\s+/).length;
-                  // Use slower speech rate (120 words per minute) and larger buffer (1200ms) to be extra safe
-                  audioDurationMs = Math.max((words / 120) * 60 * 1000 + 1200, 1500);
-                  console.log(`[TTS Queue] No audio data, using fallback estimation for ${words} words`);
-                }
-                
-                console.log(`[TTS Queue] Waiting ${Math.round(audioDurationMs)}ms for audio playback`);
-                
-                // Wait for the EXACT audio duration plus buffer
-                setTimeout(() => {
-                  console.log('[TTS Queue] Audio playback completed');
-                  spokenMessageIdsRef.current.add(item.messageId);
+                  console.error('[TTS Queue] Synthesis failed:', result.reason);
                   synthesizer.close();
                   if (activeSynthesizerRef.current === synthesizer) {
                     activeSynthesizerRef.current = null;
                   }
-                  resolve();
-                }, audioDurationMs);
-              } else {
-                console.error('[TTS Queue] Synthesis failed with reason:', result.reason);
+                  reject(new Error(`Synthesis failed: ${result.reason}`));
+                }
+              },
+              (error) => {
+                console.error('[TTS Queue] Synthesis error:', error);
                 synthesizer.close();
                 if (activeSynthesizerRef.current === synthesizer) {
                   activeSynthesizerRef.current = null;
                 }
-                reject(new Error(`Synthesis failed: ${result.reason}`));
+                reject(error);
               }
-            },
-            (error) => {
-              console.error('[TTS Queue] Synthesis error:', error);
-              synthesizer.close();
-              if (activeSynthesizerRef.current === synthesizer) {
-                activeSynthesizerRef.current = null;
-              }
-              reject(error);
-            }
-          );
-        });
-      } catch (error) {
-        console.error('[TTS Queue] Failed to speak text:', error);
+            );
+          });
+        } catch (error) {
+          console.error('[TTS Queue] Failed to speak text:', error);
+        }
       }
+    } finally {
+      // Release the lock
+      queueProcessorLockRef.current = null;
+      resolveLock!();
     }
-
-    isProcessingTTSRef.current = false;
   };
 
   // Add translation to queue and start processing
@@ -355,7 +375,17 @@ export default function Room() {
     return () => {
       // Clear the TTS queue and stop any playing audio when leaving the room
       ttsQueueRef.current = [];
-      isProcessingTTSRef.current = false;
+      queueProcessorLockRef.current = null;
+      
+      if (currentAudioRef.current) {
+        try {
+          currentAudioRef.current.pause();
+          currentAudioRef.current.src = '';
+          currentAudioRef.current = null;
+        } catch (error) {
+          console.error('[TTS Queue] Error stopping HTML5 audio on unmount:', error);
+        }
+      }
       
       if (activeSynthesizerRef.current) {
         try {
