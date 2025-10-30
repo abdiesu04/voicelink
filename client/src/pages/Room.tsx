@@ -162,7 +162,7 @@ export default function Room() {
           speechConfig.speechSynthesisLanguage = azureLanguageMap[item.languageCode] || 'en-US';
           speechConfig.speechSynthesisVoiceName = getAzureVoiceName(item.languageCode, item.gender);
           
-          // CRITICAL: Use SpeakerAudioDestination to detect actual playback completion
+          // CRITICAL: Use SpeakerAudioDestination with timeout fallback
           const player = new SpeechSDK.SpeakerAudioDestination();
           const audioConfig = SpeechSDK.AudioConfig.fromSpeakerOutput(player);
           const synthesizer = new SpeechSDK.SpeechSynthesizer(speechConfig, audioConfig);
@@ -170,20 +170,30 @@ export default function Room() {
           // Store the active synthesizer
           activeSynthesizerRef.current = synthesizer;
           
-          // Wait for ACTUAL audio playback to complete (not just synthesis)
+          // Wait for ACTUAL audio playback to complete with timeout fallback
           await new Promise<void>((resolve, reject) => {
-            // This fires when audio PLAYBACK actually finishes
-            player.onAudioEnd = () => {
-              console.log('[TTS Queue] Playback completed (actual audio finished)');
-              spokenMessageIdsRef.current.add(item.messageId);
-              synthesizer.close();
-              if (activeSynthesizerRef.current === synthesizer) {
-                activeSynthesizerRef.current = null;
+            let hasResolved = false;
+            let timeoutId: number | null = null;
+            
+            const cleanup = () => {
+              if (!hasResolved) {
+                hasResolved = true;
+                if (timeoutId) clearTimeout(timeoutId);
+                spokenMessageIdsRef.current.add(item.messageId);
+                synthesizer.close();
+                if (activeSynthesizerRef.current === synthesizer) {
+                  activeSynthesizerRef.current = null;
+                }
+                resolve();
               }
-              resolve();
             };
             
-            // This fires when synthesis STARTS
+            // PRIMARY: This fires when audio PLAYBACK actually finishes (if supported)
+            player.onAudioEnd = () => {
+              console.log('[TTS Queue] Playback completed (onAudioEnd event)');
+              cleanup();
+            };
+            
             player.onAudioStart = () => {
               console.log('[TTS Queue] Playback started');
             };
@@ -192,8 +202,29 @@ export default function Room() {
               item.text,
               (result) => {
                 if (result.reason === SpeechSDK.ResultReason.SynthesizingAudioCompleted) {
-                  console.log('[TTS Queue] Synthesis completed (waiting for playback to finish)');
-                  // Don't resolve here - wait for player.onAudioEnd
+                  console.log('[TTS Queue] Synthesis completed');
+                  
+                  // FALLBACK: Calculate duration for timeout in case onAudioEnd doesn't fire
+                  let audioDurationMs = 0;
+                  if (result.audioData && result.audioData.byteLength > 0) {
+                    const sampleRate = 16000;
+                    const bytesPerSample = 2;
+                    const channels = 1;
+                    audioDurationMs = (result.audioData.byteLength / (sampleRate * bytesPerSample * channels)) * 1000;
+                    audioDurationMs += 500; // Small buffer
+                    console.log(`[TTS Queue] Audio duration: ${Math.round(audioDurationMs - 500)}ms + 500ms buffer`);
+                  } else {
+                    const words = item.text.split(/\s+/).length;
+                    audioDurationMs = Math.max((words / 100) * 60 * 1000 + 1000, 2000);
+                    console.log(`[TTS Queue] Fallback duration for ${words} words: ${Math.round(audioDurationMs)}ms`);
+                  }
+                  
+                  // Set timeout as fallback
+                  console.log(`[TTS Queue] Setting ${Math.round(audioDurationMs)}ms timeout fallback`);
+                  timeoutId = window.setTimeout(() => {
+                    console.log('[TTS Queue] Playback completed (timeout fallback)');
+                    cleanup();
+                  }, audioDurationMs);
                 } else {
                   console.error('[TTS Queue] Synthesis failed:', result.reason);
                   synthesizer.close();
