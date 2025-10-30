@@ -29,7 +29,7 @@ export default function Home() {
               
               <p className="text-lg text-slate-300 max-w-lg leading-relaxed">
                 Break down language barriers with AI-powered real-time voice translation. 
-                Natural conversations across 15+ languages, instantly.
+                Natural conversations across 47 languages, instantly.
               </p>
               
               <div className="flex flex-col sm:flex-row gap-4 pt-4">
@@ -59,7 +59,7 @@ export default function Home() {
 
               <div className="grid grid-cols-3 gap-8 pt-8">
                 <div>
-                  <div className="text-2xl font-bold text-white">15+</div>
+                  <div className="text-2xl font-bold text-white">47</div>
                   <div className="text-sm text-slate-400 mt-1">Languages</div>
                 </div>
                 <div>

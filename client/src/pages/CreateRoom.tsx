@@ -80,7 +80,7 @@ export default function CreateRoom() {
                 </div>
                 <div>
                   <h2 className="text-2xl font-bold text-white">My Language</h2>
-                  <p className="text-sm text-slate-400">15+ languages supported</p>
+                  <p className="text-sm text-slate-400">47 languages supported</p>
                 </div>
               </div>
               
