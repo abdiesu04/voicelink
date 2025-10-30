@@ -8,6 +8,7 @@ import Home from "@/pages/Home";
 import CreateRoom from "@/pages/CreateRoom";
 import JoinRoom from "@/pages/JoinRoom";
 import Room from "@/pages/Room";
+import QueueTest from "@/pages/QueueTest";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -17,6 +18,7 @@ function Router() {
       <Route path="/create" component={CreateRoom} />
       <Route path="/join/:roomId" component={JoinRoom} />
       <Route path="/room/:roomId" component={Room} />
+      <Route path="/test/queue" component={QueueTest} />
       <Route component={NotFound} />
     </Switch>
   );
