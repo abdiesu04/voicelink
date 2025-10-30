@@ -129,45 +129,70 @@ export default function Room() {
       try {
         console.log('[TTS Queue] Playing:', item.text.substring(0, 50));
 
+        // CRITICAL: Stop any previously playing audio before starting new one
+        if (activeSynthesizerRef.current) {
+          try {
+            activeSynthesizerRef.current.close();
+          } catch (e) {
+            // Ignore close errors
+          }
+          activeSynthesizerRef.current = null;
+        }
+
         const { token, region } = await getAzureToken();
         
         const speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(token, region);
         speechConfig.speechSynthesisLanguage = azureLanguageMap[item.languageCode] || 'en-US';
         speechConfig.speechSynthesisVoiceName = getAzureVoiceName(item.languageCode, item.gender);
         
-        // Use default speaker output - simpler and more reliable
+        // Use default speaker output
         const audioConfig = SpeechSDK.AudioConfig.fromDefaultSpeakerOutput();
         const synthesizer = new SpeechSDK.SpeechSynthesizer(speechConfig, audioConfig);
         
         // Store the active synthesizer
         activeSynthesizerRef.current = synthesizer;
         
-        // Wait for synthesis to complete, then add a delay based on text length
+        // Wait for synthesis AND playback to complete
         await new Promise<void>((resolve, reject) => {
+          let audioDurationMs = 0;
+          
           synthesizer.speakTextAsync(
             item.text,
             (result) => {
               if (result.reason === SpeechSDK.ResultReason.SynthesizingAudioCompleted) {
                 console.log('[TTS Queue] Synthesis completed');
                 
-                // Calculate estimated playback duration (rough estimate: 150 words per minute)
-                const words = item.text.split(/\s+/).length;
-                const estimatedDurationMs = (words / 150) * 60 * 1000;
-                // Add 500ms buffer for safety
-                const delayMs = Math.max(estimatedDurationMs + 500, 1000);
+                // Get the actual audio duration from the result
+                // Audio format is typically 16kHz, 16-bit, mono PCM
+                // audioDuration = audioData.byteLength / (sampleRate * bytesPerSample * channels)
+                if (result.audioData && result.audioData.byteLength > 0) {
+                  const sampleRate = 16000; // 16kHz
+                  const bytesPerSample = 2; // 16-bit = 2 bytes
+                  const channels = 1; // mono
+                  audioDurationMs = (result.audioData.byteLength / (sampleRate * bytesPerSample * channels)) * 1000;
+                  // Add 800ms buffer to ensure audio finishes (accounts for buffering, device latency, etc)
+                  audioDurationMs += 800;
+                  console.log(`[TTS Queue] Audio data available: ${result.audioData.byteLength} bytes, calculated duration: ${Math.round(audioDurationMs - 800)}ms`);
+                } else {
+                  // Fallback: estimate based on word count if no audio data
+                  const words = item.text.split(/\s+/).length;
+                  // Use slower speech rate (120 words per minute) and larger buffer (1200ms) to be extra safe
+                  audioDurationMs = Math.max((words / 120) * 60 * 1000 + 1200, 1500);
+                  console.log(`[TTS Queue] No audio data, using fallback estimation for ${words} words`);
+                }
                 
-                console.log(`[TTS Queue] Waiting ${Math.round(delayMs)}ms for audio playback (${words} words)`);
+                console.log(`[TTS Queue] Waiting ${Math.round(audioDurationMs)}ms for audio playback`);
                 
-                // Wait for estimated playback duration
+                // Wait for the EXACT audio duration plus buffer
                 setTimeout(() => {
-                  console.log('[TTS Queue] Audio playback completed (estimated)');
+                  console.log('[TTS Queue] Audio playback completed');
                   spokenMessageIdsRef.current.add(item.messageId);
                   synthesizer.close();
                   if (activeSynthesizerRef.current === synthesizer) {
                     activeSynthesizerRef.current = null;
                   }
                   resolve();
-                }, delayMs);
+                }, audioDurationMs);
               } else {
                 console.error('[TTS Queue] Synthesis failed with reason:', result.reason);
                 synthesizer.close();
