@@ -59,7 +59,6 @@ export default function Room() {
   const ttsQueueRef = useRef<Array<{ text: string; languageCode: string; gender: "male" | "female"; messageId: string }>>([]);
   const isProcessingTTSRef = useRef<boolean>(false);
   const currentAudioRef = useRef<HTMLAudioElement | null>(null);
-  const queueProcessorLockRef = useRef<Promise<void> | null>(null);
 
   const myLanguage = SUPPORTED_LANGUAGES.find(l => l.code === language);
   const theirLanguage = SUPPORTED_LANGUAGES.find(l => l.code === partnerLanguage);
@@ -113,9 +112,9 @@ export default function Room() {
 
   // Process the TTS queue - plays one item at a time with ABSOLUTE guarantee of no overlaps
   const processTTSQueue = async () => {
-    // CRITICAL: If there's already a processor running, wait for it or return
-    if (queueProcessorLockRef.current) {
-      await queueProcessorLockRef.current;
+    // CRITICAL: Atomic check-and-set - prevents race conditions
+    if (isProcessingTTSRef.current) {
+      // Already processing - this call will just return
       return;
     }
 
@@ -124,11 +123,9 @@ export default function Room() {
       return;
     }
 
-    // Create a lock promise that other calls will wait for
-    let resolveLock: () => void;
-    queueProcessorLockRef.current = new Promise<void>((resolve) => {
-      resolveLock = resolve;
-    });
+    // Set the flag SYNCHRONOUSLY before any await
+    isProcessingTTSRef.current = true;
+    console.log('[TTS Queue] Queue processor started');
 
     try {
       while (ttsQueueRef.current.length > 0) {
@@ -165,7 +162,7 @@ export default function Room() {
           speechConfig.speechSynthesisLanguage = azureLanguageMap[item.languageCode] || 'en-US';
           speechConfig.speechSynthesisVoiceName = getAzureVoiceName(item.languageCode, item.gender);
           
-          // Use in-memory audio output to get raw audio data
+          // Use default speaker output
           const audioConfig = SpeechSDK.AudioConfig.fromDefaultSpeakerOutput();
           const synthesizer = new SpeechSDK.SpeechSynthesizer(speechConfig, audioConfig);
           
@@ -235,8 +232,8 @@ export default function Room() {
       }
     } finally {
       // Release the lock
-      queueProcessorLockRef.current = null;
-      resolveLock!();
+      isProcessingTTSRef.current = false;
+      console.log('[TTS Queue] Queue processor finished');
     }
   };
 
@@ -375,7 +372,7 @@ export default function Room() {
     return () => {
       // Clear the TTS queue and stop any playing audio when leaving the room
       ttsQueueRef.current = [];
-      queueProcessorLockRef.current = null;
+      isProcessingTTSRef.current = false;
       
       if (currentAudioRef.current) {
         try {
