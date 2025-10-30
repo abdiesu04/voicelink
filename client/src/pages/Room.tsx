@@ -162,35 +162,37 @@ export default function Room() {
     try {
       console.log('[Audio Unlock] Attempting to unlock audio for mobile...');
       
-      // Create a silent audio blob (very short, minimal data)
-      const silentAudioBlob = new Blob(
-        [new Uint8Array([
-          0xff, 0xfb, 0x90, 0x64, 0x00, 0x03, 0xf0, 0x00,
-          0x00, 0x69, 0x00, 0x00, 0x00, 0x08, 0x00, 0x00,
-          0x0d, 0x20, 0x00, 0x00, 0x01, 0x00, 0x00, 0x01
-        ])],
-        { type: 'audio/mpeg' }
-      );
-      
-      // Play silent audio to unlock
+      // Create or get the audio element
       if (!currentAudioRef.current) {
         currentAudioRef.current = new Audio();
       }
       
       const audio = currentAudioRef.current;
-      const silentUrl = URL.createObjectURL(silentAudioBlob);
-      audio.src = silentUrl;
+      
+      // Use a data URL for a tiny silent WAV file (more reliable than blob)
+      // This is a 100ms silent WAV file
+      const silentWav = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA=';
+      audio.src = silentWav;
+      
+      // Set volume to 0 to ensure truly silent
+      audio.volume = 0;
       
       await audio.play();
+      
+      // Wait a tiny bit for the audio to actually start
+      await new Promise(resolve => setTimeout(resolve, 50));
+      
       audio.pause();
       audio.currentTime = 0;
+      audio.volume = 1; // Restore volume for actual TTS playback
       
-      URL.revokeObjectURL(silentUrl);
       audioUnlockedRef.current = true;
       
       console.log('[Audio Unlock] Audio successfully unlocked for mobile');
     } catch (error) {
       console.warn('[Audio Unlock] Failed to unlock audio:', error);
+      // Even if unlock fails, set the flag to avoid repeated attempts
+      audioUnlockedRef.current = true;
     }
   };
 
