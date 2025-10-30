@@ -162,51 +162,38 @@ export default function Room() {
           speechConfig.speechSynthesisLanguage = azureLanguageMap[item.languageCode] || 'en-US';
           speechConfig.speechSynthesisVoiceName = getAzureVoiceName(item.languageCode, item.gender);
           
-          // Use default speaker output
-          const audioConfig = SpeechSDK.AudioConfig.fromDefaultSpeakerOutput();
+          // CRITICAL: Use SpeakerAudioDestination to detect actual playback completion
+          const player = new SpeechSDK.SpeakerAudioDestination();
+          const audioConfig = SpeechSDK.AudioConfig.fromSpeakerOutput(player);
           const synthesizer = new SpeechSDK.SpeechSynthesizer(speechConfig, audioConfig);
           
           // Store the active synthesizer
           activeSynthesizerRef.current = synthesizer;
           
-          // Wait for synthesis AND playback to complete
+          // Wait for ACTUAL audio playback to complete (not just synthesis)
           await new Promise<void>((resolve, reject) => {
+            // This fires when audio PLAYBACK actually finishes
+            player.onAudioEnd = () => {
+              console.log('[TTS Queue] Playback completed (actual audio finished)');
+              spokenMessageIdsRef.current.add(item.messageId);
+              synthesizer.close();
+              if (activeSynthesizerRef.current === synthesizer) {
+                activeSynthesizerRef.current = null;
+              }
+              resolve();
+            };
+            
+            // This fires when synthesis STARTS
+            player.onAudioStart = () => {
+              console.log('[TTS Queue] Playback started');
+            };
+            
             synthesizer.speakTextAsync(
               item.text,
               (result) => {
                 if (result.reason === SpeechSDK.ResultReason.SynthesizingAudioCompleted) {
-                  console.log('[TTS Queue] Synthesis completed');
-                  
-                  // Calculate audio duration
-                  let audioDurationMs = 0;
-                  if (result.audioData && result.audioData.byteLength > 0) {
-                    const sampleRate = 16000; // 16kHz
-                    const bytesPerSample = 2; // 16-bit = 2 bytes
-                    const channels = 1; // mono
-                    audioDurationMs = (result.audioData.byteLength / (sampleRate * bytesPerSample * channels)) * 1000;
-                    // Add 1000ms buffer to ensure audio finishes
-                    audioDurationMs += 1000;
-                    console.log(`[TTS Queue] Audio data: ${result.audioData.byteLength} bytes, duration: ${Math.round(audioDurationMs - 1000)}ms + 1000ms buffer`);
-                  } else {
-                    // Fallback: estimate based on word count
-                    const words = item.text.split(/\s+/).length;
-                    // Very conservative: 100 words per minute + 1500ms buffer
-                    audioDurationMs = Math.max((words / 100) * 60 * 1000 + 1500, 2000);
-                    console.log(`[TTS Queue] Fallback estimation for ${words} words: ${Math.round(audioDurationMs)}ms`);
-                  }
-                  
-                  console.log(`[TTS Queue] Waiting ${Math.round(audioDurationMs)}ms for playback`);
-                  
-                  // Wait for the FULL audio duration
-                  setTimeout(() => {
-                    console.log('[TTS Queue] Playback completed');
-                    spokenMessageIdsRef.current.add(item.messageId);
-                    synthesizer.close();
-                    if (activeSynthesizerRef.current === synthesizer) {
-                      activeSynthesizerRef.current = null;
-                    }
-                    resolve();
-                  }, audioDurationMs);
+                  console.log('[TTS Queue] Synthesis completed (waiting for playback to finish)');
+                  // Don't resolve here - wait for player.onAudioEnd
                 } else {
                   console.error('[TTS Queue] Synthesis failed:', result.reason);
                   synthesizer.close();
