@@ -221,40 +221,53 @@ export default function Room() {
     languageCode: string,
     gender: "male" | "female"
   ): Promise<Blob> => {
-    const { token, region } = await getAzureToken();
-    
-    const azureLang = azureLanguageMap[languageCode] || 'en-US';
-    const voiceName = getAzureVoiceName(languageCode, gender);
-    
-    console.log(`[TTS] Synthesizing with gender: ${gender}, language: ${languageCode}, voice: ${voiceName}`);
-    
-    // Escape text for SSML (prevents XML parsing errors with &, <, >, etc.)
-    const escapedText = escapeXml(text);
-    
-    // SSML for Azure TTS REST API
-    const ssml = `
-      <speak version='1.0' xml:lang='${azureLang}'>
-        <voice xml:lang='${azureLang}' name='${voiceName}'>
-          ${escapedText}
-        </voice>
-      </speak>
-    `.trim();
-    
-    const response = await fetch(`https://${region}.tts.speech.microsoft.com/cognitiveservices/v1`, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/ssml+xml',
-        'X-Microsoft-OutputFormat': 'audio-16khz-128kbitrate-mono-mp3',
-      },
-      body: ssml,
-    });
-    
-    if (!response.ok) {
-      throw new Error(`Azure TTS failed: ${response.status} ${response.statusText}`);
+    try {
+      const { token, region } = await getAzureToken();
+      
+      const azureLang = azureLanguageMap[languageCode] || 'en-US';
+      const voiceName = getAzureVoiceName(languageCode, gender);
+      
+      console.log(`[TTS] Synthesizing with gender: ${gender}, language: ${languageCode}, voice: ${voiceName}`);
+      
+      // Escape text for SSML (prevents XML parsing errors with &, <, >, etc.)
+      const escapedText = escapeXml(text);
+      
+      // SSML for Azure TTS REST API
+      const ssml = `
+        <speak version='1.0' xml:lang='${azureLang}'>
+          <voice xml:lang='${azureLang}' name='${voiceName}'>
+            ${escapedText}
+          </voice>
+        </speak>
+      `.trim();
+      
+      const response = await fetch(`https://${region}.tts.speech.microsoft.com/cognitiveservices/v1`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/ssml+xml',
+          'X-Microsoft-OutputFormat': 'audio-16khz-128kbitrate-mono-mp3',
+        },
+        body: ssml,
+      });
+      
+      if (!response.ok) {
+        const errorText = await response.text().catch(() => 'Unknown error');
+        console.error(`[TTS] Azure TTS API error: ${response.status} ${response.statusText}`, errorText);
+        throw new Error(`Azure TTS failed: ${response.status} ${response.statusText}`);
+      }
+      
+      const blob = await response.blob();
+      
+      if (blob.size === 0) {
+        throw new Error('Azure TTS returned empty audio blob');
+      }
+      
+      return blob;
+    } catch (error) {
+      console.error('[TTS] Synthesis error:', error);
+      throw error; // Re-throw to trigger retry logic in queue processor
     }
-    
-    return await response.blob();
   };
 
   // Process the TTS queue - plays one item at a time with ABSOLUTE guarantee of no overlaps
@@ -381,9 +394,14 @@ export default function Room() {
         } catch (error) {
           console.error('[TTS Queue] Failed to speak text:', error);
           
-          // Retry logic: if we haven't exceeded max retries, push back to queue
+          // Retry logic: if we haven't exceeded max retries, push back to queue with exponential backoff
           if (retryCount < maxRetries) {
-            console.log(`[TTS Queue] Retrying (${retryCount + 1}/${maxRetries})...`);
+            const backoffDelay = Math.min(1000 * Math.pow(2, retryCount), 5000); // Max 5 seconds
+            console.log(`[TTS Queue] Retrying in ${backoffDelay}ms (${retryCount + 1}/${maxRetries})...`);
+            
+            // Wait before retry (exponential backoff)
+            await new Promise(resolve => setTimeout(resolve, backoffDelay));
+            
             // Push to FRONT of queue for immediate retry
             ttsQueueRef.current.unshift({
               ...item,
@@ -391,7 +409,11 @@ export default function Room() {
             });
           } else {
             console.error(`[TTS Queue] Max retries (${maxRetries}) exceeded, skipping message:`, item.text.substring(0, 50));
-            // Already marked as spoken when first queued - no need to mark again
+            // Mark as spoken even though it failed - prevents infinite retry loop
+            spokenMessageIdsRef.current.add(item.messageId);
+            
+            // CRITICAL: Continue to next item - don't let one failure stop the entire queue
+            console.log('[TTS Queue] Continuing to next item in queue...');
           }
         }
       }
@@ -438,6 +460,7 @@ export default function Room() {
     const ws = new WebSocket(wsUrl);
 
     ws.onopen = () => {
+      console.log('[WebSocket] Connected successfully');
       setConnectionStatus("connected");
       ws.send(JSON.stringify({
         type: "join",
@@ -451,6 +474,25 @@ export default function Room() {
         title: "Connected",
         description: "Successfully connected to the room",
       });
+    };
+    
+    ws.onerror = (error) => {
+      console.error('[WebSocket] Connection error:', error);
+      setConnectionStatus("disconnected");
+    };
+    
+    ws.onclose = (event) => {
+      console.log('[WebSocket] Connection closed:', event.code, event.reason);
+      setConnectionStatus("disconnected");
+      
+      // Don't show error if it was a clean close (user left room)
+      if (!event.wasClean) {
+        toast({
+          title: "Connection Lost",
+          description: "Attempting to reconnect...",
+          variant: "destructive",
+        });
+      }
     };
 
     // Application-level heartbeat to prevent 5-minute timeout
@@ -674,9 +716,44 @@ export default function Room() {
         }
       };
       
-      recognizer.startContinuousRecognitionAsync();
-      recognizerRef.current = recognizer;
-      setIsMuted(false);
+      // CRITICAL: Add error handlers to prevent recognizer from stopping
+      recognizer.canceled = (s, e) => {
+        console.error('[Speech] Recognition canceled:', e.reason, e.errorDetails);
+        
+        // If error is recoverable, restart recognition automatically
+        if (e.reason === SpeechSDK.CancellationReason.Error) {
+          console.log('[Speech] Attempting to restart recognition after error...');
+          setTimeout(() => {
+            if (!isMuted && recognizerRef.current === recognizer) {
+              recognizer.startContinuousRecognitionAsync(
+                () => console.log('[Speech] Recognition restarted successfully'),
+                (err) => console.error('[Speech] Failed to restart recognition:', err)
+              );
+            }
+          }, 1000);
+        }
+      };
+      
+      recognizer.sessionStopped = (s, e) => {
+        console.log('[Speech] Session stopped - will restart if not muted');
+      };
+      
+      recognizer.startContinuousRecognitionAsync(
+        () => {
+          console.log('[Speech] Recognition started successfully');
+          recognizerRef.current = recognizer;
+          setIsMuted(false);
+        },
+        (err) => {
+          console.error('[Speech] Failed to start recognition:', err);
+          toast({
+            title: "Speech Recognition Failed",
+            description: "Could not start speech recognition. Please try again.",
+            variant: "destructive",
+          });
+          setIsMuted(true);
+        }
+      );
       
     } catch (error) {
       console.error('Speech recognition error:', error);
