@@ -56,6 +56,7 @@ export default function Room() {
   const recognizerRef = useRef<SpeechSDK.SpeechRecognizer | null>(null);
   const azureTokenRef = useRef<{ token: string; region: string } | null>(null);
   const spokenMessageIdsRef = useRef<Set<string>>(new Set());
+  const recentlyPlayedRef = useRef<Map<string, number>>(new Map()); // text -> timestamp for deduplication
   const lastInterimSentRef = useRef<number>(0);
   const activeSynthesizerRef = useRef<SpeechSDK.SpeechSynthesizer | null>(null);
   const ttsQueueRef = useRef<Array<{ text: string; languageCode: string; gender: "male" | "female"; messageId: string; retryCount?: number }>>([]);
@@ -332,6 +333,8 @@ export default function Room() {
               if (!hasCompleted) {
                 hasCompleted = true;
                 spokenMessageIdsRef.current.add(item.messageId);
+                // Mark text as recently played for time-based deduplication
+                recentlyPlayedRef.current.set(item.text, Date.now());
                 
                 // Clean up event listeners
                 audio.removeEventListener('ended', onEnded);
@@ -393,8 +396,9 @@ export default function Room() {
             });
           } else {
             console.error(`[TTS Queue] Max retries (${maxRetries}) exceeded, skipping message:`, item.text.substring(0, 50));
-            // Mark as spoken to prevent infinite retry loop
+            // Mark as spoken and recently played to prevent infinite retry loop
             spokenMessageIdsRef.current.add(item.messageId);
+            recentlyPlayedRef.current.set(item.text, Date.now());
           }
         }
       }
@@ -407,10 +411,24 @@ export default function Room() {
 
   // Add translation to queue and start processing
   const speakText = (text: string, languageCode: string, gender: "male" | "female", messageId: string) => {
-    if (spokenMessageIdsRef.current.has(messageId)) {
-      console.log('[TTS Queue] Skipping duplicate (already spoken):', text.substring(0, 50));
+    // Time-based deduplication: skip if same text was played in last 3 seconds
+    const now = Date.now();
+    const deduplicationWindow = 3000; // 3 seconds
+    const lastPlayed = recentlyPlayedRef.current.get(text);
+    
+    if (lastPlayed && (now - lastPlayed) < deduplicationWindow) {
+      console.log('[TTS Queue] Skipping duplicate (played recently):', text.substring(0, 50), `(${now - lastPlayed}ms ago)`);
       return;
     }
+    
+    // Clean up old entries from deduplication map (older than 10 seconds)
+    const entriesToDelete: string[] = [];
+    recentlyPlayedRef.current.forEach((timestamp, oldText) => {
+      if (now - timestamp > 10000) {
+        entriesToDelete.push(oldText);
+      }
+    });
+    entriesToDelete.forEach(text => recentlyPlayedRef.current.delete(text));
 
     console.log('[TTS Queue] Adding to queue (queue size: ' + ttsQueueRef.current.length + '):', text.substring(0, 50));
     
@@ -503,8 +521,9 @@ export default function Room() {
 
       if (message.type === "translation") {
         const isOwn = message.speaker === role;
-        // Create stable messageId based on content, not timestamp - prevents replaying same translation
-        const messageId = `${message.speaker}-${message.originalText}-${message.translatedText}`;
+        // Use timestamp-based ID - allows legitimate repeated phrases
+        const timestamp = Date.now();
+        const messageId = `${message.speaker}-${timestamp}-${message.originalText.substring(0, 20)}`;
         const newMessage: TranscriptionMessage = {
           id: messageId,
           originalText: message.originalText,
@@ -518,9 +537,10 @@ export default function Room() {
         } else {
           setPartnerMessages(prev => [...prev, newMessage]);
           setPartnerInterimText(""); // Clear interim when final arrives
-          console.log(`[Voice Gender] About to play TTS - Partner's gender (what I hear): ${partnerVoiceGender}, My gender (what partner hears): ${voiceGender}`);
+          // CRITICAL: Use MY voiceGender preference (what I want to hear), NOT partner's preference
+          console.log(`[Voice Gender] About to play TTS - Using MY voice preference: ${voiceGender}, Partner's preference (unused): ${partnerVoiceGender}`);
           console.log(`[Voice Gender] Text to speak: "${message.translatedText}", Language: ${language}`);
-          speakText(message.translatedText, language, partnerVoiceGender, messageId);
+          speakText(message.translatedText, language, voiceGender, messageId);
         }
       }
 
