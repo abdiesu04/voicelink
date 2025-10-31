@@ -44,7 +44,7 @@ export default function Room() {
   const [copied, setCopied] = useState(false);
   const [partnerConnected, setPartnerConnected] = useState(false);
   const [partnerLanguage, setPartnerLanguage] = useState<string>("");
-  const [partnerVoiceGender, setPartnerVoiceGender] = useState<"male" | "female">("female");
+  const [partnerVoiceGender, setPartnerVoiceGender] = useState<"male" | "female">("male");
   const [conversationStarted, setConversationStarted] = useState(false);
 
   const [myMessages, setMyMessages] = useState<TranscriptionMessage[]>([]);
@@ -66,6 +66,11 @@ export default function Room() {
 
   const myLanguage = SUPPORTED_LANGUAGES.find(l => l.code === language);
   const theirLanguage = SUPPORTED_LANGUAGES.find(l => l.code === partnerLanguage);
+  
+  // Debug: Log when partner voice gender changes
+  useEffect(() => {
+    console.log('[State Change] partnerVoiceGender updated to:', partnerVoiceGender);
+  }, [partnerVoiceGender]);
 
   const azureLanguageMap: Record<string, string> = {
     'en': 'en-US', 'es': 'es-ES', 'fr': 'fr-FR', 'de': 'de-DE',
