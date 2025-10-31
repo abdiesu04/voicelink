@@ -1,0 +1,61 @@
+client:536 WebSocket connection to 'wss://76b67878-aa4f-4967-ba04-88458384b912-00-2pvz6t58xfuz3.worf.replit.dev/?token=bcT9u5acuP-H' failed: 
+setupWebSocket @ client:536
+(anonymous) @ client:531
+client:536 Uncaught (in promise) SyntaxError: Failed to construct 'WebSocket': The URL 'wss://localhost:undefined/?token=bcT9u5acuP-H' is invalid.
+    at setupWebSocket (client:536:19)
+    at fallback (client:509:16)
+    at WebSocket.<anonymous> (client:555:7)
+setupWebSocket @ client:536
+fallback @ client:509
+(anonymous) @ client:555
+chunk-WERSD76P.js?v=b9534207:21551 Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+JoinRoom.tsx:16 [JoinRoom] Selected voice gender: male
+tab.js:1 Refused to execute inline script because it violates the following Content Security Policy directive: "script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' chrome-extension://21a49017-4ed5-4c3f-ab01-320414eabd24/". Either the 'unsafe-inline' keyword, a hash ('sha256-kPx0AsF0oz2kKiZ875xSvv693TBHkQ/0SkMJZnnNpnQ='), or a nonce ('nonce-...') is required to enable inline execution.
+
+(anonymous) @ tab.js:1
+(anonymous) @ tab.js:1
+Promise.then
+i @ tab.js:1
+128 @ tab.js:1
+n @ tab.js:1
+(anonymous) @ tab.js:1
+(anonymous) @ tab.js:1
+JoinRoom.tsx:16 [JoinRoom] Selected voice gender: female
+JoinRoom.tsx:16 [JoinRoom] Selected voice gender: female
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: female
+Room.tsx:72 [State Change] partnerVoiceGender updated to: male
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: female
+Room.tsx:468 [Voice Gender] Partner joined with gender: male
+Room.tsx:469 [Voice Gender] My gender: female
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: female
+Room.tsx:170 [Audio Unlock] Attempting to unlock audio for mobile...
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: female
+Room.tsx:198 [Audio Unlock] Audio successfully unlocked for mobile
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: female
+Room.tsx:521 [Voice Gender] About to play TTS - Partner's gender (what I hear): male, My gender (what partner hears): female
+Room.tsx:522 [Voice Gender] Text to speak: "Hello.", Language: en
+Room.tsx:415 [TTS Queue] Adding to queue (queue size: 0): Hello.
+Room.tsx:273 [TTS Queue] Queue processor started
+Room.tsx:290 [TTS Queue] Playing: Hello. 
+Room.tsx:315 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:227 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: female
+Room.tsx:319 [TTS Queue] Synthesis completed in 1669ms, audio size: 25920 bytes
+Room.tsx:377 [TTS Queue] Playback started successfully
+Room.tsx:358 [TTS Queue] Playback completed (audio ended)
+Room.tsx:404 [TTS Queue] Queue processor finished
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: female
