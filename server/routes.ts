@@ -173,6 +173,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
           }
         }
 
+        // Application-level ping/pong for keeping connection alive through proxies
+        if (message.type === 'ping') {
+          ws.send(JSON.stringify({ type: 'pong' }));
+          return;
+        }
+
         if (message.type === 'transcription') {
           const { roomId, text, language, interim } = message;
           const connection = connections.get(ws);
