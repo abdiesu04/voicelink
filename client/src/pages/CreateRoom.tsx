@@ -12,13 +12,14 @@ import type { VoiceGender } from "@shared/schema";
 export default function CreateRoom() {
   const [, setLocation] = useLocation();
   const [selectedLanguage, setSelectedLanguage] = useState("en");
-  const [selectedVoiceGender, setSelectedVoiceGender] = useState<VoiceGender>("male");
+  const [selectedVoiceGender, setSelectedVoiceGender] = useState<VoiceGender>("female");
   
   console.log('[CreateRoom] Selected voice gender:', selectedVoiceGender);
   const { toast } = useToast();
 
   const createRoomMutation = useMutation({
     mutationFn: async () => {
+      console.log('[CreateRoom] Creating room with voice gender:', selectedVoiceGender);
       const response = await apiRequest("POST", "/api/rooms/create", { 
         language: selectedLanguage,
         voiceGender: selectedVoiceGender
@@ -26,6 +27,7 @@ export default function CreateRoom() {
       return await response.json();
     },
     onSuccess: (data: any) => {
+      console.log('[CreateRoom] Navigating to room with voiceGender:', selectedVoiceGender);
       setLocation(`/room/${data.roomId}?role=creator&language=${selectedLanguage}&voiceGender=${selectedVoiceGender}`);
     },
     onError: (error: Error) => {

@@ -41,8 +41,10 @@ export default function JoinRoom() {
       return;
     }
 
+    console.log('[JoinRoom] Joining room with voice gender:', selectedVoiceGender);
     setIsJoining(true);
     setTimeout(() => {
+      console.log('[JoinRoom] Navigating to room with voiceGender:', selectedVoiceGender);
       setLocation(`/room/${roomId}?role=participant&language=${selectedLanguage}&voiceGender=${selectedVoiceGender}`);
     }, 500);
   };
