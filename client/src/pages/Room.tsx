@@ -64,12 +64,14 @@ export default function Room() {
   const currentAudioRef = useRef<HTMLAudioElement | null>(null);
   const currentBlobUrlRef = useRef<string | null>(null);
   const audioUnlockedRef = useRef<boolean>(false);
+  const partnerVoiceGenderRef = useRef<"male" | "female" | undefined>(undefined);
 
   const myLanguage = SUPPORTED_LANGUAGES.find(l => l.code === language);
   const theirLanguage = SUPPORTED_LANGUAGES.find(l => l.code === partnerLanguage);
   
-  // Debug: Log when partner voice gender changes
+  // Keep ref in sync with state AND debug log
   useEffect(() => {
+    partnerVoiceGenderRef.current = partnerVoiceGender;
     console.log('[State Change] partnerVoiceGender updated to:', partnerVoiceGender);
   }, [partnerVoiceGender]);
 
@@ -540,12 +542,14 @@ export default function Room() {
           // CORRECT LOGIC: Use PARTNER's voiceGender (what they selected = the voice representing THEM)
           // "Your Voice" = voice representing YOU (what partner hears when you speak)
           // "Partner's Voice" = voice representing PARTNER (what you hear when partner speaks)
-          if (partnerVoiceGender) {
-            console.log(`[Voice Gender] Playing partner's translation in PARTNER's voice: ${partnerVoiceGender}, My voice (what partner hears): ${voiceGender}`);
+          // CRITICAL: Use ref to avoid React closure issue
+          const currentPartnerGender = partnerVoiceGenderRef.current;
+          if (currentPartnerGender) {
+            console.log(`[Voice Gender] Playing partner's translation in PARTNER's voice: ${currentPartnerGender}, My voice (what partner hears): ${voiceGender}`);
             console.log(`[Voice Gender] Text to speak: "${message.translatedText}", Language: ${language}`);
-            speakText(message.translatedText, language, partnerVoiceGender, messageId);
+            speakText(message.translatedText, language, currentPartnerGender, messageId);
           } else {
-            console.error('[Voice Gender] Partner voice gender not set, skipping TTS');
+            console.error('[Voice Gender] Partner voice gender not set (ref value), skipping TTS. State value:', partnerVoiceGender);
           }
         }
       }
