@@ -11,7 +11,9 @@ export default function JoinRoom() {
   const [, params] = useRoute("/join/:roomId");
   const [, setLocation] = useLocation();
   const [selectedLanguage, setSelectedLanguage] = useState("en");
-  const [selectedVoiceGender, setSelectedVoiceGender] = useState<VoiceGender>("female");
+  const [selectedVoiceGender, setSelectedVoiceGender] = useState<VoiceGender>("male");
+  
+  console.log('[JoinRoom] Selected voice gender:', selectedVoiceGender);
   const [isJoining, setIsJoining] = useState(false);
   const [copied, setCopied] = useState(false);
   const { toast } = useToast();

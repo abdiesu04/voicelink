@@ -12,7 +12,9 @@ import type { VoiceGender } from "@shared/schema";
 export default function CreateRoom() {
   const [, setLocation] = useLocation();
   const [selectedLanguage, setSelectedLanguage] = useState("en");
-  const [selectedVoiceGender, setSelectedVoiceGender] = useState<VoiceGender>("female");
+  const [selectedVoiceGender, setSelectedVoiceGender] = useState<VoiceGender>("male");
+  
+  console.log('[CreateRoom] Selected voice gender:', selectedVoiceGender);
   const { toast } = useToast();
 
   const createRoomMutation = useMutation({
