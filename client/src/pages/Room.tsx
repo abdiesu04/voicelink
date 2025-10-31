@@ -46,6 +46,8 @@ export default function Room() {
   const [partnerLanguage, setPartnerLanguage] = useState<string>("");
   const [partnerVoiceGender, setPartnerVoiceGender] = useState<"male" | "female" | undefined>(undefined);
   const [conversationStarted, setConversationStarted] = useState(false);
+  const [quotaExceeded, setQuotaExceeded] = useState(false);
+  const [quotaError, setQuotaError] = useState<string>("");
 
   const [myMessages, setMyMessages] = useState<TranscriptionMessage[]>([]);
   const [partnerMessages, setPartnerMessages] = useState<TranscriptionMessage[]>([]);
@@ -63,6 +65,7 @@ export default function Room() {
   const currentAudioRef = useRef<HTMLAudioElement | null>(null);
   const currentBlobUrlRef = useRef<string | null>(null);
   const audioUnlockedRef = useRef<boolean>(false);
+  const quotaExceededRef = useRef<boolean>(false);
   const partnerVoiceGenderRef = useRef<"male" | "female" | undefined>(undefined);
 
   const myLanguage = SUPPORTED_LANGUAGES.find(l => l.code === language);
@@ -254,6 +257,22 @@ export default function Room() {
       if (!response.ok) {
         const errorText = await response.text().catch(() => 'Unknown error');
         console.error(`[TTS] Azure TTS API error: ${response.status} ${response.statusText}`, errorText);
+        
+        // Check for quota errors (HTTP 429 = Too Many Requests)
+        if (response.status === 429 || errorText.toLowerCase().includes('quota')) {
+          console.error('[TTS] QUOTA EXCEEDED - stopping TTS queue processing');
+          quotaExceededRef.current = true;
+          setQuotaExceeded(true);
+          setQuotaError('Azure TTS quota exceeded. Your account has hit its usage limit.');
+          
+          toast({
+            title: "TTS Quota Limit Reached",
+            description: "Azure Text-to-Speech quota exceeded. You can still receive translations as text.",
+            variant: "destructive",
+            duration: 10000,
+          });
+        }
+        
         throw new Error(`Azure TTS failed: ${response.status} ${response.statusText}`);
       }
       
@@ -272,6 +291,13 @@ export default function Room() {
 
   // Process the TTS queue - plays one item at a time with ABSOLUTE guarantee of no overlaps
   const processTTSQueue = async () => {
+    // CRITICAL: Stop processing if quota exceeded
+    if (quotaExceededRef.current) {
+      console.log('[TTS Queue] Quota exceeded - skipping TTS processing');
+      ttsQueueRef.current = []; // Clear the queue
+      return;
+    }
+    
     // CRITICAL: Atomic check-and-set - prevents race conditions
     if (isProcessingTTSRef.current) {
       // Already processing - this call will just return
@@ -664,6 +690,16 @@ export default function Room() {
   }, [roomId, language, voiceGender, role]);
 
   const startConversation = async () => {
+    // Check if quota is already exceeded
+    if (quotaExceededRef.current) {
+      toast({
+        title: "Quota Limit Reached",
+        description: "Cannot start conversation - Azure quota exceeded. Please upgrade your Azure account.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     setConversationStarted(true);
     
     // MOBILE FIX: Unlock audio on first microphone activation
@@ -720,8 +756,42 @@ export default function Room() {
       recognizer.canceled = (s, e) => {
         console.error('[Speech] Recognition canceled:', e.reason, e.errorDetails);
         
-        // If error is recoverable, restart recognition automatically
-        if (e.reason === SpeechSDK.CancellationReason.Error) {
+        // Check if this is a quota error
+        const isQuotaError = e.errorDetails?.toLowerCase().includes('quota') || 
+                           e.errorDetails?.toLowerCase().includes('429') ||
+                           e.errorDetails?.toLowerCase().includes('rate limit');
+        
+        if (isQuotaError) {
+          console.error('[Speech] QUOTA EXCEEDED - stopping auto-retry to prevent infinite loop');
+          quotaExceededRef.current = true;
+          setQuotaExceeded(true);
+          setQuotaError('Azure Speech Services quota exceeded. Your account has hit its usage limit.');
+          setIsMuted(true);
+          
+          // Stop the recognizer completely
+          if (recognizerRef.current) {
+            recognizerRef.current.stopContinuousRecognitionAsync(
+              () => {
+                console.log('[Speech] Recognition stopped due to quota limit');
+                recognizerRef.current?.close();
+                recognizerRef.current = null;
+              },
+              (err) => console.error('[Speech] Error stopping recognizer:', err)
+            );
+          }
+          
+          toast({
+            title: "Quota Limit Reached",
+            description: "Your Azure Speech Services quota has been exceeded. Please upgrade your Azure account or wait for quota reset.",
+            variant: "destructive",
+            duration: 10000,
+          });
+          
+          return; // Don't attempt restart
+        }
+        
+        // If error is recoverable (not quota), restart recognition automatically
+        if (e.reason === SpeechSDK.CancellationReason.Error && !quotaExceededRef.current) {
           console.log('[Speech] Attempting to restart recognition after error...');
           setTimeout(() => {
             if (!isMuted && recognizerRef.current === recognizer) {
@@ -787,6 +857,16 @@ export default function Room() {
   }, []);
 
   const toggleMute = async () => {
+    // Prevent unmuting if quota exceeded
+    if (isMuted && quotaExceededRef.current) {
+      toast({
+        title: "Quota Limit Reached",
+        description: "Cannot enable microphone - Azure quota exceeded. Please upgrade your Azure account.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
     if (!isMuted) {
       setIsMuted(true);
       if (recognizerRef.current) {
@@ -909,6 +989,34 @@ export default function Room() {
         </div>
       </header>
 
+      {/* Quota Warning Banner */}
+      {quotaExceeded && (
+        <div className="bg-destructive/20 border-y border-destructive/50 backdrop-blur-sm relative z-10">
+          <div className="container mx-auto px-6 md:px-12 py-4">
+            <div className="flex items-start gap-3">
+              <div className="flex-shrink-0 h-6 w-6 rounded-full bg-destructive/30 flex items-center justify-center">
+                <span className="text-destructive font-bold text-sm">!</span>
+              </div>
+              <div className="flex-1">
+                <h3 className="text-sm font-semibold text-destructive mb-1">Azure Quota Limit Reached</h3>
+                <p className="text-xs text-slate-300">
+                  Your Azure Speech Services account has exceeded its usage quota. 
+                  <span className="block mt-1">
+                    <strong>You can still:</strong> Receive translated text messages from your partner.
+                  </span>
+                  <span className="block mt-1">
+                    <strong>Unavailable:</strong> Speaking (microphone) and hearing audio (TTS).
+                  </span>
+                  <span className="block mt-2 text-destructive font-medium">
+                    Solution: Upgrade your Azure account to a paid tier or wait for quota reset (usually monthly).
+                  </span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Main Content */}
       <main className="flex-1 overflow-hidden relative z-10">
         <div className="h-full container mx-auto px-6 md:px-12 py-6">
@@ -939,14 +1047,18 @@ export default function Room() {
               <Button
                 size="lg"
                 onClick={startConversation}
-                className="h-16 px-12 text-lg bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 shadow-lg shadow-primary/25 group"
+                disabled={quotaExceeded}
+                className="h-16 px-12 text-lg bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 shadow-lg shadow-primary/25 group disabled:opacity-50 disabled:cursor-not-allowed"
                 data-testid="button-start-conversation"
               >
                 <Mic className="h-6 w-6 mr-3 group-hover:scale-110 transition-transform" />
-                Start Conversation
+                {quotaExceeded ? "Quota Exceeded" : "Start Conversation"}
               </Button>
               <p className="text-sm text-slate-400">
-                Click to enable your microphone and begin speaking
+                {quotaExceeded 
+                  ? "Cannot start - Azure quota limit reached" 
+                  : "Click to enable your microphone and begin speaking"
+                }
               </p>
             </div>
           ) : (
@@ -955,9 +1067,10 @@ export default function Room() {
                 size="lg"
                 variant={isMuted ? "secondary" : "default"}
                 onClick={toggleMute}
+                disabled={quotaExceeded && isMuted}
                 className={`h-20 w-20 rounded-full shadow-xl ${
                   !isMuted ? "bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 shadow-primary/25" : ""
-                }`}
+                } ${quotaExceeded && isMuted ? "opacity-50 cursor-not-allowed" : ""}`}
                 data-testid="button-toggle-mic"
               >
                 {isMuted ? <MicOff className="h-8 w-8" /> : <Mic className="h-8 w-8" />}
@@ -969,11 +1082,23 @@ export default function Room() {
                     <div className="h-2 w-2 rounded-full bg-success animate-pulse" />
                   )}
                   <span className="font-bold text-lg text-white">
-                    {isMuted ? "Microphone Off" : partnerConnected ? "Ready to speak" : "Waiting for partner"}
+                    {quotaExceeded && isMuted 
+                      ? "Quota Exceeded - Mic Disabled" 
+                      : isMuted 
+                        ? "Microphone Off" 
+                        : partnerConnected 
+                          ? "Ready to speak" 
+                          : "Waiting for partner"
+                    }
                   </span>
                 </div>
                 <p className="text-sm text-slate-400">
-                  {isMuted ? "Click the button to unmute" : "Click to mute your microphone"}
+                  {quotaExceeded && isMuted 
+                    ? "Azure quota limit reached - upgrade account to continue"
+                    : isMuted 
+                      ? "Click the button to unmute" 
+                      : "Click to mute your microphone"
+                  }
                 </p>
               </div>
             </div>
