@@ -6,7 +6,7 @@ import { cn } from "@/lib/utils";
 import type { VoiceGender } from "@shared/schema";
 
 interface VoiceGenderSelectorProps {
-  value: VoiceGender;
+  value: VoiceGender | undefined;
   onValueChange: (value: VoiceGender) => void;
   disabled?: boolean;
 }
@@ -18,7 +18,7 @@ export function VoiceGenderSelector({
 }: VoiceGenderSelectorProps) {
   return (
     <RadioGroup
-      value={value}
+      value={value || ""}
       onValueChange={onValueChange}
       disabled={disabled}
       className="grid grid-cols-2 gap-4"

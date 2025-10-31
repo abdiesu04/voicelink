@@ -12,7 +12,7 @@ import type { VoiceGender } from "@shared/schema";
 export default function CreateRoom() {
   const [, setLocation] = useLocation();
   const [selectedLanguage, setSelectedLanguage] = useState("en");
-  const [selectedVoiceGender, setSelectedVoiceGender] = useState<VoiceGender>("female");
+  const [selectedVoiceGender, setSelectedVoiceGender] = useState<VoiceGender | undefined>(undefined);
   
   console.log('[CreateRoom] Selected voice gender:', selectedVoiceGender);
   const { toast } = useToast();
@@ -44,6 +44,14 @@ export default function CreateRoom() {
       toast({
         title: "Language Required",
         description: "Please select your preferred language",
+        variant: "destructive",
+      });
+      return;
+    }
+    if (!selectedVoiceGender) {
+      toast({
+        title: "Voice Gender Required",
+        description: "Please select your voice gender preference",
         variant: "destructive",
       });
       return;

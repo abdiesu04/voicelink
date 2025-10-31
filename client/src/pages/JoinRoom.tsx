@@ -11,7 +11,7 @@ export default function JoinRoom() {
   const [, params] = useRoute("/join/:roomId");
   const [, setLocation] = useLocation();
   const [selectedLanguage, setSelectedLanguage] = useState("en");
-  const [selectedVoiceGender, setSelectedVoiceGender] = useState<VoiceGender>("male");
+  const [selectedVoiceGender, setSelectedVoiceGender] = useState<VoiceGender | undefined>(undefined);
   
   console.log('[JoinRoom] Selected voice gender:', selectedVoiceGender);
   const [isJoining, setIsJoining] = useState(false);
@@ -36,6 +36,15 @@ export default function JoinRoom() {
       toast({
         title: "Language Required",
         description: "Please select your preferred language",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (!selectedVoiceGender) {
+      toast({
+        title: "Voice Gender Required",
+        description: "Please select your voice gender preference",
         variant: "destructive",
       });
       return;

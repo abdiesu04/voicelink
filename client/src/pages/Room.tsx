@@ -44,7 +44,7 @@ export default function Room() {
   const [copied, setCopied] = useState(false);
   const [partnerConnected, setPartnerConnected] = useState(false);
   const [partnerLanguage, setPartnerLanguage] = useState<string>("");
-  const [partnerVoiceGender, setPartnerVoiceGender] = useState<"male" | "female">("male");
+  const [partnerVoiceGender, setPartnerVoiceGender] = useState<"male" | "female" | undefined>(undefined);
   const [conversationStarted, setConversationStarted] = useState(false);
 
   const [myMessages, setMyMessages] = useState<TranscriptionMessage[]>([]);
@@ -540,9 +540,13 @@ export default function Room() {
           // CORRECT LOGIC: Use PARTNER's voiceGender (what they selected = the voice representing THEM)
           // "Your Voice" = voice representing YOU (what partner hears when you speak)
           // "Partner's Voice" = voice representing PARTNER (what you hear when partner speaks)
-          console.log(`[Voice Gender] Playing partner's translation in PARTNER's voice: ${partnerVoiceGender}, My voice (what partner hears): ${voiceGender}`);
-          console.log(`[Voice Gender] Text to speak: "${message.translatedText}", Language: ${language}`);
-          speakText(message.translatedText, language, partnerVoiceGender, messageId);
+          if (partnerVoiceGender) {
+            console.log(`[Voice Gender] Playing partner's translation in PARTNER's voice: ${partnerVoiceGender}, My voice (what partner hears): ${voiceGender}`);
+            console.log(`[Voice Gender] Text to speak: "${message.translatedText}", Language: ${language}`);
+            speakText(message.translatedText, language, partnerVoiceGender, messageId);
+          } else {
+            console.error('[Voice Gender] Partner voice gender not set, skipping TTS');
+          }
         }
       }
 
@@ -825,7 +829,7 @@ export default function Room() {
                     <div>
                       <div className="text-xs text-slate-400">Partner's Voice</div>
                       <div className="text-sm font-semibold text-white capitalize" data-testid="text-partner-voice-gender">
-                        {partnerVoiceGender}
+                        {partnerVoiceGender || "..."}
                       </div>
                     </div>
                   </div>
