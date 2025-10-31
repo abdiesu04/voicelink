@@ -504,7 +504,8 @@ export default function Room() {
         } else {
           setPartnerMessages(prev => [...prev, newMessage]);
           setPartnerInterimText(""); // Clear interim when final arrives
-          speakText(message.translatedText, language, partnerVoiceGender, messageId);
+          // Use the current user's voice preference (not the partner's)
+          speakText(message.translatedText, language, voiceGender, messageId);
         }
       }
 
