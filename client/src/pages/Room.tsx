@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from "react";
 import { useRoute, useLocation } from "wouter";
-import { Mic, MicOff, PhoneOff, Copy, Check, Share2, Volume2, Sparkles } from "lucide-react";
+import { Mic, MicOff, PhoneOff, Copy, Check, Share2, Volume2, Sparkles, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ConnectionStatus } from "@/components/ConnectionStatus";
 import { TranscriptionPanel } from "@/components/TranscriptionPanel";
@@ -718,50 +718,85 @@ export default function Room() {
       {/* Header */}
       <header className="border-b border-slate-800/50 bg-slate-900/50 backdrop-blur-xl relative z-10 pt-20">
         <div className="container mx-auto px-6 md:px-12 py-6">
-          <div className="flex items-center justify-between">
-            <ConnectionStatus status={connectionStatus} latency={connectionStatus === "connected" ? 45 : undefined} />
-            
-            {myLanguage && theirLanguage && (
-              <div className="flex items-center gap-4 px-6 py-3 rounded-2xl bg-gradient-to-r from-primary/10 to-accent/10 border border-slate-700/50 backdrop-blur-sm">
-                <div className="flex items-center gap-3">
-                  <img 
-                    src={`https://flagcdn.com/w40/${myLanguage.countryCode.toLowerCase()}.png`}
-                    width="32"
-                    height="24"
-                    alt={myLanguage.code}
-                    className="rounded border border-slate-600"
-                  />
-                  <div>
-                    <div className="text-sm font-bold text-white">{myLanguage.name}</div>
-                    <div className="text-xs text-slate-400">You</div>
+          <div className="flex flex-col gap-4">
+            <div className="flex items-center justify-between">
+              <ConnectionStatus status={connectionStatus} latency={connectionStatus === "connected" ? 45 : undefined} />
+              
+              {myLanguage && theirLanguage && (
+                <div className="flex items-center gap-4 px-6 py-3 rounded-2xl bg-gradient-to-r from-primary/10 to-accent/10 border border-slate-700/50 backdrop-blur-sm">
+                  <div className="flex items-center gap-3">
+                    <img 
+                      src={`https://flagcdn.com/w40/${myLanguage.countryCode.toLowerCase()}.png`}
+                      width="32"
+                      height="24"
+                      alt={myLanguage.code}
+                      className="rounded border border-slate-600"
+                    />
+                    <div>
+                      <div className="text-sm font-bold text-white">{myLanguage.name}</div>
+                      <div className="text-xs text-slate-400">You</div>
+                    </div>
+                  </div>
+                  <div className="h-10 w-px bg-slate-700" />
+                  <div className="flex items-center gap-3">
+                    <img 
+                      src={`https://flagcdn.com/w40/${theirLanguage.countryCode.toLowerCase()}.png`}
+                      width="32"
+                      height="24"
+                      alt={theirLanguage.code}
+                      className="rounded border border-slate-600"
+                    />
+                    <div>
+                      <div className="text-sm font-bold text-white">{theirLanguage.name}</div>
+                      <div className="text-xs text-slate-400">Partner</div>
+                    </div>
                   </div>
                 </div>
-                <div className="h-10 w-px bg-slate-700" />
-                <div className="flex items-center gap-3">
-                  <img 
-                    src={`https://flagcdn.com/w40/${theirLanguage.countryCode.toLowerCase()}.png`}
-                    width="32"
-                    height="24"
-                    alt={theirLanguage.code}
-                    className="rounded border border-slate-600"
-                  />
-                  <div>
-                    <div className="text-sm font-bold text-white">{theirLanguage.name}</div>
-                    <div className="text-xs text-slate-400">Partner</div>
+              )}
+
+              <Button
+                variant="destructive"
+                onClick={handleEndCall}
+                className="gap-2"
+                data-testid="button-end-call"
+              >
+                <PhoneOff className="h-4 w-4" />
+                <span className="hidden sm:inline">End Call</span>
+              </Button>
+            </div>
+
+            {/* Voice Gender Display */}
+            {partnerConnected && (
+              <div className="flex items-center justify-center gap-6">
+                <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800/70 border border-slate-700/50">
+                  <div className="flex items-center gap-2">
+                    <div className="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center">
+                      <Volume2 className="h-4 w-4 text-primary" />
+                    </div>
+                    <div>
+                      <div className="text-xs text-slate-400">Your Voice</div>
+                      <div className="text-sm font-semibold text-white capitalize" data-testid="text-my-voice-gender">
+                        {voiceGender}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800/70 border border-slate-700/50">
+                  <div className="flex items-center gap-2">
+                    <div className="h-8 w-8 rounded-full bg-accent/20 flex items-center justify-center">
+                      <User className="h-4 w-4 text-accent" />
+                    </div>
+                    <div>
+                      <div className="text-xs text-slate-400">Partner's Voice</div>
+                      <div className="text-sm font-semibold text-white capitalize" data-testid="text-partner-voice-gender">
+                        {partnerVoiceGender}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
             )}
-
-            <Button
-              variant="destructive"
-              onClick={handleEndCall}
-              className="gap-2"
-              data-testid="button-end-call"
-            >
-              <PhoneOff className="h-4 w-4" />
-              <span className="hidden sm:inline">End Call</span>
-            </Button>
           </div>
         </div>
       </header>
