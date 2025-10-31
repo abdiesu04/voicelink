@@ -1,0 +1,47 @@
+client:536 WebSocket connection to 'wss://76b67878-aa4f-4967-ba04-88458384b912-00-2pvz6t58xfuz3.worf.replit.dev/?token=zsC3nf6p3L1v' failed: 
+setupWebSocket @ client:536
+client:536 Uncaught (in promise) SyntaxError: Failed to construct 'WebSocket': The URL 'wss://localhost:undefined/?token=zsC3nf6p3L1v' is invalid.
+    at setupWebSocket (client:536:19)
+    at fallback (client:509:16)
+    at WebSocket.<anonymous> (client:555:7)
+chunk-WERSD76P.js?v=b9534207:21551 Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+JoinRoom.tsx:16 [JoinRoom] Selected voice gender: male
+tab.js:1 Refused to execute inline script because it violates the following Content Security Policy directive: "script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' chrome-extension://b4e269a9-2a41-4b8e-ad87-865f1ad8cb01/". Either the 'unsafe-inline' keyword, a hash ('sha256-kPx0AsF0oz2kKiZ875xSvv693TBHkQ/0SkMJZnnNpnQ='), or a nonce ('nonce-...') is required to enable inline execution.
+
+(anonymous) @ tab.js:1
+JoinRoom.tsx:16 [JoinRoom] Selected voice gender: female
+JoinRoom.tsx:16 [JoinRoom] Selected voice gender: female
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: female
+Room.tsx:73 [State Change] partnerVoiceGender updated to: male
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: female
+Room.tsx:486 [Voice Gender] Partner joined with gender: male
+Room.tsx:487 [Voice Gender] My gender: female
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: female
+Room.tsx:171 [Audio Unlock] Attempting to unlock audio for mobile...
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: female
+Room.tsx:199 [Audio Unlock] Audio successfully unlocked for mobile
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: female
+Room.tsx:541 [Voice Gender] About to play TTS - Using MY voice preference: female, Partner's preference (unused): male
+Room.tsx:542 [Voice Gender] Text to speak: "Hello, I'm fine. How are you Fine.", Language: en
+Room.tsx:433 [TTS Queue] Adding to queue (queue size: 0): Hello, I'm fine. How are you Fine.
+Room.tsx:274 [TTS Queue] Queue processor started
+Room.tsx:291 [TTS Queue] Playing: Hello, I'm fine. How are you Fine. 
+Room.tsx:316 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:228 [TTS] Synthesizing with gender: female, language: en, voice: en-US-JennyNeural
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: female
+Room.tsx:320 [TTS Queue] Synthesis completed in 2230ms, audio size: 67968 bytes
+Room.tsx:380 [TTS Queue] Playback started successfully
+Room.tsx:361 [TTS Queue] Playback completed (audio ended)
+Room.tsx:408 [TTS Queue] Queue processor finished
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: female
