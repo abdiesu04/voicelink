@@ -33,6 +33,8 @@ export default function Room() {
   const role = urlParams.get("role") || "creator";
   const language = urlParams.get("language") || "en";
   const voiceGender = (urlParams.get("voiceGender") || "female") as "male" | "female";
+  
+  console.log(`[Room Init] Role: ${role}, Language: ${language}, My Voice Gender: ${voiceGender}`);
 
   const [connectionStatus, setConnectionStatus] = useState<"connected" | "connecting" | "disconnected">("connecting");
   const [isMuted, setIsMuted] = useState(true);
@@ -216,6 +218,8 @@ export default function Room() {
     
     const azureLang = azureLanguageMap[languageCode] || 'en-US';
     const voiceName = getAzureVoiceName(languageCode, gender);
+    
+    console.log(`[TTS] Synthesizing with gender: ${gender}, language: ${languageCode}, voice: ${voiceName}`);
     
     // Escape text for SSML (prevents XML parsing errors with &, <, >, etc.)
     const escapedText = escapeXml(text);
@@ -506,7 +510,8 @@ export default function Room() {
         } else {
           setPartnerMessages(prev => [...prev, newMessage]);
           setPartnerInterimText(""); // Clear interim when final arrives
-          console.log(`[Voice Gender] Playing TTS with partner gender: ${partnerVoiceGender}, my gender: ${voiceGender}`);
+          console.log(`[Voice Gender] About to play TTS - Partner's gender (what I hear): ${partnerVoiceGender}, My gender (what partner hears): ${voiceGender}`);
+          console.log(`[Voice Gender] Text to speak: "${message.translatedText}", Language: ${language}`);
           speakText(message.translatedText, language, partnerVoiceGender, messageId);
         }
       }
