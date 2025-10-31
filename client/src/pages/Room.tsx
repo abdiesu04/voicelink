@@ -771,22 +771,22 @@ export default function Room() {
             </div>
 
             {/* Voice Gender Display */}
-            {partnerConnected && (
-              <div className="flex items-center justify-center gap-6">
-                <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800/70 border border-slate-700/50">
-                  <div className="flex items-center gap-2">
-                    <div className="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center">
-                      <Volume2 className="h-4 w-4 text-primary" />
-                    </div>
-                    <div>
-                      <div className="text-xs text-slate-400">Your Voice</div>
-                      <div className="text-sm font-semibold text-white capitalize" data-testid="text-my-voice-gender">
-                        {voiceGender}
-                      </div>
+            <div className="flex items-center justify-center gap-6">
+              <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800/70 border border-slate-700/50">
+                <div className="flex items-center gap-2">
+                  <div className="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center">
+                    <Volume2 className="h-4 w-4 text-primary" />
+                  </div>
+                  <div>
+                    <div className="text-xs text-slate-400">Your Voice</div>
+                    <div className="text-sm font-semibold text-white capitalize" data-testid="text-my-voice-gender">
+                      {voiceGender}
                     </div>
                   </div>
                 </div>
+              </div>
 
+              {partnerConnected && (
                 <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800/70 border border-slate-700/50">
                   <div className="flex items-center gap-2">
                     <div className="h-8 w-8 rounded-full bg-accent/20 flex items-center justify-center">
@@ -800,8 +800,8 @@ export default function Room() {
                     </div>
                   </div>
                 </div>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </div>
       </header>
