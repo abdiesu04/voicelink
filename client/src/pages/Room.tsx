@@ -278,6 +278,7 @@ export default function Room() {
         
         // Skip if already spoken
         if (spokenMessageIdsRef.current.has(item.messageId)) {
+          console.log('[TTS Queue] Skipping already spoken item in processor:', item.text.substring(0, 50));
           continue;
         }
 
@@ -407,6 +408,7 @@ export default function Room() {
   // Add translation to queue and start processing
   const speakText = (text: string, languageCode: string, gender: "male" | "female", messageId: string) => {
     if (spokenMessageIdsRef.current.has(messageId)) {
+      console.log('[TTS Queue] Skipping duplicate (already spoken):', text.substring(0, 50));
       return;
     }
 
@@ -501,7 +503,8 @@ export default function Room() {
 
       if (message.type === "translation") {
         const isOwn = message.speaker === role;
-        const messageId = `${message.speaker}-${Date.now()}-${message.originalText}`;
+        // Create stable messageId based on content, not timestamp - prevents replaying same translation
+        const messageId = `${message.speaker}-${message.originalText}-${message.translatedText}`;
         const newMessage: TranscriptionMessage = {
           id: messageId,
           originalText: message.originalText,
