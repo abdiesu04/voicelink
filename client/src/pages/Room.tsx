@@ -278,12 +278,6 @@ export default function Room() {
       while (ttsQueueRef.current.length > 0) {
         const item = ttsQueueRef.current.shift()!;
         
-        // Skip if already spoken
-        if (spokenMessageIdsRef.current.has(item.messageId)) {
-          console.log('[TTS Queue] Skipping already spoken item in processor:', item.text.substring(0, 50));
-          continue;
-        }
-
         // Initialize retry count if not present
         const retryCount = item.retryCount || 0;
         const maxRetries = 3;
@@ -333,7 +327,9 @@ export default function Room() {
             const cleanupSuccess = () => {
               if (!hasCompleted) {
                 hasCompleted = true;
-                // messageId already marked as spoken when first queued
+                // CRITICAL: Mark as spoken AFTER successful playback
+                spokenMessageIdsRef.current.add(item.messageId);
+                console.log('[TTS Queue] Marked messageId as spoken:', item.messageId);
                 
                 // Clean up event listeners
                 audio.removeEventListener('ended', onEnded);
@@ -414,12 +410,17 @@ export default function Room() {
       return;
     }
 
+    // Also check if already in queue (prevent double-queuing)
+    const alreadyInQueue = ttsQueueRef.current.some(item => item.messageId === messageId);
+    if (alreadyInQueue) {
+      console.log('[TTS Queue] Skipping - already in queue:', messageId, text.substring(0, 50));
+      return;
+    }
+
     console.log('[TTS Queue] Adding to queue (queue size: ' + ttsQueueRef.current.length + '):', text.substring(0, 50));
     
-    // Mark this messageId as queued immediately to prevent duplicates
-    spokenMessageIdsRef.current.add(messageId);
-    
     // Add translation to queue - all translations will play in order
+    // Do NOT mark as spoken yet - only mark after successful playback
     ttsQueueRef.current.push({ text, languageCode, gender, messageId });
     
     // Start processing the queue if not already processing
