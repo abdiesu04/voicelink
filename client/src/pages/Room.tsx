@@ -617,7 +617,9 @@ export default function Room() {
         ws.close();
       }
     };
-  }, [roomId, language, voiceGender, role, toast, setLocation]);
+    // CRITICAL: Do NOT include toast or setLocation - they cause constant re-renders
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [roomId, language, voiceGender, role]);
 
   const startConversation = async () => {
     setConversationStarted(true);
