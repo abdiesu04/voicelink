@@ -150,6 +150,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
               participantVoiceGender: voiceGender 
             });
             
+            console.log(`[Join] Participant joined with gender: ${voiceGender}`);
+            console.log(`[Join] Sending creator's gender to participant: ${room.creatorVoiceGender}`);
+            
             // Send creator's info to the participant
             ws.send(JSON.stringify({
               type: 'participant-joined',
@@ -157,6 +160,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
               language: room.creatorLanguage,
               voiceGender: room.creatorVoiceGender
             }));
+            
+            console.log(`[Join] Sending participant's gender to creator: ${voiceGender}`);
             
             // Notify creator that participant joined
             const roomClients = roomConnections.get(roomId) || [];
