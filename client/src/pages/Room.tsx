@@ -993,25 +993,35 @@ export default function Room() {
       {quotaExceeded && (
         <div className="bg-destructive/20 border-y border-destructive/50 backdrop-blur-sm relative z-10">
           <div className="container mx-auto px-6 md:px-12 py-4">
-            <div className="flex items-start gap-3">
-              <div className="flex-shrink-0 h-6 w-6 rounded-full bg-destructive/30 flex items-center justify-center">
-                <span className="text-destructive font-bold text-sm">!</span>
+            <div className="flex items-start justify-between gap-4">
+              <div className="flex items-start gap-3 flex-1">
+                <div className="flex-shrink-0 h-6 w-6 rounded-full bg-destructive/30 flex items-center justify-center">
+                  <span className="text-destructive font-bold text-sm">!</span>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-sm font-semibold text-destructive mb-1">Azure Quota Limit Reached</h3>
+                  <p className="text-xs text-slate-300">
+                    Your Azure Speech Services quota has been exceeded. If you've upgraded your account or changed API keys, click "Try Again" to resume.
+                  </p>
+                </div>
               </div>
-              <div className="flex-1">
-                <h3 className="text-sm font-semibold text-destructive mb-1">Azure Quota Limit Reached</h3>
-                <p className="text-xs text-slate-300">
-                  Your Azure Speech Services account has exceeded its usage quota. 
-                  <span className="block mt-1">
-                    <strong>You can still:</strong> Receive translated text messages from your partner.
-                  </span>
-                  <span className="block mt-1">
-                    <strong>Unavailable:</strong> Speaking (microphone) and hearing audio (TTS).
-                  </span>
-                  <span className="block mt-2 text-destructive font-medium">
-                    Solution: Upgrade your Azure account to a paid tier or wait for quota reset (usually monthly).
-                  </span>
-                </p>
-              </div>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => {
+                  quotaExceededRef.current = false;
+                  setQuotaExceeded(false);
+                  setQuotaError("");
+                  toast({
+                    title: "Quota Reset",
+                    description: "You can now try using voice features again",
+                  });
+                }}
+                className="flex-shrink-0"
+                data-testid="button-reset-quota"
+              >
+                Try Again
+              </Button>
             </div>
           </div>
         </div>
