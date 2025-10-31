@@ -56,7 +56,6 @@ export default function Room() {
   const recognizerRef = useRef<SpeechSDK.SpeechRecognizer | null>(null);
   const azureTokenRef = useRef<{ token: string; region: string } | null>(null);
   const spokenMessageIdsRef = useRef<Set<string>>(new Set());
-  const recentlyPlayedRef = useRef<Map<string, number>>(new Map()); // text -> timestamp for deduplication
   const lastInterimSentRef = useRef<number>(0);
   const activeSynthesizerRef = useRef<SpeechSDK.SpeechSynthesizer | null>(null);
   const ttsQueueRef = useRef<Array<{ text: string; languageCode: string; gender: "male" | "female"; messageId: string; retryCount?: number }>>([]);
@@ -334,9 +333,7 @@ export default function Room() {
             const cleanupSuccess = () => {
               if (!hasCompleted) {
                 hasCompleted = true;
-                spokenMessageIdsRef.current.add(item.messageId);
-                // Mark text as recently played for time-based deduplication
-                recentlyPlayedRef.current.set(item.text, Date.now());
+                // messageId already marked as spoken when first queued
                 
                 // Clean up event listeners
                 audio.removeEventListener('ended', onEnded);
@@ -398,9 +395,7 @@ export default function Room() {
             });
           } else {
             console.error(`[TTS Queue] Max retries (${maxRetries}) exceeded, skipping message:`, item.text.substring(0, 50));
-            // Mark as spoken and recently played to prevent infinite retry loop
-            spokenMessageIdsRef.current.add(item.messageId);
-            recentlyPlayedRef.current.set(item.text, Date.now());
+            // Already marked as spoken when first queued - no need to mark again
           }
         }
       }
@@ -413,26 +408,16 @@ export default function Room() {
 
   // Add translation to queue and start processing
   const speakText = (text: string, languageCode: string, gender: "male" | "female", messageId: string) => {
-    // Time-based deduplication: skip if same text was played in last 30 seconds (prevents mute/unmute replay)
-    const now = Date.now();
-    const deduplicationWindow = 30000; // 30 seconds - long enough to prevent mute/unmute replay
-    const lastPlayed = recentlyPlayedRef.current.get(text);
-    
-    if (lastPlayed && (now - lastPlayed) < deduplicationWindow) {
-      console.log('[TTS Queue] Skipping duplicate (played recently):', text.substring(0, 50), `(${now - lastPlayed}ms ago)`);
+    // CRITICAL: Check if we've already queued/played this exact messageId
+    if (spokenMessageIdsRef.current.has(messageId)) {
+      console.log('[TTS Queue] Skipping duplicate messageId:', messageId, text.substring(0, 50));
       return;
     }
-    
-    // Clean up old entries from deduplication map (older than 60 seconds)
-    const entriesToDelete: string[] = [];
-    recentlyPlayedRef.current.forEach((timestamp, oldText) => {
-      if (now - timestamp > 60000) {
-        entriesToDelete.push(oldText);
-      }
-    });
-    entriesToDelete.forEach(text => recentlyPlayedRef.current.delete(text));
 
     console.log('[TTS Queue] Adding to queue (queue size: ' + ttsQueueRef.current.length + '):', text.substring(0, 50));
+    
+    // Mark this messageId as queued immediately to prevent duplicates
+    spokenMessageIdsRef.current.add(messageId);
     
     // Add translation to queue - all translations will play in order
     ttsQueueRef.current.push({ text, languageCode, gender, messageId });
