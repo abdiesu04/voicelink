@@ -436,8 +436,22 @@ export default function Room() {
       });
     };
 
+    // Application-level heartbeat to prevent 5-minute timeout
+    // Send ping every 60 seconds to keep connection alive through proxies
+    const heartbeatInterval = setInterval(() => {
+      if (ws.readyState === WebSocket.OPEN) {
+        ws.send(JSON.stringify({ type: "ping" }));
+      }
+    }, 60000); // 60 seconds
+
     ws.onmessage = (event) => {
       const message = JSON.parse(event.data);
+
+      // Handle pong response from server (keepalive)
+      if (message.type === "pong") {
+        // Connection is alive, no action needed
+        return;
+      }
 
       if (message.type === "participant-joined") {
         setPartnerConnected(true);
@@ -528,6 +542,9 @@ export default function Room() {
     wsRef.current = ws;
 
     return () => {
+      // Clear heartbeat interval
+      clearInterval(heartbeatInterval);
+      
       // Clear the TTS queue and stop any playing audio when leaving the room
       ttsQueueRef.current = [];
       isProcessingTTSRef.current = false;
