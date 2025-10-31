@@ -454,6 +454,8 @@ export default function Room() {
       }
 
       if (message.type === "participant-joined") {
+        console.log(`[Voice Gender] Partner joined with gender: ${message.voiceGender}`);
+        console.log(`[Voice Gender] My gender: ${voiceGender}`);
         setPartnerConnected(true);
         setPartnerLanguage(message.language);
         setPartnerVoiceGender(message.voiceGender);
@@ -504,8 +506,8 @@ export default function Room() {
         } else {
           setPartnerMessages(prev => [...prev, newMessage]);
           setPartnerInterimText(""); // Clear interim when final arrives
-          // Use the current user's voice preference (not the partner's)
-          speakText(message.translatedText, language, voiceGender, messageId);
+          console.log(`[Voice Gender] Playing TTS with partner gender: ${partnerVoiceGender}, my gender: ${voiceGender}`);
+          speakText(message.translatedText, language, partnerVoiceGender, messageId);
         }
       }
 
