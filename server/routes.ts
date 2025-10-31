@@ -97,15 +97,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
     const pingInterval = setInterval(() => {
       if (!isAlive) {
-        console.log('WebSocket connection terminated - no pong received');
+        const connection = connections.get(ws);
+        console.log('[WebSocket Heartbeat] Connection terminated - no activity detected', {
+          roomId: connection?.roomId,
+          language: connection?.language,
+          role: connection?.role,
+          timestamp: new Date().toISOString()
+        });
         clearInterval(pingInterval);
         return ws.terminate();
       }
       isAlive = false;
       ws.ping();
-    }, 30000); // 30 seconds
+    }, 90000); // 90 seconds - extended from 30s to prevent disconnections during heavy Azure operations
 
     ws.on('message', async (data: Buffer) => {
+      // ANY message from client proves connection is alive (fixes disconnection during heavy Azure operations)
+      isAlive = true;
+      
       try {
         const message = JSON.parse(data.toString());
         
