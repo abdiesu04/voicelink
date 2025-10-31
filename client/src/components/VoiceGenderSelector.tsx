@@ -61,13 +61,13 @@ export function VoiceGenderSelector({
               value === "male" ? "text-white" : "text-slate-300"
             )}
           >
-            Male Voice
+            Male
           </Label>
           <p className={cn(
             "text-sm mt-0.5",
             value === "male" ? "text-slate-300" : "text-slate-500"
           )}>
-            Masculine tone
+            I am male
           </p>
         </div>
       </div>
@@ -109,13 +109,13 @@ export function VoiceGenderSelector({
               value === "female" ? "text-white" : "text-slate-300"
             )}
           >
-            Female Voice
+            Female
           </Label>
           <p className={cn(
             "text-sm mt-0.5",
             value === "female" ? "text-slate-300" : "text-slate-500"
           )}>
-            Feminine tone
+            I am female
           </p>
         </div>
       </div>

@@ -97,8 +97,8 @@ export default function CreateRoom() {
                   <Mic className="h-6 w-6 text-primary" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-white">Voice Preference</h2>
-                  <p className="text-sm text-slate-400">What your partner will hear</p>
+                  <h2 className="text-2xl font-bold text-white">My Voice Gender</h2>
+                  <p className="text-sm text-slate-400">Your partner will hear this voice</p>
                 </div>
               </div>
               

@@ -1,0 +1,197 @@
+browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+
+A PostCSS plugin did not pass the `from` option to `postcss.parse`. This may cause imported assets to be incorrectly transformed. If you've recently added a PostCSS plugin that raised this warning, please contact the package author to fix the issue.
+                                                                                                               7:29:26 AM [express] POST /api/rooms/create 200 in 2ms :: {"roomId":"6b5debc8-1ed8-4d6c-9c69-cb43253…
+New WebSocket connection
+7:30:32 AM [express] GET /api/speech/token 200 in 135ms :: {"token":"eyJhbGciOiJFUzI1NiIsImtpZCI6Imt…
+New WebSocket connection
+[Join] Participant joined with gender: female
+[Join] Sending creator's gender to participant: male
+[Join] Sending participant's gender to creator: female
+7:30:41 AM [express] GET /api/speech/token 200 in 120ms :: {"token":"eyJhbGciOiJFUzI1NiIsImtpZCI6Imt…
+[Transcription-Interim] Received text: "hello", language: en
+[Transcription-Final] Received text: "Hello.", language: en
+[Transcription-Interim] Received text: "hello", language: en
+[Transcription-Final] Received text: "Hello.", language: en
+[Transcription-Interim] Received text: "hello", language: en
+[Transcription-Final] Received text: "Hello.", language: en
+[Transcription-Interim] Received text: "hello", language: en
+[Transcription-Final] Received text: "Hello.", language: en
+[Transcription-Interim] Received text: "hello", language: en
+[Transcription-Interim] Received text: "hello", language: en
+[Transcription-Final] Received text: "Hello.", language: en
+[Transcription-Final] Received text: "Hello.", language: en
+[Transcription-Interim] Received text: "hello hello", language: en
+[Transcription-Final] Received text: "Hello. Hello.", language: en
+[Transcription-Interim] Received text: "uh going to be", language: en
+[Transcription-Interim] Received text: "uh going to be the", language: en
+[Transcription-Interim] Received text: "uh going to be the longest", language: en
+[Transcription-Interim] Received text: "uh going to be the longest text", language: en
+[Transcription-Interim] Received text: "uh going to be the longest text uh longest", language: en
+[Transcription-Interim] Received text: "uh going to be the longest text uh longest convers", language: en
+[Transcription-Interim] Received text: "uh going to be the longest text uh longest conversation so i", language: en
+[Transcription-Interim] Received text: "uh going to be the longest text uh longest conversation so i have to speak at this", language: en
+[Transcription-Interim] Received text: "uh going to be the longest text uh longest conversation so i have to speak at this for three or five", language: en
+[Transcription-Interim] Received text: "uh going to be the longest text uh longest conversation so i have to speak at this for three or five minutes and i am", language: en
+[Transcription-Interim] Received text: "uh going to be the longest text uh longest conversation so i have to speak at this for three or five minutes in the i am going to uh", language: en
+[Transcription-Interim] Received text: "uh going to be the longest text uh longest conversation so i have to speak at this for three or five minutes in the i am going to uh this", language: en
+[Transcription-Interim] Received text: "uh going to be the longest text uh longest conversation so i have to speak at this for three or five minutes in the i am going to uh this guy", language: en
+[Transcription-Interim] Received text: "uh going to be the longest text uh longest conversation so i have to speak at this for three or five minutes in the i am going to uh this guy is uh", language: en
+[Transcription-Interim] Received text: "uh going to be the longest text uh longest conversation so i have to speak at this for three or five minutes in the i am going to uh this guy is uh uh", language: en
+[Transcription-Interim] Received text: "uh going to be the longest text uh longest conversation so i have to speak at this for three or five minutes in the i am going to uh this guy is uh uh you know", language: en
+[Transcription-Interim] Received text: "uh going to be the longest text uh longest conversation so i have to speak at this for three or five minutes in the i am going to uh this guy is uh uh you know he forget", language: en
+[Transcription-Interim] Received text: "uh going to be the longest text uh longest conversation so i have to speak at this for three or five minutes in the i am going to uh this guy is uh uh you know he forgets this", language: en
+[Transcription-Interim] Received text: "uh going to be the longest text uh longest conversation so i have to speak at this for three or five minutes in the i am going to uh this guy is uh uh you know he forgets this charger", language: en
+[Transcription-Interim] Received text: "uh going to be the longest text uh longest conversation so i have to speak at this for three or five minutes in the i am going to uh this guy is uh uh you know he forgets this charger he", language: en
+[Transcription-Interim] Received text: "uh going to be the longest text uh longest conversation so i have to speak at this for three or five minutes in the i am going to uh this guy is uh uh you know he forgets this charger he comes in", language: en
+[Transcription-Interim] Received text: "uh going to be the longest text uh longest conversation so i have to speak at this for three or five minutes in the i am going to uh this guy is uh uh you know he forgets this charger he comes in the morning", language: en
+[Transcription-Interim] Received text: "uh going to be the longest text uh longest conversation so i have to speak at this for three or five minutes in the i am going to uh this guy is uh uh you know he forgets this charger he comes in the morning in the very", language: en
+[Transcription-Interim] Received text: "uh going to be the longest text uh longest conversation so i have to speak at this for three or five minutes in the i am going to uh this guy is uh uh you know he forgets this charger he comes in the morning in the very very", language: en
+[Transcription-Interim] Received text: "uh going to be the longest text uh longest conversation so i have to speak at this for three or five minutes in the i am going to uh this guy is uh uh you know he forgets this charger he comes in the morning in the very various garry", language: en
+[Transcription-Interim] Received text: "uh going to be the longest text uh longest conversation so i have to speak at this for three or five minutes in the i am going to uh this guy is uh uh you know he forgets this charger he comes in the morning in the very various garry so and", language: en
+[Transcription-Interim] Received text: "uh going to be the longest text uh longest conversation so i have to speak at this for three or five minutes in the i am going to uh this guy is uh uh you know he forgets this charger he comes in the morning in the very various garry so and we have", language: en
+[Transcription-Interim] Received text: "uh going to be the longest text uh longest conversation so i have to speak at this for three or five minutes in the i am going to uh this guy is uh uh you know he forgets this charger he comes in the morning in the very various garry so and we have to so", language: en
+[Transcription-Interim] Received text: "uh going to be the longest text uh longest conversation so i have to speak at this for three or five minutes in the i am going to uh this guy is uh uh you know he forgets this charger he comes in the morning in the very various garry so and we have to so this is", language: en
+[Transcription-Interim] Received text: "uh going to be the longest text uh longest conversation so i have to speak at this for three or five minutes in the i am going to uh this guy is uh uh you know he forgets this charger he comes in the morning in the very various garry so and we have to so this is the", language: en
+[Transcription-Final] Received text: "Uh, going to be the longest text, uh, longest conversation. So I have to speak at this for three or five minutes and I am going to uh. This guy is uh, uh, you know, he forgets this charger. He comes in the morning in the very various Garry, so and we have to so this is the representative.", language: en
+[Transcription-Interim] Received text: "i love", language: en
+[Transcription-Interim] Received text: "i love you and", language: en
+[Transcription-Interim] Received text: "i love you and i", language: en
+[Transcription-Interim] Received text: "i love you and i going to be", language: en
+[Transcription-Final] Received text: "I love you and I going to be.", language: en
+[Transcription-Interim] Received text: "tell me", language: en
+[Transcription-Interim] Received text: "tell me uh one story", language: en
+[Transcription-Final] Received text: "Tell me, uh, one story.", language: en
+[Transcription-Interim] Received text: "that", language: en
+[Transcription-Interim] Received text: "that is going to be", language: en
+[Transcription-Interim] Received text: "that is going to be very", language: en
+[Transcription-Interim] Received text: "that is going to be very interesting", language: en
+[Transcription-Interim] Received text: "that is going to be very interesting and", language: en
+[Transcription-Interim] Received text: "that is going to be very interesting and let's", language: en
+[Transcription-Interim] Received text: "that is going to be very interesting and let's go and", language: en
+[Transcription-Interim] Received text: "that is going to be very interesting and let's go and learn something", language: en
+[Transcription-Final] Received text: "That is going to be very interesting and let's go and learn something.", language: en
+[Transcription-Interim] Received text: "hey", language: en
+[Transcription-Interim] Received text: "hey i'm learning legal preference", language: en
+[Transcription-Interim] Received text: "hey i'm learning legal preference i've been", language: en
+[Transcription-Interim] Received text: "hey i'm learning legal preference i have your child's", language: en
+[Transcription-Interim] Received text: "hey i'm learning legal preference i've been child offer them", language: en
+[Transcription-Interim] Received text: "hey i'm learning legal preference i have your child's offer them lunch", language: en
+[Transcription-Interim] Received text: "hey i'm learning legal preference i have your child's offer them lunch ask", language: en
+[Transcription-Interim] Received text: "hey i'm learning legal preference i have your child's offer them lunch ask a million questions", language: en
+[Transcription-Interim] Received text: "hey i'm learning legal preference i have your child's offer them lunch 1,000,000 questions", language: en
+[Transcription-Interim] Received text: "hey i'm learning legal preference i have your child's offer them lunch a million questions just to", language: en
+[Transcription-Interim] Received text: "hey i'm learning legal preference i have your child's offer them lunch a million questions just to understand", language: en
+[Transcription-Interim] Received text: "hey i'm learning legal preference i have your child's offer them lunch a million questions just to understand what", language: en
+[Transcription-Interim] Received text: "hey i'm learning legal preference i have your child's offer them lunch a million questions just to understand what tools they were using", language: en
+[Transcription-Interim] Received text: "hey i'm learning legal preference i have your child's offer them lunch a million questions just to understand what tools they were using how", language: en
+[Transcription-Interim] Received text: "hey i'm learning legal preference i have your child's offer them lunch a million questions just to understand what tools they were using how they went", language: en
+[Transcription-Interim] Received text: "hey i'm learning legal preference i have your child's offer them lunch a million questions just to understand what tools they were using how they went about their work", language: en
+[Transcription-Final] Received text: "Hey, I'm learning legal preference. I have a child, offer them lunch, ask a million questions just to understand what tools they were using, how they went about their work.", language: en
+[Transcription-Interim] Received text: "this", language: en
+[Transcription-Interim] Received text: "this convers", language: en
+[Transcription-Interim] Received text: "this conversations ended", language: en
+[Transcription-Interim] Received text: "this conversations ended up shaping", language: en
+[Transcription-Interim] Received text: "this conversations ended up shaping everything", language: en
+[Transcription-Interim] Received text: "this conversations ended up shaping everything we've built", language: en
+[Transcription-Interim] Received text: "this conversations ended up shaping everything we've built hey", language: en
+[Transcription-Interim] Received text: "this conversations ended up shaping everything we've built hey i'm learning", language: en
+[Transcription-Interim] Received text: "this conversations ended up shaping everything we've built hey i'm learning legal", language: en
+[Transcription-Interim] Received text: "this conversations ended up shaping everything we've built hey i'm learning legal preference i", language: en
+[Transcription-Interim] Received text: "this conversations ended up shaping everything we've built hey i'm learning legal preference i have a", language: en
+[Transcription-Interim] Received text: "this conversations ended up shaping everything we've built hey i'm learning legal preference i have a child", language: en
+[Transcription-Interim] Received text: "this conversations ended up shaping everything we've built hey i'm learning legal preference i have a child offer them lunch", language: en
+[Transcription-Interim] Received text: "this conversations ended up shaping everything we've built hey i'm learning legal preference i have a child offer them lunch ask", language: en
+[Transcription-Interim] Received text: "this conversations ended up shaping everything we've built hey i'm learning legal preference i have a child offer them lunch ask a million", language: en
+[Transcription-Interim] Received text: "this conversations ended up shaping everything we've built hey i'm learning legal preference i have a child offer them lunch ask a million questions", language: en
+[Transcription-Interim] Received text: "this conversations ended up shaping everything we've built hey i'm learning legal preference i have a child offer them lunch ask a million questions just to underst", language: en
+[Transcription-Interim] Received text: "this conversations ended up shaping everything we've built hey i'm learning legal preference i have a child offer them lunch ask a million questions just to understand", language: en
+[Transcription-Interim] Received text: "this conversations ended up shaping everything we've built hey i'm learning legal preference i have a child offer them lunch ask a million questions just to understand what tools", language: en
+[Transcription-Interim] Received text: "this conversations ended up shaping everything we've built hey i'm learning legal preference i have a child offer them lunch ask a million questions just to understand what tools they were using", language: en
+[Transcription-Interim] Received text: "this conversations ended up shaping everything we've built hey i'm learning legal preference i have a child offer them lunch ask a million questions just to understand what tools they were using how they", language: en
+[Transcription-Interim] Received text: "this conversations ended up shaping everything we've built hey i'm learning legal preference i have a child offer them lunch ask a million questions just to understand what tools they were using how they went about their", language: en
+[Transcription-Interim] Received text: "this conversations ended up shaping everything we've built hey i'm learning legal preference i have a child offer them lunch ask a million questions just to understand what tools they were using how they went about their work", language: en
+[Transcription-Final] Received text: "This conversations ended up shaping everything we've built. Hey, I'm learning legal preference. I have a child offer them lunch, ask a million questions just to understand what tools they were using, how they went about their work.", language: en
+[Transcription-Interim] Received text: "i'm working with", language: en
+[Transcription-Interim] Received text: "i'm working with more", language: en
+[Transcription-Interim] Received text: "i'm working with more 400 ball firms", language: en
+[Transcription-Interim] Received text: "i'm working with more 400 ball firms and in-house data", language: en
+[Transcription-Interim] Received text: "i'm working with more 400 ball firms and in-house data this convers", language: en
+[Transcription-Interim] Received text: "i'm working with more 400 ball firms and in-house data this conversation", language: en
+[Transcription-Interim] Received text: "i'm working with more 400 ball firms and in-house data this conversation ended up shaping", language: en
+[Transcription-Interim] Received text: "i'm working with more 400 ball firms and in-house data this conversation ended up shaping everything we've built", language: en
+[Transcription-Final] Received text: "I'm working with more 400 ball firms and in-house data. This conversation ended up shaping everything we've built. Hey.", language: en
+[Transcription-Interim] Received text: "so", language: en
+[Transcription-Interim] Received text: "how they went about", language: en
+[Transcription-Interim] Received text: "so yeah how they went about their works", language: en
+[Transcription-Final] Received text: "How they went about their works.", language: en
+[Transcription-Interim] Received text: "kind of made in the", language: en
+[Transcription-Interim] Received text: "kind of made in the tomorrow", language: en
+[Transcription-Interim] Received text: "kind of made in the tomorrow we", language: en
+[Transcription-Final] Received text: "Kind of made in the tomorrow we get back.", language: en
+[Transcription-Interim] Received text: "i'm working", language: en
+[Transcription-Interim] Received text: "i'm working with", language: en
+[Transcription-Interim] Received text: "i'm working with more", language: en
+[Transcription-Interim] Received text: "i'm working with more 400 ball", language: en
+[Transcription-Interim] Received text: "i'm working with more 400 ball firms", language: en
+[Transcription-Interim] Received text: "i'm working with more 400 ball firms and", language: en
+[Transcription-Interim] Received text: "i'm working with more 400 ball firms and in-house", language: en
+[Transcription-Final] Received text: "I'm working with more 400 ball firms and in-house data.", language: en
+[Transcription-Interim] Received text: "kind of", language: en
+[Transcription-Interim] Received text: "kind of made in the", language: en
+[Transcription-Interim] Received text: "kind of made in the tomorrow", language: en
+[Transcription-Interim] Received text: "kind of made in the tomorrow weekend", language: en
+[Transcription-Interim] Received text: "this", language: en
+[Transcription-Final] Received text: "Kind of made in the Tomorrow weekend rap.", language: en
+[Transcription-Interim] Received text: "this conversation ended up", language: en
+[Transcription-Interim] Received text: "this conversation ended up shaping", language: en
+[Transcription-Interim] Received text: "this conversation ended up shaping everything", language: en
+[Transcription-Interim] Received text: "this conversation ended up shaping everything we've built", language: en
+[Transcription-Final] Received text: "This conversation ended up shaping everything we've built.", language: en
+[Transcription-Interim] Received text: "kind of", language: en
+[Transcription-Interim] Received text: "kind of made in the tomorrow", language: en
+[Transcription-Interim] Received text: "kind of made in the tomorrow weekend", language: en
+[Transcription-Interim] Received text: "kind of made in the tomorrow weekend wrap", language: en
+[Transcription-Final] Received text: "Hey.", language: en
+[Transcription-Interim] Received text: "kind of made in the tomorrow weekend wrap this is much you", language: en
+[Transcription-Final] Received text: "Kind of made in the tomorrow weekend wrap.", language: en
+[Transcription-Interim] Received text: "after works", language: en
+[Transcription-Final] Received text: "After works.", language: en
+[Transcription-Interim] Received text: "i'm working", language: en
+[Transcription-Interim] Received text: "i'm working with", language: en
+[Transcription-Interim] Received text: "i'm working with N 1", language: en
+[Transcription-Interim] Received text: "i'm working with N 100", language: en
+[Transcription-Interim] Received text: "i'm working with N 100 ball", language: en
+[Transcription-Interim] Received text: "i'm working with N 100 bunkhurst", language: en
+[Transcription-Interim] Received text: "i'm working with N 100 ball perks and inhale", language: en
+[Transcription-Interim] Received text: "i'm working with N 100 ball perks and inhale stadium", language: en
+[Transcription-Final] Received text: "I'm working with N 100 Ballpark and Inhale Stadium.", language: en
+[Transcription-Interim] Received text: "this", language: en
+[Transcription-Interim] Received text: "this conversation", language: en
+[Transcription-Interim] Received text: "this conversation ended up shaping", language: en
+[Transcription-Interim] Received text: "this conversation ended up shaping every", language: en
+[Transcription-Interim] Received text: "this conversation ended up shaping everything we've", language: en
+[Transcription-Final] Received text: "This conversation ended up shaping everything we've built.", language: en
+[Transcription-Interim] Received text: "hey", language: en
+[Transcription-Final] Received text: "Hey.", language: en
+[Transcription-Interim] Received text: "after", language: en
+[Transcription-Interim] Received text: "afterwards", language: en
+[Transcription-Final] Received text: "After work.", language: en
+[Transcription-Interim] Received text: "i'm working", language: en
+[Transcription-Interim] Received text: "i'm working within", language: en
+[Transcription-Interim] Received text: "i'm working within 100", language: en
+[Transcription-Interim] Received text: "i'm working within 100 ballpark and", language: en
+[Transcription-Interim] Received text: "i'm working within 100 ballpark and impale", language: en
+[Transcription-Interim] Received text: "i'm working within 100 ballpark and impale stadium", language: en
+[Transcription-Final] Received text: "I'm working within 100 Ballpark and Impale Stadium.", language: en
+[Transcription-Interim] Received text: "this", language: en
+[Transcription-Interim] Received text: "this conversation", language: en
+[Transcription-Interim] Received text: "this conversation ended up shap", language: en
+[Transcription-Interim] Received text: "this conversation ended up shaping everything", language: en
+[Transcription-Interim] Received text: "this conversation ended up shaping everything we've built", language: en
+[Transcription-Final] Received text: "This conversation ended up shaping everything we've built.", language: en
+[Transcription-Interim] Received text: "hey", language: en
+[Transcription-Interim] Received text: "hey after", language: en
+[Transcription-Interim] Received text: "hey after work", language: en
+[Transcription-Final] Received text: "Hey, after work.", language: en
