@@ -411,9 +411,9 @@ export default function Room() {
 
   // Add translation to queue and start processing
   const speakText = (text: string, languageCode: string, gender: "male" | "female", messageId: string) => {
-    // Time-based deduplication: skip if same text was played in last 3 seconds
+    // Time-based deduplication: skip if same text was played in last 30 seconds (prevents mute/unmute replay)
     const now = Date.now();
-    const deduplicationWindow = 3000; // 3 seconds
+    const deduplicationWindow = 30000; // 30 seconds - long enough to prevent mute/unmute replay
     const lastPlayed = recentlyPlayedRef.current.get(text);
     
     if (lastPlayed && (now - lastPlayed) < deduplicationWindow) {
@@ -421,10 +421,10 @@ export default function Room() {
       return;
     }
     
-    // Clean up old entries from deduplication map (older than 10 seconds)
+    // Clean up old entries from deduplication map (older than 60 seconds)
     const entriesToDelete: string[] = [];
     recentlyPlayedRef.current.forEach((timestamp, oldText) => {
-      if (now - timestamp > 10000) {
+      if (now - timestamp > 60000) {
         entriesToDelete.push(oldText);
       }
     });
@@ -537,10 +537,12 @@ export default function Room() {
         } else {
           setPartnerMessages(prev => [...prev, newMessage]);
           setPartnerInterimText(""); // Clear interim when final arrives
-          // CRITICAL: Use MY voiceGender preference (what I want to hear), NOT partner's preference
-          console.log(`[Voice Gender] About to play TTS - Using MY voice preference: ${voiceGender}, Partner's preference (unused): ${partnerVoiceGender}`);
+          // CORRECT LOGIC: Use PARTNER's voiceGender (what they selected = the voice representing THEM)
+          // "Your Voice" = voice representing YOU (what partner hears when you speak)
+          // "Partner's Voice" = voice representing PARTNER (what you hear when partner speaks)
+          console.log(`[Voice Gender] Playing partner's translation in PARTNER's voice: ${partnerVoiceGender}, My voice (what partner hears): ${voiceGender}`);
           console.log(`[Voice Gender] Text to speak: "${message.translatedText}", Language: ${language}`);
-          speakText(message.translatedText, language, voiceGender, messageId);
+          speakText(message.translatedText, language, partnerVoiceGender, messageId);
         }
       }
 
