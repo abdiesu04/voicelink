@@ -1,0 +1,42 @@
+client:536 WebSocket connection to 'wss://76b67878-aa4f-4967-ba04-88458384b912-00-2pvz6t58xfuz3.worf.replit.dev/?token=9C7H80PiqfZ4' failed: 
+setupWebSocket @ client:536
+client:536 Uncaught (in promise) SyntaxError: Failed to construct 'WebSocket': The URL 'wss://localhost:undefined/?token=9C7H80PiqfZ4' is invalid.
+    at setupWebSocket (client:536:19)
+    at fallback (client:509:16)
+    at WebSocket.<anonymous> (client:555:7)
+chunk-WERSD76P.js?v=b9534207:21551 Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+JoinRoom.tsx:16 [JoinRoom] Selected voice gender: undefined
+tab.js:1 Refused to execute inline script because it violates the following Content Security Policy directive: "script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' chrome-extension://b4e269a9-2a41-4b8e-ad87-865f1ad8cb01/". Either the 'unsafe-inline' keyword, a hash ('sha256-kPx0AsF0oz2kKiZ875xSvv693TBHkQ/0SkMJZnnNpnQ='), or a nonce ('nonce-...') is required to enable inline execution.
+
+(anonymous) @ tab.js:1
+JoinRoom.tsx:16 [JoinRoom] Selected voice gender: male
+JoinRoom.tsx:53 [JoinRoom] Joining room with voice gender: male
+JoinRoom.tsx:16 [JoinRoom] Selected voice gender: male
+JoinRoom.tsx:56 [JoinRoom] Navigating to room with voiceGender: male
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: male
+Room.tsx:73 [State Change] partnerVoiceGender updated to: undefined
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: male
+Room.tsx:486 [Voice Gender] Partner joined with gender: female
+Room.tsx:487 [Voice Gender] My gender: male
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: male
+Room.tsx:73 [State Change] partnerVoiceGender updated to: female
+Room.tsx:171 [Audio Unlock] Attempting to unlock audio for mobile...
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: male
+Room.tsx:199 [Audio Unlock] Audio successfully unlocked for mobile
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: male
+Room.tsx:548 [Voice Gender] Partner voice gender not set, skipping TTS
+ws.onmessage @ Room.tsx:548
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: male
+Room.tsx:548 [Voice Gender] Partner voice gender not set, skipping TTS
+ws.onmessage @ Room.tsx:548
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: male
