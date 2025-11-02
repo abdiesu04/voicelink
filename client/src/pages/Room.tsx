@@ -957,13 +957,13 @@ export default function Room() {
   };
 
   return (
-    <div className="h-screen flex flex-col bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden">
+    <div className="h-screen flex flex-col bg-gradient-to-br from-slate-50 via-slate-100 to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 relative overflow-hidden">
       {/* Background effects */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent" />
       <div className="absolute inset-0 bg-[linear-gradient(rgba(99,102,241,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(99,102,241,0.03)_1px,transparent_1px)] bg-[size:72px_72px]" />
       
       {/* Header - Mobile Optimized */}
-      <header className="border-b border-slate-800/50 bg-slate-900/50 backdrop-blur-xl relative z-10 pt-16 md:pt-20">
+      <header className="border-b border-slate-300/50 dark:border-slate-800/50 bg-white/50 dark:bg-slate-900/50 backdrop-blur-xl relative z-10 pt-16 md:pt-20">
         <div className="container mx-auto px-3 sm:px-6 md:px-12 py-3 md:py-6">
           <div className="flex flex-col gap-2 md:gap-4">
             {/* Top Row - Connection & End Call */}
@@ -984,32 +984,32 @@ export default function Room() {
 
             {/* Language Display - Mobile Optimized */}
             {myLanguage && theirLanguage && (
-              <div className="flex items-center justify-center gap-2 sm:gap-4 px-3 sm:px-6 py-2 sm:py-3 rounded-xl sm:rounded-2xl bg-gradient-to-r from-primary/10 to-accent/10 border border-slate-700/50 backdrop-blur-sm">
+              <div className="flex items-center justify-center gap-2 sm:gap-4 px-3 sm:px-6 py-2 sm:py-3 rounded-xl sm:rounded-2xl bg-gradient-to-r from-primary/10 to-accent/10 border border-slate-300/50 dark:border-slate-700/50 backdrop-blur-sm">
                 <div className="flex items-center gap-2 sm:gap-3">
                   <img 
                     src={`https://flagcdn.com/w40/${myLanguage.countryCode.toLowerCase()}.png`}
                     width="24"
                     height="18"
                     alt={myLanguage.code}
-                    className="rounded border border-slate-600 sm:w-8 sm:h-6"
+                    className="rounded border border-slate-400 dark:border-slate-600 sm:w-8 sm:h-6"
                   />
                   <div>
-                    <div className="text-xs sm:text-sm font-bold text-white">{myLanguage.name}</div>
-                    <div className="text-[10px] sm:text-xs text-slate-400">You</div>
+                    <div className="text-xs sm:text-sm font-bold text-foreground">{myLanguage.name}</div>
+                    <div className="text-[10px] sm:text-xs text-muted-foreground">You</div>
                   </div>
                 </div>
-                <div className="h-8 sm:h-10 w-px bg-slate-700" />
+                <div className="h-8 sm:h-10 w-px bg-border" />
                 <div className="flex items-center gap-2 sm:gap-3">
                   <img 
                     src={`https://flagcdn.com/w40/${theirLanguage.countryCode.toLowerCase()}.png`}
                     width="24"
                     height="18"
                     alt={theirLanguage.code}
-                    className="rounded border border-slate-600 sm:w-8 sm:h-6"
+                    className="rounded border border-slate-400 dark:border-slate-600 sm:w-8 sm:h-6"
                   />
                   <div>
-                    <div className="text-xs sm:text-sm font-bold text-white">{theirLanguage.name}</div>
-                    <div className="text-[10px] sm:text-xs text-slate-400">Partner</div>
+                    <div className="text-xs sm:text-sm font-bold text-foreground">{theirLanguage.name}</div>
+                    <div className="text-[10px] sm:text-xs text-muted-foreground">Partner</div>
                   </div>
                 </div>
               </div>
@@ -1017,26 +1017,26 @@ export default function Room() {
 
             {/* Voice Gender Display - Mobile Optimized */}
             <div className="flex items-center justify-center gap-3 sm:gap-6">
-              <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg bg-slate-800/70 border border-slate-700/50">
+              <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg bg-white/70 dark:bg-slate-800/70 border border-slate-300/50 dark:border-slate-700/50">
                 <div className="h-6 w-6 sm:h-8 sm:w-8 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
                   <Volume2 className="h-3 w-3 sm:h-4 sm:w-4 text-primary" />
                 </div>
                 <div>
-                  <div className="text-[10px] sm:text-xs text-slate-400">Your Voice</div>
-                  <div className="text-xs sm:text-sm font-semibold text-white capitalize" data-testid="text-my-voice-gender">
+                  <div className="text-[10px] sm:text-xs text-muted-foreground">Your Voice</div>
+                  <div className="text-xs sm:text-sm font-semibold text-foreground capitalize" data-testid="text-my-voice-gender">
                     {voiceGender}
                   </div>
                 </div>
               </div>
 
               {partnerConnected && (
-                <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg bg-slate-800/70 border border-slate-700/50">
+                <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg bg-white/70 dark:bg-slate-800/70 border border-slate-300/50 dark:border-slate-700/50">
                   <div className="h-6 w-6 sm:h-8 sm:w-8 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
                     <User className="h-3 w-3 sm:h-4 sm:w-4 text-accent" />
                   </div>
                   <div>
-                    <div className="text-[10px] sm:text-xs text-slate-400">Partner's Voice</div>
-                    <div className="text-xs sm:text-sm font-semibold text-white capitalize" data-testid="text-partner-voice-gender">
+                    <div className="text-[10px] sm:text-xs text-muted-foreground">Partner's Voice</div>
+                    <div className="text-xs sm:text-sm font-semibold text-foreground capitalize" data-testid="text-partner-voice-gender">
                       {partnerVoiceGender || "..."}
                     </div>
                   </div>
@@ -1058,7 +1058,7 @@ export default function Room() {
                 </div>
                 <div className="flex-1">
                   <h3 className="text-sm font-semibold text-destructive mb-1">Azure Quota Limit Reached</h3>
-                  <p className="text-xs text-slate-300">
+                  <p className="text-xs text-slate-600 dark:text-slate-300">
                     Your Azure Speech Services quota has been exceeded. If you've upgraded your account or changed API keys, click "Try Again" to resume.
                   </p>
                 </div>
@@ -1108,7 +1108,7 @@ export default function Room() {
       </main>
 
       {/* Footer - Mobile Optimized */}
-      <footer className="border-t border-slate-800/50 bg-slate-900/50 backdrop-blur-xl relative z-10">
+      <footer className="border-t border-slate-300/50 dark:border-slate-800/50 bg-white/50 dark:bg-slate-900/50 backdrop-blur-xl relative z-10">
         <div className="container mx-auto px-3 sm:px-6 md:px-12 py-3 sm:py-4 md:py-6">
           {!conversationStarted && connectionStatus === "connected" ? (
             <div className="flex flex-col items-center gap-2 sm:gap-4">
@@ -1122,7 +1122,7 @@ export default function Room() {
                 <Mic className="h-5 w-5 sm:h-6 sm:w-6 mr-2 sm:mr-3 group-hover:scale-110 transition-transform" />
                 {quotaExceeded ? "Quota Exceeded" : "Start Conversation"}
               </Button>
-              <p className="text-xs sm:text-sm text-slate-400 text-center px-4">
+              <p className="text-xs sm:text-sm text-muted-foreground text-center px-4">
                 {quotaExceeded 
                   ? "Cannot start - Azure quota limit reached" 
                   : "Click to enable your microphone and begin speaking"
@@ -1149,7 +1149,7 @@ export default function Room() {
                   {!isMuted && (
                     <div className="h-2 w-2 rounded-full bg-success animate-pulse" />
                   )}
-                  <span className="font-bold text-sm sm:text-base md:text-lg text-white">
+                  <span className="font-bold text-sm sm:text-base md:text-lg text-foreground">
                     {quotaExceeded && isMuted 
                       ? "Quota Exceeded" 
                       : isMuted 
@@ -1160,7 +1160,7 @@ export default function Room() {
                     }
                   </span>
                 </div>
-                <p className="text-xs sm:text-sm text-slate-400 px-4">
+                <p className="text-xs sm:text-sm text-muted-foreground px-4">
                   {quotaExceeded && isMuted 
                     ? "Azure quota reached - upgrade to continue"
                     : isMuted 
@@ -1176,7 +1176,7 @@ export default function Room() {
 
       {/* Share Dialog */}
       <Dialog open={showShareDialog} onOpenChange={setShowShareDialog}>
-        <DialogContent className="sm:max-w-lg bg-slate-800/95 border-slate-700/50 backdrop-blur-xl" data-testid="dialog-share-link">
+        <DialogContent className="sm:max-w-lg bg-white/95 dark:bg-slate-800/95 border-slate-300/50 dark:border-slate-700/50 backdrop-blur-xl" data-testid="dialog-share-link">
           <DialogHeader className="space-y-4">
             <div className="flex items-center justify-between">
               <div className="h-14 w-14 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center ring-2 ring-primary/30">
@@ -1188,8 +1188,8 @@ export default function Room() {
               </div>
             </div>
             <div>
-              <DialogTitle className="text-3xl text-white">Share Room Link</DialogTitle>
-              <DialogDescription className="text-base mt-2 text-slate-300">
+              <DialogTitle className="text-3xl text-foreground">Share Room Link</DialogTitle>
+              <DialogDescription className="text-base mt-2 text-muted-foreground">
                 Send this link to your conversation partner to start translating
               </DialogDescription>
             </div>
@@ -1199,16 +1199,16 @@ export default function Room() {
               <Input
                 readOnly
                 value={`${window.location.origin}/join/${roomId}`}
-                className="font-mono text-sm bg-slate-900/50 border-slate-700 text-white"
+                className="font-mono text-sm bg-slate-100/50 dark:bg-slate-900/50 border-slate-300 dark:border-slate-700 text-foreground"
                 data-testid="input-share-link"
               />
               <Button
                 onClick={handleCopyLink}
                 variant="outline"
-                className="shrink-0 border-slate-700 hover:bg-slate-800 text-white"
+                className="shrink-0"
                 data-testid="button-copy-link"
               >
-                {copied ? <Check className="h-4 w-4 text-white" /> : <Copy className="h-4 w-4 text-white" />}
+                {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
               </Button>
             </div>
             <Button

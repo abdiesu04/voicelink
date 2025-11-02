@@ -42,18 +42,18 @@ export function TranscriptionPanel({
     <div
       className={cn(
         "flex flex-col h-full rounded-xl sm:rounded-2xl transition-all duration-300 overflow-hidden",
-        "bg-slate-900/30 backdrop-blur-sm border",
+        "bg-white/30 dark:bg-slate-900/30 backdrop-blur-sm border",
         isActive 
           ? isUser 
             ? "border-primary/50 shadow-lg shadow-primary/10" 
             : "border-accent/50 shadow-lg shadow-accent/10"
-          : "border-slate-800/30"
+          : "border-slate-300/30 dark:border-slate-800/30"
       )}
       data-testid={`panel-transcription-${title.toLowerCase()}`}
     >
       {/* Header - Mobile Optimized */}
       <div className={cn(
-        "flex items-center justify-between px-3 sm:px-4 md:px-6 py-2 sm:py-3 md:py-4 border-b border-slate-800/30"
+        "flex items-center justify-between px-3 sm:px-4 md:px-6 py-2 sm:py-3 md:py-4 border-b border-slate-300/30 dark:border-slate-800/30"
       )}>
         <div className="flex items-center gap-2 sm:gap-3">
           <div className={cn(
@@ -68,7 +68,7 @@ export function TranscriptionPanel({
               <Volume2 className={cn("h-3.5 w-3.5 sm:h-4 sm:w-4", "text-accent")} />
             )}
           </div>
-          <span className="text-sm sm:text-base font-medium text-slate-300">{title}</span>
+          <span className="text-sm sm:text-base font-medium text-foreground">{title}</span>
         </div>
         
         {isSpeaking && (
@@ -97,9 +97,9 @@ export function TranscriptionPanel({
                 ? "bg-primary/5" 
                 : "bg-accent/5"
             )}>
-              <Languages className="h-6 w-6 sm:h-8 sm:w-8 text-slate-700" />
+              <Languages className="h-6 w-6 sm:h-8 sm:w-8 text-muted-foreground" />
             </div>
-            <p className="text-xs sm:text-sm text-slate-500 font-medium">
+            <p className="text-xs sm:text-sm text-muted-foreground font-medium">
               {isUser ? "Your conversation will appear here" : "Partner's conversation will appear here"}
             </p>
           </div>
@@ -128,7 +128,7 @@ export function TranscriptionPanel({
                       ? "bg-primary/5 border border-primary/10"
                       : "bg-accent/5 border border-accent/10"
                   )}>
-                    <p className="text-sm sm:text-base md:text-lg leading-relaxed text-white">
+                    <p className="text-sm sm:text-base md:text-lg leading-relaxed text-foreground">
                       {message.originalText}
                     </p>
                   </div>
@@ -142,7 +142,7 @@ export function TranscriptionPanel({
                       Translation
                     </span>
                   </div>
-                  <p className="text-sm sm:text-base leading-relaxed text-slate-300">
+                  <p className="text-sm sm:text-base leading-relaxed text-muted-foreground">
                     {message.translatedText}
                   </p>
                 </div>
@@ -150,7 +150,7 @@ export function TranscriptionPanel({
                 {/* Divider between messages */}
                 {index < messages.length - 1 && (
                   <div className="pt-3 sm:pt-4">
-                    <div className="h-px bg-slate-800/30" />
+                    <div className="h-px bg-border" />
                   </div>
                 )}
               </div>
@@ -175,7 +175,7 @@ export function TranscriptionPanel({
                     ? "bg-primary/5 border-primary/20"
                     : "bg-accent/5 border-accent/20"
                 )}>
-                  <p className="text-sm sm:text-base md:text-lg leading-relaxed text-slate-400 italic">
+                  <p className="text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground italic">
                     {interimText}
                   </p>
                 </div>
