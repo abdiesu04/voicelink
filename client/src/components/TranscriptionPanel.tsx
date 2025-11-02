@@ -41,7 +41,7 @@ export function TranscriptionPanel({
   return (
     <div
       className={cn(
-        "flex flex-col h-full rounded-2xl transition-all duration-300 overflow-hidden",
+        "flex flex-col h-full rounded-xl sm:rounded-2xl transition-all duration-300 overflow-hidden",
         "bg-slate-900/30 backdrop-blur-sm border",
         isActive 
           ? isUser 
@@ -51,29 +51,29 @@ export function TranscriptionPanel({
       )}
       data-testid={`panel-transcription-${title.toLowerCase()}`}
     >
-      {/* Header */}
+      {/* Header - Mobile Optimized */}
       <div className={cn(
-        "flex items-center justify-between px-6 py-4 border-b border-slate-800/30"
+        "flex items-center justify-between px-3 sm:px-4 md:px-6 py-2 sm:py-3 md:py-4 border-b border-slate-800/30"
       )}>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           <div className={cn(
-            "h-8 w-8 rounded-lg flex items-center justify-center",
+            "h-7 w-7 sm:h-8 sm:w-8 rounded-lg flex items-center justify-center flex-shrink-0",
             isUser 
               ? "bg-primary/10" 
               : "bg-accent/10"
           )}>
             {isUser ? (
-              <Mic className={cn("h-4 w-4", "text-primary")} />
+              <Mic className={cn("h-3.5 w-3.5 sm:h-4 sm:w-4", "text-primary")} />
             ) : (
-              <Volume2 className={cn("h-4 w-4", "text-accent")} />
+              <Volume2 className={cn("h-3.5 w-3.5 sm:h-4 sm:w-4", "text-accent")} />
             )}
           </div>
-          <span className="text-sm font-medium text-slate-300">{title}</span>
+          <span className="text-sm sm:text-base font-medium text-slate-300">{title}</span>
         </div>
         
         {isSpeaking && (
           <div className={cn(
-            "flex items-center gap-2 px-3 py-1 rounded-full",
+            "flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 rounded-full",
             isUser 
               ? "bg-primary/10 text-primary" 
               : "bg-accent/10 text-accent"
@@ -82,74 +82,74 @@ export function TranscriptionPanel({
               "h-1.5 w-1.5 rounded-full animate-pulse",
               isUser ? "bg-primary" : "bg-accent"
             )} />
-            <span className="text-xs font-medium">Speaking</span>
+            <span className="text-[10px] sm:text-xs font-medium">Speaking</span>
           </div>
         )}
       </div>
 
-      {/* Messages Area */}
-      <ScrollArea className="flex-1 px-6 py-6" ref={scrollRef}>
+      {/* Messages Area - Mobile Optimized */}
+      <ScrollArea className="flex-1 px-3 sm:px-4 md:px-6 py-3 sm:py-4 md:py-6" ref={scrollRef}>
         {messages.length === 0 && !interimText ? (
           <div className="flex flex-col items-center justify-center h-full text-center px-4">
             <div className={cn(
-              "h-16 w-16 rounded-xl flex items-center justify-center mb-4",
+              "h-12 w-12 sm:h-16 sm:w-16 rounded-xl flex items-center justify-center mb-3 sm:mb-4",
               isUser 
                 ? "bg-primary/5" 
                 : "bg-accent/5"
             )}>
-              <Languages className="h-8 w-8 text-slate-700" />
+              <Languages className="h-6 w-6 sm:h-8 sm:w-8 text-slate-700" />
             </div>
-            <p className="text-sm text-slate-500 font-medium">
+            <p className="text-xs sm:text-sm text-slate-500 font-medium">
               {isUser ? "Your conversation will appear here" : "Partner's conversation will appear here"}
             </p>
           </div>
         ) : (
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {messages.map((message, index) => (
               <div
                 key={message.id}
-                className="space-y-2 animate-in fade-in slide-in-from-bottom-1 duration-300"
+                className="space-y-2 sm:space-y-3 animate-in fade-in slide-in-from-bottom-1 duration-300"
                 data-testid={`message-${message.id}`}
               >
                 {/* Original Message */}
-                <div className="space-y-2">
-                  <div className="flex items-center gap-2">
+                <div className="space-y-1.5 sm:space-y-2">
+                  <div className="flex items-center gap-1.5 sm:gap-2">
                     <div className={cn(
                       "h-1 w-1 rounded-full",
                       message.isOwn ? "bg-primary" : "bg-accent"
                     )} />
-                    <span className="text-xs text-slate-600 uppercase tracking-wider font-medium">
+                    <span className="text-[10px] sm:text-xs text-slate-600 uppercase tracking-wider font-medium">
                       Original
                     </span>
                   </div>
                   <div className={cn(
-                    "p-4 rounded-xl",
+                    "p-3 sm:p-4 rounded-lg sm:rounded-xl",
                     message.isOwn
                       ? "bg-primary/5 border border-primary/10"
                       : "bg-accent/5 border border-accent/10"
                   )}>
-                    <p className="text-base leading-relaxed text-white">
+                    <p className="text-sm sm:text-base md:text-lg leading-relaxed text-white">
                       {message.originalText}
                     </p>
                   </div>
                 </div>
                 
                 {/* Translation */}
-                <div className="pl-6 space-y-2">
-                  <div className="flex items-center gap-2">
+                <div className="pl-4 sm:pl-6 space-y-1.5 sm:space-y-2">
+                  <div className="flex items-center gap-1.5 sm:gap-2">
                     <Languages className="h-3 w-3 text-slate-600" />
-                    <span className="text-xs text-slate-600 uppercase tracking-wider font-medium">
+                    <span className="text-[10px] sm:text-xs text-slate-600 uppercase tracking-wider font-medium">
                       Translation
                     </span>
                   </div>
-                  <p className="text-sm leading-relaxed text-slate-400">
+                  <p className="text-sm sm:text-base leading-relaxed text-slate-300">
                     {message.translatedText}
                   </p>
                 </div>
 
                 {/* Divider between messages */}
                 {index < messages.length - 1 && (
-                  <div className="pt-4">
+                  <div className="pt-3 sm:pt-4">
                     <div className="h-px bg-slate-800/30" />
                   </div>
                 )}
@@ -158,24 +158,24 @@ export function TranscriptionPanel({
             
             {/* Interim Text Display */}
             {interimText && (
-              <div className="space-y-2 animate-in fade-in slide-in-from-bottom-1 duration-200">
-                <div className="flex items-center gap-2">
+              <div className="space-y-1.5 sm:space-y-2 animate-in fade-in slide-in-from-bottom-1 duration-200">
+                <div className="flex items-center gap-1.5 sm:gap-2">
                   <div className={cn(
                     "h-1.5 w-1.5 rounded-full animate-pulse",
                     isUser ? "bg-primary" : "bg-accent"
                   )} />
-                  <span className="text-xs text-slate-600 uppercase tracking-wider font-medium flex items-center gap-1">
+                  <span className="text-[10px] sm:text-xs text-slate-600 uppercase tracking-wider font-medium flex items-center gap-1">
                     <Languages className="h-3 w-3 animate-pulse" />
                     Transcribing...
                   </span>
                 </div>
                 <div className={cn(
-                  "p-4 rounded-xl border-2 border-dashed",
+                  "p-3 sm:p-4 rounded-lg sm:rounded-xl border-2 border-dashed",
                   isUser
                     ? "bg-primary/5 border-primary/20"
                     : "bg-accent/5 border-accent/20"
                 )}>
-                  <p className="text-base leading-relaxed text-slate-400 italic">
+                  <p className="text-sm sm:text-base md:text-lg leading-relaxed text-slate-400 italic">
                     {interimText}
                   </p>
                 </div>
