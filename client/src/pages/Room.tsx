@@ -67,6 +67,7 @@ export default function Room() {
   const audioUnlockedRef = useRef<boolean>(false);
   const quotaExceededRef = useRef<boolean>(false);
   const partnerVoiceGenderRef = useRef<"male" | "female" | undefined>(undefined);
+  const isMutedRef = useRef<boolean>(true); // Track mute state in ref for event handlers
 
   const myLanguage = SUPPORTED_LANGUAGES.find(l => l.code === language);
   const theirLanguage = SUPPORTED_LANGUAGES.find(l => l.code === partnerLanguage);
@@ -715,6 +716,12 @@ export default function Room() {
       const recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
       
       recognizer.recognizing = (s, e) => {
+        // CRITICAL: Don't process events if we're muted
+        if (isMutedRef.current) {
+          console.log('[Speech] Ignoring recognizing event - microphone is muted');
+          return;
+        }
+        
         if (e.result.text) {
           setIsSpeaking(true);
           
@@ -737,6 +744,12 @@ export default function Room() {
       };
       
       recognizer.recognized = (s, e) => {
+        // CRITICAL: Don't process events if we're muted
+        if (isMutedRef.current) {
+          console.log('[Speech] Ignoring recognized event - microphone is muted');
+          return;
+        }
+        
         if (e.result.reason === SpeechSDK.ResultReason.RecognizedSpeech && e.result.text) {
           setIsSpeaking(false);
           
@@ -794,9 +807,13 @@ export default function Room() {
         if (e.reason === SpeechSDK.CancellationReason.Error && !quotaExceededRef.current) {
           console.log('[Speech] Attempting to restart recognition after error...');
           setTimeout(() => {
-            if (!isMuted && recognizerRef.current === recognizer) {
+            // Check ref instead of state to avoid stale closure
+            if (!isMutedRef.current && recognizerRef.current === recognizer) {
               recognizer.startContinuousRecognitionAsync(
-                () => console.log('[Speech] Recognition restarted successfully'),
+                () => {
+                  console.log('[Speech] Recognition restarted successfully');
+                  isMutedRef.current = false;
+                },
                 (err) => console.error('[Speech] Failed to restart recognition:', err)
               );
             }
@@ -812,6 +829,7 @@ export default function Room() {
         () => {
           console.log('[Speech] Recognition started successfully');
           recognizerRef.current = recognizer;
+          isMutedRef.current = false; // Update ref to allow event processing
           setIsMuted(false);
         },
         (err) => {
@@ -821,6 +839,7 @@ export default function Room() {
             description: "Could not start speech recognition. Please try again.",
             variant: "destructive",
           });
+          isMutedRef.current = true; // Keep muted in ref
           setIsMuted(true);
         }
       );
@@ -832,6 +851,7 @@ export default function Room() {
         description: "Please enable microphone access to use voice features",
         variant: "destructive",
       });
+      isMutedRef.current = true; // Keep muted in ref
       setIsMuted(true);
     }
   };
@@ -868,13 +888,52 @@ export default function Room() {
     }
     
     if (!isMuted) {
+      // Muting - stop the recognizer completely
+      console.log('[Mic] Muting microphone - stopping recognition');
+      
+      // CRITICAL: Set muted state in ref FIRST to stop event processing immediately
+      isMutedRef.current = true;
       setIsMuted(true);
+      setIsSpeaking(false); // Clear speaking state immediately
+      setMyInterimText(""); // Clear interim text
+      
       if (recognizerRef.current) {
-        recognizerRef.current.stopContinuousRecognitionAsync();
-        recognizerRef.current.close();
-        recognizerRef.current = null;
+        const recognizer = recognizerRef.current;
+        
+        // Properly stop and clean up the recognizer
+        try {
+          await new Promise<void>((resolve, reject) => {
+            recognizer.stopContinuousRecognitionAsync(
+              () => {
+                console.log('[Mic] Recognition stopped successfully');
+                resolve();
+              },
+              (err) => {
+                console.error('[Mic] Error stopping recognition:', err);
+                reject(err);
+              }
+            );
+          });
+          
+          // Close and null the recognizer after stopping
+          recognizer.close();
+          recognizerRef.current = null;
+          console.log('[Mic] Recognizer closed and cleaned up');
+        } catch (error) {
+          console.error('[Mic] Failed to stop recognizer:', error);
+          // Force cleanup even on error
+          try {
+            recognizer.close();
+          } catch (e) {
+            console.error('[Mic] Error closing recognizer:', e);
+          }
+          recognizerRef.current = null;
+        }
       }
     } else {
+      // Unmuting - start conversation
+      console.log('[Mic] Unmuting microphone - starting recognition');
+      isMutedRef.current = false; // Clear muted state in ref
       startConversation();
     }
   };
