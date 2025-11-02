@@ -58,14 +58,14 @@ export function VoiceGenderSelector({
             htmlFor="male"
             className={cn(
               "text-base font-semibold cursor-pointer",
-              value === "male" ? "text-foreground" : "text-slate-600 dark:text-slate-300"
+              value === "male" ? "text-slate-900 dark:text-white" : "text-slate-600 dark:text-slate-300"
             )}
           >
             Male
           </Label>
           <p className={cn(
             "text-sm mt-0.5",
-            value === "male" ? "text-muted-foreground" : "text-slate-500 dark:text-slate-500"
+            value === "male" ? "text-slate-700 dark:text-slate-300" : "text-slate-500 dark:text-slate-500"
           )}>
             I am male
           </p>
@@ -106,14 +106,14 @@ export function VoiceGenderSelector({
             htmlFor="female"
             className={cn(
               "text-base font-semibold cursor-pointer",
-              value === "female" ? "text-foreground" : "text-slate-600 dark:text-slate-300"
+              value === "female" ? "text-slate-900 dark:text-white" : "text-slate-600 dark:text-slate-300"
             )}
           >
             Female
           </Label>
           <p className={cn(
             "text-sm mt-0.5",
-            value === "female" ? "text-muted-foreground" : "text-slate-500 dark:text-slate-500"
+            value === "female" ? "text-slate-700 dark:text-slate-300" : "text-slate-500 dark:text-slate-500"
           )}>
             I am female
           </p>
