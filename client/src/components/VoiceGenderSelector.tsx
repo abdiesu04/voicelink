@@ -29,7 +29,7 @@ export function VoiceGenderSelector({
           "relative flex cursor-pointer items-center gap-3 rounded-xl border-2 p-6 transition-all",
           value === "male"
             ? "border-primary bg-primary/5 shadow-lg shadow-primary/10"
-            : "border-slate-700 bg-slate-800/30 hover-elevate",
+            : "border-slate-300 dark:border-slate-700 bg-slate-100/50 dark:bg-slate-800/30 hover-elevate",
           disabled && "cursor-not-allowed opacity-50"
         )}
         onClick={() => !disabled && onValueChange("male")}
@@ -44,11 +44,11 @@ export function VoiceGenderSelector({
           "h-14 w-14 ring-2",
           value === "male"
             ? "bg-primary/10 ring-primary/30"
-            : "bg-slate-700/30 ring-slate-600/30"
+            : "bg-slate-200/50 dark:bg-slate-700/30 ring-slate-300 dark:ring-slate-600/30"
         )}>
           <AvatarFallback className={cn(
             "bg-transparent",
-            value === "male" ? "text-primary" : "text-slate-400"
+            value === "male" ? "text-primary" : "text-slate-500 dark:text-slate-400"
           )}>
             <User className="h-7 w-7" />
           </AvatarFallback>
@@ -58,14 +58,14 @@ export function VoiceGenderSelector({
             htmlFor="male"
             className={cn(
               "text-base font-semibold cursor-pointer",
-              value === "male" ? "text-white" : "text-slate-300"
+              value === "male" ? "text-foreground" : "text-slate-600 dark:text-slate-300"
             )}
           >
             Male
           </Label>
           <p className={cn(
             "text-sm mt-0.5",
-            value === "male" ? "text-slate-300" : "text-slate-500"
+            value === "male" ? "text-muted-foreground" : "text-slate-500 dark:text-slate-500"
           )}>
             I am male
           </p>
@@ -77,7 +77,7 @@ export function VoiceGenderSelector({
           "relative flex cursor-pointer items-center gap-3 rounded-xl border-2 p-6 transition-all",
           value === "female"
             ? "border-primary bg-primary/5 shadow-lg shadow-primary/10"
-            : "border-slate-700 bg-slate-800/30 hover-elevate",
+            : "border-slate-300 dark:border-slate-700 bg-slate-100/50 dark:bg-slate-800/30 hover-elevate",
           disabled && "cursor-not-allowed opacity-50"
         )}
         onClick={() => !disabled && onValueChange("female")}
@@ -92,11 +92,11 @@ export function VoiceGenderSelector({
           "h-14 w-14 ring-2",
           value === "female"
             ? "bg-primary/10 ring-primary/30"
-            : "bg-slate-700/30 ring-slate-600/30"
+            : "bg-slate-200/50 dark:bg-slate-700/30 ring-slate-300 dark:ring-slate-600/30"
         )}>
           <AvatarFallback className={cn(
             "bg-transparent",
-            value === "female" ? "text-primary" : "text-slate-400"
+            value === "female" ? "text-primary" : "text-slate-500 dark:text-slate-400"
           )}>
             <UserRound className="h-7 w-7" />
           </AvatarFallback>
@@ -106,14 +106,14 @@ export function VoiceGenderSelector({
             htmlFor="female"
             className={cn(
               "text-base font-semibold cursor-pointer",
-              value === "female" ? "text-white" : "text-slate-300"
+              value === "female" ? "text-foreground" : "text-slate-600 dark:text-slate-300"
             )}
           >
             Female
           </Label>
           <p className={cn(
             "text-sm mt-0.5",
-            value === "female" ? "text-slate-300" : "text-slate-500"
+            value === "female" ? "text-muted-foreground" : "text-slate-500 dark:text-slate-500"
           )}>
             I am female
           </p>
