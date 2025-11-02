@@ -962,83 +962,82 @@ export default function Room() {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent" />
       <div className="absolute inset-0 bg-[linear-gradient(rgba(99,102,241,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(99,102,241,0.03)_1px,transparent_1px)] bg-[size:72px_72px]" />
       
-      {/* Header */}
-      <header className="border-b border-slate-800/50 bg-slate-900/50 backdrop-blur-xl relative z-10 pt-20">
-        <div className="container mx-auto px-6 md:px-12 py-6">
-          <div className="flex flex-col gap-4">
-            <div className="flex items-center justify-between">
+      {/* Header - Mobile Optimized */}
+      <header className="border-b border-slate-800/50 bg-slate-900/50 backdrop-blur-xl relative z-10 pt-16 md:pt-20">
+        <div className="container mx-auto px-3 sm:px-6 md:px-12 py-3 md:py-6">
+          <div className="flex flex-col gap-2 md:gap-4">
+            {/* Top Row - Connection & End Call */}
+            <div className="flex items-center justify-between gap-2">
               <ConnectionStatus status={connectionStatus} latency={connectionStatus === "connected" ? 45 : undefined} />
               
-              {myLanguage && theirLanguage && (
-                <div className="flex items-center gap-4 px-6 py-3 rounded-2xl bg-gradient-to-r from-primary/10 to-accent/10 border border-slate-700/50 backdrop-blur-sm">
-                  <div className="flex items-center gap-3">
-                    <img 
-                      src={`https://flagcdn.com/w40/${myLanguage.countryCode.toLowerCase()}.png`}
-                      width="32"
-                      height="24"
-                      alt={myLanguage.code}
-                      className="rounded border border-slate-600"
-                    />
-                    <div>
-                      <div className="text-sm font-bold text-white">{myLanguage.name}</div>
-                      <div className="text-xs text-slate-400">You</div>
-                    </div>
-                  </div>
-                  <div className="h-10 w-px bg-slate-700" />
-                  <div className="flex items-center gap-3">
-                    <img 
-                      src={`https://flagcdn.com/w40/${theirLanguage.countryCode.toLowerCase()}.png`}
-                      width="32"
-                      height="24"
-                      alt={theirLanguage.code}
-                      className="rounded border border-slate-600"
-                    />
-                    <div>
-                      <div className="text-sm font-bold text-white">{theirLanguage.name}</div>
-                      <div className="text-xs text-slate-400">Partner</div>
-                    </div>
-                  </div>
-                </div>
-              )}
-
               <Button
                 variant="destructive"
+                size="sm"
                 onClick={handleEndCall}
-                className="gap-2"
+                className="gap-2 h-8 md:h-9"
                 data-testid="button-end-call"
               >
-                <PhoneOff className="h-4 w-4" />
-                <span className="hidden sm:inline">End Call</span>
+                <PhoneOff className="h-3 w-3 md:h-4 md:w-4" />
+                <span className="hidden sm:inline text-xs md:text-sm">End Call</span>
               </Button>
             </div>
 
-            {/* Voice Gender Display */}
-            <div className="flex items-center justify-center gap-6">
-              <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800/70 border border-slate-700/50">
-                <div className="flex items-center gap-2">
-                  <div className="h-8 w-8 rounded-full bg-primary/20 flex items-center justify-center">
-                    <Volume2 className="h-4 w-4 text-primary" />
-                  </div>
+            {/* Language Display - Mobile Optimized */}
+            {myLanguage && theirLanguage && (
+              <div className="flex items-center justify-center gap-2 sm:gap-4 px-3 sm:px-6 py-2 sm:py-3 rounded-xl sm:rounded-2xl bg-gradient-to-r from-primary/10 to-accent/10 border border-slate-700/50 backdrop-blur-sm">
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <img 
+                    src={`https://flagcdn.com/w40/${myLanguage.countryCode.toLowerCase()}.png`}
+                    width="24"
+                    height="18"
+                    alt={myLanguage.code}
+                    className="rounded border border-slate-600 sm:w-8 sm:h-6"
+                  />
                   <div>
-                    <div className="text-xs text-slate-400">Your Voice</div>
-                    <div className="text-sm font-semibold text-white capitalize" data-testid="text-my-voice-gender">
-                      {voiceGender}
-                    </div>
+                    <div className="text-xs sm:text-sm font-bold text-white">{myLanguage.name}</div>
+                    <div className="text-[10px] sm:text-xs text-slate-400">You</div>
+                  </div>
+                </div>
+                <div className="h-8 sm:h-10 w-px bg-slate-700" />
+                <div className="flex items-center gap-2 sm:gap-3">
+                  <img 
+                    src={`https://flagcdn.com/w40/${theirLanguage.countryCode.toLowerCase()}.png`}
+                    width="24"
+                    height="18"
+                    alt={theirLanguage.code}
+                    className="rounded border border-slate-600 sm:w-8 sm:h-6"
+                  />
+                  <div>
+                    <div className="text-xs sm:text-sm font-bold text-white">{theirLanguage.name}</div>
+                    <div className="text-[10px] sm:text-xs text-slate-400">Partner</div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Voice Gender Display - Mobile Optimized */}
+            <div className="flex items-center justify-center gap-3 sm:gap-6">
+              <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg bg-slate-800/70 border border-slate-700/50">
+                <div className="h-6 w-6 sm:h-8 sm:w-8 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
+                  <Volume2 className="h-3 w-3 sm:h-4 sm:w-4 text-primary" />
+                </div>
+                <div>
+                  <div className="text-[10px] sm:text-xs text-slate-400">Your Voice</div>
+                  <div className="text-xs sm:text-sm font-semibold text-white capitalize" data-testid="text-my-voice-gender">
+                    {voiceGender}
                   </div>
                 </div>
               </div>
 
               {partnerConnected && (
-                <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-slate-800/70 border border-slate-700/50">
-                  <div className="flex items-center gap-2">
-                    <div className="h-8 w-8 rounded-full bg-accent/20 flex items-center justify-center">
-                      <User className="h-4 w-4 text-accent" />
-                    </div>
-                    <div>
-                      <div className="text-xs text-slate-400">Partner's Voice</div>
-                      <div className="text-sm font-semibold text-white capitalize" data-testid="text-partner-voice-gender">
-                        {partnerVoiceGender || "..."}
-                      </div>
+                <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg bg-slate-800/70 border border-slate-700/50">
+                  <div className="h-6 w-6 sm:h-8 sm:w-8 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
+                    <User className="h-3 w-3 sm:h-4 sm:w-4 text-accent" />
+                  </div>
+                  <div>
+                    <div className="text-[10px] sm:text-xs text-slate-400">Partner's Voice</div>
+                    <div className="text-xs sm:text-sm font-semibold text-white capitalize" data-testid="text-partner-voice-gender">
+                      {partnerVoiceGender || "..."}
                     </div>
                   </div>
                 </div>
@@ -1086,10 +1085,10 @@ export default function Room() {
         </div>
       )}
 
-      {/* Main Content */}
+      {/* Main Content - Mobile Optimized */}
       <main className="flex-1 overflow-hidden relative z-10">
-        <div className="h-full container mx-auto px-6 md:px-12 py-6">
-          <div className="h-full grid md:grid-cols-2 gap-4 max-w-7xl mx-auto">
+        <div className="h-full container mx-auto px-3 sm:px-6 md:px-12 py-3 sm:py-4 md:py-6">
+          <div className="h-full grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 max-w-7xl mx-auto">
             <TranscriptionPanel
               title="You"
               isActive={isSpeaking}
@@ -1108,22 +1107,22 @@ export default function Room() {
         </div>
       </main>
 
-      {/* Footer */}
+      {/* Footer - Mobile Optimized */}
       <footer className="border-t border-slate-800/50 bg-slate-900/50 backdrop-blur-xl relative z-10">
-        <div className="container mx-auto px-6 md:px-12 py-6">
+        <div className="container mx-auto px-3 sm:px-6 md:px-12 py-3 sm:py-4 md:py-6">
           {!conversationStarted && connectionStatus === "connected" ? (
-            <div className="flex flex-col items-center gap-4">
+            <div className="flex flex-col items-center gap-2 sm:gap-4">
               <Button
                 size="lg"
                 onClick={startConversation}
                 disabled={quotaExceeded}
-                className="h-16 px-12 text-lg bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 shadow-lg shadow-primary/25 group disabled:opacity-50 disabled:cursor-not-allowed"
+                className="h-12 sm:h-14 md:h-16 px-8 sm:px-10 md:px-12 text-base sm:text-lg bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 shadow-lg shadow-primary/25 group disabled:opacity-50 disabled:cursor-not-allowed"
                 data-testid="button-start-conversation"
               >
-                <Mic className="h-6 w-6 mr-3 group-hover:scale-110 transition-transform" />
+                <Mic className="h-5 w-5 sm:h-6 sm:w-6 mr-2 sm:mr-3 group-hover:scale-110 transition-transform" />
                 {quotaExceeded ? "Quota Exceeded" : "Start Conversation"}
               </Button>
-              <p className="text-sm text-slate-400">
+              <p className="text-xs sm:text-sm text-slate-400 text-center px-4">
                 {quotaExceeded 
                   ? "Cannot start - Azure quota limit reached" 
                   : "Click to enable your microphone and begin speaking"
@@ -1131,28 +1130,28 @@ export default function Room() {
               </p>
             </div>
           ) : (
-            <div className="flex items-center justify-center gap-8">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8">
               <Button
                 size="lg"
                 variant={isMuted ? "secondary" : "default"}
                 onClick={toggleMute}
                 disabled={quotaExceeded && isMuted}
-                className={`h-20 w-20 rounded-full shadow-xl ${
+                className={`h-16 w-16 sm:h-20 sm:w-20 rounded-full shadow-xl ${
                   !isMuted ? "bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 shadow-primary/25" : ""
                 } ${quotaExceeded && isMuted ? "opacity-50 cursor-not-allowed" : ""}`}
                 data-testid="button-toggle-mic"
               >
-                {isMuted ? <MicOff className="h-8 w-8" /> : <Mic className="h-8 w-8" />}
+                {isMuted ? <MicOff className="h-6 w-6 sm:h-8 sm:w-8" /> : <Mic className="h-6 w-6 sm:h-8 sm:w-8" />}
               </Button>
               
               <div className="text-center">
-                <div className="flex items-center justify-center gap-2 mb-2">
+                <div className="flex items-center justify-center gap-2 mb-1 sm:mb-2">
                   {!isMuted && (
                     <div className="h-2 w-2 rounded-full bg-success animate-pulse" />
                   )}
-                  <span className="font-bold text-lg text-white">
+                  <span className="font-bold text-sm sm:text-base md:text-lg text-white">
                     {quotaExceeded && isMuted 
-                      ? "Quota Exceeded - Mic Disabled" 
+                      ? "Quota Exceeded" 
                       : isMuted 
                         ? "Microphone Off" 
                         : partnerConnected 
@@ -1161,9 +1160,9 @@ export default function Room() {
                     }
                   </span>
                 </div>
-                <p className="text-sm text-slate-400">
+                <p className="text-xs sm:text-sm text-slate-400 px-4">
                   {quotaExceeded && isMuted 
-                    ? "Azure quota limit reached - upgrade account to continue"
+                    ? "Azure quota reached - upgrade to continue"
                     : isMuted 
                       ? "Click the button to unmute" 
                       : "Click to mute your microphone"
