@@ -68,8 +68,8 @@ export default function JoinRoom() {
 
   return (
     <div className="min-h-screen flex items-center justify-center p-6 relative overflow-hidden">
-      {/* Dark background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950" />
+      {/* Background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-slate-100 to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-accent/10 via-transparent to-transparent" />
       <div className="absolute inset-0 bg-[linear-gradient(rgba(99,102,241,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(99,102,241,0.03)_1px,transparent_1px)] bg-[size:72px_72px]" />
       <div className="absolute bottom-1/4 left-1/4 w-96 h-96 bg-accent/10 rounded-full blur-3xl animate-pulse" />
@@ -81,26 +81,26 @@ export default function JoinRoom() {
             <span className="text-sm font-semibold text-accent">Join Conversation</span>
           </div>
           
-          <h1 className="text-5xl md:text-6xl font-bold text-white">
+          <h1 className="text-5xl md:text-6xl font-bold text-slate-900 dark:text-white">
             You've Been Invited
           </h1>
           
-          <p className="text-xl text-slate-300 max-w-xl mx-auto">
+          <p className="text-xl text-slate-600 dark:text-slate-300 max-w-xl mx-auto">
             Select your language to join the conversation room
           </p>
         </div>
 
-        <div className="bg-slate-800/50 backdrop-blur-xl border border-slate-700/50 rounded-3xl p-8 md:p-12 shadow-2xl animate-in fade-in slide-in-from-bottom duration-700 delay-200">
+        <div className="bg-white/50 dark:bg-slate-800/50 backdrop-blur-xl border border-slate-300/50 dark:border-slate-700/50 rounded-3xl p-8 md:p-12 shadow-2xl animate-in fade-in slide-in-from-bottom duration-700 delay-200">
           <div className="space-y-8">
             {/* Room ID Display */}
-            <div className="p-6 bg-slate-900/50 rounded-2xl border border-slate-700/50">
+            <div className="p-6 bg-slate-100/50 dark:bg-slate-900/50 rounded-2xl border border-slate-300/50 dark:border-slate-700/50">
               <div className="flex items-center justify-between mb-3">
-                <span className="text-sm font-semibold text-slate-400 uppercase tracking-wide">Room ID</span>
+                <span className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">Room ID</span>
                 <Button
                   variant="ghost"
                   size="sm"
                   onClick={handleCopyRoomId}
-                  className="h-8 px-3 text-slate-400 hover:text-white"
+                  className="h-8 px-3"
                 >
                   {copied ? (
                     <>
@@ -115,7 +115,7 @@ export default function JoinRoom() {
                   )}
                 </Button>
               </div>
-              <p className="font-mono text-lg text-white break-all" data-testid="text-room-id">
+              <p className="font-mono text-lg text-foreground break-all" data-testid="text-room-id">
                 {roomId}
               </p>
             </div>
@@ -127,8 +127,8 @@ export default function JoinRoom() {
                   <Users2 className="h-6 w-6 text-accent" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-white">My Language</h2>
-                  <p className="text-sm text-slate-400">Choose what you'll speak</p>
+                  <h2 className="text-2xl font-bold text-foreground">My Language</h2>
+                  <p className="text-sm text-muted-foreground">Choose what you'll speak</p>
                 </div>
               </div>
               
@@ -146,8 +146,8 @@ export default function JoinRoom() {
                   <Mic className="h-6 w-6 text-accent" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-white">My Voice Gender</h2>
-                  <p className="text-sm text-slate-400">Your partner will hear this voice</p>
+                  <h2 className="text-2xl font-bold text-foreground">My Voice Gender</h2>
+                  <p className="text-sm text-muted-foreground">Your partner will hear this voice</p>
                 </div>
               </div>
               
@@ -179,7 +179,7 @@ export default function JoinRoom() {
           </div>
         </div>
 
-        <p className="text-center text-sm text-slate-500 mt-8">
+        <p className="text-center text-sm text-muted-foreground mt-8">
           Make sure your microphone is enabled for the best experience
         </p>
       </div>
