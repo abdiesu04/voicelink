@@ -485,9 +485,10 @@ export default function Room() {
     const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
     const wsUrl = `${protocol}//${window.location.host}/ws`;
     const ws = new WebSocket(wsUrl);
+    const connectionStartTime = Date.now();
 
     ws.onopen = () => {
-      console.log('[WebSocket] Connected successfully');
+      console.log('[WebSocket] ✅ Connected successfully at', new Date().toISOString());
       setConnectionStatus("connected");
       ws.send(JSON.stringify({
         type: "join",
@@ -504,38 +505,100 @@ export default function Room() {
     };
     
     ws.onerror = (error) => {
-      console.error('[WebSocket] Connection error:', error);
+      const duration = Math.floor((Date.now() - connectionStartTime) / 1000);
+      console.error('[WebSocket] ❌ Connection error after', duration, 'seconds:', error);
+      console.error('[WebSocket] Error details:', {
+        timestamp: new Date().toISOString(),
+        duration: `${duration}s`,
+        readyState: ws.readyState,
+        url: wsUrl
+      });
       setConnectionStatus("disconnected");
     };
     
     ws.onclose = (event) => {
-      console.log('[WebSocket] Connection closed:', event.code, event.reason);
+      const duration = Math.floor((Date.now() - connectionStartTime) / 1000);
+      const minutes = Math.floor(duration / 60);
+      const seconds = duration % 60;
+      const durationStr = `${minutes}m ${seconds}s`;
+      
+      // Detailed close code explanations
+      const closeReasons: Record<number, string> = {
+        1000: "Normal closure - Connection ended cleanly",
+        1001: "Going away - Browser tab closed or navigated away",
+        1002: "Protocol error - Invalid WebSocket data",
+        1006: "Abnormal closure - Connection lost (likely proxy/timeout after 5min)",
+        1007: "Invalid data - Malformed message received",
+        1008: "Policy violation - Message violated policy",
+        1009: "Message too big - Data size exceeded limit",
+        1011: "Server error - Unexpected server condition",
+        1015: "TLS handshake failure - Security error"
+      };
+      
+      const closeReason = closeReasons[event.code] || `Unknown close code: ${event.code}`;
+      const customReason = event.reason || 'No reason provided';
+      
+      console.log('[WebSocket] 🔌 Connection closed:', {
+        code: event.code,
+        reason: closeReason,
+        customReason: customReason,
+        wasClean: event.wasClean,
+        duration: durationStr,
+        durationSeconds: duration,
+        timestamp: new Date().toISOString()
+      });
+      
       setConnectionStatus("disconnected");
       
-      // Don't show error if it was a clean close (user left room)
+      // Show detailed error message to user based on close code
       if (!event.wasClean) {
+        let userMessage = closeReason;
+        let details = "";
+        
+        if (event.code === 1006) {
+          if (duration >= 280 && duration <= 320) {
+            // ~5 minute timeout (280-320 seconds)
+            userMessage = "5-Minute Connection Limit Reached";
+            details = `Your connection lasted ${durationStr}. Replit/browser proxies close WebSocket connections after ~5 minutes. Click "Try Again" to reconnect.`;
+          } else {
+            userMessage = "Connection Lost Unexpectedly";
+            details = `Connection dropped after ${durationStr}. This may be due to network issues or proxy timeout.`;
+          }
+        } else if (event.code === 1001) {
+          details = "The browser tab was closed or you navigated away.";
+        } else if (event.code === 1011) {
+          details = "Server encountered an error. Please try reconnecting.";
+        } else {
+          details = `Duration: ${durationStr}. ${customReason || 'Please try reconnecting.'}`;
+        }
+        
         toast({
-          title: "Connection Lost",
-          description: "Attempting to reconnect...",
+          title: userMessage,
+          description: details,
           variant: "destructive",
+          duration: 10000, // Show for 10 seconds
         });
       }
     };
 
     // Application-level heartbeat to prevent 5-minute timeout
-    // Send ping every 60 seconds to keep connection alive through proxies
+    // Send ping every 30 seconds to aggressively keep connection alive through proxies
+    // This ensures data flows regularly to prevent idle timeout
     const heartbeatInterval = setInterval(() => {
       if (ws.readyState === WebSocket.OPEN) {
+        const duration = Math.floor((Date.now() - connectionStartTime) / 1000);
+        console.log(`[WebSocket Heartbeat] → Client ping sent (${duration}s)`);
         ws.send(JSON.stringify({ type: "ping" }));
       }
-    }, 60000); // 60 seconds
+    }, 30000); // 30 seconds - aggressive heartbeat to prevent proxy timeout
 
     ws.onmessage = (event) => {
       const message = JSON.parse(event.data);
 
       // Handle pong response from server (keepalive)
       if (message.type === "pong") {
-        // Connection is alive, no action needed
+        const duration = Math.floor((Date.now() - connectionStartTime) / 1000);
+        console.log(`[WebSocket Heartbeat] ✓ Server pong received (${duration}s)`);
         return;
       }
 

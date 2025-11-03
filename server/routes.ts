@@ -87,29 +87,51 @@ export async function registerRoutes(app: Express): Promise<Server> {
   const wss = new WebSocketServer({ server: httpServer, path: '/ws' });
 
   wss.on('connection', (ws: WebSocket) => {
-    console.log('New WebSocket connection');
+    const connectionStartTime = Date.now();
+    console.log('[WebSocket] ✅ New connection established at', new Date().toISOString());
     
     // Keep connection alive with ping/pong every 30 seconds
     let isAlive = true;
+    let lastPongTime = Date.now();
+    
     ws.on('pong', () => {
       isAlive = true;
+      lastPongTime = Date.now();
+      const duration = Math.floor((Date.now() - connectionStartTime) / 1000);
+      const connection = connections.get(ws);
+      console.log('[WebSocket Heartbeat] ✓ Pong received', {
+        duration: `${duration}s`,
+        roomId: connection?.roomId,
+        role: connection?.role
+      });
     });
 
     const pingInterval = setInterval(() => {
+      const duration = Math.floor((Date.now() - connectionStartTime) / 1000);
+      const connection = connections.get(ws);
+      
       if (!isAlive) {
-        const connection = connections.get(ws);
-        console.log('[WebSocket Heartbeat] Connection terminated - no activity detected', {
+        const timeSinceLastPong = Math.floor((Date.now() - lastPongTime) / 1000);
+        console.log('[WebSocket Heartbeat] ❌ Connection terminated - no pong response', {
           roomId: connection?.roomId,
           language: connection?.language,
           role: connection?.role,
+          duration: `${duration}s`,
+          timeSinceLastPong: `${timeSinceLastPong}s`,
           timestamp: new Date().toISOString()
         });
         clearInterval(pingInterval);
         return ws.terminate();
       }
+      
       isAlive = false;
+      console.log('[WebSocket Heartbeat] → Server ping sent', {
+        duration: `${duration}s`,
+        roomId: connection?.roomId,
+        role: connection?.role
+      });
       ws.ping();
-    }, 90000); // 90 seconds - extended from 30s to prevent disconnections during heavy Azure operations
+    }, 45000); // 45 seconds - aggressive protocol-level pings to prevent proxy timeout
 
     ws.on('message', async (data: Buffer) => {
       // ANY message from client proves connection is alive (fixes disconnection during heavy Azure operations)
@@ -277,11 +299,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
     });
 
-    ws.on('close', () => {
-      console.log('WebSocket connection closed');
+    ws.on('close', (code: number, reason: Buffer) => {
+      const duration = Math.floor((Date.now() - connectionStartTime) / 1000);
+      const minutes = Math.floor(duration / 60);
+      const seconds = duration % 60;
+      const connection = connections.get(ws);
+      
+      console.log('[WebSocket] 🔌 Connection closed:', {
+        code,
+        reason: reason.toString() || 'No reason provided',
+        duration: `${minutes}m ${seconds}s (${duration}s)`,
+        roomId: connection?.roomId,
+        language: connection?.language,
+        role: connection?.role,
+        timestamp: new Date().toISOString()
+      });
+      
       clearInterval(pingInterval);
       
-      const connection = connections.get(ws);
       if (connection) {
         const { roomId } = connection;
         
@@ -312,7 +347,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
     });
 
     ws.on('error', (error) => {
-      console.error('WebSocket error:', error);
+      const duration = Math.floor((Date.now() - connectionStartTime) / 1000);
+      const connection = connections.get(ws);
+      console.error('[WebSocket] ❌ Connection error:', {
+        error: error.message,
+        duration: `${duration}s`,
+        roomId: connection?.roomId,
+        role: connection?.role,
+        timestamp: new Date().toISOString()
+      });
       clearInterval(pingInterval);
     });
   });
