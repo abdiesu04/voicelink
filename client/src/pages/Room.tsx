@@ -488,7 +488,7 @@ export default function Room() {
     const connectionStartTime = Date.now();
 
     ws.onopen = () => {
-      console.log('[WebSocket] ✅ Connected successfully at', new Date().toISOString());
+      console.log('[WebSocket] Connected successfully');
       setConnectionStatus("connected");
       ws.send(JSON.stringify({
         type: "join",
@@ -505,14 +505,7 @@ export default function Room() {
     };
     
     ws.onerror = (error) => {
-      const duration = Math.floor((Date.now() - connectionStartTime) / 1000);
-      console.error('[WebSocket] ❌ Connection error after', duration, 'seconds:', error);
-      console.error('[WebSocket] Error details:', {
-        timestamp: new Date().toISOString(),
-        duration: `${duration}s`,
-        readyState: ws.readyState,
-        url: wsUrl
-      });
+      console.error('[WebSocket] Connection error:', error);
       setConnectionStatus("disconnected");
     };
     
@@ -583,11 +576,8 @@ export default function Room() {
 
     // Application-level heartbeat to prevent 5-minute timeout
     // Send ping every 30 seconds to aggressively keep connection alive through proxies
-    // This ensures data flows regularly to prevent idle timeout
     const heartbeatInterval = setInterval(() => {
       if (ws.readyState === WebSocket.OPEN) {
-        const duration = Math.floor((Date.now() - connectionStartTime) / 1000);
-        console.log(`[WebSocket Heartbeat] → Client ping sent (${duration}s)`);
         ws.send(JSON.stringify({ type: "ping" }));
       }
     }, 30000); // 30 seconds - aggressive heartbeat to prevent proxy timeout
@@ -597,8 +587,6 @@ export default function Room() {
 
       // Handle pong response from server (keepalive)
       if (message.type === "pong") {
-        const duration = Math.floor((Date.now() - connectionStartTime) / 1000);
-        console.log(`[WebSocket Heartbeat] ✓ Server pong received (${duration}s)`);
         return;
       }
 
