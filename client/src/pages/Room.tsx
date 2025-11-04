@@ -798,13 +798,19 @@ export default function Room() {
         }
       }
       
+      console.log('[WebSocket Cleanup] Component unmounting - cleaning up WebSocket, current readyState:', ws.readyState);
+      
       if (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING) {
-        console.log('[WebSocket Cleanup] Closing WebSocket during component unmount, readyState:', ws.readyState);
+        console.log('[WebSocket Cleanup] Closing WebSocket during component unmount');
         ws.close(1000, "Component unmount");
       } else {
-        console.log('[WebSocket Cleanup] WebSocket already closed, readyState:', ws.readyState);
+        console.log('[WebSocket Cleanup] WebSocket already closed during unmount, readyState:', ws.readyState);
       }
+      
+      console.log('[WebSocket Cleanup] Clearing heartbeat interval');
       clearInterval(heartbeatInterval);
+      
+      console.log('[WebSocket Cleanup] Cleanup complete');
     };
     // CRITICAL: Do NOT include toast or setLocation - they cause constant re-renders
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -1059,8 +1065,9 @@ export default function Room() {
   };
 
   const handleEndCall = () => {
+    console.log('[End Call] User clicked End Call button - closing connection and navigating home');
     if (wsRef.current?.readyState === WebSocket.OPEN) {
-      wsRef.current.close();
+      wsRef.current.close(1000, "User ended call");
     }
     setLocation("/");
   };
