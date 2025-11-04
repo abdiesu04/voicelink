@@ -1,0 +1,542 @@
+client:536 WebSocket connection to 'wss://76b67878-aa4f-4967-ba04-88458384b912-00-2pvz6t58xfuz3.worf.replit.dev/?token=JriI3ignUGx0' failed: 
+setupWebSocket @ client:536
+client:536 Uncaught (in promise) SyntaxError: Failed to construct 'WebSocket': The URL 'wss://localhost:undefined/?token=JriI3ignUGx0' is invalid.
+    at setupWebSocket (client:536:19)
+    at fallback (client:509:16)
+    at WebSocket.<anonymous> (client:555:7)
+chunk-WERSD76P.js?v=b9534207:21551 Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+JoinRoom.tsx:16 [JoinRoom] Selected voice gender: undefined
+tab.js:1 Executing inline script violates the following Content Security Policy directive 'script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' chrome-extension://71198a03-53b2-4d51-b117-62bea1c9e593/'. Either the 'unsafe-inline' keyword, a hash ('sha256-kPx0AsF0oz2kKiZ875xSvv693TBHkQ/0SkMJZnnNpnQ='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked.
+(anonymous) @ tab.js:1
+JoinRoom.tsx:16 [JoinRoom] Selected voice gender: male
+JoinRoom.tsx:53 [JoinRoom] Joining room with voice gender: male
+JoinRoom.tsx:16 [JoinRoom] Selected voice gender: male
+JoinRoom.tsx:56 [JoinRoom] Navigating to room with voiceGender: male
+Room.tsx:45 [Room Init] Role: participant, Language: en, My Voice Gender: male
+Room.tsx:79 [Browser] Network status: ONLINE
+Room.tsx:130 [State Change] partnerVoiceGender updated to: undefined
+Room.tsx:539 [WebSocket] Creating new WebSocket connection to: wss://76b67878-aa4f-4967-ba04-88458384b912-00-2pvz6t58xfuz3.worf.replit.dev/ws
+Room.tsx:545 [WebSocket] Connected successfully, readyState: 1
+Room.tsx:722 [Voice Gender] Partner joined with gender: male
+Room.tsx:723 [Voice Gender] My gender: male
+Room.tsx:130 [State Change] partnerVoiceGender updated to: male
+Room.tsx:228 [Audio Unlock] Attempting to unlock audio for mobile...
+Room.tsx:256 [Audio Unlock] Audio successfully unlocked for mobile
+Room.tsx:918 [Azure Speech] ✓ Session started: {sessionId: 'EBA185ECFD464EE8AA0A4F9E94428C86', timestamp: '2025-11-04T11:01:15.424Z'}
+Room.tsx:1043 [Speech] Recognition started successfully
+Room.tsx:49 [Browser] Visibility changed: HIDDEN
+Room.tsx:51 [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "I'm good for you.", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): I'm good for you.
+Room.tsx:367 [TTS Queue] Queue processor started
+Room.tsx:378 [TTS Queue] Playing: I'm good for you. 
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:407 [TTS Queue] Synthesis completed in 1463ms, audio size: 32832 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:49 [Browser] Visibility changed: VISIBLE
+Room.tsx:53 [Browser] ✓ Tab is now visible - connections should remain active
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254085050-I'm good for you.
+Room.tsx:502 [TTS Queue] Queue processor finished
+Room.tsx:49 [Browser] Visibility changed: HIDDEN
+Room.tsx:51 [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+Room.tsx:705 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+Room.tsx:717 [Heartbeat] 💚 Received pong from server - connection alive
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "What about here?", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): What about here?
+Room.tsx:367 [TTS Queue] Queue processor started
+Room.tsx:378 [TTS Queue] Playing: What about here? 
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:407 [TTS Queue] Synthesis completed in 1047ms, audio size: 31680 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254097449-What about here?
+Room.tsx:502 [TTS Queue] Queue processor finished
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "Read about what I didn't get what you mean there.", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): Read about what I didn't get what you mean there.
+Room.tsx:367 [TTS Queue] Queue processor started
+Room.tsx:378 [TTS Queue] Playing: Read about what I didn't get what you mean there. 
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:407 [TTS Queue] Synthesis completed in 1063ms, audio size: 54144 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254105999-Read about what I di
+Room.tsx:502 [TTS Queue] Queue processor finished
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "No success is very good in all the administration said that.", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): No success is very good in all the administration 
+Room.tsx:367 [TTS Queue] Queue processor started
+Room.tsx:378 [TTS Queue] Playing: No success is very good in all the administration  
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:407 [TTS Queue] Synthesis completed in 1042ms, audio size: 69120 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254117488-No success is very g
+Room.tsx:502 [TTS Queue] Queue processor finished
+Room.tsx:705 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+Room.tsx:717 [Heartbeat] 💚 Received pong from server - connection alive
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "Alright, that's really interesting.", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): Alright, that's really interesting.
+Room.tsx:367 [TTS Queue] Queue processor started
+Room.tsx:378 [TTS Queue] Playing: Alright, that's really interesting. 
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:407 [TTS Queue] Synthesis completed in 1117ms, audio size: 47232 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254129529-Alright, that's real
+Room.tsx:502 [TTS Queue] Queue processor finished
+Room.tsx:705 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+Room.tsx:717 [Heartbeat] 💚 Received pong from server - connection alive
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "All right, where do you live?", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): All right, where do you live?
+Room.tsx:367 [TTS Queue] Queue processor started
+Room.tsx:378 [TTS Queue] Playing: All right, where do you live? 
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:407 [TTS Queue] Synthesis completed in 1216ms, audio size: 40896 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254168697-All right, where do 
+Room.tsx:502 [TTS Queue] Queue processor finished
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "I live in America.", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): I live in America.
+Room.tsx:367 [TTS Queue] Queue processor started
+Room.tsx:378 [TTS Queue] Playing: I live in America. 
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:407 [TTS Queue] Synthesis completed in 977ms, audio size: 36288 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254176167-I live in America.
+Room.tsx:502 [TTS Queue] Queue processor finished
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "Do you like living there?", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): Do you like living there?
+Room.tsx:367 [TTS Queue] Queue processor started
+Room.tsx:378 [TTS Queue] Playing: Do you like living there? 
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:705 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+Room.tsx:717 [Heartbeat] 💚 Received pong from server - connection alive
+Room.tsx:407 [TTS Queue] Synthesis completed in 1089ms, audio size: 36864 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254182718-Do you like living t
+Room.tsx:502 [TTS Queue] Queue processor finished
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "OK, why are you speaking to me right now?", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): OK, why are you speaking to me right now?
+Room.tsx:367 [TTS Queue] Queue processor started
+Room.tsx:378 [TTS Queue] Playing: OK, why are you speaking to me right now? 
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:407 [TTS Queue] Synthesis completed in 1037ms, audio size: 50688 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254200229-OK, why are you spea
+Room.tsx:502 [TTS Queue] Queue processor finished
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "What? What does it mean to be pink? Do you know what I mean?", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): What? What does it mean to be pink? Do you know wh
+Room.tsx:367 [TTS Queue] Queue processor started
+Room.tsx:378 [TTS Queue] Playing: What? What does it mean to be pink? Do you know wh 
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:407 [TTS Queue] Synthesis completed in 1265ms, audio size: 95616 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:705 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+Room.tsx:717 [Heartbeat] 💚 Received pong from server - connection alive
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254211786-What? What does it m
+Room.tsx:502 [TTS Queue] Queue processor finished
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "Alexa, why? You mean how many minutes?", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): Alexa, why? You mean how many minutes?
+Room.tsx:367 [TTS Queue] Queue processor started
+Room.tsx:378 [TTS Queue] Playing: Alexa, why? You mean how many minutes? 
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:407 [TTS Queue] Synthesis completed in 1108ms, audio size: 71424 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "Have we spoken yet?", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): Have we spoken yet?
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254224464-Alexa, why? You mean
+Room.tsx:378 [TTS Queue] Playing: Have we spoken yet? 
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:407 [TTS Queue] Synthesis completed in 857ms, audio size: 34560 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254226492-Have we spoken yet?
+Room.tsx:502 [TTS Queue] Queue processor finished
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "Message.", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): Message.
+Room.tsx:367 [TTS Queue] Queue processor started
+Room.tsx:378 [TTS Queue] Playing: Message. 
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:407 [TTS Queue] Synthesis completed in 881ms, audio size: 27072 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254239744-Message.
+Room.tsx:502 [TTS Queue] Queue processor finished
+Room.tsx:705 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+Room.tsx:717 [Heartbeat] 💚 Received pong from server - connection alive
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "OK, wait till you leave. Can you tell me that?", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): OK, wait till you leave. Can you tell me that?
+Room.tsx:367 [TTS Queue] Queue processor started
+Room.tsx:378 [TTS Queue] Playing: OK, wait till you leave. Can you tell me that? 
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:407 [TTS Queue] Synthesis completed in 1110ms, audio size: 72576 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254262118-OK, wait till you le
+Room.tsx:502 [TTS Queue] Queue processor finished
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "Yes, I can tell you that.", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): Yes, I can tell you that.
+Room.tsx:367 [TTS Queue] Queue processor started
+Room.tsx:378 [TTS Queue] Playing: Yes, I can tell you that. 
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:407 [TTS Queue] Synthesis completed in 1157ms, audio size: 42048 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:705 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+Room.tsx:717 [Heartbeat] 💚 Received pong from server - connection alive
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254271808-Yes, I can tell you 
+Room.tsx:502 [TTS Queue] Queue processor finished
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "And I it's not getting disconnected, which is really great to hear because I am sending things and receipt hung, which is really good and uh.", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): And I it's not getting disconnected, which is real
+Room.tsx:367 [TTS Queue] Queue processor started
+Room.tsx:378 [TTS Queue] Playing: And I it's not getting disconnected, which is real 
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:407 [TTS Queue] Synthesis completed in 1340ms, audio size: 117504 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254293461-And I it's not getti
+Room.tsx:502 [TTS Queue] Queue processor finished
+Room.tsx:705 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+Room.tsx:717 [Heartbeat] 💚 Received pong from server - connection alive
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "Thank you so much for fixing the problem. I hope it's really helped me now fixing in in the both side both side fairing and I really TI really think.", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): Thank you so much for fixing the problem. I hope i
+Room.tsx:367 [TTS Queue] Queue processor started
+Room.tsx:378 [TTS Queue] Playing: Thank you so much for fixing the problem. I hope i 
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:407 [TTS Queue] Synthesis completed in 1328ms, audio size: 147456 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "I I can I can see I.", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): I I can I can see I.
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254316453-Thank you so much fo
+Room.tsx:378 [TTS Queue] Playing: I I can I can see I. 
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:407 [TTS Queue] Synthesis completed in 1197ms, audio size: 38016 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254319654-I I can I can see I.
+Room.tsx:502 [TTS Queue] Queue processor finished
+Room.tsx:705 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+Room.tsx:717 [Heartbeat] 💚 Received pong from server - connection alive
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "I want to download the pinpoint meaning.", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): I want to download the pinpoint meaning.
+Room.tsx:367 [TTS Queue] Queue processor started
+Room.tsx:378 [TTS Queue] Playing: I want to download the pinpoint meaning. 
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:407 [TTS Queue] Synthesis completed in 1113ms, audio size: 48384 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "Administrative and ping uniform is likely crap.", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): Administrative and ping uniform is likely crap.
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254346014-I want to download t
+Room.tsx:378 [TTS Queue] Playing: Administrative and ping uniform is likely crap. 
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:407 [TTS Queue] Synthesis completed in 1005ms, audio size: 59904 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254349646-Administrative and p
+Room.tsx:502 [TTS Queue] Queue processor finished
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "The bronze and small for sale.", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): The bronze and small for sale.
+Room.tsx:367 [TTS Queue] Queue processor started
+Room.tsx:378 [TTS Queue] Playing: The bronze and small for sale. 
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:407 [TTS Queue] Synthesis completed in 991ms, audio size: 43776 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "Hey, are you still there?", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): Hey, are you still there?
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254355144-The bronze and small
+Room.tsx:378 [TTS Queue] Playing: Hey, are you still there? 
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:407 [TTS Queue] Synthesis completed in 740ms, audio size: 40896 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254358218-Hey, are you still t
+Room.tsx:502 [TTS Queue] Queue processor finished
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "And the punk is catching Bisco bag.", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): And the punk is catching Bisco bag.
+Room.tsx:367 [TTS Queue] Queue processor started
+Room.tsx:378 [TTS Queue] Playing: And the punk is catching Bisco bag. 
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:705 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+Room.tsx:717 [Heartbeat] 💚 Received pong from server - connection alive
+Room.tsx:407 [TTS Queue] Synthesis completed in 1179ms, audio size: 47232 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254362802-And the punk is catc
+Room.tsx:502 [TTS Queue] Queue processor finished
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "Server pictures immediately explodes back so understand his family. Delhi's cold impact.", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): Server pictures immediately explodes back so under
+Room.tsx:367 [TTS Queue] Queue processor started
+Room.tsx:378 [TTS Queue] Playing: Server pictures immediately explodes back so under 
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:407 [TTS Queue] Synthesis completed in 1340ms, audio size: 112320 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "Volunteerism of Savannah trend.", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): Volunteerism of Savannah trend.
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254369286-Server pictures imme
+Room.tsx:378 [TTS Queue] Playing: Volunteerism of Savannah trend. 
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:407 [TTS Queue] Synthesis completed in 1191ms, audio size: 47808 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254374580-Volunteerism of Sava
+Room.tsx:502 [TTS Queue] Queue processor finished
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "So same thing happens with Internet.", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): So same thing happens with Internet.
+Room.tsx:367 [TTS Queue] Queue processor started
+Room.tsx:378 [TTS Queue] Playing: So same thing happens with Internet. 
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:407 [TTS Queue] Synthesis completed in 1039ms, audio size: 48384 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "Replay connects to the.", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): Replay connects to the.
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254384847-So same thing happen
+Room.tsx:378 [TTS Queue] Playing: Replay connects to the. 
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:407 [TTS Queue] Synthesis completed in 808ms, audio size: 40320 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "Which is like Paul.", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): Which is like Paul.
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254388093-Replay connects to t
+Room.tsx:378 [TTS Queue] Playing: Which is like Paul. 
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:407 [TTS Queue] Synthesis completed in 769ms, audio size: 33984 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:705 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+Room.tsx:717 [Heartbeat] 💚 Received pong from server - connection alive
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254391325-Which is like Paul.
+Room.tsx:502 [TTS Queue] Queue processor finished
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "Please send message to 60 seconds and Internet transfer routers focuses uh things. This connection is there.", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): Please send message to 60 seconds and Internet tra
+Room.tsx:367 [TTS Queue] Queue processor started
+Room.tsx:378 [TTS Queue] Playing: Please send message to 60 seconds and Internet tra 
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:407 [TTS Queue] Synthesis completed in 1357ms, audio size: 120384 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "The free app resources.", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): The free app resources.
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "So sorry for.", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 1): So sorry for.
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254408449-Please send message 
+Room.tsx:378 [TTS Queue] Playing: The free app resources. 
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:407 [TTS Queue] Synthesis completed in 1041ms, audio size: 41472 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254411675-The free app resourc
+Room.tsx:378 [TTS Queue] Playing: So sorry for. 
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:407 [TTS Queue] Synthesis completed in 535ms, audio size: 35136 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "Keep the line up how many sources of 2000 your brother automatically?", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): Keep the line up how many sources of 2000 your bro
+Room.tsx:705 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+Room.tsx:717 [Heartbeat] 💚 Received pong from server - connection alive
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254416923-So sorry for.
+Room.tsx:378 [TTS Queue] Playing: Keep the line up how many sources of 2000 your bro 
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:407 [TTS Queue] Synthesis completed in 1197ms, audio size: 76032 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "Sexy tiny pink sets up.", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): Sexy tiny pink sets up.
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254423207-Keep the line up how
+Room.tsx:378 [TTS Queue] Playing: Sexy tiny pink sets up. 
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:407 [TTS Queue] Synthesis completed in 1439ms, audio size: 44928 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "Share response from Spunky and say Miss Mitchell, Miss Mitu.", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): Share response from Spunky and say Miss Mitchell, 
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254427314-Sexy tiny pink sets 
+Room.tsx:378 [TTS Queue] Playing: Share response from Spunky and say Miss Mitchell,  
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:407 [TTS Queue] Synthesis completed in 879ms, audio size: 68544 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "That's how.", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): That's how.
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254432750-Share response from 
+Room.tsx:378 [TTS Queue] Playing: That's how. 
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:407 [TTS Queue] Synthesis completed in 972ms, audio size: 29376 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254437918-That's how.
+Room.tsx:502 [TTS Queue] Queue processor finished
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "So why you appears? Are you up to disconnecting?", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): So why you appears? Are you up to disconnecting?
+Room.tsx:367 [TTS Queue] Queue processor started
+Room.tsx:378 [TTS Queue] Playing: So why you appears? Are you up to disconnecting? 
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:407 [TTS Queue] Synthesis completed in 1051ms, audio size: 73152 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "After six.", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): After six.
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254445053-So why you appears? 
+Room.tsx:378 [TTS Queue] Playing: After six. 
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:407 [TTS Queue] Synthesis completed in 818ms, audio size: 31104 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:705 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+Room.tsx:717 [Heartbeat] 💚 Received pong from server - connection alive
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254448158-After six.
+Room.tsx:502 [TTS Queue] Queue processor finished
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "Silence of the collections from Ghosts open on mobile with new logging I agreed to can see if things are working. So if you see, uh, a laugh, heart hurts emoji that's singing, a ping every 30 seconds if you don't see it, we found the problem.", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): Silence of the collections from Ghosts open on mob
+Room.tsx:367 [TTS Queue] Queue processor started
+Room.tsx:378 [TTS Queue] Playing: Silence of the collections from Ghosts open on mob 
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:407 [TTS Queue] Synthesis completed in 1537ms, audio size: 225792 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "That's why I'm.", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): That's why I'm.
+Room.tsx:705 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+Room.tsx:717 [Heartbeat] 💚 Received pong from server - connection alive
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254473560-Silence of the colle
+Room.tsx:378 [TTS Queue] Playing: That's why I'm. 
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:407 [TTS Queue] Synthesis completed in 1117ms, audio size: 29952 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254476842-That's why I'm.
+Room.tsx:502 [TTS Queue] Queue processor finished
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "That's really, that's really great to hear, man.", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): That's really, that's really great to hear, man.
+Room.tsx:367 [TTS Queue] Queue processor started
+Room.tsx:378 [TTS Queue] Playing: That's really, that's really great to hear, man. 
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:407 [TTS Queue] Synthesis completed in 1022ms, audio size: 57600 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:49 [Browser] Visibility changed: VISIBLE
+Room.tsx:53 [Browser] ✓ Tab is now visible - connections should remain active
+Room.tsx:49 [Browser] Visibility changed: HIDDEN
+Room.tsx:51 [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254502298-That's really, that'
+Room.tsx:502 [TTS Queue] Queue processor finished
+Room.tsx:782 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:783 [Voice Gender] Text to speak: "He did not come there, interestingly.", Language: en
+Room.tsx:521 [TTS Queue] Adding to queue (queue size: 0): He did not come there, interestingly.
+Room.tsx:367 [TTS Queue] Queue processor started
+Room.tsx:378 [TTS Queue] Playing: He did not come there, interestingly. 
+Room.tsx:403 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:286 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:407 [TTS Queue] Synthesis completed in 1055ms, audio size: 48960 bytes
+Room.tsx:467 [TTS Queue] Playback started successfully
+Room.tsx:705 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+Room.tsx:717 [Heartbeat] 💚 Received pong from server - connection alive
+Room.tsx:590 [WebSocket] 🔌 ONCLOSE HANDLER FIRED! Code: 1006 wasClean: false
+Room.tsx:634 [WebSocket] 🔌 DISCONNECTED (FULL DETAILS): {code: 1006, reason: 'Abnormal Closure (network/proxy timeout)', customMessage: '', wasClean: false, duration: '7m 30s', …}
+Room.tsx:448 [TTS Queue] Playback completed (audio ended)
+Room.tsx:424 [TTS Queue] Marked messageId as spoken: creator-1762254511309-He did not come ther
+Room.tsx:502 [TTS Queue] Queue processor finished
+Room.tsx:708 [Heartbeat] ⚠️ Skipping ping - WebSocket not open, readyState: 3
+(anonymous) @ Room.tsx:708
+Room.tsx:49 [Browser] Visibility changed: VISIBLE
+Room.tsx:53 [Browser] ✓ Tab is now visible - connections should remain active
+Room.tsx:708 [Heartbeat] ⚠️ Skipping ping - WebSocket not open, readyState: 3
+(anonymous) @ Room.tsx:708
+Room.tsx:49 [Browser] Visibility changed: HIDDEN
+Room.tsx:51 [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+Room.tsx:708 [Heartbeat] ⚠️ Skipping ping - WebSocket not open, readyState: 3
+(anonymous) @ Room.tsx:708
+Room.tsx:49 [Browser] Visibility changed: VISIBLE
+Room.tsx:53 [Browser] ✓ Tab is now visible - connections should remain active
