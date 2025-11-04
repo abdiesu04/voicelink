@@ -5,9 +5,11 @@ import { cn } from "@/lib/utils";
 interface ConnectionStatusProps {
   status: "connected" | "connecting" | "disconnected";
   latency?: number;
+  disconnectReason?: string;
+  disconnectDetails?: string;
 }
 
-export function ConnectionStatus({ status, latency }: ConnectionStatusProps) {
+export function ConnectionStatus({ status, latency, disconnectReason, disconnectDetails }: ConnectionStatusProps) {
   const getStatusConfig = () => {
     if (status === "connected") {
       return {
@@ -35,7 +37,7 @@ export function ConnectionStatus({ status, latency }: ConnectionStatusProps) {
       bgColor: "bg-destructive/10",
       textColor: "text-destructive",
       borderColor: "border-destructive/20",
-      text: "Disconnected",
+      text: disconnectReason || "Disconnected",
     };
   };
 
@@ -49,7 +51,7 @@ export function ConnectionStatus({ status, latency }: ConnectionStatusProps) {
   const config = getStatusConfig();
 
   return (
-    <div className="flex items-center gap-3" data-testid="status-connection">
+    <div className="flex flex-col gap-1.5" data-testid="status-connection">
       <div className={cn(
         "flex items-center gap-3 px-4 py-2 rounded-xl border ring-1",
         config.bgColor,
@@ -74,6 +76,15 @@ export function ConnectionStatus({ status, latency }: ConnectionStatusProps) {
           {config.text}
         </span>
       </div>
+      
+      {status === "disconnected" && disconnectDetails && (
+        <div className={cn(
+          "px-4 py-1.5 rounded-lg text-xs",
+          "bg-destructive/5 text-destructive/80 border border-destructive/10"
+        )}>
+          {disconnectDetails}
+        </div>
+      )}
       
       {status === "connected" && latency && (
         <Badge 

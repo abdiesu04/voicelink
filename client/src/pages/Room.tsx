@@ -43,9 +43,52 @@ export default function Room() {
   // Only log on mount, not on every render
   useEffect(() => {
     console.log(`[Room Init] Role: ${role}, Language: ${language}, My Voice Gender: ${voiceGender}`);
+    
+    // Track browser tab visibility changes
+    const handleVisibilityChange = () => {
+      console.log('[Browser] Visibility changed:', document.hidden ? 'HIDDEN' : 'VISIBLE');
+      if (document.hidden) {
+        console.log('[Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections');
+      } else {
+        console.log('[Browser] ✓ Tab is now visible - connections should remain active');
+      }
+    };
+    
+    // Track page unload
+    const handleBeforeUnload = (e: BeforeUnloadEvent) => {
+      console.log('[Browser] ⚠️ Page is unloading (tab closing/navigating away)');
+    };
+    
+    // Track online/offline status
+    const handleOnline = () => {
+      console.log('[Network] ✓ Connection restored - back online');
+    };
+    
+    const handleOffline = () => {
+      console.error('[Network] ❌ Network connection lost - offline!');
+      setConnectionStatus("disconnected");
+      setDisconnectReason("Network Offline");
+      setDisconnectDetails("Your internet connection was lost.");
+    };
+    
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+    
+    console.log('[Browser] Network status:', navigator.onLine ? 'ONLINE' : 'OFFLINE');
+    
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+    };
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const [connectionStatus, setConnectionStatus] = useState<"connected" | "connecting" | "disconnected">("connecting");
+  const [disconnectReason, setDisconnectReason] = useState<string>("");
+  const [disconnectDetails, setDisconnectDetails] = useState<string>("");
   const [isMuted, setIsMuted] = useState(true);
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [partnerSpeaking, setPartnerSpeaking] = useState(false);
@@ -517,20 +560,28 @@ export default function Room() {
     
     ws.onerror = (error) => {
       const duration = Math.floor((Date.now() - connectionStartTime) / 1000);
-      console.error('[WebSocket] ❌ ERROR:', {
-        type: 'error',
+      const errorDetails = {
+        type: 'WebSocket Error',
         duration: `${duration}s`,
         readyState: ws.readyState,
-        timestamp: new Date().toISOString()
-      });
+        readyStateText: ['CONNECTING', 'OPEN', 'CLOSING', 'CLOSED'][ws.readyState],
+        url: ws.url,
+        timestamp: new Date().toISOString(),
+        error: error
+      };
+      
+      console.error('[WebSocket] ❌ ERROR EVENT FIRED:', errorDetails);
+      
       setConnectionStatus("disconnected");
+      setDisconnectReason("WebSocket Error");
+      setDisconnectDetails(`Connection error after ${duration}s. State: ${errorDetails.readyStateText}`);
       
       // Show error toast to user
       toast({
         title: "Connection Error",
-        description: "WebSocket connection encountered an error. The connection will attempt to close.",
+        description: `WebSocket error after ${duration}s. The connection may close. State: ${errorDetails.readyStateText}`,
         variant: "destructive",
-        duration: 8000,
+        duration: 10000,
       });
     };
     
@@ -565,18 +616,26 @@ export default function Room() {
       const closeReason = closeReasons[event.code] || `Unknown (${event.code})`;
       const customReason = event.reason || '';
       
-      // ALWAYS log to console - every disconnect case
-      console.log('[WebSocket] 🔌 DISCONNECTED:', {
+      // ALWAYS log to console - every disconnect case with MAXIMUM detail
+      const disconnectLog = {
         code: event.code,
         reason: closeReason,
         customMessage: customReason,
         wasClean: event.wasClean,
         duration: durationStr,
         totalSeconds: duration,
-        timestamp: new Date().toISOString()
-      });
+        timestamp: new Date().toISOString(),
+        readyState: ws.readyState,
+        url: ws.url,
+        protocol: ws.protocol,
+        bufferedAmount: ws.bufferedAmount
+      };
+      
+      console.log('[WebSocket] 🔌 DISCONNECTED (FULL DETAILS):', disconnectLog);
       
       setConnectionStatus("disconnected");
+      setDisconnectReason(closeReason);
+      setDisconnectDetails(`Duration: ${durationStr}. ${customReason || 'No additional details.'}`);
       
       // Professional UI messages for ALL disconnect scenarios
       let userTitle = "";
@@ -841,6 +900,43 @@ export default function Room() {
       const audioConfig = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
       const recognizer = new SpeechSDK.SpeechRecognizer(speechConfig, audioConfig);
       
+      // Azure Speech SDK error handlers
+      recognizer.canceled = (s, e) => {
+        console.error('[Azure Speech] ❌ RECOGNITION CANCELED:', {
+          reason: e.reason,
+          errorCode: e.errorCode,
+          errorDetails: e.errorDetails,
+          sessionId: e.sessionId,
+          timestamp: new Date().toISOString()
+        });
+        
+        if (e.errorCode) {
+          setDisconnectReason("Azure Speech Error");
+          setDisconnectDetails(`Speech recognition error: ${e.errorDetails || e.errorCode}`);
+          
+          toast({
+            title: "Speech Recognition Error",
+            description: `Azure Speech SDK error: ${e.errorDetails || e.errorCode}`,
+            variant: "destructive",
+            duration: 10000,
+          });
+        }
+      };
+      
+      recognizer.sessionStarted = (s, e) => {
+        console.log('[Azure Speech] ✓ Session started:', {
+          sessionId: e.sessionId,
+          timestamp: new Date().toISOString()
+        });
+      };
+      
+      recognizer.sessionStopped = (s, e) => {
+        console.log('[Azure Speech] Session stopped:', {
+          sessionId: e.sessionId,
+          timestamp: new Date().toISOString()
+        });
+      };
+      
       recognizer.recognizing = (s, e) => {
         // CRITICAL: Don't process events if we're muted
         if (isMutedRef.current) {
@@ -1095,7 +1191,12 @@ export default function Room() {
           <div className="flex flex-col gap-2 md:gap-4">
             {/* Top Row - Connection & End Call */}
             <div className="flex items-center justify-between gap-2">
-              <ConnectionStatus status={connectionStatus} latency={connectionStatus === "connected" ? 45 : undefined} />
+              <ConnectionStatus 
+                status={connectionStatus} 
+                latency={connectionStatus === "connected" ? 45 : undefined}
+                disconnectReason={disconnectReason}
+                disconnectDetails={disconnectDetails}
+              />
               
               <Button
                 variant="destructive"
