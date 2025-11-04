@@ -66,9 +66,9 @@ export default function Room() {
     
     const handleOffline = () => {
       console.error('[Network] ❌ Network connection lost - offline!');
-      setConnectionStatus("disconnected");
-      setDisconnectReason("Network Offline");
-      setDisconnectDetails("Your internet connection was lost.");
+      // Don't set UI to disconnected - let auto-reconnect handle this
+      // The WebSocket onclose will fire and trigger reconnection when network returns
+      console.log('[Network] Auto-reconnect will handle reconnection when network returns');
     };
     
     document.addEventListener('visibilitychange', handleVisibilityChange);
@@ -120,6 +120,12 @@ export default function Room() {
   const quotaExceededRef = useRef<boolean>(false);
   const partnerVoiceGenderRef = useRef<"male" | "female" | undefined>(undefined);
   const isMutedRef = useRef<boolean>(true); // Track mute state in ref for event handlers
+  
+  // Auto-reconnect state
+  const reconnectAttemptRef = useRef<number>(0);
+  const reconnectTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const isReconnectingRef = useRef<boolean>(false);
+  const shouldReconnectRef = useRef<boolean>(true); // Set to false on intentional disconnect
 
   const myLanguage = SUPPORTED_LANGUAGES.find(l => l.code === language);
   const theirLanguage = SUPPORTED_LANGUAGES.find(l => l.code === partnerLanguage);
@@ -572,17 +578,9 @@ export default function Room() {
       
       console.error('[WebSocket] ❌ ERROR EVENT FIRED:', errorDetails);
       
-      setConnectionStatus("disconnected");
-      setDisconnectReason("WebSocket Error");
-      setDisconnectDetails(`Connection error after ${duration}s. State: ${errorDetails.readyStateText}`);
-      
-      // Show error toast to user
-      toast({
-        title: "Connection Error",
-        description: `WebSocket error after ${duration}s. The connection may close. State: ${errorDetails.readyStateText}`,
-        variant: "destructive",
-        duration: 10000,
-      });
+      // Don't show error UI immediately - let auto-reconnect handle it
+      // The onclose handler will trigger reconnection and only show error if all retries fail
+      console.log('[WebSocket] Error occurred, auto-reconnect will handle this if needed');
     };
     
     ws.onclose = (event) => {
@@ -633,69 +631,101 @@ export default function Room() {
       
       console.log('[WebSocket] 🔌 DISCONNECTED (FULL DETAILS):', disconnectLog);
       
-      setConnectionStatus("disconnected");
-      setDisconnectReason(closeReason);
-      setDisconnectDetails(`Duration: ${durationStr}. ${customReason || 'No additional details.'}`);
+      // Check if this is an intentional disconnect (user clicked End Call)
+      const isIntentionalDisconnect = !shouldReconnectRef.current || event.code === 1000 || event.code === 1001;
       
-      // Professional UI messages for ALL disconnect scenarios
-      let userTitle = "";
-      let userDetails = "";
-      let showToast = false;
+      if (isIntentionalDisconnect) {
+        // User intentionally ended call - don't reconnect
+        console.log('[Auto-Reconnect] Intentional disconnect - not reconnecting');
+        setConnectionStatus("disconnected");
+        setDisconnectReason(closeReason);
+        setDisconnectDetails(`Duration: ${durationStr}. ${customReason || 'No additional details.'}`);
+        return;
+      }
       
-      if (event.code === 1000) {
-        // Normal closure - usually user initiated, show minimal message
-        userTitle = "Connection Closed";
-        userDetails = "You have left the room.";
-        showToast = false; // Don't show toast for normal user-initiated closure
-      } else if (event.code === 1006) {
-        // Abnormal closure - most common for network/proxy issues
-        if (duration >= 280 && duration <= 320) {
-          userTitle = "5-Minute Timeout";
-          userDetails = `Connection reached the 5-minute limit (${durationStr}). This is a Replit/proxy limitation. Reconnect to continue.`;
-        } else if (duration < 10) {
-          userTitle = "Connection Failed";
-          userDetails = "Could not establish connection. Check your network and try again.";
-        } else {
-          userTitle = "Connection Lost";
-          userDetails = `Connection dropped after ${durationStr}. This may be due to network issues or server problems.`;
+      // Unintentional disconnect (network issue, timeout, etc.) - auto-reconnect
+      console.log('[Auto-Reconnect] Unintentional disconnect detected - will attempt reconnect');
+      
+      // Set reconnecting status (brief UI feedback)
+      setConnectionStatus("connecting");
+      setDisconnectReason("Reconnecting...");
+      setDisconnectDetails("Connection lost, reconnecting automatically...");
+      
+      // Attempt reconnection with exponential backoff
+      if (isReconnectingRef.current) {
+        console.log('[Auto-Reconnect] Already reconnecting - skipping duplicate');
+        return;
+      }
+      
+      isReconnectingRef.current = true;
+      reconnectAttemptRef.current += 1;
+      
+      // Exponential backoff: 500ms, 1s, 2s (max 3 attempts)
+      const delay = Math.min(500 * Math.pow(2, reconnectAttemptRef.current - 1), 2000);
+      
+      console.log(`[Auto-Reconnect] Attempt ${reconnectAttemptRef.current}, reconnecting in ${delay}ms...`);
+      
+      reconnectTimeoutRef.current = setTimeout(() => {
+        if (reconnectAttemptRef.current > 3) {
+          // Max attempts reached - show error
+          console.error('[Auto-Reconnect] Max reconnection attempts reached - giving up');
+          setConnectionStatus("disconnected");
+          setDisconnectReason("Connection Failed");
+          setDisconnectDetails(`Failed to reconnect after ${reconnectAttemptRef.current} attempts. Please refresh the page.`);
+          isReconnectingRef.current = false;
+          
+          toast({
+            title: "Connection Failed",
+            description: "Could not reconnect automatically. Please refresh the page and try again.",
+            variant: "destructive",
+            duration: 10000,
+          });
+          return;
         }
-        showToast = true;
-      } else if (event.code === 1001) {
-        userTitle = "Connection Ended";
-        userDetails = "The browser tab was closed or you navigated away.";
-        showToast = false;
-      } else if (event.code === 1011) {
-        userTitle = "Server Error";
-        userDetails = `The server encountered an error. Duration: ${durationStr}. Please try reconnecting.`;
-        showToast = true;
-      } else if (event.code === 1002 || event.code === 1007 || event.code === 1008) {
-        userTitle = "Protocol Error";
-        userDetails = `Invalid data was sent or received. Duration: ${durationStr}. Please refresh and try again.`;
-        showToast = true;
-      } else if (event.code === 1009) {
-        userTitle = "Message Too Large";
-        userDetails = "A message exceeded the maximum size. Please try again.";
-        showToast = true;
-      } else if (event.code === 1015) {
-        userTitle = "Security Error";
-        userDetails = "TLS handshake failed. Check your connection security and try again.";
-        showToast = true;
-      } else {
-        // Unknown or unhandled close code
-        userTitle = "Disconnected";
-        userDetails = `Connection closed (code ${event.code}). Duration: ${durationStr}. ${customReason || 'Please try reconnecting.'}`;
-        showToast = true;
-      }
-      
-      // Show toast notification to user if needed
-      if (showToast) {
-        toast({
-          title: userTitle,
-          description: userDetails,
-          variant: "destructive",
-          duration: 10000,
-        });
-      }
+        
+        console.log('[Auto-Reconnect] Executing reconnection...');
+        
+        // Create new WebSocket connection
+        const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+        const wsUrl = `${protocol}//${window.location.host}/ws`;
+        const newWs = new WebSocket(wsUrl);
+        const newConnectionStartTime = Date.now();
+        
+        newWs.onopen = () => {
+          console.log('[Auto-Reconnect] ✅ Reconnection successful!');
+          wsRef.current = newWs;
+          setConnectionStatus("connected");
+          reconnectAttemptRef.current = 0; // Reset counter
+          isReconnectingRef.current = false;
+          
+          // Rejoin room with same settings
+          newWs.send(JSON.stringify({
+            type: "join",
+            roomId,
+            language,
+            voiceGender,
+            role,
+          }));
+          
+          // Restart Azure Speech if it was running
+          if (!isMutedRef.current && azureTokenRef.current) {
+            console.log('[Auto-Reconnect] Restarting Azure Speech recognition...');
+            startConversation();
+          }
+          
+          console.log('[Auto-Reconnect] Reconnection complete - conversation resumed');
+        };
+        
+        newWs.onerror = (error) => {
+          console.error('[Auto-Reconnect] ❌ Reconnection failed:', error);
+          isReconnectingRef.current = false;
+          // Will retry due to onclose firing
+        };
+        
+        newWs.onclose = ws.onclose; // Reuse the same close handler
+        newWs.onmessage = ws.onmessage; // Reuse the same message handler
+        
+      }, delay);
     };
 
     // Application-level heartbeat to prevent 5-minute timeout
@@ -849,6 +879,16 @@ export default function Room() {
       }
       
       console.log('[WebSocket Cleanup] Component unmounting - cleaning up WebSocket, current readyState:', ws.readyState);
+      
+      // Clear reconnect timeout if pending
+      if (reconnectTimeoutRef.current) {
+        console.log('[WebSocket Cleanup] Clearing pending reconnect timeout');
+        clearTimeout(reconnectTimeoutRef.current);
+        reconnectTimeoutRef.current = null;
+      }
+      
+      // Prevent reconnect on component unmount
+      shouldReconnectRef.current = false;
       
       if (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING) {
         console.log('[WebSocket Cleanup] Closing WebSocket during component unmount');
@@ -1153,6 +1193,7 @@ export default function Room() {
 
   const handleEndCall = () => {
     console.log('[End Call] User clicked End Call button - closing connection and navigating home');
+    shouldReconnectRef.current = false; // Prevent auto-reconnect on intentional disconnect
     if (wsRef.current?.readyState === WebSocket.OPEN) {
       wsRef.current.close(1000, "User ended call");
     }
