@@ -493,11 +493,13 @@ export default function Room() {
 
     const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
     const wsUrl = `${protocol}//${window.location.host}/ws`;
+    console.log('[WebSocket] Creating new WebSocket connection to:', wsUrl);
     const ws = new WebSocket(wsUrl);
     const connectionStartTime = Date.now();
+    wsRef.current = ws; // Store immediately
 
     ws.onopen = () => {
-      console.log('[WebSocket] Connected successfully');
+      console.log('[WebSocket] Connected successfully, readyState:', ws.readyState);
       setConnectionStatus("connected");
       ws.send(JSON.stringify({
         type: "join",
@@ -533,6 +535,9 @@ export default function Room() {
     };
     
     ws.onclose = (event) => {
+      // CRITICAL: Log IMMEDIATELY as first line in handler
+      console.log('[WebSocket] 🔌 ONCLOSE HANDLER FIRED! Code:', event.code, 'wasClean:', event.wasClean);
+      
       const duration = Math.floor((Date.now() - connectionStartTime) / 1000);
       const minutes = Math.floor(duration / 60);
       const seconds = duration % 60;
@@ -793,9 +798,13 @@ export default function Room() {
         }
       }
       
-      if (ws.readyState === WebSocket.OPEN) {
-        ws.close();
+      if (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING) {
+        console.log('[WebSocket Cleanup] Closing WebSocket during component unmount, readyState:', ws.readyState);
+        ws.close(1000, "Component unmount");
+      } else {
+        console.log('[WebSocket Cleanup] WebSocket already closed, readyState:', ws.readyState);
       }
+      clearInterval(heartbeatInterval);
     };
     // CRITICAL: Do NOT include toast or setLocation - they cause constant re-renders
     // eslint-disable-next-line react-hooks/exhaustive-deps
