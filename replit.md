@@ -9,7 +9,7 @@ I prefer clear and concise explanations. I want an iterative development approac
 ## System Architecture
 
 ### UI/UX Decisions
-The application features a dark slate background with Indigo/Blue for interactive elements and Cyan for highlights. It uses the Inter font throughout. Components are built with Shadcn UI and Tailwind CSS, adhering to a responsive, mobile-first design. The UI includes:
+The application features a clean, modern design with full light/dark theme support, **defaulting to light mode for new users**. The color scheme uses Indigo/Blue for interactive elements and Cyan for highlights. It uses the Inter font throughout. Components are built with Shadcn UI and Tailwind CSS, adhering to a responsive, mobile-first design. Theme preference is persisted in localStorage. The UI includes:
 - A landing page, room creation/joining interfaces with language and voice gender selection.
 - An active translation interface with a dual-panel layout, connection status indicators, microphone controls, and a share dialog.
 - A `TranscriptionPanel` visually distinguishes interim transcriptions (dashed border, italic) from final translated messages.
