@@ -505,8 +505,22 @@ export default function Room() {
     };
     
     ws.onerror = (error) => {
-      console.error('[WebSocket] Connection error:', error);
+      const duration = Math.floor((Date.now() - connectionStartTime) / 1000);
+      console.error('[WebSocket] ❌ ERROR:', {
+        type: 'error',
+        duration: `${duration}s`,
+        readyState: ws.readyState,
+        timestamp: new Date().toISOString()
+      });
       setConnectionStatus("disconnected");
+      
+      // Show error toast to user
+      toast({
+        title: "Connection Error",
+        description: "WebSocket connection encountered an error. The connection will attempt to close.",
+        variant: "destructive",
+        duration: 8000,
+      });
     };
     
     ws.onclose = (event) => {
@@ -515,61 +529,98 @@ export default function Room() {
       const seconds = duration % 60;
       const durationStr = `${minutes}m ${seconds}s`;
       
-      // Detailed close code explanations
+      // Detailed close code explanations for console
       const closeReasons: Record<number, string> = {
-        1000: "Normal closure - Connection ended cleanly",
-        1001: "Going away - Browser tab closed or navigated away",
-        1002: "Protocol error - Invalid WebSocket data",
-        1006: "Abnormal closure - Connection lost (likely proxy/timeout after 5min)",
-        1007: "Invalid data - Malformed message received",
-        1008: "Policy violation - Message violated policy",
-        1009: "Message too big - Data size exceeded limit",
-        1011: "Server error - Unexpected server condition",
-        1015: "TLS handshake failure - Security error"
+        1000: "Normal Closure",
+        1001: "Going Away (tab closed/navigated)",
+        1002: "Protocol Error",
+        1003: "Unsupported Data",
+        1005: "No Status Received",
+        1006: "Abnormal Closure (network/proxy timeout)",
+        1007: "Invalid Frame Payload",
+        1008: "Policy Violation",
+        1009: "Message Too Big",
+        1010: "Missing Extension",
+        1011: "Internal Server Error",
+        1012: "Service Restart",
+        1013: "Try Again Later",
+        1014: "Bad Gateway",
+        1015: "TLS Handshake Failure"
       };
       
-      const closeReason = closeReasons[event.code] || `Unknown close code: ${event.code}`;
-      const customReason = event.reason || 'No reason provided';
+      const closeReason = closeReasons[event.code] || `Unknown (${event.code})`;
+      const customReason = event.reason || '';
       
-      console.log('[WebSocket] 🔌 Connection closed:', {
+      // ALWAYS log to console - every disconnect case
+      console.log('[WebSocket] 🔌 DISCONNECTED:', {
         code: event.code,
         reason: closeReason,
-        customReason: customReason,
+        customMessage: customReason,
         wasClean: event.wasClean,
         duration: durationStr,
-        durationSeconds: duration,
+        totalSeconds: duration,
         timestamp: new Date().toISOString()
       });
       
       setConnectionStatus("disconnected");
       
-      // Show detailed error message to user based on close code
-      if (!event.wasClean) {
-        let userMessage = closeReason;
-        let details = "";
-        
-        if (event.code === 1006) {
-          if (duration >= 280 && duration <= 320) {
-            // ~5 minute timeout (280-320 seconds)
-            userMessage = "5-Minute Connection Limit Reached";
-            details = `Your connection lasted ${durationStr}. Replit/browser proxies close WebSocket connections after ~5 minutes. Click "Try Again" to reconnect.`;
-          } else {
-            userMessage = "Connection Lost Unexpectedly";
-            details = `Connection dropped after ${durationStr}. This may be due to network issues or proxy timeout.`;
-          }
-        } else if (event.code === 1001) {
-          details = "The browser tab was closed or you navigated away.";
-        } else if (event.code === 1011) {
-          details = "Server encountered an error. Please try reconnecting.";
+      // Professional UI messages for ALL disconnect scenarios
+      let userTitle = "";
+      let userDetails = "";
+      let showToast = false;
+      
+      if (event.code === 1000) {
+        // Normal closure - usually user initiated, show minimal message
+        userTitle = "Connection Closed";
+        userDetails = "You have left the room.";
+        showToast = false; // Don't show toast for normal user-initiated closure
+      } else if (event.code === 1006) {
+        // Abnormal closure - most common for network/proxy issues
+        if (duration >= 280 && duration <= 320) {
+          userTitle = "5-Minute Timeout";
+          userDetails = `Connection reached the 5-minute limit (${durationStr}). This is a Replit/proxy limitation. Reconnect to continue.`;
+        } else if (duration < 10) {
+          userTitle = "Connection Failed";
+          userDetails = "Could not establish connection. Check your network and try again.";
         } else {
-          details = `Duration: ${durationStr}. ${customReason || 'Please try reconnecting.'}`;
+          userTitle = "Connection Lost";
+          userDetails = `Connection dropped after ${durationStr}. This may be due to network issues or server problems.`;
         }
-        
+        showToast = true;
+      } else if (event.code === 1001) {
+        userTitle = "Connection Ended";
+        userDetails = "The browser tab was closed or you navigated away.";
+        showToast = false;
+      } else if (event.code === 1011) {
+        userTitle = "Server Error";
+        userDetails = `The server encountered an error. Duration: ${durationStr}. Please try reconnecting.`;
+        showToast = true;
+      } else if (event.code === 1002 || event.code === 1007 || event.code === 1008) {
+        userTitle = "Protocol Error";
+        userDetails = `Invalid data was sent or received. Duration: ${durationStr}. Please refresh and try again.`;
+        showToast = true;
+      } else if (event.code === 1009) {
+        userTitle = "Message Too Large";
+        userDetails = "A message exceeded the maximum size. Please try again.";
+        showToast = true;
+      } else if (event.code === 1015) {
+        userTitle = "Security Error";
+        userDetails = "TLS handshake failed. Check your connection security and try again.";
+        showToast = true;
+      } else {
+        // Unknown or unhandled close code
+        userTitle = "Disconnected";
+        userDetails = `Connection closed (code ${event.code}). Duration: ${durationStr}. ${customReason || 'Please try reconnecting.'}`;
+        showToast = true;
+      }
+      
+      // Show toast notification to user if needed
+      if (showToast) {
         toast({
-          title: userMessage,
-          description: details,
+          title: userTitle,
+          description: userDetails,
           variant: "destructive",
-          duration: 10000, // Show for 10 seconds
+          duration: 10000,
         });
       }
     };

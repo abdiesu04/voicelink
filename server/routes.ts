@@ -275,19 +275,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
     ws.on('close', (code: number, reason: Buffer) => {
       const duration = Math.floor((Date.now() - connectionStartTime) / 1000);
+      const minutes = Math.floor(duration / 60);
+      const seconds = duration % 60;
       const connection = connections.get(ws);
       
-      // Only log detailed info if it's an abnormal closure or ~5 min timeout
-      if (code !== 1000) {
-        const minutes = Math.floor(duration / 60);
-        const seconds = duration % 60;
-        console.log('[WebSocket] Connection closed:', {
-          code,
-          duration: `${minutes}m ${seconds}s`,
-          roomId: connection?.roomId,
-          role: connection?.role
-        });
-      }
+      // Close code descriptions
+      const closeReasons: Record<number, string> = {
+        1000: "Normal",
+        1001: "Going Away",
+        1006: "Abnormal (network/timeout)",
+        1011: "Server Error"
+      };
+      
+      const closeReason = closeReasons[code] || `Code ${code}`;
+      
+      // ALWAYS log ALL disconnects with full details
+      console.log(`[WebSocket] 🔌 DISCONNECTED [${closeReason}]:`, {
+        code,
+        reason: reason.toString() || 'none',
+        duration: `${minutes}m ${seconds}s (${duration}s)`,
+        roomId: connection?.roomId || 'unknown',
+        language: connection?.language || 'unknown',
+        role: connection?.role || 'unknown',
+        timestamp: new Date().toISOString()
+      });
       
       clearInterval(pingInterval);
       
@@ -321,7 +332,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
     });
 
     ws.on('error', (error) => {
-      console.error('[WebSocket] Connection error:', error.message);
+      const duration = Math.floor((Date.now() - connectionStartTime) / 1000);
+      const connection = connections.get(ws);
+      
+      // ALWAYS log ALL errors with full context
+      console.error('[WebSocket] ❌ ERROR:', {
+        message: error.message,
+        duration: `${duration}s`,
+        roomId: connection?.roomId || 'unknown',
+        role: connection?.role || 'unknown',
+        timestamp: new Date().toISOString()
+      });
+      
       clearInterval(pingInterval);
     });
   });
