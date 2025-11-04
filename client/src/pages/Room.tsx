@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { useRoute, useLocation } from "wouter";
 import { Mic, MicOff, PhoneOff, Copy, Check, Share2, Volume2, Sparkles, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -29,12 +29,21 @@ export default function Room() {
   const { toast } = useToast();
 
   const roomId = params?.roomId;
-  const urlParams = new URLSearchParams(window.location.search);
-  const role = urlParams.get("role") || "creator";
-  const language = urlParams.get("language") || "en";
-  const voiceGender = (urlParams.get("voiceGender") || "female") as "male" | "female";
   
-  console.log(`[Room Init] Role: ${role}, Language: ${language}, My Voice Gender: ${voiceGender}`);
+  // Memoize URL params to prevent re-creating on every render
+  const { role, language, voiceGender } = useMemo(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    return {
+      role: urlParams.get("role") || "creator",
+      language: urlParams.get("language") || "en",
+      voiceGender: (urlParams.get("voiceGender") || "female") as "male" | "female"
+    };
+  }, []); // Only calculate once on mount
+  
+  // Only log on mount, not on every render
+  useEffect(() => {
+    console.log(`[Room Init] Role: ${role}, Language: ${language}, My Voice Gender: ${voiceGender}`);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const [connectionStatus, setConnectionStatus] = useState<"connected" | "connecting" | "disconnected">("connecting");
   const [isMuted, setIsMuted] = useState(true);
