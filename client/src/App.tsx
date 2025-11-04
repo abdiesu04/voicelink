@@ -28,7 +28,7 @@ function Router() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <ThemeProvider defaultTheme="dark" storageKey="voicelink-theme">
+      <ThemeProvider defaultTheme="light" storageKey="voicelink-theme">
         <TooltipProvider>
           <Header />
           <Toaster />
