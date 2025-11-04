@@ -802,19 +802,6 @@ export default function Room() {
       }
     };
 
-    ws.onerror = () => {
-      setConnectionStatus("disconnected");
-      toast({
-        title: "Connection Error",
-        description: "Failed to connect to the server",
-        variant: "destructive",
-      });
-    };
-
-    ws.onclose = () => {
-      setConnectionStatus("disconnected");
-    };
-
     wsRef.current = ws;
 
     return () => {
