@@ -185,6 +185,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
         // Application-level ping/pong for keeping connection alive through proxies
         if (message.type === 'ping') {
+          const connInfo = connections.get(ws);
+          console.log(`[Heartbeat-Server] 💓 Received ping from client (role: ${connInfo?.role}, language: ${connInfo?.language}), sending pong`);
           ws.send(JSON.stringify({ type: 'pong' }));
           return;
         }

@@ -702,7 +702,10 @@ export default function Room() {
     // Send ping every 30 seconds to aggressively keep connection alive through proxies
     const heartbeatInterval = setInterval(() => {
       if (ws.readyState === WebSocket.OPEN) {
+        console.log('[Heartbeat] 💓 Sending ping to keep connection alive, readyState:', ws.readyState);
         ws.send(JSON.stringify({ type: "ping" }));
+      } else {
+        console.warn('[Heartbeat] ⚠️ Skipping ping - WebSocket not open, readyState:', ws.readyState);
       }
     }, 30000); // 30 seconds - aggressive heartbeat to prevent proxy timeout
 
@@ -711,6 +714,7 @@ export default function Room() {
 
       // Handle pong response from server (keepalive)
       if (message.type === "pong") {
+        console.log('[Heartbeat] 💚 Received pong from server - connection alive');
         return;
       }
 
