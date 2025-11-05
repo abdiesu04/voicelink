@@ -421,6 +421,7 @@ export default function Room() {
           // Wait for audio to finish playing - using 'ended' event for precision
           await new Promise<void>((resolve, reject) => {
             let hasCompleted = false;
+            let timeoutId: NodeJS.Timeout | null = null;
             
             const cleanupSuccess = () => {
               if (!hasCompleted) {
@@ -432,6 +433,12 @@ export default function Room() {
                 // Clean up event listeners
                 audio.removeEventListener('ended', onEnded);
                 audio.removeEventListener('error', onError);
+                
+                // Clear timeout if exists
+                if (timeoutId) {
+                  clearTimeout(timeoutId);
+                  timeoutId = null;
+                }
                 
                 resolve();
               }
@@ -445,13 +452,19 @@ export default function Room() {
                 audio.removeEventListener('ended', onEnded);
                 audio.removeEventListener('error', onError);
                 
+                // Clear timeout if exists
+                if (timeoutId) {
+                  clearTimeout(timeoutId);
+                  timeoutId = null;
+                }
+                
                 // Do NOT mark as spoken - allow retry
                 reject(error);
               }
             };
             
             const onEnded = () => {
-              console.log('[TTS Queue] Playback completed (audio ended)');
+              console.log('[TTS Queue] Playback completed (audio ended event)');
               cleanupSuccess();
             };
             
@@ -469,8 +482,55 @@ export default function Room() {
             currentBlobUrlRef.current = blobUrl;
             audio.src = blobUrl;
             
+            // CRITICAL FIX: Mobile browser fallback timeout
+            // Some mobile browsers (iOS Safari, Android Chrome) don't reliably fire 'ended' event
+            // Attach loadedmetadata listener BEFORE play() to avoid race condition
+            const setupTimeoutFallback = () => {
+              if (hasCompleted || timeoutId) return;
+              
+              const duration = audio.duration;
+              if (duration && isFinite(duration)) {
+                // Add 2 seconds buffer + duration, max 30 seconds for very long audio
+                const timeoutDuration = Math.min((duration + 2) * 1000, 30000);
+                console.log(`[TTS Queue] Setting fallback timeout: ${timeoutDuration}ms (audio duration: ${duration}s)`);
+                
+                timeoutId = setTimeout(() => {
+                  if (!hasCompleted) {
+                    console.warn('[TTS Queue] Mobile fallback: Timeout reached, assuming playback complete');
+                    cleanupSuccess();
+                  }
+                }, timeoutDuration);
+              } else {
+                // Metadata not available yet, use generous 20 second default for safety
+                console.log('[TTS Queue] Setting default fallback timeout: 20000ms (metadata not ready)');
+                timeoutId = setTimeout(() => {
+                  if (!hasCompleted) {
+                    console.warn('[TTS Queue] Mobile fallback: Default timeout reached, assuming playback complete');
+                    cleanupSuccess();
+                  }
+                }, 20000);
+              }
+            };
+            
+            // Try to setup timeout immediately if metadata already loaded
+            if (audio.readyState >= 1) {
+              // HAVE_METADATA or higher - duration is available
+              setupTimeoutFallback();
+            } else {
+              // Wait for metadata to load
+              audio.addEventListener('loadedmetadata', setupTimeoutFallback, { once: true });
+            }
+            
             audio.play().then(() => {
               console.log('[TTS Queue] Playback started successfully');
+              
+              // Double-check: if timeout still not set after play starts, set it now
+              // This handles edge cases where metadata arrives between src assignment and play
+              setTimeout(() => {
+                if (!timeoutId && !hasCompleted) {
+                  setupTimeoutFallback();
+                }
+              }, 100);
             }).catch((err) => {
               console.error('[TTS Queue] Failed to play audio:', err);
               cleanupError(err);
