@@ -110,6 +110,7 @@ export default function Room() {
   const recognizerRef = useRef<SpeechSDK.SpeechRecognizer | null>(null);
   const azureTokenRef = useRef<{ token: string; region: string } | null>(null);
   const spokenMessageIdsRef = useRef<Set<string>>(new Set());
+  const processedMessagesRef = useRef<Set<string>>(new Set()); // Track processed server messageIds for deduplication
   const lastInterimSentRef = useRef<number>(0);
   const activeSynthesizerRef = useRef<SpeechSDK.SpeechSynthesizer | null>(null);
   const ttsQueueRef = useRef<Array<{ text: string; languageCode: string; gender: "male" | "female"; messageId: string; retryCount?: number }>>([]);
@@ -847,9 +848,32 @@ export default function Room() {
 
       if (message.type === "translation") {
         const isOwn = message.speaker === role;
-        // Use timestamp-based ID - allows legitimate repeated phrases
-        const timestamp = Date.now();
-        const messageId = `${message.speaker}-${timestamp}-${message.originalText.substring(0, 20)}`;
+        
+        // CRITICAL: Deduplicate based on server-provided messageId
+        // This prevents duplicate WebSocket deliveries while allowing legitimate repeated phrases
+        const serverMessageId = message.messageId;
+        
+        if (!serverMessageId) {
+          console.error('[Deduplication] Missing messageId from server - this message may duplicate');
+        } else {
+          // Check if we've already processed this messageId
+          if (processedMessagesRef.current.has(serverMessageId)) {
+            console.log('[Deduplication] Skipping duplicate message (already processed):', serverMessageId);
+            return; // Already processed this exact message
+          }
+          
+          // Mark as processed
+          processedMessagesRef.current.add(serverMessageId);
+          
+          // Clean up old entries to prevent memory leak (keep last 200)
+          if (processedMessagesRef.current.size > 200) {
+            const entries = Array.from(processedMessagesRef.current);
+            processedMessagesRef.current = new Set(entries.slice(-200));
+          }
+        }
+        
+        // Use server messageId if available, otherwise fall back to client-generated
+        const messageId = serverMessageId || `${message.speaker}-${Date.now()}-${message.originalText.substring(0, 20)}`;
         const newMessage: TranscriptionMessage = {
           id: messageId,
           originalText: message.originalText,

@@ -243,12 +243,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
             const translatedText = await translateText(text, language, targetLanguage);
 
+            // Generate unique messageId for deduplication on client side
+            const messageId = `${connection.role}-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
+            
             const roomClients = roomConnections.get(roomId) || [];
             roomClients.forEach(client => {
               if (client.readyState === WebSocket.OPEN) {
                 client.send(JSON.stringify({
                   type: 'translation',
                   roomId,
+                  messageId,
                   originalText: text,
                   translatedText,
                   speaker: connection.role,
