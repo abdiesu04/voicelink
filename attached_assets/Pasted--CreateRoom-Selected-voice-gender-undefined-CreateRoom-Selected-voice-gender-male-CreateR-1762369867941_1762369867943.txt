@@ -1,0 +1,165 @@
+ [CreateRoom] Selected voice gender: undefined
+ [CreateRoom] Selected voice gender: male
+ [CreateRoom] Creating room with voice gender: male
+ [CreateRoom] Selected voice gender: male
+ [CreateRoom] Navigating to room with voiceGender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Browser] Network status: ONLINE
+ [State Change] partnerVoiceGender updated to: undefined
+ [WebSocket] Creating new WebSocket connection to: wss://voice-link.replit.app/ws
+ [WebSocket] Connected successfully, readyState: 1
+ [Browser] Visibility changed: HIDDEN
+ [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+ [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+ [Heartbeat] 💚 Received pong from server - connection alive
+ [Browser] Visibility changed: VISIBLE
+ [Browser] ✓ Tab is now visible - connections should remain active
+ [Browser] Visibility changed: HIDDEN
+ [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+ [Browser] Visibility changed: VISIBLE
+ [Browser] ✓ Tab is now visible - connections should remain active
+ [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+ [Heartbeat] 💚 Received pong from server - connection alive
+ [Browser] Visibility changed: HIDDEN
+ [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+ [Voice Gender] Partner joined with gender: male
+ [Voice Gender] My gender: male
+ [State Change] partnerVoiceGender updated to: male
+ [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+ [Voice Gender] Text to speak: "Hello.", Language: en
+ [TTS Queue] Adding to queue (queue size: 0): Hello.
+ [TTS Queue] Queue processor started
+ [TTS Queue] Playing: Hello. 
+ [TTS Queue] Created single reusable Audio element
+ [TTS Queue] Synthesizing audio via REST API...
+ [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+ [Browser] Visibility changed: VISIBLE
+ [Browser] ✓ Tab is now visible - connections should remain active
+ [TTS Queue] Synthesis completed in 3981ms, audio size: 25920 bytes
+ [TTS Queue] Setting fallback timeout: 3620ms (audio duration: 1.62s)
+ [TTS Queue] Playback started successfully
+ [Audio Unlock] Attempting to unlock audio for mobile...
+ [TTS Queue] Playback completed (audio ended event)
+ [TTS Queue] Marked messageId as spoken: participant-1762369817421-Hello.
+ [TTS Queue] Queue processor finished
+ [Audio Unlock] Audio successfully unlocked for mobile
+ [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+ [Heartbeat] 💚 Received pong from server - connection alive
+ [Azure Speech] ✓ Session started: Object
+ [Speech] Recognition started successfully
+ [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+ [Voice Gender] Text to speak: "You know.", Language: en
+ [TTS Queue] Adding to queue (queue size: 0): You know.
+ [TTS Queue] Queue processor started
+index-BU75moaL.js:297 [TTS Queue] Playing: You know. 
+index-BU75moaL.js:297 [TTS Queue] Synthesizing audio via REST API...
+index-BU75moaL.js:291 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+index-BU75moaL.js:297 [TTS Queue] Synthesis completed in 939ms, audio size: 28224 bytes
+index-BU75moaL.js:297 [TTS Queue] Setting fallback timeout: 3764.0000000000005ms (audio duration: 1.764s)
+index-BU75moaL.js:297 [TTS Queue] Playback started successfully
+index-BU75moaL.js:297 [TTS Queue] Playback completed (audio ended event)
+index-BU75moaL.js:297 [TTS Queue] Marked messageId as spoken: participant-1762369834655-You know.
+index-BU75moaL.js:297 [TTS Queue] Queue processor finished
+index-BU75moaL.js:297 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+index-BU75moaL.js:297 [Voice Gender] Text to speak: "Hello.", Language: en
+index-BU75moaL.js:297 [TTS Queue] Adding to queue (queue size: 0): Hello.
+index-BU75moaL.js:297 [TTS Queue] Queue processor started
+index-BU75moaL.js:297 [TTS Queue] Playing: Hello. 
+index-BU75moaL.js:297 [TTS Queue] Synthesizing audio via REST API...
+index-BU75moaL.js:291 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+index-BU75moaL.js:297 [TTS Queue] Synthesis completed in 1013ms, audio size: 25920 bytes
+index-BU75moaL.js:297 [TTS Queue] Setting fallback timeout: 3620ms (audio duration: 1.62s)
+index-BU75moaL.js:297 [TTS Queue] Playback started successfully
+index-BU75moaL.js:297 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+index-BU75moaL.js:297 [Voice Gender] Text to speak: "You know.", Language: en
+index-BU75moaL.js:297 [TTS Queue] Adding to queue (queue size: 0): You know.
+index-BU75moaL.js:297 [TTS Queue] Playback completed (audio ended event)
+index-BU75moaL.js:297 [TTS Queue] Marked messageId as spoken: participant-1762369837628-Hello.
+index-BU75moaL.js:297 [TTS Queue] Playing: You know. 
+index-BU75moaL.js:297 [TTS Queue] Synthesizing audio via REST API...
+index-BU75moaL.js:291 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+index-BU75moaL.js:297 [TTS Queue] Synthesis completed in 900ms, audio size: 28224 bytes
+index-BU75moaL.js:297 [TTS Queue] Setting fallback timeout: 3764.0000000000005ms (audio duration: 1.764s)
+index-BU75moaL.js:297 [TTS Queue] Playback started successfully
+index-BU75moaL.js:297 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+index-BU75moaL.js:297 [Voice Gender] Text to speak: "Hello.", Language: en
+index-BU75moaL.js:297 [TTS Queue] Adding to queue (queue size: 0): Hello.
+index-BU75moaL.js:297 [TTS Queue] Playback completed (audio ended event)
+index-BU75moaL.js:297 [TTS Queue] Marked messageId as spoken: participant-1762369839672-You know.
+index-BU75moaL.js:297 [TTS Queue] Playing: Hello. 
+index-BU75moaL.js:297 [TTS Queue] Synthesizing audio via REST API...
+index-BU75moaL.js:291 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+index-BU75moaL.js:297 [TTS Queue] Synthesis completed in 827ms, audio size: 25920 bytes
+index-BU75moaL.js:297 [TTS Queue] Setting fallback timeout: 3620ms (audio duration: 1.62s)
+index-BU75moaL.js:297 [TTS Queue] Playback started successfully
+index-BU75moaL.js:297 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+index-BU75moaL.js:297 [Voice Gender] Text to speak: "You know.", Language: en
+index-BU75moaL.js:297 [TTS Queue] Adding to queue (queue size: 0): You know.
+index-BU75moaL.js:297 [TTS Queue] Playback completed (audio ended event)
+index-BU75moaL.js:297 [TTS Queue] Marked messageId as spoken: participant-1762369841480-Hello.
+index-BU75moaL.js:297 [TTS Queue] Playing: You know. 
+index-BU75moaL.js:297 [TTS Queue] Synthesizing audio via REST API...
+index-BU75moaL.js:291 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+index-BU75moaL.js:297 [TTS Queue] Synthesis completed in 1135ms, audio size: 28224 bytes
+index-BU75moaL.js:297 [TTS Queue] Setting fallback timeout: 3764.0000000000005ms (audio duration: 1.764s)
+index-BU75moaL.js:297 [TTS Queue] Playback started successfully
+index-BU75moaL.js:297 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+index-BU75moaL.js:297 [Voice Gender] Text to speak: "Hello.", Language: en
+index-BU75moaL.js:297 [TTS Queue] Adding to queue (queue size: 0): Hello.
+index-BU75moaL.js:297 [TTS Queue] Playback completed (audio ended event)
+index-BU75moaL.js:297 [TTS Queue] Marked messageId as spoken: participant-1762369844493-You know.
+index-BU75moaL.js:297 [TTS Queue] Playing: Hello. 
+index-BU75moaL.js:297 [TTS Queue] Synthesizing audio via REST API...
+index-BU75moaL.js:291 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+index-BU75moaL.js:297 [TTS Queue] Synthesis completed in 606ms, audio size: 25920 bytes
+index-BU75moaL.js:297 [TTS Queue] Setting fallback timeout: 3620ms (audio duration: 1.62s)
+index-BU75moaL.js:297 [TTS Queue] Playback started successfully
+index-BU75moaL.js:291 [Browser] Visibility changed: HIDDEN
+index-BU75moaL.js:291 [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+index-BU75moaL.js:297 [TTS Queue] Playback completed (audio ended event)
+index-BU75moaL.js:297 [TTS Queue] Marked messageId as spoken: participant-1762369847994-Hello.
+index-BU75moaL.js:297 [TTS Queue] Queue processor finished
+index-BU75moaL.js:291 [Browser] Visibility changed: VISIBLE
+index-BU75moaL.js:291 [Browser] ✓ Tab is now visible - connections should remain active
+index-BU75moaL.js:297 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+index-BU75moaL.js:297 [Voice Gender] Text to speak: "You know.", Language: en
+index-BU75moaL.js:297 [TTS Queue] Adding to queue (queue size: 0): You know.
+index-BU75moaL.js:297 [TTS Queue] Queue processor started
+index-BU75moaL.js:297 [TTS Queue] Playing: You know. 
+index-BU75moaL.js:297 [TTS Queue] Synthesizing audio via REST API...
+index-BU75moaL.js:291 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+index-BU75moaL.js:297 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+index-BU75moaL.js:297 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+index-BU75moaL.js:297 [Voice Gender] Text to speak: "Hello.", Language: en
+index-BU75moaL.js:297 [TTS Queue] Adding to queue (queue size: 0): Hello.
+index-BU75moaL.js:297 [Heartbeat] 💚 Received pong from server - connection alive
+index-BU75moaL.js:297 [TTS Queue] Synthesis completed in 1071ms, audio size: 28224 bytes
+index-BU75moaL.js:297 [TTS Queue] Setting fallback timeout: 3764.0000000000005ms (audio duration: 1.764s)
+index-BU75moaL.js:297 [TTS Queue] Playback started successfully
+index-BU75moaL.js:297 [TTS Queue] Playback completed (audio ended event)
+index-BU75moaL.js:297 [TTS Queue] Marked messageId as spoken: participant-1762369852508-You know.
+index-BU75moaL.js:297 [TTS Queue] Playing: Hello. 
+index-BU75moaL.js:297 [TTS Queue] Synthesizing audio via REST API...
+index-BU75moaL.js:291 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+index-BU75moaL.js:297 [TTS Queue] Synthesis completed in 873ms, audio size: 25920 bytes
+index-BU75moaL.js:297 [TTS Queue] Setting fallback timeout: 3620ms (audio duration: 1.62s)
+index-BU75moaL.js:297 [TTS Queue] Playback started successfully
+index-BU75moaL.js:297 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+index-BU75moaL.js:297 [Voice Gender] Text to speak: "You know.", Language: en
+index-BU75moaL.js:297 [TTS Queue] Adding to queue (queue size: 0): You know.
+index-BU75moaL.js:297 [TTS Queue] Playback completed (audio ended event)
+index-BU75moaL.js:297 [TTS Queue] Marked messageId as spoken: participant-1762369852710-Hello.
+index-BU75moaL.js:297 [TTS Queue] Playing: You know. 
+index-BU75moaL.js:297 [TTS Queue] Synthesizing audio via REST API...
+index-BU75moaL.js:291 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+index-BU75moaL.js:297 [TTS Queue] Synthesis completed in 816ms, audio size: 28224 bytes
+index-BU75moaL.js:297 [TTS Queue] Setting fallback timeout: 3764.0000000000005ms (audio duration: 1.764s)
+index-BU75moaL.js:297 [TTS Queue] Playback started successfully
+index-BU75moaL.js:297 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+index-BU75moaL.js:297 [Voice Gender] Text to speak: "Hello.", Language: en
+index-BU75moaL.js:297 [TTS Queue] Adding to queue (queue size: 0): Hello.
+index-BU75moaL.js:297 [TTS Queue] Playback completed (audio ended event)
+index-BU75moaL.js:297 [TTS Queue] Marked messageId as spoken: participant-1762369857156-You know.
+index-BU75moaL.js:297 [TTS Queue] Playing: Hello. 
+index-BU75moaL.js:297 [TTS Queue] Synthesizing audio via REST API...
+index-BU75moaL.js:291 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
