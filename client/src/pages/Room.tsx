@@ -156,16 +156,16 @@ export default function Room() {
   // Azure TTS voice names for each language and gender
   const getAzureVoiceName = (languageCode: string, gender: "male" | "female"): string => {
     const voiceMap: Record<string, { male: string, female: string }> = {
-      'en': { male: 'en-US-GuyNeural', female: 'en-US-JennyNeural' },
+      'en': { male: 'en-US-AndrewMultilingualNeural', female: 'en-US-AvaMultilingualNeural' },
       'es': { male: 'es-ES-AlvaroNeural', female: 'es-ES-ElviraNeural' },
-      'fr': { male: 'fr-FR-HenriNeural', female: 'fr-FR-DeniseNeural' },
-      'de': { male: 'de-DE-ConradNeural', female: 'de-DE-KatjaNeural' },
+      'fr': { male: 'fr-FR-RemyMultilingualNeural', female: 'fr-FR-VivienneMultilingualNeural' },
+      'de': { male: 'de-DE-FlorianMultilingualNeural', female: 'de-DE-SeraphinaMultilingualNeural' },
       'it': { male: 'it-IT-DiegoNeural', female: 'it-IT-ElsaNeural' },
       'pt': { male: 'pt-PT-DuarteNeural', female: 'pt-PT-RaquelNeural' },
       'ru': { male: 'ru-RU-DmitryNeural', female: 'ru-RU-SvetlanaNeural' },
       'ja': { male: 'ja-JP-KeitaNeural', female: 'ja-JP-NanamiNeural' },
       'ko': { male: 'ko-KR-InJoonNeural', female: 'ko-KR-SunHiNeural' },
-      'zh': { male: 'zh-CN-YunxiNeural', female: 'zh-CN-XiaoxiaoNeural' },
+      'zh': { male: 'zh-CN-YunxiangNeural', female: 'zh-CN-XiaoyiNeural' },
       'ar': { male: 'ar-SA-HamedNeural', female: 'ar-SA-ZariyahNeural' },
       'hi': { male: 'hi-IN-MadhurNeural', female: 'hi-IN-SwaraNeural' },
       'nl': { male: 'nl-NL-MaartenNeural', female: 'nl-NL-ColetteNeural' },
