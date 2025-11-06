@@ -1193,25 +1193,6 @@ export default function Room() {
     }
   };
 
-  // MOBILE FIX: Resume audio on any user interaction if it gets suspended
-  useEffect(() => {
-    const resumeAudioOnInteraction = () => {
-      if (currentAudioRef.current && currentAudioRef.current.paused && currentBlobUrlRef.current) {
-        currentAudioRef.current.play().catch(() => {
-          // Ignore errors - audio might not be ready to play
-        });
-      }
-    };
-
-    // Add listeners for user interactions to resume suspended audio
-    document.addEventListener('click', resumeAudioOnInteraction);
-    document.addEventListener('touchstart', resumeAudioOnInteraction);
-
-    return () => {
-      document.removeEventListener('click', resumeAudioOnInteraction);
-      document.removeEventListener('touchstart', resumeAudioOnInteraction);
-    };
-  }, []);
 
   const toggleMute = async () => {
     // Prevent unmuting if quota exceeded
