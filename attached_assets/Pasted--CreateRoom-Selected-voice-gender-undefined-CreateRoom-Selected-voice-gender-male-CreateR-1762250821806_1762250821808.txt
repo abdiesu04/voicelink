@@ -1,0 +1,398 @@
+ [CreateRoom] Selected voice gender: undefined
+ [CreateRoom] Selected voice gender: male
+ [CreateRoom] Creating room with voice gender: male
+ [CreateRoom] Selected voice gender: male
+ [CreateRoom] Navigating to room with voiceGender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [State Change] partnerVoiceGender updated to: undefined
+ [WebSocket] Connected successfully
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Voice Gender] Partner joined with gender: male
+ [Voice Gender] My gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [State Change] partnerVoiceGender updated to: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+ [Voice Gender] Text to speak: "Hello, how are you?", Language: en
+ [TTS Queue] Adding to queue (queue size: 0): Hello, how are you?
+ [TTS Queue] Queue processor started
+ [TTS Queue] Playing: Hello, how are you? 
+ [TTS Queue] Created single reusable Audio element
+ [TTS Queue] Synthesizing audio via REST API...
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+ [TTS Queue] Synthesis completed in 2798ms, audio size: 35136 bytes
+ [TTS Queue] Playback started successfully
+ [Audio Unlock] Attempting to unlock audio for mobile...
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [TTS Queue] Playback completed (audio ended)
+ [TTS Queue] Marked messageId as spoken: participant-1762250477621-Hello, how are you?
+ [TTS Queue] Queue processor finished
+ [Audio Unlock] Audio successfully unlocked for mobile
+ [Speech] Recognition started successfully
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+ [Voice Gender] Text to speak: "What?", Language: en
+ [TTS Queue] Adding to queue (queue size: 0): What?
+ [TTS Queue] Queue processor started
+ [TTS Queue] Playing: What? 
+ [TTS Queue] Synthesizing audio via REST API...
+ [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [TTS Queue] Synthesis completed in 1050ms, audio size: 24192 bytes
+ [TTS Queue] Playback started successfully
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [TTS Queue] Playback completed (audio ended)
+ [TTS Queue] Marked messageId as spoken: participant-1762250494753-What?
+ [TTS Queue] Queue processor finished
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+ [Voice Gender] Text to speak: "Ah, that's good to hear. Uh, how's the weather there?", Language: en
+ [TTS Queue] Adding to queue (queue size: 0): Ah, that's good to hear. Uh, how's the weather the
+ [TTS Queue] Queue processor started
+ [TTS Queue] Playing: Ah, that's good to hear. Uh, how's the weather the 
+ [TTS Queue] Synthesizing audio via REST API...
+ [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [TTS Queue] Synthesis completed in 1176ms, audio size: 79488 bytes
+ [TTS Queue] Playback started successfully
+ [TTS Queue] Playback completed (audio ended)
+ [TTS Queue] Marked messageId as spoken: participant-1762250504804-Ah, that's good to h
+ [TTS Queue] Queue processor finished
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+ [Voice Gender] Text to speak: "And what city do you live in?", Language: en
+ [TTS Queue] Adding to queue (queue size: 0): And what city do you live in?
+ [TTS Queue] Queue processor started
+ [TTS Queue] Playing: And what city do you live in? 
+ [TTS Queue] Synthesizing audio via REST API...
+ [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [TTS Queue] Synthesis completed in 1048ms, audio size: 39168 bytes
+ [TTS Queue] Playback started successfully
+ [TTS Queue] Playback completed (audio ended)
+ [TTS Queue] Marked messageId as spoken: participant-1762250523589-And what city do you
+ [TTS Queue] Queue processor finished
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+ [Voice Gender] Text to speak: "MMM, I can't say that I have.", Language: en
+ [TTS Queue] Adding to queue (queue size: 0): MMM, I can't say that I have.
+ [TTS Queue] Queue processor started
+ [TTS Queue] Playing: MMM, I can't say that I have. 
+ [TTS Queue] Synthesizing audio via REST API...
+ [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [TTS Queue] Synthesis completed in 1194ms, audio size: 47808 bytes
+ [TTS Queue] Playback started successfully
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [TTS Queue] Playback completed (audio ended)
+ [TTS Queue] Marked messageId as spoken: participant-1762250544659-MMM, I can't say tha
+ [TTS Queue] Queue processor finished
+ [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+ [Voice Gender] Text to speak: "Umm, I'm familiar with the capital city, but not that one.", Language: en
+ [TTS Queue] Adding to queue (queue size: 0): Umm, I'm familiar with the capital city, but not t
+ [TTS Queue] Queue processor started
+ [TTS Queue] Playing: Umm, I'm familiar with the capital city, but not t 
+ [TTS Queue] Synthesizing audio via REST API...
+ [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [TTS Queue] Synthesis completed in 921ms, audio size: 67968 bytes
+ [TTS Queue] Playback started successfully
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [TTS Queue] Playback completed (audio ended)
+ [TTS Queue] Marked messageId as spoken: participant-1762250549150-Umm, I'm familiar wi
+ [TTS Queue] Queue processor finished
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+ [Voice Gender] Text to speak: "That's very nice.", Language: en
+ [TTS Queue] Adding to queue (queue size: 0): That's very nice.
+ [TTS Queue] Queue processor started
+ [TTS Queue] Playing: That's very nice. 
+ [TTS Queue] Synthesizing audio via REST API...
+ [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [TTS Queue] Synthesis completed in 955ms, audio size: 33408 bytes
+ [TTS Queue] Playback started successfully
+ [TTS Queue] Playback completed (audio ended)
+index-Bev2hj8H.js:297 [TTS Queue] Marked messageId as spoken: participant-1762250572089-That's very nice.
+index-Bev2hj8H.js:297 [TTS Queue] Queue processor finished
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:297 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+index-Bev2hj8H.js:297 [Voice Gender] Text to speak: "Uh, right now I'm living in Argentina.", Language: en
+index-Bev2hj8H.js:297 [TTS Queue] Adding to queue (queue size: 0): Uh, right now I'm living in Argentina.
+index-Bev2hj8H.js:297 [TTS Queue] Queue processor started
+index-Bev2hj8H.js:297 [TTS Queue] Playing: Uh, right now I'm living in Argentina. 
+index-Bev2hj8H.js:297 [TTS Queue] Synthesizing audio via REST API...
+index-Bev2hj8H.js:291 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:297 [TTS Queue] Synthesis completed in 1102ms, audio size: 52992 bytes
+index-Bev2hj8H.js:297 [TTS Queue] Playback started successfully
+index-Bev2hj8H.js:297 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+index-Bev2hj8H.js:297 [Voice Gender] Text to speak: "I move around a lot.", Language: en
+index-Bev2hj8H.js:297 [TTS Queue] Adding to queue (queue size: 0): I move around a lot.
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:297 [TTS Queue] Playback completed (audio ended)
+index-Bev2hj8H.js:297 [TTS Queue] Marked messageId as spoken: participant-1762250578505-Uh, right now I'm li
+index-Bev2hj8H.js:297 [TTS Queue] Playing: I move around a lot. 
+index-Bev2hj8H.js:297 [TTS Queue] Synthesizing audio via REST API...
+index-Bev2hj8H.js:291 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+index-Bev2hj8H.js:297 [TTS Queue] Synthesis completed in 784ms, audio size: 35712 bytes
+index-Bev2hj8H.js:297 [TTS Queue] Playback started successfully
+index-Bev2hj8H.js:297 [TTS Queue] Playback completed (audio ended)
+index-Bev2hj8H.js:297 [TTS Queue] Marked messageId as spoken: participant-1762250580436-I move around a lot.
+index-Bev2hj8H.js:297 [TTS Queue] Queue processor finished
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:297 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+index-Bev2hj8H.js:297 [Voice Gender] Text to speak: "Did you do any research on the voices 'cause I think this is like the standard voice. It doesn't even sound like the neural voice at all.", Language: en
+index-Bev2hj8H.js:297 [TTS Queue] Adding to queue (queue size: 0): Did you do any research on the voices 'cause I thi
+index-Bev2hj8H.js:297 [TTS Queue] Queue processor started
+index-Bev2hj8H.js:297 [TTS Queue] Playing: Did you do any research on the voices 'cause I thi 
+index-Bev2hj8H.js:297 [TTS Queue] Synthesizing audio via REST API...
+index-Bev2hj8H.js:291 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:297 [TTS Queue] Synthesis completed in 1363ms, audio size: 133056 bytes
+index-Bev2hj8H.js:297 [TTS Queue] Playback started successfully
+index-Bev2hj8H.js:297 [TTS Queue] Playback completed (audio ended)
+index-Bev2hj8H.js:297 [TTS Queue] Marked messageId as spoken: participant-1762250597473-Did you do any resea
+index-Bev2hj8H.js:297 [TTS Queue] Queue processor finished
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:297 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+index-Bev2hj8H.js:297 [Voice Gender] Text to speak: "Absolutely, I'm sure you will.", Language: en
+index-Bev2hj8H.js:297 [TTS Queue] Adding to queue (queue size: 0): Absolutely, I'm sure you will.
+index-Bev2hj8H.js:297 [TTS Queue] Queue processor started
+index-Bev2hj8H.js:297 [TTS Queue] Playing: Absolutely, I'm sure you will. 
+index-Bev2hj8H.js:297 [TTS Queue] Synthesizing audio via REST API...
+index-Bev2hj8H.js:291 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:297 [TTS Queue] Synthesis completed in 1112ms, audio size: 46656 bytes
+index-Bev2hj8H.js:297 [TTS Queue] Playback started successfully
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:297 [TTS Queue] Playback completed (audio ended)
+index-Bev2hj8H.js:297 [TTS Queue] Marked messageId as spoken: participant-1762250612687-Absolutely, I'm sure
+index-Bev2hj8H.js:297 [TTS Queue] Queue processor finished
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:297 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+index-Bev2hj8H.js:297 [Voice Gender] Text to speak: "Yeah, sure, let's just see what happens and uh, keep talking because usually it disconnects about 5 minutes, so it shouldn't be very, very hard to test for us.", Language: en
+index-Bev2hj8H.js:297 [TTS Queue] Adding to queue (queue size: 0): Yeah, sure, let's just see what happens and uh, ke
+index-Bev2hj8H.js:297 [TTS Queue] Queue processor started
+index-Bev2hj8H.js:297 [TTS Queue] Playing: Yeah, sure, let's just see what happens and uh, ke 
+index-Bev2hj8H.js:297 [TTS Queue] Synthesizing audio via REST API...
+index-Bev2hj8H.js:291 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:297 [TTS Queue] Synthesis completed in 1447ms, audio size: 144000 bytes
+index-Bev2hj8H.js:297 [TTS Queue] Playback started successfully
+index-Bev2hj8H.js:297 [TTS Queue] Playback completed (audio ended)
+index-Bev2hj8H.js:297 [TTS Queue] Marked messageId as spoken: participant-1762250642231-Yeah, sure, let's ju
+index-Bev2hj8H.js:297 [TTS Queue] Queue processor finished
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:297 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+index-Bev2hj8H.js:297 [Voice Gender] Text to speak: "So what do you think about this project so far?", Language: en
+index-Bev2hj8H.js:297 [TTS Queue] Adding to queue (queue size: 0): So what do you think about this project so far?
+index-Bev2hj8H.js:297 [TTS Queue] Queue processor started
+index-Bev2hj8H.js:297 [TTS Queue] Playing: So what do you think about this project so far? 
+index-Bev2hj8H.js:297 [TTS Queue] Synthesizing audio via REST API...
+index-Bev2hj8H.js:291 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:297 [TTS Queue] Synthesis completed in 1094ms, audio size: 54144 bytes
+index-Bev2hj8H.js:297 [TTS Queue] Playback started successfully
+index-Bev2hj8H.js:297 [TTS Queue] Playback completed (audio ended)
+index-Bev2hj8H.js:297 [TTS Queue] Marked messageId as spoken: participant-1762250669023-So what do you think
+index-Bev2hj8H.js:297 [TTS Queue] Queue processor finished
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-Bev2hj8H.js:291 [Room Init] Role: creator, Language: en, My Voice Gender: male

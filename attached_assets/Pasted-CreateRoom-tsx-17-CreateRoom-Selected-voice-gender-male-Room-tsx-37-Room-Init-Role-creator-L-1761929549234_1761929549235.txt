@@ -1,0 +1,51 @@
+CreateRoom.tsx:17 [CreateRoom] Selected voice gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:72 [State Change] partnerVoiceGender updated to: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:468 [Voice Gender] Partner joined with gender: female
+Room.tsx:469 [Voice Gender] My gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:72 [State Change] partnerVoiceGender updated to: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:521 [Voice Gender] About to play TTS - Partner's gender (what I hear): male, My gender (what partner hears): male
+Room.tsx:522 [Voice Gender] Text to speak: "Hello dear participant.", Language: en
+Room.tsx:415 [TTS Queue] Adding to queue (queue size: 0): Hello dear participant.
+Room.tsx:273 [TTS Queue] Queue processor started
+Room.tsx:290 [TTS Queue] Playing: Hello dear participant. 
+Room.tsx:295 [TTS Queue] Created single reusable Audio element
+Room.tsx:315 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:227 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:319 [TTS Queue] Synthesis completed in 2535ms, audio size: 40320 bytes
+Room.tsx:377 [TTS Queue] Playback started successfully
+Room.tsx:358 [TTS Queue] Playback completed (audio ended)
+Room.tsx:404 [TTS Queue] Queue processor finished
+Room.tsx:170 [Audio Unlock] Attempting to unlock audio for mobile...
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:198 [Audio Unlock] Audio successfully unlocked for mobile
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:521 [Voice Gender] About to play TTS - Partner's gender (what I hear): male, My gender (what partner hears): male
+Room.tsx:522 [Voice Gender] Text to speak: "Hi.", Language: en
+Room.tsx:415 [TTS Queue] Adding to queue (queue size: 0): Hi.
+Room.tsx:273 [TTS Queue] Queue processor started
+Room.tsx:290 [TTS Queue] Playing: Hi. 
+Room.tsx:315 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:227 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:319 [TTS Queue] Synthesis completed in 1099ms, audio size: 24768 bytes
+Room.tsx:377 [TTS Queue] Playback started successfully
+Room.tsx:358 [TTS Queue] Playback completed (audio ended)
+Room.tsx:404 [TTS Queue] Queue processor finished

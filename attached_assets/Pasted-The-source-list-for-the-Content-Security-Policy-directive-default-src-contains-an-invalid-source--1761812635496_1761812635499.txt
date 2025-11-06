@@ -1,0 +1,188 @@
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+_app-9b3d7a5da68f2d8c.js:13 
+      /////////////////////
+   ///////////////////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////        Curious and driven?
+  ///////////////@@@@@@@///////        Work with us!
+  ///////////////@@@@@@@///////
+  ///////////////@@@@@@@///////        https://join.replit.com/hack.with.us
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@#//////////////
+   ///////////////////////////
+      /////////////////////
+      
+AzureTalkBridge:1 The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+AzureTalkBridge:1 The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+AzureTalkBridge:1 The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+_app-9b3d7a5da68f2d8c.js:13 [LaunchDarkly] LaunchDarkly client initialized
+AzureTalkBridge:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+ Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+_ @ framework-feb12df8fd4c4694.js:1
+ Unrecognized feature: 'ambient-light-sensor'.
+_ @ framework-feb12df8fd4c4694.js:1
+ Unrecognized feature: 'battery'.
+_ @ framework-feb12df8fd4c4694.js:1
+ Unrecognized feature: 'execution-while-not-rendered'.
+_ @ framework-feb12df8fd4c4694.js:1
+ Unrecognized feature: 'execution-while-out-of-viewport'.
+_ @ framework-feb12df8fd4c4694.js:1
+ Unrecognized feature: 'layout-animations'.
+_ @ framework-feb12df8fd4c4694.js:1
+ Unrecognized feature: 'legacy-image-formats'.
+_ @ framework-feb12df8fd4c4694.js:1
+ Unrecognized feature: 'navigation-override'.
+_ @ framework-feb12df8fd4c4694.js:1
+ Unrecognized feature: 'oversized-images'.
+_ @ framework-feb12df8fd4c4694.js:1
+ Unrecognized feature: 'publickey-credentials'.
+_ @ framework-feb12df8fd4c4694.js:1
+ Unrecognized feature: 'speaker-selection'.
+_ @ framework-feb12df8fd4c4694.js:1
+ Unrecognized feature: 'unoptimized-images'.
+_ @ framework-feb12df8fd4c4694.js:1
+ Unrecognized feature: 'unsized-media'.
+_ @ framework-feb12df8fd4c4694.js:1
+framework-feb12df8fd4c4694.js:1 Unrecognized feature: 'pointer-lock'.
+_ @ framework-feb12df8fd4c4694.js:1
+framework-feb12df8fd4c4694.js:1 Allow attribute will take precedence over 'allowfullscreen'.
+_ @ framework-feb12df8fd4c4694.js:1
+framework-feb12df8fd4c4694.js:1 Allow attribute will take precedence over 'allowpaymentrequest'.
+_ @ framework-feb12df8fd4c4694.js:1
+workspace_iframe.html?initialPath=%2F&id=%3Ar4b%3A:32 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4b%3A:32 Unrecognized feature: 'ambient-light-sensor'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4b%3A:32 Unrecognized feature: 'battery'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4b%3A:32 Unrecognized feature: 'execution-while-not-rendered'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4b%3A:32 Unrecognized feature: 'execution-while-out-of-viewport'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4b%3A:32 Unrecognized feature: 'layout-animations'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4b%3A:32 Unrecognized feature: 'legacy-image-formats'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4b%3A:32 Unrecognized feature: 'navigation-override'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4b%3A:32 Unrecognized feature: 'oversized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4b%3A:32 Unrecognized feature: 'publickey-credentials'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4b%3A:32 Unrecognized feature: 'speaker-selection'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4b%3A:32 Unrecognized feature: 'unoptimized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4b%3A:32 Unrecognized feature: 'unsized-media'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4b%3A:32 Allow attribute will take precedence over 'allowfullscreen'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4b%3A:32 Allow attribute will take precedence over 'allowpaymentrequest'.
+injected.js:27 [vite] connecting...
+client:536 WebSocket connection to 'wss://76b67878-aa4f-4967-ba04-88458384b912-00-2pvz6t58xfuz3.worf.replit.dev/?token=lkfAo2It37ep' failed: 
+setupWebSocket @ client:536
+client:536 Uncaught (in promise) SyntaxError: Failed to construct 'WebSocket': The URL 'wss://localhost:undefined/?token=lkfAo2It37ep' is invalid.
+    at setupWebSocket (client:536:19)
+    at fallback (client:509:16)
+    at WebSocket.<anonymous> (client:555:7)
+injected.js:27 [TTS Queue] Adding to queue (queue size: 0): Hallo das ist.
+injected.js:27 [TTS Queue] Queue processor started
+injected.js:27 [TTS Queue] Playing: Hallo das ist.
+injected.js:27 [TTS Queue] Adding to queue (queue size: 0): Ich meine Sprechen, aber mehr Zuhören.
+injected.js:27 [TTS Queue] Synthesis completed
+injected.js:27 [TTS Queue] Audio data: 11808 bytes, duration: 369ms + 1000ms buffer
+injected.js:27 [TTS Queue] Waiting 1369ms for playback
+injected.js:27 [TTS Queue] Playback completed
+injected.js:27 [TTS Queue] Playing: Ich meine Sprechen, aber mehr Zuhören.
+injected.js:27 [TTS Queue] Synthesis completed
+injected.js:27 [TTS Queue] Audio data: 19584 bytes, duration: 612ms + 1000ms buffer
+injected.js:27 [TTS Queue] Waiting 1612ms for playback
+injected.js:27 [TTS Queue] Playback completed
+injected.js:27 [TTS Queue] Queue processor finished
+injected.js:27 [TTS Queue] Adding to queue (queue size: 0): Ja, heute sind wir sehr glücklich, dass wir Sie ha
+injected.js:27 [TTS Queue] Queue processor started
+injected.js:27 [TTS Queue] Playing: Ja, heute sind wir sehr glücklich, dass wir Sie ha
+injected.js:27 [TTS Queue] Synthesis completed
+injected.js:27 [TTS Queue] Audio data: 181584 bytes, duration: 5675ms + 1000ms buffer
+injected.js:27 [TTS Queue] Waiting 6675ms for playback
+injected.js:27 [TTS Queue] Adding to queue (queue size: 0): In Äthiopien verdammt zu werden. Also haben wir.
+injected.js:27 [TTS Queue] Adding to queue (queue size: 1): Hallo, wir freuen uns sehr.
+injected.js:27 [TTS Queue] Playback completed
+injected.js:27 [TTS Queue] Playing: In Äthiopien verdammt zu werden. Also haben wir.
+injected.js:27 [TTS Queue] Synthesis completed
+injected.js:27 [TTS Queue] Audio data: 28080 bytes, duration: 878ms + 1000ms buffer
+injected.js:27 [TTS Queue] Waiting 1878ms for playback
+injected.js:27 [TTS Queue] Playback completed
+injected.js:27 [TTS Queue] Playing: Hallo, wir freuen uns sehr.
+injected.js:27 [TTS Queue] Synthesis completed
+injected.js:27 [TTS Queue] Audio data: 17136 bytes, duration: 536ms + 1000ms buffer
+injected.js:27 [TTS Queue] Waiting 1536ms for playback
+injected.js:27 [TTS Queue] Playback completed
+injected.js:27 [TTS Queue] Queue processor finished
+stallwart.build.js:1 stallwart: failed ping 1
+framework-feb12df8fd4c4694.js:1 [Violation] 'setTimeout' handler took 191ms
+[Violation] Forced reflow while executing JavaScript took 139ms
+_app-9b3d7a5da68f2d8c.js:13 [Violation] 'requestAnimationFrame' handler took 99ms
+[Violation] Forced reflow while executing JavaScript took 96ms
+[Violation] Forced reflow while executing JavaScript took 40ms
+injected.js:27 [TTS Queue] Adding to queue (queue size: 0): Sehr glücklich im Fremden.
+injected.js:27 [TTS Queue] Queue processor started
+injected.js:27 [TTS Queue] Playing: Sehr glücklich im Fremden.
+injected.js:27 [TTS Queue] Synthesis completed
+injected.js:27 [TTS Queue] Audio data: 14688 bytes, duration: 459ms + 1000ms buffer
+injected.js:27 [TTS Queue] Waiting 1459ms for playback
+injected.js:27 [TTS Queue] Playback completed
+injected.js:27 [TTS Queue] Queue processor finished
+injected.js:27 [TTS Queue] Adding to queue (queue size: 0): Hallo.
+injected.js:27 [TTS Queue] Queue processor started
+injected.js:27 [TTS Queue] Playing: Hallo.
+injected.js:27 [TTS Queue] Synthesis completed
+injected.js:27 [TTS Queue] Audio data: 8928 bytes, duration: 279ms + 1000ms buffer
+injected.js:27 [TTS Queue] Waiting 1279ms for playback
+injected.js:27 [TTS Queue] Playback completed
+injected.js:27 [TTS Queue] Queue processor finished
+injected.js:27 [TTS Queue] Adding to queue (queue size: 0): Titel.
+injected.js:27 [TTS Queue] Queue processor started
+injected.js:27 [TTS Queue] Playing: Titel.
+injected.js:27 [TTS Queue] Synthesis completed
+injected.js:27 [TTS Queue] Audio data: 8496 bytes, duration: 266ms + 1000ms buffer
+injected.js:27 [TTS Queue] Waiting 1266ms for playback
+injected.js:27 [TTS Queue] Playback completed
+injected.js:27 [TTS Queue] Queue processor finished
+injected.js:27 [TTS Queue] Adding to queue (queue size: 0): Hier ist es eine sehr lange Sache, über die wir se
+injected.js:27 [TTS Queue] Queue processor started
+injected.js:27 [TTS Queue] Playing: Hier ist es eine sehr lange Sache, über die wir se
+injected.js:27 [TTS Queue] Synthesis completed
+injected.js:27 [TTS Queue] Audio data: 111168 bytes, duration: 3474ms + 1000ms buffer
+injected.js:27 [TTS Queue] Waiting 4474ms for playback
+injected.js:27 [TTS Queue] Adding to queue (queue size: 0): Hallo, hier ist Abdisayas und ich bin sehr glückli
+injected.js:27 [TTS Queue] Playback completed
+injected.js:27 [TTS Queue] Playing: Hallo, hier ist Abdisayas und ich bin sehr glückli
+injected.js:27 [TTS Queue] Synthesis completed
+injected.js:27 [TTS Queue] Audio data: 26064 bytes, duration: 815ms + 1000ms buffer
+injected.js:27 [TTS Queue] Waiting 1815ms for playback
+injected.js:27 [TTS Queue] Playback completed
+injected.js:27 [TTS Queue] Queue processor finished

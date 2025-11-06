@@ -1,0 +1,336 @@
+client:495 [vite] connecting...
+client:536 WebSocket connection to 'wss://76b67878-aa4f-4967-ba04-88458384b912-00-2pvz6t58xfuz3.worf.replit.dev/?token=q3P-m8ZvlX65' failed: 
+setupWebSocket @ client:536
+(anonymous) @ client:531
+client:536 Uncaught (in promise) SyntaxError: Failed to construct 'WebSocket': The URL 'wss://localhost:undefined/?token=q3P-m8ZvlX65' is invalid.
+    at setupWebSocket (client:536:19)
+    at fallback (client:509:16)
+    at WebSocket.<anonymous> (client:555:7)
+setupWebSocket @ client:536
+fallback @ client:509
+(anonymous) @ client:555
+chunk-WERSD76P.js?v=b9534207:21551 Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+CreateRoom.tsx:17 [CreateRoom] Selected voice gender: undefined
+CreateRoom.tsx:17 [CreateRoom] Selected voice gender: male
+CreateRoom.tsx:22 [CreateRoom] Creating room with voice gender: male
+CreateRoom.tsx:17 [CreateRoom] Selected voice gender: male
+CreateRoom.tsx:30 [CreateRoom] Navigating to room with voiceGender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:75 [State Change] partnerVoiceGender updated to: undefined
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:488 [Voice Gender] Partner joined with gender: female
+Room.tsx:489 [Voice Gender] My gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:75 [State Change] partnerVoiceGender updated to: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:548 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:549 [Voice Gender] Text to speak: "Hey.", Language: en
+Room.tsx:435 [TTS Queue] Adding to queue (queue size: 0): Hey.
+Room.tsx:276 [TTS Queue] Queue processor started
+Room.tsx:293 [TTS Queue] Playing: Hey. 
+Room.tsx:298 [TTS Queue] Created single reusable Audio element
+Room.tsx:318 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:230 [TTS] Synthesizing with gender: female, language: en, voice: en-US-JennyNeural
+Room.tsx:322 [TTS Queue] Synthesis completed in 2502ms, audio size: 23040 bytes
+Room.tsx:382 [TTS Queue] Playback started successfully
+Room.tsx:363 [TTS Queue] Playback completed (audio ended)
+Room.tsx:410 [TTS Queue] Queue processor finished
+Room.tsx:173 [Audio Unlock] Attempting to unlock audio for mobile...
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:201 [Audio Unlock] Audio successfully unlocked for mobile
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:548 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:549 [Voice Gender] Text to speak: "Do you do you have any meeting today?", Language: en
+Room.tsx:435 [TTS Queue] Adding to queue (queue size: 0): Do you do you have any meeting today?
+Room.tsx:276 [TTS Queue] Queue processor started
+Room.tsx:293 [TTS Queue] Playing: Do you do you have any meeting today? 
+Room.tsx:318 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:230 [TTS] Synthesizing with gender: female, language: en, voice: en-US-JennyNeural
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:322 [TTS Queue] Synthesis completed in 1219ms, audio size: 39744 bytes
+Room.tsx:382 [TTS Queue] Playback started successfully
+Room.tsx:363 [TTS Queue] Playback completed (audio ended)
+Room.tsx:410 [TTS Queue] Queue processor finished
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+CreateRoom.tsx:17 [CreateRoom] Selected voice gender: undefined
+CreateRoom.tsx:17 [CreateRoom] Selected voice gender: female
+CreateRoom.tsx:22 [CreateRoom] Creating room with voice gender: female
+CreateRoom.tsx:17 [CreateRoom] Selected voice gender: female
+CreateRoom.tsx:30 [CreateRoom] Navigating to room with voiceGender: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:75 [State Change] partnerVoiceGender updated to: undefined
+[Violation] Forced reflow while executing JavaScript took 32ms
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:488 [Voice Gender] Partner joined with gender: male
+Room.tsx:489 [Voice Gender] My gender: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:75 [State Change] partnerVoiceGender updated to: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:548 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): female
+Room.tsx:549 [Voice Gender] Text to speak: "You know, I'm very competitive.", Language: en
+Room.tsx:435 [TTS Queue] Adding to queue (queue size: 0): You know, I'm very competitive.
+Room.tsx:276 [TTS Queue] Queue processor started
+Room.tsx:293 [TTS Queue] Playing: You know, I'm very competitive. 
+Room.tsx:298 [TTS Queue] Created single reusable Audio element
+Room.tsx:318 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:230 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:322 [TTS Queue] Synthesis completed in 2496ms, audio size: 46656 bytes
+Room.tsx:382 [TTS Queue] Playback started successfully
+Room.tsx:363 [TTS Queue] Playback completed (audio ended)
+Room.tsx:410 [TTS Queue] Queue processor finished
+Room.tsx:173 [Audio Unlock] Attempting to unlock audio for mobile...
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:201 [Audio Unlock] Audio successfully unlocked for mobile
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:548 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): female
+Room.tsx:549 [Voice Gender] Text to speak: "Hello.", Language: en
+Room.tsx:435 [TTS Queue] Adding to queue (queue size: 0): Hello.
+Room.tsx:276 [TTS Queue] Queue processor started
+Room.tsx:293 [TTS Queue] Playing: Hello. 
+Room.tsx:318 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:230 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:322 [TTS Queue] Synthesis completed in 1036ms, audio size: 25920 bytes
+Room.tsx:382 [TTS Queue] Playback started successfully
+Room.tsx:363 [TTS Queue] Playback completed (audio ended)
+Room.tsx:410 [TTS Queue] Queue processor finished
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:548 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): female
+Room.tsx:549 [Voice Gender] Text to speak: "Alcatraz.", Language: en
+Room.tsx:435 [TTS Queue] Adding to queue (queue size: 0): Alcatraz.
+Room.tsx:276 [TTS Queue] Queue processor started
+Room.tsx:293 [TTS Queue] Playing: Alcatraz. 
+Room.tsx:318 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:230 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:322 [TTS Queue] Synthesis completed in 1610ms, audio size: 31680 bytes
+Room.tsx:382 [TTS Queue] Playback started successfully
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:548 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): female
+Room.tsx:549 [Voice Gender] Text to speak: "I'll look after them.", Language: en
+Room.tsx:435 [TTS Queue] Adding to queue (queue size: 0): I'll look after them.
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:363 [TTS Queue] Playback completed (audio ended)
+Room.tsx:293 [TTS Queue] Playing: I'll look after them. 
+Room.tsx:318 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:230 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:322 [TTS Queue] Synthesis completed in 1172ms, audio size: 33408 bytes
+Room.tsx:382 [TTS Queue] Playback started successfully
+Room.tsx:363 [TTS Queue] Playback completed (audio ended)
+Room.tsx:410 [TTS Queue] Queue processor finished
+Room.tsx:548 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): female
+Room.tsx:549 [Voice Gender] Text to speak: "Huh.", Language: en
+Room.tsx:435 [TTS Queue] Adding to queue (queue size: 0): Huh.
+Room.tsx:276 [TTS Queue] Queue processor started
+Room.tsx:293 [TTS Queue] Playing: Huh. 
+Room.tsx:318 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:230 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:322 [TTS Queue] Synthesis completed in 1114ms, audio size: 24192 bytes
+Room.tsx:382 [TTS Queue] Playback started successfully
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:363 [TTS Queue] Playback completed (audio ended)
+Room.tsx:410 [TTS Queue] Queue processor finished
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:548 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): female
+Room.tsx:549 [Voice Gender] Text to speak: "Tower, California is at Escada side of the moon.", Language: en
+Room.tsx:435 [TTS Queue] Adding to queue (queue size: 0): Tower, California is at Escada side of the moon.
+Room.tsx:276 [TTS Queue] Queue processor started
+Room.tsx:293 [TTS Queue] Playing: Tower, California is at Escada side of the moon. 
+Room.tsx:318 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:230 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:322 [TTS Queue] Synthesis completed in 1416ms, audio size: 63360 bytes
+Room.tsx:382 [TTS Queue] Playback started successfully
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:548 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): female
+Room.tsx:549 [Voice Gender] Text to speak: "Scam Saturn with a mask on.", Language: en
+Room.tsx:435 [TTS Queue] Adding to queue (queue size: 0): Scam Saturn with a mask on.
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:363 [TTS Queue] Playback completed (audio ended)
+Room.tsx:293 [TTS Queue] Playing: Scam Saturn with a mask on. 
+Room.tsx:318 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:230 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:322 [TTS Queue] Synthesis completed in 1584ms, audio size: 45504 bytes
+Room.tsx:382 [TTS Queue] Playback started successfully
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:548 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): female
+Room.tsx:549 [Voice Gender] Text to speak: "Guide their Kasab.", Language: en
+Room.tsx:435 [TTS Queue] Adding to queue (queue size: 0): Guide their Kasab.
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:363 [TTS Queue] Playback completed (audio ended)
+Room.tsx:293 [TTS Queue] Playing: Guide their Kasab. 
+Room.tsx:318 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:230 [TTS] Synthesizing with gender: male, language: en, voice: en-US-GuyNeural
+Room.tsx:322 [TTS Queue] Synthesis completed in 909ms, audio size: 34560 bytes
+Room.tsx:382 [TTS Queue] Playback started successfully
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:363 [TTS Queue] Playback completed (audio ended)
+Room.tsx:410 [TTS Queue] Queue processor finished
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: female
+CreateRoom.tsx:17 [CreateRoom] Selected voice gender: undefined
+CreateRoom.tsx:17 [CreateRoom] Selected voice gender: male
+CreateRoom.tsx:22 [CreateRoom] Creating room with voice gender: male
+CreateRoom.tsx:17 [CreateRoom] Selected voice gender: male
+CreateRoom.tsx:30 [CreateRoom] Navigating to room with voiceGender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:75 [State Change] partnerVoiceGender updated to: undefined
+[Violation] Forced reflow while executing JavaScript took 34ms
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:173 [Audio Unlock] Attempting to unlock audio for mobile...
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:201 [Audio Unlock] Audio successfully unlocked for mobile
+CreateRoom.tsx:17 [CreateRoom] Selected voice gender: undefined
+CreateRoom.tsx:17 [CreateRoom] Selected voice gender: male
+CreateRoom.tsx:22 [CreateRoom] Creating room with voice gender: male
+CreateRoom.tsx:17 [CreateRoom] Selected voice gender: male
+CreateRoom.tsx:30 [CreateRoom] Navigating to room with voiceGender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:75 [State Change] partnerVoiceGender updated to: undefined
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:488 [Voice Gender] Partner joined with gender: female
+Room.tsx:489 [Voice Gender] My gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:75 [State Change] partnerVoiceGender updated to: female
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:548 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:549 [Voice Gender] Text to speak: "Hello.", Language: en
+Room.tsx:435 [TTS Queue] Adding to queue (queue size: 0): Hello.
+Room.tsx:276 [TTS Queue] Queue processor started
+Room.tsx:293 [TTS Queue] Playing: Hello. 
+Room.tsx:298 [TTS Queue] Created single reusable Audio element
+Room.tsx:318 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:230 [TTS] Synthesizing with gender: female, language: en, voice: en-US-JennyNeural
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:548 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:549 [Voice Gender] Text to speak: "Hello.", Language: en
+Room.tsx:435 [TTS Queue] Adding to queue (queue size: 0): Hello.
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:322 [TTS Queue] Synthesis completed in 2472ms, audio size: 25344 bytes
+Room.tsx:382 [TTS Queue] Playback started successfully
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:363 [TTS Queue] Playback completed (audio ended)
+Room.tsx:293 [TTS Queue] Playing: Hello. 
+Room.tsx:318 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:230 [TTS] Synthesizing with gender: female, language: en, voice: en-US-JennyNeural
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:322 [TTS Queue] Synthesis completed in 795ms, audio size: 25344 bytes
+Room.tsx:382 [TTS Queue] Playback started successfully
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:548 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:549 [Voice Gender] Text to speak: "Let's know how it's within 3 minutes.", Language: en
+Room.tsx:435 [TTS Queue] Adding to queue (queue size: 0): Let's know how it's within 3 minutes.
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:363 [TTS Queue] Playback completed (audio ended)
+Room.tsx:293 [TTS Queue] Playing: Let's know how it's within 3 minutes. 
+Room.tsx:318 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:230 [TTS] Synthesizing with gender: female, language: en, voice: en-US-JennyNeural
+Room.tsx:322 [TTS Queue] Synthesis completed in 840ms, audio size: 46656 bytes
+Room.tsx:382 [TTS Queue] Playback started successfully
+Room.tsx:173 [Audio Unlock] Attempting to unlock audio for mobile...
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:363 [TTS Queue] Playback completed (audio ended)
+Room.tsx:410 [TTS Queue] Queue processor finished
+Room.tsx:201 [Audio Unlock] Audio successfully unlocked for mobile
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: creator, Language: en, My Voice Gender: male

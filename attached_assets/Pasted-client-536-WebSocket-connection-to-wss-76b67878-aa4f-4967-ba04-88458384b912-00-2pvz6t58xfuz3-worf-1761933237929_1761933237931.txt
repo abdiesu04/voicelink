@@ -1,0 +1,67 @@
+client:536 WebSocket connection to 'wss://76b67878-aa4f-4967-ba04-88458384b912-00-2pvz6t58xfuz3.worf.replit.dev/?token=hAYJrruR0ZZJ' failed: 
+setupWebSocket @ client:536
+client:536 Uncaught (in promise) SyntaxError: Failed to construct 'WebSocket': The URL 'wss://localhost:undefined/?token=hAYJrruR0ZZJ' is invalid.
+    at setupWebSocket (client:536:19)
+    at fallback (client:509:16)
+    at WebSocket.<anonymous> (client:555:7)
+chunk-WERSD76P.js?v=b9534207:21551 Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+JoinRoom.tsx:16 [JoinRoom] Selected voice gender: undefined
+tab.js:1 Refused to execute inline script because it violates the following Content Security Policy directive: "script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' chrome-extension://b4e269a9-2a41-4b8e-ad87-865f1ad8cb01/". Either the 'unsafe-inline' keyword, a hash ('sha256-kPx0AsF0oz2kKiZ875xSvv693TBHkQ/0SkMJZnnNpnQ='), or a nonce ('nonce-...') is required to enable inline execution.
+
+(anonymous) @ tab.js:1
+JoinRoom.tsx:16 [JoinRoom] Selected voice gender: male
+JoinRoom.tsx:53 [JoinRoom] Joining room with voice gender: male
+JoinRoom.tsx:16 [JoinRoom] Selected voice gender: male
+JoinRoom.tsx:56 [JoinRoom] Navigating to room with voiceGender: male
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: male
+Room.tsx:74 [State Change] partnerVoiceGender updated to: undefined
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: male
+Room.tsx:473 [Voice Gender] Partner joined with gender: female
+Room.tsx:474 [Voice Gender] My gender: male
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: male
+Room.tsx:74 [State Change] partnerVoiceGender updated to: female
+Room.tsx:172 [Audio Unlock] Attempting to unlock audio for mobile...
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: male
+Room.tsx:200 [Audio Unlock] Audio successfully unlocked for mobile
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: male
+Room.tsx:533 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:534 [Voice Gender] Text to speak: "Oh, really?", Language: en
+Room.tsx:417 [TTS Queue] Adding to queue (queue size: 0): Oh, really?
+Room.tsx:275 [TTS Queue] Queue processor started
+Room.tsx:283 [TTS Queue] Skipping already spoken item in processor: Oh, really?
+Room.tsx:405 [TTS Queue] Queue processor finished
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: male
+Room.tsx:533 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:534 [Voice Gender] Text to speak: "Where do you live?", Language: en
+Room.tsx:417 [TTS Queue] Adding to queue (queue size: 0): Where do you live?
+Room.tsx:275 [TTS Queue] Queue processor started
+Room.tsx:283 [TTS Queue] Skipping already spoken item in processor: Where do you live?
+Room.tsx:405 [TTS Queue] Queue processor finished
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: male
+Room.tsx:533 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:534 [Voice Gender] Text to speak: "Hello.", Language: en
+Room.tsx:417 [TTS Queue] Adding to queue (queue size: 0): Hello.
+Room.tsx:275 [TTS Queue] Queue processor started
+Room.tsx:283 [TTS Queue] Skipping already spoken item in processor: Hello.
+Room.tsx:405 [TTS Queue] Queue processor finished
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: male
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: male
+Room.tsx:533 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:534 [Voice Gender] Text to speak: "Hello.", Language: en
+Room.tsx:417 [TTS Queue] Adding to queue (queue size: 0): Hello.
+Room.tsx:275 [TTS Queue] Queue processor started
+Room.tsx:283 [TTS Queue] Skipping already spoken item in processor: Hello.
+Room.tsx:405 [TTS Queue] Queue processor finished
+Room.tsx:37 [Room Init] Role: participant, Language: en, My Voice Gender: male

@@ -1,0 +1,299 @@
+client:536 WebSocket connection to 'wss://76b67878-aa4f-4967-ba04-88458384b912-00-2pvz6t58xfuz3.worf.replit.dev/?token=pdjB50cVd4Ng' failed: 
+setupWebSocket @ client:536
+client:536 Uncaught (in promise) SyntaxError: Failed to construct 'WebSocket': The URL 'wss://localhost:undefined/?token=pdjB50cVd4Ng' is invalid.
+    at setupWebSocket (client:536:19)
+    at fallback (client:509:16)
+    at WebSocket.<anonymous> (client:555:7)
+chunk-WERSD76P.js?v=b9534207:21551 Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+CreateRoom.tsx:17 [CreateRoom] Selected voice gender: undefined
+CreateRoom.tsx:17 [CreateRoom] Selected voice gender: male
+CreateRoom.tsx:22 [CreateRoom] Creating room with voice gender: male
+CreateRoom.tsx:17 [CreateRoom] Selected voice gender: male
+CreateRoom.tsx:30 [CreateRoom] Navigating to room with voiceGender: male
+Room.tsx:45 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:79 [Browser] Network status: ONLINE
+Room.tsx:137 [State Change] partnerVoiceGender updated to: undefined
+Room.tsx:606 [WebSocket] Creating new WebSocket connection to: wss://76b67878-aa4f-4967-ba04-88458384b912-00-2pvz6t58xfuz3.worf.replit.dev/ws
+Room.tsx:612 [WebSocket] Connected successfully, readyState: 1
+Room.tsx:49 [Browser] Visibility changed: HIDDEN
+Room.tsx:51 [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+Room.tsx:49 [Browser] Visibility changed: VISIBLE
+Room.tsx:53 [Browser] ✓ Tab is now visible - connections should remain active
+Room.tsx:796 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+Room.tsx:808 [Heartbeat] 💚 Received pong from server - connection alive
+Room.tsx:49 [Browser] Visibility changed: HIDDEN
+Room.tsx:51 [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+Room.tsx:796 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+Room.tsx:808 [Heartbeat] 💚 Received pong from server - connection alive
+Room.tsx:49 [Browser] Visibility changed: VISIBLE
+Room.tsx:53 [Browser] ✓ Tab is now visible - connections should remain active
+Room.tsx:49 [Browser] Visibility changed: HIDDEN
+Room.tsx:51 [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+Room.tsx:796 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+Room.tsx:808 [Heartbeat] 💚 Received pong from server - connection alive
+Room.tsx:49 [Browser] Visibility changed: VISIBLE
+Room.tsx:53 [Browser] ✓ Tab is now visible - connections should remain active
+Room.tsx:796 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+Room.tsx:808 [Heartbeat] 💚 Received pong from server - connection alive
+Room.tsx:813 [Voice Gender] Partner joined with gender: female
+Room.tsx:814 [Voice Gender] My gender: male
+Room.tsx:137 [State Change] partnerVoiceGender updated to: female
+Room.tsx:796 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+Room.tsx:808 [Heartbeat] 💚 Received pong from server - connection alive
+Room.tsx:813 [Voice Gender] Partner joined with gender: female
+Room.tsx:814 [Voice Gender] My gender: male
+Room.tsx:235 [Audio Unlock] Attempting to unlock audio for mobile...
+Room.tsx:263 [Audio Unlock] Audio successfully unlocked for mobile
+Room.tsx:1042 [Azure Speech] ✓ Session started: Object
+Room.tsx:1167 [Speech] Recognition started successfully
+Room.tsx:896 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:897 [Voice Gender] Text to speak: "I.", Language: en
+Room.tsx:588 [TTS Queue] Adding to queue (queue size: 0): I.
+Room.tsx:374 [TTS Queue] Queue processor started
+Room.tsx:385 [TTS Queue] Playing: I. 
+Room.tsx:410 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:293 [TTS] Synthesizing with gender: female, language: en, voice: en-US-JennyNeural
+Room.tsx:414 [TTS Queue] Synthesis completed in 1861ms, audio size: 24192 bytes
+Room.tsx:496 [TTS Queue] Setting fallback timeout: 3512ms (audio duration: 1.512s)
+Room.tsx:526 [TTS Queue] Playback started successfully
+Room.tsx:896 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:897 [Voice Gender] Text to speak: "Hello.", Language: en
+Room.tsx:588 [TTS Queue] Adding to queue (queue size: 0): Hello.
+Room.tsx:468 [TTS Queue] Playback completed (audio ended event)
+Room.tsx:432 [TTS Queue] Marked messageId as spoken: participant-1762412006411-6sya0qd
+Room.tsx:385 [TTS Queue] Playing: Hello. 
+Room.tsx:410 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:293 [TTS] Synthesizing with gender: female, language: en, voice: en-US-JennyNeural
+Room.tsx:414 [TTS Queue] Synthesis completed in 828ms, audio size: 25344 bytes
+Room.tsx:496 [TTS Queue] Setting fallback timeout: 3584ms (audio duration: 1.584s)
+Room.tsx:526 [TTS Queue] Playback started successfully
+Room.tsx:468 [TTS Queue] Playback completed (audio ended event)
+Room.tsx:432 [TTS Queue] Marked messageId as spoken: participant-1762412008353-rzm315y
+Room.tsx:569 [TTS Queue] Queue processor finished
+Room.tsx:896 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:897 [Voice Gender] Text to speak: "I Hello.", Language: en
+Room.tsx:588 [TTS Queue] Adding to queue (queue size: 0): I Hello.
+Room.tsx:374 [TTS Queue] Queue processor started
+Room.tsx:385 [TTS Queue] Playing: I Hello. 
+Room.tsx:410 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:293 [TTS] Synthesizing with gender: female, language: en, voice: en-US-JennyNeural
+Room.tsx:414 [TTS Queue] Synthesis completed in 1065ms, audio size: 27648 bytes
+Room.tsx:496 [TTS Queue] Setting fallback timeout: 3727.9999999999995ms (audio duration: 1.728s)
+Room.tsx:526 [TTS Queue] Playback started successfully
+Room.tsx:468 [TTS Queue] Playback completed (audio ended event)
+Room.tsx:432 [TTS Queue] Marked messageId as spoken: participant-1762412013208-4s6cvyy
+Room.tsx:569 [TTS Queue] Queue processor finished
+Room.tsx:1229 [Mic] Muting microphone - stopping recognition
+Room.tsx:896 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:897 [Voice Gender] Text to speak: "Hello.", Language: en
+Room.tsx:588 [TTS Queue] Adding to queue (queue size: 0): Hello.
+Room.tsx:374 [TTS Queue] Queue processor started
+Room.tsx:385 [TTS Queue] Playing: Hello. 
+Room.tsx:410 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:293 [TTS] Synthesizing with gender: female, language: en, voice: en-US-JennyNeural
+Room.tsx:1162 [Speech] Session stopped - will restart if not muted
+Room.tsx:1245 [Mic] Recognition stopped successfully
+Room.tsx:1258 [Mic] Recognizer closed and cleaned up
+Room.tsx:414 [TTS Queue] Synthesis completed in 533ms, audio size: 25344 bytes
+Room.tsx:496 [TTS Queue] Setting fallback timeout: 3584ms (audio duration: 1.584s)
+Room.tsx:526 [TTS Queue] Playback started successfully
+Room.tsx:796 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+Room.tsx:808 [Heartbeat] 💚 Received pong from server - connection alive
+Room.tsx:468 [TTS Queue] Playback completed (audio ended event)
+Room.tsx:432 [TTS Queue] Marked messageId as spoken: participant-1762412016815-tw4tpo7
+Room.tsx:569 [TTS Queue] Queue processor finished
+Room.tsx:896 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:897 [Voice Gender] Text to speak: "Hello.", Language: en
+Room.tsx:588 [TTS Queue] Adding to queue (queue size: 0): Hello.
+Room.tsx:374 [TTS Queue] Queue processor started
+Room.tsx:385 [TTS Queue] Playing: Hello. 
+Room.tsx:410 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:293 [TTS] Synthesizing with gender: female, language: en, voice: en-US-JennyNeural
+Room.tsx:414 [TTS Queue] Synthesis completed in 940ms, audio size: 25344 bytes
+Room.tsx:496 [TTS Queue] Setting fallback timeout: 3584ms (audio duration: 1.584s)
+Room.tsx:526 [TTS Queue] Playback started successfully
+Room.tsx:468 [TTS Queue] Playback completed (audio ended event)
+Room.tsx:432 [TTS Queue] Marked messageId as spoken: participant-1762412039353-faeqsdp
+Room.tsx:569 [TTS Queue] Queue processor finished
+Room.tsx:896 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:897 [Voice Gender] Text to speak: "Hello, what is your name?", Language: en
+Room.tsx:588 [TTS Queue] Adding to queue (queue size: 0): Hello, what is your name?
+Room.tsx:374 [TTS Queue] Queue processor started
+Room.tsx:385 [TTS Queue] Playing: Hello, what is your name? 
+Room.tsx:410 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:293 [TTS] Synthesizing with gender: female, language: en, voice: en-US-JennyNeural
+Room.tsx:414 [TTS Queue] Synthesis completed in 923ms, audio size: 39744 bytes
+Room.tsx:496 [TTS Queue] Setting fallback timeout: 4484ms (audio duration: 2.484s)
+Room.tsx:526 [TTS Queue] Playback started successfully
+Room.tsx:468 [TTS Queue] Playback completed (audio ended event)
+Room.tsx:432 [TTS Queue] Marked messageId as spoken: participant-1762412043599-ujn5ut7
+Room.tsx:569 [TTS Queue] Queue processor finished
+Room.tsx:796 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+Room.tsx:896 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:897 [Voice Gender] Text to speak: "Hello, what is your name?", Language: en
+Room.tsx:588 [TTS Queue] Adding to queue (queue size: 0): Hello, what is your name?
+Room.tsx:374 [TTS Queue] Queue processor started
+Room.tsx:385 [TTS Queue] Playing: Hello, what is your name? 
+Room.tsx:410 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:293 [TTS] Synthesizing with gender: female, language: en, voice: en-US-JennyNeural
+Room.tsx:808 [Heartbeat] 💚 Received pong from server - connection alive
+Room.tsx:414 [TTS Queue] Synthesis completed in 1572ms, audio size: 39744 bytes
+Room.tsx:496 [TTS Queue] Setting fallback timeout: 4484ms (audio duration: 2.484s)
+Room.tsx:526 [TTS Queue] Playback started successfully
+Room.tsx:468 [TTS Queue] Playback completed (audio ended event)
+Room.tsx:432 [TTS Queue] Marked messageId as spoken: participant-1762412048065-fbq08kp
+Room.tsx:569 [TTS Queue] Queue processor finished
+Room.tsx:796 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+Room.tsx:808 [Heartbeat] 💚 Received pong from server - connection alive
+Room.tsx:49 [Browser] Visibility changed: HIDDEN
+Room.tsx:51 [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+Room.tsx:896 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:897 [Voice Gender] Text to speak: "Are are you fine?", Language: en
+Room.tsx:588 [TTS Queue] Adding to queue (queue size: 0): Are are you fine?
+Room.tsx:374 [TTS Queue] Queue processor started
+Room.tsx:385 [TTS Queue] Playing: Are are you fine? 
+Room.tsx:410 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:293 [TTS] Synthesizing with gender: female, language: en, voice: en-US-JennyNeural
+Room.tsx:414 [TTS Queue] Synthesis completed in 2089ms, audio size: 30528 bytes
+Room.tsx:496 [TTS Queue] Setting fallback timeout: 3908ms (audio duration: 1.908s)
+Room.tsx:526 [TTS Queue] Playback started successfully
+Room.tsx:468 [TTS Queue] Playback completed (audio ended event)
+Room.tsx:432 [TTS Queue] Marked messageId as spoken: participant-1762412098090-3bj48yd
+Room.tsx:569 [TTS Queue] Queue processor finished
+Room.tsx:896 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:897 [Voice Gender] Text to speak: "Finally by.", Language: en
+Room.tsx:588 [TTS Queue] Adding to queue (queue size: 0): Finally by.
+Room.tsx:374 [TTS Queue] Queue processor started
+Room.tsx:385 [TTS Queue] Playing: Finally by. 
+Room.tsx:410 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:293 [TTS] Synthesizing with gender: female, language: en, voice: en-US-JennyNeural
+Room.tsx:414 [TTS Queue] Synthesis completed in 623ms, audio size: 31104 bytes
+Room.tsx:496 [TTS Queue] Setting fallback timeout: 3944ms (audio duration: 1.944s)
+Room.tsx:526 [TTS Queue] Playback started successfully
+Room.tsx:896 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:897 [Voice Gender] Text to speak: "Yes, I am.", Language: en
+Room.tsx:588 [TTS Queue] Adding to queue (queue size: 0): Yes, I am.
+Room.tsx:468 [TTS Queue] Playback completed (audio ended event)
+Room.tsx:432 [TTS Queue] Marked messageId as spoken: participant-1762412103626-qtvklr5
+Room.tsx:385 [TTS Queue] Playing: Yes, I am. 
+Room.tsx:410 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:293 [TTS] Synthesizing with gender: female, language: en, voice: en-US-JennyNeural
+Room.tsx:49 [Browser] Visibility changed: VISIBLE
+Room.tsx:53 [Browser] ✓ Tab is now visible - connections should remain active
+Room.tsx:896 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:897 [Voice Gender] Text to speak: "Finally, bye.", Language: en
+Room.tsx:588 [TTS Queue] Adding to queue (queue size: 0): Finally, bye.
+Room.tsx:414 [TTS Queue] Synthesis completed in 1139ms, audio size: 35712 bytes
+Room.tsx:496 [TTS Queue] Setting fallback timeout: 4232ms (audio duration: 2.232s)
+Room.tsx:526 [TTS Queue] Playback started successfully
+Room.tsx:796 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+Room.tsx:808 [Heartbeat] 💚 Received pong from server - connection alive
+Room.tsx:49 [Browser] Visibility changed: HIDDEN
+Room.tsx:51 [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+Room.tsx:468 [TTS Queue] Playback completed (audio ended event)
+Room.tsx:432 [TTS Queue] Marked messageId as spoken: participant-1762412105553-3o5o49i
+Room.tsx:385 [TTS Queue] Playing: Finally, bye. 
+Room.tsx:410 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:293 [TTS] Synthesizing with gender: female, language: en, voice: en-US-JennyNeural
+Room.tsx:414 [TTS Queue] Synthesis completed in 773ms, audio size: 35712 bytes
+Room.tsx:496 [TTS Queue] Setting fallback timeout: 4232ms (audio duration: 2.232s)
+Room.tsx:526 [TTS Queue] Playback started successfully
+Room.tsx:896 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:897 [Voice Gender] Text to speak: "Yes, I am.", Language: en
+Room.tsx:588 [TTS Queue] Adding to queue (queue size: 0): Yes, I am.
+Room.tsx:468 [TTS Queue] Playback completed (audio ended event)
+Room.tsx:432 [TTS Queue] Marked messageId as spoken: participant-1762412107043-ng898hd
+Room.tsx:385 [TTS Queue] Playing: Yes, I am. 
+Room.tsx:410 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:293 [TTS] Synthesizing with gender: female, language: en, voice: en-US-JennyNeural
+Room.tsx:896 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:897 [Voice Gender] Text to speak: "Finally, bye.", Language: en
+Room.tsx:588 [TTS Queue] Adding to queue (queue size: 0): Finally, bye.
+Room.tsx:414 [TTS Queue] Synthesis completed in 1136ms, audio size: 35712 bytes
+Room.tsx:496 [TTS Queue] Setting fallback timeout: 4232ms (audio duration: 2.232s)
+Room.tsx:526 [TTS Queue] Playback started successfully
+Room.tsx:468 [TTS Queue] Playback completed (audio ended event)
+Room.tsx:432 [TTS Queue] Marked messageId as spoken: participant-1762412110575-ma8m2zk
+Room.tsx:385 [TTS Queue] Playing: Finally, bye. 
+Room.tsx:410 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:293 [TTS] Synthesizing with gender: female, language: en, voice: en-US-JennyNeural
+Room.tsx:414 [TTS Queue] Synthesis completed in 829ms, audio size: 35712 bytes
+Room.tsx:496 [TTS Queue] Setting fallback timeout: 4232ms (audio duration: 2.232s)
+Room.tsx:526 [TTS Queue] Playback started successfully
+Room.tsx:896 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:897 [Voice Gender] Text to speak: "Yes, I am.", Language: en
+Room.tsx:588 [TTS Queue] Adding to queue (queue size: 0): Yes, I am.
+Room.tsx:468 [TTS Queue] Playback completed (audio ended event)
+Room.tsx:432 [TTS Queue] Marked messageId as spoken: participant-1762412113615-8yz9xdm
+Room.tsx:385 [TTS Queue] Playing: Yes, I am. 
+Room.tsx:410 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:293 [TTS] Synthesizing with gender: female, language: en, voice: en-US-JennyNeural
+Room.tsx:896 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:897 [Voice Gender] Text to speak: "505.", Language: en
+Room.tsx:588 [TTS Queue] Adding to queue (queue size: 0): 505.
+Room.tsx:414 [TTS Queue] Synthesis completed in 1003ms, audio size: 35712 bytes
+Room.tsx:496 [TTS Queue] Setting fallback timeout: 4232ms (audio duration: 2.232s)
+Room.tsx:526 [TTS Queue] Playback started successfully
+Room.tsx:468 [TTS Queue] Playback completed (audio ended event)
+Room.tsx:432 [TTS Queue] Marked messageId as spoken: participant-1762412117193-3sdgokj
+Room.tsx:385 [TTS Queue] Playing: 505. 
+Room.tsx:410 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:293 [TTS] Synthesizing with gender: female, language: en, voice: en-US-JennyNeural
+Room.tsx:414 [TTS Queue] Synthesis completed in 826ms, audio size: 35712 bytes
+Room.tsx:496 [TTS Queue] Setting fallback timeout: 4232ms (audio duration: 2.232s)
+Room.tsx:526 [TTS Queue] Playback started successfully
+Room.tsx:896 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:897 [Voice Gender] Text to speak: "Yes, I am.", Language: en
+Room.tsx:588 [TTS Queue] Adding to queue (queue size: 0): Yes, I am.
+Room.tsx:468 [TTS Queue] Playback completed (audio ended event)
+Room.tsx:432 [TTS Queue] Marked messageId as spoken: participant-1762412120154-10eu91t
+Room.tsx:385 [TTS Queue] Playing: Yes, I am. 
+Room.tsx:410 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:293 [TTS] Synthesizing with gender: female, language: en, voice: en-US-JennyNeural
+Room.tsx:414 [TTS Queue] Synthesis completed in 1177ms, audio size: 35712 bytes
+Room.tsx:496 [TTS Queue] Setting fallback timeout: 4232ms (audio duration: 2.232s)
+Room.tsx:526 [TTS Queue] Playback started successfully
+Room.tsx:468 [TTS Queue] Playback completed (audio ended event)
+Room.tsx:432 [TTS Queue] Marked messageId as spoken: participant-1762412123544-ipw9des
+Room.tsx:569 [TTS Queue] Queue processor finished
+Room.tsx:796 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+Room.tsx:808 [Heartbeat] 💚 Received pong from server - connection alive
+Room.tsx:49 [Browser] Visibility changed: VISIBLE
+Room.tsx:53 [Browser] ✓ Tab is now visible - connections should remain active
+Room.tsx:49 [Browser] Visibility changed: HIDDEN
+Room.tsx:51 [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+Room.tsx:896 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:897 [Voice Gender] Text to speak: "Where do you live?", Language: en
+Room.tsx:588 [TTS Queue] Adding to queue (queue size: 0): Where do you live?
+Room.tsx:374 [TTS Queue] Queue processor started
+Room.tsx:385 [TTS Queue] Playing: Where do you live? 
+Room.tsx:410 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:293 [TTS] Synthesizing with gender: female, language: en, voice: en-US-JennyNeural
+Room.tsx:414 [TTS Queue] Synthesis completed in 1150ms, audio size: 31104 bytes
+Room.tsx:496 [TTS Queue] Setting fallback timeout: 3944ms (audio duration: 1.944s)
+Room.tsx:526 [TTS Queue] Playback started successfully
+Room.tsx:468 [TTS Queue] Playback completed (audio ended event)
+Room.tsx:432 [TTS Queue] Marked messageId as spoken: participant-1762412149257-gr8b5fr
+Room.tsx:569 [TTS Queue] Queue processor finished
+Room.tsx:796 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+Room.tsx:808 [Heartbeat] 💚 Received pong from server - connection alive
+Room.tsx:49 [Browser] Visibility changed: VISIBLE
+Room.tsx:53 [Browser] ✓ Tab is now visible - connections should remain active
+Room.tsx:649 [WebSocket] 🔌 ONCLOSE HANDLER FIRED! Code: 1006 wasClean: false
+Room.tsx:693 [WebSocket] 🔌 DISCONNECTED (FULL DETAILS): {code: 1006, reason: 'Abnormal Closure (network/proxy timeout)', customMessage: '', wasClean: false, duration: '5m 55s', …}
+Room.tsx:708 [Auto-Reconnect] Unintentional disconnect detected - will attempt reconnect
+Room.tsx:727 [Auto-Reconnect] Attempt 1, reconnecting in 500ms...
+Room.tsx:747 [Auto-Reconnect] Executing reconnection...
+Room.tsx:752 WebSocket connection to 'wss://76b67878-aa4f-4967-ba04-88458384b912-00-2pvz6t58xfuz3.worf.replit.dev/ws' failed: 
+(anonymous) @ Room.tsx:752
+Room.tsx:781 [Auto-Reconnect] ❌ Reconnection failed: Event {isTrusted: true, type: 'error', target: WebSocket, currentTarget: WebSocket, eventPhase: 2, …}
+newWs.onerror @ Room.tsx:781
+Room.tsx:649 [WebSocket] 🔌 ONCLOSE HANDLER FIRED! Code: 1006 wasClean: false
+Room.tsx:693 [WebSocket] 🔌 DISCONNECTED (FULL DETAILS): {code: 1006, reason: 'Abnormal Closure (network/proxy timeout)', customMessage: '', wasClean: false, duration: '5m 56s', …}
+Room.tsx:708 [Auto-Reconnect] Unintentional disconnect detected - will attempt reconnect
+Room.tsx:727 [Auto-Reconnect] Attempt 2, reconnecting in 1000ms...
+Room.tsx:747 [Auto-Reconnect] Executing reconnection...
+Room.tsx:756 [Auto-Reconnect] ✅ Reconnection successful!
+Room.tsx:777 [Auto-Reconnect] Reconnection complete - conversation resumed
+Room.tsx:799 [Heartbeat] ⚠️ Skipping ping - WebSocket not open, readyState: 3
+(anonymous) @ Room.tsx:799

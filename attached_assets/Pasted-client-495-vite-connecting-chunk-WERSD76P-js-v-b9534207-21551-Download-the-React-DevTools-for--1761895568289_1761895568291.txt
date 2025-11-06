@@ -1,0 +1,46 @@
+client:495 [vite] connecting...
+chunk-WERSD76P.js?v=b9534207:21551 Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+client:536 WebSocket connection to 'wss://76b67878-aa4f-4967-ba04-88458384b912-00-2pvz6t58xfuz3.worf.replit.dev/?token=XLIoDSWJ4x_J' failed: 
+setupWebSocket @ client:536
+client:536 Uncaught (in promise) SyntaxError: Failed to construct 'WebSocket': The URL 'wss://localhost:undefined/?token=XLIoDSWJ4x_J' is invalid.
+    at setupWebSocket (client:536:19)
+    at fallback (client:509:16)
+    at WebSocket.<anonymous> (client:555:7)
+Room.tsx:163 [Audio Unlock] Attempting to unlock audio for mobile...
+Room.tsx:191 [Audio Unlock] Audio successfully unlocked for mobile
+Room.tsx:457 [Voice Gender] Partner joined with gender: female
+Room.tsx:458 [Voice Gender] My gender: male
+Room.tsx:509 [Voice Gender] Playing TTS with partner gender: female, my gender: male
+Room.tsx:404 [TTS Queue] Adding to queue (queue size: 0): Не ешьте лимон. Доступны водители в кинотеатре, ос
+Room.tsx:264 [TTS Queue] Queue processor started
+Room.tsx:280 [TTS Queue] Playing: Не ешьте лимон. Доступны водители в кинотеатре, ос 
+Room.tsx:305 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:309 [TTS Queue] Synthesis completed in 2575ms, audio size: 114624 bytes
+Room.tsx:367 [TTS Queue] Playback started successfully
+Room.tsx:509 [Voice Gender] Playing TTS with partner gender: female, my gender: male
+Room.tsx:404 [TTS Queue] Adding to queue (queue size: 0): Премьер-министр Наре отвечает за посол.
+Room.tsx:348 [TTS Queue] Playback completed (audio ended)
+Room.tsx:280 [TTS Queue] Playing: Премьер-министр Наре отвечает за посол. 
+Room.tsx:305 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:309 [TTS Queue] Synthesis completed in 1214ms, audio size: 57024 bytes
+Room.tsx:367 [TTS Queue] Playback started successfully
+Room.tsx:348 [TTS Queue] Playback completed (audio ended)
+Room.tsx:394 [TTS Queue] Queue processor finished
+Room.tsx:509 [Voice Gender] Playing TTS with partner gender: female, my gender: male
+Room.tsx:404 [TTS Queue] Adding to queue (queue size: 0): Э.
+Room.tsx:264 [TTS Queue] Queue processor started
+Room.tsx:280 [TTS Queue] Playing: Э. 
+Room.tsx:305 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:309 [TTS Queue] Synthesis completed in 1043ms, audio size: 22464 bytes
+Room.tsx:367 [TTS Queue] Playback started successfully
+Room.tsx:348 [TTS Queue] Playback completed (audio ended)
+Room.tsx:394 [TTS Queue] Queue processor finished
+Room.tsx:509 [Voice Gender] Playing TTS with partner gender: female, my gender: male
+Room.tsx:404 [TTS Queue] Adding to queue (queue size: 0): Помни, если ты не можешь оставить шрам, если есть 
+Room.tsx:264 [TTS Queue] Queue processor started
+Room.tsx:280 [TTS Queue] Playing: Помни, если ты не можешь оставить шрам, если есть  
+Room.tsx:305 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:309 [TTS Queue] Synthesis completed in 1394ms, audio size: 90432 bytes
+Room.tsx:367 [TTS Queue] Playback started successfully
+Room.tsx:348 [TTS Queue] Playback completed (audio ended)
+Room.tsx:394 [TTS Queue] Queue processor finished

@@ -1,0 +1,45 @@
+client:536 WebSocket connection to 'wss://76b67878-aa4f-4967-ba04-88458384b912-00-2pvz6t58xfuz3.worf.replit.dev/?token=CgtPmZXCiu9-' failed: 
+setupWebSocket @ client:536
+client:536 Uncaught (in promise) SyntaxError: Failed to construct 'WebSocket': The URL 'wss://localhost:undefined/?token=CgtPmZXCiu9-' is invalid.
+    at setupWebSocket (client:536:19)
+    at fallback (client:509:16)
+    at WebSocket.<anonymous> (client:555:7)
+chunk-WERSD76P.js?v=b9534207:21551 Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+JoinRoom.tsx:16 [JoinRoom] Selected voice gender: undefined
+JoinRoom.tsx:16 [JoinRoom] Selected voice gender: undefined
+JoinRoom.tsx:16 [JoinRoom] Selected voice gender: female
+JoinRoom.tsx:53 [JoinRoom] Joining room with voice gender: female
+JoinRoom.tsx:16 [JoinRoom] Selected voice gender: female
+JoinRoom.tsx:56 [JoinRoom] Navigating to room with voiceGender: female
+Room.tsx:45 [Room Init] Role: participant, Language: ja, My Voice Gender: female
+Room.tsx:87 [State Change] partnerVoiceGender updated to: undefined
+Room.tsx:496 [WebSocket] Creating new WebSocket connection to: wss://76b67878-aa4f-4967-ba04-88458384b912-00-2pvz6t58xfuz3.worf.replit.dev/ws
+Room.tsx:502 [WebSocket] Connected successfully, readyState: 1
+Room.tsx:659 [Voice Gender] Partner joined with gender: male
+Room.tsx:660 [Voice Gender] My gender: female
+Room.tsx:87 [State Change] partnerVoiceGender updated to: male
+Room.tsx:185 [Audio Unlock] Attempting to unlock audio for mobile...
+Room.tsx:213 [Audio Unlock] Audio successfully unlocked for mobile
+Room.tsx:950 [Speech] Recognition started successfully
+Room.tsx:719 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): female
+Room.tsx:720 [Voice Gender] Text to speak: "大丈夫です。あなたは日本人として参加し、女性です。はい。", Language: ja
+Room.tsx:478 [TTS Queue] Adding to queue (queue size: 0): 大丈夫です。あなたは日本人として参加し、女性です。はい。
+Room.tsx:324 [TTS Queue] Queue processor started
+Room.tsx:335 [TTS Queue] Playing: 大丈夫です。あなたは日本人として参加し、女性です。はい。 
+Room.tsx:360 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:243 [TTS] Synthesizing with gender: male, language: ja, voice: ja-JP-KeitaNeural
+Room.tsx:719 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): female
+Room.tsx:720 [Voice Gender] Text to speak: "シャンタラム・プヌコル。", Language: ja
+Room.tsx:478 [TTS Queue] Adding to queue (queue size: 0): シャンタラム・プヌコル。
+Room.tsx:364 [TTS Queue] Synthesis completed in 4341ms, audio size: 111744 bytes
+Room.tsx:424 [TTS Queue] Playback started successfully
+Room.tsx:405 [TTS Queue] Playback completed (audio ended)
+Room.tsx:381 [TTS Queue] Marked messageId as spoken: creator-1762251792931-All right. You're yo
+Room.tsx:335 [TTS Queue] Playing: シャンタラム・プヌコル。 
+Room.tsx:360 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:243 [TTS] Synthesizing with gender: male, language: ja, voice: ja-JP-KeitaNeural
+Room.tsx:364 [TTS Queue] Synthesis completed in 1281ms, audio size: 34560 bytes
+Room.tsx:424 [TTS Queue] Playback started successfully
+Room.tsx:405 [TTS Queue] Playback completed (audio ended)
+Room.tsx:381 [TTS Queue] Marked messageId as spoken: creator-1762251796596-Shantaram Punukollu.
+Room.tsx:459 [TTS Queue] Queue processor finished
