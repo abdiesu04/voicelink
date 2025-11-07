@@ -272,7 +272,7 @@ export default function Home() {
             
             {/* New Subtext */}
             <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-300 max-w-4xl mx-auto leading-relaxed">
-              Speak once, connect with the world — real-time voice translation for everyone.
+              Have real conversations across 47 languages. Two people, one room, instant voice translation.
             </p>
 
             {/* Glassmorphic Language Pair Cards */}
@@ -359,10 +359,10 @@ export default function Home() {
         <div className="container mx-auto px-6 md:px-12">
           <div className="text-center mb-16 space-y-4">
             <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white">
-              Speak naturally,<br />be understood instantly
+              One room. Two languages.<br />Zero barriers.
             </h2>
             <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed">
-              Voztra lets two people speak in real time, each in their own language — while both hear each other as if they were native speakers. No text, no subtitles, no delay.
+              Create a room, share the link, and start talking. You speak your language, they speak theirs — both hear each other perfectly translated in real time with natural voice.
             </p>
           </div>
 
@@ -386,7 +386,7 @@ export default function Home() {
                 </div>
                 <h3 className="text-xl font-semibold text-slate-900 dark:text-white">Your voice, their language</h3>
                 <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-                  We match your tone, emotion, and gender so it truly sounds like you.
+                  Choose your voice gender. AI preserves your tone and emotion in their language.
                 </p>
               </CardContent>
             </Card>
@@ -408,9 +408,9 @@ export default function Home() {
                 <div className="h-14 w-14 rounded-xl bg-amber-500/10 dark:bg-amber-500/20 flex items-center justify-center ring-1 ring-amber-500/20">
                   <Globe className="h-7 w-7 text-amber-500" />
                 </div>
-                <h3 className="text-xl font-semibold text-slate-900 dark:text-white">Everywhere you talk</h3>
+                <h3 className="text-xl font-semibold text-slate-900 dark:text-white">Simple room-based chat</h3>
                 <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-                  Works seamlessly in calls, meetings, and in-person conversations.
+                  Create a room, share the link. Two people join and talk — that's it.
                 </p>
               </CardContent>
             </Card>
@@ -431,7 +431,7 @@ export default function Home() {
         <div className="container mx-auto px-6 md:px-12">
           <div className="text-center mb-16 space-y-4">
             <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white">
-              Three simple steps.<br />One fluent conversation.
+              How it works
             </h2>
           </div>
 
@@ -440,9 +440,9 @@ export default function Home() {
               <div className="h-20 w-20 rounded-2xl bg-primary/10 dark:bg-primary/20 flex items-center justify-center mx-auto mb-6 ring-1 ring-primary/20">
                 <span className="text-4xl font-bold text-primary">1</span>
               </div>
-              <h3 className="text-2xl font-semibold text-slate-900 dark:text-white">You speak</h3>
+              <h3 className="text-2xl font-semibold text-slate-900 dark:text-white">Create a room</h3>
               <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-                Naturally, in your own language. No scripts, no preparation.
+                Choose your language and voice gender. Get a shareable room link.
               </p>
             </div>
 
@@ -450,9 +450,9 @@ export default function Home() {
               <div className="h-20 w-20 rounded-2xl bg-violet-500/10 dark:bg-violet-500/20 flex items-center justify-center mx-auto mb-6 ring-1 ring-violet-500/20">
                 <span className="text-4xl font-bold text-violet-500">2</span>
               </div>
-              <h3 className="text-2xl font-semibold text-slate-900 dark:text-white">Voztra translates</h3>
+              <h3 className="text-2xl font-semibold text-slate-900 dark:text-white">Share the link</h3>
               <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-                Your voice becomes native-sounding in real time with AI precision.
+                Send the link to one person. They join, pick their language and voice.
               </p>
             </div>
 
@@ -460,9 +460,9 @@ export default function Home() {
               <div className="h-20 w-20 rounded-2xl bg-green-500/10 dark:bg-green-500/20 flex items-center justify-center mx-auto mb-6 ring-1 ring-green-500/20">
                 <span className="text-4xl font-bold text-green-500">3</span>
               </div>
-              <h3 className="text-2xl font-semibold text-slate-900 dark:text-white">They hear you</h3>
+              <h3 className="text-2xl font-semibold text-slate-900 dark:text-white">Start talking</h3>
               <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-                Your words, tone, and warmth — perfectly preserved in their language.
+                Speak naturally. Hear each other instantly translated with natural voice.
               </p>
             </div>
           </div>
@@ -477,7 +477,7 @@ export default function Home() {
               Speak with the world
             </h2>
             <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto">
-              Currently supporting <span className="text-primary font-semibold">97+ languages</span> for real-time voice translation with more being added continuously.
+              Supporting <span className="text-primary font-semibold">47 languages</span> with neural AI voices that match your tone, emotion, and gender.
             </p>
           </div>
 
@@ -500,13 +500,13 @@ export default function Home() {
               <div className="text-center mb-8">
                 <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-primary/10 dark:bg-primary/20 mb-4">
                   <Sparkles className="h-5 w-5 text-primary" />
-                  <span className="font-semibold text-slate-900 dark:text-white">All 101+ Languages</span>
+                  <span className="font-semibold text-slate-900 dark:text-white">47 Supported Languages</span>
                 </div>
                 <h3 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-4">
-                  Global Language Coverage
+                  Talk to anyone in their language
                 </h3>
                 <p className="text-slate-600 dark:text-slate-300">
-                  97 real-time voice translation, preserving tone, emotion and gender in real-time voice chat.
+                  Each language includes male and female neural voices (94 total voices) that preserve your natural tone and emotion during translation.
                 </p>
               </div>
               
@@ -595,7 +595,7 @@ export default function Home() {
                   <Users className="h-10 w-10 text-violet-500" />
                   <h3 className="text-xl font-semibold text-slate-900 dark:text-white">Build truly diverse teams</h3>
                   <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-                    Access talent from 97+ languages. Hire the best developer in São Paulo, the best designer in Seoul, the best strategist in Stockholm — all on one team.
+                    Connect with talent across 47 languages. Interview candidates in their native language while speaking yours — no interpreters needed.
                   </p>
                 </CardContent>
               </Card>
@@ -631,7 +631,7 @@ export default function Home() {
                 </Button>
               </Link>
               <p className="text-sm text-slate-500 dark:text-slate-400 mt-4">
-                Free to try • No credit card required • 97+ languages supported
+                Free to try • No credit card required • 47 languages supported
               </p>
             </div>
           </div>
@@ -701,7 +701,7 @@ export default function Home() {
               <div className="space-y-4">
                 <h3 className="text-2xl font-bold text-slate-900 dark:text-white">VOZTRA</h3>
                 <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-                  Breaking language barriers with real-time voice translation across 97+ languages.
+                  Real-time voice translation for two-person conversations across 47 languages.
                 </p>
                 <p className="text-sm text-slate-500 dark:text-slate-400 italic">
                   Opening the world, one voice at a time.
