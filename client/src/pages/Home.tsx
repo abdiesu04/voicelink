@@ -16,7 +16,7 @@ const languageGreetings = [
   { text: "안녕하세요", lang: "Korean" },
 ];
 
-// 100+ country flags with ISO codes for real flag images
+// 150+ country flags with ISO codes for real flag images
 const countryFlags = [
   { code: 'us', name: 'United States' }, { code: 'gb', name: 'United Kingdom' }, { code: 'fr', name: 'France' },
   { code: 'de', name: 'Germany' }, { code: 'jp', name: 'Japan' }, { code: 'cn', name: 'China' },
@@ -55,7 +55,29 @@ const countryFlags = [
   { code: 'lk', name: 'Sri Lanka' }, { code: 'np', name: 'Nepal' }, { code: 'mm', name: 'Myanmar' },
   { code: 'kh', name: 'Cambodia' }, { code: 'la', name: 'Laos' }, { code: 'mn', name: 'Mongolia' },
   { code: 'ge', name: 'Georgia' }, { code: 'am', name: 'Armenia' }, { code: 'az', name: 'Azerbaijan' },
-  { code: 'tm', name: 'Turkmenistan' }, { code: 'kg', name: 'Kyrgyzstan' }, { code: 'tj', name: 'Tajikistan' }
+  { code: 'tm', name: 'Turkmenistan' }, { code: 'kg', name: 'Kyrgyzstan' }, { code: 'tj', name: 'Tajikistan' },
+  { code: 'om', name: 'Oman' }, { code: 'ye', name: 'Yemen' }, { code: 'sy', name: 'Syria' },
+  { code: 'bh', name: 'Bahrain' }, { code: 'ps', name: 'Palestine' }, { code: 'zm', name: 'Zambia' },
+  { code: 'zw', name: 'Zimbabwe' }, { code: 'mw', name: 'Malawi' }, { code: 'mz', name: 'Mozambique' },
+  { code: 'ao', name: 'Angola' }, { code: 'cm', name: 'Cameroon' }, { code: 'ci', name: 'Ivory Coast' },
+  { code: 'sn', name: 'Senegal' }, { code: 'ml', name: 'Mali' }, { code: 'ne', name: 'Niger' },
+  { code: 'td', name: 'Chad' }, { code: 'sd', name: 'Sudan' }, { code: 'ss', name: 'South Sudan' },
+  { code: 'so', name: 'Somalia' }, { code: 'dj', name: 'Djibouti' }, { code: 'er', name: 'Eritrea' },
+  { code: 'rw', name: 'Rwanda' }, { code: 'bi', name: 'Burundi' }, { code: 'bw', name: 'Botswana' },
+  { code: 'na', name: 'Namibia' }, { code: 'ls', name: 'Lesotho' }, { code: 'sz', name: 'Eswatini' },
+  { code: 'mg', name: 'Madagascar' }, { code: 'mu', name: 'Mauritius' }, { code: 'sc', name: 'Seychelles' },
+  { code: 'mv', name: 'Maldives' }, { code: 'bt', name: 'Bhutan' }, { code: 'bn', name: 'Brunei' },
+  { code: 'tl', name: 'Timor-Leste' }, { code: 'pg', name: 'Papua New Guinea' }, { code: 'fj', name: 'Fiji' },
+  { code: 'ws', name: 'Samoa' }, { code: 'to', name: 'Tonga' }, { code: 'vu', name: 'Vanuatu' },
+  { code: 'sb', name: 'Solomon Islands' }, { code: 'nc', name: 'New Caledonia' }, { code: 'pf', name: 'French Polynesia' },
+  { code: 'gy', name: 'Guyana' }, { code: 'sr', name: 'Suriname' }, { code: 'bz', name: 'Belize' },
+  { code: 'bb', name: 'Barbados' }, { code: 'bs', name: 'Bahamas' }, { code: 'gd', name: 'Grenada' },
+  { code: 'lc', name: 'Saint Lucia' }, { code: 'vc', name: 'Saint Vincent' }, { code: 'ag', name: 'Antigua' },
+  { code: 'dm', name: 'Dominica' }, { code: 'kn', name: 'Saint Kitts' }, { code: 'ht', name: 'Haiti' },
+  { code: 'kp', name: 'North Korea' }, { code: 'tw', name: 'Taiwan' }, { code: 'hk', name: 'Hong Kong' },
+  { code: 'mo', name: 'Macau' }, { code: 'fo', name: 'Faroe Islands' }, { code: 'gl', name: 'Greenland' },
+  { code: 'ad', name: 'Andorra' }, { code: 'mc', name: 'Monaco' }, { code: 'sm', name: 'San Marino' },
+  { code: 'va', name: 'Vatican City' }, { code: 'li', name: 'Liechtenstein' }
 ];
 
 const allLanguages = [
@@ -128,8 +150,8 @@ export default function Home() {
         {/* Gradient Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 via-violet-50 to-blue-50 dark:from-slate-950 dark:via-indigo-950/30 dark:to-slate-950" />
         
-        {/* Real Flag Collage Background - 110+ Flags */}
-        <div className="absolute inset-0 opacity-30 dark:opacity-15">
+        {/* Real Flag Collage Background - 150+ Flags */}
+        <div className="absolute inset-0 opacity-50 dark:opacity-30">
           {countryFlags.map((flag, idx) => {
             const positions = [
               { top: '5%', left: '5%' }, { top: '8%', left: '15%' }, { top: '12%', left: '25%' },
