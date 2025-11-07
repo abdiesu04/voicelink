@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Languages, Lock, Globe, Mic, CheckCircle, Sparkles, MessageSquare, ArrowRight, Volume2, Users, Clock, Shield, Briefcase } from "lucide-react";
+import { Languages, Lock, Mic, CheckCircle, Sparkles, MessageSquare, ArrowRight, Volume2, Users, Clock, Shield, Briefcase } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -16,7 +16,7 @@ const languageGreetings = [
   { text: "안녕하세요", lang: "Korean" },
 ];
 
-// 150+ country flags with ISO codes for real flag images
+// 75 country flags with ISO codes for real flag images
 const countryFlags = [
   { code: 'us', name: 'United States' }, { code: 'gb', name: 'United Kingdom' }, { code: 'fr', name: 'France' },
   { code: 'de', name: 'Germany' }, { code: 'jp', name: 'Japan' }, { code: 'cn', name: 'China' },
@@ -33,51 +33,17 @@ const countryFlags = [
   { code: 'vn', name: 'Vietnam' }, { code: 'ph', name: 'Philippines' }, { code: 'id', name: 'Indonesia' },
   { code: 'pk', name: 'Pakistan' }, { code: 'bd', name: 'Bangladesh' }, { code: 'ng', name: 'Nigeria' },
   { code: 'et', name: 'Ethiopia' }, { code: 'ke', name: 'Kenya' }, { code: 'tz', name: 'Tanzania' },
-  { code: 'gh', name: 'Ghana' }, { code: 'ug', name: 'Uganda' }, { code: 'ma', name: 'Morocco' },
-  { code: 'dz', name: 'Algeria' }, { code: 'tn', name: 'Tunisia' }, { code: 'il', name: 'Israel' },
-  { code: 'ae', name: 'UAE' }, { code: 'qa', name: 'Qatar' }, { code: 'kw', name: 'Kuwait' },
-  { code: 'jo', name: 'Jordan' }, { code: 'lb', name: 'Lebanon' }, { code: 'iq', name: 'Iraq' },
-  { code: 'ir', name: 'Iran' }, { code: 'af', name: 'Afghanistan' }, { code: 'uz', name: 'Uzbekistan' },
+  { code: 'gh', name: 'Ghana' }, { code: 'ma', name: 'Morocco' }, { code: 'dz', name: 'Algeria' },
+  { code: 'il', name: 'Israel' }, { code: 'ae', name: 'UAE' }, { code: 'qa', name: 'Qatar' },
+  { code: 'jo', name: 'Jordan' }, { code: 'iq', name: 'Iraq' }, { code: 'ir', name: 'Iran' },
   { code: 'kz', name: 'Kazakhstan' }, { code: 'ua', name: 'Ukraine' }, { code: 'ro', name: 'Romania' },
   { code: 'cz', name: 'Czech Republic' }, { code: 'hu', name: 'Hungary' }, { code: 'bg', name: 'Bulgaria' },
   { code: 'rs', name: 'Serbia' }, { code: 'hr', name: 'Croatia' }, { code: 'sk', name: 'Slovakia' },
   { code: 'si', name: 'Slovenia' }, { code: 'lt', name: 'Lithuania' }, { code: 'lv', name: 'Latvia' },
-  { code: 'ee', name: 'Estonia' }, { code: 'by', name: 'Belarus' }, { code: 'md', name: 'Moldova' },
-  { code: 'al', name: 'Albania' }, { code: 'mk', name: 'North Macedonia' }, { code: 'ba', name: 'Bosnia' },
-  { code: 'me', name: 'Montenegro' }, { code: 'xk', name: 'Kosovo' }, { code: 'is', name: 'Iceland' },
-  { code: 'lu', name: 'Luxembourg' }, { code: 'mt', name: 'Malta' }, { code: 'cy', name: 'Cyprus' },
-  { code: 'cl', name: 'Chile' }, { code: 'co', name: 'Colombia' }, { code: 'pe', name: 'Peru' },
-  { code: 've', name: 'Venezuela' }, { code: 'ec', name: 'Ecuador' }, { code: 'uy', name: 'Uruguay' },
-  { code: 'py', name: 'Paraguay' }, { code: 'bo', name: 'Bolivia' }, { code: 'cu', name: 'Cuba' },
-  { code: 'do', name: 'Dominican Republic' }, { code: 'cr', name: 'Costa Rica' }, { code: 'pa', name: 'Panama' },
-  { code: 'gt', name: 'Guatemala' }, { code: 'hn', name: 'Honduras' }, { code: 'ni', name: 'Nicaragua' },
-  { code: 'sv', name: 'El Salvador' }, { code: 'jm', name: 'Jamaica' }, { code: 'tt', name: 'Trinidad' },
-  { code: 'lk', name: 'Sri Lanka' }, { code: 'np', name: 'Nepal' }, { code: 'mm', name: 'Myanmar' },
-  { code: 'kh', name: 'Cambodia' }, { code: 'la', name: 'Laos' }, { code: 'mn', name: 'Mongolia' },
-  { code: 'ge', name: 'Georgia' }, { code: 'am', name: 'Armenia' }, { code: 'az', name: 'Azerbaijan' },
-  { code: 'tm', name: 'Turkmenistan' }, { code: 'kg', name: 'Kyrgyzstan' }, { code: 'tj', name: 'Tajikistan' },
-  { code: 'om', name: 'Oman' }, { code: 'ye', name: 'Yemen' }, { code: 'sy', name: 'Syria' },
-  { code: 'bh', name: 'Bahrain' }, { code: 'ps', name: 'Palestine' }, { code: 'zm', name: 'Zambia' },
-  { code: 'zw', name: 'Zimbabwe' }, { code: 'mw', name: 'Malawi' }, { code: 'mz', name: 'Mozambique' },
-  { code: 'ao', name: 'Angola' }, { code: 'cm', name: 'Cameroon' }, { code: 'ci', name: 'Ivory Coast' },
-  { code: 'sn', name: 'Senegal' }, { code: 'ml', name: 'Mali' }, { code: 'ne', name: 'Niger' },
-  { code: 'td', name: 'Chad' }, { code: 'sd', name: 'Sudan' }, { code: 'ss', name: 'South Sudan' },
-  { code: 'so', name: 'Somalia' }, { code: 'dj', name: 'Djibouti' }, { code: 'er', name: 'Eritrea' },
-  { code: 'rw', name: 'Rwanda' }, { code: 'bi', name: 'Burundi' }, { code: 'bw', name: 'Botswana' },
-  { code: 'na', name: 'Namibia' }, { code: 'ls', name: 'Lesotho' }, { code: 'sz', name: 'Eswatini' },
-  { code: 'mg', name: 'Madagascar' }, { code: 'mu', name: 'Mauritius' }, { code: 'sc', name: 'Seychelles' },
-  { code: 'mv', name: 'Maldives' }, { code: 'bt', name: 'Bhutan' }, { code: 'bn', name: 'Brunei' },
-  { code: 'tl', name: 'Timor-Leste' }, { code: 'pg', name: 'Papua New Guinea' }, { code: 'fj', name: 'Fiji' },
-  { code: 'ws', name: 'Samoa' }, { code: 'to', name: 'Tonga' }, { code: 'vu', name: 'Vanuatu' },
-  { code: 'sb', name: 'Solomon Islands' }, { code: 'nc', name: 'New Caledonia' }, { code: 'pf', name: 'French Polynesia' },
-  { code: 'gy', name: 'Guyana' }, { code: 'sr', name: 'Suriname' }, { code: 'bz', name: 'Belize' },
-  { code: 'bb', name: 'Barbados' }, { code: 'bs', name: 'Bahamas' }, { code: 'gd', name: 'Grenada' },
-  { code: 'lc', name: 'Saint Lucia' }, { code: 'vc', name: 'Saint Vincent' }, { code: 'ag', name: 'Antigua' },
-  { code: 'dm', name: 'Dominica' }, { code: 'kn', name: 'Saint Kitts' }, { code: 'ht', name: 'Haiti' },
-  { code: 'kp', name: 'North Korea' }, { code: 'tw', name: 'Taiwan' }, { code: 'hk', name: 'Hong Kong' },
-  { code: 'mo', name: 'Macau' }, { code: 'fo', name: 'Faroe Islands' }, { code: 'gl', name: 'Greenland' },
-  { code: 'ad', name: 'Andorra' }, { code: 'mc', name: 'Monaco' }, { code: 'sm', name: 'San Marino' },
-  { code: 'va', name: 'Vatican City' }, { code: 'li', name: 'Liechtenstein' }
+  { code: 'ee', name: 'Estonia' }, { code: 'is', name: 'Iceland' }, { code: 'cl', name: 'Chile' },
+  { code: 'co', name: 'Colombia' }, { code: 'pe', name: 'Peru' }, { code: 've', name: 'Venezuela' },
+  { code: 'uy', name: 'Uruguay' }, { code: 'cu', name: 'Cuba' }, { code: 'cr', name: 'Costa Rica' },
+  { code: 'lk', name: 'Sri Lanka' }, { code: 'np', name: 'Nepal' }, { code: 'mm', name: 'Myanmar' }
 ];
 
 const allLanguages = [
@@ -150,8 +116,8 @@ export default function Home() {
         {/* Gradient Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 via-violet-50 to-blue-50 dark:from-slate-950 dark:via-indigo-950/30 dark:to-slate-950" />
         
-        {/* Real Flag Collage Background - 150+ Flags */}
-        <div className="absolute inset-0 opacity-50 dark:opacity-30">
+        {/* Real Flag Collage Background - 75 Flags */}
+        <div className="absolute inset-0 opacity-25 dark:opacity-15">
           {countryFlags.map((flag, idx) => {
             const positions = [
               { top: '5%', left: '5%' }, { top: '8%', left: '15%' }, { top: '12%', left: '25%' },
@@ -313,31 +279,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* 3D Globe with Orbiting Flags */}
-            <div className="flex justify-center py-6">
-              <div className="relative w-40 h-40">
-                {/* Globe */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="h-32 w-32 rounded-full bg-gradient-to-br from-blue-500 via-indigo-500 to-violet-500 shadow-2xl flex items-center justify-center">
-                    <Globe className="h-16 w-16 text-white animate-spin" style={{ animationDuration: '20s' }} />
-                  </div>
-                </div>
-                {/* Orbiting Flags */}
-                <div className="absolute inset-0 animate-spin" style={{ animationDuration: '10s' }}>
-                  <div className="absolute top-0 left-1/2 -translate-x-1/2 text-3xl">🇬🇧</div>
-                </div>
-                <div className="absolute inset-0 animate-spin" style={{ animationDuration: '12s', animationDelay: '1s' }}>
-                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 text-3xl">🇯🇵</div>
-                </div>
-                <div className="absolute inset-0 animate-spin" style={{ animationDuration: '14s', animationDelay: '2s' }}>
-                  <div className="absolute top-1/2 left-0 -translate-y-1/2 text-3xl">🇫🇷</div>
-                </div>
-                <div className="absolute inset-0 animate-spin" style={{ animationDuration: '11s', animationDelay: '0.5s' }}>
-                  <div className="absolute top-1/2 right-0 -translate-y-1/2 text-3xl">🇪🇸</div>
-                </div>
-              </div>
-            </div>
-            
             {/* CTA Buttons with Gradient */}
             <div className="flex flex-col sm:flex-row gap-4 pt-6 justify-center">
               <Link href="/create">
@@ -428,7 +369,7 @@ export default function Home() {
             <Card className="bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:shadow-xl transition-shadow" data-testid="card-everywhere">
               <CardContent className="pt-8 pb-8 px-6 space-y-4">
                 <div className="h-14 w-14 rounded-xl bg-amber-500/10 dark:bg-amber-500/20 flex items-center justify-center ring-1 ring-amber-500/20">
-                  <Globe className="h-7 w-7 text-amber-500" />
+                  <Users className="h-7 w-7 text-amber-500" />
                 </div>
                 <h3 className="text-xl font-semibold text-slate-900 dark:text-white">Simple room-based chat</h3>
                 <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
