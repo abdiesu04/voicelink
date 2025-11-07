@@ -16,6 +16,48 @@ const languageGreetings = [
   { text: "안녕하세요", lang: "Korean" },
 ];
 
+// 100+ country flags with ISO codes for real flag images
+const countryFlags = [
+  { code: 'us', name: 'United States' }, { code: 'gb', name: 'United Kingdom' }, { code: 'fr', name: 'France' },
+  { code: 'de', name: 'Germany' }, { code: 'jp', name: 'Japan' }, { code: 'cn', name: 'China' },
+  { code: 'es', name: 'Spain' }, { code: 'it', name: 'Italy' }, { code: 'br', name: 'Brazil' },
+  { code: 'mx', name: 'Mexico' }, { code: 'ca', name: 'Canada' }, { code: 'au', name: 'Australia' },
+  { code: 'in', name: 'India' }, { code: 'kr', name: 'South Korea' }, { code: 'ru', name: 'Russia' },
+  { code: 'ar', name: 'Argentina' }, { code: 'za', name: 'South Africa' }, { code: 'eg', name: 'Egypt' },
+  { code: 'sa', name: 'Saudi Arabia' }, { code: 'tr', name: 'Turkey' }, { code: 'nl', name: 'Netherlands' },
+  { code: 'se', name: 'Sweden' }, { code: 'no', name: 'Norway' }, { code: 'dk', name: 'Denmark' },
+  { code: 'fi', name: 'Finland' }, { code: 'pl', name: 'Poland' }, { code: 'pt', name: 'Portugal' },
+  { code: 'gr', name: 'Greece' }, { code: 'ch', name: 'Switzerland' }, { code: 'at', name: 'Austria' },
+  { code: 'be', name: 'Belgium' }, { code: 'ie', name: 'Ireland' }, { code: 'nz', name: 'New Zealand' },
+  { code: 'sg', name: 'Singapore' }, { code: 'my', name: 'Malaysia' }, { code: 'th', name: 'Thailand' },
+  { code: 'vn', name: 'Vietnam' }, { code: 'ph', name: 'Philippines' }, { code: 'id', name: 'Indonesia' },
+  { code: 'pk', name: 'Pakistan' }, { code: 'bd', name: 'Bangladesh' }, { code: 'ng', name: 'Nigeria' },
+  { code: 'et', name: 'Ethiopia' }, { code: 'ke', name: 'Kenya' }, { code: 'tz', name: 'Tanzania' },
+  { code: 'gh', name: 'Ghana' }, { code: 'ug', name: 'Uganda' }, { code: 'ma', name: 'Morocco' },
+  { code: 'dz', name: 'Algeria' }, { code: 'tn', name: 'Tunisia' }, { code: 'il', name: 'Israel' },
+  { code: 'ae', name: 'UAE' }, { code: 'qa', name: 'Qatar' }, { code: 'kw', name: 'Kuwait' },
+  { code: 'jo', name: 'Jordan' }, { code: 'lb', name: 'Lebanon' }, { code: 'iq', name: 'Iraq' },
+  { code: 'ir', name: 'Iran' }, { code: 'af', name: 'Afghanistan' }, { code: 'uz', name: 'Uzbekistan' },
+  { code: 'kz', name: 'Kazakhstan' }, { code: 'ua', name: 'Ukraine' }, { code: 'ro', name: 'Romania' },
+  { code: 'cz', name: 'Czech Republic' }, { code: 'hu', name: 'Hungary' }, { code: 'bg', name: 'Bulgaria' },
+  { code: 'rs', name: 'Serbia' }, { code: 'hr', name: 'Croatia' }, { code: 'sk', name: 'Slovakia' },
+  { code: 'si', name: 'Slovenia' }, { code: 'lt', name: 'Lithuania' }, { code: 'lv', name: 'Latvia' },
+  { code: 'ee', name: 'Estonia' }, { code: 'by', name: 'Belarus' }, { code: 'md', name: 'Moldova' },
+  { code: 'al', name: 'Albania' }, { code: 'mk', name: 'North Macedonia' }, { code: 'ba', name: 'Bosnia' },
+  { code: 'me', name: 'Montenegro' }, { code: 'xk', name: 'Kosovo' }, { code: 'is', name: 'Iceland' },
+  { code: 'lu', name: 'Luxembourg' }, { code: 'mt', name: 'Malta' }, { code: 'cy', name: 'Cyprus' },
+  { code: 'cl', name: 'Chile' }, { code: 'co', name: 'Colombia' }, { code: 'pe', name: 'Peru' },
+  { code: 've', name: 'Venezuela' }, { code: 'ec', name: 'Ecuador' }, { code: 'uy', name: 'Uruguay' },
+  { code: 'py', name: 'Paraguay' }, { code: 'bo', name: 'Bolivia' }, { code: 'cu', name: 'Cuba' },
+  { code: 'do', name: 'Dominican Republic' }, { code: 'cr', name: 'Costa Rica' }, { code: 'pa', name: 'Panama' },
+  { code: 'gt', name: 'Guatemala' }, { code: 'hn', name: 'Honduras' }, { code: 'ni', name: 'Nicaragua' },
+  { code: 'sv', name: 'El Salvador' }, { code: 'jm', name: 'Jamaica' }, { code: 'tt', name: 'Trinidad' },
+  { code: 'lk', name: 'Sri Lanka' }, { code: 'np', name: 'Nepal' }, { code: 'mm', name: 'Myanmar' },
+  { code: 'kh', name: 'Cambodia' }, { code: 'la', name: 'Laos' }, { code: 'mn', name: 'Mongolia' },
+  { code: 'ge', name: 'Georgia' }, { code: 'am', name: 'Armenia' }, { code: 'az', name: 'Azerbaijan' },
+  { code: 'tm', name: 'Turkmenistan' }, { code: 'kg', name: 'Kyrgyzstan' }, { code: 'tj', name: 'Tajikistan' }
+];
+
 const allLanguages = [
   "Afrikaans", "Albanian", "Amharic", "Arabic", "Armenian", "Assamese", "Azerbaijani",
   "Bashkir", "Basque", "Belarusian", "Bengali", "Bosnian", "Breton", "Bulgarian",
@@ -86,20 +128,71 @@ export default function Home() {
         {/* Gradient Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 via-violet-50 to-blue-50 dark:from-slate-950 dark:via-indigo-950/30 dark:to-slate-950" />
         
-        {/* Animated Flag Wave Background */}
-        <div className="absolute inset-0 opacity-20 dark:opacity-10">
-          <div className="absolute top-10 left-10 text-8xl animate-bounce" style={{ animationDuration: '3s', animationDelay: '0s' }}>🇺🇸</div>
-          <div className="absolute top-20 right-20 text-7xl animate-bounce" style={{ animationDuration: '4s', animationDelay: '0.5s' }}>🇫🇷</div>
-          <div className="absolute top-40 left-1/3 text-6xl animate-bounce" style={{ animationDuration: '3.5s', animationDelay: '1s' }}>🇯🇵</div>
-          <div className="absolute bottom-40 right-1/4 text-8xl animate-bounce" style={{ animationDuration: '4.5s', animationDelay: '0.3s' }}>🇪🇹</div>
-          <div className="absolute bottom-20 left-1/4 text-7xl animate-bounce" style={{ animationDuration: '3.8s', animationDelay: '0.8s' }}>🇧🇷</div>
-          <div className="absolute top-1/2 right-10 text-6xl animate-bounce" style={{ animationDuration: '4.2s', animationDelay: '1.2s' }}>🇩🇪</div>
-          <div className="absolute bottom-1/3 left-20 text-7xl animate-bounce" style={{ animationDuration: '3.3s', animationDelay: '0.6s' }}>🇨🇳</div>
-          <div className="absolute top-1/3 left-10 text-5xl animate-bounce" style={{ animationDuration: '3.7s', animationDelay: '1.5s' }}>🇪🇸</div>
-          <div className="absolute bottom-10 right-1/3 text-6xl animate-bounce" style={{ animationDuration: '4.1s', animationDelay: '0.9s' }}>🇮🇳</div>
-          <div className="absolute top-1/4 right-1/3 text-5xl animate-bounce" style={{ animationDuration: '3.9s', animationDelay: '1.8s' }}>🇰🇷</div>
-          <div className="absolute top-2/3 left-1/3 text-6xl animate-bounce" style={{ animationDuration: '4.3s', animationDelay: '0.4s' }}>🇮🇹</div>
-          <div className="absolute bottom-1/4 right-10 text-5xl animate-bounce" style={{ animationDuration: '3.6s', animationDelay: '1.3s' }}>🇷🇺</div>
+        {/* Real Flag Collage Background - 110+ Flags */}
+        <div className="absolute inset-0 opacity-30 dark:opacity-15">
+          {countryFlags.map((flag, idx) => {
+            const positions = [
+              { top: '5%', left: '5%' }, { top: '8%', left: '15%' }, { top: '12%', left: '25%' },
+              { top: '5%', left: '35%' }, { top: '10%', left: '45%' }, { top: '7%', left: '55%' },
+              { top: '10%', left: '65%' }, { top: '6%', left: '75%' }, { top: '9%', left: '85%' },
+              { top: '15%', left: '10%' }, { top: '18%', left: '20%' }, { top: '20%', left: '30%' },
+              { top: '17%', left: '40%' }, { top: '22%', left: '50%' }, { top: '19%', left: '60%' },
+              { top: '21%', left: '70%' }, { top: '16%', left: '80%' }, { top: '23%', left: '90%' },
+              { top: '28%', left: '8%' }, { top: '30%', left: '18%' }, { top: '32%', left: '28%' },
+              { top: '27%', left: '38%' }, { top: '33%', left: '48%' }, { top: '29%', left: '58%' },
+              { top: '31%', left: '68%' }, { top: '26%', left: '78%' }, { top: '34%', left: '88%' },
+              { top: '40%', left: '12%' }, { top: '42%', left: '22%' }, { top: '38%', left: '32%' },
+              { top: '43%', left: '42%' }, { top: '39%', left: '52%' }, { top: '41%', left: '62%' },
+              { top: '37%', left: '72%' }, { top: '44%', left: '82%' }, { top: '36%', left: '92%' },
+              { top: '50%', left: '6%' }, { top: '52%', left: '16%' }, { top: '48%', left: '26%' },
+              { top: '53%', left: '36%' }, { top: '49%', left: '46%' }, { top: '51%', left: '56%' },
+              { top: '47%', left: '66%' }, { top: '54%', left: '76%' }, { top: '46%', left: '86%' },
+              { top: '60%', left: '10%' }, { top: '62%', left: '20%' }, { top: '58%', left: '30%' },
+              { top: '63%', left: '40%' }, { top: '59%', left: '50%' }, { top: '61%', left: '60%' },
+              { top: '57%', left: '70%' }, { top: '64%', left: '80%' }, { top: '56%', left: '90%' },
+              { top: '70%', left: '8%' }, { top: '72%', left: '18%' }, { top: '68%', left: '28%' },
+              { top: '73%', left: '38%' }, { top: '69%', left: '48%' }, { top: '71%', left: '58%' },
+              { top: '67%', left: '68%' }, { top: '74%', left: '78%' }, { top: '66%', left: '88%' },
+              { top: '80%', left: '12%' }, { top: '82%', left: '22%' }, { top: '78%', left: '32%' },
+              { top: '83%', left: '42%' }, { top: '79%', left: '52%' }, { top: '81%', left: '62%' },
+              { top: '77%', left: '72%' }, { top: '84%', left: '82%' }, { top: '76%', left: '92%' },
+              { top: '90%', left: '6%' }, { top: '92%', left: '16%' }, { top: '88%', left: '26%' },
+              { top: '93%', left: '36%' }, { top: '89%', left: '46%' }, { top: '91%', left: '56%' },
+              { top: '87%', left: '66%' }, { top: '94%', left: '76%' }, { top: '86%', left: '86%' },
+              { top: '3%', left: '50%' }, { top: '13%', left: '5%' }, { top: '24%', left: '95%' },
+              { top: '35%', left: '3%' }, { top: '45%', left: '96%' }, { top: '55%', left: '4%' },
+              { top: '65%', left: '94%' }, { top: '75%', left: '6%' }, { top: '85%', left: '93%' },
+              { top: '95%', left: '10%' }, { top: '4%', left: '92%' }, { top: '14%', left: '8%' },
+              { top: '25%', left: '12%' }, { top: '36%', left: '88%' }, { top: '46%', left: '14%' },
+              { top: '56%', left: '84%' }, { top: '66%', left: '16%' }, { top: '76%', left: '86%' },
+              { top: '86%', left: '18%' }, { top: '96%', left: '82%' }, { top: '2%', left: '70%' },
+              { top: '11%', left: '33%' }, { top: '21%', left: '23%' }, { top: '31%', left: '73%' },
+              { top: '41%', left: '13%' }, { top: '51%', left: '83%' }, { top: '61%', left: '43%' },
+              { top: '71%', left: '53%' }, { top: '81%', left: '63%' }, { top: '91%', left: '73%' }
+            ];
+            
+            const position = positions[idx % positions.length];
+            const sizes = ['w-12 h-8', 'w-14 h-9', 'w-16 h-11', 'w-10 h-7', 'w-11 h-7'];
+            const size = sizes[idx % sizes.length];
+            const duration = 3 + (idx % 5) * 0.3;
+            const delay = (idx % 10) * 0.2;
+            
+            return (
+              <img
+                key={idx}
+                src={`https://flagcdn.com/${flag.code}.svg`}
+                alt={flag.name}
+                className={`absolute ${size} object-cover rounded shadow-lg animate-float`}
+                style={{
+                  top: position.top,
+                  left: position.left,
+                  animationDuration: `${duration}s`,
+                  animationDelay: `${delay}s`
+                }}
+                loading="lazy"
+              />
+            );
+          })}
         </div>
 
         {/* Neon Glow Effects */}
