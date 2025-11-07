@@ -43,10 +43,6 @@ localPort = 44113
 externalPort = 6000
 
 [[ports]]
-localPort = 45015
-externalPort = 8000
-
-[[ports]]
 localPort = 45669
 externalPort = 4200
 
@@ -76,3 +72,4 @@ waitForPort = 5000
 
 [agent]
 integrations = ["javascript_websocket:1.0.0", "javascript_mem_db:1.0.0"]
+expertMode = true
