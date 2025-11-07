@@ -26,9 +26,19 @@ export function ThemeProvider({
   storageKey = "voztra-theme",
   ...props
 }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(
-    () => (localStorage.getItem(storageKey) as Theme) || defaultTheme
-  );
+  const [theme, setTheme] = useState<Theme>(() => {
+    // Clear old theme keys from previous branding
+    localStorage.removeItem("voicelink-theme");
+    
+    // Get current theme or use dark as default
+    const storedTheme = localStorage.getItem(storageKey) as Theme;
+    if (!storedTheme) {
+      // First time user - set dark mode and save it
+      localStorage.setItem(storageKey, defaultTheme);
+      return defaultTheme;
+    }
+    return storedTheme;
+  });
 
   useEffect(() => {
     const root = window.document.documentElement;
