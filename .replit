@@ -6,7 +6,7 @@ hidden = [".config", ".git", "generated-icon.png", "node_modules", "dist"]
 channel = "stable-25_05"
 
 [deployment]
-deploymentTarget = "autoscale"
+deploymentTarget = "gce"
 build = ["npm", "run", "build"]
 run = ["npm", "run", "start"]
 
@@ -21,10 +21,6 @@ externalPort = 3000
 [[ports]]
 localPort = 33719
 externalPort = 3001
-
-[[ports]]
-localPort = 34981
-externalPort = 6800
 
 [[ports]]
 localPort = 35069
