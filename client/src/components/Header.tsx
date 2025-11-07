@@ -18,7 +18,7 @@ export function Header() {
                 <Languages className="h-6 w-6 text-white" />
               </div>
               <span className="text-xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 dark:from-white dark:to-slate-300 bg-clip-text text-transparent">
-                VoiceLink
+                Voztra
               </span>
             </div>
           </Link>

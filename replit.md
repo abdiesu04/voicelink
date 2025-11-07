@@ -1,7 +1,7 @@
-# VoiceLink - Real-Time Voice Translation App
+# Voztra - Real-Time Voice Translation App
 
 ## Overview
-VoiceLink is a real-time voice translation application designed to break language barriers. It enables two users to engage in conversations in different languages with instant, high-quality translation using Azure Speech and Translation services. The application leverages WebSocket connections for low-latency communication, providing a natural and seamless cross-lingual interaction experience. The project aims to deliver a robust MVP with real-time interim transcription and gender-specific voice selection.
+Voztra is a real-time voice translation application designed to erase every language barrier. It enables two users to engage in conversations in different languages with instant, high-quality translation using Azure Speech and Translation services. Voztra instantly translates your voice into another language — same tone, same emotion, same gender — so you sound like a native speaker across 97+ languages. The application leverages WebSocket connections for low-latency communication, providing a natural and seamless cross-lingual interaction experience.
 
 ## User Preferences
 I prefer clear and concise explanations. I want an iterative development approach, where I can review changes frequently. Please ask for my approval before implementing any major architectural changes or adding new external dependencies. When making code changes, ensure they align with the existing code style and design patterns.
@@ -9,7 +9,7 @@ I prefer clear and concise explanations. I want an iterative development approac
 ## System Architecture
 
 ### UI/UX Decisions
-The application features a clean, modern design with full light/dark theme support, **defaulting to light mode for new users**. The color scheme uses Indigo/Blue for interactive elements and Cyan for highlights. It uses the Inter font throughout. Components are built with Shadcn UI and Tailwind CSS, adhering to a responsive, mobile-first design. Theme preference is persisted in localStorage. The UI includes:
+The application features a clean, modern design with full light/dark theme support, **defaulting to dark mode for new users**. The color scheme uses Indigo/Blue for interactive elements and Violet/Purple for highlights. It uses the Inter font throughout. Components are built with Shadcn UI and Tailwind CSS, adhering to a responsive, mobile-first design. Theme preference is persisted in localStorage. The UI includes:
 - A landing page, room creation/joining interfaces with language and voice gender selection.
 - An active translation interface with a dual-panel layout, connection status indicators, microphone controls, and a share dialog.
 - A `TranscriptionPanel` visually distinguishes interim transcriptions (dashed border, italic) from final translated messages.
