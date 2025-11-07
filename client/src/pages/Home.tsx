@@ -81,52 +81,181 @@ const testimonials = [
 export default function Home() {
   return (
     <div className="min-h-screen bg-white dark:bg-slate-950">
-      {/* Hero Section */}
+      {/* Hero Section with Flag Collage & Floating Elements */}
       <section className="relative min-h-screen flex items-center overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950" />
+        {/* Gradient Background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 via-violet-50 to-blue-50 dark:from-slate-950 dark:via-indigo-950/30 dark:to-slate-950" />
+        
+        {/* Animated Flag Wave Background */}
+        <div className="absolute inset-0 opacity-20 dark:opacity-10">
+          <div className="absolute top-10 left-10 text-8xl animate-bounce" style={{ animationDuration: '3s', animationDelay: '0s' }}>🇺🇸</div>
+          <div className="absolute top-20 right-20 text-7xl animate-bounce" style={{ animationDuration: '4s', animationDelay: '0.5s' }}>🇫🇷</div>
+          <div className="absolute top-40 left-1/3 text-6xl animate-bounce" style={{ animationDuration: '3.5s', animationDelay: '1s' }}>🇯🇵</div>
+          <div className="absolute bottom-40 right-1/4 text-8xl animate-bounce" style={{ animationDuration: '4.5s', animationDelay: '0.3s' }}>🇪🇹</div>
+          <div className="absolute bottom-20 left-1/4 text-7xl animate-bounce" style={{ animationDuration: '3.8s', animationDelay: '0.8s' }}>🇧🇷</div>
+          <div className="absolute top-1/2 right-10 text-6xl animate-bounce" style={{ animationDuration: '4.2s', animationDelay: '1.2s' }}>🇩🇪</div>
+          <div className="absolute bottom-1/3 left-20 text-7xl animate-bounce" style={{ animationDuration: '3.3s', animationDelay: '0.6s' }}>🇨🇳</div>
+          <div className="absolute top-1/3 left-10 text-5xl animate-bounce" style={{ animationDuration: '3.7s', animationDelay: '1.5s' }}>🇪🇸</div>
+          <div className="absolute bottom-10 right-1/3 text-6xl animate-bounce" style={{ animationDuration: '4.1s', animationDelay: '0.9s' }}>🇮🇳</div>
+          <div className="absolute top-1/4 right-1/3 text-5xl animate-bounce" style={{ animationDuration: '3.9s', animationDelay: '1.8s' }}>🇰🇷</div>
+          <div className="absolute top-2/3 left-1/3 text-6xl animate-bounce" style={{ animationDuration: '4.3s', animationDelay: '0.4s' }}>🇮🇹</div>
+          <div className="absolute bottom-1/4 right-10 text-5xl animate-bounce" style={{ animationDuration: '3.6s', animationDelay: '1.3s' }}>🇷🇺</div>
+        </div>
+
+        {/* Neon Glow Effects */}
         <div className="absolute inset-0">
-          <div className="absolute top-20 left-1/4 w-96 h-96 bg-primary/10 dark:bg-primary/20 rounded-full blur-[128px] animate-pulse" />
-          <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-violet-500/10 dark:bg-violet-500/20 rounded-full blur-[128px] animate-pulse" style={{ animationDelay: '2s' }} />
+          <div className="absolute top-20 left-1/4 w-96 h-96 bg-indigo-500/20 dark:bg-indigo-500/30 rounded-full blur-[128px] animate-pulse" />
+          <div className="absolute bottom-20 right-1/4 w-96 h-96 bg-violet-500/20 dark:bg-violet-500/30 rounded-full blur-[128px] animate-pulse" style={{ animationDelay: '2s' }} />
+          <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-blue-500/15 dark:bg-blue-500/25 rounded-full blur-[128px] animate-pulse" style={{ animationDelay: '1s' }} />
+        </div>
+
+        {/* Floating Speech Bubbles with Multilingual Greetings */}
+        <div className="absolute inset-0 pointer-events-none">
+          {/* Hello - English */}
+          <div className="absolute top-24 left-16 animate-float" style={{ animationDelay: '0s', animationDuration: '6s' }}>
+            <div className="px-6 py-3 rounded-2xl bg-white/80 dark:bg-slate-800/80 backdrop-blur-md shadow-xl border border-white/20 dark:border-slate-700/50">
+              <p className="text-lg font-semibold text-indigo-600 dark:text-indigo-400">Hello</p>
+            </div>
+          </div>
+
+          {/* Bonjour - French */}
+          <div className="absolute top-32 right-24 animate-float" style={{ animationDelay: '1s', animationDuration: '7s' }}>
+            <div className="px-6 py-3 rounded-2xl bg-white/80 dark:bg-slate-800/80 backdrop-blur-md shadow-xl border border-white/20 dark:border-slate-700/50">
+              <p className="text-lg font-semibold text-violet-600 dark:text-violet-400">Bonjour</p>
+            </div>
+          </div>
+
+          {/* Hola - Spanish */}
+          <div className="absolute top-1/3 left-24 animate-float" style={{ animationDelay: '2s', animationDuration: '6.5s' }}>
+            <div className="px-6 py-3 rounded-2xl bg-white/80 dark:bg-slate-800/80 backdrop-blur-md shadow-xl border border-white/20 dark:border-slate-700/50">
+              <p className="text-lg font-semibold text-blue-600 dark:text-blue-400">Hola</p>
+            </div>
+          </div>
+
+          {/* ሰላም - Amharic */}
+          <div className="absolute bottom-1/3 right-20 animate-float" style={{ animationDelay: '3s', animationDuration: '7.5s' }}>
+            <div className="px-6 py-3 rounded-2xl bg-white/80 dark:bg-slate-800/80 backdrop-blur-md shadow-xl border border-white/20 dark:border-slate-700/50">
+              <p className="text-lg font-semibold text-emerald-600 dark:text-emerald-400">ሰላም</p>
+            </div>
+          </div>
+
+          {/* 你好 - Chinese */}
+          <div className="absolute bottom-24 left-32 animate-float" style={{ animationDelay: '1.5s', animationDuration: '6.8s' }}>
+            <div className="px-6 py-3 rounded-2xl bg-white/80 dark:bg-slate-800/80 backdrop-blur-md shadow-xl border border-white/20 dark:border-slate-700/50">
+              <p className="text-lg font-semibold text-pink-600 dark:text-pink-400">你好</p>
+            </div>
+          </div>
+
+          {/* नमस्ते - Hindi */}
+          <div className="absolute top-2/3 right-32 animate-float" style={{ animationDelay: '2.5s', animationDuration: '7.2s' }}>
+            <div className="px-6 py-3 rounded-2xl bg-white/80 dark:bg-slate-800/80 backdrop-blur-md shadow-xl border border-white/20 dark:border-slate-700/50">
+              <p className="text-lg font-semibold text-amber-600 dark:text-amber-400">नमस्ते</p>
+            </div>
+          </div>
         </div>
         
+        {/* Main Content */}
         <div className="container mx-auto px-6 md:px-12 relative z-10">
-          <div className="max-w-5xl mx-auto text-center py-20 pt-32 space-y-8">
+          <div className="max-w-6xl mx-auto text-center py-20 pt-32 space-y-10">
+            {/* Central Microphone Icon with Glow */}
+            <div className="flex justify-center mb-8">
+              <div className="relative group">
+                <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 via-violet-500 to-blue-500 rounded-full blur-2xl opacity-40 group-hover:opacity-60 animate-pulse" />
+                <div className="relative h-24 w-24 rounded-full bg-gradient-to-br from-indigo-500 via-violet-500 to-blue-500 flex items-center justify-center shadow-2xl ring-4 ring-white/20 dark:ring-slate-800/50">
+                  <Mic className="h-12 w-12 text-white" />
+                </div>
+              </div>
+            </div>
+
+            {/* New Headline */}
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
-              <span className="block text-slate-900 dark:text-white">Erase every</span>
-              <span className="block text-slate-900 dark:text-white">language barrier</span>
+              <span className="block bg-gradient-to-r from-indigo-600 via-violet-600 to-blue-600 dark:from-indigo-400 dark:via-violet-400 dark:to-blue-400 bg-clip-text text-transparent">
+                Break Language Barriers
+              </span>
+              <span className="block text-slate-900 dark:text-white mt-2">
+                Instantly
+              </span>
             </h1>
             
+            {/* New Subtext */}
             <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-300 max-w-4xl mx-auto leading-relaxed">
-              Voztra instantly translates your voice into another language — same tone, same emotion, same gender — so you sound like a native speaker across 97+ languages.
+              Speak once, connect with the world — real-time voice translation for everyone.
             </p>
 
-            <p className="text-lg text-slate-500 dark:text-slate-400 italic">
-              It's your voice, simply understood everywhere.
-            </p>
+            {/* Glassmorphic Language Pair Cards */}
+            <div className="flex flex-wrap justify-center gap-4 py-8 max-w-4xl mx-auto">
+              <div className="px-6 py-4 rounded-2xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl shadow-xl border border-white/30 dark:border-slate-700/50 hover:scale-105 transition-transform" data-testid="card-en-fr">
+                <p className="text-base md:text-lg font-semibold text-indigo-600 dark:text-indigo-400">English ↔ French</p>
+              </div>
+              <div className="px-6 py-4 rounded-2xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl shadow-xl border border-white/30 dark:border-slate-700/50 hover:scale-105 transition-transform" data-testid="card-es-zh">
+                <p className="text-base md:text-lg font-semibold text-violet-600 dark:text-violet-400">Spanish ↔ Chinese</p>
+              </div>
+              <div className="px-6 py-4 rounded-2xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl shadow-xl border border-white/30 dark:border-slate-700/50 hover:scale-105 transition-transform" data-testid="card-de-ja">
+                <p className="text-base md:text-lg font-semibold text-blue-600 dark:text-blue-400">German ↔ Japanese</p>
+              </div>
+              <div className="px-6 py-4 rounded-2xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl shadow-xl border border-white/30 dark:border-slate-700/50 hover:scale-105 transition-transform" data-testid="card-ar-pt">
+                <p className="text-base md:text-lg font-semibold text-emerald-600 dark:text-emerald-400">Arabic ↔ Portuguese</p>
+              </div>
+            </div>
+
+            {/* 3D Globe with Orbiting Flags */}
+            <div className="flex justify-center py-6">
+              <div className="relative w-40 h-40">
+                {/* Globe */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="h-32 w-32 rounded-full bg-gradient-to-br from-blue-500 via-indigo-500 to-violet-500 shadow-2xl flex items-center justify-center">
+                    <Globe className="h-16 w-16 text-white animate-spin" style={{ animationDuration: '20s' }} />
+                  </div>
+                </div>
+                {/* Orbiting Flags */}
+                <div className="absolute inset-0 animate-spin" style={{ animationDuration: '10s' }}>
+                  <div className="absolute top-0 left-1/2 -translate-x-1/2 text-3xl">🇬🇧</div>
+                </div>
+                <div className="absolute inset-0 animate-spin" style={{ animationDuration: '12s', animationDelay: '1s' }}>
+                  <div className="absolute bottom-0 left-1/2 -translate-x-1/2 text-3xl">🇯🇵</div>
+                </div>
+                <div className="absolute inset-0 animate-spin" style={{ animationDuration: '14s', animationDelay: '2s' }}>
+                  <div className="absolute top-1/2 left-0 -translate-y-1/2 text-3xl">🇫🇷</div>
+                </div>
+                <div className="absolute inset-0 animate-spin" style={{ animationDuration: '11s', animationDelay: '0.5s' }}>
+                  <div className="absolute top-1/2 right-0 -translate-y-1/2 text-3xl">🇪🇸</div>
+                </div>
+              </div>
+            </div>
             
+            {/* CTA Buttons with Gradient */}
             <div className="flex flex-col sm:flex-row gap-4 pt-6 justify-center">
               <Link href="/create">
                 <Button 
                   size="lg" 
-                  className="text-lg px-10 h-16 bg-primary hover:bg-primary/90 shadow-xl shadow-primary/25 group relative overflow-hidden" 
-                  data-testid="button-try-voztra"
+                  className="text-lg px-12 h-16 bg-gradient-to-r from-emerald-500 via-blue-500 to-violet-500 hover:from-emerald-600 hover:via-blue-600 hover:to-violet-600 text-white shadow-2xl shadow-blue-500/50 group relative overflow-hidden border-0" 
+                  data-testid="button-start-translating"
                 >
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000" />
-                  <Mic className="mr-2 h-6 w-6 relative z-10" />
-                  <span className="relative z-10">Try Voztra Free</span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000" />
+                  <Sparkles className="mr-2 h-6 w-6 relative z-10" />
+                  <span className="relative z-10 font-bold">Start Translating</span>
                 </Button>
               </Link>
               <a href="#how-it-works">
                 <Button
                   variant="outline"
                   size="lg"
-                  className="text-lg px-10 h-16 border-slate-300 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 backdrop-blur"
+                  className="text-lg px-10 h-16 border-2 border-indigo-300 dark:border-indigo-700 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl hover:bg-white dark:hover:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-lg"
                   data-testid="button-watch-demo"
                 >
                   <Volume2 className="mr-2 h-5 w-5" />
                   Watch Demo
                 </Button>
               </a>
+            </div>
+
+            {/* Connection Trail Visual */}
+            <div className="pt-8 flex items-center justify-center gap-2 text-slate-400 dark:text-slate-600">
+              <span className="text-2xl">💬</span>
+              <div className="w-8 h-0.5 bg-gradient-to-r from-indigo-500 to-violet-500" />
+              <span className="text-2xl">🌍</span>
+              <div className="w-8 h-0.5 bg-gradient-to-r from-violet-500 to-blue-500" />
+              <span className="text-2xl">💬</span>
             </div>
           </div>
         </div>
