@@ -71,7 +71,7 @@ export default function Register() {
       await register(email, password, confirmPassword, selectedPlan);
       setStep(3);
       setTimeout(() => {
-        setLocation("/create");
+        setLocation("/");
       }, 2000);
     } catch (error) {
       toast({
@@ -294,7 +294,7 @@ export default function Register() {
 
               <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground animate-pulse">
                 <div className="h-2 w-2 rounded-full bg-primary animate-bounce" />
-                Redirecting to create your first room...
+                Redirecting to home page...
               </div>
             </CardContent>
           </Card>
