@@ -3,9 +3,13 @@ import { drizzle } from "drizzle-orm/neon-serverless";
 import { eq, and } from "drizzle-orm";
 import * as schema from "@shared/schema";
 import type { User, Subscription, Room, CreditUsage, SubscriptionPlan } from "@shared/schema";
+import { Pool, neonConfig } from "@neondatabase/serverless";
 import ws from "ws";
 
-const db = drizzle(process.env.DATABASE_URL!, { schema });
+neonConfig.webSocketConstructor = ws;
+
+const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+const db = drizzle(pool, { schema });
 
 export interface IStorage {
   // User methods
