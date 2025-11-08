@@ -184,87 +184,105 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Global Reach Section - 75 Country Flags */}
-      <section className="relative py-24 md:py-32 overflow-hidden bg-white dark:bg-slate-950">
+      {/* Global Reach Section - Infinite Scrolling Flags */}
+      <section className="relative py-24 md:py-32 overflow-hidden bg-gradient-to-b from-white via-indigo-50/30 to-white dark:from-slate-950 dark:via-indigo-950/20 dark:to-slate-950">
         <div className="container mx-auto px-6 md:px-12">
-          <div className="text-center mb-16 space-y-4">
+          <div className="text-center mb-20 space-y-4">
             <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white">
               Speak Any Language, Anywhere
             </h2>
             <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto">
-              Connect with people from 75+ countries across 47 languages
+              Connect with people from <span className="font-bold text-indigo-600 dark:text-indigo-400">75+ countries</span> across <span className="font-bold text-violet-600 dark:text-violet-400">47 languages</span>
             </p>
           </div>
 
-          {/* Flag Collage Display */}
-          <div className="relative h-[500px] md:h-[600px] max-w-7xl mx-auto">
-            <div className="absolute inset-0">
-              {countryFlags.map((flag, idx) => {
-                const positions = [
-                  { top: '5%', left: '5%' }, { top: '8%', left: '15%' }, { top: '12%', left: '25%' },
-                  { top: '5%', left: '35%' }, { top: '10%', left: '45%' }, { top: '7%', left: '55%' },
-                  { top: '10%', left: '65%' }, { top: '6%', left: '75%' }, { top: '9%', left: '85%' },
-                  { top: '15%', left: '10%' }, { top: '18%', left: '20%' }, { top: '20%', left: '30%' },
-                  { top: '17%', left: '40%' }, { top: '22%', left: '50%' }, { top: '19%', left: '60%' },
-                  { top: '21%', left: '70%' }, { top: '16%', left: '80%' }, { top: '23%', left: '90%' },
-                  { top: '28%', left: '8%' }, { top: '30%', left: '18%' }, { top: '32%', left: '28%' },
-                  { top: '27%', left: '38%' }, { top: '33%', left: '48%' }, { top: '29%', left: '58%' },
-                  { top: '31%', left: '68%' }, { top: '26%', left: '78%' }, { top: '34%', left: '88%' },
-                  { top: '40%', left: '12%' }, { top: '42%', left: '22%' }, { top: '38%', left: '32%' },
-                  { top: '43%', left: '42%' }, { top: '39%', left: '52%' }, { top: '41%', left: '62%' },
-                  { top: '37%', left: '72%' }, { top: '44%', left: '82%' }, { top: '36%', left: '92%' },
-                  { top: '50%', left: '6%' }, { top: '52%', left: '16%' }, { top: '48%', left: '26%' },
-                  { top: '53%', left: '36%' }, { top: '49%', left: '46%' }, { top: '51%', left: '56%' },
-                  { top: '47%', left: '66%' }, { top: '54%', left: '76%' }, { top: '46%', left: '86%' },
-                  { top: '60%', left: '10%' }, { top: '62%', left: '20%' }, { top: '58%', left: '30%' },
-                  { top: '63%', left: '40%' }, { top: '59%', left: '50%' }, { top: '61%', left: '60%' },
-                  { top: '57%', left: '70%' }, { top: '64%', left: '80%' }, { top: '56%', left: '90%' },
-                  { top: '70%', left: '8%' }, { top: '72%', left: '18%' }, { top: '68%', left: '28%' },
-                  { top: '73%', left: '38%' }, { top: '69%', left: '48%' }, { top: '71%', left: '58%' },
-                  { top: '67%', left: '68%' }, { top: '74%', left: '78%' }, { top: '66%', left: '88%' },
-                  { top: '80%', left: '12%' }, { top: '82%', left: '22%' }, { top: '78%', left: '32%' },
-                  { top: '83%', left: '42%' }, { top: '79%', left: '52%' }, { top: '81%', left: '62%' },
-                  { top: '77%', left: '72%' }, { top: '84%', left: '82%' }, { top: '76%', left: '92%' },
-                  { top: '90%', left: '6%' }, { top: '92%', left: '16%' }, { top: '88%', left: '26%' },
-                  { top: '93%', left: '36%' }, { top: '89%', left: '46%' }, { top: '91%', left: '56%' },
-                  { top: '87%', left: '66%' }, { top: '94%', left: '76%' }, { top: '86%', left: '86%' },
-                  { top: '3%', left: '50%' }, { top: '13%', left: '5%' }, { top: '24%', left: '95%' },
-                  { top: '35%', left: '3%' }, { top: '45%', left: '96%' }, { top: '55%', left: '4%' },
-                  { top: '65%', left: '94%' }, { top: '75%', left: '6%' }, { top: '85%', left: '93%' },
-                  { top: '95%', left: '10%' }, { top: '4%', left: '92%' }, { top: '14%', left: '8%' },
-                  { top: '25%', left: '12%' }, { top: '36%', left: '88%' }, { top: '46%', left: '14%' },
-                  { top: '56%', left: '84%' }, { top: '66%', left: '16%' }, { top: '76%', left: '86%' },
-                  { top: '86%', left: '18%' }, { top: '96%', left: '82%' }, { top: '2%', left: '70%' },
-                  { top: '11%', left: '33%' }, { top: '21%', left: '23%' }, { top: '31%', left: '73%' },
-                  { top: '41%', left: '13%' }, { top: '51%', left: '83%' }, { top: '61%', left: '43%' },
-                  { top: '71%', left: '53%' }, { top: '81%', left: '63%' }, { top: '91%', left: '73%' }
-                ];
-                
-                const position = positions[idx % positions.length];
-                const sizes = ['w-16 h-11', 'w-20 h-14', 'w-24 h-16', 'w-14 h-9', 'w-18 h-12'];
-                const size = sizes[idx % sizes.length];
-                const duration = 3 + (idx % 5) * 0.3;
-                const delay = (idx % 10) * 0.2;
-                
-                return (
-                  <img
-                    key={idx}
-                    src={`https://flagcdn.com/${flag.code}.svg`}
-                    alt={flag.name}
-                    className={`absolute ${size} object-cover rounded-md shadow-xl hover:scale-125 hover:shadow-2xl transition-all duration-300 animate-float opacity-60 hover:opacity-100 dark:opacity-50 dark:hover:opacity-90`}
-                    style={{
-                      top: position.top,
-                      left: position.left,
-                      animationDuration: `${duration}s`,
-                      animationDelay: `${delay}s`
-                    }}
-                    loading="lazy"
-                    data-testid={`flag-${flag.code}`}
-                  />
-                );
-              })}
+          {/* Infinite Scrolling Flag Rows */}
+          <div className="space-y-8">
+            {/* Row 1 - Scroll Left */}
+            <div className="relative overflow-hidden">
+              <div className="flex gap-6 animate-scroll-left" style={{ width: 'fit-content' }}>
+                {[...countryFlags.slice(0, 25), ...countryFlags.slice(0, 25)].map((flag, idx) => (
+                  <div 
+                    key={`row1-${idx}`}
+                    className="flex-shrink-0 group cursor-pointer"
+                    data-testid={`flag-row1-${flag.code}`}
+                  >
+                    <div className="relative">
+                      <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 via-violet-500 to-blue-500 rounded-xl opacity-0 group-hover:opacity-30 blur transition-opacity duration-300" />
+                      <img
+                        src={`https://flagcdn.com/${flag.code}.svg`}
+                        alt={flag.name}
+                        className="relative w-28 h-20 object-cover rounded-lg shadow-lg group-hover:shadow-2xl transition-all duration-300 group-hover:scale-110 opacity-80 group-hover:opacity-100 dark:opacity-70 dark:group-hover:opacity-100 ring-2 ring-slate-200 dark:ring-slate-700 group-hover:ring-4 group-hover:ring-indigo-400 dark:group-hover:ring-indigo-600"
+                      />
+                      <div className="absolute -bottom-8 left-0 right-0 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 px-2 py-1 rounded-md shadow-md">
+                          {flag.name}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Row 2 - Scroll Right */}
+            <div className="relative overflow-hidden">
+              <div className="flex gap-6 animate-scroll-right" style={{ width: 'fit-content' }}>
+                {[...countryFlags.slice(25, 50), ...countryFlags.slice(25, 50)].map((flag, idx) => (
+                  <div 
+                    key={`row2-${idx}`}
+                    className="flex-shrink-0 group cursor-pointer"
+                    data-testid={`flag-row2-${flag.code}`}
+                  >
+                    <div className="relative">
+                      <div className="absolute -inset-1 bg-gradient-to-r from-violet-500 via-purple-500 to-pink-500 rounded-xl opacity-0 group-hover:opacity-30 blur transition-opacity duration-300" />
+                      <img
+                        src={`https://flagcdn.com/${flag.code}.svg`}
+                        alt={flag.name}
+                        className="relative w-28 h-20 object-cover rounded-lg shadow-lg group-hover:shadow-2xl transition-all duration-300 group-hover:scale-110 opacity-80 group-hover:opacity-100 dark:opacity-70 dark:group-hover:opacity-100 ring-2 ring-slate-200 dark:ring-slate-700 group-hover:ring-4 group-hover:ring-violet-400 dark:group-hover:ring-violet-600"
+                      />
+                      <div className="absolute -bottom-8 left-0 right-0 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 px-2 py-1 rounded-md shadow-md">
+                          {flag.name}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Row 3 - Scroll Left */}
+            <div className="relative overflow-hidden">
+              <div className="flex gap-6 animate-scroll-left" style={{ width: 'fit-content' }}>
+                {[...countryFlags.slice(50, 75), ...countryFlags.slice(50, 75)].map((flag, idx) => (
+                  <div 
+                    key={`row3-${idx}`}
+                    className="flex-shrink-0 group cursor-pointer"
+                    data-testid={`flag-row3-${flag.code}`}
+                  >
+                    <div className="relative">
+                      <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 rounded-xl opacity-0 group-hover:opacity-30 blur transition-opacity duration-300" />
+                      <img
+                        src={`https://flagcdn.com/${flag.code}.svg`}
+                        alt={flag.name}
+                        className="relative w-28 h-20 object-cover rounded-lg shadow-lg group-hover:shadow-2xl transition-all duration-300 group-hover:scale-110 opacity-80 group-hover:opacity-100 dark:opacity-70 dark:group-hover:opacity-100 ring-2 ring-slate-200 dark:ring-slate-700 group-hover:ring-4 group-hover:ring-blue-400 dark:group-hover:ring-blue-600"
+                      />
+                      <div className="absolute -bottom-8 left-0 right-0 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 px-2 py-1 rounded-md shadow-md">
+                          {flag.name}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
+
+          {/* Gradient Overlays for Fade Effect */}
+          <div className="absolute top-0 left-0 bottom-0 w-32 bg-gradient-to-r from-white dark:from-slate-950 to-transparent pointer-events-none z-10" />
+          <div className="absolute top-0 right-0 bottom-0 w-32 bg-gradient-to-l from-white dark:from-slate-950 to-transparent pointer-events-none z-10" />
         </div>
       </section>
 
