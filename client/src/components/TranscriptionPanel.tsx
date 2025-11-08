@@ -50,44 +50,39 @@ export function TranscriptionPanel({
       )}
       data-testid={`panel-transcription-${title.toLowerCase()}`}
     >
-      {/* Header */}
+      {/* Header - Compact */}
       <div className={cn(
-        "flex items-center justify-between px-6 py-4 border-b-2",
+        "flex items-center justify-between px-4 py-3 border-b",
         isActive 
           ? isUser 
             ? "bg-gradient-to-r from-primary/10 to-indigo-500/5 border-primary/20" 
             : "bg-gradient-to-r from-accent/10 to-purple-500/5 border-accent/20"
           : "bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-800"
       )}>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <div className={cn(
-            "h-10 w-10 rounded-xl flex items-center justify-center shadow-sm",
+            "h-8 w-8 rounded-lg flex items-center justify-center",
             isUser 
               ? "bg-gradient-to-br from-primary to-indigo-600" 
               : "bg-gradient-to-br from-accent to-purple-600"
           )}>
             {isUser ? (
-              <Mic className="h-5 w-5 text-white" />
+              <Mic className="h-4 w-4 text-white" />
             ) : (
-              <Volume2 className="h-5 w-5 text-white" />
+              <Volume2 className="h-4 w-4 text-white" />
             )}
           </div>
-          <div>
-            <h3 className="text-base font-bold text-foreground">{title}</h3>
-            <p className="text-xs text-muted-foreground">
-              {messages.length} {messages.length === 1 ? 'message' : 'messages'}
-            </p>
-          </div>
+          <h3 className="text-sm font-bold text-foreground">{title}</h3>
         </div>
         
         {isSpeaking && (
           <div className={cn(
-            "flex items-center gap-2 px-3 py-1.5 rounded-full shadow-sm",
+            "flex items-center gap-1.5 px-2.5 py-1 rounded-full",
             isUser 
               ? "bg-primary text-white" 
               : "bg-accent text-white"
           )}>
-            <div className="h-2 w-2 rounded-full bg-white animate-pulse" />
+            <div className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
             <span className="text-xs font-semibold">Speaking</span>
           </div>
         )}

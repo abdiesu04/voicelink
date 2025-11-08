@@ -1282,91 +1282,63 @@ export default function Room() {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent" />
       <div className="absolute inset-0 bg-[linear-gradient(rgba(99,102,241,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(99,102,241,0.03)_1px,transparent_1px)] bg-[size:72px_72px]" />
       
-      {/* Header - Mobile Optimized */}
+      {/* Header - Compact Desktop */}
       <header className="border-b border-slate-300/50 dark:border-slate-800/50 bg-white/50 dark:bg-slate-900/50 backdrop-blur-xl relative z-10 pt-16 md:pt-20">
-        <div className="container mx-auto px-3 sm:px-6 md:px-12 py-3 md:py-6">
-          <div className="flex flex-col gap-2 md:gap-4">
-            {/* Top Row - Connection & End Call */}
-            <div className="flex items-center justify-between gap-2">
-              <ConnectionStatus 
-                status={connectionStatus} 
-                disconnectReason={disconnectReason}
-                disconnectDetails={disconnectDetails}
-              />
-              
-              <Button
-                variant="destructive"
-                size="sm"
-                onClick={handleEndCall}
-                className="gap-2 h-8 md:h-9"
-                data-testid="button-end-call"
-              >
-                <PhoneOff className="h-3 w-3 md:h-4 md:w-4" />
-                <span className="hidden sm:inline text-xs md:text-sm">End Call</span>
-              </Button>
-            </div>
-
-            {/* Language Display - Mobile Optimized */}
+        <div className="container mx-auto px-3 sm:px-6 md:px-12 py-2">
+          <div className="flex items-center justify-between gap-4">
+            {/* Left: Connection Status */}
+            <ConnectionStatus 
+              status={connectionStatus} 
+              disconnectReason={disconnectReason}
+              disconnectDetails={disconnectDetails}
+            />
+            
+            {/* Center: Language & Voice Info - Compact */}
             {myLanguage && theirLanguage && (
-              <div className="flex items-center justify-center gap-2 sm:gap-4 px-3 sm:px-6 py-2 sm:py-3 rounded-xl sm:rounded-2xl bg-gradient-to-r from-primary/10 to-accent/10 border border-slate-300/50 dark:border-slate-700/50 backdrop-blur-sm">
-                <div className="flex items-center gap-2 sm:gap-3">
+              <div className="flex items-center gap-4">
+                {/* You */}
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-primary/5 border border-primary/20">
                   <img 
                     src={`https://flagcdn.com/w40/${myLanguage.countryCode.toLowerCase()}.png`}
-                    width="24"
-                    height="18"
+                    width="20"
+                    height="15"
                     alt={myLanguage.code}
-                    className="rounded border border-slate-400 dark:border-slate-600 sm:w-8 sm:h-6"
+                    className="rounded border border-slate-400 dark:border-slate-600"
                   />
-                  <div>
-                    <div className="text-xs sm:text-sm font-bold text-foreground">{myLanguage.name}</div>
-                    <div className="text-[10px] sm:text-xs text-muted-foreground">You</div>
-                  </div>
+                  <span className="text-xs font-semibold text-foreground capitalize">
+                    {myLanguage.name} ({voiceGender})
+                  </span>
                 </div>
-                <div className="h-8 sm:h-10 w-px bg-border" />
-                <div className="flex items-center gap-2 sm:gap-3">
+                
+                <div className="text-muted-foreground">↔</div>
+                
+                {/* Partner */}
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-accent/5 border border-accent/20">
                   <img 
                     src={`https://flagcdn.com/w40/${theirLanguage.countryCode.toLowerCase()}.png`}
-                    width="24"
-                    height="18"
+                    width="20"
+                    height="15"
                     alt={theirLanguage.code}
-                    className="rounded border border-slate-400 dark:border-slate-600 sm:w-8 sm:h-6"
+                    className="rounded border border-slate-400 dark:border-slate-600"
                   />
-                  <div>
-                    <div className="text-xs sm:text-sm font-bold text-foreground">{theirLanguage.name}</div>
-                    <div className="text-[10px] sm:text-xs text-muted-foreground">Partner</div>
-                  </div>
+                  <span className="text-xs font-semibold text-foreground capitalize">
+                    {theirLanguage.name} ({partnerVoiceGender || '...'})
+                  </span>
                 </div>
               </div>
             )}
-
-            {/* Voice Gender Display - Mobile Optimized */}
-            <div className="flex items-center justify-center gap-3 sm:gap-6">
-              <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg bg-white/70 dark:bg-slate-800/70 border border-slate-300/50 dark:border-slate-700/50">
-                <div className="h-6 w-6 sm:h-8 sm:w-8 rounded-full bg-primary/20 flex items-center justify-center flex-shrink-0">
-                  <Volume2 className="h-3 w-3 sm:h-4 sm:w-4 text-primary" />
-                </div>
-                <div>
-                  <div className="text-[10px] sm:text-xs text-muted-foreground">Your Voice</div>
-                  <div className="text-xs sm:text-sm font-semibold text-foreground capitalize" data-testid="text-my-voice-gender">
-                    {voiceGender}
-                  </div>
-                </div>
-              </div>
-
-              {partnerConnected && (
-                <div className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-4 py-1.5 sm:py-2 rounded-lg bg-white/70 dark:bg-slate-800/70 border border-slate-300/50 dark:border-slate-700/50">
-                  <div className="h-6 w-6 sm:h-8 sm:w-8 rounded-full bg-accent/20 flex items-center justify-center flex-shrink-0">
-                    <User className="h-3 w-3 sm:h-4 sm:w-4 text-accent" />
-                  </div>
-                  <div>
-                    <div className="text-[10px] sm:text-xs text-muted-foreground">Partner's Voice</div>
-                    <div className="text-xs sm:text-sm font-semibold text-foreground capitalize" data-testid="text-partner-voice-gender">
-                      {partnerVoiceGender || "..."}
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
+            
+            {/* Right: End Call */}
+            <Button
+              variant="destructive"
+              size="sm"
+              onClick={handleEndCall}
+              className="gap-2"
+              data-testid="button-end-call"
+            >
+              <PhoneOff className="h-4 w-4" />
+              <span className="hidden sm:inline text-sm">End Call</span>
+            </Button>
           </div>
         </div>
       </header>
