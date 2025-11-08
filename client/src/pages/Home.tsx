@@ -213,22 +213,6 @@ export default function Home() {
               Have real conversations across 47 languages. Two people, one room, instant voice translation.
             </p>
 
-            {/* Glassmorphic Language Pair Cards */}
-            <div className="flex flex-wrap justify-center gap-4 py-8 max-w-4xl mx-auto">
-              <div className="px-6 py-4 rounded-2xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl shadow-xl border border-white/30 dark:border-slate-700/50 hover:scale-105 transition-transform" data-testid="card-en-fr">
-                <p className="text-base md:text-lg font-semibold text-indigo-600 dark:text-indigo-400">English ↔ French</p>
-              </div>
-              <div className="px-6 py-4 rounded-2xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl shadow-xl border border-white/30 dark:border-slate-700/50 hover:scale-105 transition-transform" data-testid="card-es-zh">
-                <p className="text-base md:text-lg font-semibold text-violet-600 dark:text-violet-400">Spanish ↔ Chinese</p>
-              </div>
-              <div className="px-6 py-4 rounded-2xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl shadow-xl border border-white/30 dark:border-slate-700/50 hover:scale-105 transition-transform" data-testid="card-de-ja">
-                <p className="text-base md:text-lg font-semibold text-blue-600 dark:text-blue-400">German ↔ Japanese</p>
-              </div>
-              <div className="px-6 py-4 rounded-2xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl shadow-xl border border-white/30 dark:border-slate-700/50 hover:scale-105 transition-transform" data-testid="card-ar-pt">
-                <p className="text-base md:text-lg font-semibold text-emerald-600 dark:text-emerald-400">Arabic ↔ Portuguese</p>
-              </div>
-            </div>
-
             {/* CTA Buttons with Gradient */}
             <div className="flex flex-col sm:flex-row gap-4 pt-6 justify-center">
               <Link href="/create">
