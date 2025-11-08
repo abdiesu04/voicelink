@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Mic, Volume2, Languages } from "lucide-react";
+import { Mic, Volume2, Languages, Sparkles } from "lucide-react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 
@@ -30,7 +30,6 @@ export function TranscriptionPanel({
 
   useEffect(() => {
     if (scrollRef.current) {
-      // ScrollArea creates a viewport div that is the actual scrollable container
       const viewport = scrollRef.current.querySelector('[data-radix-scroll-area-viewport]') as HTMLDivElement;
       if (viewport) {
         viewport.scrollTop = viewport.scrollHeight;
@@ -41,148 +40,158 @@ export function TranscriptionPanel({
   return (
     <div
       className={cn(
-        "flex flex-col h-full rounded-xl sm:rounded-2xl transition-all duration-300 overflow-hidden",
-        "bg-white/30 dark:bg-slate-900/30 backdrop-blur-sm border",
+        "flex flex-col h-full rounded-2xl transition-all duration-300 overflow-hidden",
+        "bg-white dark:bg-slate-900 border-2",
         isActive 
           ? isUser 
-            ? "border-primary/50 shadow-lg shadow-primary/10" 
-            : "border-accent/50 shadow-lg shadow-accent/10"
-          : "border-slate-300/30 dark:border-slate-800/30"
+            ? "border-primary shadow-xl shadow-primary/20" 
+            : "border-accent shadow-xl shadow-accent/20"
+          : "border-slate-200 dark:border-slate-800 shadow-lg"
       )}
       data-testid={`panel-transcription-${title.toLowerCase()}`}
     >
-      {/* Header - Mobile Optimized */}
+      {/* Header */}
       <div className={cn(
-        "flex items-center justify-between px-3 sm:px-4 md:px-6 py-2 sm:py-3 md:py-4 border-b border-slate-300/30 dark:border-slate-800/30"
+        "flex items-center justify-between px-6 py-4 border-b-2",
+        isActive 
+          ? isUser 
+            ? "bg-gradient-to-r from-primary/10 to-indigo-500/5 border-primary/20" 
+            : "bg-gradient-to-r from-accent/10 to-purple-500/5 border-accent/20"
+          : "bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-800"
       )}>
-        <div className="flex items-center gap-2 sm:gap-3">
+        <div className="flex items-center gap-3">
           <div className={cn(
-            "h-7 w-7 sm:h-8 sm:w-8 rounded-lg flex items-center justify-center flex-shrink-0",
+            "h-10 w-10 rounded-xl flex items-center justify-center shadow-sm",
             isUser 
-              ? "bg-primary/10" 
-              : "bg-accent/10"
+              ? "bg-gradient-to-br from-primary to-indigo-600" 
+              : "bg-gradient-to-br from-accent to-purple-600"
           )}>
             {isUser ? (
-              <Mic className={cn("h-3.5 w-3.5 sm:h-4 sm:w-4", "text-primary")} />
+              <Mic className="h-5 w-5 text-white" />
             ) : (
-              <Volume2 className={cn("h-3.5 w-3.5 sm:h-4 sm:w-4", "text-accent")} />
+              <Volume2 className="h-5 w-5 text-white" />
             )}
           </div>
-          <span className="text-sm sm:text-base font-medium text-foreground">{title}</span>
+          <div>
+            <h3 className="text-base font-bold text-foreground">{title}</h3>
+            <p className="text-xs text-muted-foreground">
+              {messages.length} {messages.length === 1 ? 'message' : 'messages'}
+            </p>
+          </div>
         </div>
         
         {isSpeaking && (
           <div className={cn(
-            "flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 rounded-full",
+            "flex items-center gap-2 px-3 py-1.5 rounded-full shadow-sm",
             isUser 
-              ? "bg-primary/10 text-primary" 
-              : "bg-accent/10 text-accent"
+              ? "bg-primary text-white" 
+              : "bg-accent text-white"
           )}>
-            <div className={cn(
-              "h-1.5 w-1.5 rounded-full animate-pulse",
-              isUser ? "bg-primary" : "bg-accent"
-            )} />
-            <span className="text-[10px] sm:text-xs font-medium">Speaking</span>
+            <div className="h-2 w-2 rounded-full bg-white animate-pulse" />
+            <span className="text-xs font-semibold">Speaking</span>
           </div>
         )}
       </div>
 
-      {/* Messages Area - Mobile Optimized */}
-      <ScrollArea className="flex-1 px-3 sm:px-4 md:px-6 py-3 sm:py-4 md:py-6" ref={scrollRef}>
-        {messages.length === 0 && !interimText ? (
-          <div className="flex flex-col items-center justify-center h-full text-center px-4">
-            <div className={cn(
-              "h-12 w-12 sm:h-16 sm:w-16 rounded-xl flex items-center justify-center mb-3 sm:mb-4",
-              isUser 
-                ? "bg-primary/5" 
-                : "bg-accent/5"
-            )}>
-              <Languages className="h-6 w-6 sm:h-8 sm:w-8 text-muted-foreground" />
+      {/* Messages Area */}
+      <ScrollArea className="flex-1" ref={scrollRef}>
+        <div className="p-6 space-y-6">
+          {messages.length === 0 && !interimText ? (
+            <div className="flex flex-col items-center justify-center h-[400px] text-center">
+              <div className={cn(
+                "h-20 w-20 rounded-2xl flex items-center justify-center mb-4",
+                isUser 
+                  ? "bg-gradient-to-br from-primary/10 to-indigo-500/5" 
+                  : "bg-gradient-to-br from-accent/10 to-purple-500/5"
+              )}>
+                <Languages className="h-10 w-10 text-muted-foreground" />
+              </div>
+              <p className="text-base font-medium text-muted-foreground max-w-xs">
+                {isUser ? "Your conversation will appear here" : "Partner's conversation will appear here"}
+              </p>
+              <p className="text-sm text-muted-foreground/70 mt-2">
+                Start speaking to begin
+              </p>
             </div>
-            <p className="text-xs sm:text-sm text-muted-foreground font-medium">
-              {isUser ? "Your conversation will appear here" : "Partner's conversation will appear here"}
-            </p>
-          </div>
-        ) : (
-          <div className="space-y-4 sm:space-y-6">
-            {messages.map((message, index) => (
-              <div
-                key={message.id}
-                className="space-y-2 sm:space-y-3 animate-in fade-in slide-in-from-bottom-1 duration-300"
-                data-testid={`message-${message.id}`}
-              >
-                {/* Original Message */}
-                <div className="space-y-1.5 sm:space-y-2">
-                  <div className="flex items-center gap-1.5 sm:gap-2">
+          ) : (
+            <>
+              {messages.map((message) => (
+                <div
+                  key={message.id}
+                  className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-500"
+                  data-testid={`message-${message.id}`}
+                >
+                  {/* Original Message - Large and prominent */}
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <div className={cn(
+                        "h-1.5 w-1.5 rounded-full",
+                        message.isOwn ? "bg-primary" : "bg-accent"
+                      )} />
+                      <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                        Original
+                      </span>
+                    </div>
                     <div className={cn(
-                      "h-1 w-1 rounded-full",
-                      message.isOwn ? "bg-primary" : "bg-accent"
+                      "p-5 rounded-xl shadow-sm border-2",
+                      message.isOwn
+                        ? "bg-gradient-to-br from-primary/5 to-indigo-500/5 border-primary/20"
+                        : "bg-gradient-to-br from-accent/5 to-purple-500/5 border-accent/20"
+                    )}>
+                      <p className="text-lg leading-relaxed font-medium text-foreground">
+                        {message.originalText}
+                      </p>
+                    </div>
+                  </div>
+                  
+                  {/* Translation - Slightly smaller but still readable */}
+                  <div className="pl-8 space-y-2">
+                    <div className="flex items-center gap-2">
+                      <Sparkles className={cn(
+                        "h-3.5 w-3.5",
+                        message.isOwn ? "text-primary" : "text-accent"
+                      )} />
+                      <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                        Translation
+                      </span>
+                    </div>
+                    <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+                      <p className="text-base leading-relaxed text-muted-foreground">
+                        {message.translatedText}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+              
+              {/* Interim Text Display - Live transcription */}
+              {interimText && (
+                <div className="space-y-3 animate-in fade-in slide-in-from-bottom-2 duration-300">
+                  <div className="flex items-center gap-2">
+                    <div className={cn(
+                      "h-2 w-2 rounded-full animate-pulse",
+                      isUser ? "bg-primary" : "bg-accent"
                     )} />
-                    <span className="text-[10px] sm:text-xs text-slate-600 uppercase tracking-wider font-medium">
-                      Original
+                    <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide flex items-center gap-1.5">
+                      <Languages className="h-3.5 w-3.5 animate-pulse" />
+                      Transcribing...
                     </span>
                   </div>
                   <div className={cn(
-                    "p-3 sm:p-4 rounded-lg sm:rounded-xl",
-                    message.isOwn
-                      ? "bg-primary/5 border border-primary/10"
-                      : "bg-accent/5 border border-accent/10"
+                    "p-5 rounded-xl border-2 border-dashed",
+                    isUser
+                      ? "bg-primary/5 border-primary/30"
+                      : "bg-accent/5 border-accent/30"
                   )}>
-                    <p className="text-sm sm:text-base md:text-lg leading-relaxed text-foreground">
-                      {message.originalText}
+                    <p className="text-lg leading-relaxed text-muted-foreground italic font-medium">
+                      {interimText}
                     </p>
                   </div>
                 </div>
-                
-                {/* Translation */}
-                <div className="pl-4 sm:pl-6 space-y-1.5 sm:space-y-2">
-                  <div className="flex items-center gap-1.5 sm:gap-2">
-                    <Languages className="h-3 w-3 text-slate-600" />
-                    <span className="text-[10px] sm:text-xs text-slate-600 uppercase tracking-wider font-medium">
-                      Translation
-                    </span>
-                  </div>
-                  <p className="text-sm sm:text-base leading-relaxed text-muted-foreground">
-                    {message.translatedText}
-                  </p>
-                </div>
-
-                {/* Divider between messages */}
-                {index < messages.length - 1 && (
-                  <div className="pt-3 sm:pt-4">
-                    <div className="h-px bg-border" />
-                  </div>
-                )}
-              </div>
-            ))}
-            
-            {/* Interim Text Display */}
-            {interimText && (
-              <div className="space-y-1.5 sm:space-y-2 animate-in fade-in slide-in-from-bottom-1 duration-200">
-                <div className="flex items-center gap-1.5 sm:gap-2">
-                  <div className={cn(
-                    "h-1.5 w-1.5 rounded-full animate-pulse",
-                    isUser ? "bg-primary" : "bg-accent"
-                  )} />
-                  <span className="text-[10px] sm:text-xs text-slate-600 uppercase tracking-wider font-medium flex items-center gap-1">
-                    <Languages className="h-3 w-3 animate-pulse" />
-                    Transcribing...
-                  </span>
-                </div>
-                <div className={cn(
-                  "p-3 sm:p-4 rounded-lg sm:rounded-xl border-2 border-dashed",
-                  isUser
-                    ? "bg-primary/5 border-primary/20"
-                    : "bg-accent/5 border-accent/20"
-                )}>
-                  <p className="text-sm sm:text-base md:text-lg leading-relaxed text-muted-foreground italic">
-                    {interimText}
-                  </p>
-                </div>
-              </div>
-            )}
-          </div>
-        )}
+              )}
+            </>
+          )}
+        </div>
       </ScrollArea>
     </div>
   );
