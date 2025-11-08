@@ -1,8 +1,36 @@
 import express, { type Request, Response, NextFunction } from "express";
+import session from "express-session";
+import connectPg from "connect-pg-simple";
 import { registerRoutes } from "./routes";
+import { setupAuth, attachUser } from "./auth";
+import { setupSubscriptionRoutes } from "./subscription";
 import { setupVite, serveStatic, log } from "./vite";
 
 const app = express();
+
+if (!process.env.SESSION_SECRET) {
+  throw new Error("SESSION_SECRET environment variable is required for secure session management");
+}
+
+const PgSession = connectPg(session);
+
+app.use(session({
+  store: new PgSession({
+    conString: process.env.DATABASE_URL,
+    createTableIfMissing: true,
+  }),
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    secure: process.env.NODE_ENV === "production",
+    httpOnly: true,
+    sameSite: "lax",
+    maxAge: 30 * 24 * 60 * 60 * 1000, // 30 days
+  },
+}));
+
+app.use(attachUser);
 
 declare module 'http' {
   interface IncomingMessage {
@@ -47,6 +75,8 @@ app.use((req, res, next) => {
 });
 
 (async () => {
+  setupAuth(app);
+  setupSubscriptionRoutes(app);
   const server = await registerRoutes(app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {

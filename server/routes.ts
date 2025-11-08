@@ -18,6 +18,10 @@ const roomConnections = new Map<string, WebSocket[]>();
 export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/rooms/create", async (req, res) => {
     try {
+      if (!req.session.userId) {
+        return res.status(401).json({ error: "Authentication required" });
+      }
+
       const { language, voiceGender } = req.body;
       
       if (!language) {
@@ -28,7 +32,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: "Voice gender is required" });
       }
 
-      const room = await storage.createRoom(language, voiceGender);
+      const room = await storage.createRoom(req.session.userId, language, voiceGender);
       
       res.json({ roomId: room.id });
     } catch (error) {
