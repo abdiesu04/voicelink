@@ -184,105 +184,72 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Global Reach Section - Infinite Scrolling Flags */}
-      <section className="relative py-24 md:py-32 overflow-hidden bg-gradient-to-b from-white via-indigo-50/30 to-white dark:from-slate-950 dark:via-indigo-950/20 dark:to-slate-950">
-        <div className="container mx-auto px-6 md:px-12">
-          <div className="text-center mb-20 space-y-4">
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white">
-              Speak Any Language, Anywhere
-            </h2>
-            <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto">
-              Connect with people from <span className="font-bold text-indigo-600 dark:text-indigo-400">75+ countries</span> across <span className="font-bold text-violet-600 dark:text-violet-400">47 languages</span>
+      {/* Global Reach Section - Glassmorphism Flag Grid */}
+      <section className="relative py-24 md:py-32 overflow-hidden bg-gradient-to-br from-slate-900 via-indigo-950 to-violet-950 dark:from-slate-950 dark:via-indigo-950 dark:to-purple-950">
+        {/* Animated Background Gradient Orbs */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-500/20 rounded-full blur-[128px] animate-pulse" />
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-violet-500/20 rounded-full blur-[128px] animate-pulse" style={{ animationDelay: '1s' }} />
+          <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-purple-500/20 rounded-full blur-[128px] animate-pulse" style={{ animationDelay: '2s' }} />
+        </div>
+
+        <div className="container mx-auto px-6 md:px-12 relative z-10">
+          {/* Header with Neon Glow */}
+          <div className="text-center mb-16 space-y-6">
+            <div className="relative inline-block">
+              <div className="absolute -inset-4 bg-gradient-to-r from-indigo-500 via-purple-500 to-violet-500 rounded-full opacity-20 blur-2xl" />
+              <h2 className="relative text-4xl md:text-6xl font-extrabold bg-gradient-to-r from-white via-indigo-100 to-violet-100 bg-clip-text text-transparent leading-tight">
+                Speak Any Language, Anywhere
+              </h2>
+            </div>
+            <p className="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto font-medium">
+              Connect with people from <span className="font-bold text-purple-400">75+ countries</span> across <span className="font-bold text-indigo-400">47 languages</span>
             </p>
           </div>
 
-          {/* Infinite Scrolling Flag Rows */}
-          <div className="space-y-8">
-            {/* Row 1 - Scroll Left */}
-            <div className="relative overflow-hidden">
-              <div className="flex gap-6 animate-scroll-left" style={{ width: 'fit-content' }}>
-                {[...countryFlags.slice(0, 25), ...countryFlags.slice(0, 25)].map((flag, idx) => (
-                  <div 
-                    key={`row1-${idx}`}
-                    className="flex-shrink-0 group cursor-pointer"
-                    data-testid={`flag-row1-${flag.code}`}
-                  >
-                    <div className="relative">
-                      <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 via-violet-500 to-blue-500 rounded-xl opacity-0 group-hover:opacity-30 blur transition-opacity duration-300" />
-                      <img
-                        src={`https://flagcdn.com/${flag.code}.svg`}
-                        alt={flag.name}
-                        className="relative w-28 h-20 object-cover rounded-lg shadow-lg group-hover:shadow-2xl transition-all duration-300 group-hover:scale-110 opacity-80 group-hover:opacity-100 dark:opacity-70 dark:group-hover:opacity-100 ring-2 ring-slate-200 dark:ring-slate-700 group-hover:ring-4 group-hover:ring-indigo-400 dark:group-hover:ring-indigo-600"
-                      />
-                      <div className="absolute -bottom-8 left-0 right-0 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 px-2 py-1 rounded-md shadow-md">
-                          {flag.name}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+          {/* Glassmorphism Flag Grid - 4 rows × 5 flags = 20 flags */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 max-w-7xl mx-auto">
+            {countryFlags.slice(0, 20).map((flag, idx) => (
+              <div
+                key={flag.code}
+                className="group relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer transform transition-all duration-500 hover:scale-105 hover:z-10"
+                style={{
+                  animation: `fadeInUp 0.6s ease-out ${idx * 0.05}s both`
+                }}
+                data-testid={`flag-card-${flag.code}`}
+              >
+                {/* Flag Background */}
+                <img
+                  src={`https://flagcdn.com/${flag.code}.svg`}
+                  alt={flag.name}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                
+                {/* Glassmorphism Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-slate-900/40 to-transparent backdrop-blur-[2px] transition-all duration-500 group-hover:backdrop-blur-sm group-hover:from-slate-900/60 group-hover:via-slate-900/30" />
+                
+                {/* Country Name */}
+                <div className="absolute inset-0 flex items-center justify-center p-4">
+                  <h3 className="text-white text-center font-bold text-sm md:text-base transition-all duration-500 group-hover:scale-110 group-hover:text-shadow-lg" style={{ textShadow: '0 0 20px rgba(139, 92, 246, 0)' }}>
+                    <span className="group-hover:drop-shadow-[0_0_8px_rgba(139,92,246,0.8)] transition-all duration-500">
+                      {flag.name}
+                    </span>
+                  </h3>
+                </div>
 
-            {/* Row 2 - Scroll Right */}
-            <div className="relative overflow-hidden">
-              <div className="flex gap-6 animate-scroll-right" style={{ width: 'fit-content' }}>
-                {[...countryFlags.slice(25, 50), ...countryFlags.slice(25, 50)].map((flag, idx) => (
-                  <div 
-                    key={`row2-${idx}`}
-                    className="flex-shrink-0 group cursor-pointer"
-                    data-testid={`flag-row2-${flag.code}`}
-                  >
-                    <div className="relative">
-                      <div className="absolute -inset-1 bg-gradient-to-r from-violet-500 via-purple-500 to-pink-500 rounded-xl opacity-0 group-hover:opacity-30 blur transition-opacity duration-300" />
-                      <img
-                        src={`https://flagcdn.com/${flag.code}.svg`}
-                        alt={flag.name}
-                        className="relative w-28 h-20 object-cover rounded-lg shadow-lg group-hover:shadow-2xl transition-all duration-300 group-hover:scale-110 opacity-80 group-hover:opacity-100 dark:opacity-70 dark:group-hover:opacity-100 ring-2 ring-slate-200 dark:ring-slate-700 group-hover:ring-4 group-hover:ring-violet-400 dark:group-hover:ring-violet-600"
-                      />
-                      <div className="absolute -bottom-8 left-0 right-0 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 px-2 py-1 rounded-md shadow-md">
-                          {flag.name}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+                {/* Hover Glow Border */}
+                <div className="absolute inset-0 rounded-2xl ring-2 ring-transparent group-hover:ring-purple-400/50 transition-all duration-500" />
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 via-purple-500 to-violet-500 rounded-2xl opacity-0 group-hover:opacity-30 blur-md transition-opacity duration-500" />
               </div>
-            </div>
-
-            {/* Row 3 - Scroll Left */}
-            <div className="relative overflow-hidden">
-              <div className="flex gap-6 animate-scroll-left" style={{ width: 'fit-content' }}>
-                {[...countryFlags.slice(50, 75), ...countryFlags.slice(50, 75)].map((flag, idx) => (
-                  <div 
-                    key={`row3-${idx}`}
-                    className="flex-shrink-0 group cursor-pointer"
-                    data-testid={`flag-row3-${flag.code}`}
-                  >
-                    <div className="relative">
-                      <div className="absolute -inset-1 bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 rounded-xl opacity-0 group-hover:opacity-30 blur transition-opacity duration-300" />
-                      <img
-                        src={`https://flagcdn.com/${flag.code}.svg`}
-                        alt={flag.name}
-                        className="relative w-28 h-20 object-cover rounded-lg shadow-lg group-hover:shadow-2xl transition-all duration-300 group-hover:scale-110 opacity-80 group-hover:opacity-100 dark:opacity-70 dark:group-hover:opacity-100 ring-2 ring-slate-200 dark:ring-slate-700 group-hover:ring-4 group-hover:ring-blue-400 dark:group-hover:ring-blue-600"
-                      />
-                      <div className="absolute -bottom-8 left-0 right-0 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 bg-white dark:bg-slate-800 px-2 py-1 rounded-md shadow-md">
-                          {flag.name}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
+            ))}
           </div>
 
-          {/* Gradient Overlays for Fade Effect */}
-          <div className="absolute top-0 left-0 bottom-0 w-32 bg-gradient-to-r from-white dark:from-slate-950 to-transparent pointer-events-none z-10" />
-          <div className="absolute top-0 right-0 bottom-0 w-32 bg-gradient-to-l from-white dark:from-slate-950 to-transparent pointer-events-none z-10" />
+          {/* Bottom CTA */}
+          <div className="text-center mt-16">
+            <p className="text-slate-400 text-sm md:text-base">
+              And <span className="text-purple-400 font-semibold">55+ more countries</span> waiting to connect with you
+            </p>
+          </div>
         </div>
       </section>
 
