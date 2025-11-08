@@ -136,7 +136,8 @@ export class PgStorage implements IStorage {
       return { success: false, creditsRemaining: 0 };
     }
 
-    const creditsToDeduct = Math.ceil(seconds / 60);
+    // 1 credit = 1 second
+    const creditsToDeduct = seconds;
     const newCredits = subscription.creditsRemaining - creditsToDeduct;
 
     if (newCredits < 0) {

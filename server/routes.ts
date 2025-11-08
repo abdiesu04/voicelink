@@ -12,8 +12,18 @@ interface RoomConnection {
   role: "creator" | "participant";
 }
 
+interface SessionTracking {
+  roomId: string;
+  userId: number;
+  startTime: number;
+  lastDeductionTime: number;
+  intervalId: NodeJS.Timeout;
+  isActive: boolean;
+}
+
 const connections = new Map<WebSocket, RoomConnection>();
 const roomConnections = new Map<string, WebSocket[]>();
+const activeSessions = new Map<string, SessionTracking>(); // roomId -> session tracking
 
 export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/rooms/create", async (req, res) => {
@@ -184,6 +194,85 @@ export async function registerRoutes(app: Express): Promise<Server> {
                 }));
               }
             });
+
+            // Start credit tracking session
+            if (!activeSessions.has(roomId)) {
+              console.log(`[Credit Tracking] Starting session for room ${roomId}`);
+              const now = Date.now();
+              
+              // Get creator's subscription to send initial credit balance
+              const creatorSubscription = await storage.getSubscription(room.userId);
+              const initialCredits = creatorSubscription?.creditsRemaining || 0;
+              
+              // Start interval to deduct credits every 10 seconds
+              const intervalId = setInterval(async () => {
+                const session = activeSessions.get(roomId);
+                if (!session || !session.isActive) {
+                  clearInterval(intervalId);
+                  return;
+                }
+
+                const now = Date.now();
+                const elapsedSinceLastDeduction = Math.floor((now - session.lastDeductionTime) / 1000);
+                
+                if (elapsedSinceLastDeduction >= 10) {
+                  // Deduct 10 seconds worth of credits
+                  const result = await storage.deductCredits(room.userId, 10);
+                  session.lastDeductionTime = now;
+                  
+                  console.log(`[Credit Tracking] Deducted 10 credits from user ${room.userId}. Remaining: ${result.creditsRemaining}`);
+                  
+                  // Broadcast credit update to all clients in the room
+                  const clients = roomConnections.get(roomId) || [];
+                  clients.forEach(client => {
+                    if (client.readyState === WebSocket.OPEN) {
+                      client.send(JSON.stringify({
+                        type: 'credit-update',
+                        creditsRemaining: result.creditsRemaining,
+                        success: result.success
+                      }));
+                    }
+                  });
+
+                  // If credits exhausted, end the session
+                  if (!result.success || result.creditsRemaining <= 0) {
+                    console.log(`[Credit Tracking] Credits exhausted for room ${roomId}, ending session`);
+                    clearInterval(intervalId);
+                    session.isActive = false;
+                    
+                    clients.forEach(client => {
+                      if (client.readyState === WebSocket.OPEN) {
+                        client.send(JSON.stringify({
+                          type: 'session-ended',
+                          reason: 'credits-exhausted'
+                        }));
+                      }
+                    });
+                  }
+                }
+              }, 10000); // Check every 10 seconds
+
+              activeSessions.set(roomId, {
+                roomId,
+                userId: room.userId,
+                startTime: now,
+                lastDeductionTime: now,
+                intervalId,
+                isActive: true
+              });
+
+              // Send session-started event with initial credit balance
+              roomClients.forEach(client => {
+                if (client.readyState === WebSocket.OPEN) {
+                  client.send(JSON.stringify({
+                    type: 'session-started',
+                    creditsRemaining: initialCredits
+                  }));
+                }
+              });
+
+              console.log(`[Credit Tracking] Session started with ${initialCredits} credits remaining`);
+            }
           }
         }
 
@@ -314,6 +403,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       if (connection) {
         const { roomId } = connection;
+        
+        // Stop credit tracking and deduct final credits
+        const session = activeSessions.get(roomId);
+        if (session && session.isActive) {
+          const now = Date.now();
+          const totalElapsedSeconds = Math.floor((now - session.startTime) / 1000);
+          const secondsSinceLastDeduction = Math.floor((now - session.lastDeductionTime) / 1000);
+          
+          console.log(`[Credit Tracking] Stopping session for room ${roomId}. Total duration: ${totalElapsedSeconds}s`);
+          
+          // Deduct any remaining seconds since last deduction (fire and forget)
+          if (secondsSinceLastDeduction > 0) {
+            storage.deductCredits(session.userId, secondsSinceLastDeduction).then(result => {
+              console.log(`[Credit Tracking] Final deduction of ${secondsSinceLastDeduction} credits. Remaining: ${result.creditsRemaining}`);
+            }).catch(err => {
+              console.error('[Credit Tracking] Error during final deduction:', err);
+            });
+          }
+          
+          // Stop the interval
+          clearInterval(session.intervalId);
+          session.isActive = false;
+          activeSessions.delete(roomId);
+        }
         
         const roomClients = roomConnections.get(roomId);
         if (roomClients) {
