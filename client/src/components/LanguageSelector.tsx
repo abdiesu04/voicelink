@@ -82,13 +82,13 @@ export function LanguageSelector({ value, onValueChange, disabled }: LanguageSel
           role="combobox"
           aria-expanded={open}
           disabled={disabled}
-          className="w-full justify-between h-12 px-4 hover-elevate active-elevate-2 border-border/50 text-white"
+          className="w-full justify-between h-12 px-4 hover-elevate active-elevate-2 border-border/50 text-slate-900 dark:text-white"
           data-testid="button-language-selector"
         >
           {selectedLanguage ? (
-            <span className="flex items-center gap-3 text-white">
+            <span className="flex items-center gap-3">
               <CountryFlag countryCode={selectedLanguage.countryCode} />
-              <span className="font-medium text-white">{selectedLanguage.name}</span>
+              <span className="font-medium">{selectedLanguage.name}</span>
             </span>
           ) : (
             <span className="flex items-center gap-3 text-muted-foreground">
@@ -136,20 +136,20 @@ export function LanguageSelector({ value, onValueChange, disabled }: LanguageSel
                     className={cn(
                       "flex items-center gap-3 px-3 py-3 rounded-lg cursor-pointer",
                       "hover-elevate transition-colors",
-                      value === language.code && "bg-primary"
+                      value === language.code && "bg-primary/20 dark:bg-primary/30"
                     )}
                     data-testid={`option-language-${language.code}`}
                   >
                     <Check
                       className={cn(
-                        "h-4 w-4 flex-shrink-0",
-                        value === language.code ? "opacity-100 text-white" : "opacity-0"
+                        "h-4 w-4 flex-shrink-0 text-primary",
+                        value === language.code ? "opacity-100" : "opacity-0"
                       )}
                     />
                     <CountryFlag countryCode={language.countryCode} />
                     <span className={cn(
                       "font-medium",
-                      value === language.code ? "text-white" : "text-foreground"
+                      value === language.code ? "text-slate-900 dark:text-white font-semibold" : "text-foreground"
                     )}>
                       {language.name}
                     </span>
@@ -173,20 +173,20 @@ export function LanguageSelector({ value, onValueChange, disabled }: LanguageSel
                         className={cn(
                           "flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer",
                           "hover-elevate transition-colors",
-                          value === language.code && "bg-primary"
+                          value === language.code && "bg-primary/20 dark:bg-primary/30"
                         )}
                         data-testid={`option-language-${language.code}`}
                       >
                         <Check
                           className={cn(
-                            "h-4 w-4 flex-shrink-0",
-                            value === language.code ? "opacity-100 text-white" : "opacity-0"
+                            "h-4 w-4 flex-shrink-0 text-primary",
+                            value === language.code ? "opacity-100" : "opacity-0"
                           )}
                         />
                         <CountryFlag countryCode={language.countryCode} />
                         <span className={cn(
                           "font-medium",
-                          value === language.code ? "text-white" : "text-foreground"
+                          value === language.code ? "text-slate-900 dark:text-white font-semibold" : "text-foreground"
                         )}>
                           {language.name}
                         </span>
@@ -211,20 +211,20 @@ export function LanguageSelector({ value, onValueChange, disabled }: LanguageSel
                         className={cn(
                           "flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer",
                           "hover-elevate transition-colors",
-                          value === language.code && "bg-primary"
+                          value === language.code && "bg-primary/20 dark:bg-primary/30"
                         )}
                         data-testid={`option-language-${language.code}`}
                       >
                         <Check
                           className={cn(
-                            "h-4 w-4 flex-shrink-0",
-                            value === language.code ? "opacity-100 text-white" : "opacity-0"
+                            "h-4 w-4 flex-shrink-0 text-primary",
+                            value === language.code ? "opacity-100" : "opacity-0"
                           )}
                         />
                         <CountryFlag countryCode={language.countryCode} />
                         <span className={cn(
                           "font-medium text-sm",
-                          value === language.code ? "text-white" : "text-foreground"
+                          value === language.code ? "text-slate-900 dark:text-white font-semibold" : "text-foreground"
                         )}>
                           {language.name}
                         </span>
@@ -247,20 +247,20 @@ export function LanguageSelector({ value, onValueChange, disabled }: LanguageSel
                         className={cn(
                           "flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer",
                           "hover-elevate transition-colors",
-                          value === language.code && "bg-primary"
+                          value === language.code && "bg-primary/20 dark:bg-primary/30"
                         )}
                         data-testid={`option-language-${language.code}`}
                       >
                         <Check
                           className={cn(
-                            "h-4 w-4 flex-shrink-0",
-                            value === language.code ? "opacity-100 text-white" : "opacity-0"
+                            "h-4 w-4 flex-shrink-0 text-primary",
+                            value === language.code ? "opacity-100" : "opacity-0"
                           )}
                         />
                         <CountryFlag countryCode={language.countryCode} />
                         <span className={cn(
                           "font-medium text-sm",
-                          value === language.code ? "text-white" : "text-foreground"
+                          value === language.code ? "text-slate-900 dark:text-white font-semibold" : "text-foreground"
                         )}>
                           {language.name}
                         </span>
@@ -283,20 +283,20 @@ export function LanguageSelector({ value, onValueChange, disabled }: LanguageSel
                         className={cn(
                           "flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer",
                           "hover-elevate transition-colors",
-                          value === language.code && "bg-primary"
+                          value === language.code && "bg-primary/20 dark:bg-primary/30"
                         )}
                         data-testid={`option-language-${language.code}`}
                       >
                         <Check
                           className={cn(
-                            "h-4 w-4 flex-shrink-0",
-                            value === language.code ? "opacity-100 text-white" : "opacity-0"
+                            "h-4 w-4 flex-shrink-0 text-primary",
+                            value === language.code ? "opacity-100" : "opacity-0"
                           )}
                         />
                         <CountryFlag countryCode={language.countryCode} />
                         <span className={cn(
                           "font-medium text-sm",
-                          value === language.code ? "text-white" : "text-foreground"
+                          value === language.code ? "text-slate-900 dark:text-white font-semibold" : "text-foreground"
                         )}>
                           {language.name}
                         </span>
@@ -319,20 +319,20 @@ export function LanguageSelector({ value, onValueChange, disabled }: LanguageSel
                         className={cn(
                           "flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer",
                           "hover-elevate transition-colors",
-                          value === language.code && "bg-primary"
+                          value === language.code && "bg-primary/20 dark:bg-primary/30"
                         )}
                         data-testid={`option-language-${language.code}`}
                       >
                         <Check
                           className={cn(
-                            "h-4 w-4 flex-shrink-0",
-                            value === language.code ? "opacity-100 text-white" : "opacity-0"
+                            "h-4 w-4 flex-shrink-0 text-primary",
+                            value === language.code ? "opacity-100" : "opacity-0"
                           )}
                         />
                         <CountryFlag countryCode={language.countryCode} />
                         <span className={cn(
                           "font-medium text-sm",
-                          value === language.code ? "text-white" : "text-foreground"
+                          value === language.code ? "text-slate-900 dark:text-white font-semibold" : "text-foreground"
                         )}>
                           {language.name}
                         </span>

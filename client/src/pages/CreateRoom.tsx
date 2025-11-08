@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useLocation } from "wouter";
 import { useMutation } from "@tanstack/react-query";
-import { Loader2, Globe2, ArrowRight, Mic, Home } from "lucide-react";
+import { Loader2, Globe2, ArrowRight, Mic } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LanguageSelector } from "@/components/LanguageSelector";
 import { VoiceGenderSelector } from "@/components/VoiceGenderSelector";
@@ -66,18 +66,6 @@ export default function CreateRoom() {
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent" />
       <div className="absolute inset-0 bg-[linear-gradient(rgba(99,102,241,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(99,102,241,0.03)_1px,transparent_1px)] bg-[size:72px_72px]" />
       <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" />
-      
-      {/* Back to Home - Mobile & Desktop */}
-      <Button
-        variant="ghost"
-        size="sm"
-        onClick={() => setLocation("/")}
-        className="absolute top-4 left-4 gap-2 z-20"
-        data-testid="button-back-home"
-      >
-        <Home className="h-4 w-4" />
-        <span className="hidden sm:inline">Home</span>
-      </Button>
 
       <div className="w-full max-w-5xl relative z-10 pt-12 sm:pt-16">
         {/* Compact Header */}
