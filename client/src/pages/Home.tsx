@@ -3,18 +3,13 @@ import { Languages, Lock, Mic, CheckCircle, Sparkles, MessageSquare, ArrowRight,
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
-const languageGreetings = [
-  { text: "Hello", lang: "English" },
-  { text: "Hola", lang: "Spanish" },
-  { text: "你好", lang: "Chinese" },
-  { text: "مرحبا", lang: "Arabic" },
-  { text: "Bonjour", lang: "French" },
-  { text: "こんにちは", lang: "Japanese" },
-  { text: "Ciao", lang: "Italian" },
-  { text: "Привет", lang: "Russian" },
-  { text: "नमस्ते", lang: "Hindi" },
-  { text: "안녕하세요", lang: "Korean" },
-];
+// Import real user images
+import userImage1 from "@assets/stock_images/young_professional_w_0a0f2557.jpg";
+import userImage2 from "@assets/stock_images/professional_busines_c1da474b.jpg";
+import userImage3 from "@assets/stock_images/young_professional_m_e4947f40.jpg";
+import userImage4 from "@assets/stock_images/professional_busines_6d196ce6.jpg";
+import userImage5 from "@assets/stock_images/professional_busines_5a6cf958.jpg";
+import userImage6 from "@assets/stock_images/professional_busines_6f745289.jpg";
 
 // 75 country flags with ISO codes for real flag images
 const countryFlags = [
@@ -68,43 +63,43 @@ const testimonials = [
     name: "Sofia M.",
     location: "Los Angeles",
     quote: "For the first time, my grandmother in Tokyo heard me in Japanese — with my real voice.",
-    avatar: "SM"
+    image: userImage1
   },
   {
     name: "Julien R.",
     location: "Paris",
     quote: "Our global meetings feel human again — no translators, no lag, just genuine connection.",
-    avatar: "JR"
+    image: userImage2
   },
   {
     name: "Marcus R.",
     location: "London",
     quote: "I made friends backpacking across Spain without switching to English once. Life-changing.",
-    avatar: "MR"
+    image: userImage3
   },
   {
     name: "Yuki T.",
     location: "Tokyo",
     quote: "Closing international deals has never been easier. My clients feel truly understood.",
-    avatar: "YT"
+    image: userImage4
   },
   {
     name: "Carlos G.",
     location: "Buenos Aires",
     quote: "Teaching students across continents feels like we're in the same room. The future is here.",
-    avatar: "CG"
+    image: userImage5
   },
   {
     name: "Layla A.",
     location: "Dubai",
     quote: "Video calls with my family abroad now feel warm and personal, not robotic.",
-    avatar: "LA"
+    image: userImage6
   },
   {
     name: "Kwame O.",
     location: "Accra",
     quote: "Networking at global conferences is effortless. I can be myself in any language.",
-    avatar: "KO"
+    image: userImage1
   }
 ];
 
@@ -190,51 +185,6 @@ export default function Home() {
           <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-blue-500/15 dark:bg-blue-500/25 rounded-full blur-[128px] animate-pulse" style={{ animationDelay: '1s' }} />
         </div>
 
-        {/* Floating Speech Bubbles with Multilingual Greetings */}
-        <div className="absolute inset-0 pointer-events-none">
-          {/* Hello - English */}
-          <div className="absolute top-24 left-16 animate-float" style={{ animationDelay: '0s', animationDuration: '6s' }}>
-            <div className="px-6 py-3 rounded-2xl bg-white/80 dark:bg-slate-800/80 backdrop-blur-md shadow-xl border border-white/20 dark:border-slate-700/50">
-              <p className="text-lg font-semibold text-indigo-600 dark:text-indigo-400">Hello</p>
-            </div>
-          </div>
-
-          {/* Bonjour - French */}
-          <div className="absolute top-32 right-24 animate-float" style={{ animationDelay: '1s', animationDuration: '7s' }}>
-            <div className="px-6 py-3 rounded-2xl bg-white/80 dark:bg-slate-800/80 backdrop-blur-md shadow-xl border border-white/20 dark:border-slate-700/50">
-              <p className="text-lg font-semibold text-violet-600 dark:text-violet-400">Bonjour</p>
-            </div>
-          </div>
-
-          {/* Hola - Spanish */}
-          <div className="absolute top-1/3 left-24 animate-float" style={{ animationDelay: '2s', animationDuration: '6.5s' }}>
-            <div className="px-6 py-3 rounded-2xl bg-white/80 dark:bg-slate-800/80 backdrop-blur-md shadow-xl border border-white/20 dark:border-slate-700/50">
-              <p className="text-lg font-semibold text-blue-600 dark:text-blue-400">Hola</p>
-            </div>
-          </div>
-
-          {/* ሰላም - Amharic */}
-          <div className="absolute bottom-1/3 right-20 animate-float" style={{ animationDelay: '3s', animationDuration: '7.5s' }}>
-            <div className="px-6 py-3 rounded-2xl bg-white/80 dark:bg-slate-800/80 backdrop-blur-md shadow-xl border border-white/20 dark:border-slate-700/50">
-              <p className="text-lg font-semibold text-emerald-600 dark:text-emerald-400">ሰላም</p>
-            </div>
-          </div>
-
-          {/* 你好 - Chinese */}
-          <div className="absolute bottom-24 left-32 animate-float" style={{ animationDelay: '1.5s', animationDuration: '6.8s' }}>
-            <div className="px-6 py-3 rounded-2xl bg-white/80 dark:bg-slate-800/80 backdrop-blur-md shadow-xl border border-white/20 dark:border-slate-700/50">
-              <p className="text-lg font-semibold text-pink-600 dark:text-pink-400">你好</p>
-            </div>
-          </div>
-
-          {/* नमस्ते - Hindi */}
-          <div className="absolute top-2/3 right-32 animate-float" style={{ animationDelay: '2.5s', animationDuration: '7.2s' }}>
-            <div className="px-6 py-3 rounded-2xl bg-white/80 dark:bg-slate-800/80 backdrop-blur-md shadow-xl border border-white/20 dark:border-slate-700/50">
-              <p className="text-lg font-semibold text-amber-600 dark:text-amber-400">नमस्ते</p>
-            </div>
-          </div>
-        </div>
-        
         {/* Main Content */}
         <div className="container mx-auto px-6 md:px-12 relative z-10">
           <div className="max-w-6xl mx-auto text-center py-20 pt-32 space-y-10">
@@ -444,19 +394,6 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Language greeting pills */}
-          <div className="flex flex-wrap justify-center gap-4 mb-12 max-w-4xl mx-auto">
-            {languageGreetings.map((greeting, idx) => (
-              <div 
-                key={idx}
-                className="px-6 py-3 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 shadow-sm hover:shadow-md transition-shadow"
-                data-testid={`greeting-${greeting.lang.toLowerCase()}`}
-              >
-                <span className="text-lg font-medium text-slate-900 dark:text-white">{greeting.text}</span>
-              </div>
-            ))}
-          </div>
-
           {/* Global Language Coverage card */}
           <Card className="max-w-5xl mx-auto bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700">
             <CardContent className="p-8 md:p-12">
@@ -511,9 +448,11 @@ export default function Home() {
               >
                 <CardContent className="p-8 space-y-4">
                   <div className="flex items-center gap-4">
-                    <div className="h-14 w-14 rounded-full bg-gradient-to-br from-primary/30 to-violet-500/30 flex items-center justify-center ring-2 ring-primary/20">
-                      <span className="font-semibold text-slate-900 dark:text-white">{testimonial.avatar}</span>
-                    </div>
+                    <img 
+                      src={testimonial.image} 
+                      alt={testimonial.name}
+                      className="h-14 w-14 rounded-full object-cover ring-2 ring-primary/20"
+                    />
                     <div>
                       <div className="font-semibold text-slate-900 dark:text-white">{testimonial.name}</div>
                       <div className="text-sm text-slate-500 dark:text-slate-400">{testimonial.location}</div>
