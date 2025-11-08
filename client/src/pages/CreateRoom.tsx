@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useLocation } from "wouter";
 import { useMutation } from "@tanstack/react-query";
-import { Loader2, Globe2, ArrowRight, Sparkles, Mic } from "lucide-react";
+import { Loader2, Globe2, ArrowRight, Mic, Home } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LanguageSelector } from "@/components/LanguageSelector";
 import { VoiceGenderSelector } from "@/components/VoiceGenderSelector";
@@ -60,39 +60,52 @@ export default function CreateRoom() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6 relative overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 relative overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-slate-100 to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent" />
       <div className="absolute inset-0 bg-[linear-gradient(rgba(99,102,241,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(99,102,241,0.03)_1px,transparent_1px)] bg-[size:72px_72px]" />
       <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" />
       
-      <div className="w-full max-w-2xl relative z-10 pt-20">
-        <div className="text-center mb-12 space-y-6 animate-in fade-in slide-in-from-bottom duration-700">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-primary/20 to-indigo-500/20 border border-primary/30 backdrop-blur-sm">
-            <Sparkles className="h-4 w-4 text-primary animate-pulse" />
-            <span className="text-sm font-semibold text-primary">Step 1 of 2</span>
-          </div>
-          
-          <h1 className="text-5xl md:text-6xl font-bold text-slate-900 dark:text-white">
-            Choose Your Language
+      {/* Back to Home - Mobile & Desktop */}
+      <Button
+        variant="ghost"
+        size="sm"
+        onClick={() => setLocation("/")}
+        className="absolute top-4 left-4 gap-2 z-20"
+        data-testid="button-back-home"
+      >
+        <Home className="h-4 w-4" />
+        <span className="hidden sm:inline">Home</span>
+      </Button>
+
+      <div className="w-full max-w-5xl relative z-10 pt-12 sm:pt-16">
+        {/* Compact Header */}
+        <div className="text-center mb-6 sm:mb-8 space-y-2 sm:space-y-3 animate-in fade-in slide-in-from-bottom duration-700">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 dark:text-white">
+            Create Translation Room
           </h1>
           
-          <p className="text-xl text-slate-600 dark:text-slate-300 max-w-xl mx-auto">
-            Select the language you'll be speaking in during the conversation
+          <p className="text-sm sm:text-base md:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto px-4">
+            Choose your language and voice, then share the link with your conversation partner
           </p>
         </div>
 
-        <div className="bg-white/50 dark:bg-slate-800/50 backdrop-blur-xl border border-slate-300/50 dark:border-slate-700/50 rounded-3xl p-8 md:p-12 shadow-2xl animate-in fade-in slide-in-from-bottom duration-700 delay-200">
-          <div className="space-y-8">
-            <div className="space-y-4">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center ring-2 ring-primary/30">
-                  <Globe2 className="h-6 w-6 text-primary" />
+        {/* Main Card - Responsive Layout */}
+        <div className="bg-white/50 dark:bg-slate-800/50 backdrop-blur-xl border border-slate-300/50 dark:border-slate-700/50 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-2xl animate-in fade-in slide-in-from-bottom duration-700 delay-200">
+          
+          {/* Grid Layout: Stack on mobile, side-by-side on desktop */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
+            
+            {/* Language Selection */}
+            <div className="space-y-3 sm:space-y-4">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center ring-2 ring-primary/30 flex-shrink-0">
+                  <Globe2 className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-foreground">My Language</h2>
-                  <p className="text-sm text-muted-foreground">47 languages supported</p>
+                  <h2 className="text-lg sm:text-xl font-bold text-foreground">My Language</h2>
+                  <p className="text-xs sm:text-sm text-muted-foreground">47 languages supported</p>
                 </div>
               </div>
               
@@ -103,14 +116,15 @@ export default function CreateRoom() {
               />
             </div>
 
-            <div className="space-y-4">
-              <div className="flex items-center gap-3 mb-6">
-                <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center ring-2 ring-primary/30">
-                  <Mic className="h-6 w-6 text-primary" />
+            {/* Voice Gender Selection */}
+            <div className="space-y-3 sm:space-y-4">
+              <div className="flex items-center gap-2 sm:gap-3">
+                <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center ring-2 ring-primary/30 flex-shrink-0">
+                  <Mic className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-bold text-foreground">My Voice Gender</h2>
-                  <p className="text-sm text-muted-foreground">Your partner will hear this voice</p>
+                  <h2 className="text-lg sm:text-xl font-bold text-foreground">My Voice Gender</h2>
+                  <p className="text-xs sm:text-sm text-muted-foreground">Your partner will hear this voice</p>
                 </div>
               </div>
               
@@ -120,30 +134,32 @@ export default function CreateRoom() {
                 disabled={createRoomMutation.isPending}
               />
             </div>
-
-            <Button
-              onClick={handleCreateRoom}
-              disabled={createRoomMutation.isPending || !selectedLanguage}
-              className="w-full h-14 text-lg bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 shadow-lg shadow-primary/25 group"
-              data-testid="button-create"
-            >
-              {createRoomMutation.isPending ? (
-                <>
-                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                  Creating Room...
-                </>
-              ) : (
-                <>
-                  Create Translation Room
-                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                </>
-              )}
-            </Button>
           </div>
+
+          {/* Create Button */}
+          <Button
+            onClick={handleCreateRoom}
+            disabled={createRoomMutation.isPending || !selectedLanguage || !selectedVoiceGender}
+            className="w-full h-12 sm:h-14 text-base sm:text-lg bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 shadow-lg shadow-primary/25 group"
+            data-testid="button-create"
+          >
+            {createRoomMutation.isPending ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 sm:h-5 sm:w-5 animate-spin" />
+                Creating Room...
+              </>
+            ) : (
+              <>
+                Create Translation Room
+                <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5 group-hover:translate-x-1 transition-transform" />
+              </>
+            )}
+          </Button>
         </div>
 
-        <p className="text-center text-sm text-muted-foreground mt-8">
-          After creating, you'll get a link to share with your conversation partner
+        {/* Footer Note */}
+        <p className="text-center text-xs sm:text-sm text-muted-foreground mt-4 sm:mt-6 px-4">
+          You'll receive a shareable link to invite your conversation partner
         </p>
       </div>
     </div>

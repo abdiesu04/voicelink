@@ -21,12 +21,12 @@ export function VoiceGenderSelector({
       value={value || ""}
       onValueChange={onValueChange}
       disabled={disabled}
-      className="grid grid-cols-2 gap-4"
+      className="grid grid-cols-2 gap-3 sm:gap-4"
       data-testid="voice-gender-selector"
     >
       <div
         className={cn(
-          "relative flex cursor-pointer items-center gap-3 rounded-xl border-2 p-6 transition-all",
+          "relative flex cursor-pointer items-center gap-2 sm:gap-3 rounded-xl border-2 p-3 sm:p-6 transition-all",
           value === "male"
             ? "border-primary bg-primary/5 shadow-lg shadow-primary/10"
             : "border-slate-300 dark:border-slate-700 bg-slate-100/50 dark:bg-slate-800/30 hover-elevate",
@@ -41,7 +41,7 @@ export function VoiceGenderSelector({
           className="sr-only"
         />
         <Avatar className={cn(
-          "h-14 w-14 ring-2",
+          "h-10 w-10 sm:h-14 sm:w-14 ring-2 flex-shrink-0",
           value === "male"
             ? "bg-primary/10 ring-primary/30"
             : "bg-slate-200/50 dark:bg-slate-700/30 ring-slate-300 dark:ring-slate-600/30"
@@ -50,21 +50,21 @@ export function VoiceGenderSelector({
             "bg-transparent",
             value === "male" ? "text-primary" : "text-slate-500 dark:text-slate-400"
           )}>
-            <User className="h-7 w-7" />
+            <User className="h-5 w-5 sm:h-7 sm:w-7" />
           </AvatarFallback>
         </Avatar>
-        <div className="flex-1">
+        <div className="flex-1 min-w-0">
           <Label
             htmlFor="male"
             className={cn(
-              "text-base font-semibold cursor-pointer",
+              "text-sm sm:text-base font-semibold cursor-pointer block",
               value === "male" ? "text-slate-900 dark:text-white" : "text-slate-600 dark:text-slate-300"
             )}
           >
             Male
           </Label>
           <p className={cn(
-            "text-sm mt-0.5",
+            "text-xs sm:text-sm mt-0.5 truncate",
             value === "male" ? "text-slate-700 dark:text-slate-300" : "text-slate-500 dark:text-slate-500"
           )}>
             I am male
@@ -74,7 +74,7 @@ export function VoiceGenderSelector({
 
       <div
         className={cn(
-          "relative flex cursor-pointer items-center gap-3 rounded-xl border-2 p-6 transition-all",
+          "relative flex cursor-pointer items-center gap-2 sm:gap-3 rounded-xl border-2 p-3 sm:p-6 transition-all",
           value === "female"
             ? "border-primary bg-primary/5 shadow-lg shadow-primary/10"
             : "border-slate-300 dark:border-slate-700 bg-slate-100/50 dark:bg-slate-800/30 hover-elevate",
@@ -89,7 +89,7 @@ export function VoiceGenderSelector({
           className="sr-only"
         />
         <Avatar className={cn(
-          "h-14 w-14 ring-2",
+          "h-10 w-10 sm:h-14 sm:w-14 ring-2 flex-shrink-0",
           value === "female"
             ? "bg-primary/10 ring-primary/30"
             : "bg-slate-200/50 dark:bg-slate-700/30 ring-slate-300 dark:ring-slate-600/30"
@@ -98,21 +98,21 @@ export function VoiceGenderSelector({
             "bg-transparent",
             value === "female" ? "text-primary" : "text-slate-500 dark:text-slate-400"
           )}>
-            <UserRound className="h-7 w-7" />
+            <UserRound className="h-5 w-5 sm:h-7 sm:w-7" />
           </AvatarFallback>
         </Avatar>
-        <div className="flex-1">
+        <div className="flex-1 min-w-0">
           <Label
             htmlFor="female"
             className={cn(
-              "text-base font-semibold cursor-pointer",
+              "text-sm sm:text-base font-semibold cursor-pointer block",
               value === "female" ? "text-slate-900 dark:text-white" : "text-slate-600 dark:text-slate-300"
             )}
           >
             Female
           </Label>
           <p className={cn(
-            "text-sm mt-0.5",
+            "text-xs sm:text-sm mt-0.5 truncate",
             value === "female" ? "text-slate-700 dark:text-slate-300" : "text-slate-500 dark:text-slate-500"
           )}>
             I am female
