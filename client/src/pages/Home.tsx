@@ -106,10 +106,77 @@ const testimonials = [
 export default function Home() {
   return (
     <div className="min-h-screen bg-white dark:bg-slate-950">
-      {/* Hero Section */}
+      {/* Hero Section with Flag Collage & Floating Elements */}
       <section className="relative min-h-screen flex items-center overflow-hidden">
         {/* Gradient Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 via-violet-50 to-blue-50 dark:from-slate-950 dark:via-indigo-950/30 dark:to-slate-950" />
+        
+        {/* Real Flag Collage Background - 75 Flags */}
+        <div className="absolute inset-0 opacity-25 dark:opacity-15">
+          {countryFlags.map((flag, idx) => {
+            const positions = [
+              { top: '5%', left: '5%' }, { top: '8%', left: '15%' }, { top: '12%', left: '25%' },
+              { top: '5%', left: '35%' }, { top: '10%', left: '45%' }, { top: '7%', left: '55%' },
+              { top: '10%', left: '65%' }, { top: '6%', left: '75%' }, { top: '9%', left: '85%' },
+              { top: '15%', left: '10%' }, { top: '18%', left: '20%' }, { top: '20%', left: '30%' },
+              { top: '17%', left: '40%' }, { top: '22%', left: '50%' }, { top: '19%', left: '60%' },
+              { top: '21%', left: '70%' }, { top: '16%', left: '80%' }, { top: '23%', left: '90%' },
+              { top: '28%', left: '8%' }, { top: '30%', left: '18%' }, { top: '32%', left: '28%' },
+              { top: '27%', left: '38%' }, { top: '33%', left: '48%' }, { top: '29%', left: '58%' },
+              { top: '31%', left: '68%' }, { top: '26%', left: '78%' }, { top: '34%', left: '88%' },
+              { top: '40%', left: '12%' }, { top: '42%', left: '22%' }, { top: '38%', left: '32%' },
+              { top: '43%', left: '42%' }, { top: '39%', left: '52%' }, { top: '41%', left: '62%' },
+              { top: '37%', left: '72%' }, { top: '44%', left: '82%' }, { top: '36%', left: '92%' },
+              { top: '50%', left: '6%' }, { top: '52%', left: '16%' }, { top: '48%', left: '26%' },
+              { top: '53%', left: '36%' }, { top: '49%', left: '46%' }, { top: '51%', left: '56%' },
+              { top: '47%', left: '66%' }, { top: '54%', left: '76%' }, { top: '46%', left: '86%' },
+              { top: '60%', left: '10%' }, { top: '62%', left: '20%' }, { top: '58%', left: '30%' },
+              { top: '63%', left: '40%' }, { top: '59%', left: '50%' }, { top: '61%', left: '60%' },
+              { top: '57%', left: '70%' }, { top: '64%', left: '80%' }, { top: '56%', left: '90%' },
+              { top: '70%', left: '8%' }, { top: '72%', left: '18%' }, { top: '68%', left: '28%' },
+              { top: '73%', left: '38%' }, { top: '69%', left: '48%' }, { top: '71%', left: '58%' },
+              { top: '67%', left: '68%' }, { top: '74%', left: '78%' }, { top: '66%', left: '88%' },
+              { top: '80%', left: '12%' }, { top: '82%', left: '22%' }, { top: '78%', left: '32%' },
+              { top: '83%', left: '42%' }, { top: '79%', left: '52%' }, { top: '81%', left: '62%' },
+              { top: '77%', left: '72%' }, { top: '84%', left: '82%' }, { top: '76%', left: '92%' },
+              { top: '90%', left: '6%' }, { top: '92%', left: '16%' }, { top: '88%', left: '26%' },
+              { top: '93%', left: '36%' }, { top: '89%', left: '46%' }, { top: '91%', left: '56%' },
+              { top: '87%', left: '66%' }, { top: '94%', left: '76%' }, { top: '86%', left: '86%' },
+              { top: '3%', left: '50%' }, { top: '13%', left: '5%' }, { top: '24%', left: '95%' },
+              { top: '35%', left: '3%' }, { top: '45%', left: '96%' }, { top: '55%', left: '4%' },
+              { top: '65%', left: '94%' }, { top: '75%', left: '6%' }, { top: '85%', left: '93%' },
+              { top: '95%', left: '10%' }, { top: '4%', left: '92%' }, { top: '14%', left: '8%' },
+              { top: '25%', left: '12%' }, { top: '36%', left: '88%' }, { top: '46%', left: '14%' },
+              { top: '56%', left: '84%' }, { top: '66%', left: '16%' }, { top: '76%', left: '86%' },
+              { top: '86%', left: '18%' }, { top: '96%', left: '82%' }, { top: '2%', left: '70%' },
+              { top: '11%', left: '33%' }, { top: '21%', left: '23%' }, { top: '31%', left: '73%' },
+              { top: '41%', left: '13%' }, { top: '51%', left: '83%' }, { top: '61%', left: '43%' },
+              { top: '71%', left: '53%' }, { top: '81%', left: '63%' }, { top: '91%', left: '73%' }
+            ];
+            
+            const position = positions[idx % positions.length];
+            const sizes = ['w-12 h-8', 'w-14 h-9', 'w-16 h-11', 'w-10 h-7', 'w-11 h-7'];
+            const size = sizes[idx % sizes.length];
+            const duration = 3 + (idx % 5) * 0.3;
+            const delay = (idx % 10) * 0.2;
+            
+            return (
+              <img
+                key={idx}
+                src={`https://flagcdn.com/${flag.code}.svg`}
+                alt={flag.name}
+                className={`absolute ${size} object-cover rounded shadow-lg animate-float`}
+                style={{
+                  top: position.top,
+                  left: position.left,
+                  animationDuration: `${duration}s`,
+                  animationDelay: `${delay}s`
+                }}
+                loading="lazy"
+              />
+            );
+          })}
+        </div>
 
         {/* Neon Glow Effects */}
         <div className="absolute inset-0">
@@ -182,108 +249,6 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
-
-      {/* Global Reach Section - Ultra Modern Animated Flags */}
-      <section className="relative py-32 md:py-40 overflow-hidden">
-        {/* Dynamic Gradient Background with Animation */}
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 via-purple-700 to-violet-800 animate-gradient-shift" />
-        <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/40 via-transparent to-pink-600/40" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(99,102,241,0.1),transparent_50%)]" />
-        
-        {/* Animated Floating Gradient Orbs */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-indigo-400/40 rounded-full blur-[140px] animate-float-slow" />
-          <div className="absolute bottom-1/4 right-1/4 w-[450px] h-[450px] bg-violet-400/40 rounded-full blur-[140px] animate-float-medium" />
-          <div className="absolute top-1/2 left-1/2 w-[400px] h-[400px] bg-purple-400/40 rounded-full blur-[140px] animate-float-fast" />
-        </div>
-
-        {/* Animated Particle Grid Background */}
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute inset-0" style={{ 
-            backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px)',
-            backgroundSize: '50px 50px'
-          }} />
-        </div>
-
-        <div className="container mx-auto px-6 md:px-12 relative z-10">
-          <div className="relative max-w-7xl mx-auto">
-            {/* Modern Flag Mosaic with Staggered Animation */}
-            <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-2 md:gap-3">
-              {countryFlags.slice(0, 50).map((flag, idx) => (
-                <div
-                  key={flag.code}
-                  className="group relative aspect-[3/2] overflow-hidden cursor-pointer"
-                  style={{
-                    animation: `fadeInScale 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) ${idx * 0.015}s both, float-flag 6s ease-in-out ${idx * 0.1}s infinite`,
-                    transformStyle: 'preserve-3d'
-                  }}
-                  data-testid={`flag-card-${flag.code}`}
-                >
-                  {/* Modern Card Container with 3D Effect */}
-                  <div className="relative w-full h-full rounded-xl overflow-hidden transform transition-all duration-700 ease-out group-hover:scale-110 group-hover:rotate-2 group-hover:shadow-2xl group-hover:shadow-purple-500/50">
-                    
-                    {/* Flag Image with Parallax */}
-                    <img
-                      src={`https://flagcdn.com/${flag.code}.svg`}
-                      alt={flag.name}
-                      className="absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:scale-125"
-                    />
-                    
-                    {/* Sophisticated Gradient Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-slate-950/60 via-slate-900/40 to-transparent opacity-70 group-hover:opacity-50 transition-opacity duration-500" />
-                    
-                    {/* Animated Shine Effect on Hover */}
-                    <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/0 to-transparent group-hover:via-white/20 transition-all duration-700 translate-x-[-200%] group-hover:translate-x-[200%]" style={{ transition: 'transform 0.7s ease-out' }} />
-
-                    {/* Premium Border with Glow */}
-                    <div className="absolute inset-0 rounded-xl ring-1 ring-white/10 group-hover:ring-2 group-hover:ring-purple-300/60 transition-all duration-500" />
-                    
-                    {/* Outer Glow Effect */}
-                    <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-violet-500 rounded-xl opacity-0 group-hover:opacity-50 blur-lg transition-all duration-500" />
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Premium Text Overlay with Glassmorphism */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-20">
-              <div className="relative text-center space-y-8 px-8 py-10 md:px-12 md:py-12">
-                {/* Premium Glass Card Background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-slate-900/80 via-slate-800/85 to-slate-900/80 backdrop-blur-xl rounded-3xl border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.4)]" />
-                
-                {/* Animated Glow Border */}
-                <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-indigo-500 via-purple-500 to-violet-500 opacity-30 blur-2xl animate-pulse-glow" />
-                
-                {/* Content */}
-                <div className="relative">
-                  {/* Main Heading with Animated Gradient */}
-                  <div className="relative inline-block mb-6">
-                    <div className="absolute -inset-8 bg-gradient-to-r from-indigo-400 via-purple-400 to-violet-400 rounded-full opacity-50 blur-3xl animate-pulse-slow" />
-                    <h2 className="relative text-5xl md:text-7xl lg:text-8xl font-black bg-gradient-to-r from-white via-indigo-100 to-purple-100 bg-clip-text text-transparent leading-tight tracking-tight animate-text-shimmer bg-[length:200%_auto]">
-                      Speak Any Language,<br />Anywhere
-                    </h2>
-                  </div>
-                  
-                  {/* Subtitle with Highlighted Stats */}
-                  <p className="text-xl md:text-3xl text-white/90 max-w-4xl mx-auto font-bold leading-relaxed">
-                    Connect with people from{' '}
-                    <span className="inline-flex items-center gap-2 font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-200 to-purple-100 px-4 py-2 rounded-xl bg-purple-500/30 backdrop-blur-sm border border-purple-300/30 shadow-lg shadow-purple-500/20">
-                      75+ countries
-                    </span>
-                    {' '}across{' '}
-                    <span className="inline-flex items-center gap-2 font-black text-transparent bg-clip-text bg-gradient-to-r from-indigo-200 to-indigo-100 px-4 py-2 rounded-xl bg-indigo-500/30 backdrop-blur-sm border border-indigo-300/30 shadow-lg shadow-indigo-500/20">
-                      47 languages
-                    </span>
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Decorative Bottom Fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-50 dark:from-slate-900/50 to-transparent" />
       </section>
 
       {/* Features Section - Speak naturally, be understood instantly */}
