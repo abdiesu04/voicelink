@@ -1,4 +1,97 @@
 import { z } from "zod";
+import { pgTable, text, timestamp, integer, boolean, varchar, serial } from "drizzle-orm/pg-core";
+import { createInsertSchema } from "drizzle-zod";
+import { sql } from "drizzle-orm";
+
+// Subscription plan types
+export const SUBSCRIPTION_PLANS = ["free", "starter", "pro"] as const;
+export type SubscriptionPlan = typeof SUBSCRIPTION_PLANS[number];
+
+// Plan details
+export const PLAN_DETAILS = {
+  free: { name: "Free Trial", price: 0, credits: 5, rolloverLimit: 0 },
+  starter: { name: "Starter", price: 9.99, credits: 350, rolloverLimit: 350 },
+  pro: { name: "Pro", price: 29.99, credits: 1200, rolloverLimit: 1200 },
+} as const;
+
+// Database Tables
+export const users = pgTable("users", {
+  id: serial("id").primaryKey(),
+  email: varchar("email", { length: 255 }).notNull().unique(),
+  passwordHash: varchar("password_hash", { length: 255 }).notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const subscriptions = pgTable("subscriptions", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  plan: varchar("plan", { length: 50 }).$type<SubscriptionPlan>().notNull().default("free"),
+  creditsRemaining: integer("credits_remaining").notNull().default(5),
+  creditsRolledOver: integer("credits_rolled_over").notNull().default(0),
+  billingCycleStart: timestamp("billing_cycle_start").notNull().defaultNow(),
+  billingCycleEnd: timestamp("billing_cycle_end").notNull().default(sql`NOW() + INTERVAL '30 days'`),
+  isActive: boolean("is_active").notNull().default(true),
+  canceledAt: timestamp("canceled_at"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+export const rooms = pgTable("rooms", {
+  id: varchar("id", { length: 255 }).primaryKey(),
+  userId: integer("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  creatorLanguage: varchar("creator_language", { length: 10 }).notNull(),
+  creatorVoiceGender: varchar("creator_voice_gender", { length: 10 }).$type<"male" | "female">().notNull(),
+  participantLanguage: varchar("participant_language", { length: 10 }),
+  participantVoiceGender: varchar("participant_voice_gender", { length: 10 }).$type<"male" | "female">(),
+  isActive: boolean("is_active").notNull().default(true),
+  sessionStartedAt: timestamp("session_started_at"),
+  sessionEndedAt: timestamp("session_ended_at"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const creditUsage = pgTable("credit_usage", {
+  id: serial("id").primaryKey(),
+  userId: integer("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  roomId: varchar("room_id", { length: 255 }).notNull().references(() => rooms.id, { onDelete: "cascade" }),
+  secondsUsed: integer("seconds_used").notNull().default(0),
+  creditsDeducted: integer("credits_deducted").notNull().default(0),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Insert schemas
+export const insertUserSchema = createInsertSchema(users).omit({ id: true, createdAt: true });
+export const insertSubscriptionSchema = createInsertSchema(subscriptions).omit({ id: true, createdAt: true, updatedAt: true });
+export const insertRoomSchema = createInsertSchema(rooms).omit({ createdAt: true, sessionStartedAt: true, sessionEndedAt: true });
+export const insertCreditUsageSchema = createInsertSchema(creditUsage).omit({ id: true, createdAt: true });
+
+// Types
+export type User = typeof users.$inferSelect;
+export type InsertUser = z.infer<typeof insertUserSchema>;
+export type Subscription = typeof subscriptions.$inferSelect;
+export type InsertSubscription = z.infer<typeof insertSubscriptionSchema>;
+export type Room = typeof rooms.$inferSelect;
+export type InsertRoom = z.infer<typeof insertRoomSchema>;
+export type CreditUsage = typeof creditUsage.$inferSelect;
+export type InsertCreditUsage = z.infer<typeof insertCreditUsageSchema>;
+
+// Authentication schemas
+export const registerSchema = z.object({
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(8, "Password must be at least 8 characters"),
+  confirmPassword: z.string(),
+  plan: z.enum(SUBSCRIPTION_PLANS).default("free"),
+}).refine(data => data.password === data.confirmPassword, {
+  message: "Passwords don't match",
+  path: ["confirmPassword"],
+});
+
+export const loginSchema = z.object({
+  email: z.string().email("Invalid email address"),
+  password: z.string().min(1, "Password is required"),
+});
+
+export type RegisterData = z.infer<typeof registerSchema>;
+export type LoginData = z.infer<typeof loginSchema>;
 
 // Supported languages for translation
 export const SUPPORTED_LANGUAGES = [
@@ -56,25 +149,6 @@ export type LanguageCode = typeof SUPPORTED_LANGUAGES[number]["code"];
 // Voice gender options
 export const VOICE_GENDERS = ["male", "female"] as const;
 export type VoiceGender = typeof VOICE_GENDERS[number];
-
-// Room schema
-export const roomSchema = z.object({
-  id: z.string(),
-  creatorLanguage: z.string(),
-  creatorVoiceGender: z.enum(VOICE_GENDERS),
-  participantLanguage: z.string().optional(),
-  participantVoiceGender: z.enum(VOICE_GENDERS).optional(),
-  createdAt: z.date(),
-  isActive: z.boolean(),
-});
-
-export const createRoomSchema = z.object({
-  language: z.string(),
-  voiceGender: z.enum(VOICE_GENDERS),
-});
-
-export type Room = z.infer<typeof roomSchema>;
-export type CreateRoom = z.infer<typeof createRoomSchema>;
 
 // Translation message schema
 export const translationMessageSchema = z.object({
