@@ -194,61 +194,51 @@ export default function Home() {
         </div>
 
         <div className="container mx-auto px-6 md:px-12 relative z-10">
-          {/* Header with Neon Glow */}
-          <div className="text-center mb-16 space-y-6">
-            <div className="relative inline-block">
-              <div className="absolute -inset-4 bg-gradient-to-r from-indigo-500 via-purple-500 to-violet-500 rounded-full opacity-20 blur-2xl" />
-              <h2 className="relative text-4xl md:text-6xl font-extrabold bg-gradient-to-r from-white via-indigo-100 to-violet-100 bg-clip-text text-transparent leading-tight">
-                Speak Any Language, Anywhere
-              </h2>
-            </div>
-            <p className="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto font-medium">
-              Connect with people from <span className="font-bold text-purple-400">75+ countries</span> across <span className="font-bold text-indigo-400">47 languages</span>
-            </p>
-          </div>
+          {/* Flag Grid with Text Overlay */}
+          <div className="relative max-w-7xl mx-auto">
+            {/* Glassmorphism Flag Grid - 4 rows × 5 flags = 20 flags */}
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+              {countryFlags.slice(0, 20).map((flag, idx) => (
+                <div
+                  key={flag.code}
+                  className="group relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer transform transition-all duration-500 hover:scale-105 hover:z-10"
+                  style={{
+                    animation: `fadeInUp 0.6s ease-out ${idx * 0.05}s both`
+                  }}
+                  data-testid={`flag-card-${flag.code}`}
+                >
+                  {/* Flag Background */}
+                  <img
+                    src={`https://flagcdn.com/${flag.code}.svg`}
+                    alt={flag.name}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  
+                  {/* Lighter Glassmorphism Overlay - Less Transparent */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/20 via-slate-900/10 to-transparent backdrop-blur-[1px] transition-all duration-500 group-hover:backdrop-blur-[2px] group-hover:from-slate-900/30 group-hover:via-slate-900/15" />
 
-          {/* Glassmorphism Flag Grid - 4 rows × 5 flags = 20 flags */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 max-w-7xl mx-auto">
-            {countryFlags.slice(0, 20).map((flag, idx) => (
-              <div
-                key={flag.code}
-                className="group relative aspect-[4/3] rounded-2xl overflow-hidden cursor-pointer transform transition-all duration-500 hover:scale-105 hover:z-10"
-                style={{
-                  animation: `fadeInUp 0.6s ease-out ${idx * 0.05}s both`
-                }}
-                data-testid={`flag-card-${flag.code}`}
-              >
-                {/* Flag Background */}
-                <img
-                  src={`https://flagcdn.com/${flag.code}.svg`}
-                  alt={flag.name}
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                
-                {/* Glassmorphism Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-slate-900/40 to-transparent backdrop-blur-[2px] transition-all duration-500 group-hover:backdrop-blur-sm group-hover:from-slate-900/60 group-hover:via-slate-900/30" />
-                
-                {/* Country Name */}
-                <div className="absolute inset-0 flex items-center justify-center p-4">
-                  <h3 className="text-white text-center font-bold text-sm md:text-base transition-all duration-500 group-hover:scale-110 group-hover:text-shadow-lg" style={{ textShadow: '0 0 20px rgba(139, 92, 246, 0)' }}>
-                    <span className="group-hover:drop-shadow-[0_0_8px_rgba(139,92,246,0.8)] transition-all duration-500">
-                      {flag.name}
-                    </span>
-                  </h3>
+                  {/* Hover Glow Border */}
+                  <div className="absolute inset-0 rounded-2xl ring-2 ring-transparent group-hover:ring-purple-400/50 transition-all duration-500" />
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 via-purple-500 to-violet-500 rounded-2xl opacity-0 group-hover:opacity-30 blur-md transition-opacity duration-500" />
                 </div>
+              ))}
+            </div>
 
-                {/* Hover Glow Border */}
-                <div className="absolute inset-0 rounded-2xl ring-2 ring-transparent group-hover:ring-purple-400/50 transition-all duration-500" />
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-500 via-purple-500 to-violet-500 rounded-2xl opacity-0 group-hover:opacity-30 blur-md transition-opacity duration-500" />
+            {/* Text Overlay - Positioned Over Flags */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-20">
+              <div className="text-center space-y-6 px-6">
+                {/* Header with Neon Glow */}
+                <div className="relative inline-block">
+                  <div className="absolute -inset-4 bg-gradient-to-r from-indigo-500 via-purple-500 to-violet-500 rounded-full opacity-30 blur-3xl" />
+                  <h2 className="relative text-4xl md:text-6xl font-extrabold bg-gradient-to-r from-white via-indigo-100 to-violet-100 bg-clip-text text-transparent leading-tight drop-shadow-[0_4px_20px_rgba(0,0,0,0.8)]">
+                    Speak Any Language, Anywhere
+                  </h2>
+                </div>
+                <p className="text-lg md:text-xl text-white max-w-3xl mx-auto font-medium drop-shadow-[0_4px_16px_rgba(0,0,0,0.9)]">
+                  Connect with people from <span className="font-bold text-purple-300">75+ countries</span> across <span className="font-bold text-indigo-300">47 languages</span>
+                </p>
               </div>
-            ))}
-          </div>
-
-          {/* Bottom CTA */}
-          <div className="text-center mt-16">
-            <p className="text-slate-400 text-sm md:text-base">
-              And <span className="text-purple-400 font-semibold">55+ more countries</span> waiting to connect with you
-            </p>
+            </div>
           </div>
         </div>
       </section>
