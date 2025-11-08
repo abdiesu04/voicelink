@@ -7,9 +7,10 @@ import { LanguageSelector } from "@/components/LanguageSelector";
 import { VoiceGenderSelector } from "@/components/VoiceGenderSelector";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
+import { RequireAuth } from "@/lib/auth";
 import type { VoiceGender } from "@shared/schema";
 
-export default function CreateRoom() {
+function CreateRoomContent() {
   const [, setLocation] = useLocation();
   const [selectedLanguage, setSelectedLanguage] = useState("en");
   const [selectedVoiceGender, setSelectedVoiceGender] = useState<VoiceGender | undefined>(undefined);
@@ -151,5 +152,13 @@ export default function CreateRoom() {
         </p>
       </div>
     </div>
+  );
+}
+
+export default function CreateRoom() {
+  return (
+    <RequireAuth>
+      <CreateRoomContent />
+    </RequireAuth>
   );
 }
