@@ -184,67 +184,106 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Global Reach Section - Glassmorphism Flag Grid */}
-      <section className="relative py-24 md:py-32 overflow-hidden">
-        {/* Multi-Layer Gradient Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 via-purple-700 to-violet-800" />
-        <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/30 via-transparent to-pink-600/30" />
+      {/* Global Reach Section - Ultra Modern Animated Flags */}
+      <section className="relative py-32 md:py-40 overflow-hidden">
+        {/* Dynamic Gradient Background with Animation */}
+        <div className="absolute inset-0 bg-gradient-to-br from-indigo-600 via-purple-700 to-violet-800 animate-gradient-shift" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/40 via-transparent to-pink-600/40" />
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(99,102,241,0.1),transparent_50%)]" />
         
-        {/* Animated Background Gradient Orbs */}
+        {/* Animated Floating Gradient Orbs */}
         <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-400/30 rounded-full blur-[128px] animate-pulse" />
-          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-violet-400/30 rounded-full blur-[128px] animate-pulse" style={{ animationDelay: '1s' }} />
-          <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-purple-400/30 rounded-full blur-[128px] animate-pulse" style={{ animationDelay: '2s' }} />
+          <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-indigo-400/40 rounded-full blur-[140px] animate-float-slow" />
+          <div className="absolute bottom-1/4 right-1/4 w-[450px] h-[450px] bg-violet-400/40 rounded-full blur-[140px] animate-float-medium" />
+          <div className="absolute top-1/2 left-1/2 w-[400px] h-[400px] bg-purple-400/40 rounded-full blur-[140px] animate-float-fast" />
+        </div>
+
+        {/* Animated Particle Grid Background */}
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute inset-0" style={{ 
+            backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px)',
+            backgroundSize: '50px 50px'
+          }} />
         </div>
 
         <div className="container mx-auto px-6 md:px-12 relative z-10">
-          {/* Flag Grid with Text Overlay */}
           <div className="relative max-w-7xl mx-auto">
-            {/* Glassmorphism Flag Grid - 6 rows × 8 flags = 48 flags */}
-            <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-8 gap-3">
-              {countryFlags.slice(0, 48).map((flag, idx) => (
+            {/* Modern Flag Mosaic with Staggered Animation */}
+            <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-2 md:gap-3">
+              {countryFlags.slice(0, 50).map((flag, idx) => (
                 <div
                   key={flag.code}
-                  className="group relative aspect-[3/2] rounded-lg overflow-hidden cursor-pointer transform transition-all duration-500 hover:scale-110 hover:z-10"
+                  className="group relative aspect-[3/2] overflow-hidden cursor-pointer"
                   style={{
-                    animation: `fadeInUp 0.6s ease-out ${idx * 0.02}s both`
+                    animation: `fadeInScale 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) ${idx * 0.015}s both, float-flag 6s ease-in-out ${idx * 0.1}s infinite`,
+                    transformStyle: 'preserve-3d'
                   }}
                   data-testid={`flag-card-${flag.code}`}
                 >
-                  {/* Flag Background */}
-                  <img
-                    src={`https://flagcdn.com/${flag.code}.svg`}
-                    alt={flag.name}
-                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  
-                  {/* Darker Glassmorphism Overlay - More Transparent */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 via-slate-900/30 to-transparent backdrop-blur-[1px] transition-all duration-500 group-hover:backdrop-blur-sm group-hover:from-slate-900/40 group-hover:via-slate-900/20" />
+                  {/* Modern Card Container with 3D Effect */}
+                  <div className="relative w-full h-full rounded-xl overflow-hidden transform transition-all duration-700 ease-out group-hover:scale-110 group-hover:rotate-2 group-hover:shadow-2xl group-hover:shadow-purple-500/50">
+                    
+                    {/* Flag Image with Parallax */}
+                    <img
+                      src={`https://flagcdn.com/${flag.code}.svg`}
+                      alt={flag.name}
+                      className="absolute inset-0 w-full h-full object-cover transition-all duration-700 group-hover:scale-125"
+                    />
+                    
+                    {/* Sophisticated Gradient Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-slate-950/60 via-slate-900/40 to-transparent opacity-70 group-hover:opacity-50 transition-opacity duration-500" />
+                    
+                    {/* Animated Shine Effect on Hover */}
+                    <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/0 to-transparent group-hover:via-white/20 transition-all duration-700 translate-x-[-200%] group-hover:translate-x-[200%]" style={{ transition: 'transform 0.7s ease-out' }} />
 
-                  {/* Hover Glow Border */}
-                  <div className="absolute inset-0 rounded-lg ring-1 ring-white/20 group-hover:ring-2 group-hover:ring-purple-400/60 transition-all duration-500" />
-                  <div className="absolute -inset-0.5 bg-gradient-to-r from-indigo-400 via-purple-400 to-violet-400 rounded-lg opacity-0 group-hover:opacity-40 blur-md transition-opacity duration-500" />
+                    {/* Premium Border with Glow */}
+                    <div className="absolute inset-0 rounded-xl ring-1 ring-white/10 group-hover:ring-2 group-hover:ring-purple-300/60 transition-all duration-500" />
+                    
+                    {/* Outer Glow Effect */}
+                    <div className="absolute -inset-1 bg-gradient-to-r from-indigo-500 via-purple-500 to-violet-500 rounded-xl opacity-0 group-hover:opacity-50 blur-lg transition-all duration-500" />
+                  </div>
                 </div>
               ))}
             </div>
 
-            {/* Text Overlay - Positioned Over Flags */}
+            {/* Premium Text Overlay with Glassmorphism */}
             <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-20">
-              <div className="text-center space-y-6 px-6 py-8 bg-gradient-to-b from-slate-900/60 via-slate-900/70 to-slate-900/60 backdrop-blur-md rounded-3xl border border-white/10 shadow-2xl">
-                {/* Header with Strong Gradient and Glow */}
-                <div className="relative inline-block">
-                  <div className="absolute -inset-6 bg-gradient-to-r from-indigo-400 via-purple-400 to-violet-400 rounded-full opacity-40 blur-3xl" />
-                  <h2 className="relative text-4xl md:text-6xl lg:text-7xl font-black bg-gradient-to-r from-indigo-200 via-purple-200 to-violet-200 bg-clip-text text-transparent leading-tight drop-shadow-[0_6px_24px_rgba(0,0,0,1)] tracking-tight">
-                    Speak Any Language, Anywhere
-                  </h2>
+              <div className="relative text-center space-y-8 px-8 py-10 md:px-12 md:py-12">
+                {/* Premium Glass Card Background */}
+                <div className="absolute inset-0 bg-gradient-to-br from-slate-900/80 via-slate-800/85 to-slate-900/80 backdrop-blur-xl rounded-3xl border border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.4)]" />
+                
+                {/* Animated Glow Border */}
+                <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-indigo-500 via-purple-500 to-violet-500 opacity-30 blur-2xl animate-pulse-glow" />
+                
+                {/* Content */}
+                <div className="relative">
+                  {/* Main Heading with Animated Gradient */}
+                  <div className="relative inline-block mb-6">
+                    <div className="absolute -inset-8 bg-gradient-to-r from-indigo-400 via-purple-400 to-violet-400 rounded-full opacity-50 blur-3xl animate-pulse-slow" />
+                    <h2 className="relative text-5xl md:text-7xl lg:text-8xl font-black bg-gradient-to-r from-white via-indigo-100 to-purple-100 bg-clip-text text-transparent leading-tight tracking-tight animate-text-shimmer bg-[length:200%_auto]">
+                      Speak Any Language,<br />Anywhere
+                    </h2>
+                  </div>
+                  
+                  {/* Subtitle with Highlighted Stats */}
+                  <p className="text-xl md:text-3xl text-white/90 max-w-4xl mx-auto font-bold leading-relaxed">
+                    Connect with people from{' '}
+                    <span className="inline-flex items-center gap-2 font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-200 to-purple-100 px-4 py-2 rounded-xl bg-purple-500/30 backdrop-blur-sm border border-purple-300/30 shadow-lg shadow-purple-500/20">
+                      75+ countries
+                    </span>
+                    {' '}across{' '}
+                    <span className="inline-flex items-center gap-2 font-black text-transparent bg-clip-text bg-gradient-to-r from-indigo-200 to-indigo-100 px-4 py-2 rounded-xl bg-indigo-500/30 backdrop-blur-sm border border-indigo-300/30 shadow-lg shadow-indigo-500/20">
+                      47 languages
+                    </span>
+                  </p>
                 </div>
-                <p className="text-lg md:text-2xl text-white max-w-3xl mx-auto font-bold drop-shadow-[0_4px_20px_rgba(0,0,0,1)]">
-                  Connect with people from <span className="font-black text-purple-200 bg-purple-500/20 px-2 py-1 rounded">75+ countries</span> across <span className="font-black text-indigo-200 bg-indigo-500/20 px-2 py-1 rounded">47 languages</span>
-                </p>
               </div>
             </div>
           </div>
         </div>
+
+        {/* Decorative Bottom Fade */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-50 dark:from-slate-900/50 to-transparent" />
       </section>
 
       {/* Features Section - Speak naturally, be understood instantly */}
