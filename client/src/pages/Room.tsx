@@ -1290,7 +1290,6 @@ export default function Room() {
             <div className="flex items-center justify-between gap-2">
               <ConnectionStatus 
                 status={connectionStatus} 
-                latency={connectionStatus === "connected" ? 45 : undefined}
                 disconnectReason={disconnectReason}
                 disconnectDetails={disconnectDetails}
               />
