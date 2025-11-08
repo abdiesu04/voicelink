@@ -9,7 +9,7 @@ export type SubscriptionPlan = typeof SUBSCRIPTION_PLANS[number];
 
 // Plan details
 export const PLAN_DETAILS = {
-  free: { name: "Free Trial", price: 0, credits: 5, rolloverLimit: 0 },
+  free: { name: "Free Trial", price: 0, credits: 60, rolloverLimit: 0 },
   starter: { name: "Starter", price: 9.99, credits: 350, rolloverLimit: 350 },
   pro: { name: "Pro", price: 29.99, credits: 1200, rolloverLimit: 1200 },
 } as const;
@@ -26,7 +26,7 @@ export const subscriptions = pgTable("subscriptions", {
   id: serial("id").primaryKey(),
   userId: integer("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
   plan: varchar("plan", { length: 50 }).$type<SubscriptionPlan>().notNull().default("free"),
-  creditsRemaining: integer("credits_remaining").notNull().default(5),
+  creditsRemaining: integer("credits_remaining").notNull().default(60),
   creditsRolledOver: integer("credits_rolled_over").notNull().default(0),
   billingCycleStart: timestamp("billing_cycle_start").notNull().defaultNow(),
   billingCycleEnd: timestamp("billing_cycle_end").notNull().default(sql`NOW() + INTERVAL '30 days'`),

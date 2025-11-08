@@ -22,7 +22,7 @@ const plans: PricingPlan[] = [
     id: "free",
     name: "Free Trial",
     price: 0,
-    credits: 5,
+    credits: 60,
     rolloverLimit: 0,
   },
   {
@@ -43,7 +43,7 @@ const plans: PricingPlan[] = [
 
 const planFeatures = {
   free: [
-    "5 minutes of translation",
+    "60 minutes of translation",
     "47 languages",
     "Basic voice quality",
     "No rollover",
