@@ -844,17 +844,8 @@ export default function Room() {
       }
 
       if (message.type === "session-ended") {
-        console.log('[Session] Session ended - stopping timer');
-        setSessionActive(false);
-        
-        // Show toast if session ended due to credits exhausted
-        if (message.reason === 'credits-exhausted') {
-          toast({
-            title: "Call Ended - No Credits Remaining",
-            description: "Your credits have been exhausted. Please upgrade your plan to continue.",
-            variant: "destructive",
-          });
-        }
+        console.log('[Session] Session ended - handling cleanup and navigation');
+        handleSessionEnded(message.reason);
       }
 
       if (message.type === "credit-update") {
@@ -1315,6 +1306,106 @@ export default function Room() {
       isMutedRef.current = false; // Clear muted state in ref
       startConversation();
     }
+  };
+
+  const handleSessionEnded = (reason: 'creator-left' | 'participant-left' | 'credits-exhausted') => {
+    console.log(`[Session] Handling session end, reason: ${reason}`);
+    
+    shouldReconnectRef.current = false;
+    isReconnectingRef.current = false;
+    
+    if (reconnectTimeoutRef.current) {
+      console.log('[Session] Clearing reconnect timeout');
+      clearTimeout(reconnectTimeoutRef.current);
+      reconnectTimeoutRef.current = null;
+    }
+    
+    if (recognizerRef.current) {
+      console.log('[Session] Stopping Azure Speech recognizer');
+      const recognizer = recognizerRef.current;
+      try {
+        recognizer.stopContinuousRecognitionAsync(
+          () => {
+            console.log('[Session] Recognition stopped successfully');
+            recognizer.close();
+            recognizerRef.current = null;
+          },
+          (err) => {
+            console.error('[Session] Error stopping recognition:', err);
+            try {
+              recognizer.close();
+            } catch (e) {
+              console.error('[Session] Error closing recognizer:', e);
+            }
+            recognizerRef.current = null;
+          }
+        );
+      } catch (error) {
+        console.error('[Session] Failed to stop recognizer:', error);
+        try {
+          recognizer.close();
+        } catch (e) {
+          console.error('[Session] Error closing recognizer:', e);
+        }
+        recognizerRef.current = null;
+      }
+    }
+    
+    if (activeSynthesizerRef.current) {
+      console.log('[Session] Closing active synthesizer');
+      try {
+        activeSynthesizerRef.current.close();
+      } catch (error) {
+        console.error('[Session] Error closing synthesizer:', error);
+      }
+      activeSynthesizerRef.current = null;
+    }
+    
+    ttsQueueRef.current = [];
+    isProcessingTTSRef.current = false;
+    
+    if (currentAudioRef.current) {
+      try {
+        currentAudioRef.current.pause();
+        currentAudioRef.current.src = '';
+        currentAudioRef.current.load();
+      } catch (error) {
+        console.error('[Session] Error stopping audio:', error);
+      }
+    }
+    
+    setSessionActive(false);
+    setPartnerConnected(false);
+    setConversationStarted(false);
+    setMyInterimText("");
+    setPartnerInterimText("");
+    
+    const reasonMessages = {
+      'creator-left': {
+        title: "Call Ended - Room Owner Left",
+        description: "The room owner has ended the call."
+      },
+      'participant-left': {
+        title: "Call Ended - Partner Left",
+        description: "Your conversation partner has left the room."
+      },
+      'credits-exhausted': {
+        title: "Call Ended - No Credits Remaining",
+        description: "Your credits have been exhausted. Please upgrade your plan to continue."
+      }
+    };
+    
+    const message = reasonMessages[reason];
+    toast({
+      title: message.title,
+      description: message.description,
+      variant: "destructive",
+    });
+    
+    setTimeout(() => {
+      console.log('[Session] Navigating to dashboard after session end');
+      setLocation("/");
+    }, 2500);
   };
 
   const handleEndCall = () => {

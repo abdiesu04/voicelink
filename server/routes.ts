@@ -25,6 +25,40 @@ const connections = new Map<WebSocket, RoomConnection>();
 const roomConnections = new Map<string, WebSocket[]>();
 const activeSessions = new Map<string, SessionTracking>(); // roomId -> session tracking
 
+function endSession(roomId: string, reason: 'participant-left' | 'creator-left' | 'credits-exhausted') {
+  console.log(`[Session] Ending session for room ${roomId}, reason: ${reason}`);
+  
+  const session = activeSessions.get(roomId);
+  if (session) {
+    const totalDuration = Math.floor((Date.now() - session.startTime) / 1000);
+    console.log(`[Session] Total duration: ${totalDuration}s`);
+    
+    clearInterval(session.intervalId);
+    session.isActive = false;
+    activeSessions.delete(roomId);
+  }
+  
+  const clients = roomConnections.get(roomId) || [];
+  
+  clients.forEach(client => {
+    connections.delete(client);
+    
+    if (client.readyState === WebSocket.OPEN) {
+      client.send(JSON.stringify({
+        type: 'session-ended',
+        reason
+      }));
+      
+      client.close(1000, `Session ended: ${reason}`);
+    }
+  });
+  
+  roomConnections.delete(roomId);
+  storage.deleteRoom(roomId);
+  
+  console.log(`[Session] Cleaned up room ${roomId}, notified ${clients.length} clients`);
+}
+
 export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/rooms/create", async (req, res) => {
     try {
@@ -234,24 +268,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
                     }
                   });
 
-                  // If credits exhausted, end the session and close all connections
+                  // If credits exhausted, end the session for everyone
                   if (result.exhausted) {
-                    console.log(`[Credit Tracking] Credits exhausted for room ${roomId}, ending session and closing connections`);
-                    clearInterval(intervalId);
-                    session.isActive = false;
-                    activeSessions.delete(roomId);
-                    
-                    // Send session-ended event and close each connection
-                    clients.forEach(client => {
-                      if (client.readyState === WebSocket.OPEN) {
-                        client.send(JSON.stringify({
-                          type: 'session-ended',
-                          reason: 'credits-exhausted'
-                        }));
-                        // Close the WebSocket connection
-                        client.close(1000, 'Credits exhausted');
-                      }
-                    });
+                    console.log(`[Credit Tracking] Credits exhausted for room ${roomId}`);
+                    endSession(roomId, 'credits-exhausted');
                   }
                 }
               }, 10000); // Check every 10 seconds
@@ -406,44 +426,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
       clearInterval(pingInterval);
       
       if (connection) {
-        const { roomId } = connection;
+        const { roomId, role } = connection;
         
-        // Stop credit tracking session (cleanup only, no final deduction to avoid double-charging)
-        const session = activeSessions.get(roomId);
-        if (session && session.isActive) {
-          const now = Date.now();
-          const totalElapsedSeconds = Math.floor((now - session.startTime) / 1000);
-          
-          console.log(`[Credit Tracking] Stopping session for room ${roomId}. Total duration: ${totalElapsedSeconds}s`);
-          
-          // Just cleanup - do NOT deduct credits here (already deducted by interval)
-          clearInterval(session.intervalId);
-          session.isActive = false;
-          activeSessions.delete(roomId);
-        }
+        // End the entire session when ANY user disconnects
+        // This ensures the other user is notified and credits stop immediately
+        const sessionReason = role === 'creator' ? 'creator-left' : 'participant-left';
+        endSession(roomId, sessionReason);
         
-        const roomClients = roomConnections.get(roomId);
-        if (roomClients) {
-          const index = roomClients.indexOf(ws);
-          if (index > -1) {
-            roomClients.splice(index, 1);
-          }
-
-          roomClients.forEach(client => {
-            if (client.readyState === WebSocket.OPEN) {
-              client.send(JSON.stringify({
-                type: 'participant-left',
-                roomId
-              }));
-            }
-          });
-
-          if (roomClients.length === 0) {
-            roomConnections.delete(roomId);
-            storage.deleteRoom(roomId);
-          }
-        }
-
         connections.delete(ws);
       }
     });
