@@ -15,6 +15,8 @@ import {
 export function Header() {
   const [location] = useLocation();
   const isHome = location === "/";
+  const isPricing = location === "/pricing";
+  const isAccount = location === "/account";
   const { user, subscription } = useAuth();
 
   return (
@@ -45,20 +47,28 @@ export function Header() {
                 Home
               </div>
             </Link>
-            <a 
-              href="#features" 
-              className="px-4 py-2 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground transition-colors hover-elevate"
-              data-testid="nav-features"
-            >
-              Features
-            </a>
-            <a 
-              href="#how-it-works" 
-              className="px-4 py-2 rounded-lg text-sm font-medium text-muted-foreground hover:text-foreground transition-colors hover-elevate"
-              data-testid="nav-how-it-works"
-            >
-              How It Works
-            </a>
+            <Link href="/pricing">
+              <div 
+                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors hover-elevate cursor-pointer ${
+                  isPricing ? 'text-foreground bg-secondary' : 'text-muted-foreground hover:text-foreground'
+                }`}
+                data-testid="nav-pricing"
+              >
+                Pricing
+              </div>
+            </Link>
+            {user && (
+              <Link href="/account">
+                <div 
+                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors hover-elevate cursor-pointer ${
+                    isAccount ? 'text-foreground bg-secondary' : 'text-muted-foreground hover:text-foreground'
+                  }`}
+                  data-testid="nav-account"
+                >
+                  Account
+                </div>
+              </Link>
+            )}
           </nav>
 
           {/* CTA Button & Theme Toggle */}

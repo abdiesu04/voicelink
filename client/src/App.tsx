@@ -13,6 +13,7 @@ import Room from "@/pages/Room";
 import Login from "@/pages/Login";
 import Register from "@/pages/Register";
 import Account from "@/pages/Account";
+import Pricing from "@/pages/Pricing";
 import QueueTest from "@/pages/QueueTest";
 import NotFound from "@/pages/not-found";
 
@@ -23,6 +24,7 @@ function Router() {
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
       <Route path="/account" component={Account} />
+      <Route path="/pricing" component={Pricing} />
       <Route path="/create" component={CreateRoom} />
       <Route path="/join/:roomId" component={JoinRoom} />
       <Route path="/room/:roomId" component={Room} />
