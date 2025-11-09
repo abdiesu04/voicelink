@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ConnectionStatus } from "@/components/ConnectionStatus";
 import { TranscriptionPanel } from "@/components/TranscriptionPanel";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/lib/auth";
 import {
   Dialog,
   DialogContent,
@@ -27,6 +28,7 @@ export default function Room() {
   const [, params] = useRoute("/room/:roomId");
   const [, setLocation] = useLocation();
   const { toast } = useToast();
+  const { updateSubscription } = useAuth();
 
   const roomId = params?.roomId;
   
@@ -844,6 +846,41 @@ export default function Room() {
       if (message.type === "session-ended") {
         console.log('[Session] Session ended - stopping timer');
         setSessionActive(false);
+        
+        // Show toast if session ended due to credits exhausted
+        if (message.reason === 'credits-exhausted') {
+          toast({
+            title: "Call Ended - No Credits Remaining",
+            description: "Your credits have been exhausted. Please upgrade your plan to continue.",
+            variant: "destructive",
+          });
+        }
+      }
+
+      if (message.type === "credit-update") {
+        const { creditsRemaining, exhausted } = message;
+        console.log(`[Credits] Update received: ${creditsRemaining} seconds remaining, exhausted: ${exhausted}`);
+        
+        // Update global auth subscription state so Header and other components show live credits
+        updateSubscription({ creditsRemaining });
+        
+        // Warn when less than 2 minutes (120 seconds) remaining  
+        if (creditsRemaining <= 120 && creditsRemaining > 100 && !exhausted) {
+          toast({
+            title: "Low Credits Warning",
+            description: `You have ${(creditsRemaining / 60).toFixed(1)} minutes remaining. Consider upgrading your plan.`,
+            variant: "default",
+          });
+        }
+        
+        // Warn at 1 minute
+        if (creditsRemaining <= 60 && creditsRemaining > 40 && !exhausted) {
+          toast({
+            title: "Critical - Less Than 1 Minute Remaining",
+            description: "Your call will end soon. Upgrade to continue.",
+            variant: "destructive",
+          });
+        }
       }
 
       if (message.type === "transcription") {
@@ -1324,10 +1361,14 @@ export default function Room() {
                 disconnectDetails={disconnectDetails}
               />
               
-              {/* Session Timer */}
-              {sessionActive && (
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/30">
-                  <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
+              {/* Session Timer - show when session is active or has elapsed time */}
+              {(sessionActive || elapsedSeconds > 0) && (
+                <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg ${
+                  sessionActive 
+                    ? 'bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/30' 
+                    : 'bg-gray-500/10 border border-gray-500/30'
+                }`}>
+                  {sessionActive && <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />}
                   <span className="text-sm font-mono font-bold text-foreground" data-testid="text-session-timer">
                     {formatTime(elapsedSeconds)}
                   </span>

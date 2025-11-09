@@ -15,6 +15,7 @@ interface AuthContextType {
   register: (email: string, password: string, confirmPassword: string, plan: string) => Promise<void>;
   logout: () => Promise<void>;
   refreshUser: () => Promise<void>;
+  updateSubscription: (updates: Partial<Subscription>) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -108,6 +109,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     await fetchUser();
   };
 
+  const updateSubscription = (updates: Partial<Subscription>) => {
+    if (subscription) {
+      setSubscription({ ...subscription, ...updates });
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -118,6 +125,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         register,
         logout,
         refreshUser,
+        updateSubscription,
       }}
     >
       {children}
