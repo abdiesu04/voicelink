@@ -1043,11 +1043,21 @@ export default function Room() {
   }, [roomId, language, voiceGender, role]);
 
   const startConversation = async () => {
+    // Check if partner is connected
+    if (!partnerConnected) {
+      toast({
+        title: "Partner Not Connected",
+        description: "Please wait for your partner to join before starting the conversation.",
+        variant: "default",
+      });
+      return;
+    }
+
     // Check if quota is already exceeded
     if (quotaExceededRef.current) {
       toast({
         title: "Quota Limit Reached",
-        description: "Cannot start conversation - Azure quota exceeded. Please upgrade your Azure account.",
+        description: "Cannot start conversation - service quota exceeded. Please upgrade your account.",
         variant: "destructive",
       });
       return;
@@ -1595,17 +1605,19 @@ export default function Room() {
               <Button
                 size="lg"
                 onClick={startConversation}
-                disabled={quotaExceeded}
+                disabled={quotaExceeded || !partnerConnected}
                 className="h-12 sm:h-14 md:h-16 px-8 sm:px-10 md:px-12 text-base sm:text-lg bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 shadow-lg shadow-primary/25 group disabled:opacity-50 disabled:cursor-not-allowed"
                 data-testid="button-start-conversation"
               >
                 <Mic className="h-5 w-5 sm:h-6 sm:w-6 mr-2 sm:mr-3 group-hover:scale-110 transition-transform" />
-                {quotaExceeded ? "Quota Exceeded" : "Start Conversation"}
+                {quotaExceeded ? "Quota Exceeded" : !partnerConnected ? "Waiting for Partner" : "Start Conversation"}
               </Button>
               <p className="text-xs sm:text-sm text-muted-foreground text-center px-4">
                 {quotaExceeded 
                   ? "Cannot start - service quota limit reached" 
-                  : "Click to enable your microphone and begin speaking"
+                  : !partnerConnected
+                    ? "Waiting for your partner to join the room..."
+                    : "Click to enable your microphone and begin speaking"
                 }
               </p>
             </div>
@@ -1615,10 +1627,10 @@ export default function Room() {
                 size="lg"
                 variant={isMuted ? "secondary" : "default"}
                 onClick={toggleMute}
-                disabled={quotaExceeded && isMuted}
+                disabled={(quotaExceeded && isMuted) || (isMuted && !partnerConnected)}
                 className={`h-16 w-16 sm:h-20 sm:w-20 rounded-full shadow-xl ${
                   !isMuted ? "bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 shadow-primary/25" : ""
-                } ${quotaExceeded && isMuted ? "opacity-50 cursor-not-allowed" : ""}`}
+                } ${((quotaExceeded && isMuted) || (isMuted && !partnerConnected)) ? "opacity-50 cursor-not-allowed" : ""}`}
                 data-testid="button-toggle-mic"
               >
                 {isMuted ? <MicOff className="h-6 w-6 sm:h-8 sm:w-8" /> : <Mic className="h-6 w-6 sm:h-8 sm:w-8" />}
