@@ -1251,8 +1251,18 @@ export default function Room() {
     if (isMuted && quotaExceededRef.current) {
       toast({
         title: "Quota Limit Reached",
-        description: "Cannot enable microphone - Azure quota exceeded. Please upgrade your Azure account.",
+        description: "Cannot enable microphone - service quota exceeded. Please upgrade your account.",
         variant: "destructive",
+      });
+      return;
+    }
+
+    // Prevent unmuting if partner hasn't joined yet
+    if (isMuted && !partnerConnected) {
+      toast({
+        title: "Partner Not Connected",
+        description: "Please wait for your partner to join before starting the conversation.",
+        variant: "default",
       });
       return;
     }
@@ -1527,9 +1537,9 @@ export default function Room() {
                   <span className="text-destructive font-bold text-sm">!</span>
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-sm font-semibold text-destructive mb-1">Azure Quota Limit Reached</h3>
+                  <h3 className="text-sm font-semibold text-destructive mb-1">Service Quota Limit Reached</h3>
                   <p className="text-xs text-slate-600 dark:text-slate-300">
-                    Your Azure Speech Services quota has been exceeded. If you've upgraded your account or changed API keys, click "Try Again" to resume.
+                    Your speech service quota has been exceeded. If you've upgraded your account or changed API keys, click "Try Again" to resume.
                   </p>
                 </div>
               </div>
@@ -1594,7 +1604,7 @@ export default function Room() {
               </Button>
               <p className="text-xs sm:text-sm text-muted-foreground text-center px-4">
                 {quotaExceeded 
-                  ? "Cannot start - Azure quota limit reached" 
+                  ? "Cannot start - service quota limit reached" 
                   : "Click to enable your microphone and begin speaking"
                 }
               </p>
@@ -1632,9 +1642,11 @@ export default function Room() {
                 </div>
                 <p className="text-xs sm:text-sm text-muted-foreground px-4">
                   {quotaExceeded && isMuted 
-                    ? "Azure quota reached - upgrade to continue"
+                    ? "Service quota reached - upgrade to continue"
                     : isMuted 
-                      ? "Click the button to unmute" 
+                      ? partnerConnected 
+                        ? "Click the button to unmute"
+                        : "Waiting for partner to join..."
                       : "Click to mute your microphone"
                   }
                 </p>
