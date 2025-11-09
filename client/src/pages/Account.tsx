@@ -68,10 +68,6 @@ function AccountContent() {
               <span className="text-muted-foreground">Email</span>
               <span className="font-medium">{user?.email}</span>
             </div>
-            <div className="flex justify-between items-center py-2">
-              <span className="text-muted-foreground">User ID</span>
-              <span className="font-mono text-sm">{user?.id}</span>
-            </div>
           </CardContent>
         </Card>
 
