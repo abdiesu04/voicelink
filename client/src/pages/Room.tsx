@@ -1681,19 +1681,19 @@ export default function Room() {
 
       {/* Partner Wait Countdown Banner - Only for owners waiting for partner */}
       {waitingCountdown > 0 && !partnerConnected && (role === "creator" || role === "owner") && (
-        <div className="bg-amber-500/20 border-y border-amber-500/50 backdrop-blur-sm relative z-10 animate-in slide-in-from-top duration-500">
+        <div className="bg-muted/50 border-y border-border backdrop-blur-sm relative z-10 animate-in slide-in-from-top duration-500">
           <div className="container mx-auto px-6 md:px-12 py-4">
             <div className="flex items-center justify-between gap-4">
               <div className="flex items-center gap-3 flex-1">
-                <div className="flex-shrink-0 h-8 w-8 rounded-full bg-amber-500/30 flex items-center justify-center ring-2 ring-amber-500/50">
-                  <span className="text-amber-600 dark:text-amber-400 font-bold text-lg">{waitingCountdown}</span>
+                <div className="flex-shrink-0 h-8 w-8 rounded-full bg-muted flex items-center justify-center ring-2 ring-border">
+                  <span className="text-foreground font-bold text-lg">{waitingCountdown}</span>
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-sm font-semibold text-amber-600 dark:text-amber-400 mb-1">
+                  <h3 className="text-sm font-semibold text-foreground mb-1">
                     No One Has Joined Yet
                   </h3>
-                  <p className="text-xs text-slate-600 dark:text-slate-300">
-                    Redirecting to home page in <span className="font-bold text-amber-600 dark:text-amber-400">{waitingCountdown} second{waitingCountdown !== 1 ? 's' : ''}</span>. Share your room link to invite someone!
+                  <p className="text-xs text-muted-foreground">
+                    Redirecting to home page in <span className="font-bold text-foreground">{waitingCountdown} second{waitingCountdown !== 1 ? 's' : ''}</span>. Share your room link to invite someone!
                   </p>
                 </div>
               </div>
@@ -1701,7 +1701,6 @@ export default function Room() {
                 size="sm"
                 variant="outline"
                 onClick={() => setShowShareDialog(true)}
-                className="border-amber-500/50 hover:bg-amber-500/10"
                 data-testid="button-share-room"
               >
                 <Share2 className="h-4 w-4 mr-2" />
