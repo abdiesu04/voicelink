@@ -634,10 +634,14 @@ export default function Room() {
         role,
       }));
 
-      toast({
-        title: "Connected",
-        description: "Successfully connected to the room",
-      });
+      // Only show "Connected" toast for hosts to avoid overlap with "Partner Joined"
+      // Participants will see "Partner Joined" immediately after connecting
+      if (role === "owner") {
+        toast({
+          title: "Connected",
+          description: "Waiting for your partner to join...",
+        });
+      }
     };
     
     ws.onerror = (error) => {
@@ -831,10 +835,17 @@ export default function Room() {
         setPartnerLanguage(message.language);
         setPartnerVoiceGender(message.voiceGender);
         setShowShareDialog(false);
-        toast({
-          title: "Partner Joined",
-          description: "Your conversation partner has joined the room",
-        });
+        
+        // Delay notification slightly to avoid overlap with connection toast
+        // Show different message based on role
+        setTimeout(() => {
+          toast({
+            title: role === "owner" ? "Partner Joined" : "Connected to Room",
+            description: role === "owner" 
+              ? "Your conversation partner has joined. Click 'Start Conversation' to begin."
+              : "You're now connected. Waiting for host to start the conversation...",
+          });
+        }, 600);
       }
 
       if (message.type === "session-started") {
