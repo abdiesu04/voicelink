@@ -1,6 +1,6 @@
 import { randomUUID } from "crypto";
 import { drizzle } from "drizzle-orm/neon-serverless";
-import { eq, and } from "drizzle-orm";
+import { eq, and, desc } from "drizzle-orm";
 import * as schema from "@shared/schema";
 import type { User, Subscription, Room, CreditUsage, SubscriptionPlan } from "@shared/schema";
 import { Pool, neonConfig } from "@neondatabase/serverless";
@@ -83,7 +83,9 @@ export class PgStorage implements IStorage {
       .where(and(
         eq(schema.subscriptions.userId, userId),
         eq(schema.subscriptions.isActive, true)
-      ));
+      ))
+      .orderBy(desc(schema.subscriptions.updatedAt))
+      .limit(1);
     return subscription;
   }
 
