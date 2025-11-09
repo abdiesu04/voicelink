@@ -48,15 +48,22 @@ export function setupAuth(app: Express) {
 
         req.session.userId = user.id;
 
-        res.json({
-          user: {
-            id: user.id,
-            email: user.email,
-          },
-          subscription: {
-            plan: subscription.plan,
-            creditsRemaining: subscription.creditsRemaining,
-          },
+        req.session.save((saveErr) => {
+          if (saveErr) {
+            console.error("Session save error:", saveErr);
+            return res.status(500).json({ error: "Failed to save session" });
+          }
+
+          res.json({
+            user: {
+              id: user.id,
+              email: user.email,
+            },
+            subscription: {
+              plan: subscription.plan,
+              creditsRemaining: subscription.creditsRemaining,
+            },
+          });
         });
       });
     } catch (error) {
@@ -96,15 +103,22 @@ export function setupAuth(app: Express) {
 
         req.session.userId = user.id;
 
-        res.json({
-          user: {
-            id: user.id,
-            email: user.email,
-          },
-          subscription: subscription ? {
-            plan: subscription.plan,
-            creditsRemaining: subscription.creditsRemaining,
-          } : null,
+        req.session.save((saveErr) => {
+          if (saveErr) {
+            console.error("Session save error:", saveErr);
+            return res.status(500).json({ error: "Failed to save session" });
+          }
+
+          res.json({
+            user: {
+              id: user.id,
+              email: user.email,
+            },
+            subscription: subscription ? {
+              plan: subscription.plan,
+              creditsRemaining: subscription.creditsRemaining,
+            } : null,
+          });
         });
       });
     } catch (error) {
