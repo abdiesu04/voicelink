@@ -7,11 +7,12 @@ import { LanguageSelector } from "@/components/LanguageSelector";
 import { VoiceGenderSelector } from "@/components/VoiceGenderSelector";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
-import { RequireAuth } from "@/lib/auth";
+import { RequireAuth, useAuth } from "@/lib/auth";
 import type { VoiceGender } from "@shared/schema";
 
 function CreateRoomContent() {
   const [, setLocation] = useLocation();
+  const { subscription } = useAuth();
   const [selectedLanguage, setSelectedLanguage] = useState("en");
   const [selectedVoiceGender, setSelectedVoiceGender] = useState<VoiceGender | undefined>(undefined);
   
@@ -41,6 +42,16 @@ function CreateRoomContent() {
   });
 
   const handleCreateRoom = () => {
+    // Check if user has credits remaining
+    if (!subscription || subscription.creditsRemaining <= 0) {
+      toast({
+        title: "No Credits Remaining",
+        description: "You need credits to start a translation session. Please upgrade your plan to continue.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     if (!selectedLanguage) {
       toast({
         title: "Language Required",
@@ -128,14 +139,18 @@ function CreateRoomContent() {
           {/* Create Button */}
           <Button
             onClick={handleCreateRoom}
-            disabled={createRoomMutation.isPending || !selectedLanguage || !selectedVoiceGender}
-            className="w-full h-12 sm:h-14 text-base sm:text-lg bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 shadow-lg shadow-primary/25 group"
+            disabled={createRoomMutation.isPending || !selectedLanguage || !selectedVoiceGender || !subscription || subscription.creditsRemaining <= 0}
+            className="w-full h-12 sm:h-14 text-base sm:text-lg bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 shadow-lg shadow-primary/25 group disabled:opacity-50 disabled:cursor-not-allowed"
             data-testid="button-create"
           >
             {createRoomMutation.isPending ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 sm:h-5 sm:w-5 animate-spin" />
                 Creating Room...
+              </>
+            ) : subscription && subscription.creditsRemaining <= 0 ? (
+              <>
+                No Credits Remaining - Upgrade Plan
               </>
             ) : (
               <>
@@ -144,11 +159,23 @@ function CreateRoomContent() {
               </>
             )}
           </Button>
+
+          {/* Credits Warning */}
+          {subscription && subscription.creditsRemaining <= 0 && (
+            <div className="mt-4 p-3 sm:p-4 bg-destructive/10 border border-destructive/30 rounded-xl">
+              <p className="text-xs sm:text-sm text-center text-destructive font-medium">
+                ⚠️ You have 0 minutes remaining. Please upgrade your plan to start a translation session.
+              </p>
+            </div>
+          )}
         </div>
 
         {/* Footer Note */}
         <p className="text-center text-xs sm:text-sm text-muted-foreground mt-4 sm:mt-6 px-4">
-          You'll receive a shareable link to invite your conversation partner
+          {subscription && subscription.creditsRemaining <= 0 
+            ? "Upgrade your plan to get more translation minutes"
+            : "You'll receive a shareable link to invite your conversation partner"
+          }
         </p>
       </div>
     </div>
