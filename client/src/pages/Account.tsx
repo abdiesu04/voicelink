@@ -5,10 +5,15 @@ import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { User, CreditCard, Clock, LogOut } from "lucide-react";
 import { format } from "date-fns";
+import { useEffect } from "react";
 
 function AccountContent() {
-  const { user, subscription, logout } = useAuth();
+  const { user, subscription, logout, refreshUser } = useAuth();
   const { toast } = useToast();
+
+  useEffect(() => {
+    refreshUser();
+  }, []);
 
   if (!subscription) {
     return (
