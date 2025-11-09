@@ -15,23 +15,70 @@ export default function JoinRoom() {
   
   console.log('[JoinRoom] Selected voice gender:', selectedVoiceGender);
   const [isJoining, setIsJoining] = useState(false);
+  const [isValidating, setIsValidating] = useState(true);
+  const [roomExists, setRoomExists] = useState(false);
   const [copied, setCopied] = useState(false);
   const { toast } = useToast();
 
   const roomId = params?.roomId;
 
+  // Validate room exists
   useEffect(() => {
-    if (!roomId) {
-      toast({
-        title: "Invalid Room",
-        description: "No room ID provided",
-        variant: "destructive",
-      });
-      setLocation("/");
-    }
+    const validateRoom = async () => {
+      if (!roomId) {
+        toast({
+          title: "Invalid Room",
+          description: "No room ID provided",
+          variant: "destructive",
+        });
+        setLocation("/");
+        return;
+      }
+
+      try {
+        const response = await fetch(`/api/rooms/${roomId}`);
+        
+        if (response.status === 404) {
+          toast({
+            title: "Room Not Found",
+            description: "This room has expired or doesn't exist. Please ask for a new invitation link.",
+            variant: "destructive",
+          });
+          setTimeout(() => setLocation("/"), 2000);
+          return;
+        }
+
+        if (!response.ok) {
+          throw new Error("Failed to validate room");
+        }
+
+        setRoomExists(true);
+      } catch (error) {
+        console.error("[JoinRoom] Room validation error:", error);
+        toast({
+          title: "Room Validation Failed",
+          description: "Unable to verify room. It may have expired.",
+          variant: "destructive",
+        });
+        setTimeout(() => setLocation("/"), 2000);
+      } finally {
+        setIsValidating(false);
+      }
+    };
+
+    validateRoom();
   }, [roomId, setLocation, toast]);
 
   const handleJoinRoom = () => {
+    if (!roomExists) {
+      toast({
+        title: "Room Not Available",
+        description: "This room is no longer available.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     if (!selectedLanguage) {
       toast({
         title: "Language Required",
@@ -65,6 +112,23 @@ export default function JoinRoom() {
       setTimeout(() => setCopied(false), 2000);
     }
   };
+
+  // Show loading while validating room
+  if (isValidating) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center space-y-4">
+          <Loader2 className="h-12 w-12 animate-spin text-primary mx-auto" />
+          <p className="text-muted-foreground">Validating room...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Don't render join form if room doesn't exist
+  if (!roomExists) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center p-6 relative overflow-hidden">
@@ -160,8 +224,8 @@ export default function JoinRoom() {
 
             <Button
               onClick={handleJoinRoom}
-              disabled={isJoining || !selectedLanguage}
-              className="w-full h-14 text-lg bg-gradient-to-r from-accent to-cyan-600 hover:from-accent/90 hover:to-cyan-600/90 shadow-lg shadow-accent/25 group"
+              disabled={isJoining || !selectedLanguage || !selectedVoiceGender || !roomExists}
+              className="w-full h-14 text-lg bg-gradient-to-r from-accent to-cyan-600 hover:from-accent/90 hover:to-cyan-600/90 shadow-lg shadow-accent/25 group disabled:opacity-50 disabled:cursor-not-allowed"
               data-testid="button-join"
             >
               {isJoining ? (

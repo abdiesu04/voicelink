@@ -969,6 +969,19 @@ export default function Room() {
           description: message.message,
           variant: "destructive",
         });
+
+        // If room not found, redirect to home after showing error
+        if (message.message && message.message.toLowerCase().includes("room not found")) {
+          console.error("[Room] Room not found - redirecting to home");
+          // Close WebSocket connection
+          if (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING) {
+            ws.close(1000, "Room not found");
+          }
+          // Redirect after 2 seconds to let user see the error message
+          setTimeout(() => {
+            setLocation("/");
+          }, 2000);
+        }
       }
     };
 
