@@ -216,8 +216,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
                 const elapsedSinceLastDeduction = Math.floor((now - session.lastDeductionTime) / 1000);
                 
                 if (elapsedSinceLastDeduction >= 10) {
-                  // Deduct 10 seconds worth of credits
-                  const result = await storage.deductCredits(room.userId, 10);
+                  // Deduct 10 seconds worth of credits using consumeCredits
+                  const result = await storage.consumeCredits(room.userId, 10);
                   session.lastDeductionTime = now;
                   
                   console.log(`[Credit Tracking] Deducted 10 credits from user ${room.userId}. Remaining: ${result.creditsRemaining}`);
@@ -229,23 +229,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
                       client.send(JSON.stringify({
                         type: 'credit-update',
                         creditsRemaining: result.creditsRemaining,
-                        success: result.success
+                        exhausted: result.exhausted
                       }));
                     }
                   });
 
-                  // If credits exhausted, end the session
-                  if (!result.success || result.creditsRemaining <= 0) {
-                    console.log(`[Credit Tracking] Credits exhausted for room ${roomId}, ending session`);
+                  // If credits exhausted, end the session and close all connections
+                  if (result.exhausted) {
+                    console.log(`[Credit Tracking] Credits exhausted for room ${roomId}, ending session and closing connections`);
                     clearInterval(intervalId);
                     session.isActive = false;
+                    activeSessions.delete(roomId);
                     
+                    // Send session-ended event and close each connection
                     clients.forEach(client => {
                       if (client.readyState === WebSocket.OPEN) {
                         client.send(JSON.stringify({
                           type: 'session-ended',
                           reason: 'credits-exhausted'
                         }));
+                        // Close the WebSocket connection
+                        client.close(1000, 'Credits exhausted');
                       }
                     });
                   }
@@ -404,25 +408,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (connection) {
         const { roomId } = connection;
         
-        // Stop credit tracking and deduct final credits
+        // Stop credit tracking session (cleanup only, no final deduction to avoid double-charging)
         const session = activeSessions.get(roomId);
         if (session && session.isActive) {
           const now = Date.now();
           const totalElapsedSeconds = Math.floor((now - session.startTime) / 1000);
-          const secondsSinceLastDeduction = Math.floor((now - session.lastDeductionTime) / 1000);
           
           console.log(`[Credit Tracking] Stopping session for room ${roomId}. Total duration: ${totalElapsedSeconds}s`);
           
-          // Deduct any remaining seconds since last deduction (fire and forget)
-          if (secondsSinceLastDeduction > 0) {
-            storage.deductCredits(session.userId, secondsSinceLastDeduction).then(result => {
-              console.log(`[Credit Tracking] Final deduction of ${secondsSinceLastDeduction} credits. Remaining: ${result.creditsRemaining}`);
-            }).catch(err => {
-              console.error('[Credit Tracking] Error during final deduction:', err);
-            });
-          }
-          
-          // Stop the interval
+          // Just cleanup - do NOT deduct credits here (already deducted by interval)
           clearInterval(session.intervalId);
           session.isActive = false;
           activeSessions.delete(roomId);

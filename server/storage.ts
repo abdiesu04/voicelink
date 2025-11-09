@@ -24,6 +24,7 @@ export interface IStorage {
   upgradeSubscription(userId: number, newPlan: SubscriptionPlan): Promise<Subscription>;
   cancelSubscription(userId: number): Promise<Subscription | undefined>;
   deductCredits(userId: number, seconds: number): Promise<{ success: boolean; creditsRemaining: number; }>;
+  consumeCredits(userId: number, seconds: number): Promise<{ success: boolean; creditsRemaining: number; exhausted: boolean; }>;
   handleBillingCycle(userId: number): Promise<Subscription | undefined>;
 
   // Room methods
@@ -62,10 +63,12 @@ export class PgStorage implements IStorage {
   // Subscription methods
   async createSubscription(userId: number, plan: SubscriptionPlan): Promise<Subscription> {
     const planDetails = schema.PLAN_DETAILS[plan];
+    // Convert minutes to seconds (1 credit = 1 second)
+    const creditsInSeconds = planDetails.credits * 60;
     const [subscription] = await db.insert(schema.subscriptions).values({
       userId,
       plan,
-      creditsRemaining: planDetails.credits,
+      creditsRemaining: creditsInSeconds,
       creditsRolledOver: 0,
       billingCycleStart: new Date(),
       billingCycleEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days from now
@@ -102,11 +105,13 @@ export class PgStorage implements IStorage {
     }
 
     const newPlanDetails = schema.PLAN_DETAILS[newPlan];
+    // Convert minutes to seconds (1 credit = 1 second)
+    const creditsInSeconds = newPlanDetails.credits * 60;
     
     const [updated] = await db.update(schema.subscriptions)
       .set({
         plan: newPlan,
-        creditsRemaining: current.creditsRemaining + newPlanDetails.credits,
+        creditsRemaining: current.creditsRemaining + creditsInSeconds,
         updatedAt: new Date(),
       })
       .where(eq(schema.subscriptions.id, current.id))
@@ -138,17 +143,34 @@ export class PgStorage implements IStorage {
 
     // 1 credit = 1 second
     const creditsToDeduct = seconds;
-    const newCredits = subscription.creditsRemaining - creditsToDeduct;
-
-    if (newCredits < 0) {
-      return { success: false, creditsRemaining: subscription.creditsRemaining };
-    }
+    const newCredits = Math.max(0, subscription.creditsRemaining - creditsToDeduct);
 
     await this.updateSubscription(userId, {
       creditsRemaining: newCredits,
     });
 
-    return { success: true, creditsRemaining: newCredits };
+    return { success: newCredits > 0, creditsRemaining: newCredits };
+  }
+
+  async consumeCredits(userId: number, seconds: number): Promise<{ success: boolean; creditsRemaining: number; exhausted: boolean; }> {
+    const subscription = await this.getSubscription(userId);
+    if (!subscription) {
+      return { success: false, creditsRemaining: 0, exhausted: true };
+    }
+
+    // 1 credit = 1 second
+    const creditsToDeduct = seconds;
+    const newCredits = Math.max(0, subscription.creditsRemaining - creditsToDeduct);
+
+    await this.updateSubscription(userId, {
+      creditsRemaining: newCredits,
+    });
+
+    return { 
+      success: true, 
+      creditsRemaining: newCredits,
+      exhausted: newCredits <= 0
+    };
   }
 
   async handleBillingCycle(userId: number): Promise<Subscription | undefined> {
@@ -161,11 +183,15 @@ export class PgStorage implements IStorage {
     }
 
     const planDetails = schema.PLAN_DETAILS[subscription.plan];
-    let creditsForNextCycle = planDetails.credits;
+    // Convert minutes to seconds (1 credit = 1 second)
+    const creditsInSeconds = planDetails.credits * 60;
+    const rolloverLimitInSeconds = planDetails.rolloverLimit * 60;
+    
+    let creditsForNextCycle = creditsInSeconds;
     let rolledOver = 0;
 
-    if (subscription.creditsRemaining > 0 && planDetails.rolloverLimit > 0) {
-      rolledOver = Math.min(subscription.creditsRemaining, planDetails.rolloverLimit);
+    if (subscription.creditsRemaining > 0 && rolloverLimitInSeconds > 0) {
+      rolledOver = Math.min(subscription.creditsRemaining, rolloverLimitInSeconds);
       creditsForNextCycle += rolledOver;
     }
 
