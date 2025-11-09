@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { useAuth } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
@@ -24,9 +24,15 @@ export default function Register() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [selectedPlan, setSelectedPlan] = useState("free");
   const [isLoading, setIsLoading] = useState(false);
-  const { register } = useAuth();
+  const { register, user } = useAuth();
   const { toast } = useToast();
   const [, setLocation] = useLocation();
+
+  useEffect(() => {
+    if (user) {
+      setLocation("/");
+    }
+  }, [user, setLocation]);
 
   const handleNext = () => {
     if (step === 1 && !selectedPlan) {

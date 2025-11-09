@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import { useAuth } from "@/lib/auth";
 import { Button } from "@/components/ui/button";
@@ -12,9 +12,15 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { login } = useAuth();
+  const { login, user } = useAuth();
   const { toast } = useToast();
   const [, setLocation] = useLocation();
+
+  useEffect(() => {
+    if (user) {
+      setLocation("/");
+    }
+  }, [user, setLocation]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
