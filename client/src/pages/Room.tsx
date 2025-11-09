@@ -134,7 +134,7 @@ export default function Room() {
   
   // Partner join timeout (Google Meet-style behavior)
   const PARTNER_WAIT_TIMEOUT = 5 * 60 * 1000; // 5 minutes
-  const PARTNER_WAIT_WARNING_TIME = 4 * 60 * 1000 + 50 * 1000; // 4:50 - show warning 10 seconds before timeout
+  const PARTNER_WAIT_WARNING_TIME = 4 * 60 * 1000; // 4:00 - show warning 1 minute before timeout
   const partnerWaitTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const partnerWaitWarningTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const countdownIntervalRef = useRef<NodeJS.Timeout | null>(null);
@@ -191,18 +191,18 @@ export default function Room() {
 
     console.log('[Partner Wait] Starting 5-minute partner join timeout for owner');
 
-    // Set warning timeout at 4:50 (10 seconds before final timeout)
+    // Set warning timeout at 4:00 (1 minute before final timeout)
     partnerWaitWarningTimeoutRef.current = setTimeout(() => {
-      console.log('[Partner Wait] Warning - 10 seconds until redirect');
+      console.log('[Partner Wait] Warning - 60 seconds (1 minute) until redirect');
       
-      // Start 10-second countdown
-      let secondsLeft = 10;
+      // Start 60-second countdown
+      let secondsLeft = 60;
       setWaitingCountdown(secondsLeft);
       
       // Show initial warning toast
       toast({
         title: "No One Joined Yet",
-        description: `Your partner hasn't joined yet. Redirecting to home in ${secondsLeft} seconds...`,
+        description: `Your partner hasn't joined yet. Redirecting to home in 1 minute...`,
         variant: "default",
       });
       
