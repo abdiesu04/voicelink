@@ -88,14 +88,14 @@ function AccountContent() {
             <div className="flex justify-between items-center py-2">
               <span className="text-muted-foreground">Credits Remaining</span>
               <span className="text-2xl font-bold text-primary">
-                {subscription.creditsRemaining} minutes
+                {(subscription.creditsRemaining / 60).toFixed(1)} minutes
               </span>
             </div>
 
             {subscription.creditsRolledOver > 0 && (
               <div className="flex justify-between items-center py-2">
                 <span className="text-muted-foreground">Rollover Credits</span>
-                <span className="font-medium">{subscription.creditsRolledOver} minutes</span>
+                <span className="font-medium">{(subscription.creditsRolledOver / 60).toFixed(1)} minutes</span>
               </div>
             )}
 
