@@ -131,6 +131,14 @@ export default function Room() {
   const reconnectTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const isReconnectingRef = useRef<boolean>(false);
   const shouldReconnectRef = useRef<boolean>(true); // Set to false on intentional disconnect
+  
+  // Partner join timeout (Google Meet-style behavior)
+  const PARTNER_WAIT_TIMEOUT = 5 * 60 * 1000; // 5 minutes
+  const PARTNER_WAIT_WARNING_TIME = 4 * 60 * 1000 + 50 * 1000; // 4:50 - show warning 10 seconds before timeout
+  const partnerWaitTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const partnerWaitWarningTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const countdownIntervalRef = useRef<NodeJS.Timeout | null>(null);
+  const [waitingCountdown, setWaitingCountdown] = useState<number>(0);
 
   const myLanguage = SUPPORTED_LANGUAGES.find(l => l.code === language);
   const theirLanguage = SUPPORTED_LANGUAGES.find(l => l.code === partnerLanguage);
@@ -151,6 +159,116 @@ export default function Room() {
 
     return () => clearInterval(timerId);
   }, [sessionActive]);
+
+  // Partner join timeout - Only for room owners
+  useEffect(() => {
+    // Only apply timeout for room creators/owners, not participants
+    if (role !== "creator" && role !== "owner") {
+      console.log('[Partner Wait] Skipping timeout - user is participant');
+      return;
+    }
+
+    // If partner already connected, no need for timeout
+    if (partnerConnected) {
+      console.log('[Partner Wait] Partner already connected - clearing all timers');
+      
+      // Clear all timeout and countdown timers
+      if (partnerWaitTimeoutRef.current) {
+        clearTimeout(partnerWaitTimeoutRef.current);
+        partnerWaitTimeoutRef.current = null;
+      }
+      if (partnerWaitWarningTimeoutRef.current) {
+        clearTimeout(partnerWaitWarningTimeoutRef.current);
+        partnerWaitWarningTimeoutRef.current = null;
+      }
+      if (countdownIntervalRef.current) {
+        clearInterval(countdownIntervalRef.current);
+        countdownIntervalRef.current = null;
+      }
+      setWaitingCountdown(0);
+      return;
+    }
+
+    console.log('[Partner Wait] Starting 5-minute partner join timeout for owner');
+
+    // Set warning timeout at 4:50 (10 seconds before final timeout)
+    partnerWaitWarningTimeoutRef.current = setTimeout(() => {
+      console.log('[Partner Wait] Warning - 10 seconds until redirect');
+      
+      // Start 10-second countdown
+      let secondsLeft = 10;
+      setWaitingCountdown(secondsLeft);
+      
+      // Show initial warning toast
+      toast({
+        title: "No One Joined Yet",
+        description: `Your partner hasn't joined yet. Redirecting to home in ${secondsLeft} seconds...`,
+        variant: "default",
+      });
+      
+      // Update countdown every second
+      countdownIntervalRef.current = setInterval(() => {
+        secondsLeft--;
+        setWaitingCountdown(secondsLeft);
+        
+        if (secondsLeft <= 0) {
+          if (countdownIntervalRef.current) {
+            clearInterval(countdownIntervalRef.current);
+            countdownIntervalRef.current = null;
+          }
+        }
+      }, 1000);
+      
+    }, PARTNER_WAIT_WARNING_TIME);
+
+    // Set final timeout at 5:00 - redirect to home
+    partnerWaitTimeoutRef.current = setTimeout(() => {
+      console.log('[Partner Wait] Timeout reached - redirecting to home');
+      
+      // Clear countdown interval
+      if (countdownIntervalRef.current) {
+        clearInterval(countdownIntervalRef.current);
+        countdownIntervalRef.current = null;
+      }
+      
+      // Close WebSocket gracefully with custom close code
+      if (wsRef.current && (wsRef.current.readyState === WebSocket.OPEN || wsRef.current.readyState === WebSocket.CONNECTING)) {
+        console.log('[Partner Wait] Closing WebSocket due to partner timeout');
+        shouldReconnectRef.current = false; // Prevent auto-reconnect
+        wsRef.current.close(4000, "partner-timeout");
+      }
+      
+      // Show final notification
+      toast({
+        title: "Returning to Home",
+        description: "No one joined your room. You can create a new one anytime.",
+        variant: "default",
+      });
+      
+      // Redirect to home after brief delay
+      setTimeout(() => {
+        setLocation("/");
+      }, 1500);
+      
+    }, PARTNER_WAIT_TIMEOUT);
+
+    // Cleanup function - clear all timers on unmount or when partner connects
+    return () => {
+      console.log('[Partner Wait] Cleaning up timeout timers');
+      if (partnerWaitTimeoutRef.current) {
+        clearTimeout(partnerWaitTimeoutRef.current);
+        partnerWaitTimeoutRef.current = null;
+      }
+      if (partnerWaitWarningTimeoutRef.current) {
+        clearTimeout(partnerWaitWarningTimeoutRef.current);
+        partnerWaitWarningTimeoutRef.current = null;
+      }
+      if (countdownIntervalRef.current) {
+        clearInterval(countdownIntervalRef.current);
+        countdownIntervalRef.current = null;
+      }
+    };
+  }, [role, partnerConnected, toast, setLocation, PARTNER_WAIT_TIMEOUT, PARTNER_WAIT_WARNING_TIME]);
 
   const azureLanguageMap: Record<string, string> = {
     'en': 'en-US', 'es': 'es-ES', 'fr': 'fr-FR', 'de': 'de-DE',
@@ -1560,6 +1678,39 @@ export default function Room() {
           </div>
         </div>
       </header>
+
+      {/* Partner Wait Countdown Banner - Only for owners waiting for partner */}
+      {waitingCountdown > 0 && !partnerConnected && (role === "creator" || role === "owner") && (
+        <div className="bg-amber-500/20 border-y border-amber-500/50 backdrop-blur-sm relative z-10 animate-in slide-in-from-top duration-500">
+          <div className="container mx-auto px-6 md:px-12 py-4">
+            <div className="flex items-center justify-between gap-4">
+              <div className="flex items-center gap-3 flex-1">
+                <div className="flex-shrink-0 h-8 w-8 rounded-full bg-amber-500/30 flex items-center justify-center ring-2 ring-amber-500/50">
+                  <span className="text-amber-600 dark:text-amber-400 font-bold text-lg">{waitingCountdown}</span>
+                </div>
+                <div className="flex-1">
+                  <h3 className="text-sm font-semibold text-amber-600 dark:text-amber-400 mb-1">
+                    No One Has Joined Yet
+                  </h3>
+                  <p className="text-xs text-slate-600 dark:text-slate-300">
+                    Redirecting to home page in <span className="font-bold text-amber-600 dark:text-amber-400">{waitingCountdown} second{waitingCountdown !== 1 ? 's' : ''}</span>. Share your room link to invite someone!
+                  </p>
+                </div>
+              </div>
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => setShowShareDialog(true)}
+                className="border-amber-500/50 hover:bg-amber-500/10"
+                data-testid="button-share-room"
+              >
+                <Share2 className="h-4 w-4 mr-2" />
+                Share Link
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Quota Warning Banner */}
       {quotaExceeded && (
