@@ -100,6 +100,8 @@ export default function Room() {
   const [conversationStarted, setConversationStarted] = useState(false);
   const [quotaExceeded, setQuotaExceeded] = useState(false);
   const [quotaError, setQuotaError] = useState<string>("");
+  const [elapsedSeconds, setElapsedSeconds] = useState(0);
+  const [sessionActive, setSessionActive] = useState(false);
 
   const [myMessages, setMyMessages] = useState<TranscriptionMessage[]>([]);
   const [partnerMessages, setPartnerMessages] = useState<TranscriptionMessage[]>([]);
@@ -136,6 +138,17 @@ export default function Room() {
     partnerVoiceGenderRef.current = partnerVoiceGender;
     console.log('[State Change] partnerVoiceGender updated to:', partnerVoiceGender);
   }, [partnerVoiceGender]);
+
+  // Timer - increment elapsed seconds every second when session is active
+  useEffect(() => {
+    if (!sessionActive) return;
+
+    const timerId = setInterval(() => {
+      setElapsedSeconds(prev => prev + 1);
+    }, 1000);
+
+    return () => clearInterval(timerId);
+  }, [sessionActive]);
 
   const azureLanguageMap: Record<string, string> = {
     'en': 'en-US', 'es': 'es-ES', 'fr': 'fr-FR', 'de': 'de-DE',
@@ -822,6 +835,17 @@ export default function Room() {
         });
       }
 
+      if (message.type === "session-started") {
+        console.log('[Session] Session started - beginning timer');
+        setSessionActive(true);
+        setElapsedSeconds(0);
+      }
+
+      if (message.type === "session-ended") {
+        console.log('[Session] Session ended - stopping timer');
+        setSessionActive(false);
+      }
+
       if (message.type === "transcription") {
         const isOwn = message.speaker === role;
         
@@ -1276,6 +1300,12 @@ export default function Room() {
     });
   };
 
+  const formatTime = (seconds: number): string => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  };
+
   return (
     <div className="h-screen flex flex-col bg-gradient-to-br from-slate-50 via-slate-100 to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 relative overflow-hidden">
       {/* Background effects */}
@@ -1286,12 +1316,24 @@ export default function Room() {
       <header className="border-b border-slate-300/50 dark:border-slate-800/50 bg-white/50 dark:bg-slate-900/50 backdrop-blur-xl relative z-10 pt-16 md:pt-20">
         <div className="container mx-auto px-3 sm:px-6 md:px-12 py-2">
           <div className="flex items-center justify-between gap-4">
-            {/* Left: Connection Status */}
-            <ConnectionStatus 
-              status={connectionStatus} 
-              disconnectReason={disconnectReason}
-              disconnectDetails={disconnectDetails}
-            />
+            {/* Left: Connection Status & Timer */}
+            <div className="flex items-center gap-3">
+              <ConnectionStatus 
+                status={connectionStatus} 
+                disconnectReason={disconnectReason}
+                disconnectDetails={disconnectDetails}
+              />
+              
+              {/* Session Timer */}
+              {sessionActive && (
+                <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/30">
+                  <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />
+                  <span className="text-sm font-mono font-bold text-foreground" data-testid="text-session-timer">
+                    {formatTime(elapsedSeconds)}
+                  </span>
+                </div>
+              )}
+            </div>
             
             {/* Center: Language & Voice Info - Compact */}
             {myLanguage && theirLanguage && (
