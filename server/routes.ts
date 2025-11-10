@@ -112,10 +112,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const tokenResponse = await axios.post(
         `https://${speechRegion}.api.cognitive.microsoft.com/sts/v1.0/issueToken`,
-        null,
+        '',
         {
           headers: {
             'Ocp-Apim-Subscription-Key': speechKey,
+            'Content-Length': '0',
           },
         }
       );
