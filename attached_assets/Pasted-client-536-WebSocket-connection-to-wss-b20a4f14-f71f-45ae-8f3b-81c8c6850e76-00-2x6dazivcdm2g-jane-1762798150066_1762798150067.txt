@@ -1,0 +1,148 @@
+client:536 WebSocket connection to 'wss://b20a4f14-f71f-45ae-8f3b-81c8c6850e76-00-2x6dazivcdm2g.janeway.replit.dev/?token=ijhkGkshtuRk' failed: 
+setupWebSocket @ client:536
+client:536 Uncaught (in promise) SyntaxError: Failed to construct 'WebSocket': The URL 'wss://localhost:undefined/?token=ijhkGkshtuRk' is invalid.
+    at setupWebSocket (client:536:19)
+    at fallback (client:509:16)
+    at WebSocket.<anonymous> (client:555:7)
+chunk-RPCDYKBN.js?v=b50e9bd9:21551 Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+ Executing inline script violates the following Content Security Policy directive 'script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' chrome-extension://821bfaa2-5fa8-4223-9952-196c1c666b5c/'. Either the 'unsafe-inline' keyword, a hash ('sha256-kPx0AsF0oz2kKiZ875xSvv693TBHkQ/0SkMJZnnNpnQ='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked.
+(anonymous) @ chrome-extension://a…j/includes/tab.js:1
+CreateRoom.tsx:19 [CreateRoom] Selected voice gender: undefined
+CreateRoom.tsx:19 [CreateRoom] Selected voice gender: male
+CreateRoom.tsx:24 [CreateRoom] Creating room with voice gender: male
+CreateRoom.tsx:19 [CreateRoom] Selected voice gender: male
+CreateRoom.tsx:32 [CreateRoom] Navigating to room with voiceGender: male
+Room.tsx:47 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:81 [Browser] Network status: ONLINE
+Room.tsx:158 [State Change] partnerVoiceGender updated to: undefined
+Room.tsx:201 [Partner Wait] Starting 5-minute partner join timeout for owner
+Room.tsx:830 [WebSocket] Creating new WebSocket connection to: wss://b20a4f14-f71f-45ae-8f3b-81c8c6850e76-00-2x6dazivcdm2g.janeway.replit.dev/ws
+Room.tsx:836 [WebSocket] Connected successfully, readyState: 1
+Room.tsx:51 [Browser] Visibility changed: HIDDEN
+Room.tsx:53 [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+Room.tsx:51 [Browser] Visibility changed: VISIBLE
+Room.tsx:55 [Browser] ✓ Tab is now visible - connections should remain active
+Room.tsx:51 [Browser] Visibility changed: HIDDEN
+Room.tsx:53 [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+Room.tsx:1041 [Voice Gender] Partner joined with gender: male
+Room.tsx:1042 [Voice Gender] My gender: male
+Room.tsx:1061 [Session] Session started - beginning timer
+Room.tsx:266 [Partner Wait] Cleaning up timeout timers
+Room.tsx:158 [State Change] partnerVoiceGender updated to: male
+Room.tsx:182 [Partner Wait] Partner already connected - clearing all timers
+Room.tsx:1024 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+Room.tsx:1036 [Heartbeat] 💚 Received pong from server - connection alive
+Room.tsx:51 [Browser] Visibility changed: VISIBLE
+Room.tsx:55 [Browser] ✓ Tab is now visible - connections should remain active
+Room.tsx:426 [Audio Unlock] Attempting to unlock audio for mobile...
+Room.tsx:454 [Audio Unlock] Audio successfully unlocked for mobile
+Room.tsx:391 [Azure Token API] 🔑 REQUEST #1 START - Fetching new auth token
+Room.tsx:1073 [Credits] Update received: 19740 seconds remaining, exhausted: false
+Room.tsx:403 [Azure Token API] ✅ REQUEST #1 SUCCESS - Duration: 537ms, Region: eastus
+Room.tsx:1342 [Azure Speech] ✓ Session started: Object
+Room.tsx:1468 [Speech] Recognition started successfully
+Room.tsx:1152 [Translation] 📝 Translation #1 received - Original: "Itur....", Translated: "Itur...."
+Room.tsx:1173 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:1174 [Voice Gender] Text to speak: "Itur.", Language: en
+Room.tsx:812 [TTS Queue] Adding to queue (queue size: 0): Itur.
+Room.tsx:598 [TTS Queue] Queue processor started
+Room.tsx:609 [TTS Queue] Playing: Itur. 
+Room.tsx:634 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:357 [Azure Token] Using cached token
+Room.tsx:508 [Azure TTS API] 🎤 REQUEST #1 START - Voice: en-US-GuyNeural, Language: en, Region: eastus, Text: "Itur...."
+Room.tsx:558 [Azure TTS API] ✅ REQUEST #1 SUCCESS - Voice: en-US-GuyNeural, Duration: 1883ms, Audio size: 27072 bytes
+Room.tsx:572 [Azure TTS API] 📊 Session Total: 1 TTS requests made
+Room.tsx:638 [TTS Queue] Synthesis completed in 2144ms, audio size: 27072 bytes
+Room.tsx:720 [TTS Queue] Setting fallback timeout: 3692ms (audio duration: 1.692s)
+Room.tsx:750 [TTS Queue] Playback started successfully
+Room.tsx:1152 [Translation] 📝 Translation #2 received - Original: "Hello, can you hear me please?...", Translated: "Hola, ¿puedes oírme por favor?..."
+Room.tsx:692 [TTS Queue] Playback completed (audio ended event)
+Room.tsx:656 [TTS Queue] Marked messageId as spoken: participant-1762798018246-tbi7dr8
+Room.tsx:793 [TTS Queue] Queue processor finished
+Room.tsx:1073 [Credits] Update received: 19730 seconds remaining, exhausted: false
+Room.tsx:1073 [Credits] Update received: 19720 seconds remaining, exhausted: false
+Room.tsx:1024 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+Room.tsx:1036 [Heartbeat] 💚 Received pong from server - connection alive
+Room.tsx:1152 [Translation] 📝 Translation #3 received - Original: "Today because I want to see wh...", Translated: "Today because I want to see wh..."
+Room.tsx:1173 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:1174 [Voice Gender] Text to speak: "Today because I want to see what is upling behind the scene, everything in the Cell en Candy Crush.", Language: en
+Room.tsx:812 [TTS Queue] Adding to queue (queue size: 0): Today because I want to see what is upling behind 
+Room.tsx:598 [TTS Queue] Queue processor started
+Room.tsx:609 [TTS Queue] Playing: Today because I want to see what is upling behind  
+Room.tsx:634 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:357 [Azure Token] Using cached token
+Room.tsx:508 [Azure TTS API] 🎤 REQUEST #2 START - Voice: en-US-GuyNeural, Language: en, Region: eastus, Text: "Today because I want to see what is upling behind ..."
+Room.tsx:1152 [Translation] 📝 Translation #4 received - Original: "I want to test something today...", Translated: "Quiero probar algo hoy porque ..."
+Room.tsx:558 [Azure TTS API] ✅ REQUEST #2 SUCCESS - Voice: en-US-GuyNeural, Duration: 781ms, Audio size: 92736 bytes
+Room.tsx:572 [Azure TTS API] 📊 Session Total: 2 TTS requests made
+Room.tsx:638 [TTS Queue] Synthesis completed in 1418ms, audio size: 92736 bytes
+Room.tsx:720 [TTS Queue] Setting fallback timeout: 7796ms (audio duration: 5.796s)
+Room.tsx:750 [TTS Queue] Playback started successfully
+Room.tsx:1152 [Translation] 📝 Translation #5 received - Original: "Make sure everything's going a...", Translated: "Asegúrate de que todo vaya bie..."
+Room.tsx:1152 [Translation] 📝 Translation #6 received - Original: "Make you everything screen Acc...", Translated: "Make you everything screen Acc..."
+Room.tsx:1173 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:1174 [Voice Gender] Text to speak: "Make you everything screen Accord Accord.", Language: en
+Room.tsx:812 [TTS Queue] Adding to queue (queue size: 0): Make you everything screen Accord Accord.
+Room.tsx:692 [TTS Queue] Playback completed (audio ended event)
+Room.tsx:656 [TTS Queue] Marked messageId as spoken: participant-1762798036552-m54whq6
+Room.tsx:609 [TTS Queue] Playing: Make you everything screen Accord Accord. 
+Room.tsx:634 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:357 [Azure Token] Using cached token
+Room.tsx:508 [Azure TTS API] 🎤 REQUEST #3 START - Voice: en-US-GuyNeural, Language: en, Region: eastus, Text: "Make you everything screen Accord Accord...."
+Room.tsx:558 [Azure TTS API] ✅ REQUEST #3 SUCCESS - Voice: en-US-GuyNeural, Duration: 664ms, Audio size: 48960 bytes
+Room.tsx:572 [Azure TTS API] 📊 Session Total: 3 TTS requests made
+Room.tsx:638 [TTS Queue] Synthesis completed in 1159ms, audio size: 48960 bytes
+Room.tsx:720 [TTS Queue] Setting fallback timeout: 5060.000000000001ms (audio duration: 3.06s)
+Room.tsx:750 [TTS Queue] Playback started successfully
+Room.tsx:1073 [Credits] Update received: 19710 seconds remaining, exhausted: false
+Room.tsx:51 [Browser] Visibility changed: HIDDEN
+Room.tsx:53 [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+Room.tsx:692 [TTS Queue] Playback completed (audio ended event)
+Room.tsx:656 [TTS Queue] Marked messageId as spoken: participant-1762798039966-8rwg3xx
+Room.tsx:793 [TTS Queue] Queue processor finished
+Room.tsx:1073 [Credits] Update received: 19700 seconds remaining, exhausted: false
+Room.tsx:1152 [Translation] 📝 Translation #7 received - Original: "OK, what do I get you from the...", Translated: "Bien, ¿qué te regalo del senad..."
+Room.tsx:1073 [Credits] Update received: 19690 seconds remaining, exhausted: false
+Room.tsx:1024 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+Room.tsx:1036 [Heartbeat] 💚 Received pong from server - connection alive
+Room.tsx:1152 [Translation] 📝 Translation #8 received - Original: "What is the most important thi...", Translated: "¿Qué es lo más importante en n..."
+Room.tsx:1152 [Translation] 📝 Translation #9 received - Original: "¿What is the mosting puccin th...", Translated: "What is the mosting puccin thi..."
+Room.tsx:1173 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+Room.tsx:1174 [Voice Gender] Text to speak: "What is the mosting puccin think in labor?", Language: en
+Room.tsx:812 [TTS Queue] Adding to queue (queue size: 0): What is the mosting puccin think in labor?
+Room.tsx:598 [TTS Queue] Queue processor started
+Room.tsx:609 [TTS Queue] Playing: What is the mosting puccin think in labor? 
+Room.tsx:634 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:357 [Azure Token] Using cached token
+Room.tsx:508 [Azure TTS API] 🎤 REQUEST #4 START - Voice: en-US-GuyNeural, Language: en, Region: eastus, Text: "What is the mosting puccin think in labor?..."
+Room.tsx:558 [Azure TTS API] ✅ REQUEST #4 SUCCESS - Voice: en-US-GuyNeural, Duration: 687ms, Audio size: 50688 bytes
+Room.tsx:572 [Azure TTS API] 📊 Session Total: 4 TTS requests made
+Room.tsx:638 [TTS Queue] Synthesis completed in 1235ms, audio size: 50688 bytes
+Room.tsx:720 [TTS Queue] Setting fallback timeout: 5168ms (audio duration: 3.168s)
+Room.tsx:750 [TTS Queue] Playback started successfully
+Room.tsx:1152 [Translation] 📝 Translation #10 received - Original: "Celebrating and receiving....", Translated: "Celebrar y recibir...."
+Room.tsx:692 [TTS Queue] Playback completed (audio ended event)
+Room.tsx:656 [TTS Queue] Marked messageId as spoken: participant-1762798070135-gdu8tie
+Room.tsx:793 [TTS Queue] Queue processor finished
+Room.tsx:1073 [Credits] Update received: 19680 seconds remaining, exhausted: false
+Room.tsx:51 [Browser] Visibility changed: VISIBLE
+Room.tsx:55 [Browser] ✓ Tab is now visible - connections should remain active
+Room.tsx:1152 [Translation] 📝 Translation #11 received - Original: "OK, So what? What is the?...", Translated: "Bien, ¿y qué? ¿Qué es el?..."
+Room.tsx:1073 [Credits] Update received: 19670 seconds remaining, exhausted: false
+Room.tsx:51 [Browser] Visibility changed: HIDDEN
+Room.tsx:53 [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+Room.tsx:1152 [Translation] 📝 Translation #12 received - Original: "The session and what are you d...", Translated: "La sesión y ¿qué estás haciend..."
+Room.tsx:51 [Browser] Visibility changed: VISIBLE
+Room.tsx:55 [Browser] ✓ Tab is now visible - connections should remain active
+Room.tsx:1073 [Credits] Update received: 19660 seconds remaining, exhausted: false
+Room.tsx:1024 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+Room.tsx:1036 [Heartbeat] 💚 Received pong from server - connection alive
+Room.tsx:1152 [Translation] 📝 Translation #13 received - Original: "How many requests have you sen...", Translated: "¿Cuántas solicitudes ha enviad..."
+Room.tsx:1152 [Translation] 📝 Translation #14 received - Original: "Alright, thank you so much....", Translated: "Muy bien, muchas gracias...."
+Room.tsx:1073 [Credits] Update received: 19650 seconds remaining, exhausted: false
+Room.tsx:1073 [Credits] Update received: 19640 seconds remaining, exhausted: false
+Room.tsx:1024 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+Room.tsx:1036 [Heartbeat] 💚 Received pong from server - connection alive
+Room.tsx:1073 [Credits] Update received: 19630 seconds remaining, exhausted: false
+ [Translation] 📝 Translation #15 received - Original: "All right, have a have a great...", Translated: "Muy bien, que tengas un gran d..."
+ [Credits] Update received: 19620 seconds remaining, exhausted: false
