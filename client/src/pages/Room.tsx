@@ -293,10 +293,10 @@ export default function Room() {
   // Azure TTS voice names for each language and gender
   const getAzureVoiceName = (languageCode: string, gender: "male" | "female"): string => {
     const voiceMap: Record<string, { male: string, female: string }> = {
-      'en': { male: 'en-US-AndrewMultilingualNeural', female: 'en-US-AvaMultilingualNeural' },
+      'en': { male: 'en-US-GuyNeural', female: 'en-US-JennyNeural' },
       'es': { male: 'es-ES-AlvaroNeural', female: 'es-ES-ElviraNeural' },
-      'fr': { male: 'fr-FR-RemyMultilingualNeural', female: 'fr-FR-VivienneMultilingualNeural' },
-      'de': { male: 'de-DE-FlorianMultilingualNeural', female: 'de-DE-SeraphinaMultilingualNeural' },
+      'fr': { male: 'fr-FR-HenriNeural', female: 'fr-FR-DeniseNeural' },
+      'de': { male: 'de-DE-ConradNeural', female: 'de-DE-KatjaNeural' },
       'it': { male: 'it-IT-DiegoNeural', female: 'it-IT-ElsaNeural' },
       'pt': { male: 'pt-PT-DuarteNeural', female: 'pt-PT-RaquelNeural' },
       'ru': { male: 'ru-RU-DmitryNeural', female: 'ru-RU-SvetlanaNeural' },
@@ -493,7 +493,7 @@ export default function Room() {
       const azureLang = azureLanguageMap[languageCode] || 'en-US';
       const voiceName = getAzureVoiceName(languageCode, gender);
       
-      console.log(`[Azure TTS API] 🎤 REQUEST START - Voice: ${voiceName}, Text: "${text.substring(0, 50)}..."`);
+      console.log(`[Azure TTS API] 🎤 REQUEST START - Voice: ${voiceName}, Language: ${languageCode}, Region: ${region}, Text: "${text.substring(0, 50)}..."`);
       
       // Escape text for SSML (prevents XML parsing errors with &, <, >, etc.)
       const escapedText = escapeXml(text);
@@ -543,7 +543,7 @@ export default function Room() {
       }
       
       const blob = await response.blob();
-      console.log(`[Azure TTS API] ✅ SUCCESS - Duration: ${requestDuration}ms, Audio size: ${blob.size} bytes`);
+      console.log(`[Azure TTS API] ✅ SUCCESS - Voice: ${voiceName}, Duration: ${requestDuration}ms, Audio size: ${blob.size} bytes`);
       
       if (blob.size === 0) {
         throw new Error('Azure TTS returned empty audio blob');
