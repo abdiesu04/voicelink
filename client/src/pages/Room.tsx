@@ -130,6 +130,11 @@ export default function Room() {
   const ttsRequestInFlightRef = useRef<boolean>(false);
   const tokenRequestInFlightRef = useRef<boolean>(false);
   
+  // REQUEST COUNTERS: Track all Azure API calls for monitoring and cost control
+  const ttsRequestCounterRef = useRef<number>(0);
+  const tokenRequestCounterRef = useRef<number>(0);
+  const translationRequestCounterRef = useRef<number>(0);
+  
   // Auto-reconnect state
   const reconnectAttemptRef = useRef<number>(0);
   const reconnectTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -378,8 +383,12 @@ export default function Room() {
     // Mark request as in-flight BEFORE any async operations
     tokenRequestInFlightRef.current = true;
     
+    // INCREMENT TOKEN REQUEST COUNTER
+    tokenRequestCounterRef.current += 1;
+    const requestNumber = tokenRequestCounterRef.current;
+    
     try {
-      console.log('[Azure Token API] 🔑 REQUEST START - Fetching new auth token');
+      console.log(`[Azure Token API] 🔑 REQUEST #${requestNumber} START - Fetching new auth token`);
       
       const tokenResponse = await fetch('/api/speech/token');
       
@@ -391,8 +400,7 @@ export default function Room() {
       
       const tokenData = await tokenResponse.json();
       const requestDuration = Date.now() - requestStartTime;
-      
-      console.log(`[Azure Token API] ✅ SUCCESS - Duration: ${requestDuration}ms, Region: ${tokenData.region}`);
+      console.log(`[Azure Token API] ✅ REQUEST #${requestNumber} SUCCESS - Duration: ${requestDuration}ms, Region: ${tokenData.region}`);
       
       azureTokenRef.current = tokenData;
       
@@ -469,6 +477,10 @@ export default function Room() {
   ): Promise<Blob> => {
     const requestStartTime = Date.now();
     
+    // INCREMENT REQUEST COUNTER (outside try-catch so it's accessible in catch block)
+    ttsRequestCounterRef.current += 1;
+    const requestNumber = ttsRequestCounterRef.current;
+    
     try {
       // THROTTLING: Wait for any in-flight TTS request to complete with safety timeout
       let waitTime = 0;
@@ -493,7 +505,7 @@ export default function Room() {
       const azureLang = azureLanguageMap[languageCode] || 'en-US';
       const voiceName = getAzureVoiceName(languageCode, gender);
       
-      console.log(`[Azure TTS API] 🎤 REQUEST START - Voice: ${voiceName}, Language: ${languageCode}, Region: ${region}, Text: "${text.substring(0, 50)}..."`);
+      console.log(`[Azure TTS API] 🎤 REQUEST #${requestNumber} START - Voice: ${voiceName}, Language: ${languageCode}, Region: ${region}, Text: "${text.substring(0, 50)}..."`);
       
       // Escape text for SSML (prevents XML parsing errors with &, <, >, etc.)
       const escapedText = escapeXml(text);
@@ -521,7 +533,7 @@ export default function Room() {
       
       if (!response.ok) {
         const errorText = await response.text().catch(() => 'Unknown error');
-        console.error(`[Azure TTS API] ❌ FAILED - Status: ${response.status}, Duration: ${requestDuration}ms, Error: ${errorText.substring(0, 200)}`);
+        console.error(`[Azure TTS API] ❌ REQUEST #${requestNumber} FAILED - Status: ${response.status}, Duration: ${requestDuration}ms, Error: ${errorText.substring(0, 200)}`);
         
         // CRITICAL FIX: Only trigger quota detection on STRICT HTTP 429 status code
         // Do NOT use string matching on error text (prevents false positives from HTML error pages)
@@ -543,7 +555,7 @@ export default function Room() {
       }
       
       const blob = await response.blob();
-      console.log(`[Azure TTS API] ✅ SUCCESS - Voice: ${voiceName}, Duration: ${requestDuration}ms, Audio size: ${blob.size} bytes`);
+      console.log(`[Azure TTS API] ✅ REQUEST #${requestNumber} SUCCESS - Voice: ${voiceName}, Duration: ${requestDuration}ms, Audio size: ${blob.size} bytes`);
       
       if (blob.size === 0) {
         throw new Error('Azure TTS returned empty audio blob');
@@ -552,11 +564,12 @@ export default function Room() {
       return blob;
     } catch (error) {
       const requestDuration = Date.now() - requestStartTime;
-      console.error(`[Azure TTS API] ❌ ERROR - Duration: ${requestDuration}ms, Error:`, error);
+      console.error(`[Azure TTS API] ❌ REQUEST #${requestNumber} ERROR - Duration: ${requestDuration}ms, Error:`, error);
       throw error; // Re-throw to trigger retry logic in queue processor
     } finally {
       // ALWAYS clear the in-flight flag
       ttsRequestInFlightRef.current = false;
+      console.log(`[Azure TTS API] 📊 Session Total: ${ttsRequestCounterRef.current} TTS requests made`);
     }
   };
 
@@ -1133,6 +1146,11 @@ export default function Room() {
         
         // Use server messageId if available, otherwise fall back to client-generated
         const messageId = serverMessageId || `${message.speaker}-${Date.now()}-${message.originalText.substring(0, 20)}`;
+        
+        // INCREMENT TRANSLATION COUNTER for monitoring
+        translationRequestCounterRef.current += 1;
+        console.log(`[Translation] 📝 Translation #${translationRequestCounterRef.current} received - Original: "${message.originalText.substring(0, 30)}...", Translated: "${message.translatedText.substring(0, 30)}..."`);
+        
         const newMessage: TranscriptionMessage = {
           id: messageId,
           originalText: message.originalText,
@@ -1651,6 +1669,10 @@ export default function Room() {
 
   const handleEndCall = () => {
     console.log('[End Call] 📞 User clicked End Call - initiating comprehensive cleanup');
+    console.log(`[End Call] 📊 SESSION STATISTICS:`);
+    console.log(`  - Total TTS Requests: ${ttsRequestCounterRef.current}`);
+    console.log(`  - Total Token Requests: ${tokenRequestCounterRef.current}`);
+    console.log(`  - Total Translation Requests: ${translationRequestCounterRef.current}`);
     
     // Prevent auto-reconnect on intentional disconnect
     shouldReconnectRef.current = false;
@@ -1699,6 +1721,11 @@ export default function Room() {
     isProcessingTTSRef.current = false;
     ttsRequestInFlightRef.current = false;
     tokenRequestInFlightRef.current = false;
+    
+    // CLEANUP 6.5: Reset request counters for next session
+    ttsRequestCounterRef.current = 0;
+    tokenRequestCounterRef.current = 0;
+    translationRequestCounterRef.current = 0;
     
     // CLEANUP 7: Clear message deduplication sets
     spokenMessageIdsRef.current.clear();
