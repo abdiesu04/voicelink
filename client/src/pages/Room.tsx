@@ -126,6 +126,10 @@ export default function Room() {
   const partnerVoiceGenderRef = useRef<"male" | "female" | undefined>(undefined);
   const isMutedRef = useRef<boolean>(true); // Track mute state in ref for event handlers
   
+  // Request throttling - prevent concurrent Azure API calls
+  const ttsRequestInFlightRef = useRef<boolean>(false);
+  const tokenRequestInFlightRef = useRef<boolean>(false);
+  
   // Auto-reconnect state
   const reconnectAttemptRef = useRef<number>(0);
   const reconnectTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -343,19 +347,65 @@ export default function Room() {
   };
 
   const getAzureToken = async () => {
+    // Return cached token if available
     if (azureTokenRef.current) {
+      console.log('[Azure Token] Using cached token');
       return azureTokenRef.current;
     }
     
-    const tokenResponse = await fetch('/api/speech/token');
-    const tokenData = await tokenResponse.json();
-    azureTokenRef.current = tokenData;
+    // THROTTLING: Wait for any in-flight token request to complete with safety timeout
+    let waitTime = 0;
+    const MAX_WAIT_TIME = 30000; // 30 seconds max wait
     
-    setTimeout(() => {
-      azureTokenRef.current = null;
-    }, 540000);
+    while (tokenRequestInFlightRef.current) {
+      if (waitTime >= MAX_WAIT_TIME) {
+        console.error('[Token] DEADLOCK PREVENTION: Max wait time exceeded, forcing request');
+        tokenRequestInFlightRef.current = false; // Force reset to break potential deadlock
+        break;
+      }
+      console.log('[Azure Token] Waiting for in-flight token request...');
+      await new Promise(resolve => setTimeout(resolve, 100));
+      waitTime += 100;
+    }
     
-    return tokenData;
+    // Double-check cache after wait (another request may have completed)
+    if (azureTokenRef.current) {
+      console.log('[Azure Token] Using token cached by concurrent request');
+      return azureTokenRef.current;
+    }
+    
+    const requestStartTime = Date.now();
+    // Mark request as in-flight BEFORE any async operations
+    tokenRequestInFlightRef.current = true;
+    
+    try {
+      console.log('[Azure Token API] 🔑 REQUEST START - Fetching new auth token');
+      
+      const tokenResponse = await fetch('/api/speech/token');
+      
+      if (!tokenResponse.ok) {
+        const requestDuration = Date.now() - requestStartTime;
+        console.error(`[Azure Token API] ❌ FAILED - Status: ${tokenResponse.status}, Duration: ${requestDuration}ms`);
+        throw new Error(`Token request failed: ${tokenResponse.status}`);
+      }
+      
+      const tokenData = await tokenResponse.json();
+      const requestDuration = Date.now() - requestStartTime;
+      
+      console.log(`[Azure Token API] ✅ SUCCESS - Duration: ${requestDuration}ms, Region: ${tokenData.region}`);
+      
+      azureTokenRef.current = tokenData;
+      
+      // Token expires after 10 minutes, clear cache after 9 minutes
+      setTimeout(() => {
+        console.log('[Azure Token] Cache expired, will fetch new token on next request');
+        azureTokenRef.current = null;
+      }, 540000);
+      
+      return tokenData;
+    } finally {
+      tokenRequestInFlightRef.current = false;
+    }
   };
 
   // Unlock audio on mobile by playing silent audio on user interaction
@@ -417,13 +467,33 @@ export default function Room() {
     languageCode: string,
     gender: "male" | "female"
   ): Promise<Blob> => {
+    const requestStartTime = Date.now();
+    
     try {
+      // THROTTLING: Wait for any in-flight TTS request to complete with safety timeout
+      let waitTime = 0;
+      const MAX_WAIT_TIME = 30000; // 30 seconds max wait
+      
+      while (ttsRequestInFlightRef.current) {
+        if (waitTime >= MAX_WAIT_TIME) {
+          console.error('[TTS] DEADLOCK PREVENTION: Max wait time exceeded, forcing request');
+          ttsRequestInFlightRef.current = false; // Force reset to break potential deadlock
+          break;
+        }
+        console.log('[TTS] Waiting for in-flight request to complete...');
+        await new Promise(resolve => setTimeout(resolve, 100));
+        waitTime += 100;
+      }
+      
+      // Mark request as in-flight BEFORE any async operations
+      ttsRequestInFlightRef.current = true;
+      
       const { token, region } = await getAzureToken();
       
       const azureLang = azureLanguageMap[languageCode] || 'en-US';
       const voiceName = getAzureVoiceName(languageCode, gender);
       
-      console.log(`[TTS] Synthesizing with gender: ${gender}, language: ${languageCode}, voice: ${voiceName}`);
+      console.log(`[Azure TTS API] 🎤 REQUEST START - Voice: ${voiceName}, Text: "${text.substring(0, 50)}..."`);
       
       // Escape text for SSML (prevents XML parsing errors with &, <, >, etc.)
       const escapedText = escapeXml(text);
@@ -447,20 +517,23 @@ export default function Room() {
         body: ssml,
       });
       
+      const requestDuration = Date.now() - requestStartTime;
+      
       if (!response.ok) {
         const errorText = await response.text().catch(() => 'Unknown error');
-        console.error(`[TTS] Azure TTS API error: ${response.status} ${response.statusText}`, errorText);
+        console.error(`[Azure TTS API] ❌ FAILED - Status: ${response.status}, Duration: ${requestDuration}ms, Error: ${errorText.substring(0, 200)}`);
         
-        // Check for quota errors (HTTP 429 = Too Many Requests)
-        if (response.status === 429 || errorText.toLowerCase().includes('quota')) {
-          console.error('[TTS] QUOTA EXCEEDED - stopping TTS queue processing');
+        // CRITICAL FIX: Only trigger quota detection on STRICT HTTP 429 status code
+        // Do NOT use string matching on error text (prevents false positives from HTML error pages)
+        if (response.status === 429) {
+          console.error('[Azure TTS API] 🚫 QUOTA EXCEEDED (HTTP 429) - Stopping all TTS processing');
           quotaExceededRef.current = true;
           setQuotaExceeded(true);
-          setQuotaError('Azure TTS quota exceeded. Your account has hit its usage limit.');
+          setQuotaError('Service quota exceeded. Your account has hit its usage limit.');
           
           toast({
-            title: "TTS Quota Limit Reached",
-            description: "Azure Text-to-Speech quota exceeded. You can still receive translations as text.",
+            title: "Service Quota Limit Reached",
+            description: "Speech service quota exceeded. You can still receive translations as text.",
             variant: "destructive",
             duration: 10000,
           });
@@ -470,6 +543,7 @@ export default function Room() {
       }
       
       const blob = await response.blob();
+      console.log(`[Azure TTS API] ✅ SUCCESS - Duration: ${requestDuration}ms, Audio size: ${blob.size} bytes`);
       
       if (blob.size === 0) {
         throw new Error('Azure TTS returned empty audio blob');
@@ -477,8 +551,12 @@ export default function Room() {
       
       return blob;
     } catch (error) {
-      console.error('[TTS] Synthesis error:', error);
+      const requestDuration = Date.now() - requestStartTime;
+      console.error(`[Azure TTS API] ❌ ERROR - Duration: ${requestDuration}ms, Error:`, error);
       throw error; // Re-throw to trigger retry logic in queue processor
+    } finally {
+      // ALWAYS clear the in-flight flag
+      ttsRequestInFlightRef.current = false;
     }
   };
 
@@ -1308,35 +1386,36 @@ export default function Room() {
       
       // CRITICAL: Add error handlers to prevent recognizer from stopping
       recognizer.canceled = (s, e) => {
-        console.error('[Speech] Recognition canceled:', e.reason, e.errorDetails);
+        console.error(`[Azure Speech SDK] ❌ Recognition canceled - Reason: ${e.reason}, Details: ${e.errorDetails}`);
         
-        // Check if this is a quota error
-        const isQuotaError = e.errorDetails?.toLowerCase().includes('quota') || 
-                           e.errorDetails?.toLowerCase().includes('429') ||
-                           e.errorDetails?.toLowerCase().includes('rate limit');
+        // CRITICAL FIX: Only detect quota errors from specific Azure WebSocket error codes
+        // WebSocket Close Code 1007 with specific Azure quota error message
+        // Do NOT use broad string matching (prevents false positives from connection errors)
+        const isQuotaError = e.errorDetails?.includes('WebSocket close code: 1007') && 
+                           (e.errorDetails?.includes('Quota') || e.errorDetails?.includes('quota'));
         
         if (isQuotaError) {
-          console.error('[Speech] QUOTA EXCEEDED - stopping auto-retry to prevent infinite loop');
+          console.error('[Azure Speech SDK] 🚫 QUOTA EXCEEDED (WebSocket 1007) - Stopping all recognition');
           quotaExceededRef.current = true;
           setQuotaExceeded(true);
-          setQuotaError('Azure Speech Services quota exceeded. Your account has hit its usage limit.');
+          setQuotaError('Service quota exceeded. Your account has hit its usage limit.');
           setIsMuted(true);
           
           // Stop the recognizer completely
           if (recognizerRef.current) {
             recognizerRef.current.stopContinuousRecognitionAsync(
               () => {
-                console.log('[Speech] Recognition stopped due to quota limit');
+                console.log('[Azure Speech SDK] Recognition stopped due to quota limit');
                 recognizerRef.current?.close();
                 recognizerRef.current = null;
               },
-              (err) => console.error('[Speech] Error stopping recognizer:', err)
+              (err) => console.error('[Azure Speech SDK] Error stopping recognizer:', err)
             );
           }
           
           toast({
-            title: "Quota Limit Reached",
-            description: "Your Azure Speech Services quota has been exceeded. Please upgrade your Azure account or wait for quota reset.",
+            title: "Service Quota Limit Reached",
+            description: "Speech service quota exceeded. Please upgrade your account or wait for quota reset.",
             variant: "destructive",
             duration: 10000,
           });
@@ -1571,11 +1650,70 @@ export default function Room() {
   };
 
   const handleEndCall = () => {
-    console.log('[End Call] User clicked End Call button - closing connection and navigating home');
-    shouldReconnectRef.current = false; // Prevent auto-reconnect on intentional disconnect
+    console.log('[End Call] 📞 User clicked End Call - initiating comprehensive cleanup');
+    
+    // Prevent auto-reconnect on intentional disconnect
+    shouldReconnectRef.current = false;
+    
+    // CLEANUP 1: Stop Azure Speech recognizer immediately to prevent further API calls
+    if (recognizerRef.current) {
+      console.log('[End Call] Stopping Azure Speech recognizer...');
+      recognizerRef.current.stopContinuousRecognitionAsync(
+        () => {
+          console.log('[End Call] ✅ Speech recognizer stopped successfully');
+          recognizerRef.current?.close();
+          recognizerRef.current = null;
+        },
+        (err) => console.error('[End Call] ❌ Error stopping recognizer:', err)
+      );
+    }
+    
+    // CLEANUP 2: Clear TTS queue to prevent pending audio synthesis
+    if (ttsQueueRef.current.length > 0) {
+      console.log(`[End Call] Clearing ${ttsQueueRef.current.length} pending TTS items from queue`);
+      ttsQueueRef.current = [];
+    }
+    
+    // CLEANUP 3: Stop any playing audio immediately
+    if (currentAudioRef.current) {
+      console.log('[End Call] Stopping current audio playback...');
+      currentAudioRef.current.pause();
+      currentAudioRef.current.currentTime = 0;
+      currentAudioRef.current.src = '';
+    }
+    
+    // CLEANUP 4: Revoke blob URL to free memory
+    if (currentBlobUrlRef.current) {
+      console.log('[End Call] Revoking blob URL...');
+      URL.revokeObjectURL(currentBlobUrlRef.current);
+      currentBlobUrlRef.current = null;
+    }
+    
+    // CLEANUP 5: Clear Azure token cache (will fetch fresh token on next session)
+    if (azureTokenRef.current) {
+      console.log('[End Call] Clearing Azure token cache');
+      azureTokenRef.current = null;
+    }
+    
+    // CLEANUP 6: Reset processing flags
+    isProcessingTTSRef.current = false;
+    ttsRequestInFlightRef.current = false;
+    tokenRequestInFlightRef.current = false;
+    
+    // CLEANUP 7: Clear message deduplication sets
+    spokenMessageIdsRef.current.clear();
+    processedMessagesRef.current.clear();
+    
+    // CLEANUP 8: Stop session timer
+    setSessionActive(false);
+    
+    // CLEANUP 9: Close WebSocket connection
     if (wsRef.current?.readyState === WebSocket.OPEN) {
+      console.log('[End Call] Closing WebSocket connection...');
       wsRef.current.close(1000, "User ended call");
     }
+    
+    console.log('[End Call] ✅ All cleanup completed - navigating to home');
     setLocation("/");
   };
 
