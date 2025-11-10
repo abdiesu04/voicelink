@@ -295,60 +295,13 @@ export default function Room() {
     'sr': 'sr-RS', 'et': 'et-EE', 'lv': 'lv-LV',
   };
 
-  // Azure TTS voice names for each language and gender
+  // Azure TTS voice names - using premium multilingual voices for ALL languages
+  // AndrewMultilingualNeural (male) and AvaMultilingualNeural (female) support 47+ languages
+  // NOTE: Premium multilingual voices have lower quota limits (~20 req/min default on Pay-As-You-Go)
+  // If hitting quota errors, request quota increase via Azure support ticket or use standard neural voices
   const getAzureVoiceName = (languageCode: string, gender: "male" | "female"): string => {
-    const voiceMap: Record<string, { male: string, female: string }> = {
-      'en': { male: 'en-US-GuyNeural', female: 'en-US-JennyNeural' },
-      'es': { male: 'es-ES-AlvaroNeural', female: 'es-ES-ElviraNeural' },
-      'fr': { male: 'fr-FR-HenriNeural', female: 'fr-FR-DeniseNeural' },
-      'de': { male: 'de-DE-ConradNeural', female: 'de-DE-KatjaNeural' },
-      'it': { male: 'it-IT-DiegoNeural', female: 'it-IT-ElsaNeural' },
-      'pt': { male: 'pt-PT-DuarteNeural', female: 'pt-PT-RaquelNeural' },
-      'ru': { male: 'ru-RU-DmitryNeural', female: 'ru-RU-SvetlanaNeural' },
-      'ja': { male: 'ja-JP-KeitaNeural', female: 'ja-JP-NanamiNeural' },
-      'ko': { male: 'ko-KR-InJoonNeural', female: 'ko-KR-SunHiNeural' },
-      'zh': { male: 'zh-CN-YunxiangNeural', female: 'zh-CN-XiaoyiNeural' },
-      'ar': { male: 'ar-SA-HamedNeural', female: 'ar-SA-ZariyahNeural' },
-      'hi': { male: 'hi-IN-MadhurNeural', female: 'hi-IN-SwaraNeural' },
-      'nl': { male: 'nl-NL-MaartenNeural', female: 'nl-NL-ColetteNeural' },
-      'pl': { male: 'pl-PL-MarekNeural', female: 'pl-PL-ZofiaNeural' },
-      'tr': { male: 'tr-TR-AhmetNeural', female: 'tr-TR-EmelNeural' },
-      'pt-br': { male: 'pt-BR-AntonioNeural', female: 'pt-BR-FranciscaNeural' },
-      'sv': { male: 'sv-SE-MattiasNeural', female: 'sv-SE-SofieNeural' },
-      'nb': { male: 'nb-NO-FinnNeural', female: 'nb-NO-PernilleNeural' },
-      'da': { male: 'da-DK-JeppeNeural', female: 'da-DK-ChristelNeural' },
-      'fi': { male: 'fi-FI-HarriNeural', female: 'fi-FI-NooraNeural' },
-      'el': { male: 'el-GR-NestorasNeural', female: 'el-GR-AthinaNeural' },
-      'cs': { male: 'cs-CZ-AntoninNeural', female: 'cs-CZ-VlastaNeural' },
-      'ro': { male: 'ro-RO-EmilNeural', female: 'ro-RO-AlinaNeural' },
-      'uk': { male: 'uk-UA-OstapNeural', female: 'uk-UA-PolinaNeural' },
-      'hu': { male: 'hu-HU-TamasNeural', female: 'hu-HU-NoemiNeural' },
-      'vi': { male: 'vi-VN-NamMinhNeural', female: 'vi-VN-HoaiMyNeural' },
-      'th': { male: 'th-TH-NiwatNeural', female: 'th-TH-PremwadeeNeural' },
-      'id': { male: 'id-ID-ArdiNeural', female: 'id-ID-GadisNeural' },
-      'he': { male: 'he-IL-AvriNeural', female: 'he-IL-HilaNeural' },
-      'bn': { male: 'bn-IN-BashkarNeural', female: 'bn-IN-TanishaaNeural' },
-      'ta': { male: 'ta-IN-ValluvarNeural', female: 'ta-IN-PallaviNeural' },
-      'te': { male: 'te-IN-MohanNeural', female: 'te-IN-ShrutiNeural' },
-      'mr': { male: 'mr-IN-ManoharNeural', female: 'mr-IN-AarohiNeural' },
-      'bg': { male: 'bg-BG-BorislavNeural', female: 'bg-BG-KalinaNeural' },
-      'hr': { male: 'hr-HR-SreckoNeural', female: 'hr-HR-GabrijelaNeural' },
-      'sk': { male: 'sk-SK-LukasNeural', female: 'sk-SK-ViktoriaNeural' },
-      'sl': { male: 'sl-SI-RokNeural', female: 'sl-SI-PetraNeural' },
-      'ca': { male: 'ca-ES-EnricNeural', female: 'ca-ES-JoanaNeural' },
-      'ms': { male: 'ms-MY-OsmanNeural', female: 'ms-MY-YasminNeural' },
-      'af': { male: 'af-ZA-WillemNeural', female: 'af-ZA-AdriNeural' },
-      'sw': { male: 'sw-KE-RafikiNeural', female: 'sw-KE-ZuriNeural' },
-      'gu': { male: 'gu-IN-NiranjanNeural', female: 'gu-IN-DhwaniNeural' },
-      'kn': { male: 'kn-IN-GaganNeural', female: 'kn-IN-SapnaNeural' },
-      'ml': { male: 'ml-IN-MidhunNeural', female: 'ml-IN-SobhanaNeural' },
-      'sr': { male: 'sr-RS-NicholasNeural', female: 'sr-RS-SophieNeural' },
-      'et': { male: 'et-EE-KertNeural', female: 'et-EE-AnuNeural' },
-      'lv': { male: 'lv-LV-NilsNeural', female: 'lv-LV-EveritaNeural' },
-    };
-    
-    const voices = voiceMap[languageCode] || voiceMap['en'];
-    return voices[gender];
+    // Premium multilingual voices work across ALL 47 languages with natural accent and tone
+    return gender === "male" ? "en-US-AndrewMultilingualNeural" : "en-US-AvaMultilingualNeural";
   };
 
   const getAzureToken = async () => {
