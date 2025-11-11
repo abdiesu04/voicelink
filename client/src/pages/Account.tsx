@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/lib/auth";
 import { User as UserIcon, CreditCard, Clock, LogOut, ExternalLink, Zap } from "lucide-react";
 import { format } from "date-fns";
 import { apiRequest, queryClient } from "@/lib/queryClient";
@@ -18,7 +19,9 @@ type AuthMeResponse = {
 function AccountContent() {
   const [, navigate] = useLocation();
   const { toast } = useToast();
+  const { logout } = useAuth();
   const [isManaging, setIsManaging] = useState(false);
+  const [isLoggingOut, setIsLoggingOut] = useState(false);
 
   const { 
     data: authData, 
@@ -31,26 +34,6 @@ function AccountContent() {
 
   const user = authData?.user;
   const subscription = authData?.subscription;
-
-  const logoutMutation = useMutation({
-    mutationFn: async () => {
-      const response = await apiRequest("POST", "/api/auth/logout", {});
-      return response.json();
-    },
-    onSuccess: () => {
-      // Clear all cached queries to remove user data from memory
-      queryClient.clear();
-      
-      toast({
-        title: "Logged out",
-        description: "You've been successfully logged out.",
-        variant: "success",
-      });
-      
-      // Redirect to home page after logout
-      navigate("/");
-    },
-  });
 
   const billingPortalMutation = useMutation({
     mutationFn: async () => {
@@ -82,8 +65,22 @@ function AccountContent() {
     },
   });
 
-  const handleLogout = () => {
-    logoutMutation.mutate();
+  const handleLogout = async () => {
+    try {
+      setIsLoggingOut(true);
+      // Clear React Query cache
+      queryClient.clear();
+      // Use AuthContext logout which clears user/subscription state and redirects
+      await logout();
+      toast({
+        title: "Logged out",
+        description: "You've been successfully logged out.",
+        variant: "success",
+      });
+    } catch (error) {
+      console.error("Logout error:", error);
+      setIsLoggingOut(false);
+    }
   };
 
   const handleManageSubscription = () => {
@@ -199,9 +196,9 @@ function AccountContent() {
             </h1>
             <p className="text-muted-foreground mt-2">Manage your account and subscription</p>
           </div>
-          <Button variant="outline" onClick={handleLogout} disabled={logoutMutation.isPending} data-testid="button-logout">
+          <Button variant="outline" onClick={handleLogout} disabled={isLoggingOut} data-testid="button-logout">
             <LogOut className="mr-2 h-4 w-4" />
-            {logoutMutation.isPending ? "Logging out..." : "Log Out"}
+            {isLoggingOut ? "Logging out..." : "Log Out"}
           </Button>
         </div>
 
