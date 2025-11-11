@@ -103,6 +103,7 @@ export default function Register() {
               src={voztraLogo} 
               alt="Voztra" 
               className="h-16 w-auto animate-in zoom-in duration-700"
+              style={{ filter: 'drop-shadow(0 0 1px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 2px rgba(255, 255, 255, 0.4))' }}
             />
           </div>
           

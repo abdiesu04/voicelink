@@ -31,6 +31,7 @@ export function Header() {
                 src={voztraLogo} 
                 alt="Voztra" 
                 className="h-10 w-auto"
+                style={{ filter: 'drop-shadow(0 0 1px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 2px rgba(255, 255, 255, 0.4))' }}
               />
             </div>
           </Link>
