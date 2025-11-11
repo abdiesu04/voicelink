@@ -19,7 +19,12 @@ function AccountContent() {
     queryKey: ["/api/user"],
   });
 
-  const { data: subscription, isLoading: subscriptionLoading } = useQuery<Subscription>({
+  const { 
+    data: subscription, 
+    isLoading: subscriptionLoading,
+    error: subscriptionError,
+    refetch: refetchSubscription
+  } = useQuery<Subscription>({
     queryKey: ["/api/subscription"],
     enabled: !!user,
   });
@@ -89,51 +94,74 @@ function AccountContent() {
     );
   }
 
-  if (!subscription) {
+  // Error state: no subscription data and not loading
+  if (!subscription && !subscriptionLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 dark:from-gray-900 dark:via-gray-900 dark:to-indigo-950/20 flex items-center justify-center p-4">
         <Card className="max-w-md">
           <CardHeader>
-            <CardTitle className="text-red-400">No Subscription Found</CardTitle>
+            <CardTitle className="text-red-400">Unable to Load Subscription</CardTitle>
             <CardDescription>
-              We couldn't find an active subscription for your account. This is unusual and may indicate a technical issue.
+              We're having trouble loading your subscription details. This is usually a temporary issue.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
+            {subscriptionError && (
+              <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
+                <p className="text-sm text-red-600 dark:text-red-400 font-medium">
+                  Error Details:
+                </p>
+                <p className="text-xs text-red-600 dark:text-red-400 mt-1">
+                  {(subscriptionError as Error).message}
+                </p>
+              </div>
+            )}
             <div className="space-y-2">
               <p className="text-sm text-muted-foreground">
-                Possible reasons:
+                Try these steps:
               </p>
-              <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
-                <li>Your account was just created and the subscription is still being set up</li>
-                <li>A technical error occurred during registration</li>
-                <li>Your subscription was accidentally removed</li>
-              </ul>
+              <ol className="text-sm text-muted-foreground list-decimal list-inside space-y-1">
+                <li>Click "Retry" to reload your subscription data</li>
+                <li>If that doesn't work, refresh your browser</li>
+                <li>Check your internet connection</li>
+              </ol>
             </div>
             <div className="flex gap-3">
               <Button 
-                onClick={() => window.location.reload()} 
+                onClick={() => refetchSubscription()} 
                 variant="default"
                 className="bg-gradient-to-r from-violet-500 to-purple-500 hover:from-violet-600 hover:to-purple-600"
                 data-testid="button-retry"
               >
-                Refresh Page
+                Retry
               </Button>
               <Button 
-                onClick={() => navigate("/pricing")} 
+                onClick={() => window.location.reload()} 
                 variant="outline"
-                data-testid="button-pricing"
+                data-testid="button-refresh"
               >
-                View Plans
+                Refresh Browser
               </Button>
             </div>
-            <p className="text-xs text-muted-foreground">
-              If this issue persists, please try logging out and logging back in, or contact our support team for assistance.
-            </p>
+            <div className="text-center pt-2">
+              <Button 
+                onClick={() => navigate("/")} 
+                variant="ghost"
+                className="text-xs"
+                data-testid="button-home"
+              >
+                ← Back to Home
+              </Button>
+            </div>
           </CardContent>
         </Card>
       </div>
     );
+  }
+
+  // TypeScript guard: At this point, subscription must exist
+  if (!subscription) {
+    return null;
   }
 
   const planNames = {
