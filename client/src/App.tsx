@@ -14,6 +14,7 @@ import Login from "@/pages/Login";
 import Register from "@/pages/Register";
 import Account from "@/pages/Account";
 import Pricing from "@/pages/Pricing";
+import PaymentSuccess from "@/pages/PaymentSuccess";
 import QueueTest from "@/pages/QueueTest";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import CaliforniaPrivacyPolicy from "@/pages/CaliforniaPrivacyPolicy";
@@ -28,6 +29,7 @@ function Router() {
       <Route path="/register" component={Register} />
       <Route path="/account" component={Account} />
       <Route path="/pricing" component={Pricing} />
+      <Route path="/payment-success" component={PaymentSuccess} />
       <Route path="/create" component={CreateRoom} />
       <Route path="/join/:roomId" component={JoinRoom} />
       <Route path="/room/:roomId" component={Room} />
