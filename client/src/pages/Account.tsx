@@ -1,23 +1,97 @@
-import { useAuth, RequireAuth } from "@/lib/auth";
+import { useState } from "react";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
-import { User, CreditCard, Clock, LogOut } from "lucide-react";
+import { User as UserIcon, CreditCard, Clock, LogOut, ExternalLink, Zap } from "lucide-react";
 import { format } from "date-fns";
-import { useEffect } from "react";
+import { apiRequest } from "@/lib/queryClient";
+import type { User, Subscription } from "@shared/schema";
 
 function AccountContent() {
-  const { user, subscription, logout, refreshUser } = useAuth();
+  const [, navigate] = useLocation();
   const { toast } = useToast();
+  const [isManaging, setIsManaging] = useState(false);
 
-  useEffect(() => {
-    refreshUser();
-  }, []);
+  const { data: user, isLoading: userLoading } = useQuery<User>({
+    queryKey: ["/api/user"],
+  });
+
+  const { data: subscription, isLoading: subscriptionLoading } = useQuery<Subscription>({
+    queryKey: ["/api/subscription"],
+    enabled: !!user,
+  });
+
+  const logoutMutation = useMutation({
+    mutationFn: async () => {
+      const response = await apiRequest("POST", "/api/logout", {});
+      return response.json();
+    },
+    onSuccess: () => {
+      toast({
+        title: "Logged out",
+        description: "You've been successfully logged out.",
+      });
+      navigate("/login");
+    },
+  });
+
+  const billingPortalMutation = useMutation({
+    mutationFn: async () => {
+      const response = await apiRequest("POST", "/api/create-billing-portal-session", {});
+      return response.json();
+    },
+    onSuccess: (data: any) => {
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        toast({
+          title: "Error",
+          description: "No billing portal URL received. Please try again.",
+          variant: "destructive",
+        });
+        setIsManaging(false);
+      }
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Error",
+        description: error.message || "Failed to open billing portal. Please try again.",
+        variant: "destructive",
+      });
+      setIsManaging(false);
+    },
+    onSettled: () => {
+      setTimeout(() => setIsManaging(false), 1000);
+    },
+  });
+
+  const handleLogout = () => {
+    logoutMutation.mutate();
+  };
+
+  const handleManageSubscription = () => {
+    if (subscription?.plan === "free") {
+      navigate("/pricing");
+      return;
+    }
+    setIsManaging(true);
+    billingPortalMutation.mutate();
+  };
+
+  if (userLoading || subscriptionLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 dark:from-gray-900 dark:via-gray-900 dark:to-indigo-950/20 flex items-center justify-center">
+        <div className="w-8 h-8 border-4 border-primary/30 border-t-primary rounded-full animate-spin" />
+      </div>
+    );
+  }
 
   if (!subscription) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-violet-50 to-blue-50 dark:from-slate-950 dark:via-indigo-950/30 dark:to-slate-950 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 dark:from-gray-900 dark:via-gray-900 dark:to-indigo-950/20 flex items-center justify-center p-4">
         <Card>
           <CardHeader>
             <CardTitle>No Subscription Found</CardTitle>
@@ -29,80 +103,80 @@ function AccountContent() {
   }
 
   const planNames = {
-    free: "Free Trial",
+    free: "Free",
     starter: "Starter",
     pro: "Pro",
   };
 
-  const handleLogout = async () => {
-    await logout();
-    toast({
-      title: "Logged out",
-      description: "You've been successfully logged out.",
-    });
+  const planColors = {
+    free: "bg-blue-500/10 text-blue-400 border-blue-500/20",
+    starter: "bg-violet-500/10 text-violet-400 border-violet-500/20",
+    pro: "bg-amber-500/10 text-amber-400 border-amber-500/20",
   };
 
+  const minutesRemaining = Math.floor(subscription.creditsRemaining / 60);
+  const isLowCredits = minutesRemaining < 10;
+  const isPaidPlan = subscription.plan !== "free";
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-violet-50 to-blue-50 dark:from-slate-950 dark:via-indigo-950/30 dark:to-slate-950 pt-28 pb-12 px-4">
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 dark:from-gray-900 dark:via-gray-900 dark:to-indigo-950/20 pt-24 pb-12 px-4">
       <div className="max-w-4xl mx-auto space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold">Account Settings</h1>
-            <p className="text-muted-foreground">Manage your account and subscription</p>
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-400 via-violet-400 to-purple-400 bg-clip-text text-transparent" data-testid="heading-account">
+              Account Settings
+            </h1>
+            <p className="text-muted-foreground mt-2">Manage your account and subscription</p>
           </div>
-          <Button variant="outline" onClick={handleLogout} data-testid="button-logout">
+          <Button variant="outline" onClick={handleLogout} disabled={logoutMutation.isPending} data-testid="button-logout">
             <LogOut className="mr-2 h-4 w-4" />
-            Log Out
+            {logoutMutation.isPending ? "Logging out..." : "Log Out"}
           </Button>
         </div>
 
-        <Card data-testid="card-profile">
+        <Card data-testid="card-profile" className="border-border/50 backdrop-blur-sm">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <User className="h-5 w-5" />
+              <UserIcon className="h-5 w-5 text-violet-400" />
               Profile Information
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-2">
             <div className="flex justify-between items-center py-2">
               <span className="text-muted-foreground">Email</span>
-              <span className="font-medium">{user?.email}</span>
+              <span className="font-medium" data-testid="text-email">{user?.email}</span>
             </div>
           </CardContent>
         </Card>
 
-        <Card data-testid="card-subscription">
+        <Card data-testid="card-subscription" className="border-border/50 backdrop-blur-sm">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
-              <CreditCard className="h-5 w-5" />
+              <CreditCard className="h-5 w-5 text-violet-400" />
               Subscription & Credits
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="flex justify-between items-center py-2">
               <span className="text-muted-foreground">Current Plan</span>
-              <Badge variant="default" className="text-sm">
-                {planNames[subscription.plan as keyof typeof planNames]}
+              <Badge className={planColors[subscription.plan]} data-testid="badge-plan">
+                {planNames[subscription.plan]}
               </Badge>
             </div>
 
-            <div className="flex justify-between items-center py-2">
-              <span className="text-muted-foreground">Credits Remaining</span>
-              <span className="text-2xl font-bold text-primary">
-                {(subscription.creditsRemaining / 60).toFixed(1)} minutes
+            <div className="flex justify-between items-center py-3 border-y border-border/50">
+              <span className="text-muted-foreground flex items-center gap-2">
+                <Zap className="h-4 w-4 text-violet-400" />
+                Minutes Remaining
+              </span>
+              <span className={`text-3xl font-bold ${isLowCredits ? 'text-red-400' : 'text-violet-400'}`} data-testid="text-minutes-remaining">
+                {minutesRemaining}
               </span>
             </div>
 
-            {subscription.creditsRolledOver > 0 && (
-              <div className="flex justify-between items-center py-2">
-                <span className="text-muted-foreground">Rollover Credits</span>
-                <span className="font-medium">{(subscription.creditsRolledOver / 60).toFixed(1)} minutes</span>
-              </div>
-            )}
-
             <div className="flex justify-between items-center py-2">
               <span className="text-muted-foreground">Status</span>
-              <Badge variant={subscription.isActive ? "default" : "secondary"}>
+              <Badge variant={subscription.isActive ? "default" : "secondary"} data-testid="badge-status">
                 {subscription.isActive ? "Active" : "Inactive"}
               </Badge>
             </div>
@@ -111,30 +185,78 @@ function AccountContent() {
               <div className="flex justify-between items-center py-2">
                 <span className="text-muted-foreground flex items-center gap-2">
                   <Clock className="h-4 w-4" />
-                  Billing Cycle Ends
+                  {isPaidPlan ? "Next Billing Date" : "No Expiration"}
                 </span>
-                <span className="font-medium">
-                  {format(new Date(subscription.billingCycleEnd), "MMM dd, yyyy")}
+                <span className="font-medium" data-testid="text-billing-cycle-end">
+                  {isPaidPlan 
+                    ? format(new Date(subscription.billingCycleEnd), "MMM dd, yyyy")
+                    : "Lifetime"
+                  }
                 </span>
               </div>
             )}
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="border-border/50 backdrop-blur-sm">
           <CardHeader>
-            <CardTitle>Plan Management</CardTitle>
+            <CardTitle>Manage Subscription</CardTitle>
             <CardDescription>
-              Manage your subscription plan
+              {isPaidPlan 
+                ? "Update your payment method, change plans, or cancel your subscription"
+                : "Upgrade to a paid plan for more translation minutes"
+              }
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-2">
+          <CardContent className="space-y-4">
+            <div className="flex gap-3">
+              <Button 
+                onClick={handleManageSubscription} 
+                disabled={isManaging}
+                className="bg-gradient-to-r from-violet-500 to-purple-500 hover:from-violet-600 hover:to-purple-600"
+                data-testid="button-manage-subscription"
+              >
+                {isManaging ? (
+                  <span className="flex items-center gap-2">
+                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    Opening...
+                  </span>
+                ) : (
+                  <>
+                    {isPaidPlan ? "Manage Subscription" : "Upgrade Plan"}
+                    <ExternalLink className="ml-2 h-4 w-4" />
+                  </>
+                )}
+              </Button>
+              
+              {!isPaidPlan && (
+                <Button 
+                  variant="outline" 
+                  onClick={() => navigate("/pricing")}
+                  data-testid="button-view-plans"
+                >
+                  View All Plans
+                </Button>
+              )}
+            </div>
+
+            {isPaidPlan && (
+              <p className="text-xs text-muted-foreground">
+                You'll be redirected to Stripe's secure billing portal to manage your subscription
+              </p>
+            )}
+          </CardContent>
+        </Card>
+
+        <Card className="border-border/50 backdrop-blur-sm">
+          <CardHeader>
+            <CardTitle>Usage History</CardTitle>
+            <CardDescription>Coming soon - track your translation usage over time</CardDescription>
+          </CardHeader>
+          <CardContent>
             <p className="text-sm text-muted-foreground">
-              Want to upgrade your plan for more credits? Stripe integration coming soon!
+              Usage tracking and detailed analytics will be available in a future update.
             </p>
-            <Button variant="outline" disabled data-testid="button-manage-plan">
-              Manage Plan (Coming Soon)
-            </Button>
           </CardContent>
         </Card>
       </div>
@@ -143,9 +265,5 @@ function AccountContent() {
 }
 
 export default function Account() {
-  return (
-    <RequireAuth>
-      <AccountContent />
-    </RequireAuth>
-  );
+  return <AccountContent />;
 }
