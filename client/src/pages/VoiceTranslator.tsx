@@ -2,61 +2,40 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Globe2, Lock, Mic, Users, Zap } from "lucide-react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from "@/components/ui/carousel";
-import Autoplay from "embla-carousel-autoplay";
-import testimonialSofia from "@assets/testimonial-sofia.jpg";
-import testimonialJulien from "@assets/testimonial-julien.jpg";
-import testimonialMarcus from "@assets/testimonial-marcus.jpg";
-import testimonialYuki from "@assets/testimonial-yuki.jpg";
-import testimonialCarlos from "@assets/testimonial-carlos.jpg";
-import testimonialLayla from "@assets/testimonial-layla.jpg";
-import testimonialKwame from "@assets/testimonial-kwame.jpg";
-import worldFlags from "@assets/world-flags-background.jpg";
 
 const VoiceTranslator = () => {
   const testimonials = [
     {
-      image: testimonialSofia,
       name: "Sofia M.",
       location: "Los Angeles",
       quote: "For the first time, my grandmother in Tokyo heard me in Japanese — with my real voice."
     },
     {
-      image: testimonialJulien,
       name: "Julien R.",
       location: "Paris",
       quote: "Our global meetings feel human again — no translators, no lag, just genuine connection."
     },
     {
-      image: testimonialMarcus,
       name: "Marcus R.",
       location: "London",
       quote: "I made friends backpacking across Spain without switching to English once. Life-changing."
     },
     {
-      image: testimonialYuki,
       name: "Yuki T.",
       location: "Tokyo",
       quote: "Closing international deals has never been easier. My clients feel truly understood."
     },
     {
-      image: testimonialCarlos,
       name: "Carlos G.",
       location: "Buenos Aires",
       quote: "Teaching students across continents feels like we're in the same room. The future is here."
     },
     {
-      image: testimonialLayla,
       name: "Layla A.",
       location: "Dubai",
       quote: "Video calls with my family abroad now feel warm and personal, not robotic."
     },
     {
-      image: testimonialKwame,
       name: "Kwame O.",
       location: "Accra",
       quote: "Networking at global conferences is effortless. I can be myself in any language."
@@ -284,49 +263,26 @@ const VoiceTranslator = () => {
       </section>
 
       {/* Testimonials */}
-      <section className="py-20 md:py-32 bg-muted/30 overflow-hidden">
+      <section className="py-20 md:py-32 bg-muted/30">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto">
             <h2 className="text-4xl md:text-6xl font-display font-bold text-center mb-16">
               When barriers disappear, <br className="hidden md:block" />connection begins
             </h2>
             
-            <Carousel
-              opts={{
-                align: "start",
-                loop: true,
-              }}
-              plugins={[
-                Autoplay({
-                  delay: 3000,
-                  stopOnInteraction: false,
-                }),
-              ]}
-              className="w-full"
-            >
-              <CarouselContent className="-ml-4">
-                {testimonials.map((testimonial, index) => (
-                  <CarouselItem key={index} className="pl-4 md:basis-1/2 lg:basis-1/3">
-                    <Card className="p-8 lg:p-10 hover:shadow-glow transition-all hover:-translate-y-1 h-full">
-                      <div className="flex items-center gap-4 mb-6">
-                        <img 
-                          src={testimonial.image} 
-                          alt={testimonial.name} 
-                          className="w-16 h-16 rounded-full object-cover border-2 border-primary/20"
-                        />
-                        <div>
-                          <p className="font-semibold">{testimonial.name}</p>
-                          <p className="text-sm text-muted-foreground">{testimonial.location}</p>
-                        </div>
-                      </div>
-                      <p className="text-lg leading-relaxed italic text-muted-foreground">
-                        "{testimonial.quote}"
-                      </p>
-                    </Card>
-                  </CarouselItem>
-                ))}
-              </CarouselContent>
-            </Carousel>
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {testimonials.map((testimonial, index) => (
+                <Card key={index} className="p-8 hover:shadow-glow transition-all hover:-translate-y-1">
+                  <div className="mb-4">
+                    <p className="font-semibold">{testimonial.name}</p>
+                    <p className="text-sm text-muted-foreground">{testimonial.location}</p>
+                  </div>
+                  <p className="text-lg leading-relaxed italic text-muted-foreground">
+                    "{testimonial.quote}"
+                  </p>
+                </Card>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -449,15 +405,6 @@ const VoiceTranslator = () => {
 
       {/* Global Impact */}
       <section className="py-20 md:py-32 bg-gradient-to-br from-primary/5 via-background to-secondary/5 relative overflow-hidden">
-        <div 
-          className="absolute inset-0 opacity-[0.10]" 
-          style={{
-            backgroundImage: `url(${worldFlags})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-            backgroundRepeat: 'no-repeat'
-          }}
-        />
         <div className="absolute inset-0 opacity-30">
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-primary/20 rounded-full blur-3xl" />
           <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-secondary/20 rounded-full blur-3xl" />
