@@ -14,6 +14,7 @@ The application features a clean, modern design with full light/dark theme suppo
 - A landing page, room creation/joining interfaces with language and voice gender selection.
 - An active translation interface with a dual-panel layout, connection status indicators, microphone controls, and a share dialog.
 - A `TranscriptionPanel` visually distinguishes interim transcriptions (dashed border, italic) from final translated messages.
+- **Header Navigation**: Simple navigation showing Home link and Account link (for authenticated users only). Pricing page is intentionally hidden from navigation.
 - **Footer Navigation**: Displays Privacy Policy and California Privacy Policy links for all users, with Contact Us link visible only for authenticated users.
 
 ### Technical Implementations
