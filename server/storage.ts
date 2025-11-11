@@ -65,13 +65,20 @@ export class PgStorage implements IStorage {
     const planDetails = schema.PLAN_DETAILS[plan];
     // Convert minutes to seconds (1 credit = 1 second)
     const creditsInSeconds = planDetails.credits * 60;
+    
+    // Free tier: lifetime allocation (far future billing cycle)
+    // Paid tiers: monthly billing cycle
+    const billingCycleEnd = plan === 'free' 
+      ? new Date(Date.now() + 100 * 365 * 24 * 60 * 60 * 1000) // 100 years (lifetime)
+      : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000); // 30 days
+    
     const [subscription] = await db.insert(schema.subscriptions).values({
       userId,
       plan,
       creditsRemaining: creditsInSeconds,
       creditsRolledOver: 0,
       billingCycleStart: new Date(),
-      billingCycleEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days from now
+      billingCycleEnd,
       isActive: true,
     }).returning();
     return subscription;
