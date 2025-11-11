@@ -212,9 +212,9 @@ export default function Home() {
             </h1>
             
             {/* New Subtext */}
-            <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-300 max-w-4xl mx-auto leading-relaxed">
-              Have real conversations across 47 languages. Two people, one room, instant voice translation.
-            </p>
+            <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-300 max-w-4xl mx-auto leading-relaxed">Voztra instantly translates your voice into another language — same tone, same emotion, same gender — so you sound like a native speaker across 140 languages.
+
+</p>
 
             {/* CTA Buttons with Gradient */}
             <div className="flex flex-col sm:flex-row gap-4 pt-6 justify-center">
@@ -253,7 +253,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* Features Section - Speak naturally, be understood instantly */}
       <section id="features" className="py-20 md:py-32 bg-slate-50 dark:bg-slate-900/50">
         <div className="container mx-auto px-6 md:px-12">
@@ -325,7 +324,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* How It Works Section */}
       <section id="how-it-works" className="py-20 md:py-32 bg-white dark:bg-slate-950">
         <div className="container mx-auto px-6 md:px-12">
@@ -368,7 +366,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* Language Coverage Section */}
       <section id="languages" className="py-20 md:py-32 bg-slate-50 dark:bg-slate-900/50">
         <div className="container mx-auto px-6 md:px-12">
@@ -416,7 +413,6 @@ export default function Home() {
           </Card>
         </div>
       </section>
-
       {/* Testimonials Section */}
       <section className="py-20 md:py-32 bg-white dark:bg-slate-950">
         <div className="container mx-auto px-6 md:px-12">
@@ -454,7 +450,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* Business Section */}
       <section className="py-20 md:py-32 bg-slate-50 dark:bg-slate-900/50">
         <div className="container mx-auto px-6 md:px-12">
@@ -526,7 +521,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* Final CTA Section */}
       <section className="py-20 md:py-32 bg-white dark:bg-slate-950">
         <div className="container mx-auto px-6 md:px-12">
@@ -581,7 +575,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
       {/* Footer */}
       <footer className="py-16 bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
         <div className="container mx-auto px-6 md:px-12">

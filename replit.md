@@ -9,7 +9,13 @@ I prefer clear and concise explanations. I want an iterative development approac
 ## System Architecture
 
 ### UI/UX Decisions
-The application features a clean, modern design with full light/dark theme support, defaulting to dark mode. It uses a color scheme of Indigo/Blue for interactive elements and Violet/Purple for highlights, with the Inter font. Components are built with Shadcn UI and Tailwind CSS, adhering to a responsive, mobile-first design. The UI includes a custom, theme-aware SVG Voztra logo, a landing page, room creation/joining interfaces, an active translation interface with a dual-panel layout, and various controls (microphone, share). Transcription panels visually distinguish interim from final translated messages. Navigation includes a minimal header with only Account link (for authenticated users) - users click the logo to return home. Footer displays Privacy Policy links. Pricing page is intentionally hidden from navigation.
+The application features a clean, modern design with full light/dark theme support, defaulting to dark mode. It uses a color scheme of Indigo/Blue for interactive elements and Violet/Purple for highlights, with the Inter font. Components are built with Shadcn UI and Tailwind CSS, adhering to a responsive, mobile-first design. The UI includes:
+- **Branding**: Professional Voztra logo with chat bubble "O" design displayed as PNG image in navigation header and on login/registration forms. The logo uses transparent background and works well on both light and dark themes. Component located at `client/src/components/VoztraLogo.tsx`, image asset at `attached_assets/a-clean-modern-logo-design-featuring-the_U7fgc6INSwC-QPiP-z7mDQ_KE33-hesSouMk1bakN-xUw-removebg-preview (1)_1762877940367.png`.
+- A landing page, room creation/joining interfaces with language and voice gender selection.
+- An active translation interface with a dual-panel layout, connection status indicators, microphone controls, and a share dialog.
+- A `TranscriptionPanel` visually distinguishes interim transcriptions (dashed border, italic) from final translated messages.
+- **Header Navigation**: Minimal navigation showing only Account link for authenticated users. Users click the logo to return home. Pricing page is intentionally hidden from navigation.
+- **Footer Navigation**: Displays Privacy Policy and California Privacy Policy links for all users, with Contact Us link visible only for authenticated users.
 
 ### Technical Implementations
 - **Frontend**: React with TypeScript, Wouter for routing, TanStack Query for data fetching, WebSocket client, Web Audio API, and Microsoft Cognitive Services Speech SDK.
