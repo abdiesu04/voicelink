@@ -1,212 +1,296 @@
 import { useState } from "react";
+import { useQuery, useMutation } from "@tanstack/react-query";
 import { useLocation } from "wouter";
-import { Check, Zap, Crown, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { useAuth } from "@/lib/auth";
-import { useMutation, useQuery } from "@tanstack/react-query";
-import { apiRequest, queryClient } from "@/lib/queryClient";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Check, Zap, Crown, Gift } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { apiRequest } from "@/lib/queryClient";
 import type { Subscription } from "@shared/schema";
 
-const plans = [
+interface PricingTier {
+  name: string;
+  price: string;
+  description: string;
+  credits: string;
+  resetPeriod: string;
+  features: string[];
+  cta: string;
+  popular?: boolean;
+  icon: typeof Gift;
+  plan: "free" | "starter" | "pro";
+}
+
+const pricingTiers: PricingTier[] = [
   {
-    id: "free",
     name: "Free",
     price: "$0",
-    credits: 60,
-    minutes: "60",
-    icon: Sparkles,
-    description: "Perfect for trying out Voztra",
+    description: "Get started with voice translation",
+    credits: "60 minutes",
+    resetPeriod: "Lifetime allocation",
     features: [
-      "60 minutes of translation",
-      "47 languages supported",
-      "94 neural voices",
+      "60 minutes total usage",
+      "47+ supported languages",
+      "Premium neural voices",
       "Real-time translation",
-      "Basic support"
+      "No credit card required",
+      "Perfect for trying Voztra"
     ],
-    gradient: "from-slate-500 to-slate-600",
-    buttonVariant: "outline" as const
+    cta: "Get Started Free",
+    icon: Gift,
+    plan: "free"
   },
   {
-    id: "starter",
     name: "Starter",
     price: "$9.99",
-    credits: 21000,
-    minutes: "350",
-    icon: Zap,
-    description: "Great for regular users",
+    description: "For regular translators",
+    credits: "350 minutes",
+    resetPeriod: "Monthly reset",
     features: [
-      "350 minutes of translation",
-      "47 languages supported",
-      "94 premium neural voices",
+      "350 minutes per month",
+      "47+ supported languages",
+      "Premium neural voices",
       "Real-time translation",
       "Priority support",
-      "Credits rollover"
+      "Monthly credit reset",
+      "Cancel anytime"
     ],
-    gradient: "from-primary to-indigo-600",
+    cta: "Subscribe to Starter",
     popular: true,
-    buttonVariant: "default" as const
+    icon: Zap,
+    plan: "starter"
   },
   {
-    id: "pro",
     name: "Pro",
     price: "$29.99",
-    credits: 72000,
-    minutes: "1200",
-    icon: Crown,
-    description: "Best for power users",
+    description: "For power users and teams",
+    credits: "1,200 minutes",
+    resetPeriod: "Monthly reset",
     features: [
-      "1200 minutes of translation",
-      "47 languages supported",
-      "94 premium neural voices",
+      "1,200 minutes per month",
+      "47+ supported languages",
+      "Premium neural voices",
       "Real-time translation",
-      "Premium support",
-      "Credits rollover",
-      "Early access to new features"
+      "Priority support",
+      "Monthly credit reset",
+      "Team features (coming soon)",
+      "API access (coming soon)"
     ],
-    gradient: "from-violet-500 to-purple-600",
-    buttonVariant: "default" as const
+    cta: "Subscribe to Pro",
+    icon: Crown,
+    plan: "pro"
   }
 ];
 
 export default function Pricing() {
-  const [, setLocation] = useLocation();
-  const { user, subscription } = useAuth();
+  const [, navigate] = useLocation();
   const { toast } = useToast();
+  const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
 
-  const selectPlanMutation = useMutation({
-    mutationFn: async (planId: string) => {
-      const plan = plans.find(p => p.id === planId);
-      if (!plan) throw new Error("Invalid plan");
+  const { data: user } = useQuery({
+    queryKey: ["/api/user"],
+  });
 
-      const response = await apiRequest("POST", "/api/subscription", {
-        plan: planId,
-        creditsRemaining: plan.credits
-      });
-      return await response.json();
+  const { data: subscription } = useQuery<Subscription>({
+    queryKey: ["/api/subscription"],
+    enabled: !!user,
+  });
+
+  const checkoutMutation = useMutation({
+    mutationFn: async (plan: "starter" | "pro") => {
+      const response = await apiRequest("POST", "/api/create-checkout-session", { plan });
+      return response.json();
     },
-    onSuccess: (data, planId) => {
-      const plan = plans.find(p => p.id === planId);
-      queryClient.invalidateQueries({ queryKey: ['/api/user'] });
-      toast({
-        title: "Plan Selected!",
-        description: `You've successfully selected the ${plan?.name} plan.`,
-      });
-      setTimeout(() => setLocation("/"), 1500);
+    onSuccess: (data: any) => {
+      if (data.url) {
+        window.location.href = data.url;
+      }
     },
-    onError: (error: Error) => {
+    onError: (error: any) => {
       toast({
-        title: "Selection Failed",
-        description: error.message,
+        title: "Checkout Error",
+        description: error.message || "Failed to start checkout. Please try again.",
         variant: "destructive",
       });
+      setLoadingPlan(null);
     },
   });
 
-  const handleSelectPlan = (planId: string) => {
+  const handleSubscribe = async (plan: "free" | "starter" | "pro") => {
     if (!user) {
-      setLocation("/register");
+      navigate("/login");
       return;
     }
 
-    if (subscription && subscription.plan === planId) {
-      toast({
-        title: "Already Subscribed",
-        description: "You're already on this plan.",
-      });
+    if (plan === "free") {
+      navigate("/");
       return;
     }
 
-    selectPlanMutation.mutate(planId);
+    setLoadingPlan(plan);
+    checkoutMutation.mutate(plan);
   };
 
+  const getCurrentPlan = () => subscription?.plan || "free";
+  const currentPlan = getCurrentPlan();
+
   return (
-    <div className="min-h-screen bg-gradient-to-b from-indigo-50 via-violet-50 to-purple-50 dark:from-slate-950 dark:via-indigo-950 dark:to-violet-950">
-      <div className="container mx-auto px-6 py-24 md:py-32">
-        <div className="text-center mb-16">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-            <span className="bg-gradient-to-r from-slate-900 to-slate-700 dark:from-white dark:to-slate-300 bg-clip-text text-transparent">
-              Choose Your Plan
-            </span>
+    <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 dark:from-gray-900 dark:via-gray-900 dark:to-indigo-950/20">
+      <div className="container mx-auto px-4 py-16 max-w-7xl">
+        <div className="text-center mb-16 space-y-4">
+          <Badge className="bg-violet-500/10 text-violet-400 border-violet-500/20 hover:bg-violet-500/20" data-testid="badge-pricing">
+            Pricing Plans
+          </Badge>
+          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-400 via-violet-400 to-purple-400 bg-clip-text text-transparent" data-testid="heading-pricing">
+            Choose Your Plan
           </h1>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
-            Start with 60 free minutes. Upgrade anytime to continue breaking down language barriers.
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto" data-testid="text-pricing-description">
+            Start with our free tier or upgrade for more translation minutes. 
+            All plans include premium neural voices and real-time translation.
           </p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {plans.map((plan) => {
-            const Icon = plan.icon;
-            const isCurrentPlan = subscription?.plan === plan.id;
-            
+          {pricingTiers.map((tier) => {
+            const Icon = tier.icon;
+            const isCurrentPlan = currentPlan === tier.plan;
+            const isDisabled = loadingPlan !== null;
+            const isLoading = loadingPlan === tier.plan;
+
             return (
-              <Card
-                key={plan.id}
-                className={`relative p-8 ${
-                  plan.popular
-                    ? 'border-primary shadow-2xl shadow-primary/20 scale-105'
-                    : 'border-slate-200 dark:border-slate-800'
-                }`}
-                data-testid={`card-plan-${plan.id}`}
+              <Card 
+                key={tier.name}
+                className={`
+                  relative overflow-hidden backdrop-blur-sm
+                  ${tier.popular 
+                    ? 'border-2 border-violet-500/50 shadow-xl shadow-violet-500/10 dark:shadow-violet-500/20 scale-105' 
+                    : 'border-border/50 hover:border-border'
+                  }
+                  ${isCurrentPlan ? 'ring-2 ring-green-500/50' : ''}
+                  transition-all duration-300 hover:shadow-lg
+                `}
+                data-testid={`card-plan-${tier.plan}`}
               >
-                {plan.popular && (
-                  <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-gradient-to-r from-primary to-indigo-600 text-white px-4 py-1 rounded-full text-sm font-medium shadow-lg">
+                {tier.popular && (
+                  <div className="absolute top-0 right-0 bg-gradient-to-r from-violet-500 to-purple-500 text-white px-3 py-1 text-sm font-semibold rounded-bl-lg" data-testid="badge-popular">
                     Most Popular
                   </div>
                 )}
 
-                <div className="text-center mb-6">
-                  <div className={`inline-flex p-4 rounded-2xl bg-gradient-to-br ${plan.gradient} mb-4`}>
-                    <Icon className="h-8 w-8 text-white" />
+                {isCurrentPlan && (
+                  <div className="absolute top-0 left-0 bg-gradient-to-r from-green-500 to-emerald-500 text-white px-3 py-1 text-sm font-semibold rounded-br-lg" data-testid={`badge-current-${tier.plan}`}>
+                    Current Plan
                   </div>
-                  <h3 className="text-2xl font-bold mb-2">{plan.name}</h3>
-                  <p className="text-muted-foreground text-sm mb-4">{plan.description}</p>
-                  <div className="mb-2">
-                    <span className="text-4xl font-bold">{plan.price}</span>
-                    {plan.id !== 'free' && <span className="text-muted-foreground">/month</span>}
-                  </div>
-                  <div className="text-sm font-medium text-primary">
-                    {plan.minutes} minutes included
-                  </div>
-                </div>
+                )}
 
-                <ul className="space-y-3 mb-8">
-                  {plan.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-start gap-3" data-testid={`feature-${plan.id}-${idx}`}>
-                      <Check className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                      <span className="text-sm">{feature}</span>
-                    </li>
-                  ))}
-                </ul>
+                <CardHeader className="space-y-4 pt-8">
+                  <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${
+                    tier.plan === 'free' ? 'from-blue-500/20 to-cyan-500/20' :
+                    tier.plan === 'starter' ? 'from-violet-500/20 to-purple-500/20' :
+                    'from-amber-500/20 to-orange-500/20'
+                  } flex items-center justify-center`}>
+                    <Icon className={`w-6 h-6 ${
+                      tier.plan === 'free' ? 'text-cyan-400' :
+                      tier.plan === 'starter' ? 'text-violet-400' :
+                      'text-amber-400'
+                    }`} />
+                  </div>
+                  
+                  <div>
+                    <CardTitle className="text-2xl" data-testid={`text-plan-name-${tier.plan}`}>{tier.name}</CardTitle>
+                    <CardDescription data-testid={`text-plan-description-${tier.plan}`}>{tier.description}</CardDescription>
+                  </div>
 
-                <Button
-                  className={`w-full ${
-                    plan.popular
-                      ? 'bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 shadow-lg shadow-primary/20'
-                      : ''
-                  }`}
-                  variant={plan.buttonVariant}
-                  onClick={() => handleSelectPlan(plan.id)}
-                  disabled={isCurrentPlan || selectPlanMutation.isPending}
-                  data-testid={`button-select-${plan.id}`}
-                >
-                  {isCurrentPlan
-                    ? "Current Plan"
-                    : selectPlanMutation.isPending
-                    ? "Selecting..."
-                    : user
-                    ? "Select Plan"
-                    : "Get Started"}
-                </Button>
+                  <div>
+                    <div className="flex items-baseline gap-1">
+                      <span className="text-4xl font-bold" data-testid={`text-price-${tier.plan}`}>{tier.price}</span>
+                      {tier.plan !== "free" && <span className="text-muted-foreground">/month</span>}
+                    </div>
+                    <div className="mt-2 space-y-1">
+                      <div className="text-sm font-semibold text-violet-400" data-testid={`text-credits-${tier.plan}`}>
+                        {tier.credits}
+                      </div>
+                      <div className="text-xs text-muted-foreground" data-testid={`text-reset-${tier.plan}`}>
+                        {tier.resetPeriod}
+                      </div>
+                    </div>
+                  </div>
+                </CardHeader>
+
+                <CardContent>
+                  <ul className="space-y-3">
+                    {tier.features.map((feature, index) => (
+                      <li key={index} className="flex items-start gap-2" data-testid={`feature-${tier.plan}-${index}`}>
+                        <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
+                        <span className="text-sm text-muted-foreground">{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+
+                <CardFooter>
+                  <Button
+                    className={`
+                      w-full
+                      ${tier.popular 
+                        ? 'bg-gradient-to-r from-violet-500 to-purple-500 hover:from-violet-600 hover:to-purple-600 text-white' 
+                        : tier.plan === 'pro'
+                        ? 'bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white'
+                        : ''
+                      }
+                      ${isCurrentPlan ? 'opacity-50 cursor-not-allowed' : ''}
+                    `}
+                    onClick={() => handleSubscribe(tier.plan)}
+                    disabled={isCurrentPlan || isDisabled}
+                    data-testid={`button-subscribe-${tier.plan}`}
+                  >
+                    {isLoading ? (
+                      <span className="flex items-center gap-2">
+                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        Processing...
+                      </span>
+                    ) : isCurrentPlan ? (
+                      "Current Plan"
+                    ) : (
+                      tier.cta
+                    )}
+                  </Button>
+                </CardFooter>
               </Card>
             );
           })}
         </div>
 
-        <div className="text-center mt-16 text-sm text-muted-foreground">
-          <p>All plans include access to 47 languages and 94 premium neural voices.</p>
-          <p className="mt-2">Unused credits roll over to the next month on paid plans.</p>
+        <div className="mt-16 text-center">
+          <p className="text-sm text-muted-foreground mb-4" data-testid="text-faq">
+            Have questions? Need a custom plan for your organization?
+          </p>
+          <Button 
+            variant="outline" 
+            onClick={() => navigate("/contact")}
+            className="border-border/50 hover:border-violet-500/50"
+            data-testid="button-contact"
+          >
+            Contact Us
+          </Button>
+        </div>
+
+        <div className="mt-16 max-w-4xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-8 text-center">
+            <div className="space-y-2">
+              <div className="text-3xl font-bold text-violet-400" data-testid="text-stat-languages">47+</div>
+              <div className="text-sm text-muted-foreground">Supported Languages</div>
+            </div>
+            <div className="space-y-2">
+              <div className="text-3xl font-bold text-violet-400" data-testid="text-stat-voices">Premium</div>
+              <div className="text-sm text-muted-foreground">Neural Voices</div>
+            </div>
+            <div className="space-y-2">
+              <div className="text-3xl font-bold text-violet-400" data-testid="text-stat-realtime">Real-time</div>
+              <div className="text-sm text-muted-foreground">Translation</div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
