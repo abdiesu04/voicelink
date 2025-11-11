@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Globe2, Lock, Mic, Users, Zap } from "lucide-react";
+import { ArrowRight, Globe2, Lock, Mic, Users, Zap, Quote } from "lucide-react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
 
@@ -263,25 +263,62 @@ const VoiceTranslator = () => {
       </section>
 
       {/* Testimonials */}
-      <section className="py-20 md:py-32 bg-muted/30">
-        <div className="container mx-auto px-6">
+      <section className="py-20 md:py-32 bg-gradient-to-b from-muted/30 via-background to-muted/20 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-20">
+          <div className="absolute top-20 left-20 w-72 h-72 bg-primary/20 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-20 right-20 w-96 h-96 bg-secondary/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
+        </div>
+        
+        <div className="container mx-auto px-6 relative z-10">
           <div className="max-w-6xl mx-auto">
-            <h2 className="text-4xl md:text-6xl font-display font-bold text-center mb-16">
-              When barriers disappear, <br className="hidden md:block" />connection begins
-            </h2>
+            <div className="text-center mb-16 space-y-4">
+              <h2 className="text-4xl md:text-6xl font-display font-bold">
+                When barriers disappear, <br className="hidden md:block" />connection begins
+              </h2>
+              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+                Real stories from people who've experienced the power of truly natural voice translation
+              </p>
+            </div>
             
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {testimonials.map((testimonial, index) => (
-                <Card key={index} className="p-8 hover:shadow-glow transition-all hover:-translate-y-1">
-                  <div className="mb-4">
-                    <p className="font-semibold">{testimonial.name}</p>
-                    <p className="text-sm text-muted-foreground">{testimonial.location}</p>
+                <Card 
+                  key={index} 
+                  className="group relative p-8 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 hover:scale-105 bg-gradient-to-br from-card via-card to-card/80 border-2 hover:border-primary/50 overflow-hidden"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  
+                  <div className="relative z-10">
+                    <div className="mb-6 flex items-start justify-between">
+                      <Quote className="w-10 h-10 text-primary/30 group-hover:text-primary/60 transition-colors duration-300" />
+                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center text-lg font-display font-bold group-hover:scale-110 transition-transform duration-300">
+                        {testimonial.name.charAt(0)}
+                      </div>
+                    </div>
+                    
+                    <p className="text-lg leading-relaxed mb-6 group-hover:text-foreground transition-colors duration-300">
+                      "{testimonial.quote}"
+                    </p>
+                    
+                    <div className="pt-4 border-t border-border/50">
+                      <p className="font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
+                        {testimonial.name}
+                      </p>
+                      <p className="text-sm text-muted-foreground flex items-center gap-1 mt-1">
+                        <Globe2 className="w-3 h-3" />
+                        {testimonial.location}
+                      </p>
+                    </div>
                   </div>
-                  <p className="text-lg leading-relaxed italic text-muted-foreground">
-                    "{testimonial.quote}"
-                  </p>
                 </Card>
               ))}
+            </div>
+            
+            <div className="mt-16 text-center">
+              <p className="text-2xl font-display font-semibold bg-gradient-primary bg-clip-text text-transparent">
+                Join thousands connecting across languages every day
+              </p>
             </div>
           </div>
         </div>
