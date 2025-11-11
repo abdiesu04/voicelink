@@ -15,7 +15,6 @@ import { VoztraLogo } from "@/components/VoztraLogo";
 
 export function Header() {
   const [location] = useLocation();
-  const isHome = location === "/";
   const isAccount = location === "/account";
   const { user, subscription } = useAuth();
 
@@ -36,16 +35,6 @@ export function Header() {
 
           {/* Navigation */}
           <nav className="hidden md:flex items-center gap-1">
-            <Link href="/">
-              <div 
-                className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors hover-elevate cursor-pointer ${
-                  isHome ? 'text-foreground bg-secondary' : 'text-muted-foreground hover:text-foreground'
-                }`}
-                data-testid="nav-home"
-              >
-                Home
-              </div>
-            </Link>
             {user && (
               <Link href="/account">
                 <div 
