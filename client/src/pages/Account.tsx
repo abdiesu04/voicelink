@@ -31,7 +31,7 @@ function AccountContent() {
 
   const logoutMutation = useMutation({
     mutationFn: async () => {
-      const response = await apiRequest("POST", "/api/logout", {});
+      const response = await apiRequest("POST", "/api/auth/logout", {});
       return response.json();
     },
     onSuccess: () => {
