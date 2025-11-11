@@ -19,6 +19,8 @@ import QueueTest from "@/pages/QueueTest";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import CaliforniaPrivacyPolicy from "@/pages/CaliforniaPrivacyPolicy";
 import VoiceTranslator from "@/pages/VoiceTranslator";
+import EmailVerification from "@/pages/EmailVerification";
+import ResendVerification from "@/pages/ResendVerification";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -37,6 +39,8 @@ function Router() {
       <Route path="/privacy-policy" component={PrivacyPolicy} />
       <Route path="/california-privacy-policy" component={CaliforniaPrivacyPolicy} />
       <Route path="/voice-translator" component={VoiceTranslator} />
+      <Route path="/verify-email" component={EmailVerification} />
+      <Route path="/resend-verification" component={ResendVerification} />
       <Route component={NotFound} />
     </Switch>
   );
