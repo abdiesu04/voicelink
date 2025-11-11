@@ -5,6 +5,16 @@ import { storage } from "./storage";
 import axios from "axios";
 import Stripe from "stripe";
 import { PLAN_DETAILS } from "@shared/schema";
+import cookie from "cookie";
+import signature from "cookie-signature";
+import { Pool } from "@neondatabase/serverless";
+
+const sessionPool = new Pool({ connectionString: process.env.DATABASE_URL });
+const SESSION_SECRET = process.env.SESSION_SECRET;
+
+if (!SESSION_SECRET) {
+  throw new Error('SESSION_SECRET environment variable is required for WebSocket authentication');
+}
 
 // From javascript_stripe blueprint integration
 if (!process.env.STRIPE_SECRET_KEY) {
@@ -33,6 +43,61 @@ const connections = new Map<WebSocket, RoomConnection>();
 const roomConnections = new Map<string, WebSocket[]>();
 const activeSessions = new Map<string, SessionTracking>(); // roomId -> session tracking
 const broadcastedMessageIds = new Map<string, Map<string, number>>(); // roomId -> Map<dedupeKey, timestamp> for TTL-based deduplication
+
+// Helper function to get userId from WebSocket session
+async function getUserIdFromWebSocketSession(req: any): Promise<number | null> {
+  try {
+    const cookies = cookie.parse(req.headers.cookie || '');
+    const sessionCookieName = 'connect.sid';
+    let signedSessionId = cookies[sessionCookieName];
+    
+    if (!signedSessionId) {
+      console.log('[WebSocket Auth] No session cookie found');
+      return null;
+    }
+    
+    // Verify and unsign the session cookie (express-session adds 's:' prefix and HMAC signature)
+    if (!signedSessionId.startsWith('s:')) {
+      console.log('[WebSocket Auth] Invalid session cookie format');
+      return null;
+    }
+    
+    // Remove 's:' prefix and verify signature
+    const unsignedValue = signature.unsign(signedSessionId.slice(2), SESSION_SECRET);
+    
+    if (unsignedValue === false) {
+      console.log('[WebSocket Auth] Invalid session cookie signature');
+      return null;
+    }
+    
+    const sessionId = unsignedValue;
+    
+    // Query session from PostgreSQL
+    const result = await sessionPool.query(
+      'SELECT sess FROM session WHERE sid = $1',
+      [sessionId]
+    );
+    
+    if (result.rows.length === 0) {
+      console.log('[WebSocket Auth] Session not found in database');
+      return null;
+    }
+    
+    const sessionData = result.rows[0].sess;
+    const userId = sessionData.userId || null;
+    
+    if (userId) {
+      console.log(`[WebSocket Auth] Authenticated user ID: ${userId}`);
+    } else {
+      console.log('[WebSocket Auth] No userId in session');
+    }
+    
+    return userId;
+  } catch (error) {
+    console.error('[WebSocket Auth] Error getting userId from session:', error);
+    return null;
+  }
+}
 
 function endSession(roomId: string, reason: 'participant-left' | 'creator-left' | 'credits-exhausted') {
   console.log(`[Session] Ending session for room ${roomId}, reason: ${reason}`);
@@ -408,9 +473,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   const wss = new WebSocketServer({ server: httpServer, path: '/ws' });
 
-  wss.on('connection', (ws: WebSocket) => {
+  wss.on('connection', (ws: WebSocket, req: any) => {
     const connectionStartTime = Date.now();
     console.log('[WebSocket] New connection established');
+    
+    // Store the HTTP request for session access
+    (ws as any).upgradeReq = req;
     
     // Keep connection alive with ping/pong
     let isAlive = true;
@@ -437,7 +505,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const message = JSON.parse(data.toString());
         
         if (message.type === 'join') {
-          const { roomId, language, voiceGender, role, userId } = message;
+          const { roomId, language, voiceGender, role } = message;
           
           if (!language) {
             ws.send(JSON.stringify({
@@ -455,10 +523,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
             return;
           }
 
+          // Get authenticated userId from session (security: never trust client-supplied userId)
+          const req = (ws as any).upgradeReq;
+          const userId = await getUserIdFromWebSocketSession(req);
+
           if (!userId) {
             ws.send(JSON.stringify({
               type: 'error',
-              message: 'User ID is required'
+              error: 'Authentication required',
+              message: 'Please log in to join a translation session',
+              requiresAuth: true
             }));
             ws.close();
             return;
@@ -469,9 +543,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
           if (!user) {
             ws.send(JSON.stringify({
               type: 'error',
-              error: 'Email verification required',
-              message: 'User not found',
-              requiresVerification: true
+              error: 'User not found',
+              message: 'Unable to find your account. Please log in again.',
+              requiresAuth: true
             }));
             ws.close();
             return;
