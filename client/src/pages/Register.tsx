@@ -5,25 +5,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
-import { PricingCards } from "@/components/PricingCards";
 import { useToast } from "@/hooks/use-toast";
-import { Check, ArrowRight, ArrowLeft, Mail, Lock, Sparkles } from "lucide-react";
-import { Progress } from "@/components/ui/progress";
-import { cn } from "@/lib/utils";
+import { Check, Mail, Lock, Sparkles, Gift } from "lucide-react";
 import { VoztraLogo } from "@/components/VoztraLogo";
-
-const PLAN_NAMES = {
-  free: "Free Trial",
-  starter: "Starter",
-  pro: "Pro"
-};
 
 export default function Register() {
   const [step, setStep] = useState(1);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [selectedPlan, setSelectedPlan] = useState("free");
   const [isLoading, setIsLoading] = useState(false);
   const { register, user } = useAuth();
   const { toast } = useToast();
@@ -34,22 +24,6 @@ export default function Register() {
       setLocation("/");
     }
   }, [user, setLocation]);
-
-  const handleNext = () => {
-    if (step === 1 && !selectedPlan) {
-      toast({
-        title: "Plan required",
-        description: "Please select a plan to continue",
-        variant: "destructive",
-      });
-      return;
-    }
-    setStep(step + 1);
-  };
-
-  const handleBack = () => {
-    setStep(step - 1);
-  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -75,8 +49,8 @@ export default function Register() {
     setIsLoading(true);
 
     try {
-      await register(email, password, confirmPassword, selectedPlan);
-      setStep(3);
+      await register(email, password, confirmPassword);
+      setStep(2);
       setTimeout(() => {
         setLocation("/");
       }, 2000);
@@ -91,12 +65,12 @@ export default function Register() {
     }
   };
 
-  const progress = (step / 3) * 100;
+  const progress = (step / 2) * 100;
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-violet-50 to-blue-50 dark:from-slate-950 dark:via-indigo-950/30 dark:to-slate-950 py-8 px-4">
-      <div className="max-w-6xl mx-auto">
-        {/* Header with Logo and Progress */}
+      <div className="max-w-2xl mx-auto">
+        {/* Header with Logo */}
         <div className="text-center space-y-6 mb-8 animate-in fade-in slide-in-from-top duration-500">
           <div className="flex justify-center">
             <VoztraLogo 
@@ -111,71 +85,27 @@ export default function Register() {
               Create Your Account
             </h1>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              {step === 1 && "Choose the perfect plan for your needs"}
-              {step === 2 && "Just a few details to get started"}
-              {step === 3 && "Welcome to Voztra! 🎉"}
+              {step === 1 && "Start translating conversations instantly with 60 free minutes"}
+              {step === 2 && "Welcome to Voztra! 🎉"}
             </p>
-          </div>
-
-          {/* Progress Bar */}
-          <div className="max-w-md mx-auto space-y-2">
-            <div className="flex justify-between text-xs font-medium text-muted-foreground mb-2">
-              <span className={cn(step >= 1 && "text-primary")}>Select Plan</span>
-              <span className={cn(step >= 2 && "text-primary")}>Create Account</span>
-              <span className={cn(step >= 3 && "text-primary")}>Done</span>
-            </div>
-            <Progress value={progress} className="h-2" />
           </div>
         </div>
 
-        {/* Step 1: Plan Selection */}
-        {step === 1 && (
-          <div className="space-y-6 animate-in fade-in slide-in-from-right duration-500">
-            <PricingCards selectedPlan={selectedPlan} onSelectPlan={setSelectedPlan} />
-            
-            <div className="flex justify-center gap-4">
-              <Link href="/login">
-                <Button variant="outline" size="lg" data-testid="button-back-to-login">
-                  Back to Login
-                </Button>
-              </Link>
-              <Button
-                onClick={handleNext}
-                size="lg"
-                className="bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 min-w-[200px]"
-                data-testid="button-next-step"
-              >
-                Continue
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </div>
-          </div>
-        )}
 
-        {/* Step 2: Account Details */}
-        {step === 2 && (
-          <Card className="max-w-lg mx-auto animate-in fade-in slide-in-from-right duration-500" data-testid="card-account-details">
+        {/* Step 1: Account Details */}
+        {step === 1 && (
+          <Card className="max-w-lg mx-auto animate-in fade-in slide-in-from-bottom duration-500" data-testid="card-account-details">
             <CardContent className="p-8 space-y-6">
-              {/* Selected Plan Summary */}
-              <div className="p-4 rounded-lg bg-primary/10 dark:bg-primary/20 border border-primary/20">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-3">
-                    <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-primary to-indigo-600 flex items-center justify-center">
-                      <Check className="h-5 w-5 text-white" />
-                    </div>
-                    <div>
-                      <p className="text-sm font-medium text-muted-foreground">Selected Plan</p>
-                      <p className="text-lg font-bold">{PLAN_NAMES[selectedPlan as keyof typeof PLAN_NAMES]}</p>
-                    </div>
+              {/* Free Trial Badge */}
+              <div className="p-4 rounded-lg bg-gradient-to-r from-violet-500/10 to-indigo-500/10 border border-violet-500/20">
+                <div className="flex items-center gap-3">
+                  <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center">
+                    <Gift className="h-5 w-5 text-white" />
                   </div>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={handleBack}
-                    data-testid="button-change-plan"
-                  >
-                    Change
-                  </Button>
+                  <div>
+                    <p className="text-sm font-medium text-muted-foreground">Free Trial Included</p>
+                    <p className="text-lg font-bold">60 Minutes of Translation</p>
+                  </div>
                 </div>
               </div>
 
@@ -235,33 +165,21 @@ export default function Register() {
                   />
                 </div>
 
-                <div className="flex gap-3 pt-4">
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={handleBack}
-                    className="flex-1"
-                    data-testid="button-back"
-                  >
-                    <ArrowLeft className="mr-2 h-4 w-4" />
-                    Back
-                  </Button>
-                  <Button
-                    type="submit"
-                    disabled={isLoading}
-                    className="flex-1 bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90"
-                    data-testid="button-create-account"
-                  >
-                    {isLoading ? (
-                      "Creating..."
-                    ) : (
-                      <>
-                        Create Account
-                        <Sparkles className="ml-2 h-4 w-4" />
-                      </>
-                    )}
-                  </Button>
-                </div>
+                <Button
+                  type="submit"
+                  disabled={isLoading}
+                  className="w-full h-12 bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 text-base"
+                  data-testid="button-create-account"
+                >
+                  {isLoading ? (
+                    "Creating..."
+                  ) : (
+                    <>
+                      Create Account
+                      <Sparkles className="ml-2 h-4 w-4" />
+                    </>
+                  )}
+                </Button>
               </form>
 
               <p className="text-sm text-center text-muted-foreground pt-4 border-t">
@@ -274,8 +192,8 @@ export default function Register() {
           </Card>
         )}
 
-        {/* Step 3: Success */}
-        {step === 3 && (
+        {/* Step 2: Success */}
+        {step === 2 && (
           <Card className="max-w-lg mx-auto animate-in fade-in zoom-in duration-500" data-testid="card-success">
             <CardContent className="p-12 text-center space-y-6">
               <div className="flex justify-center">
@@ -291,12 +209,13 @@ export default function Register() {
                 </p>
               </div>
 
-              <div className="p-4 rounded-lg bg-primary/10 dark:bg-primary/20 space-y-2">
-                <p className="text-sm font-medium">Account Details</p>
+              <div className="p-4 rounded-lg bg-gradient-to-r from-violet-500/10 to-indigo-500/10 border border-violet-500/20 space-y-2">
+                <p className="text-sm font-medium text-muted-foreground">Account Details</p>
                 <p className="text-lg font-bold">{email}</p>
-                <p className="text-sm text-muted-foreground">
-                  Plan: {PLAN_NAMES[selectedPlan as keyof typeof PLAN_NAMES]}
-                </p>
+                <div className="flex items-center justify-center gap-2 text-sm">
+                  <Gift className="h-4 w-4 text-violet-500" />
+                  <span className="font-medium text-violet-500">60 Free Minutes Included</span>
+                </div>
               </div>
 
               <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground animate-pulse">

@@ -12,7 +12,7 @@ interface AuthContextType {
   subscription: Subscription | null;
   isLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
-  register: (email: string, password: string, confirmPassword: string, plan: string) => Promise<void>;
+  register: (email: string, password: string, confirmPassword: string) => Promise<void>;
   logout: () => Promise<void>;
   refreshUser: () => Promise<void>;
   updateSubscription: (updates: Partial<Subscription>) => void;
@@ -74,13 +74,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const register = async (
     email: string,
     password: string,
-    confirmPassword: string,
-    plan: string
+    confirmPassword: string
   ) => {
     const response = await fetch("/api/auth/register", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password, confirmPassword, plan }),
+      body: JSON.stringify({ email, password, confirmPassword }),
       credentials: "include",
     });
 

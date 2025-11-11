@@ -27,7 +27,7 @@ export function setupAuth(app: Express) {
         return res.status(400).json({ error: error.message });
       }
 
-      const { email, password, plan } = validationResult.data;
+      const { email, password } = validationResult.data;
 
       const existingUser = await storage.getUserByEmail(email);
       if (existingUser) {
@@ -38,7 +38,8 @@ export function setupAuth(app: Express) {
 
       const user = await storage.createUser(email, passwordHash);
 
-      const subscription = await storage.createSubscription(user.id, plan);
+      // All new users start with free tier (60 minutes lifetime allocation)
+      const subscription = await storage.createSubscription(user.id, 'free');
 
       req.session.regenerate((err) => {
         if (err) {
