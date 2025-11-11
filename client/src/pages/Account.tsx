@@ -44,12 +44,11 @@ function AccountContent() {
       toast({
         title: "Logged out",
         description: "You've been successfully logged out.",
+        variant: "success",
       });
       
-      // Small delay to ensure cache is cleared before navigation
-      setTimeout(() => {
-        navigate("/login");
-      }, 100);
+      // Redirect to home page after logout
+      navigate("/");
     },
   });
 
