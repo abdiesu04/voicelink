@@ -245,7 +245,7 @@ export default function Home() {
         <div className="container mx-auto px-6 md:px-12">
           <div className="text-center mb-16 space-y-4">
             <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white">
-              One room. Two languages.<br />Zero barriers.
+              Speak naturally,<br />be understood instantly
             </h2>
             <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed">
               Create a room, share the link, and start talking. You speak your language, they speak theirs — both hear each other perfectly translated in real time with natural voice.
