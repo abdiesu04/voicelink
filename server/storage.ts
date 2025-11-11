@@ -17,6 +17,9 @@ export interface IStorage {
   getUserByEmail(email: string): Promise<User | undefined>;
   getUserById(id: number): Promise<User | undefined>;
   setUserStripeCustomerId(userId: number, stripeCustomerId: string): Promise<User>;
+  setEmailVerificationToken(userId: number, token: string, expiry: Date): Promise<User>;
+  getUserByVerificationToken(token: string): Promise<User | undefined>;
+  verifyEmail(userId: number): Promise<User>;
 
   // Subscription methods
   createSubscription(userId: number, plan: SubscriptionPlan): Promise<Subscription>;
@@ -67,6 +70,49 @@ export class PgStorage implements IStorage {
   async setUserStripeCustomerId(userId: number, stripeCustomerId: string): Promise<User> {
     const [user] = await db.update(schema.users)
       .set({ stripeCustomerId })
+      .where(eq(schema.users.id, userId))
+      .returning();
+    
+    if (!user) {
+      throw new Error(`User with ID ${userId} not found`);
+    }
+    
+    return user;
+  }
+
+  async setEmailVerificationToken(userId: number, token: string, expiry: Date): Promise<User> {
+    const [user] = await db.update(schema.users)
+      .set({ 
+        emailVerificationToken: token,
+        emailVerificationTokenExpiry: expiry,
+      })
+      .where(eq(schema.users.id, userId))
+      .returning();
+    
+    if (!user) {
+      throw new Error(`User with ID ${userId} not found`);
+    }
+    
+    return user;
+  }
+
+  async getUserByVerificationToken(token: string): Promise<User | undefined> {
+    const [user] = await db.select()
+      .from(schema.users)
+      .where(and(
+        eq(schema.users.emailVerificationToken, token),
+        eq(schema.users.isEmailVerified, false)
+      ));
+    return user;
+  }
+
+  async verifyEmail(userId: number): Promise<User> {
+    const [user] = await db.update(schema.users)
+      .set({ 
+        isEmailVerified: true,
+        emailVerificationToken: null,
+        emailVerificationTokenExpiry: null,
+      })
       .where(eq(schema.users.id, userId))
       .returning();
     

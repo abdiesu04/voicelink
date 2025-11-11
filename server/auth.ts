@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import { storage } from "./storage";
 import { registerSchema, loginSchema } from "@shared/schema";
 import { fromZodError } from "zod-validation-error";
+import { generateVerificationToken, generateTokenExpiry, sendVerificationEmail } from "./email";
 
 declare module "express-session" {
   interface SessionData {
@@ -40,6 +41,16 @@ export function setupAuth(app: Express) {
 
       // All new users start with free tier (60 minutes lifetime allocation)
       const subscription = await storage.createSubscription(user.id, 'free');
+
+      // Generate and send email verification
+      const verificationToken = generateVerificationToken();
+      const tokenExpiry = generateTokenExpiry();
+      await storage.setEmailVerificationToken(user.id, verificationToken, tokenExpiry);
+      
+      // Send verification email (non-blocking)
+      sendVerificationEmail(email, verificationToken).catch((error) => {
+        console.error("Failed to send verification email:", error);
+      });
 
       req.session.regenerate((err) => {
         if (err) {
