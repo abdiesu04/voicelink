@@ -608,7 +608,7 @@ export default function Home() {
                 <h4 className="font-semibold text-slate-900 dark:text-white mb-4">Company</h4>
                 <ul className="space-y-2 text-slate-600 dark:text-slate-300">
                   <li><a href="#" className="hover:text-primary transition-colors">About Us</a></li>
-                  <li><a href="#" className="hover:text-primary transition-colors">Privacy Policy</a></li>
+                  <li><Link href="/privacy-policy" className="hover:text-primary transition-colors" data-testid="link-privacy-policy">Privacy Policy</Link></li>
                   <li><Link href="/california-privacy-policy" className="hover:text-primary transition-colors" data-testid="link-california-privacy">California Privacy Policy</Link></li>
                   <li><a href="#" className="hover:text-primary transition-colors">Terms of Service</a></li>
                   <li><a href="#" className="hover:text-primary transition-colors">Contact</a></li>

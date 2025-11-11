@@ -15,6 +15,7 @@ import Register from "@/pages/Register";
 import Account from "@/pages/Account";
 import Pricing from "@/pages/Pricing";
 import QueueTest from "@/pages/QueueTest";
+import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import CaliforniaPrivacyPolicy from "@/pages/CaliforniaPrivacyPolicy";
 import NotFound from "@/pages/not-found";
 
@@ -30,6 +31,7 @@ function Router() {
       <Route path="/join/:roomId" component={JoinRoom} />
       <Route path="/room/:roomId" component={Room} />
       <Route path="/test/queue" component={QueueTest} />
+      <Route path="/privacy-policy" component={PrivacyPolicy} />
       <Route path="/california-privacy-policy" component={CaliforniaPrivacyPolicy} />
       <Route component={NotFound} />
     </Switch>
