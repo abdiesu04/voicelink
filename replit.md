@@ -20,7 +20,11 @@ The application features a clean, modern design with full light/dark theme suppo
 - **Pricing Page**: Three-tier subscription comparison (Free, Starter, Pro) with feature lists, pricing details, and Stripe checkout integration.
 - **Account/Billing Page**: Displays current subscription plan, remaining minutes with color-coded warnings, billing cycle information, and Stripe billing portal access for paid users.
 - **Upgrade Modal**: Shown when users exhaust credits, presenting Starter and Pro plan options with direct Stripe checkout links.
-- **Payment Success Page**: Post-checkout confirmation with 5-second auto-redirect to account page.
+- **Payment Success Page**: Intelligent post-checkout confirmation with four states:
+  - **Verifying**: Initial payment verification (shows spinner)
+  - **Waiting Webhook**: Production polling for webhook activation (pulsing clock icon)
+  - **Timeout**: Shows smart status (activated vs delayed) with retry mechanism, no auto-redirect for user control
+  - **Activated**: Success confirmation with plan details and 5-second auto-redirect to account page
 
 ### Technical Implementations
 - **Frontend**: React with TypeScript, Wouter for routing, TanStack Query for data fetching, WebSocket client, Web Audio API, and Microsoft Cognitive Services Speech SDK.
@@ -35,6 +39,14 @@ The application features a clean, modern design with full light/dark theme suppo
 - **Seamless Auto-Reconnect System**: Production-grade automatic reconnection handles random WebSocket disconnects with silent reconnection, state preservation, Azure Speech continuity, and minimal UI feedback. It distinguishes intentional from unintentional disconnects.
 - **Professional Quota Handling**: Comprehensive Azure quota error detection and graceful degradation prevent infinite retry loops. It includes intelligent error detection, immediate retry prevention, clear user communication, graceful degradation (text translations still work), UI state management, and TTS queue protection.
 - **Stripe Payment Integration**: Production-ready subscription billing system with Stripe Checkout for payment processing and Customer Portal for subscription management. Includes webhook handlers for all subscription lifecycle events with signature verification, proper error handling, and automatic credit allocation.
+- **Hybrid Payment Verification System**: Production-grade dual-path subscription activation supporting both development and production environments:
+  - **Development Path**: Immediate activation via `/api/payments/verify` endpoint when webhooks aren't available
+  - **Production Path**: Webhook-based activation with intelligent polling (2s intervals, 30s max) that detects when subscription upgrades
+  - **Shared Activation Helper**: Idempotent `activateSubscription()` function used by both paths, checks all three values (plan, subscriptionId, priceId) to prevent duplicate allocations
+  - **Production Security Gate**: Verification endpoint returns 403 in production (NODE_ENV check) to prevent endpoint abuse
+  - **Smart Status Detection**: Payment success page derives status from actual subscription data, never claims "Activated!" until plan confirms upgrade
+  - **Timeout Handling**: After 30s polling timeout, shows clear guidance with manual retry mechanism and support contact option
+  - **Edge Case Coverage**: Handles missing session_id, webhook failures, race conditions, and direct page navigation gracefully
 - **Credit Management System**: Real-time credit tracking with WebSocket updates, automatic deduction during translation sessions, and hard enforcement at 0 credits. Displays warning toasts at 10 minutes, 2 minutes, and 1 minute remaining. Triggers upgrade modal when credits are exhausted.
 
 ### Feature Specifications
@@ -60,6 +72,12 @@ Voztra implements a three-tier credit-based subscription model:
 **Hard Enforcement**: When credits reach 0, translation sessions end immediately, and users see an upgrade modal with direct checkout links to Starter or Pro plans.
 
 **Webhook Events**: Stripe webhooks handle subscription lifecycle: `checkout.session.completed` (initial payment + credit allocation), `invoice.payment_succeeded` (monthly renewals + credit reset), `customer.subscription.updated` (plan changes), `customer.subscription.deleted` (cancellations + credit removal).
+
+**Payment Verification Flow**:
+- **Development**: Stripe checkout → `/payment-success?session_id=cs_xxx` → Verification endpoint activates subscription → Shows success → Auto-redirect (5s)
+- **Production**: Stripe checkout → `/payment-success?session_id=cs_xxx` → Verification returns 403 → Polls for webhook (2s intervals) → Detects upgrade → Shows success → Auto-redirect (5s)
+- **Timeout Scenario**: If polling exceeds 30s, shows "Activation Delayed" with retry button and support guidance. Smart detection shows success if webhook completed during timeout.
+- **No Session ID**: Derives status from actual subscription data. Shows "Unknown" for free tier with pricing link, or "Activated" for existing paid subscriptions.
 
 ## External Dependencies
 
