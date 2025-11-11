@@ -304,7 +304,12 @@ export default function Home() {
 
           <div className="text-center mt-12">
             <Link href="/create">
-              <Button size="lg" className="text-base px-8" data-testid="button-try-voztra-now">
+              <Button 
+                size="lg" 
+                className="text-lg px-12 h-16 rounded-full shadow-xl hover:shadow-2xl hover:scale-105 transition-all duration-300 font-semibold" 
+                data-testid="button-try-voztra-now"
+              >
+                <Mic className="mr-2 h-5 w-5" />
                 Try Voztra now
               </Button>
             </Link>
