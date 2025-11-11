@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { User as UserIcon, CreditCard, Clock, LogOut, ExternalLink, Zap } from "lucide-react";
 import { format } from "date-fns";
-import { apiRequest } from "@/lib/queryClient";
+import { apiRequest, queryClient } from "@/lib/queryClient";
 import type { User, Subscription } from "@shared/schema";
 
 function AccountContent() {
@@ -35,11 +35,18 @@ function AccountContent() {
       return response.json();
     },
     onSuccess: () => {
+      // Clear all cached queries to remove user data from memory
+      queryClient.clear();
+      
       toast({
         title: "Logged out",
         description: "You've been successfully logged out.",
       });
-      navigate("/login");
+      
+      // Small delay to ensure cache is cleared before navigation
+      setTimeout(() => {
+        navigate("/login");
+      }, 100);
     },
   });
 
