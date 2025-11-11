@@ -19,6 +19,7 @@ export const users = pgTable("users", {
   id: serial("id").primaryKey(),
   email: varchar("email", { length: 255 }).notNull().unique(),
   passwordHash: varchar("password_hash", { length: 255 }).notNull(),
+  stripeCustomerId: varchar("stripe_customer_id", { length: 255 }),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
@@ -28,6 +29,8 @@ export const subscriptions = pgTable("subscriptions", {
   plan: varchar("plan", { length: 50 }).$type<SubscriptionPlan>().notNull().default("free"),
   creditsRemaining: integer("credits_remaining").notNull().default(60),
   creditsRolledOver: integer("credits_rolled_over").notNull().default(0),
+  stripeSubscriptionId: varchar("stripe_subscription_id", { length: 255 }),
+  stripePriceId: varchar("stripe_price_id", { length: 255 }),
   billingCycleStart: timestamp("billing_cycle_start").notNull().defaultNow(),
   billingCycleEnd: timestamp("billing_cycle_end").notNull().default(sql`NOW() + INTERVAL '30 days'`),
   isActive: boolean("is_active").notNull().default(true),
