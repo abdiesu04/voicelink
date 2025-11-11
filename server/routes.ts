@@ -298,6 +298,104 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Helper function: Activate subscription after successful payment (shared by webhooks and verification endpoint)
+  async function activateSubscription(userId: number, plan: 'starter' | 'pro', stripeSubscriptionId: string, stripePriceId: string) {
+    const currentSubscription = await storage.getSubscription(userId);
+    
+    // Idempotency: Skip ONLY if subscription already matches target plan, Stripe subscription ID, AND price ID
+    if (
+      currentSubscription?.plan === plan &&
+      currentSubscription?.stripeSubscriptionId === stripeSubscriptionId &&
+      currentSubscription?.stripePriceId === stripePriceId
+    ) {
+      console.log(`[Subscription] User ${userId} already has ${plan} plan with subscription ${stripeSubscriptionId} - skipping activation`);
+      return currentSubscription;
+    }
+
+    console.log(`[Subscription] Activating ${plan} for user ${userId}, subscription ${stripeSubscriptionId}`);
+
+    // Update user's subscription in database
+    await storage.setSubscriptionStripeInfo(userId, stripeSubscriptionId, stripePriceId);
+    
+    // Upgrade user to paid plan with full minute allocation
+    const planDetails = PLAN_DETAILS[plan];
+    const creditsInSeconds = planDetails.credits * 60;
+    
+    await storage.updateSubscription(userId, {
+      plan,
+      creditsRemaining: creditsInSeconds,
+      billingCycleStart: new Date(),
+      billingCycleEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
+    });
+
+    console.log(`[Subscription] ✓ Activated ${plan} subscription for user ${userId} with ${planDetails.credits} minutes`);
+    
+    return await storage.getSubscription(userId);
+  }
+
+  // Payment Verification Endpoint - For development only when webhooks aren't available
+  app.post("/api/payments/verify", async (req, res) => {
+    // Security: Only allow in development environment
+    if (process.env.NODE_ENV === 'production') {
+      return res.status(403).json({ error: "Payment verification is only available in development. Use Stripe webhooks in production." });
+    }
+
+    try {
+      if (!req.session.userId) {
+        return res.status(401).json({ error: "Authentication required" });
+      }
+
+      const { sessionId } = req.body;
+      
+      if (!sessionId || typeof sessionId !== 'string') {
+        return res.status(400).json({ error: "Valid session_id is required" });
+      }
+
+      // Retrieve the checkout session from Stripe
+      const session = await stripe.checkout.sessions.retrieve(sessionId);
+
+      // Verify session belongs to current user
+      const userId = parseInt(session.metadata?.userId || session.client_reference_id || '0');
+      if (userId !== req.session.userId) {
+        return res.status(403).json({ error: "Session does not belong to current user" });
+      }
+
+      // Check payment status
+      if (session.payment_status !== 'paid') {
+        return res.status(400).json({ error: "Payment not completed", paymentStatus: session.payment_status });
+      }
+
+      // Verify it's a subscription
+      if (session.mode !== 'subscription' || !session.subscription) {
+        return res.status(400).json({ error: "Invalid session type" });
+      }
+
+      const plan = session.metadata?.plan as 'starter' | 'pro';
+      if (!plan || (plan !== 'starter' && plan !== 'pro')) {
+        return res.status(400).json({ error: "Invalid plan in session metadata" });
+      }
+
+      // Get subscription details
+      const subscription = await stripe.subscriptions.retrieve(session.subscription as string);
+      const priceId = subscription.items.data[0]?.price.id;
+
+      if (!priceId) {
+        return res.status(500).json({ error: "Price ID not found in subscription" });
+      }
+
+      // Activate subscription (idempotent)
+      const updatedSubscription = await activateSubscription(userId, plan, subscription.id, priceId);
+
+      res.json({
+        success: true,
+        subscription: updatedSubscription,
+      });
+    } catch (error: any) {
+      console.error("Error verifying payment:", error);
+      res.status(500).json({ error: "Failed to verify payment", details: error.message });
+    }
+  });
+
   // Stripe Webhook Handler - Process subscription lifecycle events
   app.post("/api/webhooks/stripe", async (req, res) => {
     const sig = req.headers['stripe-signature'];
@@ -348,21 +446,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
             const subscription = await stripe.subscriptions.retrieve(session.subscription as string);
             const priceId = subscription.items.data[0]?.price.id;
 
-            // Update user's subscription in database
-            await storage.setSubscriptionStripeInfo(userId, subscription.id, priceId);
-            
-            // Upgrade user to paid plan with full minute allocation
-            const planDetails = PLAN_DETAILS[plan];
-            const creditsInSeconds = planDetails.credits * 60;
-            
-            await storage.updateSubscription(userId, {
-              plan,
-              creditsRemaining: creditsInSeconds,
-              billingCycleStart: new Date(),
-              billingCycleEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
-            });
+            if (!priceId) {
+              console.error('[Stripe Webhook] No price ID found in subscription');
+              break;
+            }
 
-            console.log(`[Stripe Webhook] Activated ${plan} subscription for user ${userId}`);
+            // Activate subscription using shared helper (idempotent)
+            await activateSubscription(userId, plan, subscription.id, priceId);
           }
           break;
         }
