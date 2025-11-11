@@ -2,43 +2,60 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Globe2, Lock, Mic, Users, Zap, Quote } from "lucide-react";
 import { Link } from "wouter";
 import { Card } from "@/components/ui/card";
+import testimonialImg1 from "@assets/stock_images/professional_headsho_32cf619f.jpg";
+import testimonialImg2 from "@assets/stock_images/professional_headsho_39f9f9b0.jpg";
+import testimonialImg3 from "@assets/stock_images/professional_headsho_d46cf359.jpg";
+import testimonialImg4 from "@assets/stock_images/professional_headsho_742b1763.jpg";
+import testimonialImg5 from "@assets/stock_images/professional_headsho_421e080c.jpg";
+import testimonialImg6 from "@assets/stock_images/professional_headsho_a0928d48.jpg";
+import testimonialImg7 from "@assets/stock_images/professional_headsho_18007542.jpg";
+import teamImg1 from "@assets/stock_images/modern_office_team_c_9f0cd92a.jpg";
+import teamImg2 from "@assets/stock_images/modern_office_team_c_b038df97.jpg";
+import teamImg3 from "@assets/stock_images/modern_office_team_c_a4e7ef71.jpg";
 
 const VoiceTranslator = () => {
   const testimonials = [
     {
       name: "Sofia M.",
       location: "Los Angeles",
-      quote: "For the first time, my grandmother in Tokyo heard me in Japanese — with my real voice."
+      quote: "For the first time, my grandmother in Tokyo heard me in Japanese — with my real voice.",
+      image: testimonialImg1
     },
     {
       name: "Julien R.",
       location: "Paris",
-      quote: "Our global meetings feel human again — no translators, no lag, just genuine connection."
+      quote: "Our global meetings feel human again — no translators, no lag, just genuine connection.",
+      image: testimonialImg2
     },
     {
       name: "Marcus R.",
       location: "London",
-      quote: "I made friends backpacking across Spain without switching to English once. Life-changing."
+      quote: "I made friends backpacking across Spain without switching to English once. Life-changing.",
+      image: testimonialImg3
     },
     {
       name: "Yuki T.",
       location: "Tokyo",
-      quote: "Closing international deals has never been easier. My clients feel truly understood."
+      quote: "Closing international deals has never been easier. My clients feel truly understood.",
+      image: testimonialImg4
     },
     {
       name: "Carlos G.",
       location: "Buenos Aires",
-      quote: "Teaching students across continents feels like we're in the same room. The future is here."
+      quote: "Teaching students across continents feels like we're in the same room. The future is here.",
+      image: testimonialImg5
     },
     {
       name: "Layla A.",
       location: "Dubai",
-      quote: "Video calls with my family abroad now feel warm and personal, not robotic."
+      quote: "Video calls with my family abroad now feel warm and personal, not robotic.",
+      image: testimonialImg6
     },
     {
       name: "Kwame O.",
       location: "Accra",
-      quote: "Networking at global conferences is effortless. I can be myself in any language."
+      quote: "Networking at global conferences is effortless. I can be myself in any language.",
+      image: testimonialImg7
     }
   ];
 
@@ -77,7 +94,7 @@ const VoiceTranslator = () => {
           <div className="max-w-5xl mx-auto text-center space-y-8">
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-bold tracking-tight leading-[1.1]">
               Erase every <br />
-              <span className="bg-gradient-primary bg-clip-text text-transparent">language barrier</span>
+              <span className="text-secondary">language barrier</span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               Voztra instantly translates your <span className="text-primary font-semibold">voice</span> into another language — same tone, same emotion, same gender — so you sound like a native speaker across <span className="text-primary font-semibold">140 languages</span>.
@@ -290,11 +307,13 @@ const VoiceTranslator = () => {
                   <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                   
                   <div className="relative z-10">
-                    <div className="mb-6 flex items-start justify-between">
-                      <Quote className="w-10 h-10 text-primary/30 group-hover:text-primary/60 transition-colors duration-300" />
-                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center text-lg font-display font-bold group-hover:scale-110 transition-transform duration-300">
-                        {testimonial.name.charAt(0)}
-                      </div>
+                    <div className="mb-6 flex items-center gap-4">
+                      <img 
+                        src={testimonial.image} 
+                        alt={testimonial.name}
+                        className="w-16 h-16 rounded-full object-cover ring-2 ring-primary/20 group-hover:ring-primary/50 transition-all duration-300 group-hover:scale-110"
+                      />
+                      <Quote className="w-10 h-10 text-primary/30 group-hover:text-primary/60 transition-colors duration-300 ml-auto" />
                     </div>
                     
                     <p className="text-lg leading-relaxed mb-6 group-hover:text-foreground transition-colors duration-300">
@@ -335,6 +354,15 @@ const VoiceTranslator = () => {
               <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
                 Don't let language limit your hiring pool. With Voztra, you can recruit, interview, and collaborate with top talent from any country — all in real-time, preserving every nuance of communication.
               </p>
+            </div>
+
+            <div className="mb-16 relative overflow-hidden rounded-2xl">
+              <img 
+                src={teamImg1} 
+                alt="Global team collaboration"
+                className="w-full h-[400px] object-cover rounded-2xl shadow-2xl"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent rounded-2xl" />
             </div>
 
             <div className="grid md:grid-cols-2 gap-6 lg:gap-8 mb-12">
