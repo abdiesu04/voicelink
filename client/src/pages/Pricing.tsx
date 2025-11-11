@@ -1,12 +1,15 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useLocation } from "wouter";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Check, Zap, Crown, Gift } from "lucide-react";
+import { GlassCard } from "@/components/ui/glass-card";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Check, Zap, Crown, Gift, Star, ChevronLeft, ChevronRight, Sparkles, HelpCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
+import { fadeInUp, staggerContainer, hoverLift } from "@/lib/motion-variants";
 import type { User, Subscription } from "@shared/schema";
 
 type AuthMeResponse = {
@@ -25,6 +28,7 @@ interface PricingTier {
   popular?: boolean;
   icon: typeof Gift;
   plan: "free" | "starter" | "pro";
+  highlight?: string;
 }
 
 const pricingTiers: PricingTier[] = [
@@ -36,7 +40,7 @@ const pricingTiers: PricingTier[] = [
     resetPeriod: "Lifetime allocation",
     features: [
       "60 minutes total usage",
-      "47+ supported languages",
+      "140+ supported languages",
       "Premium neural voices",
       "Real-time translation",
       "No credit card required",
@@ -54,7 +58,7 @@ const pricingTiers: PricingTier[] = [
     resetPeriod: "Monthly reset",
     features: [
       "350 minutes per month",
-      "47+ supported languages",
+      "140+ supported languages",
       "Premium neural voices",
       "Real-time translation",
       "Priority support",
@@ -64,7 +68,8 @@ const pricingTiers: PricingTier[] = [
     cta: "Subscribe to Starter",
     popular: true,
     icon: Zap,
-    plan: "starter"
+    plan: "starter",
+    highlight: "Best Value"
   },
   {
     name: "Pro",
@@ -74,7 +79,7 @@ const pricingTiers: PricingTier[] = [
     resetPeriod: "Monthly reset",
     features: [
       "1,200 minutes per month",
-      "47+ supported languages",
+      "140+ supported languages",
       "Premium neural voices",
       "Real-time translation",
       "Priority support",
@@ -84,7 +89,52 @@ const pricingTiers: PricingTier[] = [
     ],
     cta: "Subscribe to Pro",
     icon: Crown,
-    plan: "pro"
+    plan: "pro",
+    highlight: "Most Minutes"
+  }
+];
+
+const testimonials = [
+  {
+    name: "Sarah Chen",
+    role: "International Business Consultant",
+    content: "Voztra has transformed how I communicate with clients. Real-time translation with natural voice makes meetings feel seamless.",
+    rating: 5
+  },
+  {
+    name: "Marco Rodriguez",
+    role: "Language Educator",
+    content: "The quality of neural voices is outstanding. My students love practicing conversations in different languages with preserved emotion.",
+    rating: 5
+  },
+  {
+    name: "Aisha Patel",
+    role: "Remote Team Lead",
+    content: "Managing a global team became so much easier. We can now have natural conversations without language being a barrier.",
+    rating: 5
+  }
+];
+
+const faqs = [
+  {
+    question: "How do translation minutes work?",
+    answer: "Each minute of active translation is counted toward your monthly limit. The timer only runs when you're actively speaking and translating. Unused minutes don't roll over to the next month for paid plans."
+  },
+  {
+    question: "Can I cancel my subscription anytime?",
+    answer: "Yes! You can cancel your subscription at any time from your account settings. You'll retain access to your plan benefits until the end of your current billing period."
+  },
+  {
+    question: "What languages are supported?",
+    answer: "Voztra supports 140+ languages with premium neural voices that preserve tone, emotion, and gender. We use Azure's advanced speech technology for the highest quality translations."
+  },
+  {
+    question: "Is there a free trial for paid plans?",
+    answer: "We offer 60 free minutes for all new accounts to try Voztra. You can upgrade to a paid plan anytime to get more minutes and premium features."
+  },
+  {
+    question: "How secure is my data?",
+    answer: "Your privacy and security are our top priorities. All voice data is encrypted in transit and we don't store your audio recordings. We comply with GDPR and industry-standard security practices."
   }
 ];
 
@@ -92,6 +142,7 @@ export default function Pricing() {
   const [, navigate] = useLocation();
   const { toast } = useToast();
   const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
+  const [testimonialIndex, setTestimonialIndex] = useState(0);
 
   const { data: authData } = useQuery<AuthMeResponse>({
     queryKey: ["/api/auth/me"],
@@ -138,163 +189,330 @@ export default function Pricing() {
   const getCurrentPlan = () => subscription?.plan || "free";
   const currentPlan = getCurrentPlan();
 
+  const nextTestimonial = () => {
+    setTestimonialIndex((prev) => (prev + 1) % testimonials.length);
+  };
+
+  const prevTestimonial = () => {
+    setTestimonialIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 dark:from-gray-900 dark:via-gray-900 dark:to-indigo-950/20">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50/20 to-violet-50/20 dark:from-slate-950 dark:via-indigo-950/10 dark:to-slate-950">
       <div className="container mx-auto px-4 py-16 max-w-7xl">
-        <div className="text-center mb-16 space-y-4">
-          <Badge className="bg-violet-500/10 text-violet-400 border-violet-500/20 hover:bg-violet-500/20" data-testid="badge-pricing">
+        
+        {/* Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center mb-16 space-y-4"
+        >
+          <Badge className="bg-gradient-to-r from-indigo-500/10 to-violet-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-200/20 dark:border-indigo-500/20 backdrop-blur-sm px-4 py-2" data-testid="badge-pricing">
+            <Sparkles className="w-3 h-3 mr-2" />
             Pricing Plans
           </Badge>
-          <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-400 via-violet-400 to-purple-400 bg-clip-text text-transparent" data-testid="heading-pricing">
+          <h1 className="text-5xl md:text-6xl font-bold text-gradient" data-testid="heading-pricing">
             Choose Your Plan
           </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto" data-testid="text-pricing-description">
+          <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto" data-testid="text-pricing-description">
             Start with our free tier or upgrade for more translation minutes. 
             All plans include premium neural voices and real-time translation.
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {pricingTiers.map((tier) => {
+        {/* Bento Grid Pricing Cards */}
+        <motion.div
+          variants={staggerContainer}
+          initial="initial"
+          animate="animate"
+          className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto mb-16"
+        >
+          {pricingTiers.map((tier, index) => {
             const Icon = tier.icon;
             const isCurrentPlan = currentPlan === tier.plan;
             const isDisabled = loadingPlan !== null;
             const isLoading = loadingPlan === tier.plan;
 
             return (
-              <Card 
+              <motion.div
                 key={tier.name}
-                className={`
-                  relative overflow-hidden backdrop-blur-sm
-                  ${tier.popular 
-                    ? 'border-2 border-violet-500/50 shadow-xl shadow-violet-500/10 dark:shadow-violet-500/20 scale-105' 
-                    : 'border-border/50 hover:border-border'
-                  }
-                  ${isCurrentPlan ? 'ring-2 ring-green-500/50' : ''}
-                  transition-all duration-300 hover:shadow-lg
-                `}
-                data-testid={`card-plan-${tier.plan}`}
+                variants={fadeInUp}
+                transition={{ delay: index * 0.1 }}
+                whileHover={tier.popular ? "hover" : undefined}
+                initial="rest"
+                className={tier.popular ? "md:scale-105" : ""}
               >
-                {tier.popular && (
-                  <div className="absolute top-0 right-0 bg-gradient-to-r from-violet-500 to-purple-500 text-white px-3 py-1 text-sm font-semibold rounded-bl-lg" data-testid="badge-popular">
-                    Most Popular
-                  </div>
-                )}
+                <GlassCard
+                  className={`
+                    relative overflow-hidden h-full flex flex-col
+                    ${tier.popular 
+                      ? 'border-2 border-indigo-500/30 dark:border-indigo-400/30 shadow-2xl shadow-indigo-500/20' 
+                      : ''
+                    }
+                    ${isCurrentPlan ? 'ring-2 ring-green-500/50' : ''}
+                    hover:shadow-2xl transition-all duration-500
+                  `}
+                  data-testid={`card-plan-${tier.plan}`}
+                  animate={false}
+                >
+                  {/* Popular Badge */}
+                  {tier.popular && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="absolute top-0 right-0 bg-gradient-to-r from-indigo-600 to-violet-600 text-white px-4 py-1.5 text-xs font-bold rounded-bl-xl shadow-lg"
+                      data-testid="badge-popular"
+                    >
+                      {tier.highlight}
+                    </motion.div>
+                  )}
 
-                {isCurrentPlan && (
-                  <div className="absolute top-0 left-0 bg-gradient-to-r from-green-500 to-emerald-500 text-white px-3 py-1 text-sm font-semibold rounded-br-lg" data-testid={`badge-current-${tier.plan}`}>
-                    Current Plan
-                  </div>
-                )}
+                  {/* Current Plan Badge */}
+                  {isCurrentPlan && (
+                    <motion.div
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      className="absolute top-0 left-0 bg-gradient-to-r from-green-500 to-emerald-500 text-white px-4 py-1.5 text-xs font-bold rounded-br-xl shadow-lg"
+                      data-testid={`badge-current-${tier.plan}`}
+                    >
+                      Current Plan
+                    </motion.div>
+                  )}
 
-                <CardHeader className="space-y-4 pt-8">
-                  <div className={`w-12 h-12 rounded-lg bg-gradient-to-br ${
-                    tier.plan === 'free' ? 'from-blue-500/20 to-cyan-500/20' :
-                    tier.plan === 'starter' ? 'from-violet-500/20 to-purple-500/20' :
-                    'from-amber-500/20 to-orange-500/20'
-                  } flex items-center justify-center`}>
-                    <Icon className={`w-6 h-6 ${
-                      tier.plan === 'free' ? 'text-cyan-400' :
-                      tier.plan === 'starter' ? 'text-violet-400' :
-                      'text-amber-400'
-                    }`} />
-                  </div>
-                  
-                  <div>
-                    <CardTitle className="text-2xl" data-testid={`text-plan-name-${tier.plan}`}>{tier.name}</CardTitle>
-                    <CardDescription data-testid={`text-plan-description-${tier.plan}`}>{tier.description}</CardDescription>
-                  </div>
-
-                  <div>
-                    <div className="flex items-baseline gap-1">
-                      <span className="text-4xl font-bold" data-testid={`text-price-${tier.plan}`}>{tier.price}</span>
-                      {tier.plan !== "free" && <span className="text-muted-foreground">/month</span>}
+                  <div className="p-8 flex flex-col flex-grow">
+                    {/* Icon */}
+                    <motion.div
+                      whileHover={{ rotate: [0, -10, 10, -10, 0], scale: 1.1 }}
+                      transition={{ duration: 0.5 }}
+                      className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${
+                        tier.plan === 'free' ? 'from-blue-500/20 to-cyan-500/20' :
+                        tier.plan === 'starter' ? 'from-indigo-500/20 to-violet-500/20' :
+                        'from-amber-500/20 to-orange-500/20'
+                      } flex items-center justify-center mb-6 backdrop-blur-sm`}
+                    >
+                      <Icon className={`w-7 h-7 ${
+                        tier.plan === 'free' ? 'text-cyan-500 dark:text-cyan-400' :
+                        tier.plan === 'starter' ? 'text-indigo-600 dark:text-indigo-400' :
+                        'text-amber-500 dark:text-amber-400'
+                      }`} />
+                    </motion.div>
+                    
+                    {/* Plan Name & Description */}
+                    <div className="mb-6">
+                      <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2" data-testid={`text-plan-name-${tier.plan}`}>
+                        {tier.name}
+                      </h3>
+                      <p className="text-slate-600 dark:text-slate-400 text-sm" data-testid={`text-plan-description-${tier.plan}`}>
+                        {tier.description}
+                      </p>
                     </div>
-                    <div className="mt-2 space-y-1">
-                      <div className="text-sm font-semibold text-violet-400" data-testid={`text-credits-${tier.plan}`}>
-                        {tier.credits}
+
+                    {/* Pricing */}
+                    <div className="mb-6">
+                      <div className="flex items-baseline gap-2">
+                        <span className="text-5xl font-bold text-slate-900 dark:text-white" data-testid={`text-price-${tier.plan}`}>
+                          {tier.price}
+                        </span>
+                        {tier.plan !== "free" && (
+                          <span className="text-slate-600 dark:text-slate-400">/month</span>
+                        )}
                       </div>
-                      <div className="text-xs text-muted-foreground" data-testid={`text-reset-${tier.plan}`}>
-                        {tier.resetPeriod}
+                      <div className="mt-3 p-3 rounded-xl bg-gradient-to-r from-indigo-500/10 to-violet-500/10 border border-indigo-200/20 dark:border-indigo-500/20">
+                        <div className="text-sm font-bold text-indigo-600 dark:text-indigo-400" data-testid={`text-credits-${tier.plan}`}>
+                          {tier.credits}
+                        </div>
+                        <div className="text-xs text-slate-600 dark:text-slate-400 mt-1" data-testid={`text-reset-${tier.plan}`}>
+                          {tier.resetPeriod}
+                        </div>
                       </div>
                     </div>
+
+                    {/* Features */}
+                    <ul className="space-y-3 mb-8 flex-grow">
+                      {tier.features.map((feature, featureIndex) => (
+                        <motion.li
+                          key={featureIndex}
+                          initial={{ opacity: 0, x: -10 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ delay: index * 0.1 + featureIndex * 0.05 }}
+                          className="flex items-start gap-3"
+                          data-testid={`feature-${tier.plan}-${featureIndex}`}
+                        >
+                          <Check className="w-5 h-5 text-green-500 dark:text-green-400 flex-shrink-0 mt-0.5" />
+                          <span className="text-sm text-slate-700 dark:text-slate-300">{feature}</span>
+                        </motion.li>
+                      ))}
+                    </ul>
+
+                    {/* CTA Button */}
+                    <Button
+                      className={`
+                        w-full py-6 rounded-xl font-semibold text-base shadow-lg hover:shadow-xl transition-all duration-300
+                        ${tier.popular 
+                          ? 'bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white' 
+                          : tier.plan === 'pro'
+                          ? 'bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white'
+                          : 'bg-white/50 dark:bg-white/5 hover:bg-white/70 dark:hover:bg-white/10 border border-indigo-200 dark:border-indigo-500/20'
+                        }
+                        ${isCurrentPlan ? 'opacity-50 cursor-not-allowed' : ''}
+                      `}
+                      onClick={() => handleSubscribe(tier.plan)}
+                      disabled={isCurrentPlan || isDisabled}
+                      data-testid={`button-subscribe-${tier.plan}`}
+                    >
+                      {isLoading ? (
+                        <span className="flex items-center gap-2">
+                          <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                          Processing...
+                        </span>
+                      ) : isCurrentPlan ? (
+                        "Current Plan"
+                      ) : (
+                        tier.cta
+                      )}
+                    </Button>
                   </div>
-                </CardHeader>
-
-                <CardContent>
-                  <ul className="space-y-3">
-                    {tier.features.map((feature, index) => (
-                      <li key={index} className="flex items-start gap-2" data-testid={`feature-${tier.plan}-${index}`}>
-                        <Check className="w-5 h-5 text-green-500 flex-shrink-0 mt-0.5" />
-                        <span className="text-sm text-muted-foreground">{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-
-                <CardFooter>
-                  <Button
-                    className={`
-                      w-full
-                      ${tier.popular 
-                        ? 'bg-gradient-to-r from-violet-500 to-purple-500 hover:from-violet-600 hover:to-purple-600 text-white' 
-                        : tier.plan === 'pro'
-                        ? 'bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white'
-                        : ''
-                      }
-                      ${isCurrentPlan ? 'opacity-50 cursor-not-allowed' : ''}
-                    `}
-                    onClick={() => handleSubscribe(tier.plan)}
-                    disabled={isCurrentPlan || isDisabled}
-                    data-testid={`button-subscribe-${tier.plan}`}
-                  >
-                    {isLoading ? (
-                      <span className="flex items-center gap-2">
-                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                        Processing...
-                      </span>
-                    ) : isCurrentPlan ? (
-                      "Current Plan"
-                    ) : (
-                      tier.cta
-                    )}
-                  </Button>
-                </CardFooter>
-              </Card>
+                </GlassCard>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
 
-        <div className="mt-16 text-center">
-          <p className="text-sm text-muted-foreground mb-4" data-testid="text-faq">
-            Have questions? Need a custom plan for your organization?
-          </p>
-          <Button 
-            variant="outline" 
-            onClick={() => navigate("/contact")}
-            className="border-border/50 hover:border-violet-500/50"
-            data-testid="button-contact"
-          >
-            Contact Us
-          </Button>
-        </div>
-
-        <div className="mt-16 max-w-4xl mx-auto">
-          <div className="grid md:grid-cols-3 gap-8 text-center">
-            <div className="space-y-2">
-              <div className="text-3xl font-bold text-violet-400" data-testid="text-stat-languages">47+</div>
-              <div className="text-sm text-muted-foreground">Supported Languages</div>
-            </div>
-            <div className="space-y-2">
-              <div className="text-3xl font-bold text-violet-400" data-testid="text-stat-voices">Premium</div>
-              <div className="text-sm text-muted-foreground">Neural Voices</div>
-            </div>
-            <div className="space-y-2">
-              <div className="text-3xl font-bold text-violet-400" data-testid="text-stat-realtime">Real-time</div>
-              <div className="text-sm text-muted-foreground">Translation</div>
-            </div>
+        {/* Testimonials Carousel */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.5 }}
+          className="max-w-4xl mx-auto mb-16"
+        >
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">
+              Loved by Users Worldwide
+            </h2>
+            <p className="text-slate-600 dark:text-slate-400">
+              See what our customers are saying about Voztra
+            </p>
           </div>
-        </div>
+
+          <GlassCard className="p-8 md:p-12 relative" data-testid="testimonial-carousel">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={testimonialIndex}
+                initial={{ opacity: 0, x: 100 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -100 }}
+                transition={{ duration: 0.3 }}
+                className="text-center"
+                data-testid={`testimonial-${testimonialIndex}`}
+              >
+                <div className="flex justify-center mb-4" data-testid="testimonial-rating">
+                  {[...Array(testimonials[testimonialIndex].rating)].map((_, i) => (
+                    <Star key={i} className="w-5 h-5 text-yellow-500 fill-yellow-500" />
+                  ))}
+                </div>
+                <p className="text-lg md:text-xl text-slate-700 dark:text-slate-300 mb-6 italic" data-testid="testimonial-content">
+                  "{testimonials[testimonialIndex].content}"
+                </p>
+                <div>
+                  <p className="font-bold text-slate-900 dark:text-white" data-testid="testimonial-name">
+                    {testimonials[testimonialIndex].name}
+                  </p>
+                  <p className="text-sm text-slate-600 dark:text-slate-400" data-testid="testimonial-role">
+                    {testimonials[testimonialIndex].role}
+                  </p>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+
+            {/* Navigation Buttons */}
+            <div className="flex justify-center gap-4 mt-8">
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={prevTestimonial}
+                className="rounded-full bg-white/50 dark:bg-white/5 hover:bg-white dark:hover:bg-white/10"
+                data-testid="button-testimonial-prev"
+                aria-label="Previous testimonial"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                onClick={nextTestimonial}
+                className="rounded-full bg-white/50 dark:bg-white/5 hover:bg-white dark:hover:bg-white/10"
+                data-testid="button-testimonial-next"
+                aria-label="Next testimonial"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </Button>
+            </div>
+          </GlassCard>
+        </motion.div>
+
+        {/* FAQ Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+          className="max-w-3xl mx-auto mb-16"
+        >
+          <div className="text-center mb-8">
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <HelpCircle className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
+              <h2 className="text-3xl font-bold text-slate-900 dark:text-white">
+                Frequently Asked Questions
+              </h2>
+            </div>
+            <p className="text-slate-600 dark:text-slate-400">
+              Everything you need to know about Voztra pricing
+            </p>
+          </div>
+
+          <GlassCard className="p-6" data-testid="faq-section">
+            <Accordion type="single" collapsible className="w-full">
+              {faqs.map((faq, index) => (
+                <AccordionItem key={index} value={`item-${index}`} className="border-white/10" data-testid={`faq-item-${index}`}>
+                  <AccordionTrigger className="text-left font-semibold text-slate-900 dark:text-white hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors" data-testid={`faq-question-${index}`}>
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-slate-600 dark:text-slate-400 leading-relaxed" data-testid={`faq-answer-${index}`}>
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </GlassCard>
+        </motion.div>
+
+        {/* Stats Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7 }}
+          className="max-w-4xl mx-auto"
+        >
+          <div className="grid grid-cols-3 gap-8 text-center">
+            <GlassCard className="p-6">
+              <div className="text-4xl font-bold text-gradient mb-2" data-testid="text-stat-languages">
+                140+
+              </div>
+              <div className="text-sm text-slate-600 dark:text-slate-400">Supported Languages</div>
+            </GlassCard>
+            <GlassCard className="p-6">
+              <div className="text-4xl font-bold text-gradient mb-2" data-testid="text-stat-voices">
+                Premium
+              </div>
+              <div className="text-sm text-slate-600 dark:text-slate-400">Neural Voices</div>
+            </GlassCard>
+            <GlassCard className="p-6">
+              <div className="text-4xl font-bold text-gradient mb-2" data-testid="text-stat-realtime">
+                Real-time
+              </div>
+              <div className="text-sm text-slate-600 dark:text-slate-400">Translation</div>
+            </GlassCard>
+          </div>
+        </motion.div>
       </div>
     </div>
   );
