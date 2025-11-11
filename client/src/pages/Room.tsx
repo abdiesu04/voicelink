@@ -214,7 +214,7 @@ export default function Room() {
       toast({
         title: "No One Joined Yet",
         description: `Your partner hasn't joined yet. Redirecting to home in 1 minute...`,
-        variant: "default",
+        variant: "info",
       });
       
       // Update countdown every second
@@ -253,7 +253,7 @@ export default function Room() {
       toast({
         title: "Returning to Home",
         description: "No one joined your room. You can create a new one anytime.",
-        variant: "default",
+        variant: "info",
       });
       
       // Redirect to home after brief delay
@@ -1042,7 +1042,7 @@ export default function Room() {
           toast({
             title: "10 Minutes Remaining",
             description: "You have 10 minutes of translation time left. Consider upgrading to continue uninterrupted.",
-            variant: "default",
+            variant: "warning",
           });
         }
         
@@ -1051,7 +1051,7 @@ export default function Room() {
           toast({
             title: "Low Credits Warning",
             description: `You have ${(creditsRemaining / 60).toFixed(1)} minutes remaining. Consider upgrading your plan.`,
-            variant: "default",
+            variant: "warning",
           });
         }
         
@@ -1280,7 +1280,7 @@ export default function Room() {
       toast({
         title: "Partner Not Connected",
         description: "Please wait for your partner to join before starting the conversation.",
-        variant: "default",
+        variant: "info",
       });
       return;
     }
@@ -1505,7 +1505,7 @@ export default function Room() {
       toast({
         title: "Partner Not Connected",
         description: "Please wait for your partner to join before starting the conversation.",
-        variant: "default",
+        variant: "info",
       });
       return;
     }

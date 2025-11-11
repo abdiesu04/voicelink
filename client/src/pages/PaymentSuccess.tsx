@@ -68,7 +68,7 @@ export default function PaymentSuccess() {
       toast({
         title: "Payment Processing",
         description: "Your payment was successful. Your subscription will be activated shortly.",
-        variant: "default",
+        variant: "info",
       });
       setActivationStatus('waiting_webhook');
     },
