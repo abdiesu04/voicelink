@@ -1,0 +1,68 @@
+Privacy Policy for Voztra
+Last Updated: October 21, 2025
+
+1. Introduction
+Welcome to Voztra (“we,” “our,” or “us”). We are committed to protecting your privacy and ensuring that your personal information is handled responsibly. This Privacy Policy describes how we collect, use, share, and protect your data when you access or use our website, applications, and related services (collectively, the “Services”).
+
+By using Voztra, you agree to the terms of this Privacy Policy.
+
+2. Information We Collect
+We may collect the following types of information from you when you use our Services:
+
+Personal Information: such as your name, email address, organization, and any other details you provide during registration, inquiries, or communication.
+
+Usage Data: including your IP address, browser type, device information, and how you interact with our platform.
+
+User-Generated Content: such as data or content you provide through Voztra’s tools, features, or communication channels.
+
+Cookies and Tracking Data: to enhance functionality, analyze usage, and personalize your experience.
+
+3. How We Use Your Information
+We use your information to:
+
+Operate, maintain, and improve the Voztra platform.
+
+Provide customer support and respond to your requests.
+
+Communicate service updates, feature announcements, or policy notices.
+
+Personalize your experience and enhance platform performance.
+
+Comply with applicable legal and regulatory obligations.
+
+4. Data Sharing and Disclosure
+We value your privacy and limit data sharing as follows:
+
+Parent Company: We may share your data with our parent company for any purpose. This sharing is governed by the same privacy and data protection standards outlined in this policy.
+
+Third Parties: We do not sell, rent, or share your personal data with any third parties for marketing, advertising, or unrelated purposes.
+
+Legal Compliance: We may disclose information when required by law, regulation, or legal process.
+
+5. Data Retention
+We retain your personal data only as long as necessary to provide our Services, meet legal requirements, resolve disputes, and enforce our agreements.
+
+6. Your Rights
+You have the right to:
+
+Access the personal data we hold about you.
+
+Request correction of any inaccurate or incomplete information.
+
+Request deletion of your personal data (“Right to be Forgotten”).
+
+To exercise these rights, please contact us at support [at] getvoztra.com.
+We will respond promptly and remove your data unless retention is required by law.
+
+7. Data Security
+We use administrative, technical, and physical safeguards to protect your information from unauthorized access, alteration, or disclosure.
+
+8. Children’s Privacy
+Voztra is not intended for use by individuals under the age of 16. We do not knowingly collect personal data from minors.
+
+9. Changes to This Policy
+We may update this Privacy Policy periodically. Any updates will be reflected by an updated “Last Updated” date on our website.
+
+10. Contact Us
+If you have questions, concerns, or data-related requests, please contact us at:
+📧 support [at] getvoztra.com

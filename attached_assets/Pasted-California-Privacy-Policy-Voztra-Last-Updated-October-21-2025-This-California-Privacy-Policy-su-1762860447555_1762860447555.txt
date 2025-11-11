@@ -1,0 +1,61 @@
+California Privacy Policy — Voztra
+Last Updated: October 21, 2025
+
+This California Privacy Policy supplements the main Privacy Policy of Voztra (“we,” “our,” or “us”) and applies only to individuals who reside in the State of California (“consumers”). This section is provided to meet the requirements of the California Consumer Privacy Act (CCPA) and the California Privacy Rights Act (CPRA), as amended.
+
+1. Information We Collect
+Voztra may collect the following categories of personal information:
+
+Identifiers: such as name, email address, IP address, or general location information.
+
+Internet or Usage Data: including browser type, device information, website interactions, and cookie or analytics data.
+
+User Content: such as messages or AI conversation history stored temporarily (up to 90 days) for anonymized data analysis and service improvement.
+
+We do not collect or store sensitive personal information (such as race, health data, or biometric identifiers), nor do we collect financial information directly.
+Payments are processed securely by independent third-party providers.
+
+2. Use of Personal Information
+We use personal information to:
+
+Operate and improve the Voztra platform and its features.
+
+Provide customer support and respond to inquiries.
+
+Conduct internal analytics and service optimization.
+
+Comply with applicable laws and enforce our Terms of Service.
+
+3. Sharing and Disclosure of Information
+We do not sell personal information.
+
+However, we may share limited data with our parent company for any purpose under the same privacy standards described in our main Privacy Policy.
+We may also use common analytics and advertising services (such as Google Analytics, Meta, and Reddit Ads), which may qualify as “sharing” under California law for cross-context behavioral advertising.
+
+Consumers may opt out of this kind of data sharing as described below.
+
+4. Your Privacy Rights (California Residents)
+If you are a California resident, you have the right to:
+
+Access: Request disclosure of the categories and specific pieces of personal data we have collected about you.
+
+Correction: Request correction of inaccurate or outdated information.
+
+Deletion: Request deletion of personal data we have collected about you, subject to legal and operational limitations.
+
+Opt-Out of Sharing: Request that we stop sharing your data for cross-context advertising (as defined under the CPRA).
+
+To exercise any of these rights, please contact us at:
+📧 support [at] getvoztra.com
+
+We may verify your identity before processing any request, as permitted by California law.
+
+5. Data Retention
+We retain personal data only for as long as necessary to fulfill the purposes outlined above.
+Conversation data related to AI features is generally retained for no more than 90 days, after which it may be anonymized or deleted.
+
+6. Non-Discrimination
+We will not discriminate against you for exercising your privacy rights under the CCPA or CPRA.
+
+7. Updates to This Policy
+We may update this California Privacy Policy periodically. Updates will be reflected by an updated “Last Updated” date at the top of this page.
