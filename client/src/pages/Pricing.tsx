@@ -7,7 +7,12 @@ import { Badge } from "@/components/ui/badge";
 import { Check, Zap, Crown, Gift } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
-import type { Subscription } from "@shared/schema";
+import type { User, Subscription } from "@shared/schema";
+
+type AuthMeResponse = {
+  user: User;
+  subscription: Subscription | null;
+};
 
 interface PricingTier {
   name: string;
@@ -88,14 +93,12 @@ export default function Pricing() {
   const { toast } = useToast();
   const [loadingPlan, setLoadingPlan] = useState<string | null>(null);
 
-  const { data: user } = useQuery({
-    queryKey: ["/api/user"],
+  const { data: authData } = useQuery<AuthMeResponse>({
+    queryKey: ["/api/auth/me"],
   });
 
-  const { data: subscription } = useQuery<Subscription>({
-    queryKey: ["/api/subscription"],
-    enabled: !!user,
-  });
+  const user = authData?.user;
+  const subscription = authData?.subscription;
 
   const checkoutMutation = useMutation({
     mutationFn: async (plan: "starter" | "pro") => {
