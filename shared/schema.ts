@@ -19,6 +19,9 @@ export const users = pgTable("users", {
   id: serial("id").primaryKey(),
   email: varchar("email", { length: 255 }).notNull().unique(),
   passwordHash: varchar("password_hash", { length: 255 }).notNull(),
+  isEmailVerified: boolean("is_email_verified").notNull().default(false),
+  emailVerificationToken: varchar("email_verification_token", { length: 255 }),
+  emailVerificationTokenExpiry: timestamp("email_verification_token_expiry"),
   stripeCustomerId: varchar("stripe_customer_id", { length: 255 }),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
@@ -62,7 +65,13 @@ export const creditUsage = pgTable("credit_usage", {
 });
 
 // Insert schemas
-export const insertUserSchema = createInsertSchema(users).omit({ id: true, createdAt: true });
+export const insertUserSchema = createInsertSchema(users).omit({ 
+  id: true, 
+  createdAt: true,
+  isEmailVerified: true,
+  emailVerificationToken: true,
+  emailVerificationTokenExpiry: true,
+});
 export const insertSubscriptionSchema = createInsertSchema(subscriptions).omit({ id: true, createdAt: true, updatedAt: true });
 export const insertRoomSchema = createInsertSchema(rooms).omit({ createdAt: true, sessionStartedAt: true, sessionEndedAt: true });
 export const insertCreditUsageSchema = createInsertSchema(creditUsage).omit({ id: true, createdAt: true });
