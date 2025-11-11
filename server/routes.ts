@@ -24,6 +24,7 @@ interface SessionTracking {
 const connections = new Map<WebSocket, RoomConnection>();
 const roomConnections = new Map<string, WebSocket[]>();
 const activeSessions = new Map<string, SessionTracking>(); // roomId -> session tracking
+const broadcastedMessageIds = new Map<string, Map<string, number>>(); // roomId -> Map<dedupeKey, timestamp> for TTL-based deduplication
 
 function endSession(roomId: string, reason: 'participant-left' | 'creator-left' | 'credits-exhausted') {
   console.log(`[Session] Ending session for room ${roomId}, reason: ${reason}`);
@@ -54,9 +55,10 @@ function endSession(roomId: string, reason: 'participant-left' | 'creator-left' 
   });
   
   roomConnections.delete(roomId);
+  broadcastedMessageIds.delete(roomId); // Clean up server-side deduplication tracking
   storage.deleteRoom(roomId);
   
-  console.log(`[Session] Cleaned up room ${roomId}, notified ${clients.length} clients`);
+  console.log(`[Session] Cleaned up room ${roomId}, notified ${clients.length} clients, cleared deduplication tracking`);
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -342,7 +344,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
             }
             
             // Handle final transcriptions (recognized speech)
-            console.log(`[Transcription-Final] Received text: "${text}", language: ${language}`);
+            const transcriptionTimestamp = Date.now();
+            console.log(`[Transcription-Final] ⏱️ Timestamp: ${transcriptionTimestamp}, Received text: "${text}", language: ${language}, speaker: ${connection.role}`);
             
             const room = await storage.getRoom(roomId);
             if (!room) return;
@@ -360,11 +363,68 @@ export async function registerRoutes(app: Express): Promise<Server> {
             }
 
             const translatedText = await translateText(text, language, targetLanguage);
+            const translationCompleteTimestamp = Date.now();
+            console.log(`[Translation] ⏱️ Translation completed in ${translationCompleteTimestamp - transcriptionTimestamp}ms: "${text}" → "${translatedText}"`);
 
-            // Generate unique messageId for deduplication on client side
+            // SERVER-SIDE DEDUPLICATION: Create content-based stable key WITHOUT timestamp
+            // This prevents Azure Speech SDK from triggering duplicate broadcasts if 'recognized' event fires twice
+            // Use full text (not truncated) to avoid false positives from long messages with shared prefixes
+            const dedupeKey = `${connection.role}|${text}|${translatedText}`;
+            const now = Date.now();
+            const DEDUPE_TTL_MS = 5000; // 5 second TTL: same content within 5s = duplicate, after 5s = legitimate repetition
+            
+            if (!broadcastedMessageIds.has(roomId)) {
+              broadcastedMessageIds.set(roomId, new Map());
+            }
+            
+            const roomMessageTracker = broadcastedMessageIds.get(roomId)!;
+            
+            // Clean up expired entries (older than TTL)
+            const expiredKeys: string[] = [];
+            roomMessageTracker.forEach((timestamp, key) => {
+              if (now - timestamp > DEDUPE_TTL_MS) {
+                expiredKeys.push(key);
+              }
+            });
+            expiredKeys.forEach(key => roomMessageTracker.delete(key));
+            if (expiredKeys.length > 0) {
+              console.log(`[Server Deduplication] 🧹 Cleaned up ${expiredKeys.length} expired dedupe entries (TTL: ${DEDUPE_TTL_MS}ms)`);
+            }
+            
+            // Check if this content was already broadcast within TTL window
+            const lastBroadcastTime = roomMessageTracker.get(dedupeKey);
+            if (lastBroadcastTime !== undefined) {
+              const timeSinceLastBroadcast = now - lastBroadcastTime;
+              console.warn(`[Server Deduplication] ⛔ DUPLICATE BROADCAST PREVENTED!`);
+              console.warn(`[Server Deduplication] 📝 Text: "${text}" → "${translatedText}"`);
+              console.warn(`[Server Deduplication] ⏱️ Last broadcast: ${timeSinceLastBroadcast}ms ago (TTL: ${DEDUPE_TTL_MS}ms)`);
+              console.warn(`[Server Deduplication] 🔍 This likely means Azure Speech SDK fired the 'recognized' event twice for the same utterance`);
+              return; // Don't broadcast again - this is a true duplicate from Azure
+            }
+            
+            // Mark content as broadcast with current timestamp
+            roomMessageTracker.set(dedupeKey, now);
+            console.log(`[Server Deduplication] ✅ New content added to broadcast tracker. Room ${roomId} has ${roomMessageTracker.size} tracked messages`);
+            
+            // NOW generate unique messageId for client-side tracking (each broadcast gets unique ID)
             const messageId = `${connection.role}-${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
+            console.log(`[Server Deduplication] 🆔 Generated messageId: ${messageId} for content hash`);
+            
+            // Additional cleanup: cap total entries to prevent unbounded growth (should never hit this with TTL cleanup)
+            if (roomMessageTracker.size > 200) {
+              const entriesToDelete = Array.from(roomMessageTracker.entries())
+                .sort((a, b) => a[1] - b[1]) // Sort by timestamp, oldest first
+                .slice(0, 100) // Delete oldest 100
+                .map(([key]) => key);
+              
+              entriesToDelete.forEach(key => roomMessageTracker.delete(key));
+              console.log(`[Server Deduplication] 🧹 Emergency cleanup: removed ${entriesToDelete.length} oldest entries. New size: ${roomMessageTracker.size}`);
+            }
             
             const roomClients = roomConnections.get(roomId) || [];
+            console.log(`[Translation Broadcast] 📡 Broadcasting to ${roomClients.length} clients in room ${roomId}, messageId: ${messageId}`);
+            
+            let successfulBroadcasts = 0;
             roomClients.forEach(client => {
               if (client.readyState === WebSocket.OPEN) {
                 client.send(JSON.stringify({
@@ -377,8 +437,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
                   originalLanguage: language,
                   translatedLanguage: targetLanguage
                 }));
+                successfulBroadcasts++;
               }
             });
+            
+            const broadcastCompleteTimestamp = Date.now();
+            console.log(`[Translation Broadcast] ✅ Successfully broadcast to ${successfulBroadcasts}/${roomClients.length} clients`);
+            console.log(`[Translation Broadcast] ⏱️ Total time (transcription → translation → broadcast): ${broadcastCompleteTimestamp - transcriptionTimestamp}ms`);
 
           } catch (error) {
             console.error('[Transcription] Error processing text:', error);

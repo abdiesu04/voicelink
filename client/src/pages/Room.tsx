@@ -1072,28 +1072,45 @@ export default function Room() {
       }
 
       if (message.type === "translation") {
+        const receiveTimestamp = Date.now();
         const isOwn = message.speaker === role;
+        
+        // DIAGNOSTIC: Log message arrival with precise timestamp
+        console.log(`[Translation Received] ⏱️ Timestamp: ${receiveTimestamp}, MessageId: ${message.messageId}, Speaker: ${message.speaker}, IsOwn: ${isOwn}`);
+        console.log(`[Translation Received] 📊 DeduplicationSet size BEFORE: ${processedMessagesRef.current.size}`);
         
         // CRITICAL: Deduplicate based on server-provided messageId
         // This prevents duplicate WebSocket deliveries while allowing legitimate repeated phrases
         const serverMessageId = message.messageId;
         
         if (!serverMessageId) {
-          console.error('[Deduplication] Missing messageId from server - this message may duplicate');
+          console.error('[Deduplication] ❌ Missing messageId from server - this message may duplicate');
         } else {
-          // Check if we've already processed this messageId
-          if (processedMessagesRef.current.has(serverMessageId)) {
-            console.log('[Deduplication] Skipping duplicate message (already processed):', serverMessageId);
+          // ATOMIC DEDUPLICATION FIX: Use Set.add() return value to check if already exists
+          // This prevents race condition where two messages arrive simultaneously
+          const sizeBefore = processedMessagesRef.current.size;
+          processedMessagesRef.current.add(serverMessageId);
+          const sizeAfter = processedMessagesRef.current.size;
+          
+          console.log(`[Deduplication] 🔍 Check: sizeBefore=${sizeBefore}, sizeAfter=${sizeAfter}, messageId=${serverMessageId}`);
+          
+          if (sizeBefore === sizeAfter) {
+            // Set size didn't change = item was already in the set = DUPLICATE
+            const timeSinceReceive = Date.now() - receiveTimestamp;
+            console.warn(`[Deduplication] ⛔ DUPLICATE DETECTED! Skipping already-processed messageId: ${serverMessageId}`);
+            console.warn(`[Deduplication] 📊 Detection took: ${timeSinceReceive}ms, DeduplicationSet size: ${processedMessagesRef.current.size}`);
+            console.warn(`[Deduplication] 📝 Message text: "${message.originalText.substring(0, 50)}..." → "${message.translatedText.substring(0, 50)}..."`);
             return; // Already processed this exact message
           }
           
-          // Mark as processed
-          processedMessagesRef.current.add(serverMessageId);
+          // Successfully added - this is a new message
+          console.log(`[Deduplication] ✅ NEW message added to deduplication set. Set size now: ${sizeAfter}`);
           
           // Clean up old entries to prevent memory leak (keep last 200)
           if (processedMessagesRef.current.size > 200) {
             const entries = Array.from(processedMessagesRef.current);
             processedMessagesRef.current = new Set(entries.slice(-200));
+            console.log(`[Deduplication] 🧹 Cleaned up old entries. Set size after cleanup: ${processedMessagesRef.current.size}`);
           }
         }
         
@@ -1114,9 +1131,12 @@ export default function Room() {
         if (isOwn) {
           setMyMessages(prev => [...prev, newMessage]);
           setMyInterimText(""); // Clear interim when final arrives
+          console.log(`[Translation] 📤 Added to MY messages (total: ${myMessages.length + 1})`);
         } else {
           setPartnerMessages(prev => [...prev, newMessage]);
           setPartnerInterimText(""); // Clear interim when final arrives
+          console.log(`[Translation] 📥 Added to PARTNER messages (total: ${partnerMessages.length + 1})`);
+          
           // CORRECT LOGIC: Use PARTNER's voiceGender (what they selected = the voice representing THEM)
           // "Your Voice" = voice representing YOU (what partner hears when you speak)
           // "Partner's Voice" = voice representing PARTNER (what you hear when partner speaks)
@@ -1130,6 +1150,9 @@ export default function Room() {
             console.error('[Voice Gender] Partner voice gender not set (ref value), skipping TTS. State value:', partnerVoiceGender);
           }
         }
+        
+        const totalProcessingTime = Date.now() - receiveTimestamp;
+        console.log(`[Translation] ⏱️ Total processing time: ${totalProcessingTime}ms`);
       }
 
       if (message.type === "participant-left") {
