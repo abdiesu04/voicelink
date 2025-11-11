@@ -10,24 +10,27 @@ import { format } from "date-fns";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import type { User, Subscription } from "@shared/schema";
 
+type AuthMeResponse = {
+  user: User;
+  subscription: Subscription | null;
+};
+
 function AccountContent() {
   const [, navigate] = useLocation();
   const { toast } = useToast();
   const [isManaging, setIsManaging] = useState(false);
 
-  const { data: user, isLoading: userLoading } = useQuery<User>({
-    queryKey: ["/api/user"],
+  const { 
+    data: authData, 
+    isLoading,
+    error,
+    refetch
+  } = useQuery<AuthMeResponse>({
+    queryKey: ["/api/auth/me"],
   });
 
-  const { 
-    data: subscription, 
-    isLoading: subscriptionLoading,
-    error: subscriptionError,
-    refetch: refetchSubscription
-  } = useQuery<Subscription>({
-    queryKey: ["/api/subscription"],
-    enabled: !!user,
-  });
+  const user = authData?.user;
+  const subscription = authData?.subscription;
 
   const logoutMutation = useMutation({
     mutationFn: async () => {
@@ -93,7 +96,7 @@ function AccountContent() {
     billingPortalMutation.mutate();
   };
 
-  if (userLoading || subscriptionLoading) {
+  if (isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 dark:from-gray-900 dark:via-gray-900 dark:to-indigo-950/20 flex items-center justify-center">
         <div className="w-8 h-8 border-4 border-primary/30 border-t-primary rounded-full animate-spin" />
@@ -102,24 +105,24 @@ function AccountContent() {
   }
 
   // Error state: no subscription data and not loading
-  if (!subscription && !subscriptionLoading) {
+  if (!subscription && !isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 dark:from-gray-900 dark:via-gray-900 dark:to-indigo-950/20 flex items-center justify-center p-4">
         <Card className="max-w-md">
           <CardHeader>
-            <CardTitle className="text-red-400">Unable to Load Subscription</CardTitle>
+            <CardTitle className="text-red-400">Unable to Load Account</CardTitle>
             <CardDescription>
-              We're having trouble loading your subscription details. This is usually a temporary issue.
+              We're having trouble loading your account details. This is usually a temporary issue.
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
-            {subscriptionError && (
+            {error && (
               <div className="p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg">
                 <p className="text-sm text-red-600 dark:text-red-400 font-medium">
                   Error Details:
                 </p>
                 <p className="text-xs text-red-600 dark:text-red-400 mt-1">
-                  {(subscriptionError as Error).message}
+                  {(error as Error).message}
                 </p>
               </div>
             )}
@@ -128,14 +131,14 @@ function AccountContent() {
                 Try these steps:
               </p>
               <ol className="text-sm text-muted-foreground list-decimal list-inside space-y-1">
-                <li>Click "Retry" to reload your subscription data</li>
+                <li>Click "Retry" to reload your account data</li>
                 <li>If that doesn't work, refresh your browser</li>
                 <li>Check your internet connection</li>
               </ol>
             </div>
             <div className="flex gap-3">
               <Button 
-                onClick={() => refetchSubscription()} 
+                onClick={() => refetch()} 
                 variant="default"
                 className="bg-gradient-to-r from-violet-500 to-purple-500 hover:from-violet-600 hover:to-purple-600"
                 data-testid="button-retry"

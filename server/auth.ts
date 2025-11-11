@@ -167,11 +167,7 @@ export function setupAuth(app: Express) {
           id: user.id,
           email: user.email,
         },
-        subscription: subscription ? {
-          plan: subscription.plan,
-          creditsRemaining: subscription.creditsRemaining,
-          billingCycleEnd: subscription.billingCycleEnd,
-        } : null,
+        subscription: subscription,
       });
     } catch (error) {
       console.error("Get user error:", error);
