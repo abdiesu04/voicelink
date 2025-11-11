@@ -11,7 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import voztraLogo from "@assets/a-sleek-modern-logo-design-featuring-the_5jxbgs8hQvK5S5yrYSdgMA_2dhjLRDZSF2HzmFCHzzOzA (1)_1762862046045.png";
+import voztraLogo from "@assets/background_removed_image_U7q97OCUQXWWhC6dXtf67A (1)_1762861868308.png";
 
 export function Header() {
   const [location] = useLocation();
@@ -26,11 +26,11 @@ export function Header() {
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <Link href="/">
-            <div className="flex items-center hover-elevate active-elevate-2 transition-all cursor-pointer" data-testid="link-home">
+            <div className="flex items-center hover-elevate active-elevate-2 px-2 py-2 rounded-xl transition-all cursor-pointer" data-testid="link-home">
               <img 
                 src={voztraLogo} 
                 alt="Voztra" 
-                className="h-10 w-auto bg-white dark:bg-white rounded-lg px-3 py-1.5"
+                className="h-10 w-auto"
               />
             </div>
           </Link>
