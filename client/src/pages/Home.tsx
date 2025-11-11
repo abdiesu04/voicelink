@@ -241,15 +241,6 @@ export default function Home() {
                 </Button>
               </a>
             </div>
-
-            {/* Connection Trail Visual */}
-            <div className="pt-8 flex items-center justify-center gap-2 text-slate-400 dark:text-slate-600">
-              <span className="text-2xl">💬</span>
-              <div className="w-8 h-0.5 bg-gradient-to-r from-indigo-500 to-violet-500" />
-              <span className="text-2xl">🌍</span>
-              <div className="w-8 h-0.5 bg-gradient-to-r from-violet-500 to-blue-500" />
-              <span className="text-2xl">💬</span>
-            </div>
           </div>
         </div>
       </section>
