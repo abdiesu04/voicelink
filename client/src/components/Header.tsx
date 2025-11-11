@@ -11,7 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import voztraLogo from "@assets/background_removed_image_h9w1yBX4QIyYxUhVyLjrKQ (1) (1)_1762862345370.png";
+import voztraLogo from "@assets/a-sleek-modern-logo-design-featuring-the_5jxbgs8hQvK5S5yrYSdgMA_2dhjLRDZSF2HzmFCHzzOzA (1)_1762862046045.png";
 
 export function Header() {
   const [location] = useLocation();
@@ -31,7 +31,6 @@ export function Header() {
                 src={voztraLogo} 
                 alt="Voztra" 
                 className="h-10 w-auto"
-                style={{ filter: 'drop-shadow(0 0 1px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 2px rgba(255, 255, 255, 0.4))' }}
               />
             </div>
           </Link>

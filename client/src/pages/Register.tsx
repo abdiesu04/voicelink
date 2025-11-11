@@ -10,7 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Languages, Check, ArrowRight, ArrowLeft, Mail, Lock, Sparkles } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
-import voztraLogo from "@assets/background_removed_image_h9w1yBX4QIyYxUhVyLjrKQ (1) (1)_1762862345370.png";
+import voztraLogo from "@assets/a-sleek-modern-logo-design-featuring-the_5jxbgs8hQvK5S5yrYSdgMA_2dhjLRDZSF2HzmFCHzzOzA (1)_1762862046045.png";
 
 const PLAN_NAMES = {
   free: "Free Trial",
@@ -103,7 +103,6 @@ export default function Register() {
               src={voztraLogo} 
               alt="Voztra" 
               className="h-16 w-auto animate-in zoom-in duration-700"
-              style={{ filter: 'drop-shadow(0 0 1px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 2px rgba(255, 255, 255, 0.4))' }}
             />
           </div>
           
