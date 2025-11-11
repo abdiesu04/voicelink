@@ -4,6 +4,7 @@ import { Mic, MicOff, PhoneOff, Copy, Check, Share2, Volume2, Sparkles, User } f
 import { Button } from "@/components/ui/button";
 import { ConnectionStatus } from "@/components/ConnectionStatus";
 import { TranscriptionPanel } from "@/components/TranscriptionPanel";
+import { UpgradeModal } from "@/components/UpgradeModal";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/lib/auth";
 import {
@@ -104,6 +105,7 @@ export default function Room() {
   const [quotaError, setQuotaError] = useState<string>("");
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [sessionActive, setSessionActive] = useState(false);
+  const [showUpgradeModal, setShowUpgradeModal] = useState(false);
 
   const [myMessages, setMyMessages] = useState<TranscriptionMessage[]>([]);
   const [partnerMessages, setPartnerMessages] = useState<TranscriptionMessage[]>([]);
@@ -1027,6 +1029,22 @@ export default function Room() {
         
         // Update global auth subscription state so Header and other components show live credits
         updateSubscription({ creditsRemaining });
+        
+        // Show upgrade modal when credits are exhausted
+        if (exhausted || creditsRemaining <= 0) {
+          console.log('[Credits] Credits exhausted, showing upgrade modal');
+          setShowUpgradeModal(true);
+          return;
+        }
+        
+        // Warn at 10 minutes (600 seconds)
+        if (creditsRemaining <= 600 && creditsRemaining > 580 && !exhausted) {
+          toast({
+            title: "10 Minutes Remaining",
+            description: "You have 10 minutes of translation time left. Consider upgrading to continue uninterrupted.",
+            variant: "default",
+          });
+        }
         
         // Warn when less than 2 minutes (120 seconds) remaining  
         if (creditsRemaining <= 120 && creditsRemaining > 100 && !exhausted) {
@@ -2031,6 +2049,9 @@ export default function Room() {
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* Upgrade Modal */}
+      <UpgradeModal open={showUpgradeModal} onOpenChange={setShowUpgradeModal} />
     </div>
   );
 }
