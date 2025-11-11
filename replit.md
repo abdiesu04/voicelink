@@ -15,8 +15,12 @@ The application features a clean, modern design with full light/dark theme suppo
 - An active translation interface with a dual-panel layout, connection status indicators, microphone controls, and a share dialog.
 - A `TranscriptionPanel` visually distinguishes interim transcriptions (dashed border, italic) from final translated messages.
 - **Alternative Landing Page**: A business-focused "Voice Translator" marketing page at `/voice-translator` emphasizing global hiring and team collaboration use cases with emotional messaging and simplified testimonial layout.
-- **Header Navigation**: Minimal navigation showing only Account link for authenticated users. Users click the logo to return home. Pricing page is intentionally hidden from navigation.
+- **Header Navigation**: Shows Pricing and Account links for authenticated users. Minutes badge displays remaining translation time. Users click the logo to return home.
 - **Footer Navigation**: Displays Privacy Policy, California Privacy Policy, and Voice Translator links for all users, with Contact Us link visible only for authenticated users.
+- **Pricing Page**: Three-tier subscription comparison (Free, Starter, Pro) with feature lists, pricing details, and Stripe checkout integration.
+- **Account/Billing Page**: Displays current subscription plan, remaining minutes with color-coded warnings, billing cycle information, and Stripe billing portal access for paid users.
+- **Upgrade Modal**: Shown when users exhaust credits, presenting Starter and Pro plan options with direct Stripe checkout links.
+- **Payment Success Page**: Post-checkout confirmation with 5-second auto-redirect to account page.
 
 ### Technical Implementations
 - **Frontend**: React with TypeScript, Wouter for routing, TanStack Query for data fetching, WebSocket client, Web Audio API, and Microsoft Cognitive Services Speech SDK.
@@ -30,6 +34,8 @@ The application features a clean, modern design with full light/dark theme suppo
 - **WebSocket Keepalive & Monitoring**: A dual-layer aggressive keepalive system (application-level heartbeat and protocol-level ping/pong) is implemented to prevent idle timeouts. Professional disconnect handling logs all scenarios and provides clear, context-aware UI messages.
 - **Seamless Auto-Reconnect System**: Production-grade automatic reconnection handles random WebSocket disconnects with silent reconnection, state preservation, Azure Speech continuity, and minimal UI feedback. It distinguishes intentional from unintentional disconnects.
 - **Professional Quota Handling**: Comprehensive Azure quota error detection and graceful degradation prevent infinite retry loops. It includes intelligent error detection, immediate retry prevention, clear user communication, graceful degradation (text translations still work), UI state management, and TTS queue protection.
+- **Stripe Payment Integration**: Production-ready subscription billing system with Stripe Checkout for payment processing and Customer Portal for subscription management. Includes webhook handlers for all subscription lifecycle events with signature verification, proper error handling, and automatic credit allocation.
+- **Credit Management System**: Real-time credit tracking with WebSocket updates, automatic deduction during translation sessions, and hard enforcement at 0 credits. Displays warning toasts at 10 minutes, 2 minutes, and 1 minute remaining. Triggers upgrade modal when credits are exhausted.
 
 ### Feature Specifications
 - **Core Functionality**: Real-time voice translation between two users.
@@ -39,6 +45,21 @@ The application features a clean, modern design with full light/dark theme suppo
 - **Language Support**: 47 supported languages with flag icons.
 - **Voice Customization**: User-selectable male/female voice gender for TTS output using Azure Premium Multilingual Neural Voices.
 - **Request Monitoring**: Comprehensive Azure API request tracking with logs, token caching, and session cleanup.
+
+### Subscription System
+Voztra implements a three-tier credit-based subscription model:
+
+1. **Free Tier**: 60 minutes lifetime allocation (one-time, non-recurring). Users receive credits upon registration. No monthly reset.
+
+2. **Starter Plan**: $9.99/month for 350 minutes. Monthly recurring subscription with automatic credit reset on billing cycle. Stripe managed.
+
+3. **Pro Plan**: $29.99/month for 1200 minutes with priority support. Monthly recurring subscription with automatic credit reset on billing cycle. Stripe managed.
+
+**Credit Tracking**: Minutes are stored as seconds in the database (`creditsRemaining` field). Real-time updates via WebSocket during translation sessions. Credits automatically deducted per second of active translation.
+
+**Hard Enforcement**: When credits reach 0, translation sessions end immediately, and users see an upgrade modal with direct checkout links to Starter or Pro plans.
+
+**Webhook Events**: Stripe webhooks handle subscription lifecycle: `checkout.session.completed` (initial payment + credit allocation), `invoice.payment_succeeded` (monthly renewals + credit reset), `customer.subscription.updated` (plan changes), `customer.subscription.deleted` (cancellations + credit removal).
 
 ## External Dependencies
 
