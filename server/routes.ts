@@ -76,6 +76,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(401).json({ error: "Authentication required" });
       }
 
+      // Check email verification before allowing room creation
+      const user = await storage.getUserById(req.session.userId);
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+
+      if (!user.isEmailVerified) {
+        return res.status(403).json({ 
+          error: "Email verification required", 
+          message: "Please verify your email address before creating a translation room. Check your inbox for the verification link.",
+          requiresVerification: true 
+        });
+      }
+
       const { language, voiceGender } = req.body;
       
       if (!language) {
@@ -423,7 +437,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const message = JSON.parse(data.toString());
         
         if (message.type === 'join') {
-          const { roomId, language, voiceGender, role } = message;
+          const { roomId, language, voiceGender, role, userId } = message;
           
           if (!language) {
             ws.send(JSON.stringify({
@@ -438,6 +452,39 @@ export async function registerRoutes(app: Express): Promise<Server> {
               type: 'error',
               message: 'Voice gender is required'
             }));
+            return;
+          }
+
+          if (!userId) {
+            ws.send(JSON.stringify({
+              type: 'error',
+              message: 'User ID is required'
+            }));
+            ws.close();
+            return;
+          }
+          
+          // Check email verification before allowing WebSocket join
+          const user = await storage.getUserById(userId);
+          if (!user) {
+            ws.send(JSON.stringify({
+              type: 'error',
+              error: 'Email verification required',
+              message: 'User not found',
+              requiresVerification: true
+            }));
+            ws.close();
+            return;
+          }
+
+          if (!user.isEmailVerified) {
+            ws.send(JSON.stringify({
+              type: 'error',
+              error: 'Email verification required',
+              message: 'Please verify your email address before joining a translation session. Check your inbox for the verification link.',
+              requiresVerification: true
+            }));
+            ws.close();
             return;
           }
           
