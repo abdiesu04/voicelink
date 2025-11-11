@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { Languages } from "lucide-react";
+import voztraLogo from "@assets/background_removed_image_U7q97OCUQXWWhC6dXtf67A (1)_1762861868308.png";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -49,9 +50,11 @@ export default function Login() {
       <Card className="w-full max-w-md" data-testid="card-login">
         <CardHeader className="space-y-4 text-center">
           <div className="flex justify-center">
-            <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-primary to-indigo-600 flex items-center justify-center shadow-lg shadow-primary/25">
-              <Languages className="h-9 w-9 text-white" />
-            </div>
+            <img 
+              src={voztraLogo} 
+              alt="Voztra" 
+              className="h-16 w-auto"
+            />
           </div>
           <div>
             <CardTitle className="text-2xl">Welcome Back</CardTitle>
@@ -100,10 +103,8 @@ export default function Login() {
 
             <p className="text-sm text-center text-muted-foreground">
               Don't have an account?{" "}
-              <Link href="/register">
-                <a className="text-primary hover:underline font-medium" data-testid="link-register">
-                  Create one now
-                </a>
+              <Link href="/register" className="text-primary hover:underline font-medium" data-testid="link-register">
+                Create one now
               </Link>
             </p>
           </CardFooter>

@@ -10,6 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Languages, Check, ArrowRight, ArrowLeft, Mail, Lock, Sparkles } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
+import voztraLogo from "@assets/background_removed_image_U7q97OCUQXWWhC6dXtf67A (1)_1762861868308.png";
 
 const PLAN_NAMES = {
   free: "Free Trial",
@@ -98,9 +99,11 @@ export default function Register() {
         {/* Header with Logo and Progress */}
         <div className="text-center space-y-6 mb-8 animate-in fade-in slide-in-from-top duration-500">
           <div className="flex justify-center">
-            <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-primary to-indigo-600 flex items-center justify-center shadow-lg shadow-primary/25 animate-in zoom-in duration-700">
-              <Languages className="h-9 w-9 text-white" />
-            </div>
+            <img 
+              src={voztraLogo} 
+              alt="Voztra" 
+              className="h-16 w-auto animate-in zoom-in duration-700"
+            />
           </div>
           
           <div className="space-y-2">
@@ -263,10 +266,8 @@ export default function Register() {
 
               <p className="text-sm text-center text-muted-foreground pt-4 border-t">
                 Already have an account?{" "}
-                <Link href="/login">
-                  <a className="text-primary hover:underline font-medium" data-testid="link-login">
-                    Sign in
-                  </a>
+                <Link href="/login" className="text-primary hover:underline font-medium" data-testid="link-login">
+                  Sign in
                 </Link>
               </p>
             </CardContent>

@@ -10,9 +10,11 @@ I prefer clear and concise explanations. I want an iterative development approac
 
 ### UI/UX Decisions
 The application features a clean, modern design with full light/dark theme support, **defaulting to dark mode for new users**. The color scheme uses Indigo/Blue for interactive elements and Violet/Purple for highlights. It uses the Inter font throughout. Components are built with Shadcn UI and Tailwind CSS, adhering to a responsive, mobile-first design. Theme preference is persisted in localStorage. The UI includes:
+- **Branding**: Custom Voztra logo image (transparent PNG with teal/dark green gradient) displayed in navigation header and on login/registration forms. Located at `attached_assets/background_removed_image_U7q97OCUQXWWhC6dXtf67A (1)_1762861868308.png`.
 - A landing page, room creation/joining interfaces with language and voice gender selection.
 - An active translation interface with a dual-panel layout, connection status indicators, microphone controls, and a share dialog.
 - A `TranscriptionPanel` visually distinguishes interim transcriptions (dashed border, italic) from final translated messages.
+- **Footer Navigation**: Displays Privacy Policy and California Privacy Policy links for all users, with Contact Us link visible only for authenticated users.
 
 ### Technical Implementations
 - **Frontend**: React with TypeScript, Wouter for routing, TanStack Query for data fetching, WebSocket client, Web Audio API, and Microsoft Cognitive Services Speech SDK.
