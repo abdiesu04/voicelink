@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { Languages } from "lucide-react";
-import voztraLogo from "@assets/background_removed_image_U7q97OCUQXWWhC6dXtf67A (1)_1762861868308.png";
+import voztraLogo from "@assets/background_removed_image_h9w1yBX4QIyYxUhVyLjrKQ (1) (1)_1762862345370.png";
 
 export default function Login() {
   const [email, setEmail] = useState("");

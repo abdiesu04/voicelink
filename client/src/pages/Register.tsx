@@ -10,7 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Languages, Check, ArrowRight, ArrowLeft, Mail, Lock, Sparkles } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
-import voztraLogo from "@assets/background_removed_image_U7q97OCUQXWWhC6dXtf67A (1)_1762861868308.png";
+import voztraLogo from "@assets/background_removed_image_h9w1yBX4QIyYxUhVyLjrKQ (1) (1)_1762862345370.png";
 
 const PLAN_NAMES = {
   free: "Free Trial",
