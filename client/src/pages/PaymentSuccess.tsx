@@ -4,15 +4,22 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, ArrowRight } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
-import type { User } from "@shared/schema";
+import type { User, Subscription } from "@shared/schema";
+
+type AuthMeResponse = {
+  user: User;
+  subscription: Subscription | null;
+};
 
 export default function PaymentSuccess() {
   const [, navigate] = useLocation();
   const [countdown, setCountdown] = useState(5);
 
-  const { data: user } = useQuery<User>({
-    queryKey: ["/api/user"],
+  const { data: authData } = useQuery<AuthMeResponse>({
+    queryKey: ["/api/auth/me"],
   });
+
+  const user = authData?.user;
 
   useEffect(() => {
     const timer = setInterval(() => {
