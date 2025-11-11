@@ -14,8 +14,9 @@ The application features a clean, modern design with full light/dark theme suppo
 - A landing page, room creation/joining interfaces with language and voice gender selection.
 - An active translation interface with a dual-panel layout, connection status indicators, microphone controls, and a share dialog.
 - A `TranscriptionPanel` visually distinguishes interim transcriptions (dashed border, italic) from final translated messages.
+- **Alternative Landing Page**: A business-focused "Voice Translator" marketing page at `/voice-translator` emphasizing global hiring and team collaboration use cases with emotional messaging and simplified testimonial layout.
 - **Header Navigation**: Minimal navigation showing only Account link for authenticated users. Users click the logo to return home. Pricing page is intentionally hidden from navigation.
-- **Footer Navigation**: Displays Privacy Policy and California Privacy Policy links for all users, with Contact Us link visible only for authenticated users.
+- **Footer Navigation**: Displays Privacy Policy, California Privacy Policy, and Voice Translator links for all users, with Contact Us link visible only for authenticated users.
 
 ### Technical Implementations
 - **Frontend**: React with TypeScript, Wouter for routing, TanStack Query for data fetching, WebSocket client, Web Audio API, and Microsoft Cognitive Services Speech SDK.
