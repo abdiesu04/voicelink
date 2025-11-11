@@ -53,7 +53,7 @@ export default function Login() {
             <img 
               src={voztraLogo} 
               alt="Voztra" 
-              className="h-16 w-auto"
+              className="h-16 w-auto bg-white dark:bg-white rounded-lg px-4 py-2"
             />
           </div>
           <div>

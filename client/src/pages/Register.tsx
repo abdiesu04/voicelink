@@ -102,7 +102,7 @@ export default function Register() {
             <img 
               src={voztraLogo} 
               alt="Voztra" 
-              className="h-16 w-auto animate-in zoom-in duration-700"
+              className="h-16 w-auto bg-white dark:bg-white rounded-lg px-4 py-2 animate-in zoom-in duration-700"
             />
           </div>
           
