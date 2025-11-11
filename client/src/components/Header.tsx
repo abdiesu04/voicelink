@@ -11,7 +11,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import voztraLogo from "@assets/a-sleek-modern-logo-design-featuring-the_5jxbgs8hQvK5S5yrYSdgMA_2dhjLRDZSF2HzmFCHzzOzA (1)_1762862046045.png";
+import { VoztraLogo } from "@/components/VoztraLogo";
 
 export function Header() {
   const [location] = useLocation();
@@ -27,10 +27,10 @@ export function Header() {
           {/* Logo */}
           <Link href="/">
             <div className="flex items-center hover-elevate active-elevate-2 px-2 py-2 rounded-xl transition-all cursor-pointer" data-testid="link-home">
-              <img 
-                src={voztraLogo} 
-                alt="Voztra" 
-                className="h-10 w-auto"
+              <VoztraLogo 
+                width={140}
+                height={40}
+                className="text-slate-800 dark:text-white"
               />
             </div>
           </Link>

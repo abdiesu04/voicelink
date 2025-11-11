@@ -10,7 +10,7 @@ I prefer clear and concise explanations. I want an iterative development approac
 
 ### UI/UX Decisions
 The application features a clean, modern design with full light/dark theme support, **defaulting to dark mode for new users**. The color scheme uses Indigo/Blue for interactive elements and Violet/Purple for highlights. It uses the Inter font throughout. Components are built with Shadcn UI and Tailwind CSS, adhering to a responsive, mobile-first design. Theme preference is persisted in localStorage. The UI includes:
-- **Branding**: Custom Voztra logo image (transparent PNG with gradient speech bubble design) displayed in navigation header and on login/registration forms. Located at `attached_assets/a-sleek-modern-logo-design-featuring-the_5jxbgs8hQvK5S5yrYSdgMA_2dhjLRDZSF2HzmFCHzzOzA (1)_1762862046045.png`.
+- **Branding**: Custom SVG Voztra logo component with stylized chat bubble "O" displayed in navigation header and on login/registration forms. The logo is theme-aware (white text in dark mode, dark text in light mode) and scales perfectly at any size. Component located at `client/src/components/VoztraLogo.tsx`.
 - A landing page, room creation/joining interfaces with language and voice gender selection.
 - An active translation interface with a dual-panel layout, connection status indicators, microphone controls, and a share dialog.
 - A `TranscriptionPanel` visually distinguishes interim transcriptions (dashed border, italic) from final translated messages.

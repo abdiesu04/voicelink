@@ -7,10 +7,10 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import { PricingCards } from "@/components/PricingCards";
 import { useToast } from "@/hooks/use-toast";
-import { Languages, Check, ArrowRight, ArrowLeft, Mail, Lock, Sparkles } from "lucide-react";
+import { Check, ArrowRight, ArrowLeft, Mail, Lock, Sparkles } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { cn } from "@/lib/utils";
-import voztraLogo from "@assets/a-sleek-modern-logo-design-featuring-the_5jxbgs8hQvK5S5yrYSdgMA_2dhjLRDZSF2HzmFCHzzOzA (1)_1762862046045.png";
+import { VoztraLogo } from "@/components/VoztraLogo";
 
 const PLAN_NAMES = {
   free: "Free Trial",
@@ -99,10 +99,10 @@ export default function Register() {
         {/* Header with Logo and Progress */}
         <div className="text-center space-y-6 mb-8 animate-in fade-in slide-in-from-top duration-500">
           <div className="flex justify-center">
-            <img 
-              src={voztraLogo} 
-              alt="Voztra" 
-              className="h-16 w-auto animate-in zoom-in duration-700"
+            <VoztraLogo 
+              width={200}
+              height={60}
+              className="text-slate-800 dark:text-white animate-in zoom-in duration-700"
             />
           </div>
           

@@ -6,8 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { Languages } from "lucide-react";
-import voztraLogo from "@assets/a-sleek-modern-logo-design-featuring-the_5jxbgs8hQvK5S5yrYSdgMA_2dhjLRDZSF2HzmFCHzzOzA (1)_1762862046045.png";
+import { VoztraLogo } from "@/components/VoztraLogo";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -50,10 +49,10 @@ export default function Login() {
       <Card className="w-full max-w-md" data-testid="card-login">
         <CardHeader className="space-y-4 text-center">
           <div className="flex justify-center">
-            <img 
-              src={voztraLogo} 
-              alt="Voztra" 
-              className="h-16 w-auto"
+            <VoztraLogo 
+              width={200}
+              height={60}
+              className="text-slate-800 dark:text-white"
             />
           </div>
           <div>
