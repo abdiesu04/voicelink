@@ -94,7 +94,7 @@ const VoiceTranslator = () => {
           <div className="max-w-5xl mx-auto text-center space-y-8">
             <h1 className="text-5xl md:text-7xl lg:text-8xl font-display font-bold tracking-tight leading-[1.1]">
               Erase every <br />
-              <span className="text-secondary">language barrier</span>
+              <span className="text-violet-400">language barrier</span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
               Voztra instantly translates your <span className="text-primary font-semibold">voice</span> into another language — same tone, same emotion, same gender — so you sound like a native speaker across <span className="text-primary font-semibold">140 languages</span>.
