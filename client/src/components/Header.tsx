@@ -16,6 +16,7 @@ import { VoztraLogo } from "@/components/VoztraLogo";
 export function Header() {
   const [location] = useLocation();
   const isAccount = location === "/account";
+  const isPricing = location === "/pricing";
   const { user, subscription } = useAuth();
 
   return (
@@ -36,16 +37,28 @@ export function Header() {
           {/* Navigation */}
           <nav className="hidden md:flex items-center gap-1">
             {user && (
-              <Link href="/account">
-                <div 
-                  className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors hover-elevate cursor-pointer ${
-                    isAccount ? 'text-foreground bg-secondary' : 'text-muted-foreground hover:text-foreground'
-                  }`}
-                  data-testid="nav-account"
-                >
-                  Account
-                </div>
-              </Link>
+              <>
+                <Link href="/pricing">
+                  <div 
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors hover-elevate cursor-pointer ${
+                      isPricing ? 'text-foreground bg-secondary' : 'text-muted-foreground hover:text-foreground'
+                    }`}
+                    data-testid="nav-pricing"
+                  >
+                    Pricing
+                  </div>
+                </Link>
+                <Link href="/account">
+                  <div 
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors hover-elevate cursor-pointer ${
+                      isAccount ? 'text-foreground bg-secondary' : 'text-muted-foreground hover:text-foreground'
+                    }`}
+                    data-testid="nav-account"
+                  >
+                    Account
+                  </div>
+                </Link>
+              </>
             )}
           </nav>
 
