@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Languages, Lock, Mic, CheckCircle, Sparkles, MessageSquare, ArrowRight, Volume2, Users, Clock, Shield, Briefcase, Quote, Globe2 } from "lucide-react";
+import { Languages, Lock, Mic, CheckCircle, Sparkles, MessageSquare, ArrowRight, Volume2, Users, Clock, Shield, Briefcase } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useAuth } from "@/lib/auth";
@@ -406,66 +406,39 @@ export default function Home() {
         </div>
       </section>
       {/* Testimonials Section */}
-      <section className="py-20 md:py-32 bg-gradient-to-b from-muted/30 via-background to-muted/20 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-20 left-20 w-72 h-72 bg-primary/20 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-20 right-20 w-96 h-96 bg-secondary/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '1s' }} />
-        </div>
-        
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16 space-y-4">
-              <h2 className="text-4xl md:text-6xl font-display font-bold">
-                When barriers disappear, <br className="hidden md:block" />connection begins
-              </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-                Real stories from people who've experienced the power of truly natural voice translation
-              </p>
-            </div>
-            
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {testimonials.map((testimonial, idx) => (
-                <Card 
-                  key={idx} 
-                  className="group relative p-8 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 hover:scale-105 bg-gradient-to-br from-card via-card to-card/80 border-2 hover:border-primary/50 overflow-hidden"
-                  style={{ animationDelay: `${idx * 100}ms` }}
-                  data-testid={`testimonial-${testimonial.name.toLowerCase().replace(/\s+/g, '-')}`}
-                >
-                  <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  
-                  <div className="relative z-10">
-                    <div className="mb-6 flex items-center gap-4">
-                      <img 
-                        src={testimonial.image} 
-                        alt={testimonial.name}
-                        className="w-16 h-16 rounded-full object-cover ring-2 ring-primary/20 group-hover:ring-primary/50 transition-all duration-300 group-hover:scale-110"
-                      />
-                      <Quote className="w-10 h-10 text-primary/30 group-hover:text-primary/60 transition-colors duration-300 ml-auto" />
-                    </div>
-                    
-                    <p className="text-lg leading-relaxed mb-6 group-hover:text-foreground transition-colors duration-300">
-                      "{testimonial.quote}"
-                    </p>
-                    
-                    <div className="pt-4 border-t border-border/50">
-                      <p className="font-semibold text-foreground group-hover:text-primary transition-colors duration-300">
-                        {testimonial.name}
-                      </p>
-                      <p className="text-sm text-muted-foreground flex items-center gap-1 mt-1">
-                        <Globe2 className="w-3 h-3" />
-                        {testimonial.location}
-                      </p>
+      <section className="py-20 md:py-32 bg-white dark:bg-slate-950">
+        <div className="container mx-auto px-6 md:px-12">
+          <div className="text-center mb-16 space-y-4">
+            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white">
+              When barriers disappear,<br />connection begins
+            </h2>
+          </div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+            {testimonials.map((testimonial, idx) => (
+              <Card 
+                key={idx}
+                className="bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:shadow-xl transition-shadow"
+                data-testid={`testimonial-${testimonial.name.toLowerCase().replace(/\s+/g, '-')}`}
+              >
+                <CardContent className="p-8 space-y-4">
+                  <div className="flex items-center gap-4">
+                    <img 
+                      src={testimonial.image} 
+                      alt={testimonial.name}
+                      className="h-14 w-14 rounded-full object-cover ring-2 ring-primary/20"
+                    />
+                    <div>
+                      <div className="font-semibold text-slate-900 dark:text-white">{testimonial.name}</div>
+                      <div className="text-sm text-slate-500 dark:text-slate-400">{testimonial.location}</div>
                     </div>
                   </div>
-                </Card>
-              ))}
-            </div>
-            
-            <div className="mt-16 text-center">
-              <p className="text-2xl font-display font-semibold bg-gradient-primary bg-clip-text text-transparent">
-                Join thousands connecting across languages every day
-              </p>
-            </div>
+                  <p className="text-slate-600 dark:text-slate-300 italic leading-relaxed">
+                    "{testimonial.quote}"
+                  </p>
+                </CardContent>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
