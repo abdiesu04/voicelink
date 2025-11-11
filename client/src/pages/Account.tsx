@@ -92,11 +92,45 @@ function AccountContent() {
   if (!subscription) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-background via-background to-primary/5 dark:from-gray-900 dark:via-gray-900 dark:to-indigo-950/20 flex items-center justify-center p-4">
-        <Card>
+        <Card className="max-w-md">
           <CardHeader>
-            <CardTitle>No Subscription Found</CardTitle>
-            <CardDescription>Please contact support if you believe this is an error.</CardDescription>
+            <CardTitle className="text-red-400">No Subscription Found</CardTitle>
+            <CardDescription>
+              We couldn't find an active subscription for your account. This is unusual and may indicate a technical issue.
+            </CardDescription>
           </CardHeader>
+          <CardContent className="space-y-4">
+            <div className="space-y-2">
+              <p className="text-sm text-muted-foreground">
+                Possible reasons:
+              </p>
+              <ul className="text-sm text-muted-foreground list-disc list-inside space-y-1">
+                <li>Your account was just created and the subscription is still being set up</li>
+                <li>A technical error occurred during registration</li>
+                <li>Your subscription was accidentally removed</li>
+              </ul>
+            </div>
+            <div className="flex gap-3">
+              <Button 
+                onClick={() => window.location.reload()} 
+                variant="default"
+                className="bg-gradient-to-r from-violet-500 to-purple-500 hover:from-violet-600 hover:to-purple-600"
+                data-testid="button-retry"
+              >
+                Refresh Page
+              </Button>
+              <Button 
+                onClick={() => navigate("/pricing")} 
+                variant="outline"
+                data-testid="button-pricing"
+              >
+                View Plans
+              </Button>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              If this issue persists, please try logging out and logging back in, or contact our support team for assistance.
+            </p>
+          </CardContent>
         </Card>
       </div>
     );
