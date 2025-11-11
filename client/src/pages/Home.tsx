@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import { Languages, Lock, Mic, CheckCircle, Sparkles, MessageSquare, ArrowRight, Volume2, Users, Clock, Shield, Briefcase } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { useAuth } from "@/lib/auth";
 
 // Import real user images
 import userImage1 from "@assets/stock_images/young_professional_w_0a0f2557.jpg";
@@ -104,6 +105,8 @@ const testimonials = [
 ];
 
 export default function Home() {
+  const { user } = useAuth();
+
   return (
     <div className="min-h-screen bg-white dark:bg-slate-950">
       {/* Hero Section with Flag Collage & Floating Elements */}
@@ -607,11 +610,11 @@ export default function Home() {
               <div>
                 <h4 className="font-semibold text-slate-900 dark:text-white mb-4">Company</h4>
                 <ul className="space-y-2 text-slate-600 dark:text-slate-300">
-                  <li><a href="#" className="hover:text-primary transition-colors">About Us</a></li>
                   <li><Link href="/privacy-policy" className="hover:text-primary transition-colors" data-testid="link-privacy-policy">Privacy Policy</Link></li>
                   <li><Link href="/california-privacy-policy" className="hover:text-primary transition-colors" data-testid="link-california-privacy">California Privacy Policy</Link></li>
-                  <li><a href="#" className="hover:text-primary transition-colors">Terms of Service</a></li>
-                  <li><a href="#" className="hover:text-primary transition-colors">Contact</a></li>
+                  {user && (
+                    <li><a href="#" className="hover:text-primary transition-colors" data-testid="link-contact-us">Contact Us</a></li>
+                  )}
                 </ul>
               </div>
               
