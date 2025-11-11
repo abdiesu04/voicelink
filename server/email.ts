@@ -1,62 +1,76 @@
-import nodemailer from "nodemailer";
 import crypto from "crypto";
 
-// Email configuration
-const EMAIL_FROM = process.env.EMAIL_FROM || "noreply@voztra.com";
-const EMAIL_HOST = process.env.EMAIL_HOST || "smtp.gmail.com";
-const EMAIL_PORT = process.env.EMAIL_PORT ? parseInt(process.env.EMAIL_PORT) : 587;
-const EMAIL_USER = process.env.EMAIL_USER;
-const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD;
+const RESEND_API_KEY = process.env.RESEND_API_KEY;
+const EMAIL_FROM = process.env.EMAIL_FROM || "onboarding@resend.dev";
 
-// Create reusable transporter
-const createTransporter = () => {
-  // In development, use console logging if credentials not set
-  if (!EMAIL_USER || !EMAIL_PASSWORD) {
-    console.warn("⚠️  Email credentials not configured. Verification emails will be logged to console.");
-    return nodemailer.createTransport({
-      streamTransport: true,
-      newline: "unix",
-      buffer: true,
-    });
-  }
-
-  return nodemailer.createTransport({
-    host: EMAIL_HOST,
-    port: EMAIL_PORT,
-    secure: EMAIL_PORT === 465,
-    auth: {
-      user: EMAIL_USER,
-      pass: EMAIL_PASSWORD,
-    },
-  });
-};
-
-// Generate secure verification token
 export function generateVerificationToken(): string {
   return crypto.randomBytes(32).toString("hex");
 }
 
-// Generate token expiry (24 hours from now)
 export function generateTokenExpiry(): Date {
   return new Date(Date.now() + 24 * 60 * 60 * 1000);
 }
 
-// Send verification email
+async function sendResendEmail(payload: {
+  from: string;
+  to: string;
+  subject: string;
+  html: string;
+  text?: string;
+}): Promise<boolean> {
+  if (!RESEND_API_KEY) {
+    console.warn("⚠️  RESEND_API_KEY not configured. Email will be logged to console.");
+    console.log("\n📧 Email (Development Mode):");
+    console.log("From:", payload.from);
+    console.log("To:", payload.to);
+    console.log("Subject:", payload.subject);
+    console.log("\n");
+    return true;
+  }
+
+  try {
+    const response = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${RESEND_API_KEY}`,
+      },
+      body: JSON.stringify(payload),
+    });
+
+    if (!response.ok) {
+      const error = await response.text();
+      console.error("❌ Resend API error:", response.status, error);
+      return false;
+    }
+
+    const data = await response.json();
+    
+    if (!data.id) {
+      console.error("❌ Email failed: No ID returned");
+      return false;
+    }
+
+    console.log("✅ Email sent successfully - ID:", data.id);
+    return true;
+  } catch (error) {
+    console.error("❌ Failed to send email via Resend:", error);
+    return false;
+  }
+}
+
 export async function sendVerificationEmail(
   email: string,
   token: string
 ): Promise<boolean> {
-  const transporter = createTransporter();
-  
-  // Get the base URL from environment or use default
   const baseUrl = process.env.REPL_SLUG 
     ? `https://${process.env.REPL_SLUG}.${process.env.REPL_OWNER}.repl.co`
     : process.env.BASE_URL || "http://localhost:5000";
   
   const verificationUrl = `${baseUrl}/verify-email?token=${token}`;
 
-  const mailOptions = {
-    from: `"Voztra" <${EMAIL_FROM}>`,
+  const payload = {
+    from: `Voztra <${EMAIL_FROM}>`,
     to: email,
     subject: "Verify Your Email - Voztra",
     html: `
@@ -142,49 +156,27 @@ Real-time voice translation for everyone.
     `.trim(),
   };
 
-  try {
-    const info = await transporter.sendMail(mailOptions);
-    
-    // In development mode, log the email content
-    if (!EMAIL_USER || !EMAIL_PASSWORD) {
-      console.log("\n📧 Verification Email (Development Mode):");
-      console.log("To:", email);
-      console.log("Verification URL:", verificationUrl);
-      console.log("Token:", token);
-      console.log("Expires:", generateTokenExpiry().toISOString());
-      console.log("\n");
-      return true; // Development mode always succeeds
-    }
-    
-    // Check if email was actually sent
-    if (!info || !info.messageId) {
-      console.error("❌ Email failed: No message ID returned");
-      return false;
-    }
-    
-    console.log("✅ Verification email sent to:", email, "- Message ID:", info.messageId);
-    return true;
-  } catch (error) {
-    console.error("❌ Failed to send verification email:", error);
-    return false;
+  if (!RESEND_API_KEY) {
+    console.log("Verification URL:", verificationUrl);
+    console.log("Token:", token);
+    console.log("Expires:", generateTokenExpiry().toISOString());
   }
+
+  return sendResendEmail(payload);
 }
 
-// Send password reset email (for future use)
 export async function sendPasswordResetEmail(
   email: string,
   token: string
 ): Promise<boolean> {
-  const transporter = createTransporter();
-  
   const baseUrl = process.env.REPL_SLUG 
     ? `https://${process.env.REPL_SLUG}.${process.env.REPL_OWNER}.repl.co`
     : process.env.BASE_URL || "http://localhost:5000";
   
   const resetUrl = `${baseUrl}/reset-password?token=${token}`;
 
-  const mailOptions = {
-    from: `"Voztra" <${EMAIL_FROM}>`,
+  const payload = {
+    from: `Voztra <${EMAIL_FROM}>`,
     to: email,
     subject: "Reset Your Password - Voztra",
     html: `
@@ -258,27 +250,9 @@ The Voztra Team
     `.trim(),
   };
 
-  try {
-    const info = await transporter.sendMail(mailOptions);
-    
-    if (!EMAIL_USER || !EMAIL_PASSWORD) {
-      console.log("\n📧 Password Reset Email (Development Mode):");
-      console.log("To:", email);
-      console.log("Reset URL:", resetUrl);
-      console.log("\n");
-      return true; // Development mode always succeeds
-    }
-    
-    // Check if email was actually sent
-    if (!info || !info.messageId) {
-      console.error("❌ Email failed: No message ID returned");
-      return false;
-    }
-    
-    console.log("✅ Password reset email sent to:", email, "- Message ID:", info.messageId);
-    return true;
-  } catch (error) {
-    console.error("❌ Failed to send password reset email:", error);
-    return false;
+  if (!RESEND_API_KEY) {
+    console.log("Password Reset URL:", resetUrl);
   }
+
+  return sendResendEmail(payload);
 }

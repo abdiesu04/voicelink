@@ -66,4 +66,5 @@ Voztra implements a three-tier credit-based subscription model:
 - **Azure Speech Services**: Used for Speech-to-Text (STT) transcription and Text-to-Speech (TTS) synthesis, including gender-specific Neural voices.
 - **Azure Translator API**: Utilized for text translation between spoken languages.
 - **Microsoft Cognitive Services Speech SDK**: Integrated on both client and server for interacting with Azure Speech Services.
+- **Resend**: Modern email API service used for sending transactional emails (verification emails, password resets). Configured via `RESEND_API_KEY` environment variable.
 - **Axios**: Used for making HTTP requests to external APIs.
