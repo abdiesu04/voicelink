@@ -16,16 +16,20 @@ export interface IStorage {
   createUser(email: string, passwordHash: string): Promise<User>;
   getUserByEmail(email: string): Promise<User | undefined>;
   getUserById(id: number): Promise<User | undefined>;
+  setUserStripeCustomerId(userId: number, stripeCustomerId: string): Promise<User>;
 
   // Subscription methods
   createSubscription(userId: number, plan: SubscriptionPlan): Promise<Subscription>;
   getSubscription(userId: number): Promise<Subscription | undefined>;
+  getSubscriptionByStripeId(stripeSubscriptionId: string): Promise<Subscription | undefined>;
   updateSubscription(userId: number, data: Partial<Subscription>): Promise<Subscription | undefined>;
   upgradeSubscription(userId: number, newPlan: SubscriptionPlan): Promise<Subscription>;
   cancelSubscription(userId: number): Promise<Subscription | undefined>;
   deductCredits(userId: number, seconds: number): Promise<{ success: boolean; creditsRemaining: number; }>;
   consumeCredits(userId: number, seconds: number): Promise<{ success: boolean; creditsRemaining: number; exhausted: boolean; }>;
   handleBillingCycle(userId: number): Promise<Subscription | undefined>;
+  setSubscriptionStripeInfo(userId: number, stripeSubscriptionId: string, stripePriceId: string): Promise<Subscription | undefined>;
+  clearSubscriptionStripeInfo(userId: number): Promise<Subscription | undefined>;
 
   // Room methods
   createRoom(userId: number, language: string, voiceGender: "male" | "female"): Promise<Room>;
@@ -57,6 +61,19 @@ export class PgStorage implements IStorage {
 
   async getUserById(id: number): Promise<User | undefined> {
     const [user] = await db.select().from(schema.users).where(eq(schema.users.id, id));
+    return user;
+  }
+
+  async setUserStripeCustomerId(userId: number, stripeCustomerId: string): Promise<User> {
+    const [user] = await db.update(schema.users)
+      .set({ stripeCustomerId })
+      .where(eq(schema.users.id, userId))
+      .returning();
+    
+    if (!user) {
+      throw new Error(`User with ID ${userId} not found`);
+    }
+    
     return user;
   }
 
@@ -94,6 +111,47 @@ export class PgStorage implements IStorage {
       .orderBy(desc(schema.subscriptions.updatedAt))
       .limit(1);
     return subscription;
+  }
+
+  async getSubscriptionByStripeId(stripeSubscriptionId: string): Promise<Subscription | undefined> {
+    const [subscription] = await db.select()
+      .from(schema.subscriptions)
+      .where(and(
+        eq(schema.subscriptions.stripeSubscriptionId, stripeSubscriptionId),
+        eq(schema.subscriptions.isActive, true)
+      ))
+      .orderBy(desc(schema.subscriptions.updatedAt))
+      .limit(1);
+    return subscription;
+  }
+
+  async setSubscriptionStripeInfo(userId: number, stripeSubscriptionId: string, stripePriceId: string): Promise<Subscription | undefined> {
+    const [updated] = await db.update(schema.subscriptions)
+      .set({
+        stripeSubscriptionId,
+        stripePriceId,
+        updatedAt: new Date(),
+      })
+      .where(and(
+        eq(schema.subscriptions.userId, userId),
+        eq(schema.subscriptions.isActive, true)
+      ))
+      .returning();
+    return updated;
+  }
+
+  async clearSubscriptionStripeInfo(userId: number): Promise<Subscription | undefined> {
+    // Clear Stripe info from the most recent subscription (active or not)
+    // This allows webhooks to clear IDs even after subscription cancellation
+    const [updated] = await db.update(schema.subscriptions)
+      .set({
+        stripeSubscriptionId: null,
+        stripePriceId: null,
+        updatedAt: new Date(),
+      })
+      .where(eq(schema.subscriptions.userId, userId))
+      .returning();
+    return updated;
   }
 
   async updateSubscription(userId: number, data: Partial<Subscription>): Promise<Subscription | undefined> {
