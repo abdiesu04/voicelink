@@ -71,6 +71,12 @@ export default function Register() {
 
     try {
       await register(email, password, confirmPassword);
+      
+      // Fire Facebook Pixel CompleteRegistration event
+      if (typeof window !== 'undefined' && window.fbq) {
+        window.fbq('track', 'CompleteRegistration');
+      }
+      
       setStep(2);
       setTimeout(() => {
         setLocation("/");
