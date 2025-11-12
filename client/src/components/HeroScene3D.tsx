@@ -8,7 +8,7 @@ import { Mic } from 'lucide-react';
 // Professional Microphone Display with 3D effects
 function ProfessionalMicrophone() {
   const micRef = useRef<HTMLDivElement>(null);
-  const particlesRef = useRef<(HTMLDivElement | null)[]>([]);
+  const waveRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     if (!micRef.current) return;
@@ -18,35 +18,33 @@ function ProfessionalMicrophone() {
 
     // Gentle breathing pulse effect
     tl.to(micRef.current, {
-      scale: 1.05,
-      duration: 2,
+      scale: 1.08,
+      duration: 2.5,
       ease: 'sine.inOut',
     })
     .to(micRef.current, {
       scale: 1,
-      duration: 2,
+      duration: 2.5,
       ease: 'sine.inOut',
     });
 
-    // Color morphing effect
-    gsap.to(micRef.current, {
-      background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #3b82f6 100%)',
-      duration: 3,
-      repeat: -1,
-      yoyo: true,
-      ease: 'sine.inOut',
-    });
-
-    // Animate orbiting particles
-    particlesRef.current.forEach((particle, index) => {
-      if (particle) {
-        gsap.to(particle, {
-          rotation: 360,
-          duration: 4 + index,
-          repeat: -1,
-          ease: 'none',
-          transformOrigin: 'center center',
-        });
+    // Animate sound waves
+    waveRefs.current.forEach((wave, index) => {
+      if (wave) {
+        gsap.fromTo(wave, 
+          {
+            scale: 0.5,
+            opacity: 0.8,
+          },
+          {
+            scale: 1.5,
+            opacity: 0,
+            duration: 2,
+            repeat: -1,
+            delay: index * 0.5,
+            ease: 'power1.out',
+          }
+        );
       }
     });
 
@@ -57,50 +55,75 @@ function ProfessionalMicrophone() {
 
   return (
     <div className="relative flex items-center justify-center">
-      {/* Outer glow rings */}
+      {/* Outer glow rings - oval shaped */}
       <div className="absolute inset-0 flex items-center justify-center">
-        <div className="absolute w-64 h-64 md:w-80 md:h-80 rounded-full border-2 border-indigo-400/20 animate-ping" style={{ animationDuration: '3s' }} />
-        <div className="absolute w-56 h-56 md:w-72 md:h-72 rounded-full border-2 border-violet-400/30 animate-ping" style={{ animationDuration: '2.5s' }} />
-        <div className="absolute w-48 h-48 md:w-64 md:h-64 rounded-full border-2 border-blue-400/40 animate-ping" style={{ animationDuration: '2s' }} />
+        <div className="absolute w-72 h-80 md:w-96 md:h-[28rem] rounded-full border-2 border-indigo-400/20 animate-ping" style={{ animationDuration: '3s', borderRadius: '50%' }} />
+        <div className="absolute w-64 h-72 md:w-80 md:h-96 rounded-full border-2 border-indigo-300/30 animate-ping" style={{ animationDuration: '2.5s', borderRadius: '50%' }} />
+        <div className="absolute w-56 h-64 md:w-72 md:h-80 rounded-full border-2 border-indigo-400/40 animate-ping" style={{ animationDuration: '2s', borderRadius: '50%' }} />
       </div>
 
-      {/* Main microphone container */}
+      {/* Main microphone container - OVAL shape */}
       <div
         ref={micRef}
-        className="relative w-40 h-40 md:w-56 md:h-56 lg:w-64 lg:h-64 rounded-3xl flex items-center justify-center shadow-2xl"
+        className="relative flex items-center justify-center shadow-2xl overflow-hidden"
         style={{
-          background: 'linear-gradient(135deg, #6366f1, #8b5cf6, #3b82f6)',
-          transform: 'perspective(1000px) rotateX(5deg) rotateY(-5deg)',
-          boxShadow: '0 25px 60px rgba(99, 102, 241, 0.5), 0 0 100px rgba(139, 92, 246, 0.3)',
+          width: '180px',
+          height: '220px',
+          borderRadius: '50%',
+          background: 'linear-gradient(180deg, #6366f1 0%, #4f46e5 100%)',
+          transform: 'perspective(1000px) rotateX(5deg)',
+          boxShadow: '0 30px 80px rgba(99, 102, 241, 0.6), 0 0 120px rgba(79, 70, 229, 0.4), inset 0 -20px 60px rgba(0, 0, 0, 0.2)',
         }}
         data-testid="hero-microphone"
       >
-        {/* Orbiting particles */}
-        {[0, 1, 2, 3, 4, 5].map((i) => (
+        {/* Responsive sizing for larger screens */}
+        <style dangerouslySetInnerHTML={{__html: `
+          @media (min-width: 768px) {
+            [data-testid="hero-microphone"] {
+              width: 240px;
+              height: 280px;
+            }
+          }
+          @media (min-width: 1024px) {
+            [data-testid="hero-microphone"] {
+              width: 280px;
+              height: 320px;
+            }
+          }
+        `}} />
+
+        {/* Sound waves emanating from mic */}
+        {[0, 1, 2].map((i) => (
           <div
             key={i}
-            ref={(el) => (particlesRef.current[i] = el)}
-            className="absolute w-3 h-3 md:w-4 md:h-4 rounded-full bg-white/80 shadow-lg"
+            ref={(el) => (waveRefs.current[i] = el)}
+            className="absolute rounded-full border-4 border-white/40"
             style={{
-              top: '50%',
-              left: '50%',
-              transform: `rotate(${i * 60}deg) translateY(-${80 + i * 5}px)`,
+              width: '100%',
+              height: '100%',
+              top: 0,
+              left: 0,
             }}
           />
         ))}
 
         {/* Central microphone icon */}
         <div className="relative z-10">
-          <Mic className="w-20 h-20 md:w-28 md:h-28 lg:w-32 lg:h-32 text-white drop-shadow-2xl" strokeWidth={1.5} />
+          <Mic className="w-24 h-24 md:w-32 md:h-32 lg:w-36 lg:h-36 text-white drop-shadow-2xl" strokeWidth={1.5} />
         </div>
 
-        {/* Inner glow effect */}
-        <div className="absolute inset-8 md:inset-12 rounded-full bg-white/10 backdrop-blur-sm" />
+        {/* Subtle inner highlight */}
+        <div 
+          className="absolute top-8 left-1/2 -translate-x-1/2 w-24 h-24 md:w-32 md:h-32 rounded-full bg-white/20 blur-2xl" 
+          style={{ filter: 'blur(40px)' }}
+        />
       </div>
 
-      {/* Floating accent elements */}
-      <div className="absolute top-1/4 -left-8 md:-left-12 w-20 h-20 md:w-24 md:h-24 rounded-full bg-gradient-to-br from-indigo-500/20 to-violet-500/20 backdrop-blur-sm animate-float" style={{ animationDelay: '0s' }} />
-      <div className="absolute bottom-1/4 -right-8 md:-right-12 w-16 h-16 md:w-20 md:h-20 rounded-full bg-gradient-to-br from-violet-500/20 to-blue-500/20 backdrop-blur-sm animate-float" style={{ animationDelay: '1s' }} />
+      {/* Floating accent particles */}
+      <div className="absolute top-0 left-1/4 w-3 h-3 md:w-4 md:h-4 rounded-full bg-indigo-300/60 animate-float" style={{ animationDelay: '0s', animationDuration: '4s' }} />
+      <div className="absolute bottom-8 right-1/4 w-2 h-2 md:w-3 md:h-3 rounded-full bg-indigo-400/60 animate-float" style={{ animationDelay: '1s', animationDuration: '5s' }} />
+      <div className="absolute top-1/3 -left-4 w-2.5 h-2.5 md:w-3.5 md:h-3.5 rounded-full bg-indigo-200/60 animate-float" style={{ animationDelay: '2s', animationDuration: '6s' }} />
+      <div className="absolute bottom-1/3 -right-4 w-2 h-2 md:w-3 md:h-3 rounded-full bg-indigo-300/60 animate-float" style={{ animationDelay: '1.5s', animationDuration: '5.5s' }} />
     </div>
   );
 }
@@ -110,13 +133,16 @@ function StaticFallback() {
   return (
     <div className="w-full h-full flex items-center justify-center" data-testid="hero-static-fallback">
       <div
-        className="relative w-48 h-48 md:w-64 md:h-64 rounded-3xl flex items-center justify-center shadow-2xl"
+        className="relative flex items-center justify-center shadow-2xl"
         style={{
-          background: 'linear-gradient(135deg, #6366f1, #8b5cf6, #3b82f6)',
-          boxShadow: '0 25px 60px rgba(99, 102, 241, 0.4)',
+          width: '200px',
+          height: '240px',
+          borderRadius: '50%',
+          background: 'linear-gradient(180deg, #6366f1 0%, #4f46e5 100%)',
+          boxShadow: '0 30px 80px rgba(99, 102, 241, 0.6), 0 0 120px rgba(79, 70, 229, 0.4)',
         }}
       >
-        <Mic className="w-24 h-24 md:w-32 md:h-32 text-white" strokeWidth={1.5} />
+        <Mic className="w-28 h-28 md:w-32 md:h-32 text-white" strokeWidth={1.5} />
       </div>
     </div>
   );
