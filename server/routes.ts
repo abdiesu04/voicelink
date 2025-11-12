@@ -44,6 +44,64 @@ const roomConnections = new Map<string, WebSocket[]>();
 const activeSessions = new Map<string, SessionTracking>(); // roomId -> session tracking
 const broadcastedMessageIds = new Map<string, Map<string, number>>(); // roomId -> Map<dedupeKey, timestamp> for TTL-based deduplication
 
+// Fuzzy matching deduplication: track recent messages per speaker to catch near-identical duplicates
+interface RecentMessage {
+  originalText: string;
+  translatedText: string;
+  timestamp: number;
+}
+const recentMessagesByRoomSpeaker = new Map<string, RecentMessage[]>(); // key: `${roomId}|${speaker}` -> last N messages
+
+// Levenshtein distance for fuzzy text matching
+function levenshteinDistance(a: string, b: string): number {
+  if (a.length === 0) return b.length;
+  if (b.length === 0) return a.length;
+
+  const matrix: number[][] = [];
+
+  for (let i = 0; i <= b.length; i++) {
+    matrix[i] = [i];
+  }
+
+  for (let j = 0; j <= a.length; j++) {
+    matrix[0][j] = j;
+  }
+
+  for (let i = 1; i <= b.length; i++) {
+    for (let j = 1; j <= a.length; j++) {
+      if (b.charAt(i - 1) === a.charAt(j - 1)) {
+        matrix[i][j] = matrix[i - 1][j - 1];
+      } else {
+        matrix[i][j] = Math.min(
+          matrix[i - 1][j - 1] + 1,
+          matrix[i][j - 1] + 1,
+          matrix[i - 1][j] + 1
+        );
+      }
+    }
+  }
+
+  return matrix[b.length][a.length];
+}
+
+// Calculate similarity ratio (0 to 1, where 1 is identical)
+function textSimilarity(text1: string, text2: string): number {
+  // Normalize: Unicode-aware normalization, lowercase, and remove punctuation/symbols
+  // Uses NFKC normalization to handle Unicode variants, then removes only punctuation and symbols
+  // This preserves non-Latin characters (Japanese, Arabic, Chinese, etc.)
+  const normalize = (s: string) => s.normalize('NFKC').toLowerCase().replace(/[\p{P}\p{S}]/gu, '').trim();
+  const a = normalize(text1);
+  const b = normalize(text2);
+  
+  if (a === b) return 1.0;
+  if (a.length === 0 && b.length === 0) return 1.0;
+  if (a.length === 0 || b.length === 0) return 0.0;
+  
+  const maxLen = Math.max(a.length, b.length);
+  const distance = levenshteinDistance(a, b);
+  return 1 - (distance / maxLen);
+}
+
 // Helper function to get userId from WebSocket session
 async function getUserIdFromWebSocketSession(req: any): Promise<number | null> {
   try {
@@ -129,6 +187,12 @@ function endSession(roomId: string, reason: 'participant-left' | 'creator-left' 
   
   roomConnections.delete(roomId);
   broadcastedMessageIds.delete(roomId); // Clean up server-side deduplication tracking
+  
+  // Clean up fuzzy deduplication tracking for both creator and participant
+  recentMessagesByRoomSpeaker.delete(`${roomId}|creator`);
+  recentMessagesByRoomSpeaker.delete(`${roomId}|participant`);
+  console.log(`[Memory Cleanup] 🧹 Cleared fuzzy dedup tracking for room ${roomId}`);
+  
   storage.deleteRoom(roomId);
   
   console.log(`[Session] Cleaned up room ${roomId}, notified ${clients.length} clients, cleared deduplication tracking`);
@@ -804,11 +868,57 @@ export async function registerRoutes(app: Express): Promise<Server> {
             const translationCompleteTimestamp = Date.now();
             console.log(`[Translation] ⏱️ Translation completed in ${translationCompleteTimestamp - transcriptionTimestamp}ms: "${text}" → "${translatedText}"`);
 
+            const now = Date.now();
+            
+            // FUZZY MATCHING DEDUPLICATION: Check for near-identical messages within time window
+            // This catches Azure Speech SDK producing slightly different transcriptions ("Former" vs "Formal")
+            const FUZZY_SIMILARITY_THRESHOLD = 0.82; // 82% similarity required to be considered duplicate
+            const FUZZY_TIME_WINDOW_MS = 2000; // 2 seconds - duplicates arrive within this window
+            const MAX_RECENT_MESSAGES = 5; // Compare against last 5 messages per speaker
+            
+            const speakerKey = `${roomId}|${connection.role}`;
+            if (!recentMessagesByRoomSpeaker.has(speakerKey)) {
+              recentMessagesByRoomSpeaker.set(speakerKey, []);
+            }
+            
+            const recentMessages = recentMessagesByRoomSpeaker.get(speakerKey)!;
+            
+            // Clean up old messages outside time window
+            const validMessages = recentMessages.filter(msg => now - msg.timestamp <= FUZZY_TIME_WINDOW_MS);
+            recentMessagesByRoomSpeaker.set(speakerKey, validMessages);
+            
+            // Check similarity against recent messages
+            for (const recentMsg of validMessages) {
+              const originalSimilarity = textSimilarity(text, recentMsg.originalText);
+              const translatedSimilarity = textSimilarity(translatedText, recentMsg.translatedText);
+              
+              if (originalSimilarity >= FUZZY_SIMILARITY_THRESHOLD && translatedSimilarity >= FUZZY_SIMILARITY_THRESHOLD) {
+                const timeSinceOriginal = now - recentMsg.timestamp;
+                console.warn(`[Fuzzy Deduplication] ⛔ NEAR-DUPLICATE DETECTED AND BLOCKED!`);
+                console.warn(`[Fuzzy Deduplication] 📝 Original: "${recentMsg.originalText}" → "${recentMsg.translatedText}"`);
+                console.warn(`[Fuzzy Deduplication] 🔁 Current:  "${text}" → "${translatedText}"`);
+                console.warn(`[Fuzzy Deduplication] 📊 Similarity: Original=${(originalSimilarity * 100).toFixed(1)}%, Translated=${(translatedSimilarity * 100).toFixed(1)}%`);
+                console.warn(`[Fuzzy Deduplication] ⏱️ Time since first message: ${timeSinceOriginal}ms (window: ${FUZZY_TIME_WINDOW_MS}ms)`);
+                console.warn(`[Fuzzy Deduplication] 🔍 This is likely Azure Speech SDK producing slightly different transcriptions of the same audio`);
+                return; // Block this duplicate
+              }
+            }
+            
+            // Add current message to recent messages (keep only last N)
+            validMessages.push({
+              originalText: text,
+              translatedText,
+              timestamp: now
+            });
+            if (validMessages.length > MAX_RECENT_MESSAGES) {
+              validMessages.shift(); // Remove oldest
+            }
+            console.log(`[Fuzzy Deduplication] ✅ Message passed fuzzy check. Recent messages for speaker: ${validMessages.length}`);
+
             // SERVER-SIDE DEDUPLICATION: Create content-based stable key WITHOUT timestamp
             // This prevents Azure Speech SDK from triggering duplicate broadcasts if 'recognized' event fires twice
             // Use full text (not truncated) to avoid false positives from long messages with shared prefixes
             const dedupeKey = `${connection.role}|${text}|${translatedText}`;
-            const now = Date.now();
             const DEDUPE_TTL_MS = 5000; // 5 second TTL: same content within 5s = duplicate, after 5s = legitimate repetition
             
             if (!broadcastedMessageIds.has(roomId)) {
@@ -936,6 +1046,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         // This ensures the other user is notified and credits stop immediately
         const sessionReason = role === 'creator' ? 'creator-left' : 'participant-left';
         endSession(roomId, sessionReason);
+        
+        // Clean up fuzzy deduplication tracking for this speaker
+        const speakerKey = `${roomId}|${role}`;
+        recentMessagesByRoomSpeaker.delete(speakerKey);
+        console.log(`[Memory Cleanup] 🧹 Cleared recent messages for ${speakerKey}`);
         
         connections.delete(ws);
       }
