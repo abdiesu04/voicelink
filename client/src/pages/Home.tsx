@@ -3,6 +3,10 @@ import { Languages, Lock, Mic, CheckCircle, Sparkles, MessageSquare, ArrowRight,
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useAuth } from "@/lib/auth";
+import { lazy, Suspense, useState, useEffect } from "react";
+
+// Lazy load the 3D scene for better performance
+const HeroScene3D = lazy(() => import("@/components/HeroScene3D"));
 
 // Import real user images
 import userImage1 from "@assets/stock_images/young_professional_w_0a0f2557.jpg";
@@ -103,6 +107,26 @@ const testimonials = [
     image: userImage1
   }
 ];
+
+// Loading fallback for 3D scene
+function Scene3DFallback() {
+  return (
+    <div className="w-full h-full flex items-center justify-center">
+      <div className="relative">
+        {/* Animated gradient background */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <div className="w-72 h-72 rounded-full bg-gradient-to-br from-indigo-500/30 via-violet-500/30 to-blue-500/30 blur-3xl animate-pulse" />
+        </div>
+        
+        {/* Loading spinner */}
+        <div className="relative w-48 h-48 flex items-center justify-center">
+          <div className="absolute w-full h-full rounded-full border-4 border-indigo-400/20 border-t-indigo-500 animate-spin" />
+          <Languages className="h-16 w-16 text-indigo-500" />
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function Home() {
   const { user } = useAuth();
@@ -261,120 +285,12 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right Column: Animated Speaking Microphone */}
+            {/* Right Column: 3D Translation Animation */}
             <div className="flex items-center justify-center md:justify-end relative">
-              <div className="relative w-full max-w-md h-96 flex items-center justify-center">
-                
-                {/* Expanding Sound Wave Rings - Speech Animation */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="absolute w-64 h-64 rounded-full border-2 border-indigo-400/40 animate-ping" style={{ animationDuration: '2s' }} />
-                  <div className="absolute w-72 h-72 rounded-full border-2 border-violet-400/30 animate-ping" style={{ animationDuration: '2.5s', animationDelay: '0.3s' }} />
-                  <div className="absolute w-80 h-80 rounded-full border-2 border-blue-400/20 animate-ping" style={{ animationDuration: '3s', animationDelay: '0.6s' }} />
-                </div>
-                
-                {/* Main Microphone Orb with Breathing Animation */}
-                <div className="relative">
-                  {/* Animated Gradient Background - Color Shifting for Translation */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="w-72 h-72 rounded-full bg-gradient-to-br from-indigo-500/30 via-violet-500/30 to-blue-500/30 blur-3xl animate-pulse" />
-                  </div>
-                  
-                  {/* Core Microphone Circle */}
-                  <div className="relative w-64 h-64 md:w-72 md:h-72 rounded-full bg-gradient-to-br from-indigo-500 via-violet-500 to-blue-500 shadow-2xl flex items-center justify-center group">
-                    
-                    {/* Breathing/Pulsing Animation */}
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-indigo-400 via-violet-400 to-blue-400 opacity-0 group-hover:opacity-100 animate-pulse transition-opacity" />
-                    
-                    {/* Color Cycle Animation - Translation in Progress */}
-                    <style dangerouslySetInnerHTML={{__html: `
-                      @keyframes colorCycle {
-                        0%, 100% { 
-                          background: linear-gradient(135deg, rgb(99, 102, 241), rgb(139, 92, 246), rgb(59, 130, 246));
-                        }
-                        33% { 
-                          background: linear-gradient(135deg, rgb(139, 92, 246), rgb(59, 130, 246), rgb(16, 185, 129));
-                        }
-                        66% { 
-                          background: linear-gradient(135deg, rgb(59, 130, 246), rgb(16, 185, 129), rgb(99, 102, 241));
-                        }
-                      }
-                      @keyframes breathe {
-                        0%, 100% { transform: scale(1); }
-                        50% { transform: scale(1.05); }
-                      }
-                      .mic-orb {
-                        animation: colorCycle 6s ease-in-out infinite, breathe 3s ease-in-out infinite;
-                      }
-                    `}} />
-                    
-                    <div className="absolute inset-0 rounded-full mic-orb" />
-                    
-                    {/* Microphone Icon */}
-                    <div className="relative z-10">
-                      <Mic className="h-32 w-32 md:h-36 md:w-36 text-white drop-shadow-2xl" strokeWidth={1.8} />
-                    </div>
-                    
-                    {/* Inner Glow Ring */}
-                    <div className="absolute inset-4 rounded-full border-4 border-white/20 blur-sm" />
-                  </div>
-                  
-                  {/* Chat/Language Icons with Particle Streams */}
-                  <div className="absolute -top-6 -left-6 w-16 h-16 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center shadow-xl border-2 border-white/30">
-                    <MessageSquare className="h-8 w-8 text-white" />
-                  </div>
-                  
-                  <div className="absolute -top-10 -right-10 w-20 h-20 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center shadow-xl border-2 border-white/30">
-                    <Languages className="h-10 w-10 text-white" />
-                  </div>
-                  
-                  <div className="absolute -bottom-4 -right-8 w-14 h-14 rounded-full bg-gradient-to-br from-violet-400 to-violet-600 flex items-center justify-center shadow-xl border-2 border-white/30">
-                    <User className="h-7 w-7 text-white" />
-                  </div>
-                  
-                  <div className="absolute -bottom-8 -left-10 w-16 h-16 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-xl border-2 border-white/30">
-                    <Volume2 className="h-8 w-8 text-white" />
-                  </div>
-                  
-                  {/* Animated Particle Streams - Translation Flow */}
-                  <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ transform: 'scale(1.4)' }}>
-                    {/* Dotted particles flowing from mic to icons */}
-                    <circle cx="50%" cy="50%" r="3" fill="#10b981" opacity="0.8">
-                      <animateMotion path="M 0,0 Q -80,-80 -100,-100" dur="2s" repeatCount="indefinite" />
-                      <animate attributeName="opacity" values="0;0.8;0" dur="2s" repeatCount="indefinite" />
-                    </circle>
-                    <circle cx="50%" cy="50%" r="2" fill="#10b981" opacity="0.6">
-                      <animateMotion path="M 0,0 Q -70,-90 -100,-100" dur="2.2s" repeatCount="indefinite" begin="0.3s" />
-                      <animate attributeName="opacity" values="0;0.6;0" dur="2.2s" repeatCount="indefinite" begin="0.3s" />
-                    </circle>
-                    
-                    <circle cx="50%" cy="50%" r="3" fill="#3b82f6" opacity="0.8">
-                      <animateMotion path="M 0,0 Q 80,-100 120,-120" dur="2.3s" repeatCount="indefinite" />
-                      <animate attributeName="opacity" values="0;0.8;0" dur="2.3s" repeatCount="indefinite" />
-                    </circle>
-                    <circle cx="50%" cy="50%" r="2" fill="#3b82f6" opacity="0.6">
-                      <animateMotion path="M 0,0 Q 90,-90 120,-120" dur="2.5s" repeatCount="indefinite" begin="0.4s" />
-                      <animate attributeName="opacity" values="0;0.6;0" dur="2.5s" repeatCount="indefinite" begin="0.4s" />
-                    </circle>
-                    
-                    <circle cx="50%" cy="50%" r="3" fill="#8b5cf6" opacity="0.8">
-                      <animateMotion path="M 0,0 Q 90,90 110,100" dur="2.1s" repeatCount="indefinite" />
-                      <animate attributeName="opacity" values="0;0.8;0" dur="2.1s" repeatCount="indefinite" />
-                    </circle>
-                    <circle cx="50%" cy="50%" r="2" fill="#8b5cf6" opacity="0.6">
-                      <animateMotion path="M 0,0 Q 80,100 110,100" dur="2.4s" repeatCount="indefinite" begin="0.2s" />
-                      <animate attributeName="opacity" values="0;0.6;0" dur="2.4s" repeatCount="indefinite" begin="0.2s" />
-                    </circle>
-                    
-                    <circle cx="50%" cy="50%" r="3" fill="#f59e0b" opacity="0.8">
-                      <animateMotion path="M 0,0 Q -80,100 -120,110" dur="2.2s" repeatCount="indefinite" />
-                      <animate attributeName="opacity" values="0;0.8;0" dur="2.2s" repeatCount="indefinite" />
-                    </circle>
-                    <circle cx="50%" cy="50%" r="2" fill="#f59e0b" opacity="0.6">
-                      <animateMotion path="M 0,0 Q -90,90 -120,110" dur="2.6s" repeatCount="indefinite" begin="0.5s" />
-                      <animate attributeName="opacity" values="0;0.6;0" dur="2.6s" repeatCount="indefinite" begin="0.5s" />
-                    </circle>
-                  </svg>
-                </div>
+              <div className="relative w-full max-w-2xl h-[500px] flex items-center justify-center">
+                <Suspense fallback={<Scene3DFallback />}>
+                  <HeroScene3D />
+                </Suspense>
               </div>
             </div>
 
