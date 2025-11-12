@@ -1,6 +1,6 @@
 import { useRef, useState, useEffect } from 'react';
 import gsap from 'gsap';
-import { Languages, MessageSquare } from 'lucide-react';
+import { Mic, MessageSquare } from 'lucide-react';
 
 // Advanced CSS 3D Hero Animation Component
 // Demonstrates real-time voice translation with sophisticated pseudo-3D effects
@@ -170,7 +170,7 @@ function TranslationOrb({ color, isActive }: { color: string; isActive: boolean 
         
         {/* Central icon */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <Languages className="h-6 w-6 md:h-8 md:w-8 text-white" />
+          <Mic className="h-6 w-6 md:h-8 md:w-8 text-white" />
         </div>
       </div>
 
@@ -199,7 +199,7 @@ function StaticFallback() {
 
           <div className="flex flex-col items-center">
             <div className="w-16 h-16 rounded-full bg-gradient-to-br from-violet-500 to-emerald-500 flex items-center justify-center shadow-xl">
-              <Languages className="h-8 w-8 text-white" />
+              <Mic className="h-8 w-8 text-white" />
             </div>
             <div className="mt-2 w-12 h-0.5 bg-gradient-to-r from-indigo-500 to-emerald-500" />
           </div>
