@@ -199,22 +199,22 @@ export default function Pricing() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50/20 to-violet-50/20 dark:from-slate-950 dark:via-indigo-950/10 dark:to-slate-950">
-      <div className="container mx-auto px-4 py-16 max-w-7xl">
+      <div className="container mx-auto px-4 pt-24 pb-16 max-w-7xl">
         
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-16 space-y-4"
+          className="text-center mb-12 space-y-3"
         >
-          <Badge className="bg-gradient-to-r from-indigo-500/10 to-violet-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-200/20 dark:border-indigo-500/20 backdrop-blur-sm px-4 py-2" data-testid="badge-pricing">
+          <Badge className="bg-gradient-to-r from-indigo-500/10 to-violet-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-200/20 dark:border-indigo-500/20 backdrop-blur-sm px-4 py-1.5" data-testid="badge-pricing">
             <Sparkles className="w-3 h-3 mr-2" />
             Pricing Plans
           </Badge>
-          <h1 className="text-5xl md:text-6xl font-bold text-gradient" data-testid="heading-pricing">
+          <h1 className="text-4xl md:text-5xl font-bold text-gradient" data-testid="heading-pricing">
             Choose Your Plan
           </h1>
-          <p className="text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto" data-testid="text-pricing-description">
+          <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto" data-testid="text-pricing-description">
             Start with our free tier or upgrade for more translation minutes. 
             All plans include premium neural voices and real-time translation.
           </p>
@@ -225,7 +225,7 @@ export default function Pricing() {
           variants={staggerContainer}
           initial="initial"
           animate="animate"
-          className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto mb-16"
+          className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto mb-12"
         >
           {pricingTiers.map((tier, index) => {
             const Icon = tier.icon;
@@ -279,18 +279,18 @@ export default function Pricing() {
                     </motion.div>
                   )}
 
-                  <div className="p-8 flex flex-col flex-grow">
+                  <div className="p-6 flex flex-col flex-grow">
                     {/* Icon */}
                     <motion.div
                       whileHover={{ rotate: [0, -10, 10, -10, 0], scale: 1.1 }}
                       transition={{ duration: 0.5 }}
-                      className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${
+                      className={`w-12 h-12 rounded-xl bg-gradient-to-br ${
                         tier.plan === 'free' ? 'from-blue-500/20 to-cyan-500/20' :
                         tier.plan === 'starter' ? 'from-indigo-500/20 to-violet-500/20' :
                         'from-amber-500/20 to-orange-500/20'
-                      } flex items-center justify-center mb-6 backdrop-blur-sm`}
+                      } flex items-center justify-center mb-4 backdrop-blur-sm`}
                     >
-                      <Icon className={`w-7 h-7 ${
+                      <Icon className={`w-6 h-6 ${
                         tier.plan === 'free' ? 'text-cyan-500 dark:text-cyan-400' :
                         tier.plan === 'starter' ? 'text-indigo-600 dark:text-indigo-400' :
                         'text-amber-500 dark:text-amber-400'
@@ -298,48 +298,48 @@ export default function Pricing() {
                     </motion.div>
                     
                     {/* Plan Name & Description */}
-                    <div className="mb-6">
-                      <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-2" data-testid={`text-plan-name-${tier.plan}`}>
+                    <div className="mb-4">
+                      <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-1" data-testid={`text-plan-name-${tier.plan}`}>
                         {tier.name}
                       </h3>
-                      <p className="text-slate-600 dark:text-slate-400 text-sm" data-testid={`text-plan-description-${tier.plan}`}>
+                      <p className="text-slate-600 dark:text-slate-400 text-xs" data-testid={`text-plan-description-${tier.plan}`}>
                         {tier.description}
                       </p>
                     </div>
 
                     {/* Pricing */}
-                    <div className="mb-6">
-                      <div className="flex items-baseline gap-2">
-                        <span className="text-5xl font-bold text-slate-900 dark:text-white" data-testid={`text-price-${tier.plan}`}>
+                    <div className="mb-4">
+                      <div className="flex items-baseline gap-1">
+                        <span className="text-3xl font-bold text-slate-900 dark:text-white" data-testid={`text-price-${tier.plan}`}>
                           {tier.price}
                         </span>
                         {tier.plan !== "free" && (
-                          <span className="text-slate-600 dark:text-slate-400">/month</span>
+                          <span className="text-sm text-slate-600 dark:text-slate-400">/mo</span>
                         )}
                       </div>
-                      <div className="mt-3 p-3 rounded-xl bg-gradient-to-r from-indigo-500/10 to-violet-500/10 border border-indigo-200/20 dark:border-indigo-500/20">
-                        <div className="text-sm font-bold text-indigo-600 dark:text-indigo-400" data-testid={`text-credits-${tier.plan}`}>
+                      <div className="mt-2 p-2.5 rounded-lg bg-gradient-to-r from-indigo-500/10 to-violet-500/10 border border-indigo-200/20 dark:border-indigo-500/20">
+                        <div className="text-xs font-bold text-indigo-600 dark:text-indigo-400" data-testid={`text-credits-${tier.plan}`}>
                           {tier.credits}
                         </div>
-                        <div className="text-xs text-slate-600 dark:text-slate-400 mt-1" data-testid={`text-reset-${tier.plan}`}>
+                        <div className="text-xs text-slate-600 dark:text-slate-400 mt-0.5" data-testid={`text-reset-${tier.plan}`}>
                           {tier.resetPeriod}
                         </div>
                       </div>
                     </div>
 
                     {/* Features */}
-                    <ul className="space-y-3 mb-8 flex-grow">
+                    <ul className="space-y-2 mb-6 flex-grow">
                       {tier.features.map((feature, featureIndex) => (
                         <motion.li
                           key={featureIndex}
                           initial={{ opacity: 0, x: -10 }}
                           animate={{ opacity: 1, x: 0 }}
                           transition={{ delay: index * 0.1 + featureIndex * 0.05 }}
-                          className="flex items-start gap-3"
+                          className="flex items-start gap-2"
                           data-testid={`feature-${tier.plan}-${featureIndex}`}
                         >
-                          <Check className="w-5 h-5 text-green-500 dark:text-green-400 flex-shrink-0 mt-0.5" />
-                          <span className="text-sm text-slate-700 dark:text-slate-300">{feature}</span>
+                          <Check className="w-4 h-4 text-green-500 dark:text-green-400 flex-shrink-0 mt-0.5" />
+                          <span className="text-xs text-slate-700 dark:text-slate-300">{feature}</span>
                         </motion.li>
                       ))}
                     </ul>
@@ -347,7 +347,7 @@ export default function Pricing() {
                     {/* CTA Button */}
                     <Button
                       className={`
-                        w-full py-6 rounded-xl font-semibold text-base shadow-lg hover:shadow-xl transition-all duration-300
+                        w-full py-4 rounded-xl font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-300
                         ${tier.popular 
                           ? 'bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white' 
                           : tier.plan === 'pro'
@@ -383,18 +383,18 @@ export default function Pricing() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
-          className="max-w-4xl mx-auto mb-16"
+          className="max-w-4xl mx-auto mb-12"
         >
-          <div className="text-center mb-8">
-            <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">
+          <div className="text-center mb-6">
+            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">
               Loved by Users Worldwide
             </h2>
-            <p className="text-slate-600 dark:text-slate-400">
+            <p className="text-sm text-slate-600 dark:text-slate-400">
               See what our customers are saying about Voztra
             </p>
           </div>
 
-          <GlassCard className="p-8 md:p-12 relative" data-testid="testimonial-carousel">
+          <GlassCard className="p-6 md:p-8 relative" data-testid="testimonial-carousel">
             <AnimatePresence mode="wait">
               <motion.div
                 key={testimonialIndex}
@@ -405,12 +405,12 @@ export default function Pricing() {
                 className="text-center"
                 data-testid={`testimonial-${testimonialIndex}`}
               >
-                <div className="flex justify-center mb-4" data-testid="testimonial-rating">
+                <div className="flex justify-center mb-3" data-testid="testimonial-rating">
                   {[...Array(testimonials[testimonialIndex].rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 text-yellow-500 fill-yellow-500" />
+                    <Star key={i} className="w-4 h-4 text-yellow-500 fill-yellow-500" />
                   ))}
                 </div>
-                <p className="text-lg md:text-xl text-slate-700 dark:text-slate-300 mb-6 italic" data-testid="testimonial-content">
+                <p className="text-base md:text-lg text-slate-700 dark:text-slate-300 mb-4 italic" data-testid="testimonial-content">
                   "{testimonials[testimonialIndex].content}"
                 </p>
                 <div>
@@ -455,16 +455,16 @@ export default function Pricing() {
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6 }}
-          className="max-w-3xl mx-auto mb-16"
+          className="max-w-3xl mx-auto mb-12"
         >
-          <div className="text-center mb-8">
-            <div className="flex items-center justify-center gap-2 mb-4">
-              <HelpCircle className="w-6 h-6 text-indigo-600 dark:text-indigo-400" />
-              <h2 className="text-3xl font-bold text-slate-900 dark:text-white">
+          <div className="text-center mb-6">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <HelpCircle className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
+              <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
                 Frequently Asked Questions
               </h2>
             </div>
-            <p className="text-slate-600 dark:text-slate-400">
+            <p className="text-sm text-slate-600 dark:text-slate-400">
               Everything you need to know about Voztra pricing
             </p>
           </div>
