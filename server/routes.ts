@@ -606,11 +606,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
           const req = (ws as any).upgradeReq;
           const userId = await getUserIdFromWebSocketSession(req);
 
-          if (!userId) {
+          // Only require authentication for room creators (they pay for credits)
+          // Participants join as guests via invite link - no login required
+          if (role === 'creator' && !userId) {
             ws.send(JSON.stringify({
               type: 'error',
               error: 'Authentication required',
-              message: 'Please log in to join a translation session',
+              message: 'Please log in to create a translation session',
               requiresAuth: true
             }));
             ws.close();
