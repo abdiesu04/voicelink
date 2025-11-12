@@ -4,10 +4,10 @@ import { storage } from "./storage";
 import { generateVerificationToken, generateTokenExpiry, sendVerificationEmail } from "./email";
 
 export function setupEmailVerificationRoutes(app: Express) {
-  // Verify email with token
-  app.post("/api/verify-email", async (req: AuthRequest, res: Response) => {
+  // Verify email with token (GET request for email link clicks)
+  app.get("/api/verify-email", async (req: AuthRequest, res: Response) => {
     try {
-      const { token } = req.body;
+      const token = req.query.token as string;
 
       if (!token) {
         return res.status(400).json({ error: "Verification token is required" });
@@ -50,12 +50,20 @@ export function setupEmailVerificationRoutes(app: Express) {
   // Resend verification email
   app.post("/api/resend-verification", async (req: AuthRequest, res: Response) => {
     try {
-      // Check if user is authenticated
-      if (!req.session?.userId) {
-        return res.status(401).json({ error: "Authentication required" });
-      }
+      let user;
 
-      const user = await storage.getUserById(req.session.userId);
+      // Support both authenticated and unauthenticated resend requests
+      if (req.session?.userId) {
+        // Authenticated user - use session
+        user = await storage.getUserById(req.session.userId);
+      } else {
+        // Unauthenticated user - require email in body
+        const { email } = req.body;
+        if (!email) {
+          return res.status(400).json({ error: "Email is required" });
+        }
+        user = await storage.getUserByEmail(email);
+      }
 
       if (!user) {
         return res.status(404).json({ error: "User not found" });

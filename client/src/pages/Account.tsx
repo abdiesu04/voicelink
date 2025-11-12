@@ -6,7 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/lib/auth";
-import { User as UserIcon, CreditCard, Clock, LogOut, ExternalLink, Zap } from "lucide-react";
+import { User as UserIcon, CreditCard, Clock, LogOut, ExternalLink, Zap, Mail, AlertTriangle, CheckCircle } from "lucide-react";
 import { format } from "date-fns";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import type { User, Subscription } from "@shared/schema";
@@ -34,6 +34,27 @@ function AccountContent() {
 
   const user = authData?.user;
   const subscription = authData?.subscription;
+
+  // Resend verification email mutation
+  const resendVerificationMutation = useMutation({
+    mutationFn: async () => {
+      const response = await apiRequest("POST", "/api/resend-verification", {});
+      return response.json();
+    },
+    onSuccess: () => {
+      toast({
+        title: "Email Sent!",
+        description: "Please check your inbox for the verification link.",
+      });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Failed to Send",
+        description: error.message || "Please try again later.",
+        variant: "destructive",
+      });
+    },
+  });
 
   const billingPortalMutation = useMutation({
     mutationFn: async () => {

@@ -205,8 +205,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(401).json({ error: "Authentication required" });
       }
 
-      // Note: Email verification temporarily disabled for testing
-      // TODO: Re-enable email verification before production deployment
+      // Email verification is required to create rooms
+      const user = await storage.getUserById(req.session.userId);
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+      
+      if (!user.isEmailVerified) {
+        return res.status(403).json({ 
+          error: "Email verification required",
+          message: "Please verify your email address before creating translation rooms. Check your inbox for the verification email.",
+          requiresVerification: true
+        });
+      }
       
       const { language, voiceGender } = req.body;
       

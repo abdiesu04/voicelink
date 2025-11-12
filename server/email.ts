@@ -1,7 +1,7 @@
 import crypto from "crypto";
 
 const RESEND_API_KEY = process.env.RESEND_API_KEY;
-const EMAIL_FROM = process.env.EMAIL_FROM || "onboarding@resend.dev";
+const EMAIL_FROM = "noreply@getvoztra.com";
 
 export function generateVerificationToken(): string {
   return crypto.randomBytes(32).toString("hex");
