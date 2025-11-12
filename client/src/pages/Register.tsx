@@ -13,12 +13,14 @@ import { fadeInUp, staggerContainer } from "@/lib/motion-variants";
 import { Globe, Users, Shield, Zap, Check, CheckCircle2, Gift, Mail, Lock, AlertCircle } from "lucide-react";
 
 export default function Register() {
-  const [step, setStep] = useState(1);
+  const [step, setStep] = useState(1); // 1 = form, 2 = verify code, 3 = success
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [verificationCode, setVerificationCode] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const { register, user } = useAuth();
+  const [emailSentStatus, setEmailSentStatus] = useState<'success' | 'failed' | null>(null);
+  const { user } = useAuth();
   const { toast } = useToast();
   const [, setLocation] = useLocation();
 
@@ -46,7 +48,7 @@ export default function Register() {
 
   const passwordStrength = getPasswordStrength(password);
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSendCode = async (e: React.FormEvent) => {
     e.preventDefault();
     
     if (password !== confirmPassword) {
@@ -68,22 +70,126 @@ export default function Register() {
     }
 
     setIsLoading(true);
+    setEmailSentStatus(null);
 
     try {
-      await register(email, password, confirmPassword);
+      const response = await fetch('/api/register/send-code', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to send verification code');
+      }
+
+      // Show email sent status
+      setEmailSentStatus(data.emailSent ? 'success' : 'failed');
       
+      toast({
+        title: data.emailSent ? "Verification code sent!" : "Code generated",
+        description: data.emailSent 
+          ? "Check your email for a 6-digit code" 
+          : "Email delivery failed, but you can contact support with your email",
+      });
+
+      setStep(2); // Move to verification step
+    } catch (error) {
+      setEmailSentStatus('failed');
+      toast({
+        title: "Failed to send code",
+        description: error instanceof Error ? error.message : "Please try again",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleVerifyCode = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (verificationCode.length !== 6) {
+      toast({
+        title: "Invalid code",
+        description: "Please enter the 6-digit code from your email",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('/api/register/verify-code', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          email, 
+          code: verificationCode,
+          password,
+          confirmPassword // Backend requires both password and confirmPassword
+        }),
+        credentials: 'include',
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Verification failed');
+      }
+
       // Fire Facebook Pixel CompleteRegistration event
       if (typeof window !== 'undefined' && window.fbq) {
         window.fbq('track', 'CompleteRegistration');
       }
-      
-      setStep(2);
+
+      setStep(3); // Move to success screen
       setTimeout(() => {
-        setLocation("/");
+        window.location.href = "/"; // Force reload to update auth context
       }, 2000);
     } catch (error) {
       toast({
-        title: "Registration failed",
+        title: "Verification failed",
+        description: error instanceof Error ? error.message : "Please try again",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleResendCode = async () => {
+    setIsLoading(true);
+    setEmailSentStatus(null);
+
+    try {
+      const response = await fetch('/api/register/send-code', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to resend code');
+      }
+
+      setEmailSentStatus(data.emailSent ? 'success' : 'failed');
+
+      toast({
+        title: data.emailSent ? "New code sent!" : "Code regenerated",
+        description: data.emailSent 
+          ? "Check your email for the new 6-digit code" 
+          : "Email delivery failed, but a new code was generated",
+      });
+    } catch (error) {
+      setEmailSentStatus('failed');
+      toast({
+        title: "Failed to resend code",
         description: error instanceof Error ? error.message : "Please try again",
         variant: "destructive",
       });
@@ -99,7 +205,159 @@ export default function Register() {
     { icon: Zap, text: "Instant translation" },
   ];
 
+  // Step 2: Verify Code
   if (step === 2) {
+    return (
+      <div className="min-h-screen flex items-center justify-center p-8 bg-gradient-to-br from-slate-50 via-indigo-50/30 to-violet-50/30 dark:from-slate-950 dark:via-indigo-950/20 dark:to-slate-950">
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.5 }}
+          className="w-full max-w-lg"
+        >
+          <GlassCard className="p-12" data-testid="card-verify-code">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2 }}
+              className="text-center mb-8"
+            >
+              <div className="flex justify-center mb-4">
+                <div className="h-16 w-16 rounded-full bg-gradient-to-br from-indigo-500 to-violet-600 flex items-center justify-center shadow-lg">
+                  <Mail className="h-8 w-8 text-white" />
+                </div>
+              </div>
+              <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">
+                Check Your Email
+              </h2>
+              <p className="text-slate-600 dark:text-slate-400">
+                We sent a 6-digit code to <span className="font-semibold text-slate-900 dark:text-white">{email}</span>
+              </p>
+            </motion.div>
+
+            {/* Email Status Banner */}
+            {emailSentStatus && (
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className={`mb-6 p-4 rounded-xl border-2 ${
+                  emailSentStatus === 'success'
+                    ? 'bg-green-50 dark:bg-green-950/20 border-green-200 dark:border-green-800'
+                    : 'bg-amber-50 dark:bg-amber-950/20 border-amber-200 dark:border-amber-800'
+                }`}
+              >
+                <div className="flex items-start gap-3">
+                  {emailSentStatus === 'success' ? (
+                    <CheckCircle2 className="h-5 w-5 text-green-600 dark:text-green-400 flex-shrink-0 mt-0.5" />
+                  ) : (
+                    <AlertCircle className="h-5 w-5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
+                  )}
+                  <div>
+                    <p className={`text-sm font-bold ${
+                      emailSentStatus === 'success'
+                        ? 'text-green-900 dark:text-green-100'
+                        : 'text-amber-900 dark:text-amber-100'
+                    }`}>
+                      {emailSentStatus === 'success' ? 'Email sent successfully!' : 'Email delivery issue'}
+                    </p>
+                    <p className={`text-xs mt-1 ${
+                      emailSentStatus === 'success'
+                        ? 'text-green-700 dark:text-green-300'
+                        : 'text-amber-700 dark:text-amber-300'
+                    }`}>
+                      {emailSentStatus === 'success' 
+                        ? 'Check your inbox and spam folder' 
+                        : 'Code generated but email may not have been delivered. Contact support if needed.'}
+                    </p>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+
+            <form onSubmit={handleVerifyCode} className="space-y-6">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+              >
+                <Label htmlFor="code" className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wide text-center block mb-3">
+                  Verification Code
+                </Label>
+                <Input
+                  id="code"
+                  type="text"
+                  placeholder="000000"
+                  value={verificationCode}
+                  onChange={(e) => setVerificationCode(e.target.value.replace(/\D/g, '').slice(0, 6))}
+                  required
+                  maxLength={6}
+                  className="h-16 px-4 text-center text-2xl font-bold tracking-widest bg-white dark:bg-slate-900 border-2 border-slate-300 dark:border-slate-600 focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/20 transition-all"
+                  data-testid="input-verification-code"
+                  autoFocus
+                />
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4 }}
+              >
+                <Button
+                  type="submit"
+                  className="w-full h-14 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white text-lg font-bold rounded-xl shadow-xl hover:shadow-2xl hover:scale-[1.02] transition-all duration-300"
+                  disabled={isLoading || verificationCode.length !== 6}
+                  data-testid="button-verify-code"
+                >
+                  {isLoading ? (
+                    <span className="flex items-center gap-2">
+                      <div className="w-5 h-5 border-3 border-white/30 border-t-white rounded-full animate-spin" />
+                      Verifying...
+                    </span>
+                  ) : (
+                    "Verify & Create Account"
+                  )}
+                </Button>
+              </motion.div>
+
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.5 }}
+                className="text-center space-y-3"
+              >
+                <p className="text-sm text-slate-600 dark:text-slate-400">
+                  Didn't receive the code?
+                </p>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={handleResendCode}
+                  disabled={isLoading}
+                  className="w-full"
+                  data-testid="button-resend-code"
+                >
+                  Resend Code
+                </Button>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  onClick={() => setStep(1)}
+                  disabled={isLoading}
+                  className="w-full text-sm"
+                  data-testid="button-back"
+                >
+                  ← Back to registration
+                </Button>
+              </motion.div>
+            </form>
+          </GlassCard>
+        </motion.div>
+      </div>
+    );
+  }
+
+  // Step 3: Success
+  if (step === 3) {
     return (
       <div className="min-h-screen flex items-center justify-center p-8 bg-gradient-to-br from-slate-50 via-indigo-50/30 to-violet-50/30 dark:from-slate-950 dark:via-indigo-950/20 dark:to-slate-950">
         <motion.div
@@ -311,7 +569,7 @@ export default function Register() {
                 </div>
               </motion.div>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSendCode} className="space-y-6">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
