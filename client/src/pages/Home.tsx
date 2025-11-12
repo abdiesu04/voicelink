@@ -222,7 +222,7 @@ export default function Home() {
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000" />
                   <Sparkles className="mr-2 h-6 w-6 relative z-10" />
-                  <span className="relative z-10 font-bold">Start Translating</span>
+                  <span className="relative z-10 font-bold">Get 60 Free Minutes</span>
                 </Button>
               </Link>
               <a href="#how-it-works">
@@ -310,7 +310,7 @@ export default function Home() {
                 data-testid="button-try-voztra-now"
               >
                 <Mic className="mr-2 h-5 w-5" />
-                Try Voztra now
+                Start Free - 60 Minutes
               </Button>
             </Link>
           </div>
