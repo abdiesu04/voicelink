@@ -48,14 +48,15 @@ The application features a clean, modern design with full light/dark theme suppo
   - **Edge Case Coverage**: Handles webhook failures, network errors, browser closures, extended outages, and in-place plan upgrades gracefully
   - **Development Fallback**: `/api/payments/verify` endpoint available in development when webhooks aren't configured (returns 403 in production)
 - **Credit Management System**: Real-time credit tracking with WebSocket updates, automatic deduction during translation sessions, and hard enforcement at 0 credits. Displays warning toasts at 10 minutes, 2 minutes, and 1 minute remaining. Triggers upgrade modal when credits are exhausted.
-- **Email Verification System**: Production-grade email verification with security-hardened implementation:
+- **Email Verification System**: Production-grade 2-step registration with security-hardened 6-digit code verification:
   - **Email Service**: Uses Resend API with verified `noreply@getvoztra.com` sender address
-  - **Verification Flow**: Token-based email verification with 24-hour expiry, sent automatically on registration
-  - **Security**: Anti-enumeration protection on resend endpoint (always returns generic success for unauthenticated requests to prevent discovering registered emails)
-  - **Access Control**: Email verification required before users can create translation rooms
-  - **UI Integration**: Account page shows verification status banner with resend button for unverified users, CreateRoom shows verification dialog when blocked
-  - **Session Refresh**: Cache invalidation after verification ensures users see updated status immediately
-  - **Audit Logging**: Security events logged for monitoring (email partially redacted)
+  - **Verification Flow**: 6-digit code-based verification DURING registration (not post-registration). Users cannot complete account creation without email verification.
+  - **Registration Flow**: Step 1 (enter email/password → send code) → Step 2 (enter 6-digit code → verify and create account) → Step 3 (success)
+  - **Security**: Bcrypt-hashed codes, 15-minute expiry, 5 attempt limit per code, 60-second minimum between resends, max 5 codes per email per day
+  - **Data Storage**: Temporary `pendingRegistrations` table stores verification data before account creation, automatically cleaned up after success or expiry
+  - **Email Status Feedback**: Clear UI feedback showing whether verification email was sent successfully or failed, with fallback messaging for email delivery issues
+  - **Access Control**: Account creation blocked until email verification completes. All authenticated users have verified emails.
+  - **Audit Logging**: Security events logged for monitoring (email partially redacted for privacy)
 
 ### Feature Specifications
 - **Core Functionality**: Real-time voice translation between two users.
