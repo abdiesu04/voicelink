@@ -6,6 +6,7 @@ import { CheckCircle2, ArrowRight, Loader2, Clock } from "lucide-react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import { useAuth } from "@/lib/auth";
 import type { User, Subscription } from "@shared/schema";
 
 type AuthMeResponse = {
@@ -19,6 +20,7 @@ export default function PaymentSuccess() {
   const [, navigate] = useLocation();
   const [countdown, setCountdown] = useState(5);
   const { toast } = useToast();
+  const { refreshUser } = useAuth();
   const [activationStatus, setActivationStatus] = useState<ActivationStatus>('verifying');
   const [pollingAttempts, setPollingAttempts] = useState(0);
 
@@ -60,6 +62,7 @@ export default function PaymentSuccess() {
         console.log("[Payment] Subscription activated via verification endpoint");
         await queryClient.invalidateQueries({ queryKey: ["/api/auth/me"] });
         await refetchAuth();
+        await refreshUser(); // Sync React Context for Header component
         setActivationStatus('activated');
       }
     },
@@ -122,6 +125,7 @@ export default function PaymentSuccess() {
       // Check if subscription upgraded from 'free' to paid tier
       if (currentPlan && currentPlan !== 'free') {
         console.log(`[Payment] Webhook activated subscription to ${currentPlan} plan`);
+        await refreshUser(); // Sync React Context for Header component
         setActivationStatus('activated');
         clearInterval(pollInterval);
       }
