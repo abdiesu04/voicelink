@@ -110,7 +110,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white dark:bg-slate-950">
       {/* Hero Section with Flag Collage & Floating Elements */}
-      <section className="relative min-h-screen flex items-center overflow-hidden">
+      <section className="relative min-h-screen flex items-center overflow-hidden pt-20">
         {/* Gradient Background */}
         <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 via-violet-50 to-blue-50 dark:from-slate-950 dark:via-indigo-950/30 dark:to-slate-950" />
         
@@ -201,7 +201,7 @@ export default function Home() {
                   <span className="block bg-gradient-to-r from-indigo-600 via-violet-600 to-blue-600 dark:from-indigo-400 dark:via-violet-400 dark:to-blue-400 bg-clip-text text-transparent">
                     Erase Every
                   </span>
-                  <span className="block text-slate-900 dark:text-white mt-2">
+                  <span className="block text-slate-900 dark:text-white mt-2 whitespace-nowrap">
                     Language Barrier
                   </span>
                 </h1>
