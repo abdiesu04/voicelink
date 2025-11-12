@@ -271,14 +271,38 @@ export default function Register() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="mb-10"
+                className="mb-6"
               >
                 <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-3 tracking-tight">
                   Create Account
                 </h2>
                 <p className="text-base text-slate-600 dark:text-slate-400 font-medium">
-                  Get started with 60 free minutes
+                  Join thousands breaking language barriers
                 </p>
+              </motion.div>
+
+              {/* Free Minutes Offer Banner */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.45 }}
+                className="mb-8 p-4 rounded-xl bg-gradient-to-r from-emerald-50 to-cyan-50 dark:from-emerald-950/20 dark:to-cyan-950/20 border-2 border-emerald-200 dark:border-emerald-800/50"
+              >
+                <div className="flex items-start gap-3">
+                  <div className="flex-shrink-0 mt-0.5">
+                    <div className="h-10 w-10 rounded-lg bg-gradient-to-br from-emerald-500 to-cyan-600 flex items-center justify-center shadow-lg">
+                      <Gift className="h-5 w-5 text-white" />
+                    </div>
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold text-emerald-900 dark:text-emerald-100 mb-1">
+                      Welcome Bonus: 60 Free Minutes
+                    </p>
+                    <p className="text-xs text-emerald-700 dark:text-emerald-300 leading-relaxed">
+                      Experience real-time voice translation immediately. No credit card required. Your free minutes never expire.
+                    </p>
+                  </div>
+                </div>
               </motion.div>
 
               <form onSubmit={handleSubmit} className="space-y-6">
