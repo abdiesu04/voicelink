@@ -197,19 +197,19 @@ export default function Home() {
               {/* Headline with Accent Line */}
               <div className="relative">
                 <div className="absolute -left-1 top-0 w-1 h-full bg-gradient-to-b from-indigo-500 via-violet-500 to-blue-500 rounded-full" />
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight pl-6">
+                <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-tight pl-6">
                   <span className="block bg-gradient-to-r from-indigo-600 via-violet-600 to-blue-600 dark:from-indigo-400 dark:via-violet-400 dark:to-blue-400 bg-clip-text text-transparent">
                     Erase Every
                   </span>
-                  <span className="block text-slate-900 dark:text-white mt-1">
+                  <span className="block text-slate-900 dark:text-white mt-2">
                     Language Barrier
                   </span>
                 </h1>
               </div>
               
               {/* Description */}
-              <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-xl pl-6">
-                Voztra instantly translates your voice into another language — same tone, same emotion, same gender — so you sound like a native speaker across <span className="font-semibold text-indigo-600 dark:text-indigo-400">47 languages</span>.
+              <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-xl pl-6 font-medium">
+                Voztra instantly translates your voice into another language — same tone, same emotion, same gender — so you sound like a native speaker across <span className="font-bold text-indigo-600 dark:text-indigo-400">47 languages</span>.
               </p>
 
               {/* CTA Buttons */}
