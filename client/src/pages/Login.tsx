@@ -50,7 +50,7 @@ export default function Login() {
   };
 
   const features = [
-    { icon: Globe, text: "140+ languages supported" },
+    { icon: Globe, text: "47+ languages supported" },
     { icon: Zap, text: "Real-time translation" },
     { icon: Shield, text: "Secure & encrypted" },
     { icon: Users, text: "Two-person conversations" },
@@ -142,7 +142,7 @@ export default function Login() {
                   Break language barriers instantly
                 </p>
                 <p className="text-xs text-slate-600 dark:text-slate-400">
-                  Voice translation across 140 languages
+                  Voice translation across 47 languages
                 </p>
               </div>
             </motion.div>

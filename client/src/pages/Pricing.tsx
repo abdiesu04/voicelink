@@ -40,7 +40,7 @@ const pricingTiers: PricingTier[] = [
     resetPeriod: "Lifetime allocation",
     features: [
       "60 minutes total usage",
-      "140+ supported languages",
+      "47+ supported languages",
       "Premium neural voices",
       "Real-time translation",
       "No credit card required",
@@ -58,7 +58,7 @@ const pricingTiers: PricingTier[] = [
     resetPeriod: "Monthly reset",
     features: [
       "350 minutes per month",
-      "140+ supported languages",
+      "47+ supported languages",
       "Premium neural voices",
       "Real-time translation",
       "Priority support",
@@ -79,7 +79,7 @@ const pricingTiers: PricingTier[] = [
     resetPeriod: "Monthly reset",
     features: [
       "1,200 minutes per month",
-      "140+ supported languages",
+      "47+ supported languages",
       "Premium neural voices",
       "Real-time translation",
       "Priority support",
@@ -126,7 +126,7 @@ const faqs = [
   },
   {
     question: "What languages are supported?",
-    answer: "Voztra supports 140+ languages with premium neural voices that preserve tone, emotion, and gender. We use Azure's advanced speech technology for the highest quality translations."
+    answer: "Voztra supports 47+ languages with premium neural voices that preserve tone, emotion, and gender. We use Azure's advanced speech technology for the highest quality translations."
   },
   {
     question: "Is there a free trial for paid plans?",
@@ -205,12 +205,8 @@ export default function Pricing() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-12 space-y-3"
+          className="text-center mb-12 space-y-4"
         >
-          <Badge className="bg-gradient-to-r from-indigo-500/10 to-violet-500/10 text-indigo-600 dark:text-indigo-400 border-indigo-200/20 dark:border-indigo-500/20 backdrop-blur-sm px-4 py-1.5" data-testid="badge-pricing">
-            <Sparkles className="w-3 h-3 mr-2" />
-            Pricing Plans
-          </Badge>
           <h1 className="text-4xl md:text-5xl font-bold text-gradient" data-testid="heading-pricing">
             Choose Your Plan
           </h1>
@@ -495,7 +491,7 @@ export default function Pricing() {
           <div className="grid grid-cols-3 gap-8 text-center">
             <GlassCard className="p-6">
               <div className="text-4xl font-bold text-gradient mb-2" data-testid="text-stat-languages">
-                140+
+                47+
               </div>
               <div className="text-sm text-slate-600 dark:text-slate-400">Supported Languages</div>
             </GlassCard>

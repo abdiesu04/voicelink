@@ -97,7 +97,7 @@ const VoiceTranslator = () => {
               <span className="text-violet-400">language barrier</span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              Voztra instantly translates your <span className="text-primary font-semibold">voice</span> into another language — same tone, same emotion, same gender — so you sound like a native speaker across <span className="text-primary font-semibold">140 languages</span>.
+              Voztra instantly translates your <span className="text-primary font-semibold">voice</span> into another language — same tone, same emotion, same gender — so you sound like a native speaker across <span className="text-primary font-semibold">47 languages</span>.
             </p>
             <p className="text-lg md:text-xl text-muted-foreground/80 italic font-medium">
               It's your voice, simply understood everywhere.
@@ -223,7 +223,7 @@ const VoiceTranslator = () => {
               Speak with the world
             </h2>
             <p className="text-lg md:text-xl text-muted-foreground leading-relaxed">
-              Currently supporting <span className="text-primary font-semibold">140 languages</span> for real-time voice translation with more being added continuously.
+              Currently supporting <span className="text-primary font-semibold">47 languages</span> for real-time voice translation with more being added continuously.
             </p>
             
             <div className="flex flex-wrap justify-center gap-4 pt-8">
@@ -245,7 +245,7 @@ const VoiceTranslator = () => {
               Global Language Coverage
             </h2>
             <p className="text-lg md:text-xl text-muted-foreground text-center mb-12 max-w-3xl mx-auto">
-              140 languages with real-time voice translation, preserving tone, emotion and gender in real-time voice chat.
+              47 languages with real-time voice translation, preserving tone, emotion and gender in real-time voice chat.
             </p>
 
             <Card className="p-8 shadow-card hover:shadow-glow transition-all">
@@ -382,7 +382,7 @@ const VoiceTranslator = () => {
                 </div>
                 <h3 className="text-2xl font-display font-semibold mb-3">Build truly diverse teams</h3>
                 <p className="text-muted-foreground leading-relaxed">
-                  Access talent from 140 languages. Hire the best developer in São Paulo, the best designer in Seoul, the best strategist in Stockholm — all on one team.
+                  Access talent from 47 languages. Hire the best developer in São Paulo, the best designer in Seoul, the best strategist in Stockholm — all on one team.
                 </p>
               </Card>
 
@@ -460,7 +460,7 @@ const VoiceTranslator = () => {
                   <Button asChild size="lg" className="shadow-glow text-lg px-10 h-14">
                     <Link href="/create">Start Building Your Global Team <ArrowRight className="ml-2" /></Link>
                   </Button>
-                  <p className="text-sm text-muted-foreground mt-4">Free to try • No credit card required • 140 languages supported</p>
+                  <p className="text-sm text-muted-foreground mt-4">Free to try • No credit card required • 47 languages supported</p>
                 </div>
               </div>
             </Card>
