@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Languages, Lock, Mic, CheckCircle, Sparkles, MessageSquare, ArrowRight, Volume2, Users, Clock, Shield, Briefcase } from "lucide-react";
+import { Languages, Lock, Mic, CheckCircle, Sparkles, MessageSquare, ArrowRight, Volume2, Users, User, Clock, Shield, Briefcase } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useAuth } from "@/lib/auth";
@@ -194,14 +194,6 @@ export default function Home() {
             
             {/* Left Column: Text Content */}
             <div className="space-y-7 text-left">
-              {/* Premium Badge */}
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-indigo-500/10 via-violet-500/10 to-blue-500/10 dark:from-indigo-500/20 dark:via-violet-500/20 dark:to-blue-500/20 border border-indigo-200/50 dark:border-indigo-500/30 backdrop-blur-sm">
-                <Sparkles className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
-                <span className="text-sm font-semibold bg-gradient-to-r from-indigo-600 via-violet-600 to-blue-600 dark:from-indigo-400 dark:via-violet-400 dark:to-blue-400 bg-clip-text text-transparent">
-                  Real-Time Voice Translation
-                </span>
-              </div>
-
               {/* Headline with Accent Line */}
               <div className="relative">
                 <div className="absolute -left-1 top-0 w-1 h-full bg-gradient-to-b from-indigo-500 via-violet-500 to-blue-500 rounded-full" />
@@ -269,30 +261,86 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right Column: Animated Microphone Orb */}
-            <div className="flex items-center justify-center md:justify-end">
-              <div className="relative">
-                {/* Outer Glow Rings */}
+            {/* Right Column: Modern Microphone with Chat Bubbles */}
+            <div className="flex items-center justify-center md:justify-end relative">
+              <div className="relative w-full max-w-md">
+                
+                {/* Animated Sound Waves Background */}
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-[400px] h-[400px] rounded-full bg-gradient-to-r from-indigo-500/20 via-violet-500/20 to-blue-500/20 blur-3xl animate-pulse" />
+                  <div className="w-[350px] h-[350px] rounded-full bg-gradient-to-r from-indigo-500/20 via-violet-500/20 to-blue-500/20 blur-3xl animate-pulse" />
                 </div>
                 <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="w-[300px] h-[300px] rounded-full bg-gradient-to-r from-indigo-500/30 via-violet-500/30 to-blue-500/30 blur-2xl animate-pulse" style={{ animationDelay: '1s' }} />
+                  <div className="w-[280px] h-[280px] rounded-full bg-gradient-to-r from-violet-500/30 via-blue-500/30 to-indigo-500/30 blur-2xl animate-pulse" style={{ animationDelay: '1s' }} />
                 </div>
                 
-                {/* Main Microphone Orb */}
+                {/* Main Glassmorphic Microphone Card */}
                 <div className="relative group">
-                  <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full bg-gradient-to-br from-indigo-500 via-violet-500 to-blue-500 flex items-center justify-center shadow-2xl ring-8 ring-white/10 dark:ring-slate-800/50 animate-float">
-                    <Mic className="h-32 w-32 md:h-40 md:w-40 text-white drop-shadow-2xl" />
+                  {/* Microphone Glass Container */}
+                  <div className="relative w-72 h-72 md:w-80 md:h-80 rounded-3xl bg-gradient-to-br from-white/10 to-white/5 dark:from-white/5 dark:to-white/0 backdrop-blur-xl border border-white/20 dark:border-white/10 shadow-2xl flex items-center justify-center animate-float">
+                    
+                    {/* Inner Gradient Circle */}
+                    <div className="absolute inset-8 rounded-full bg-gradient-to-br from-indigo-500 via-violet-500 to-blue-500 opacity-20 blur-xl group-hover:opacity-30 transition-opacity" />
+                    
+                    {/* Microphone Icon with Glow */}
+                    <div className="relative">
+                      <div className="absolute inset-0 bg-gradient-to-br from-indigo-400 via-violet-400 to-blue-400 blur-2xl opacity-60 group-hover:opacity-80 transition-opacity" />
+                      <Mic className="h-32 w-32 md:h-36 md:w-36 text-white relative z-10 drop-shadow-2xl" strokeWidth={1.5} />
+                    </div>
+                    
+                    {/* Pulsing Ring */}
+                    <div className="absolute inset-0 rounded-3xl border-2 border-indigo-400/50 animate-ping opacity-20" style={{ animationDuration: '3s' }} />
                   </div>
                   
-                  {/* Floating Accent Circles */}
-                  <div className="absolute -top-4 -right-4 w-20 h-20 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center shadow-xl animate-float" style={{ animationDelay: '0.5s', animationDuration: '4s' }}>
+                  {/* Floating Chat Bubbles - Representing Conversations */}
+                  <div className="absolute -top-6 -left-6 w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center shadow-xl backdrop-blur-sm border border-white/20 animate-float" style={{ animationDelay: '0.5s', animationDuration: '4s' }}>
+                    <MessageSquare className="h-8 w-8 text-white" />
+                  </div>
+                  
+                  <div className="absolute -top-8 -right-8 w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center shadow-xl backdrop-blur-sm border border-white/20 animate-float" style={{ animationDelay: '1s', animationDuration: '3.5s' }}>
                     <Languages className="h-10 w-10 text-white" />
                   </div>
-                  <div className="absolute -bottom-6 -left-6 w-16 h-16 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-xl animate-float" style={{ animationDelay: '1.5s', animationDuration: '3.5s' }}>
+                  
+                  <div className="absolute -bottom-4 -right-6 w-14 h-14 rounded-2xl bg-gradient-to-br from-violet-400 to-violet-600 flex items-center justify-center shadow-xl backdrop-blur-sm border border-white/20 animate-float" style={{ animationDelay: '1.5s', animationDuration: '4.5s' }}>
+                    <User className="h-7 w-7 text-white" />
+                  </div>
+                  
+                  <div className="absolute -bottom-6 -left-8 w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-xl backdrop-blur-sm border border-white/20 animate-float" style={{ animationDelay: '2s', animationDuration: '3s' }}>
                     <Volume2 className="h-8 w-8 text-white" />
                   </div>
+                  
+                  {/* Connecting Lines - Subtle network effect */}
+                  <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-30" style={{ filter: 'blur(1px)' }}>
+                    <line x1="50%" y1="50%" x2="20%" y2="20%" stroke="url(#gradient1)" strokeWidth="2" strokeDasharray="4 4">
+                      <animate attributeName="stroke-dashoffset" from="0" to="8" dur="1s" repeatCount="indefinite" />
+                    </line>
+                    <line x1="50%" y1="50%" x2="85%" y2="15%" stroke="url(#gradient2)" strokeWidth="2" strokeDasharray="4 4">
+                      <animate attributeName="stroke-dashoffset" from="0" to="8" dur="1.5s" repeatCount="indefinite" />
+                    </line>
+                    <line x1="50%" y1="50%" x2="85%" y2="85%" stroke="url(#gradient3)" strokeWidth="2" strokeDasharray="4 4">
+                      <animate attributeName="stroke-dashoffset" from="0" to="8" dur="1.2s" repeatCount="indefinite" />
+                    </line>
+                    <line x1="50%" y1="50%" x2="15%" y2="90%" stroke="url(#gradient4)" strokeWidth="2" strokeDasharray="4 4">
+                      <animate attributeName="stroke-dashoffset" from="0" to="8" dur="1.8s" repeatCount="indefinite" />
+                    </line>
+                    <defs>
+                      <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="#10b981" stopOpacity="0.5" />
+                        <stop offset="100%" stopColor="#10b981" stopOpacity="0" />
+                      </linearGradient>
+                      <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="#3b82f6" stopOpacity="0.5" />
+                        <stop offset="100%" stopColor="#3b82f6" stopOpacity="0" />
+                      </linearGradient>
+                      <linearGradient id="gradient3" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="#8b5cf6" stopOpacity="0.5" />
+                        <stop offset="100%" stopColor="#8b5cf6" stopOpacity="0" />
+                      </linearGradient>
+                      <linearGradient id="gradient4" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.5" />
+                        <stop offset="100%" stopColor="#f59e0b" stopOpacity="0" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
                 </div>
               </div>
             </div>
