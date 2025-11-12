@@ -4,7 +4,6 @@ import connectPg from "connect-pg-simple";
 import { registerRoutes } from "./routes";
 import { setupAuth, attachUser } from "./auth";
 import { setupSubscriptionRoutes } from "./subscription";
-import { setupEmailVerificationRoutes } from "./email-verification";
 import { setupVite, serveStatic, log } from "./vite";
 
 const app = express();
@@ -81,7 +80,6 @@ app.use((req, res, next) => {
 (async () => {
   setupAuth(app);
   setupSubscriptionRoutes(app);
-  setupEmailVerificationRoutes(app);
   const server = await registerRoutes(app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {

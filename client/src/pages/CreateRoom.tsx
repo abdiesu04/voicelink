@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useLocation } from "wouter";
 import { useMutation } from "@tanstack/react-query";
-import { Loader2, Globe2, ArrowRight, Mic, Mail } from "lucide-react";
+import { Loader2, Globe2, ArrowRight, Mic } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LanguageSelector } from "@/components/LanguageSelector";
 import { VoiceGenderSelector } from "@/components/VoiceGenderSelector";
@@ -9,23 +9,12 @@ import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { RequireAuth, useAuth } from "@/lib/auth";
 import type { VoiceGender } from "@shared/schema";
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from "@/components/ui/alert-dialog";
 
 function CreateRoomContent() {
   const [, setLocation] = useLocation();
   const { subscription } = useAuth();
   const [selectedLanguage, setSelectedLanguage] = useState("en");
   const [selectedVoiceGender, setSelectedVoiceGender] = useState<VoiceGender | undefined>(undefined);
-  const [showVerificationDialog, setShowVerificationDialog] = useState(false);
   
   console.log('[CreateRoom] Selected voice gender:', selectedVoiceGender);
   const { toast } = useToast();
@@ -44,12 +33,6 @@ function CreateRoomContent() {
       setLocation(`/room/${data.roomId}?role=creator&language=${selectedLanguage}&voiceGender=${selectedVoiceGender}`);
     },
     onError: (error: any) => {
-      // Check if this is a verification error
-      if (error.requiresVerification) {
-        setShowVerificationDialog(true);
-        return;
-      }
-      
       toast({
         title: "Error",
         description: error.message || "Failed to create room. Please try again.",
@@ -195,34 +178,6 @@ function CreateRoomContent() {
           }
         </p>
       </div>
-
-      {/* Email Verification Dialog */}
-      <AlertDialog open={showVerificationDialog} onOpenChange={setShowVerificationDialog}>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle className="flex items-center gap-2">
-              <Mail className="h-5 w-5 text-amber-400" />
-              Email Verification Required
-            </AlertDialogTitle>
-            <AlertDialogDescription>
-              You need to verify your email address before creating translation rooms. 
-              Please check your inbox for the verification link, or visit your Account page to resend it.
-            </AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel data-testid="button-cancel-verification">
-              Close
-            </AlertDialogCancel>
-            <AlertDialogAction
-              onClick={() => setLocation("/account")}
-              className="bg-gradient-to-r from-violet-500 to-purple-500 hover:from-violet-600 hover:to-purple-600"
-              data-testid="button-go-to-account"
-            >
-              Go to Account
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
     </div>
   );
 }
