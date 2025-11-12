@@ -19,10 +19,20 @@ export const users = pgTable("users", {
   id: serial("id").primaryKey(),
   email: varchar("email", { length: 255 }).notNull().unique(),
   passwordHash: varchar("password_hash", { length: 255 }).notNull(),
-  isEmailVerified: boolean("is_email_verified").notNull().default(false),
-  emailVerificationToken: varchar("email_verification_token", { length: 255 }),
-  emailVerificationTokenExpiry: timestamp("email_verification_token_expiry"),
   stripeCustomerId: varchar("stripe_customer_id", { length: 255 }),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const pendingRegistrations = pgTable("pending_registrations", {
+  id: serial("id").primaryKey(),
+  email: varchar("email", { length: 255 }).notNull().unique(),
+  passwordHash: varchar("password_hash", { length: 255 }).notNull(),
+  hashedCode: varchar("hashed_code", { length: 255 }).notNull(),
+  codeExpiry: timestamp("code_expiry").notNull(),
+  attemptCount: integer("attempt_count").notNull().default(0),
+  lastAttemptAt: timestamp("last_attempt_at"),
+  resendCount: integer("resend_count").notNull().default(0),
+  lastResendAt: timestamp("last_resend_at"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
@@ -68,9 +78,10 @@ export const creditUsage = pgTable("credit_usage", {
 export const insertUserSchema = createInsertSchema(users).omit({ 
   id: true, 
   createdAt: true,
-  isEmailVerified: true,
-  emailVerificationToken: true,
-  emailVerificationTokenExpiry: true,
+});
+export const insertPendingRegistrationSchema = createInsertSchema(pendingRegistrations).omit({ 
+  id: true, 
+  createdAt: true,
 });
 export const insertSubscriptionSchema = createInsertSchema(subscriptions).omit({ id: true, createdAt: true, updatedAt: true });
 export const insertRoomSchema = createInsertSchema(rooms).omit({ createdAt: true, sessionStartedAt: true, sessionEndedAt: true });
@@ -79,6 +90,8 @@ export const insertCreditUsageSchema = createInsertSchema(creditUsage).omit({ id
 // Types
 export type User = typeof users.$inferSelect;
 export type InsertUser = z.infer<typeof insertUserSchema>;
+export type PendingRegistration = typeof pendingRegistrations.$inferSelect;
+export type InsertPendingRegistration = z.infer<typeof insertPendingRegistrationSchema>;
 export type Subscription = typeof subscriptions.$inferSelect;
 export type InsertSubscription = z.infer<typeof insertSubscriptionSchema>;
 export type Room = typeof rooms.$inferSelect;

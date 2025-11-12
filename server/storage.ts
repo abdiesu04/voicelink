@@ -2,7 +2,7 @@ import { randomUUID } from "crypto";
 import { drizzle } from "drizzle-orm/neon-serverless";
 import { eq, and, desc } from "drizzle-orm";
 import * as schema from "@shared/schema";
-import type { User, Subscription, Room, CreditUsage, SubscriptionPlan } from "@shared/schema";
+import type { User, Subscription, Room, CreditUsage, SubscriptionPlan, PendingRegistration } from "@shared/schema";
 import { Pool, neonConfig } from "@neondatabase/serverless";
 import ws from "ws";
 
@@ -17,9 +17,11 @@ export interface IStorage {
   getUserByEmail(email: string): Promise<User | undefined>;
   getUserById(id: number): Promise<User | undefined>;
   setUserStripeCustomerId(userId: number, stripeCustomerId: string): Promise<User>;
-  setEmailVerificationToken(userId: number, token: string, expiry: Date): Promise<User>;
-  getUserByVerificationToken(token: string): Promise<User | undefined>;
-  verifyEmail(userId: number): Promise<User>;
+  
+  // Pending registration methods
+  createPendingRegistration(email: string, passwordHash: string, code: string, expiry: Date): Promise<PendingRegistration>;
+  getPendingRegistrationByEmail(email: string): Promise<PendingRegistration | undefined>;
+  deletePendingRegistration(email: string): Promise<void>;
 
   // Subscription methods
   createSubscription(userId: number, plan: SubscriptionPlan): Promise<Subscription>;
@@ -80,47 +82,35 @@ export class PgStorage implements IStorage {
     return user;
   }
 
-  async setEmailVerificationToken(userId: number, token: string, expiry: Date): Promise<User> {
-    const [user] = await db.update(schema.users)
-      .set({ 
-        emailVerificationToken: token,
-        emailVerificationTokenExpiry: expiry,
-      })
-      .where(eq(schema.users.id, userId))
-      .returning();
+  // Pending registration methods
+  async createPendingRegistration(email: string, passwordHash: string, hashedCode: string, expiry: Date): Promise<PendingRegistration> {
+    // Delete any existing pending registration for this email
+    await db.delete(schema.pendingRegistrations)
+      .where(eq(schema.pendingRegistrations.email, email));
     
-    if (!user) {
-      throw new Error(`User with ID ${userId} not found`);
-    }
+    const [pending] = await db.insert(schema.pendingRegistrations).values({
+      email,
+      passwordHash,
+      hashedCode,
+      codeExpiry: expiry,
+      attemptCount: 0,
+      resendCount: 1,
+      lastResendAt: new Date(),
+    }).returning();
     
-    return user;
+    return pending;
   }
 
-  async getUserByVerificationToken(token: string): Promise<User | undefined> {
-    const [user] = await db.select()
-      .from(schema.users)
-      .where(and(
-        eq(schema.users.emailVerificationToken, token),
-        eq(schema.users.isEmailVerified, false)
-      ));
-    return user;
+  async getPendingRegistrationByEmail(email: string): Promise<PendingRegistration | undefined> {
+    const [pending] = await db.select()
+      .from(schema.pendingRegistrations)
+      .where(eq(schema.pendingRegistrations.email, email));
+    return pending;
   }
 
-  async verifyEmail(userId: number): Promise<User> {
-    const [user] = await db.update(schema.users)
-      .set({ 
-        isEmailVerified: true,
-        emailVerificationToken: null,
-        emailVerificationTokenExpiry: null,
-      })
-      .where(eq(schema.users.id, userId))
-      .returning();
-    
-    if (!user) {
-      throw new Error(`User with ID ${userId} not found`);
-    }
-    
-    return user;
+  async deletePendingRegistration(email: string): Promise<void> {
+    await db.delete(schema.pendingRegistrations)
+      .where(eq(schema.pendingRegistrations.email, email));
   }
 
   // Subscription methods
