@@ -5,7 +5,7 @@ import { ArrowLeft } from "lucide-react";
 export default function CaliforniaPrivacyPolicy() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-slate-100 to-slate-200 dark:from-slate-950 dark:via-slate-900 dark:to-slate-800">
-      <div className="container mx-auto px-6 py-12 max-w-4xl">
+      <div className="container mx-auto px-6 py-12 pt-24 max-w-4xl">
         <div className="mb-8">
           <Link href="/">
             <Button variant="outline" size="sm" data-testid="button-back-home">

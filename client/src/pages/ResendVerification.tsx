@@ -64,7 +64,7 @@ export default function ResendVerification() {
 
   if (showSuccess) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-background to-muted/20 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-background to-muted/20 flex items-center justify-center p-4 pt-24">
         <Card className="w-full max-w-md" data-testid="card-resend-success">
           <CardHeader className="text-center space-y-4">
             <div className="flex justify-center">
@@ -122,7 +122,7 @@ export default function ResendVerification() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background to-muted/20 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-background to-muted/20 flex items-center justify-center p-4 pt-24">
       <Card className="w-full max-w-md" data-testid="card-resend-verification">
         <CardHeader className="text-center space-y-4">
           <div className="flex justify-center">

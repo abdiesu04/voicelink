@@ -154,7 +154,7 @@ export default function PaymentSuccess() {
   // Show verifying state
   if (activationStatus === 'verifying') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-violet-900/20 to-slate-900 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-violet-900/20 to-slate-900 flex items-center justify-center p-4 pt-24">
         <div className="w-full max-w-md">
           <Card className="border-border/50 backdrop-blur-xl bg-background/80 shadow-2xl">
             <CardHeader className="text-center space-y-4">
@@ -177,7 +177,7 @@ export default function PaymentSuccess() {
   // Show waiting for webhook state (production only)
   if (activationStatus === 'waiting_webhook') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-violet-900/20 to-slate-900 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-violet-900/20 to-slate-900 flex items-center justify-center p-4 pt-24">
         <div className="w-full max-w-md">
           <Card className="border-border/50 backdrop-blur-xl bg-background/80 shadow-2xl">
             <CardHeader className="text-center space-y-4">
@@ -213,7 +213,7 @@ export default function PaymentSuccess() {
     const hasSessionId = !!sessionId;
     
     return (
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-violet-900/20 to-slate-900 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-slate-900 via-violet-900/20 to-slate-900 flex items-center justify-center p-4 pt-24">
         <div className="w-full max-w-md">
           <Card className="border-border/50 backdrop-blur-xl bg-background/80 shadow-2xl">
             <CardHeader className="text-center space-y-4">
