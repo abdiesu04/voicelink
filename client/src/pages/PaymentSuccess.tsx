@@ -110,9 +110,10 @@ export default function PaymentSuccess() {
     const pollInterval = setInterval(async () => {
       setPollingAttempts(prev => prev + 1);
       
-      // Timeout after 30 seconds (15 attempts * 2 seconds)
-      if (pollingAttempts >= 15) {
-        console.log("[Payment] Webhook timeout - activation may still complete");
+      // Timeout after 2 minutes (60 attempts * 2 seconds)
+      // Stripe webhooks can take 30-90 seconds under load
+      if (pollingAttempts >= 60) {
+        console.log("[Payment] Webhook timeout after 2 minutes - activation may still complete");
         setActivationStatus('timeout');
         clearInterval(pollInterval);
         return;
@@ -132,7 +133,7 @@ export default function PaymentSuccess() {
     }, 2000); // Poll every 2 seconds
 
     return () => clearInterval(pollInterval);
-  }, [activationStatus, pollingAttempts, refetchAuth]);
+  }, [activationStatus, pollingAttempts, refetchAuth, refreshUser]);
 
   useEffect(() => {
     if (activationStatus === 'activated') {
@@ -182,23 +183,30 @@ export default function PaymentSuccess() {
           <Card className="border-border/50 backdrop-blur-xl bg-background/80 shadow-2xl">
             <CardHeader className="text-center space-y-4">
               <div className="flex justify-center">
-                <Clock className="h-16 w-16 text-violet-500 animate-pulse" data-testid="icon-waiting" />
+                <div className="rounded-full bg-green-500/10 p-3 border border-green-500/20">
+                  <CheckCircle2 className="h-16 w-16 text-green-500" data-testid="icon-waiting" />
+                </div>
               </div>
-              <CardTitle className="text-3xl font-bold bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">
-                Activating Subscription...
+              <CardTitle className="text-3xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
+                Payment Successful!
               </CardTitle>
               <CardDescription className="text-base">
-                Your payment was successful! We're activating your subscription now.
+                We're activating your subscription right now.
                 <br />
-                <span className="text-xs text-muted-foreground mt-2 block">
-                  This usually takes just a few seconds...
+                <span className="text-sm text-green-500 mt-3 block font-medium">
+                  This typically takes 10-30 seconds...
                 </span>
               </CardDescription>
             </CardHeader>
-            <CardContent className="text-center">
+            <CardContent className="text-center space-y-4">
               <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
                 <Loader2 className="h-4 w-4 animate-spin" />
-                <span>Waiting for activation</span>
+                <span>Activating your plan</span>
+              </div>
+              <div className="bg-muted/30 rounded-lg p-3">
+                <p className="text-xs text-muted-foreground">
+                  Your minutes will be available as soon as activation completes.
+                </p>
               </div>
             </CardContent>
           </Card>
