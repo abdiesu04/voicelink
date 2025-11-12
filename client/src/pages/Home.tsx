@@ -188,55 +188,94 @@ export default function Home() {
           <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-blue-500/15 dark:bg-blue-500/25 rounded-full blur-[128px] animate-pulse" style={{ animationDelay: '1s' }} />
         </div>
 
-        {/* Main Content */}
-        <div className="container mx-auto px-6 md:px-12 relative z-10">
-          <div className="max-w-6xl mx-auto text-center py-12 pt-24 space-y-6">
-            {/* Central Microphone Icon with Glow */}
-            <div className="flex justify-center mb-4">
-              <div className="relative group">
-                <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 via-violet-500 to-blue-500 rounded-full blur-2xl opacity-40 group-hover:opacity-60 animate-pulse" />
-                <div className="relative h-20 w-20 rounded-full bg-gradient-to-br from-indigo-500 via-violet-500 to-blue-500 flex items-center justify-center shadow-2xl ring-4 ring-white/20 dark:ring-slate-800/50">
-                  <Mic className="h-10 w-10 text-white" />
+        {/* Main Content - Modern Split Layout */}
+        <div className="container mx-auto px-6 md:px-12 relative z-10 h-full">
+          <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center py-16 md:py-20">
+            
+            {/* Left Column: Text Content */}
+            <div className="space-y-8 text-left">
+              {/* Headline */}
+              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
+                <span className="block bg-gradient-to-r from-indigo-600 via-violet-600 to-blue-600 dark:from-indigo-400 dark:via-violet-400 dark:to-blue-400 bg-clip-text text-transparent">
+                  Erase Every
+                </span>
+                <span className="block text-slate-900 dark:text-white mt-2">
+                  Language Barrier
+                </span>
+              </h1>
+              
+              {/* Description */}
+              <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-xl">
+                Voztra instantly translates your voice into another language — same tone, same emotion, same gender — so you sound like a native speaker across 47 languages.
+              </p>
+
+              {/* CTA Buttons */}
+              <div className="flex flex-col sm:flex-row gap-4 pt-2">
+                <Link href="/create">
+                  <Button 
+                    size="lg" 
+                    className="text-lg px-12 h-16 bg-gradient-to-r from-emerald-500 via-blue-500 to-violet-500 hover:from-emerald-600 hover:via-blue-600 hover:to-violet-600 text-white shadow-2xl shadow-blue-500/50 group relative overflow-hidden border-0 w-full sm:w-auto" 
+                    data-testid="button-start-translating"
+                  >
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000" />
+                    <Sparkles className="mr-2 h-6 w-6 relative z-10" />
+                    <span className="relative z-10 font-bold">Get 60 Free Minutes</span>
+                  </Button>
+                </Link>
+                <a href="#how-it-works">
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="text-lg px-10 h-16 border-2 border-indigo-300 dark:border-indigo-700 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl hover:bg-white dark:hover:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-lg w-full sm:w-auto"
+                    data-testid="button-watch-demo"
+                  >
+                    <Volume2 className="mr-2 h-5 w-5" />
+                    Watch Demo
+                  </Button>
+                </a>
+              </div>
+
+              {/* Trust Indicator */}
+              <div className="flex items-center gap-3 pt-4">
+                <div className="flex -space-x-2">
+                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-indigo-400 to-indigo-600 ring-2 ring-white dark:ring-slate-900" />
+                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-violet-400 to-violet-600 ring-2 ring-white dark:ring-slate-900" />
+                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 ring-2 ring-white dark:ring-slate-900" />
+                </div>
+                <p className="text-sm text-slate-600 dark:text-slate-400">
+                  <span className="font-semibold text-slate-900 dark:text-white">Join thousands</span> breaking language barriers daily
+                </p>
+              </div>
+            </div>
+
+            {/* Right Column: Animated Microphone Orb */}
+            <div className="flex items-center justify-center md:justify-end">
+              <div className="relative">
+                {/* Outer Glow Rings */}
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-[400px] h-[400px] rounded-full bg-gradient-to-r from-indigo-500/20 via-violet-500/20 to-blue-500/20 blur-3xl animate-pulse" />
+                </div>
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-[300px] h-[300px] rounded-full bg-gradient-to-r from-indigo-500/30 via-violet-500/30 to-blue-500/30 blur-2xl animate-pulse" style={{ animationDelay: '1s' }} />
+                </div>
+                
+                {/* Main Microphone Orb */}
+                <div className="relative group">
+                  <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-full bg-gradient-to-br from-indigo-500 via-violet-500 to-blue-500 flex items-center justify-center shadow-2xl ring-8 ring-white/10 dark:ring-slate-800/50 animate-float">
+                    <Mic className="h-32 w-32 md:h-40 md:w-40 text-white drop-shadow-2xl" />
+                  </div>
+                  
+                  {/* Floating Accent Circles */}
+                  <div className="absolute -top-4 -right-4 w-20 h-20 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center shadow-xl animate-float" style={{ animationDelay: '0.5s', animationDuration: '4s' }}>
+                    <Languages className="h-10 w-10 text-white" />
+                  </div>
+                  <div className="absolute -bottom-6 -left-6 w-16 h-16 rounded-full bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-xl animate-float" style={{ animationDelay: '1.5s', animationDuration: '3.5s' }}>
+                    <Volume2 className="h-8 w-8 text-white" />
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* New Headline */}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight pb-2">
-              <span className="block bg-gradient-to-r from-indigo-600 via-violet-600 to-blue-600 dark:from-indigo-400 dark:via-violet-400 dark:to-blue-400 bg-clip-text text-transparent pb-2">Erase Every</span>
-              <span className="block text-slate-900 dark:text-white mt-1">Language Barrier</span>
-            </h1>
-            
-            {/* New Subtext */}
-            <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-4xl mx-auto leading-relaxed">Voztra instantly translates your voice into another language — same tone, same emotion, same gender — so you sound like a native speaker across 47 languages.
-
-</p>
-
-            {/* CTA Buttons with Gradient */}
-            <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center">
-              <Link href="/create">
-                <Button 
-                  size="lg" 
-                  className="text-lg px-12 h-16 bg-gradient-to-r from-emerald-500 via-blue-500 to-violet-500 hover:from-emerald-600 hover:via-blue-600 hover:to-violet-600 text-white shadow-2xl shadow-blue-500/50 group relative overflow-hidden border-0" 
-                  data-testid="button-start-translating"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000" />
-                  <Sparkles className="mr-2 h-6 w-6 relative z-10" />
-                  <span className="relative z-10 font-bold">Get 60 Free Minutes</span>
-                </Button>
-              </Link>
-              <a href="#how-it-works">
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="text-lg px-10 h-16 border-2 border-indigo-300 dark:border-indigo-700 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl hover:bg-white dark:hover:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-lg"
-                  data-testid="button-watch-demo"
-                >
-                  <Volume2 className="mr-2 h-5 w-5" />
-                  Watch Demo
-                </Button>
-              </a>
-            </div>
           </div>
         </div>
       </section>
