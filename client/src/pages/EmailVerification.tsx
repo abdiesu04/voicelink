@@ -4,6 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import { CheckCircle, XCircle, Loader2, Mail } from "lucide-react";
 import { VoztraLogo } from "@/components/VoztraLogo";
+import { queryClient } from "@/lib/queryClient";
 
 export default function EmailVerification() {
   const [, setLocation] = useLocation();
@@ -29,6 +30,8 @@ export default function EmailVerification() {
 
         if (response.ok) {
           setVerificationState('success');
+          // Invalidate auth cache to refresh user verification status
+          queryClient.invalidateQueries({ queryKey: ["/api/auth/me"] });
           // Start countdown for redirect
           const interval = setInterval(() => {
             setCountdown((prev) => {

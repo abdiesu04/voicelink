@@ -223,6 +223,32 @@ function AccountContent() {
           </Button>
         </div>
 
+        {/* Email Verification Banner */}
+        {user && !user.isEmailVerified && (
+          <Card className="border-amber-500/50 bg-amber-500/5 backdrop-blur-sm" data-testid="card-verification-warning">
+            <CardContent className="flex items-start gap-4 pt-6">
+              <AlertTriangle className="h-5 w-5 text-amber-400 mt-0.5 flex-shrink-0" />
+              <div className="flex-1">
+                <h3 className="font-semibold text-amber-400 mb-1">Email Verification Required</h3>
+                <p className="text-sm text-muted-foreground mb-3">
+                  Please verify your email address to create translation rooms. Check your inbox for the verification link.
+                </p>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => resendVerificationMutation.mutate()}
+                  disabled={resendVerificationMutation.isPending}
+                  className="border-amber-500/50 hover:bg-amber-500/10"
+                  data-testid="button-resend-verification"
+                >
+                  <Mail className="mr-2 h-4 w-4" />
+                  {resendVerificationMutation.isPending ? "Sending..." : "Resend Verification Email"}
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        )}
+
         <Card data-testid="card-profile" className="border-border/50 backdrop-blur-sm">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
