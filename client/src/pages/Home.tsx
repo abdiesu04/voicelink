@@ -193,58 +193,79 @@ export default function Home() {
           <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center py-16 md:py-20">
             
             {/* Left Column: Text Content */}
-            <div className="space-y-8 text-left">
-              {/* Headline */}
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-tight">
-                <span className="block bg-gradient-to-r from-indigo-600 via-violet-600 to-blue-600 dark:from-indigo-400 dark:via-violet-400 dark:to-blue-400 bg-clip-text text-transparent">
-                  Erase Every
+            <div className="space-y-7 text-left">
+              {/* Premium Badge */}
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-indigo-500/10 via-violet-500/10 to-blue-500/10 dark:from-indigo-500/20 dark:via-violet-500/20 dark:to-blue-500/20 border border-indigo-200/50 dark:border-indigo-500/30 backdrop-blur-sm">
+                <Sparkles className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
+                <span className="text-sm font-semibold bg-gradient-to-r from-indigo-600 via-violet-600 to-blue-600 dark:from-indigo-400 dark:via-violet-400 dark:to-blue-400 bg-clip-text text-transparent">
+                  Real-Time Voice Translation
                 </span>
-                <span className="block text-slate-900 dark:text-white mt-2">
-                  Language Barrier
-                </span>
-              </h1>
+              </div>
+
+              {/* Headline with Accent Line */}
+              <div className="relative">
+                <div className="absolute -left-1 top-0 w-1 h-full bg-gradient-to-b from-indigo-500 via-violet-500 to-blue-500 rounded-full" />
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight pl-6">
+                  <span className="block bg-gradient-to-r from-indigo-600 via-violet-600 to-blue-600 dark:from-indigo-400 dark:via-violet-400 dark:to-blue-400 bg-clip-text text-transparent">
+                    Erase Every
+                  </span>
+                  <span className="block text-slate-900 dark:text-white mt-1">
+                    Language Barrier
+                  </span>
+                </h1>
+              </div>
               
               {/* Description */}
-              <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-xl">
-                Voztra instantly translates your voice into another language — same tone, same emotion, same gender — so you sound like a native speaker across 47 languages.
+              <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-xl pl-6">
+                Voztra instantly translates your voice into another language — same tone, same emotion, same gender — so you sound like a native speaker across <span className="font-semibold text-indigo-600 dark:text-indigo-400">47 languages</span>.
               </p>
 
               {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 pt-2">
+              <div className="flex flex-col sm:flex-row gap-3 pt-1 pl-6">
                 <Link href="/create">
                   <Button 
                     size="lg" 
-                    className="text-lg px-12 h-16 bg-gradient-to-r from-emerald-500 via-blue-500 to-violet-500 hover:from-emerald-600 hover:via-blue-600 hover:to-violet-600 text-white shadow-2xl shadow-blue-500/50 group relative overflow-hidden border-0 w-full sm:w-auto" 
+                    className="text-base px-10 h-14 bg-gradient-to-r from-emerald-500 via-blue-500 to-violet-500 hover:from-emerald-600 hover:via-blue-600 hover:to-violet-600 text-white shadow-xl shadow-blue-500/40 group relative overflow-hidden border-0 w-full sm:w-auto" 
                     data-testid="button-start-translating"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000" />
-                    <Sparkles className="mr-2 h-6 w-6 relative z-10" />
-                    <span className="relative z-10 font-bold">Get 60 Free Minutes</span>
+                    <Sparkles className="mr-2 h-5 w-5 relative z-10" />
+                    <span className="relative z-10 font-semibold">Get 60 Free Minutes</span>
                   </Button>
                 </Link>
                 <a href="#how-it-works">
                   <Button
                     variant="outline"
                     size="lg"
-                    className="text-lg px-10 h-16 border-2 border-indigo-300 dark:border-indigo-700 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl hover:bg-white dark:hover:bg-slate-800 text-indigo-600 dark:text-indigo-400 shadow-lg w-full sm:w-auto"
+                    className="text-base px-8 h-14 border-2 border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl hover:bg-white dark:hover:bg-slate-800 hover:border-indigo-300 dark:hover:border-indigo-600 text-slate-700 dark:text-slate-300 shadow-sm w-full sm:w-auto transition-all"
                     data-testid="button-watch-demo"
                   >
-                    <Volume2 className="mr-2 h-5 w-5" />
+                    <Volume2 className="mr-2 h-4 w-4" />
                     Watch Demo
                   </Button>
                 </a>
               </div>
 
-              {/* Trust Indicator */}
-              <div className="flex items-center gap-3 pt-4">
-                <div className="flex -space-x-2">
-                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-indigo-400 to-indigo-600 ring-2 ring-white dark:ring-slate-900" />
-                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-violet-400 to-violet-600 ring-2 ring-white dark:ring-slate-900" />
-                  <div className="h-10 w-10 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 ring-2 ring-white dark:ring-slate-900" />
+              {/* Stats Bar */}
+              <div className="flex items-center gap-8 pt-4 pl-6 text-sm">
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="h-5 w-5 text-emerald-500" />
+                  <span className="text-slate-600 dark:text-slate-400">
+                    <span className="font-semibold text-slate-900 dark:text-white">60 min</span> free trial
+                  </span>
                 </div>
-                <p className="text-sm text-slate-600 dark:text-slate-400">
-                  <span className="font-semibold text-slate-900 dark:text-white">Join thousands</span> breaking language barriers daily
-                </p>
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="h-5 w-5 text-emerald-500" />
+                  <span className="text-slate-600 dark:text-slate-400">
+                    <span className="font-semibold text-slate-900 dark:text-white">No</span> credit card
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle className="h-5 w-5 text-emerald-500" />
+                  <span className="text-slate-600 dark:text-slate-400">
+                    <span className="font-semibold text-slate-900 dark:text-white">Instant</span> setup
+                  </span>
+                </div>
               </div>
             </div>
 
