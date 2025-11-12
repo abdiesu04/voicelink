@@ -266,17 +266,17 @@ export default function Register() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="w-full max-w-md"
           >
-            <GlassCard className="p-8" data-testid="card-account-details">
+            <GlassCard className="p-10 shadow-2xl border-2 border-white/30 dark:border-white/10" data-testid="card-account-details">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4 }}
-                className="mb-8"
+                className="mb-10"
               >
-                <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">
+                <h2 className="text-4xl font-black text-slate-900 dark:text-white mb-3 tracking-tight">
                   Create Account
                 </h2>
-                <p className="text-slate-600 dark:text-slate-400">
+                <p className="text-base text-slate-600 dark:text-slate-400 font-medium">
                   Get started with 60 free minutes
                 </p>
               </motion.div>
@@ -286,10 +286,9 @@ export default function Register() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5 }}
-                  className="space-y-2"
+                  className="space-y-3"
                 >
-                  <Label htmlFor="email" className="text-slate-700 dark:text-slate-300 flex items-center gap-2">
-                    <Mail className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
+                  <Label htmlFor="email" className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wide">
                     Email Address
                   </Label>
                   <Input
@@ -299,7 +298,7 @@ export default function Register() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     required
-                    className="bg-white/50 dark:bg-black/30 border-white/20 dark:border-white/10 focus:border-indigo-500 dark:focus:border-indigo-400 transition-all"
+                    className="h-12 px-4 text-base font-medium bg-white dark:bg-slate-900 border-2 border-slate-300 dark:border-slate-600 focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/20 transition-all placeholder:text-slate-400"
                     data-testid="input-email"
                   />
                 </motion.div>
@@ -308,10 +307,9 @@ export default function Register() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6 }}
-                  className="space-y-2"
+                  className="space-y-3"
                 >
-                  <Label htmlFor="password" className="text-slate-700 dark:text-slate-300 flex items-center gap-2">
-                    <Lock className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
+                  <Label htmlFor="password" className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wide">
                     Password
                   </Label>
                   <Input
@@ -322,18 +320,18 @@ export default function Register() {
                     onChange={(e) => setPassword(e.target.value)}
                     required
                     minLength={8}
-                    className="bg-white/50 dark:bg-black/30 border-white/20 dark:border-white/10 focus:border-indigo-500 dark:focus:border-indigo-400 transition-all"
+                    className="h-12 px-4 text-base font-medium bg-white dark:bg-slate-900 border-2 border-slate-300 dark:border-slate-600 focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/20 transition-all placeholder:text-slate-400"
                     data-testid="input-password"
                   />
                   {password.length > 0 && (
                     <motion.div
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
-                      className="space-y-2 pt-2"
+                      className="space-y-2 pt-1"
                     >
                       <div className="flex items-center justify-between text-xs">
-                        <span className="text-slate-600 dark:text-slate-400">Password strength</span>
-                        <span className={`font-semibold ${
+                        <span className="text-slate-700 dark:text-slate-300 font-semibold">Password strength</span>
+                        <span className={`font-bold ${
                           passwordStrength.score === 1 ? 'text-red-600 dark:text-red-400' :
                           passwordStrength.score === 2 ? 'text-orange-600 dark:text-orange-400' :
                           passwordStrength.score === 3 ? 'text-yellow-600 dark:text-yellow-400' :
@@ -342,11 +340,11 @@ export default function Register() {
                           {passwordStrength.label}
                         </span>
                       </div>
-                      <div className="flex gap-1">
+                      <div className="flex gap-1.5">
                         {[1, 2, 3, 4].map((level) => (
                           <div
                             key={level}
-                            className={`h-1.5 flex-1 rounded-full transition-all duration-300 ${
+                            className={`h-2 flex-1 rounded-full transition-all duration-300 ${
                               level <= passwordStrength.score
                                 ? passwordStrength.color
                                 : 'bg-slate-200 dark:bg-slate-700'
@@ -362,10 +360,9 @@ export default function Register() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.7 }}
-                  className="space-y-2"
+                  className="space-y-3"
                 >
-                  <Label htmlFor="confirmPassword" className="text-slate-700 dark:text-slate-300 flex items-center gap-2">
-                    <Lock className="h-4 w-4 text-indigo-600 dark:text-indigo-400" />
+                  <Label htmlFor="confirmPassword" className="text-sm font-bold text-slate-900 dark:text-white uppercase tracking-wide">
                     Confirm Password
                   </Label>
                   <Input
@@ -375,24 +372,24 @@ export default function Register() {
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     required
-                    className="bg-white/50 dark:bg-black/30 border-white/20 dark:border-white/10 focus:border-indigo-500 dark:focus:border-indigo-400 transition-all"
+                    className="h-12 px-4 text-base font-medium bg-white dark:bg-slate-900 border-2 border-slate-300 dark:border-slate-600 focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-2 focus:ring-indigo-500/20 transition-all placeholder:text-slate-400"
                     data-testid="input-confirm-password"
                   />
                   {confirmPassword.length > 0 && (
                     <motion.div
                       initial={{ opacity: 0, height: 0 }}
                       animate={{ opacity: 1, height: "auto" }}
-                      className="flex items-center gap-2 text-xs"
+                      className="flex items-center gap-2 text-sm pt-1"
                     >
                       {password === confirmPassword ? (
                         <>
-                          <Check className="h-3 w-3 text-green-600 dark:text-green-400" />
-                          <span className="text-green-600 dark:text-green-400">Passwords match</span>
+                          <Check className="h-4 w-4 text-green-600 dark:text-green-400" />
+                          <span className="text-green-600 dark:text-green-400 font-semibold">Passwords match</span>
                         </>
                       ) : (
                         <>
-                          <AlertCircle className="h-3 w-3 text-red-600 dark:text-red-400" />
-                          <span className="text-red-600 dark:text-red-400">Passwords don't match</span>
+                          <AlertCircle className="h-4 w-4 text-red-600 dark:text-red-400" />
+                          <span className="text-red-600 dark:text-red-400 font-semibold">Passwords don't match</span>
                         </>
                       )}
                     </motion.div>
@@ -403,16 +400,17 @@ export default function Register() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.8 }}
+                  className="pt-2"
                 >
                   <Button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white font-semibold py-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+                    className="w-full h-14 bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-700 hover:to-violet-700 text-white text-lg font-bold rounded-xl shadow-xl hover:shadow-2xl hover:scale-[1.02] transition-all duration-300"
                     disabled={isLoading}
                     data-testid="button-create-account"
                   >
                     {isLoading ? (
                       <span className="flex items-center gap-2">
-                        <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                        <div className="w-5 h-5 border-3 border-white/30 border-t-white rounded-full animate-spin" />
                         Creating account...
                       </span>
                     ) : (
@@ -425,13 +423,13 @@ export default function Register() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.9 }}
-                  className="text-center"
+                  className="text-center pt-2"
                 >
-                  <p className="text-sm text-slate-600 dark:text-slate-400">
+                  <p className="text-base text-slate-600 dark:text-slate-400 font-medium">
                     Already have an account?{" "}
                     <Link 
                       href="/login" 
-                      className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 font-semibold transition-colors"
+                      className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 font-bold underline decoration-2 underline-offset-2 transition-colors"
                       data-testid="link-login"
                     >
                       Sign in
@@ -445,10 +443,10 @@ export default function Register() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1 }}
-                className="mt-8 pt-6 border-t border-white/10 dark:border-white/5"
+                className="mt-8 pt-6 border-t-2 border-slate-200 dark:border-slate-700"
               >
-                <div className="flex items-center justify-center gap-2 text-xs text-slate-600 dark:text-slate-400">
-                  <Shield className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
+                <div className="flex items-center justify-center gap-2 text-sm text-slate-700 dark:text-slate-300 font-semibold">
+                  <Shield className="w-5 h-5 text-indigo-600 dark:text-indigo-400" />
                   <span>Your data is secure and encrypted</span>
                 </div>
               </motion.div>
