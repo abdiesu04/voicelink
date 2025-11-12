@@ -51,15 +51,15 @@ export default function Login() {
 
   const features = [
     { icon: Globe, text: "140+ languages supported" },
-    { icon: Users, text: "Join 10,000+ users worldwide" },
-    { icon: Shield, text: "Bank-level security" },
     { icon: Zap, text: "Real-time translation" },
+    { icon: Shield, text: "Secure & encrypted" },
+    { icon: Users, text: "Two-person conversations" },
   ];
 
   return (
     <div className="min-h-screen flex overflow-hidden bg-gradient-to-br from-slate-50 via-indigo-50/30 to-violet-50/30 dark:from-slate-950 dark:via-indigo-950/20 dark:to-slate-950">
       {/* Split Screen Layout */}
-      <div className="flex flex-col lg:flex-row w-full">
+      <div className="flex flex-col lg:flex-row w-full pt-20 lg:pt-0">
         
         {/* Left Side: Brand & Value Proposition */}
         <motion.div 
@@ -127,29 +127,22 @@ export default function Login() {
               ))}
             </motion.div>
 
-            {/* Social Proof */}
+            {/* Info Box */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.9 }}
               className="hidden lg:flex items-center gap-3 p-6 rounded-2xl bg-gradient-to-r from-indigo-500/10 to-violet-500/10 border border-indigo-200/20 dark:border-indigo-500/20"
             >
-              <div className="flex -space-x-3">
-                {[1, 2, 3, 4].map((i) => (
-                  <div
-                    key={i}
-                    className="w-10 h-10 rounded-full bg-gradient-to-br from-indigo-400 to-violet-400 border-2 border-white dark:border-slate-900 flex items-center justify-center text-white font-semibold text-sm"
-                  >
-                    {String.fromCharCode(64 + i)}
-                  </div>
-                ))}
+              <div className="flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-indigo-500 to-violet-500 flex items-center justify-center">
+                <CheckCircle2 className="w-6 h-6 text-white" />
               </div>
               <div>
                 <p className="text-sm font-semibold text-slate-900 dark:text-white">
-                  Trusted by professionals worldwide
+                  Break language barriers instantly
                 </p>
                 <p className="text-xs text-slate-600 dark:text-slate-400">
-                  Breaking barriers across 140 languages
+                  Voice translation across 140 languages
                 </p>
               </div>
             </motion.div>

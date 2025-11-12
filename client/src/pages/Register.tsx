@@ -166,7 +166,7 @@ export default function Register() {
   return (
     <div className="min-h-screen flex overflow-hidden bg-gradient-to-br from-slate-50 via-indigo-50/30 to-violet-50/30 dark:from-slate-950 dark:via-indigo-950/20 dark:to-slate-950">
       {/* Split Screen Layout */}
-      <div className="flex flex-col lg:flex-row w-full">
+      <div className="flex flex-col lg:flex-row w-full pt-20 lg:pt-0">
         
         {/* Left Side: Brand & Benefits */}
         <motion.div 
@@ -209,7 +209,7 @@ export default function Register() {
               transition={{ delay: 0.4 }}
               className="text-lg lg:text-xl text-slate-600 dark:text-slate-300 mb-8"
             >
-              Join thousands of users translating conversations in real-time across 140 languages
+              Translate conversations in real-time across 140 languages with voice preservation
             </motion.p>
 
             {/* Benefits */}
