@@ -1,0 +1,214 @@
+Morshed Alam, [11/12/2025 5:32 PM]
+@forypo host-console-events.js:1 [Credits] Update received: 18450 seconds remaining, exhausted: false
+host-console-events.js:1 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+host-console-events.js:1 [Heartbeat] 💚 Received pong from server - connection alive
+host-console-events.js:1 [Translation Received] ⏱️ Timestamp: 1762957803459, MessageId: participant-1762957810283-rjykmu9, Speaker: participant, IsOwn: false
+host-console-events.js:1 [Translation Received] 📊 DeduplicationSet size BEFORE: 1
+host-console-events.js:1 [Deduplication] 🔍 Check: sizeBefore=1, sizeAfter=2, messageId=participant-1762957810283-rjykmu9
+host-console-events.js:1 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 2
+host-console-events.js:1 [Translation] 📝 Translation #2 received - Original: "Former Celsius and Brazil midf...", Translated: "El ex centrocampista de Celsiu..."
+host-console-events.js:1 [Translation] 📥 Added to PARTNER messages (total: 1)
+host-console-events.js:1 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+host-console-events.js:1 [Voice Gender] Text to speak: "El ex centrocampista de Celsius y Brasil, Óscar, se ha estabilizado en el hospital después de caer con un problema cardíaco.", Language: es
+host-console-events.js:1 [TTS Queue] Adding to queue (queue size: 0): El ex centrocampista de Celsius y Brasil, Óscar, s
+host-console-events.js:1 [TTS Queue] Queue processor started
+host-console-events.js:1 [TTS Queue] Playing: El ex centrocampista de Celsius y Brasil, Óscar, s 
+host-console-events.js:1 [TTS Queue] Synthesizing audio via REST API...
+host-console-events.js:1 [Azure Token] Using cached token
+host-console-events.js:1 [Translation] ⏱️ Total processing time: 7ms
+host-console-events.js:1 [Azure TTS API] 🎤 REQUEST #1 START - Voice: en-US-AndrewMultilingualNeural, Language: es, Region: eastus, Text: "El ex centrocampista de Celsius y Brasil, Óscar, s..."
+host-console-events.js:1 [Credits] Update received: 18440 seconds remaining, exhausted: false
+host-console-events.js:1 [Translation Received] ⏱️ Timestamp: 1762957803938, MessageId: participant-1762957810760-087udgi, Speaker: participant, IsOwn: false
+host-console-events.js:1 [Translation Received] 📊 DeduplicationSet size BEFORE: 2
+host-console-events.js:1 [Deduplication] 🔍 Check: sizeBefore=2, sizeAfter=3, messageId=participant-1762957810760-087udgi
+host-console-events.js:1 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 3
+host-console-events.js:1 [Translation] 📝 Translation #3 received - Original: "Formal Celsius and Brazil midf...", Translated: "El mediocampista formal de Cel..."
+host-console-events.js:1 [Translation] 📥 Added to PARTNER messages (total: 1)
+host-console-events.js:1 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+host-console-events.js:1 [Voice Gender] Text to speak: "El mediocampista formal de Celsius y Brasil, Óscar, se ha estabilizado en el hospital después de caer con un problema cardíaco.", Language: es
+host-console-events.js:1 [TTS Queue] Adding to queue (queue size: 0): El mediocampista formal de Celsius y Brasil, Óscar
+host-console-events.js:1 [Translation] ⏱️ Total processing time: 3ms
+host-console-events.js:1 [Azure TTS API] ✅ REQUEST #1 SUCCESS - Voice: en-US-AndrewMultilingualNeural, Duration: 1534ms, Audio size: 122112 bytes
+host-console-events.js:1 [Azure TTS API] 📊 Session Total: 1 TTS requests made
+host-console-events.js:1 [TTS Queue] Synthesis completed in 2345ms, audio size: 122112 bytes
+host-console-events.js:1 [TTS Queue] Setting fallback timeout: 9632ms (audio duration: 7.632s)
+host-console-events.js:1 [TTS Queue] Playback started successfully
+host-console-events.js:1 [TTS Queue] Playback completed (audio ended event)
+host-console-events.js:1 [TTS Queue] Marked messageId as spoken: participant-1762957810283-rjykmu9
+host-console-events.js:1 [TTS Queue] Playing: El mediocampista formal de Celsius y Brasil, Óscar 
+host-console-events.js:1 [TTS Queue]
+
+Morshed Alam, [11/12/2025 5:32 PM]
+ueue]
+
+Morshed Alam, [11/12/2025 5:32 PM]
+e] Synthesizing audio via REST API...
+host-console-events.js:1 [Azure Token] Using cached token
+host-console-events.js:1 [Azure TTS API] 🎤 REQUEST #2 START - Voice: en-US-AndrewMultilingualNeural, Language: es, Region: eastus, Text: "El mediocampista formal de Celsius y Brasil, Óscar..."
+host-console-events.js:1 [Credits] Update received: 18430 seconds remaining, exhausted: false
+host-console-events.js:1 [Azure TTS API] ✅ REQUEST #2 SUCCESS - Voice: en-US-AndrewMultilingualNeural, Duration: 896ms, Audio size: 123264 bytes
+host-console-events.js:1 [Azure TTS API] 📊 Session Total: 2 TTS requests made
+host-console-events.js:1 [TTS Queue] Synthesis completed in 1707ms, audio size: 123264 bytes
+host-console-events.js:1 [TTS Queue] Setting fallback timeout: 9704ms (audio duration: 7.704s)
+host-console-events.js:1 [TTS Queue] Playback started successfully
+content-jam-ui.js:1279 Developers: Jam did not find any metadata on this page. Want to capture custom page metadata with every bug? Visit https://jam.dev/docs/debug-a-jam/devtools/jam.metadata
+wC @ content-jam-ui.js:1279
+onDataTransferRequest @ content-jam-ui.js:508
+n @ content-jam-ui.js:508
+iui.html?t=Njc1ODU3MTY4ODcyNDYxODpbWyJuYW1lIiwiaWZyYW1lLWphbS11aSJdLFsidGFiSWQiLDEzNDg0MjUyMzVdXQ:1 Blocked aria-hidden on an element because its descendant retained focus. The focus must not be hidden from assistive technology users. Avoid using aria-hidden on a focused element or its ancestor. Consider using the inert attribute instead, which will also prevent focus. For more details, see the aria-hidden section of the WAI-ARIA specification at https://w3c.github.io/aria/#aria-hidden.
+Element with focus: <div.MuiDialog-container MuiDialog-scrollPaper jam-ekeie0>
+Ancestor with aria-hidden: <jam-ui#__jam-iframe-ui> <jam-ui id=​"__jam-iframe-ui" aria-hidden=​"true">​…​</jam-ui>​
+host-console-events.js:1 [TTS Queue] Playback completed (audio ended event)
+host-console-events.js:1 [TTS Queue] Marked messageId as spoken: participant-1762957810760-087udgi
+host-console-events.js:1 [TTS Queue] Queue processor finished
+host-console-events.js:1 [Credits] Update received: 18420 seconds remaining, exhausted: false
+host-console-events.js:1 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+host-console-events.js:1 [Heartbeat] 💚 Received pong from server - connection alive
+sw.js:1 Error: [mobx-state-tree] You are trying to read or write to an object that is no longer part of a state tree. (Object type: 'ScreenshotMachineModel', Path upon death: '/capture', Subpath: 'state', Action: ''). Either detach nodes first, or don't use objects after removing / replacing them in the tree.
+    at vm (sw.js:1:1019018)
+    at t.value (sw.js:1:991552)
+    at t.value (sw.js:1:993626)
+    at t.dehanceValue (sw.js:1:574462)
+    at t.get (sw.js:1:574992)
+    at e.getObservablePropValue_ (sw.js:1:607842)
+    at Object.get [as state] (sw.js:1:612628)
+    at e.get_ (sw.js:1:608409)
+    at Object.get (sw.js:1:591980)
+    at sw.js:1463:21059
+vm @ sw.js:1
+value @ sw.js:1
+value @ sw.js:1
+(anonymous) @ sw.js:1
+(anonymous) @ sw.js:1
+(anonymous) @ sw.js:1
+get @ sw.js:1
+(anonymous) @ sw.js:1
+get @ sw.js:1
+(anonymous) @ sw.js:1463
+setTimeout
+(anonymous) @ sw.js:1463
+(anonymous) @ sw.js:1463
+setTimeout
+d @ sw.js:1463
+transitionToIdle @ sw.js:1467
+(anonymous) @ sw.js:1463
+(anonymous) @ sw.js:13
+onDataTransferRequest @ sw.js:13
+n @ sw.js:13
+host-console-events.js:1 [Translation Received] ⏱️ Timestamp: 1762957827414, MessageId: participant-1762957834240-bg6rf69, Speaker: participant, IsOwn: false
+host-console-events.js:1 [Translation Received] 📊 DeduplicationSet size BEFORE: 3
+host-console-events.js:1 [Deduplication] 🔍 Check: sizeBefore=3, sizeAfter=4, messageId=participant-1762957834240-bg6rf69
+host-console-events.js:1 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 4
+host-console-events.js:1 [Translation] 📝 Translation #4 received - Original: "The 34 year old became unwell ...", Translated: "El jugador de 34 años se sinti..."
+host-console-events.js:1 [Translation] 📥 Added to PARTNER messa
+
+Morshed Alam, [11/12/2025 5:32 PM]
+ges (total: 1)
+host-console-events.js:1 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+host-console-events.js:1 [Voice Gender] Text to speak: "El jugador de 34 años se sintió mal mientras se sometía a pruebas físicas antes de la nueva temporada en el Centro de Entrenamiento de Sao Paulo el martes.", Language: es
+host-console-events.js:1 [TTS Queue] Adding to queue (queue size: 0): El jugador de 34 años se sintió mal mientras se so
+host-console-events.js:1 [TTS Queue] Queue processor started
+host-console-events.js:1 [TTS Queue] Playing: El jugador de 34 años se sintió mal mientras se so 
+host-console-events.js:1 [TTS Queue] Synthesizing audio via REST API...
+host-console-events.js:1 [Azure Token] Using cached token
+host-console-events.js:1 [Translation] ⏱️ Total processing time: 3ms
+host-console-events.js:1 [Azure TTS API] 🎤 REQUEST #3 START - Voice: en-US-AndrewMultilingualNeural, Language: es, Region: eastus, Text: "El jugador de 34 años se sintió mal mientras se so..."
+host-console-events.js:1 [Translation Received] ⏱️ Timestamp: 1762957827649, MessageId: participant-1762957834475-xjrfd9n, Speaker: participant, IsOwn: false
+host-console-events.js:1 [Translation Received] 📊 DeduplicationSet size BEFORE: 4
+host-console-events.js:1 [Deduplication] 🔍 Check: sizeBefore=4, sizeAfter=5, messageId=participant-1762957834475-xjrfd9n
+host-console-events.js:1 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 5
+host-console-events.js:1 [Translation] 📝 Translation #5 received - Original: "The 34 year old become unwell ...", Translated: "El jugador de 34 años se sinti..."
+host-console-events.js:1 [Translation] 📥 Added to PARTNER messages (total: 1)
+host-console-events.js:1 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+host-console-events.js:1 [Voice Gender] Text to speak: "El jugador de 34 años se sintió mal mientras se sometía a pruebas físicas antes de la nueva temporada en el Centro de Entrenamiento de Sao Paulo el martes.", Language: es
+host-console-events.js:1 [TTS Queue] Adding to queue (queue size: 0): El jugador de 34 años se sintió mal mientras se so
+host-console-events.js:1 [Translation] ⏱️ Total processing time: 4ms
+host-console-events.js:1 [Azure TTS API] ✅ REQUEST #3 SUCCESS - Voice: en-US-AndrewMultilingualNeural, Duration: 960ms, Audio size: 146880 bytes
+host-console-events.js:1 [Azure TTS API] 📊 Session Total: 3 TTS requests made
+host-console-events.js:1 [TTS Queue] Synthesis completed in 1772ms, audio size: 146880 bytes
+host-console-events.js:1 [TTS Queue] Setting fallback timeout: 11180ms (audio duration: 9.18s)
+host-console-events.js:1 [TTS Queue] Playback started successfully
+host-console-events.js:1 [Credits] Update received: 18410 seconds remaining, exhausted: false
+host-console-events.js:1 [TTS Queue] Playback completed (audio ended event)
+host-console-events.js:1 [TTS Queue] Marked messageId as spoken: participant-1762957834240-bg6rf69
+host-console-events.js:1 [TTS Queue] Playing: El jugador de 34 años se sintió mal mientras se so 
+host-console-events.js:1 [TTS Queue] Synthesizing audio via REST API...
+host-console-events.js:1 [Azure Token] Using cached token
+host-console-events.js:1 [Azure TTS API] 🎤 REQUEST #4 START - Voice: en-US-AndrewMultilingualNeural, Language: es, Region: eastus, Text: "El jugador de 34 años se sintió mal mientras se so..."
+host-console-events.js:1 [Azure TTS API] ✅ REQUEST #4 SUCCESS - Voice: en-US-AndrewMultilingualNeural, Duration: 702ms, Audio size: 146880 bytes
+host-console-events.js:1 [Azure TTS API] 📊 Session Total: 4 TTS requests made
+host-console-events.js:1 [TTS Queue] Synthesis completed in 1507ms, audio size: 146880 bytes
+host-console-events.js:1 [TTS Queue] Setting fallback timeout: 11180ms (audio duration: 9.18s)
+host-console-events.js:1 [TTS Queue] Playback started successfully
+host-console-events.js:1 [Credits] Update received: 18400 seconds remaining, exhausted: false
+host-console-events.js:1 [TTS Queue] Playback
+
+Morshed Alam, [11/12/2025 5:32 PM]
+co
+
+Morshed Alam, [11/12/2025 5:32 PM]
+mpleted (audio ended event)
+host-console-events.js:1 [TTS Queue] Marked messageId as spoken: participant-1762957834475-xjrfd9n
+host-console-events.js:1 [TTS Queue] Queue processor finished
+host-console-events.js:1 [Credits] Update received: 18390 seconds remaining, exhausted: false
+host-console-events.js:1 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+host-console-events.js:1 [Heartbeat] 💚 Received pong from server - connection alive
+host-console-events.js:1 [Translation Received] ⏱️ Timestamp: 1762957857691, MessageId: creator-1762957864517-4glkvlu, Speaker: creator, IsOwn: true
+host-console-events.js:1 [Translation Received] 📊 DeduplicationSet size BEFORE: 5
+host-console-events.js:1 [Deduplication] 🔍 Check: sizeBefore=5, sizeAfter=6, messageId=creator-1762957864517-4glkvlu
+host-console-events.js:1 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 6
+host-console-events.js:1 [Translation] 📝 Translation #6 received - Original: "Nueva frase....", Translated: "New phrase...."
+host-console-events.js:1 [Translation] 📤 Added to MY messages (total: 1)
+host-console-events.js:1 [Translation] ⏱️ Total processing time: 1ms
+host-console-events.js:1 [Translation Received] ⏱️ Timestamp: 1762957861254, MessageId: participant-1762957868081-7oyv0az, Speaker: participant, IsOwn: false
+host-console-events.js:1 [Translation Received] 📊 DeduplicationSet size BEFORE: 6
+host-console-events.js:1 [Deduplication] 🔍 Check: sizeBefore=6, sizeAfter=7, messageId=participant-1762957868081-7oyv0az
+host-console-events.js:1 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 7
+host-console-events.js:1 [Translation] 📝 Translation #7 received - Original: "Brazilian publication Globe re...", Translated: "La publicación brasileña Globe..."
+host-console-events.js:1 [Translation] 📥 Added to PARTNER messages (total: 1)
+host-console-events.js:1 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+host-console-events.js:1 [Voice Gender] Text to speak: "La publicación brasileña Globe informó que Oscar estaba usando una bicicleta estática cuando se desplomó y estuvo inconsciente durante dos minutos.", Language: es
+host-console-events.js:1 [TTS Queue] Adding to queue (queue size: 0): La publicación brasileña Globe informó que Oscar e
+host-console-events.js:1 [TTS Queue] Queue processor started
+host-console-events.js:1 [TTS Queue] Playing: La publicación brasileña Globe informó que Oscar e 
+host-console-events.js:1 [TTS Queue] Synthesizing audio via REST API...
+host-console-events.js:1 [Azure Token] Using cached token
+host-console-events.js:1 [Translation] ⏱️ Total processing time: 3ms
+host-console-events.js:1 [Azure TTS API] 🎤 REQUEST #5 START - Voice: en-US-AndrewMultilingualNeural, Language: es, Region: eastus, Text: "La publicación brasileña Globe informó que Oscar e..."
+host-console-events.js:1 [Azure TTS API] ✅ REQUEST #5 SUCCESS - Voice: en-US-AndrewMultilingualNeural, Duration: 909ms, Audio size: 139968 bytes
+host-console-events.js:1 [Azure TTS API] 📊 Session Total: 5 TTS requests made
+host-console-events.js:1 [TTS Queue] Synthesis completed in 1716ms, audio size: 139968 bytes
+host-console-events.js:1 [TTS Queue] Setting fallback timeout: 10748ms (audio duration: 8.748s)
+host-console-events.js:1 [TTS Queue] Playback started successfully
+host-console-events.js:1 [Credits] Update received: 18380 seconds remaining, exhausted: false
+host-console-events.js:1 [TTS Queue] Playback completed (audio ended event)
+host-console-events.js:1 [TTS Queue] Marked messageId as spoken: participant-1762957868081-7oyv0az
+host-console-events.js:1 [TTS Queue] Queue processor finished
+host-console-events.js:1 [Credits] Update received: 18370 seconds remaining, exhausted: false
+host-console-events.js:1 [Credits] Update received: 18360 seconds remaining, exhausted: false
+host-console-events.js:1 [Translation Received] ⏱️ Timestamp: 1762957884599, MessageId: participant-1762957891427-5i6zbei, Speaker: participant, IsOwn: false
+host-console-events.js:1 [Transl
+
+Morshed Alam, [11/12/2025 5:32 PM]
+ation Received] 📊 DeduplicationSet size BEFORE: 7
+host-console-events.js:1 [Deduplication] 🔍 Check: sizeBefore=7, sizeAfter=8, messageId=participant-1762957891427-5i6zbei
+host-console-events.js:1 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 8
+host-console-events.js:1 [Translation] 📝 Translation #8 received - Original: "It added that Oscar is now con...", Translated: "Agregó que Oscar ahora está co..."
+host-console-events.js:1 [Translation] 📥 Added to PARTNER messages (total: 1)
+host-console-events.js:1 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+host-console-events.js:1 [Voice Gender] Text to speak: "Agregó que Oscar ahora está considerando retirarse. Regresó al Sao Paulo, que era dirigido por el Excelsior y el delantero argentino Hernán Crespo, con un contrato de tres años hasta 2027 después de pasar ocho años jugando en China.", Language: es
+host-console-events.js:1 [TTS Queue] Adding to queue (queue size: 0): Agregó que Oscar ahora está considerando retirarse
+host-console-events.js:1 [TTS Queue] Queue processor started
+host-console-events.js:1 [TTS Queue] Playing: Agregó que Oscar ahora está considerando retirarse 
+host-console-events.js:1 [TTS Queue] Synthesizing audio via REST API...
+host-console-events.js:1 [Azure Token] Using cached token
+host-console-events.js:1 [Translation] ⏱️ Total processing time: 2ms
+host-console-events.js:1 [Azure TTS API] 🎤 REQUEST #6 START - Voice: en-US-AndrewMultilingualNeural, Language: es, Region: eastus, Text: "Agregó que Oscar ahora está considerando retirarse..."
+host-console-events.js:1 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+host-console-events.js:1 [Heartbeat] 💚 Received pong from server - connection alive
+host-console-events.js:1 [Azure TTS API] ✅ REQUEST #6 SUCCESS - Voice: en-US-AndrewMultilingualNeural, Duration: 774ms, Audio size: 230976 bytes
+host-console-events.js:1 [Azure TTS API] 📊 Session Total: 6 TTS requests made
+host-console-events.js:1 [TTS Queue] Synthesis completed in 1663ms, audio size: 230976 bytes
+host-console-events.js:1 [TTS Queue] Setting fallback timeout: 16436ms (audio duration: 14.436s)
+host-console-events.js:1 [TTS Queue] Playback started successfully
+host-console-events.js:1 [Credits] Update received: 18350 seconds remaining, exhausted: false
