@@ -160,8 +160,8 @@ export default function Home() {
             const position = positions[idx % positions.length];
             const sizes = ['w-12 h-8', 'w-14 h-9', 'w-16 h-11', 'w-10 h-7', 'w-11 h-7'];
             const size = sizes[idx % sizes.length];
-            const duration = 3 + (idx % 5) * 0.3;
-            const delay = (idx % 10) * 0.2;
+            const duration = 15 + (idx % 5) * 3;
+            const delay = (idx % 10) * 0.5;
             
             return (
               <img
