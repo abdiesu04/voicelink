@@ -190,30 +190,30 @@ export default function Home() {
 
         {/* Main Content */}
         <div className="container mx-auto px-6 md:px-12 relative z-10">
-          <div className="max-w-6xl mx-auto text-center py-20 pt-32 space-y-10">
+          <div className="max-w-6xl mx-auto text-center py-12 pt-24 space-y-6">
             {/* Central Microphone Icon with Glow */}
-            <div className="flex justify-center mb-8">
+            <div className="flex justify-center mb-4">
               <div className="relative group">
                 <div className="absolute inset-0 bg-gradient-to-r from-indigo-500 via-violet-500 to-blue-500 rounded-full blur-2xl opacity-40 group-hover:opacity-60 animate-pulse" />
-                <div className="relative h-24 w-24 rounded-full bg-gradient-to-br from-indigo-500 via-violet-500 to-blue-500 flex items-center justify-center shadow-2xl ring-4 ring-white/20 dark:ring-slate-800/50">
-                  <Mic className="h-12 w-12 text-white" />
+                <div className="relative h-20 w-20 rounded-full bg-gradient-to-br from-indigo-500 via-violet-500 to-blue-500 flex items-center justify-center shadow-2xl ring-4 ring-white/20 dark:ring-slate-800/50">
+                  <Mic className="h-10 w-10 text-white" />
                 </div>
               </div>
             </div>
 
             {/* New Headline */}
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold leading-relaxed pb-4">
-              <span className="block bg-gradient-to-r from-indigo-600 via-violet-600 to-blue-600 dark:from-indigo-400 dark:via-violet-400 dark:to-blue-400 bg-clip-text text-transparent pb-3">Erase Every</span>
-              <span className="block text-slate-900 dark:text-white mt-2">Language Barrier</span>
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight pb-2">
+              <span className="block bg-gradient-to-r from-indigo-600 via-violet-600 to-blue-600 dark:from-indigo-400 dark:via-violet-400 dark:to-blue-400 bg-clip-text text-transparent pb-2">Erase Every</span>
+              <span className="block text-slate-900 dark:text-white mt-1">Language Barrier</span>
             </h1>
             
             {/* New Subtext */}
-            <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-300 max-w-4xl mx-auto leading-relaxed">Voztra instantly translates your voice into another language — same tone, same emotion, same gender — so you sound like a native speaker across 47 languages.
+            <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-4xl mx-auto leading-relaxed">Voztra instantly translates your voice into another language — same tone, same emotion, same gender — so you sound like a native speaker across 47 languages.
 
 </p>
 
             {/* CTA Buttons with Gradient */}
-            <div className="flex flex-col sm:flex-row gap-4 pt-6 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 pt-4 justify-center">
               <Link href="/create">
                 <Button 
                   size="lg" 
