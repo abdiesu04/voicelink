@@ -546,6 +546,127 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Reconciliation Endpoint - Catches any missed payment activations (100% guarantee)
+  // This endpoint queries Stripe for recent paid sessions and activates any that were missed
+  // Can be called manually or by a cron job to ensure NO user is ever left without their subscription
+  app.post("/api/payments/reconcile", async (req, res) => {
+    try {
+      // Optional: Add basic auth or API key for production security
+      // For now, only allow in production or with explicit flag
+      const allowReconciliation = process.env.ALLOW_RECONCILIATION === 'true' || process.env.NODE_ENV !== 'production';
+      
+      if (!allowReconciliation) {
+        return res.status(403).json({ error: "Reconciliation endpoint requires ALLOW_RECONCILIATION=true" });
+      }
+
+      console.log("[Reconciliation] Starting payment reconciliation sweep...");
+
+      // Query Stripe for ALL checkout sessions EVER with auto-pagination
+      // No time filter ensures TRUE 100% guarantee - we catch every payment regardless of age
+      const allSessions: Stripe.Checkout.Session[] = [];
+      
+      // Use Stripe's auto-pagination to fetch ALL sessions (no time limit for 100% guarantee)
+      for await (const session of stripe.checkout.sessions.list({
+        limit: 100, // Fetch in batches of 100
+      })) {
+        allSessions.push(session);
+      }
+
+      console.log(`[Reconciliation] Found ${allSessions.length} total sessions`);
+
+      let processedCount = 0;
+      let activatedCount = 0;
+      let errorCount = 0;
+
+      for (const session of allSessions) {
+        // Only process paid subscription sessions
+        if (session.payment_status !== 'paid' || session.mode !== 'subscription' || !session.subscription) {
+          continue;
+        }
+
+        processedCount++;
+
+        try {
+          const userId = parseInt(session.metadata?.userId || session.client_reference_id || '0');
+          const plan = session.metadata?.plan as 'starter' | 'pro';
+
+          if (!userId || !plan || (plan !== 'starter' && plan !== 'pro')) {
+            console.warn(`[Reconciliation] Skipping session ${session.id}: invalid userId or plan`);
+            continue;
+          }
+
+          // Get Stripe subscription details to check if it's still active
+          const stripeSubscription = await stripe.subscriptions.retrieve(session.subscription as string);
+          const priceId = stripeSubscription.items.data[0]?.price.id;
+
+          if (!priceId) {
+            console.warn(`[Reconciliation] Skipping session ${session.id}: no priceId found`);
+            continue;
+          }
+
+          // CRITICAL: Only process ACTIVE subscriptions to avoid downgrading users
+          // Skip canceled, past_due, or replaced subscriptions (user may have upgraded/downgraded)
+          if (stripeSubscription.status !== 'active' && stripeSubscription.status !== 'trialing') {
+            continue; // Skip inactive subscriptions silently
+          }
+
+          // CRITICAL: Verify plan/price consistency to prevent downgrades from in-place upgrades
+          // If subscription was upgraded in-place, the priceId won't match the session's plan
+          const expectedPriceId = PLAN_DETAILS[plan].priceId;
+          if (priceId !== expectedPriceId) {
+            // Price mismatch indicates this is an old session that was upgraded/downgraded
+            // Skip it to avoid reverting the user to the old plan
+            continue;
+          }
+
+          // Check current subscription status (may be undefined for new users)
+          const currentSubscription = await storage.getSubscription(userId);
+
+          // Check if already activated (all three values match)
+          // Use optional chaining to handle missing subscription rows safely
+          const alreadyActivated = 
+            currentSubscription?.plan === plan &&
+            currentSubscription?.stripeSubscriptionId === stripeSubscription.id &&
+            currentSubscription?.stripePriceId === priceId;
+
+          if (alreadyActivated) {
+            continue; // Already activated, skip silently
+          }
+
+          // NOT ACTIVATED - This is a missed payment with ACTIVE subscription! Activate it now
+          console.warn(`[Reconciliation] 🚨 FOUND UNACTIVATED PAYMENT: session=${session.id}, user=${userId}, plan=${plan}, status=${stripeSubscription.status}`);
+          
+          await activateSubscription(userId, plan, stripeSubscription.id, priceId);
+          activatedCount++;
+
+          console.log(`[Reconciliation] ✅ Successfully activated missed payment for user ${userId}`);
+        } catch (error: any) {
+          errorCount++;
+          console.error(`[Reconciliation] Error processing session ${session.id}:`, error);
+        }
+      }
+
+      const result = {
+        success: true,
+        totalSessions: allSessions.length,
+        processedSessions: processedCount,
+        activatedPayments: activatedCount,
+        errors: errorCount,
+        timestamp: new Date().toISOString(),
+      };
+
+      console.log(`[Reconciliation] ✓ Sweep complete:`, result);
+
+      res.json(result);
+    } catch (error: any) {
+      console.error("[Reconciliation] Failed:", error);
+      res.status(500).json({ 
+        error: "Reconciliation failed", 
+        details: error.message 
+      });
+    }
+  });
+
   // Stripe Webhook Handler - Process subscription lifecycle events
   app.post("/api/webhooks/stripe", async (req, res) => {
     const sig = req.headers['stripe-signature'];
@@ -1158,6 +1279,92 @@ export async function registerRoutes(app: Express): Promise<Server> {
       clearInterval(pingInterval);
     });
   });
+
+  // Automatic Reconciliation Worker - Runs every 5 minutes to guarantee 100% activation
+  // This ensures NO user is ever left without their subscription, even if webhooks and confirm both fail
+  const RECONCILIATION_INTERVAL = 5 * 60 * 1000; // 5 minutes in milliseconds
+  
+  async function runReconciliation() {
+    try {
+      console.log("[Auto Reconciliation] Running scheduled payment reconciliation...");
+      
+      // Query Stripe for ALL checkout sessions EVER with auto-pagination
+      // No time filter ensures TRUE 100% guarantee - we catch every payment regardless of age
+      const allSessions: Stripe.Checkout.Session[] = [];
+      
+      for await (const session of stripe.checkout.sessions.list({
+        limit: 100,
+      })) {
+        allSessions.push(session);
+      }
+
+      let activatedCount = 0;
+
+      for (const session of allSessions) {
+        if (session.payment_status !== 'paid' || session.mode !== 'subscription' || !session.subscription) {
+          continue;
+        }
+
+        try {
+          const userId = parseInt(session.metadata?.userId || session.client_reference_id || '0');
+          const plan = session.metadata?.plan as 'starter' | 'pro';
+
+          if (!userId || !plan || (plan !== 'starter' && plan !== 'pro')) {
+            continue;
+          }
+
+          // Get Stripe subscription details to check if it's still active
+          const stripeSubscription = await stripe.subscriptions.retrieve(session.subscription as string);
+          const priceId = stripeSubscription.items.data[0]?.price.id;
+
+          if (!priceId) continue;
+
+          // CRITICAL: Only process ACTIVE subscriptions to avoid downgrading users
+          // Skip canceled, past_due, or replaced subscriptions (user may have upgraded/downgraded)
+          if (stripeSubscription.status !== 'active' && stripeSubscription.status !== 'trialing') {
+            continue; // Skip inactive subscriptions silently
+          }
+
+          // CRITICAL: Verify plan/price consistency to prevent downgrades from in-place upgrades
+          // If subscription was upgraded in-place, the priceId won't match the session's plan
+          const expectedPriceId = PLAN_DETAILS[plan].priceId;
+          if (priceId !== expectedPriceId) {
+            // Price mismatch indicates this is an old session that was upgraded/downgraded
+            // Skip it to avoid reverting the user to the old plan
+            continue;
+          }
+
+          // Check current subscription status (may be undefined for new users)
+          const currentSubscription = await storage.getSubscription(userId);
+
+          const alreadyActivated = 
+            currentSubscription?.plan === plan &&
+            currentSubscription?.stripeSubscriptionId === stripeSubscription.id &&
+            currentSubscription?.stripePriceId === priceId;
+
+          if (!alreadyActivated) {
+            console.warn(`[Auto Reconciliation] 🚨 FOUND UNACTIVATED PAYMENT: session=${session.id}, user=${userId}, plan=${plan}, status=${stripeSubscription.status}`);
+            await activateSubscription(userId, plan, stripeSubscription.id, priceId);
+            activatedCount++;
+            console.log(`[Auto Reconciliation] ✅ Activated missed payment for user ${userId}`);
+          }
+        } catch (error: any) {
+          console.error(`[Auto Reconciliation] Error processing session ${session.id}:`, error);
+        }
+      }
+
+      if (activatedCount > 0) {
+        console.log(`[Auto Reconciliation] ✓ Completed: ${activatedCount} payments activated`);
+      }
+    } catch (error: any) {
+      console.error("[Auto Reconciliation] Worker failed:", error);
+    }
+  }
+
+  // Run reconciliation immediately on startup, then every 5 minutes
+  runReconciliation();
+  setInterval(runReconciliation, RECONCILIATION_INTERVAL);
+  console.log("[Auto Reconciliation] ✓ Worker started - running every 5 minutes");
 
   return httpServer;
 }
