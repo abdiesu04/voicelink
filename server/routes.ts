@@ -460,6 +460,92 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Payment Confirmation Endpoint - Verifies payment directly with Stripe API (PRODUCTION-SAFE FALLBACK)
+  // This endpoint provides a fallback activation mechanism if webhooks fail or are delayed
+  app.post("/api/payments/confirm", async (req, res) => {
+    try {
+      if (!req.session.userId) {
+        return res.status(401).json({ error: "Authentication required" });
+      }
+
+      const { sessionId } = req.body;
+      
+      if (!sessionId || typeof sessionId !== 'string') {
+        return res.status(400).json({ error: "Valid session_id is required" });
+      }
+
+      console.log(`[Payment Confirm] User ${req.session.userId} requesting confirmation for session ${sessionId}`);
+
+      // Retrieve the checkout session from Stripe API (authoritative source of truth)
+      const session = await stripe.checkout.sessions.retrieve(sessionId);
+
+      // Verify session belongs to current user
+      const userId = parseInt(session.metadata?.userId || session.client_reference_id || '0');
+      if (userId !== req.session.userId) {
+        console.warn(`[Payment Confirm] Session ownership mismatch: session userId=${userId}, current userId=${req.session.userId}`);
+        return res.status(403).json({ error: "Session does not belong to current user" });
+      }
+
+      // Check payment status
+      if (session.payment_status !== 'paid') {
+        console.log(`[Payment Confirm] Payment not complete: status=${session.payment_status}`);
+        return res.status(400).json({ 
+          error: "Payment not completed", 
+          paymentStatus: session.payment_status 
+        });
+      }
+
+      // Verify it's a subscription
+      if (session.mode !== 'subscription' || !session.subscription) {
+        console.warn(`[Payment Confirm] Invalid session type: mode=${session.mode}`);
+        return res.status(400).json({ error: "Invalid session type" });
+      }
+
+      const plan = session.metadata?.plan as 'starter' | 'pro';
+      if (!plan || (plan !== 'starter' && plan !== 'pro')) {
+        console.warn(`[Payment Confirm] Invalid plan: ${plan}`);
+        return res.status(400).json({ error: "Invalid plan in session metadata" });
+      }
+
+      // Get subscription details from Stripe
+      const subscription = await stripe.subscriptions.retrieve(session.subscription as string);
+      const priceId = subscription.items.data[0]?.price.id;
+
+      if (!priceId) {
+        console.error(`[Payment Confirm] Price ID not found in subscription ${subscription.id}`);
+        return res.status(500).json({ error: "Price ID not found in subscription" });
+      }
+
+      console.log(`[Payment Confirm] Verified payment: plan=${plan}, subscriptionId=${subscription.id}`);
+
+      // Activate subscription using shared idempotent helper
+      const updatedSubscription = await activateSubscription(userId, plan, subscription.id, priceId);
+
+      console.log(`[Payment Confirm] ✓ Subscription confirmed and activated for user ${userId}`);
+
+      res.json({
+        success: true,
+        subscription: updatedSubscription,
+        message: "Subscription activated successfully"
+      });
+    } catch (error: any) {
+      console.error("[Payment Confirm] Error:", error);
+      
+      // Handle Stripe API errors gracefully
+      if (error.type === 'StripeInvalidRequestError') {
+        return res.status(400).json({ 
+          error: "Invalid session ID", 
+          details: error.message 
+        });
+      }
+      
+      res.status(500).json({ 
+        error: "Failed to confirm payment", 
+        details: error.message 
+      });
+    }
+  });
+
   // Stripe Webhook Handler - Process subscription lifecycle events
   app.post("/api/webhooks/stripe", async (req, res) => {
     const sig = req.headers['stripe-signature'];

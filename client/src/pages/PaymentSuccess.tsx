@@ -35,53 +35,40 @@ export default function PaymentSuccess() {
   const user = authData?.user;
   const subscription = authData?.subscription;
 
-  // Verify payment and activate subscription (development only, production uses webhooks)
-  const verifyMutation = useMutation({
+  // Confirm payment and activate subscription (works in both development and production)
+  // This provides 100% activation guarantee by verifying directly with Stripe API
+  const confirmMutation = useMutation({
     mutationFn: async (sessionId: string) => {
-      const response = await apiRequest("POST", "/api/payments/verify", { sessionId });
-      
-      // Handle 403 as expected in production (webhooks handle activation)
-      if (response.status === 403) {
-        return { production: true, success: true };
-      }
+      const response = await apiRequest("POST", "/api/payments/confirm", { sessionId });
       
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.error || "Payment verification failed");
+        throw new Error(error.error || "Payment confirmation failed");
       }
       
       return response.json();
     },
     onSuccess: async (data) => {
-      if (data.production) {
-        // Production: webhooks will handle activation - start polling
-        console.log("[Payment] Production mode - waiting for webhook activation");
-        setActivationStatus('waiting_webhook');
-      } else {
-        // Development: manual verification activated subscription
-        console.log("[Payment] Subscription activated via verification endpoint");
-        await queryClient.invalidateQueries({ queryKey: ["/api/auth/me"] });
-        await refetchAuth();
-        await refreshUser(); // Sync React Context for Header component
-        setActivationStatus('activated');
-      }
+      // Success! Subscription activated via direct Stripe API verification
+      console.log("[Payment] ✓ Subscription activated via confirm endpoint:", data.subscription);
+      await queryClient.invalidateQueries({ queryKey: ["/api/auth/me"] });
+      await refetchAuth();
+      await refreshUser(); // Sync React Context for Header component
+      setActivationStatus('activated');
     },
     onError: (error: any) => {
-      console.error("[Payment] Verification failed:", error);
-      toast({
-        title: "Payment Processing",
-        description: "Your payment was successful. Your subscription will be activated shortly.",
-        variant: "info",
-      });
+      console.warn("[Payment] Confirm endpoint failed, falling back to webhook polling:", error.message);
+      // Fallback to webhook polling - this ensures activation even if API call fails
       setActivationStatus('waiting_webhook');
     },
   });
 
-  // Verify payment on mount ONCE (only when component loads)
+  // Confirm payment on mount ONCE (only when component loads)
   useEffect(() => {
     if (sessionId) {
-      // Has session_id: trigger verification (runs once on mount)
-      verifyMutation.mutate(sessionId);
+      // Has session_id: trigger confirmation via direct Stripe API verification
+      console.log("[Payment] Confirming payment for session:", sessionId);
+      confirmMutation.mutate(sessionId);
     } else {
       // No session_id: derive status from actual subscription data
       if (subscription && subscription.plan !== 'free') {
