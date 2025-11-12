@@ -287,7 +287,7 @@ export default function Home() {
 
             {/* Right Column: 3D Translation Animation */}
             <div className="flex items-center justify-center md:justify-end relative">
-              <div className="relative w-full max-w-2xl h-[500px] flex items-center justify-center">
+              <div className="relative w-full h-[200px] md:h-[300px] flex items-center justify-center">
                 <Suspense fallback={<Scene3DFallback />}>
                   <HeroScene3D />
                 </Suspense>

@@ -23,13 +23,13 @@ function CharacterAvatar({
   subtitle: string;
 }) {
   return (
-    <div className={`flex flex-col items-center gap-4 ${isLeft ? 'order-1' : 'order-3'}`}>
+    <div className={`flex flex-col items-center gap-2 md:gap-3 ${isLeft ? 'order-1' : 'order-3'}`}>
       {/* 3D Character Head */}
       <div 
-        className={`relative w-32 h-32 rounded-full transition-all duration-500 ${
+        className={`relative w-16 h-16 md:w-20 md:h-20 rounded-full transition-all duration-500 ${
           isActive 
-            ? 'shadow-2xl shadow-indigo-500/50 scale-110' 
-            : 'shadow-xl scale-100'
+            ? 'shadow-xl md:shadow-2xl shadow-indigo-500/50 scale-110' 
+            : 'shadow-lg md:shadow-xl scale-100'
         }`}
         style={{
           background: isLeft 
@@ -41,24 +41,24 @@ function CharacterAvatar({
         {/* Voice pulse effect */}
         {isActive && (
           <>
-            <div className="absolute -inset-4 rounded-full border-2 border-indigo-400/60 animate-ping" />
-            <div className="absolute -inset-6 rounded-full border-2 border-violet-400/40 animate-ping" style={{ animationDelay: '0.2s' }} />
+            <div className="absolute -inset-2 md:-inset-3 rounded-full border border-indigo-400/60 animate-ping" />
+            <div className="absolute -inset-3 md:-inset-4 rounded-full border border-violet-400/40 animate-ping" style={{ animationDelay: '0.2s' }} />
           </>
         )}
         
         {/* Message icon */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <MessageSquare className="h-16 w-16 text-white" />
+          <MessageSquare className="h-7 w-7 md:h-9 md:w-9 text-white" />
         </div>
       </div>
 
       {/* Floating subtitle */}
       {subtitle && (
         <div 
-          className="px-5 py-2.5 bg-white/95 dark:bg-slate-800/95 backdrop-blur-sm rounded-lg border-2 border-indigo-200 dark:border-indigo-700 shadow-xl animate-in fade-in-0 zoom-in-95 duration-300"
+          className="px-3 py-1.5 md:px-4 md:py-2 bg-white/95 dark:bg-slate-800/95 backdrop-blur-sm rounded-md md:rounded-lg border border-indigo-200 dark:border-indigo-700 shadow-lg animate-in fade-in-0 zoom-in-95 duration-300"
           data-testid={`subtitle-${isLeft ? 'left' : 'right'}`}
         >
-          <p className="text-base font-semibold text-slate-900 dark:text-white whitespace-nowrap">
+          <p className="text-xs md:text-sm font-semibold text-slate-900 dark:text-white whitespace-nowrap">
             {subtitle}
           </p>
         </div>
@@ -145,24 +145,24 @@ function TranslationOrb({ color, isActive }: { color: string; isActive: boolean 
     <div className="order-2 flex flex-col items-center relative">
       <div 
         ref={orbRef}
-        className={`relative w-20 h-20 rounded-xl transition-all duration-500 ${
+        className={`relative w-12 h-12 md:w-16 md:h-16 rounded-lg md:rounded-xl transition-all duration-500 ${
           isActive ? 'scale-125' : 'scale-100'
         }`}
         style={{
           background: color,
           transform: 'perspective(1000px) rotateX(10deg)',
-          boxShadow: `0 20px 60px ${color}80`,
+          boxShadow: `0 10px 30px ${color}80`,
         }}
       >
-        {/* Orbiting particles */}
+        {/* Orbiting particles - hidden on mobile */}
         {[0, 1, 2].map((i) => (
           <div
             key={i}
-            className="absolute w-2 h-2 rounded-full bg-white"
+            className="absolute w-1.5 h-1.5 rounded-full bg-white hidden md:block"
             style={{
               top: '50%',
               left: '50%',
-              transform: `rotate(${i * 120}deg) translateY(-35px)`,
+              transform: `rotate(${i * 120}deg) translateY(-25px)`,
               animation: `orbit-${i} 3s linear infinite`,
             }}
           />
@@ -170,12 +170,12 @@ function TranslationOrb({ color, isActive }: { color: string; isActive: boolean 
         
         {/* Central icon */}
         <div className="absolute inset-0 flex items-center justify-center">
-          <Languages className="h-10 w-10 text-white" />
+          <Languages className="h-6 w-6 md:h-8 md:w-8 text-white" />
         </div>
       </div>
 
-      {/* Connection lines */}
-      <div className="absolute top-1/2 left-0 right-0 -z-10 flex items-center justify-center">
+      {/* Connection lines - hidden on mobile */}
+      <div className="absolute top-1/2 left-0 right-0 -z-10 hidden md:flex items-center justify-center">
         <div className="w-full h-0.5 bg-gradient-to-r from-indigo-500 via-violet-500 to-emerald-500 opacity-30" />
       </div>
     </div>
@@ -332,21 +332,21 @@ export default function HeroScene3D() {
     <div className="w-full h-full flex items-center justify-center perspective-[2000px]" data-testid="hero-3d-scene">
       <style dangerouslySetInnerHTML={{__html: `
         @keyframes orbit-0 {
-          from { transform: rotate(0deg) translateY(-35px); }
-          to { transform: rotate(360deg) translateY(-35px); }
+          from { transform: rotate(0deg) translateY(-25px); }
+          to { transform: rotate(360deg) translateY(-25px); }
         }
         @keyframes orbit-1 {
-          from { transform: rotate(120deg) translateY(-35px); }
-          to { transform: rotate(480deg) translateY(-35px); }
+          from { transform: rotate(120deg) translateY(-25px); }
+          to { transform: rotate(480deg) translateY(-25px); }
         }
         @keyframes orbit-2 {
-          from { transform: rotate(240deg) translateY(-35px); }
-          to { transform: rotate(600deg) translateY(-35px); }
+          from { transform: rotate(240deg) translateY(-25px); }
+          to { transform: rotate(600deg) translateY(-25px); }
         }
       `}} />
 
-      <div className="relative w-full max-w-3xl px-4">
-        <div className="flex items-center justify-between gap-8 md:gap-16 relative">
+      <div className="relative w-full max-w-sm md:max-w-lg px-2 md:px-4">
+        <div className="flex items-center justify-between gap-3 md:gap-8 relative">
           {/* Person A (English) */}
           <CharacterAvatar 
             isLeft={true}
