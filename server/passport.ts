@@ -22,11 +22,20 @@ export function setupPassport() {
   });
 
   if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
-    const domain = process.env.REPLIT_DOMAINS || process.env.REPLIT_DEV_DOMAIN || 'localhost:5000';
-    const protocol = domain.includes('localhost') ? 'http' : 'https';
-    const callbackURL = `${protocol}://${domain}/auth/google/callback`;
+    // Auto-detect environment and use appropriate callback URL
+    let callbackURL: string;
     
-    console.log(`[Google OAuth] Callback URL configured: ${callbackURL}`);
+    if (process.env.NODE_ENV === 'production') {
+      // Production domain (published app)
+      callbackURL = 'https://getvoztra.com/auth/google/callback';
+    } else {
+      // Development: use Replit domains or localhost
+      const domain = process.env.REPLIT_DOMAINS || process.env.REPLIT_DEV_DOMAIN || 'localhost:5000';
+      const protocol = domain.includes('localhost') ? 'http' : 'https';
+      callbackURL = `${protocol}://${domain}/auth/google/callback`;
+    }
+    
+    console.log(`[Google OAuth] Callback URL configured: ${callbackURL} (env: ${process.env.NODE_ENV || 'development'})`);
     
     passport.use(
       new GoogleStrategy(
