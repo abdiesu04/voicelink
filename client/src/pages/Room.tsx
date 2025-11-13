@@ -75,7 +75,24 @@ export default function Room() {
       if (document.hidden) {
         console.log('[Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections');
       } else {
-        console.log('[Browser] ✓ Tab is now visible - connections should remain active');
+        console.log('[Browser] ✓ Tab is now visible again - checking WebSocket connection...');
+        
+        // CRITICAL FIX: When tab becomes visible, immediately check WebSocket and reconnect if needed
+        // This handles mobile browsers that close WebSockets when tab is backgrounded (switching to Telegram, etc.)
+        setTimeout(() => {
+          const ws = wsRef.current;
+          if (!ws || ws.readyState === WebSocket.CLOSED || ws.readyState === WebSocket.CLOSING) {
+            console.log('[Browser] 🔄 WebSocket disconnected during backgrounding - triggering immediate reconnection');
+            console.log('[Browser] Current WebSocket state:', ws ? ['CONNECTING', 'OPEN', 'CLOSING', 'CLOSED'][ws.readyState] : 'null');
+            
+            // Trigger the onclose handler manually to start reconnection
+            if (ws && ws.onclose) {
+              ws.onclose(new CloseEvent('close', { code: 1006, reason: 'Tab backgrounded', wasClean: false }));
+            }
+          } else if (ws && ws.readyState === WebSocket.OPEN) {
+            console.log('[Browser] ✅ WebSocket still connected - no action needed');
+          }
+        }, 100); // Small delay to let browser settle
       }
     };
     
