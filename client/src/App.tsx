@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { AuthProvider } from "@/lib/auth";
 import { Header } from "@/components/Header";
+import { Layout } from "@/components/Layout";
 import Home from "@/pages/Home";
 import CreateRoom from "@/pages/CreateRoom";
 import JoinRoom from "@/pages/JoinRoom";
@@ -50,7 +51,9 @@ function App() {
           <TooltipProvider>
             <Header />
             <Toaster />
-            <Router />
+            <Layout>
+              <Router />
+            </Layout>
           </TooltipProvider>
         </AuthProvider>
       </ThemeProvider>

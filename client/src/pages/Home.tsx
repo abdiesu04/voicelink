@@ -633,60 +633,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-      {/* Footer */}
-      <footer className="py-16 bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800">
-        <div className="container mx-auto px-6 md:px-12">
-          <div className="max-w-7xl mx-auto">
-            <div className="grid md:grid-cols-4 gap-12 mb-12">
-              <div className="space-y-4">
-                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">VOZTRA</h3>
-                <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-                  Real-time voice translation for two-person conversations across 47 languages.
-                </p>
-                <p className="text-sm text-slate-500 dark:text-slate-400 italic">
-                  Opening the world, one voice at a time.
-                </p>
-              </div>
-              
-              <div>
-                <h4 className="font-semibold text-slate-900 dark:text-white mb-4">Product</h4>
-                <ul className="space-y-2 text-slate-600 dark:text-slate-300">
-                  <li><a href="#features" className="hover:text-primary transition-colors">Features</a></li>
-                  <li><a href="#how-it-works" className="hover:text-primary transition-colors">How It Works</a></li>
-                  <li><a href="#languages" className="hover:text-primary transition-colors">Languages</a></li>
-                  <li><Link href="/create" className="hover:text-primary transition-colors">Try Free</Link></li>
-                </ul>
-              </div>
-              
-              <div>
-                <h4 className="font-semibold text-slate-900 dark:text-white mb-4">Company</h4>
-                <ul className="space-y-2 text-slate-600 dark:text-slate-300">
-                  <li><Link href="/voice-translator" className="hover:text-primary transition-colors" data-testid="link-voice-translator">Voice Translator</Link></li>
-                  <li><Link href="/privacy-policy" className="hover:text-primary transition-colors" data-testid="link-privacy-policy">Privacy Policy</Link></li>
-                  <li><Link href="/california-privacy-policy" className="hover:text-primary transition-colors" data-testid="link-california-privacy">California Privacy Policy</Link></li>
-                  {user && (
-                    <li><a href="#" className="hover:text-primary transition-colors" data-testid="link-contact-us">Contact Us</a></li>
-                  )}
-                </ul>
-              </div>
-              
-              <div>
-                <h4 className="font-semibold text-slate-900 dark:text-white mb-4">Get Started</h4>
-                <Link href="/create">
-                  <Button className="w-full" data-testid="button-footer-cta">
-                    <Mic className="mr-2 h-4 w-4" />
-                    Start Now
-                  </Button>
-                </Link>
-              </div>
-            </div>
-            
-            <div className="pt-8 border-t border-slate-200 dark:border-slate-800 text-center text-sm text-slate-500 dark:text-slate-400">
-              © 2025 Voztra. All rights reserved.
-            </div>
-          </div>
-        </div>
-      </footer>
     </div>
   );
 }
