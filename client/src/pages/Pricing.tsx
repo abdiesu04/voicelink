@@ -488,20 +488,20 @@ export default function Pricing() {
           transition={{ delay: 0.7 }}
           className="max-w-4xl mx-auto"
         >
-          <div className="grid grid-cols-3 gap-8 text-center">
-            <GlassCard className="p-6">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-8 text-center">
+            <GlassCard className="p-4 sm:p-6">
               <div className="text-4xl font-bold text-gradient mb-2" data-testid="text-stat-languages">
                 47+
               </div>
               <div className="text-sm text-slate-600 dark:text-slate-400">Supported Languages</div>
             </GlassCard>
-            <GlassCard className="p-6">
+            <GlassCard className="p-4 sm:p-6">
               <div className="text-4xl font-bold text-gradient mb-2" data-testid="text-stat-voices">
                 Premium
               </div>
               <div className="text-sm text-slate-600 dark:text-slate-400">Neural Voices</div>
             </GlassCard>
-            <GlassCard className="p-6">
+            <GlassCard className="p-4 sm:p-6">
               <div className="text-4xl font-bold text-gradient mb-2" data-testid="text-stat-realtime">
                 Real-time
               </div>
