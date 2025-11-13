@@ -1045,11 +1045,13 @@ export default function Room() {
     // Application-level heartbeat to prevent 5-minute timeout
     // Send ping every 30 seconds to aggressively keep connection alive through proxies
     const heartbeatInterval = setInterval(() => {
-      if (ws.readyState === WebSocket.OPEN) {
-        console.log('[Heartbeat] 💓 Sending ping to keep connection alive, readyState:', ws.readyState);
-        ws.send(JSON.stringify({ type: "ping" }));
+      // CRITICAL FIX: Use wsRef.current instead of captured 'ws' to handle reconnections
+      const currentWs = wsRef.current;
+      if (currentWs && currentWs.readyState === WebSocket.OPEN) {
+        console.log('[Heartbeat] 💓 Sending ping to keep connection alive, readyState:', currentWs.readyState);
+        currentWs.send(JSON.stringify({ type: "ping" }));
       } else {
-        console.warn('[Heartbeat] ⚠️ Skipping ping - WebSocket not open, readyState:', ws.readyState);
+        console.warn('[Heartbeat] ⚠️ Skipping ping - WebSocket not open, readyState:', currentWs?.readyState || 'null');
       }
     }, 30000); // 30 seconds - aggressive heartbeat to prevent proxy timeout
 
