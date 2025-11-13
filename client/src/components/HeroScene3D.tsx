@@ -27,7 +27,7 @@ function ProfessionalMicrophone() {
       {/* Single subtle glow ring - very minimal */}
       <div 
         ref={glowRef}
-        className="absolute w-72 h-80 md:w-96 md:h-[28rem] rounded-full border border-indigo-400/10"
+        className="absolute w-56 h-64 sm:w-72 sm:h-80 md:w-96 md:h-[28rem] rounded-full border border-indigo-400/10"
         style={{ borderRadius: '50%' }}
       />
 
@@ -35,8 +35,8 @@ function ProfessionalMicrophone() {
       <div
         className="relative flex items-center justify-center shadow-2xl overflow-hidden"
         style={{
-          width: '180px',
-          height: '220px',
+          width: '140px',
+          height: '180px',
           borderRadius: '50%',
           background: 'linear-gradient(180deg, #6366f1 0%, #4f46e5 100%)',
           boxShadow: '0 20px 60px rgba(99, 102, 241, 0.4), 0 0 80px rgba(79, 70, 229, 0.2), inset 0 -20px 40px rgba(0, 0, 0, 0.1)',
@@ -45,6 +45,12 @@ function ProfessionalMicrophone() {
       >
         {/* Responsive sizing for larger screens */}
         <style dangerouslySetInnerHTML={{__html: `
+          @media (min-width: 640px) {
+            [data-testid="hero-microphone"] {
+              width: 180px;
+              height: 220px;
+            }
+          }
           @media (min-width: 768px) {
             [data-testid="hero-microphone"] {
               width: 240px;
@@ -61,7 +67,7 @@ function ProfessionalMicrophone() {
 
         {/* Central microphone icon - static, no animation */}
         <div className="relative z-10">
-          <Mic className="w-24 h-24 md:w-32 md:h-32 lg:w-36 lg:h-36 text-white drop-shadow-2xl" strokeWidth={1.5} />
+          <Mic className="w-16 h-16 sm:w-24 sm:h-24 md:w-32 md:h-32 lg:w-36 lg:h-36 text-white drop-shadow-2xl" strokeWidth={1.5} />
         </div>
 
         {/* Subtle inner highlight - static */}

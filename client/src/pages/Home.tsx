@@ -223,7 +223,7 @@ export default function Home() {
 
         {/* Main Content - Modern Split Layout */}
         <div className="container mx-auto px-6 md:px-12 relative z-10 h-full">
-          <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center py-16 md:py-20">
+          <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-y-16 gap-x-12 items-center py-16 md:py-20">
             
             {/* Left Column: Text Content */}
             <div className="space-y-7 text-left">
@@ -295,8 +295,8 @@ export default function Home() {
             </div>
 
             {/* Right Column: 3D Translation Animation */}
-            <div className="flex items-center justify-center md:justify-end relative">
-              <div className="relative w-full h-[200px] md:h-[300px] flex items-center justify-center">
+            <div className="flex items-center justify-center md:justify-end relative mt-8 md:mt-0">
+              <div className="relative w-full min-h-[360px] md:min-h-[400px] flex items-center justify-center">
                 <Suspense fallback={<Scene3DFallback />}>
                   <HeroScene3D />
                 </Suspense>
