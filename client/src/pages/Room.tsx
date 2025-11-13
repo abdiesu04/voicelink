@@ -31,7 +31,29 @@ export default function Room() {
   const { toast } = useToast();
   const { updateSubscription } = useAuth();
 
+  // MOBILE STABILITY FIX: Store roomId in ref to prevent undefined during mobile browser backgrounding
+  // Mobile browsers (Chrome, Safari, Firefox) can temporarily lose route params when:
+  // - Opening share sheet / clipboard UI
+  // - Backgrounding the tab
+  // - Screen orientation changes
+  // Storing in ref creates stable reference that persists through React re-renders
+  const roomIdRef = useRef<string | undefined>(params?.roomId);
   const roomId = params?.roomId;
+  
+  // Update ref if params change (shouldn't happen, but defensive)
+  if (roomId && roomId !== roomIdRef.current) {
+    console.log(`[Room Stability] roomId changed from ${roomIdRef.current} to ${roomId}`);
+    roomIdRef.current = roomId;
+  }
+  
+  // CRITICAL: If roomId is undefined initially, redirect immediately - corrupted URL
+  if (!roomIdRef.current) {
+    console.error('[Room Stability] ❌ CRITICAL: roomId is undefined - redirecting to home');
+    console.error('[Room Stability] URL:', window.location.href);
+    console.error('[Room Stability] Params:', params);
+    setLocation("/");
+    return null; // Early return - don't render anything
+  }
   
   // Memoize URL params to prevent re-creating on every render
   const { role, language, voiceGender } = useMemo(() => {
@@ -776,7 +798,11 @@ export default function Room() {
   };
 
   useEffect(() => {
-    if (!roomId) {
+    // Use stable roomIdRef for mobile reliability
+    const stableRoomId = roomIdRef.current;
+    
+    if (!stableRoomId) {
+      console.error('[WebSocket Setup] roomId is undefined - cannot create WebSocket');
       setLocation("/");
       return;
     }
@@ -791,9 +817,24 @@ export default function Room() {
     ws.onopen = () => {
       console.log('[WebSocket] Connected successfully, readyState:', ws.readyState);
       setConnectionStatus("connected");
+      
+      // CRITICAL: Use roomIdRef.current (stable reference) instead of roomId
+      // This prevents sending undefined roomId on mobile browsers during backgrounding
+      const stableRoomId = roomIdRef.current;
+      
+      if (!stableRoomId) {
+        console.error('[WebSocket] ❌ CRITICAL: Cannot join - roomId is undefined!');
+        console.error('[WebSocket] URL:', window.location.href);
+        console.error('[WebSocket] This should never happen due to early return guard');
+        ws.close(1008, "Missing roomId");
+        setLocation("/");
+        return;
+      }
+      
+      console.log('[WebSocket] Sending join message with roomId:', stableRoomId);
       ws.send(JSON.stringify({
         type: "join",
-        roomId,
+        roomId: stableRoomId,
         language,
         voiceGender,
         role,
@@ -943,10 +984,21 @@ export default function Room() {
           reconnectAttemptRef.current = 0; // Reset counter
           isReconnectingRef.current = false;
           
+          // CRITICAL: Use roomIdRef.current for mobile stability
+          const stableRoomId = roomIdRef.current;
+          
+          if (!stableRoomId) {
+            console.error('[Auto-Reconnect] ❌ Cannot rejoin - roomId is undefined!');
+            newWs.close(1008, "Missing roomId on reconnect");
+            setLocation("/");
+            return;
+          }
+          
           // Rejoin room with same settings
+          console.log('[Auto-Reconnect] Rejoining room with roomId:', stableRoomId);
           newWs.send(JSON.stringify({
             type: "join",
-            roomId,
+            roomId: stableRoomId,
             language,
             voiceGender,
             role,
@@ -1363,9 +1415,15 @@ export default function Room() {
             lastInterimSentRef.current = now;
             
             if (wsRef.current?.readyState === WebSocket.OPEN) {
+              const stableRoomId = roomIdRef.current;
+              if (!stableRoomId) {
+                console.error('[Speech] Cannot send interim transcription - roomId undefined');
+                return;
+              }
+              
               wsRef.current.send(JSON.stringify({
                 type: "transcription",
-                roomId,
+                roomId: stableRoomId,
                 text: e.result.text,
                 language,
                 interim: true, // Mark as interim result
@@ -1433,9 +1491,15 @@ export default function Room() {
           }
           
           if (wsRef.current?.readyState === WebSocket.OPEN) {
+            const stableRoomId = roomIdRef.current;
+            if (!stableRoomId) {
+              console.error('[Speech] Cannot send final transcription - roomId undefined');
+              return;
+            }
+            
             wsRef.current.send(JSON.stringify({
               type: "transcription",
-              roomId,
+              roomId: stableRoomId,
               text: e.result.text,
               language,
               interim: false, // Mark as final result
