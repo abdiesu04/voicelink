@@ -82,7 +82,14 @@ export default function Register() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to send verification code');
+        // Show specific error from backend
+        setEmailSentStatus('failed');
+        toast({
+          title: "Registration Error",
+          description: data.error || "Unable to proceed with registration. Please try again.",
+          variant: "destructive",
+        });
+        return;
       }
 
       // Show email sent status
@@ -99,8 +106,8 @@ export default function Register() {
     } catch (error) {
       setEmailSentStatus('failed');
       toast({
-        title: "Unable to send code",
-        description: "Please try again or contact support if the problem continues.",
+        title: "Connection Error",
+        description: "Unable to connect to the server. Please check your internet connection and try again.",
         variant: "destructive",
       });
     } finally {
@@ -138,7 +145,13 @@ export default function Register() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Verification failed');
+        // Show specific error from backend
+        toast({
+          title: "Verification Failed",
+          description: data.error || "Unable to verify your code. Please try again.",
+          variant: "destructive",
+        });
+        return;
       }
 
       // Fire Facebook Pixel CompleteRegistration event
@@ -152,8 +165,8 @@ export default function Register() {
       }, 2000);
     } catch (error) {
       toast({
-        title: "Verification unsuccessful",
-        description: "Please check your code and try again.",
+        title: "Connection Error",
+        description: "Unable to connect to the server. Please check your internet connection and try again.",
         variant: "destructive",
       });
     } finally {
@@ -175,7 +188,14 @@ export default function Register() {
       const data = await response.json();
 
       if (!response.ok) {
-        throw new Error(data.error || 'Failed to resend code');
+        // Show specific error from backend
+        setEmailSentStatus('failed');
+        toast({
+          title: "Unable to Resend",
+          description: data.error || "Unable to resend verification code. Please try again.",
+          variant: "destructive",
+        });
+        return;
       }
 
       setEmailSentStatus(data.emailSent ? 'success' : 'failed');
@@ -189,8 +209,8 @@ export default function Register() {
     } catch (error) {
       setEmailSentStatus('failed');
       toast({
-        title: "Unable to resend code",
-        description: "Please try again or contact support if the problem continues.",
+        title: "Connection Error",
+        description: "Unable to connect to the server. Please check your internet connection and try again.",
         variant: "destructive",
       });
     } finally {

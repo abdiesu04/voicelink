@@ -39,9 +39,11 @@ export default function Login() {
       });
       setLocation("/create");
     } catch (error) {
+      // Show specific error from backend
+      const errorMessage = error instanceof Error ? error.message : "Unable to sign in. Please try again.";
       toast({
-        title: "Unable to sign in",
-        description: "Please check your email and password and try again.",
+        title: "Sign In Failed",
+        description: errorMessage,
         variant: "destructive",
       });
     } finally {
