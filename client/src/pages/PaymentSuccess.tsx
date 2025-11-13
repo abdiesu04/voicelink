@@ -57,8 +57,17 @@ export default function PaymentSuccess() {
       setActivationStatus('activated');
     },
     onError: (error: any) => {
-      console.warn("[Payment] Confirm endpoint failed, falling back to webhook polling:", error.message);
-      // Fallback to webhook polling - this ensures activation even if API call fails
+      console.warn("[Payment] Confirm endpoint failed:", error);
+      
+      // Check if error is 401 (session lost) - user needs to log back in
+      if (error.status === 401) {
+        console.log("[Payment] Session lost - redirecting to login");
+        // Redirect to login with return URL
+        window.location.href = `/login?redirect=/payment-success?session_id=${sessionId}`;
+        return;
+      }
+      
+      // Other errors: fallback to webhook polling
       setActivationStatus('waiting_webhook');
     },
   });
@@ -97,30 +106,41 @@ export default function PaymentSuccess() {
     const pollInterval = setInterval(async () => {
       setPollingAttempts(prev => prev + 1);
       
-      // Timeout after 2 minutes (60 attempts * 2 seconds)
-      // Stripe webhooks can take 30-90 seconds under load
-      if (pollingAttempts >= 60) {
-        console.log("[Payment] Webhook timeout after 2 minutes - activation may still complete");
+      // Timeout after 5 minutes (600 attempts * 500ms)
+      // Most webhooks arrive within 10-30 seconds, but we wait longer to be safe
+      if (pollingAttempts >= 600) {
+        console.log("[Payment] Webhook timeout after 5 minutes - showing timeout screen");
         setActivationStatus('timeout');
         clearInterval(pollInterval);
         return;
       }
 
       // Refetch auth data to check subscription status
-      const result = await refetchAuth();
-      const currentPlan = result.data?.subscription?.plan;
+      try {
+        const result = await refetchAuth();
+        const currentPlan = result.data?.subscription?.plan;
 
-      // Check if subscription upgraded from 'free' to paid tier
-      if (currentPlan && currentPlan !== 'free') {
-        console.log(`[Payment] Webhook activated subscription to ${currentPlan} plan`);
-        await refreshUser(); // Sync React Context for Header component
-        setActivationStatus('activated');
-        clearInterval(pollInterval);
+        // Check if subscription upgraded from 'free' to paid tier
+        if (currentPlan && currentPlan !== 'free') {
+          console.log(`[Payment] Webhook activated subscription to ${currentPlan} plan`);
+          await refreshUser(); // Sync React Context for Header component
+          setActivationStatus('activated');
+          clearInterval(pollInterval);
+        }
+      } catch (error: any) {
+        // If we get 401 (session lost), user needs to log back in
+        if (error.status === 401) {
+          console.warn("[Payment] Session lost during activation - redirecting to login");
+          clearInterval(pollInterval);
+          // Redirect to login with return URL
+          window.location.href = `/login?redirect=/payment-success?session_id=${sessionId}`;
+          return;
+        }
       }
-    }, 2000); // Poll every 2 seconds
+    }, 500); // Poll every 500ms for faster activation
 
     return () => clearInterval(pollInterval);
-  }, [activationStatus, pollingAttempts, refetchAuth, refreshUser]);
+  }, [activationStatus, pollingAttempts, refetchAuth, refreshUser, sessionId]);
 
   useEffect(() => {
     if (activationStatus === 'activated') {
@@ -178,22 +198,13 @@ export default function PaymentSuccess() {
                 Payment Successful!
               </CardTitle>
               <CardDescription className="text-base">
-                We're activating your subscription right now.
-                <br />
-                <span className="text-sm text-green-500 mt-3 block font-medium">
-                  This typically takes 10-30 seconds...
-                </span>
+                Activating your subscription now...
               </CardDescription>
             </CardHeader>
             <CardContent className="text-center space-y-4">
               <div className="flex items-center justify-center gap-2 text-sm text-muted-foreground">
                 <Loader2 className="h-4 w-4 animate-spin" />
-                <span>Activating your plan</span>
-              </div>
-              <div className="bg-muted/30 rounded-lg p-3">
-                <p className="text-xs text-muted-foreground">
-                  Your minutes will be available as soon as activation completes.
-                </p>
+                <span>Setting up your account</span>
               </div>
             </CardContent>
           </Card>
@@ -216,11 +227,11 @@ export default function PaymentSuccess() {
                 {isActivated ? (
                   <CheckCircle2 className="h-16 w-16 text-green-500" data-testid="icon-success-delayed" />
                 ) : (
-                  <Clock className="h-16 w-16 text-yellow-500" data-testid="icon-timeout" />
+                  <Loader2 className="h-16 w-16 text-violet-500 animate-spin" data-testid="icon-timeout" />
                 )}
               </div>
-              <CardTitle className="text-3xl font-bold bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent">
-                {isActivated ? 'Subscription Activated!' : hasSessionId ? 'Activation Delayed' : 'Payment Status Unknown'}
+              <CardTitle className="text-3xl font-bold bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">
+                {isActivated ? 'Subscription Activated!' : 'Completing Setup...'}
               </CardTitle>
               <CardDescription className="text-base">
                 {isActivated ? (
@@ -231,20 +242,12 @@ export default function PaymentSuccess() {
                       Plan: {subscription.plan === 'starter' ? 'Starter' : 'Pro'}
                     </span>
                   </>
-                ) : hasSessionId ? (
-                  <>
-                    Your payment was successful, but activation is taking longer than expected.
-                    <br />
-                    <span className="text-sm text-muted-foreground mt-2 block">
-                      This usually happens due to high load. Please check your account page or try refreshing.
-                    </span>
-                  </>
                 ) : (
                   <>
-                    You reached this page without a valid payment session.
+                    Your payment was successful. We're finishing up your account setup.
                     <br />
                     <span className="text-sm text-muted-foreground mt-2 block">
-                      If you just completed a payment, please use the success link provided by Stripe, or check your account page.
+                      This will just take a moment...
                     </span>
                   </>
                 )}
@@ -253,14 +256,16 @@ export default function PaymentSuccess() {
             <CardContent className="space-y-4">
               <div className="flex flex-col gap-3">
                 <Button
-                  onClick={() => navigate("/account")}
+                  onClick={() => {
+                    window.location.href = "/account";
+                  }}
                   className="bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700"
                   data-testid="button-check-account"
                 >
-                  {isActivated ? 'Go to Account' : 'Check Account Status'}
+                  {isActivated ? 'Go to Account' : 'View My Account'}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
-                {!isActivated && hasSessionId && (
+                {!isActivated && (
                   <Button
                     onClick={() => {
                       setActivationStatus('waiting_webhook');
@@ -270,27 +275,10 @@ export default function PaymentSuccess() {
                     data-testid="button-retry-activation"
                   >
                     <Loader2 className="mr-2 h-4 w-4" />
-                    Retry Activation Check
-                  </Button>
-                )}
-                {!isActivated && !hasSessionId && (
-                  <Button
-                    onClick={() => navigate("/pricing")}
-                    variant="outline"
-                    data-testid="button-view-pricing"
-                  >
-                    View Pricing Plans
-                    <ArrowRight className="ml-2 h-4 w-4" />
+                    Retry
                   </Button>
                 )}
               </div>
-              {!isActivated && hasSessionId && (
-                <div className="text-center pt-2">
-                  <p className="text-xs text-muted-foreground">
-                    If the issue persists, please contact support with your order details.
-                  </p>
-                </div>
-              )}
             </CardContent>
           </Card>
         </div>

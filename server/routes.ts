@@ -476,7 +476,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/payments/confirm", async (req, res) => {
     try {
       if (!req.session.userId) {
-        return res.status(401).json({ error: "Authentication required" });
+        console.warn("[Payment Confirm] Authentication required - session may have been lost during Stripe redirect");
+        return res.status(401).json({ 
+          error: "Authentication required",
+          requiresLogin: true,
+          message: "Please log in to complete activation" 
+        });
       }
 
       const { sessionId } = req.body;
@@ -1291,9 +1296,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
     });
   });
 
-  // Automatic Reconciliation Worker - Runs every 5 minutes to guarantee 100% activation
+  // Automatic Reconciliation Worker - Runs every 1 minute to guarantee fast activation
   // This ensures NO user is ever left without their subscription, even if webhooks and confirm both fail
-  const RECONCILIATION_INTERVAL = 5 * 60 * 1000; // 5 minutes in milliseconds
+  const RECONCILIATION_INTERVAL = 1 * 60 * 1000; // 1 minute in milliseconds
   
   async function runReconciliation() {
     try {
@@ -1375,7 +1380,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Run reconciliation immediately on startup, then every 5 minutes
   runReconciliation();
   setInterval(runReconciliation, RECONCILIATION_INTERVAL);
-  console.log("[Auto Reconciliation] ✓ Worker started - running every 5 minutes");
+  console.log("[Auto Reconciliation] ✓ Worker started - running every minute for fast activation");
 
   return httpServer;
 }
