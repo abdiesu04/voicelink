@@ -728,7 +728,7 @@ export default function Register() {
                 >
                   <Button
                     type="button"
-                    onClick={() => window.location.href = "/api/auth/google"}
+                    onClick={() => window.location.href = "/auth/google"}
                     className="w-full h-14 bg-white dark:bg-slate-800 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-900 dark:text-white text-lg font-bold rounded-xl shadow-lg hover:shadow-xl border-2 border-slate-300 dark:border-slate-600 hover:scale-[1.02] transition-all duration-300"
                     disabled={isLoading}
                     data-testid="button-google-register"

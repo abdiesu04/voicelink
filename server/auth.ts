@@ -291,13 +291,13 @@ export function setupAuth(app: Express) {
     }
   });
 
-  app.get("/api/auth/google", 
+  app.get("/auth/google", 
     passport.authenticate("google", { 
       scope: ["profile", "email"] 
     })
   );
 
-  app.get("/api/auth/google/callback",
+  app.get("/auth/google/callback",
     passport.authenticate("google", { 
       failureRedirect: "/login?error=google-auth-failed",
       session: false
