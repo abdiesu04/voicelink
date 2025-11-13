@@ -430,7 +430,7 @@ export default function Register() {
   return (
     <div className="min-h-screen flex overflow-hidden bg-gradient-to-br from-slate-50 via-indigo-50/30 to-violet-50/30 dark:from-slate-950 dark:via-indigo-950/20 dark:to-slate-950">
       {/* Split Screen Layout */}
-      <div className="flex flex-col lg:flex-row w-full pt-20 lg:pt-0">
+      <div className="flex flex-col lg:flex-row w-full pt-16 pb-8 lg:pt-0 lg:pb-0">
         
         {/* Left Side: Brand & Benefits */}
         <motion.div 
@@ -523,12 +523,12 @@ export default function Register() {
         </motion.div>
 
         {/* Right Side: Registration Form */}
-        <div className="lg:w-1/2 flex items-center justify-center p-8 lg:p-12 bg-white/30 dark:bg-black/20 backdrop-blur-xl">
+        <div className="lg:w-1/2 flex items-start lg:items-center justify-center p-8 lg:p-12 bg-white/30 dark:bg-black/20 backdrop-blur-xl">
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="w-full max-w-md"
+            className="w-full max-w-md mt-4 lg:mt-0"
           >
             <GlassCard className="p-10 shadow-2xl border-2 border-white/30 dark:border-white/10" data-testid="card-account-details">
               <motion.div
