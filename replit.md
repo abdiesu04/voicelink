@@ -9,14 +9,14 @@ I prefer clear and concise explanations. I want an iterative development approac
 ## System Architecture
 
 ### UI/UX Decisions
-The application features a clean, modern design with full light/dark theme support, defaulting to dark mode. It uses a color scheme of Indigo/Blue for interactive elements and Violet/Purple for highlights, with the Inter font. Components are built with Shadcn UI and Tailwind CSS, adhering to a responsive, mobile-first design. The UI includes:
+The application features a clean, modern design with full light/dark theme support, defaulting to dark mode. It uses a color scheme of Indigo/Blue for interactive elements and Violet/Purple for highlights, with the Inter font. Components are built with Shadcn UI and Tailwind CSS, adhering to a responsive, mobile-first design with minimum 48px touch targets for all interactive elements. The UI includes:
 - **Branding**: Professional Voztra logo with chat bubble "O" design displayed as PNG image in navigation header and on login/registration forms. The logo uses transparent background and works well on both light and dark themes. Component located at `client/src/components/VoztraLogo.tsx`, image asset at `attached_assets/a-clean-modern-logo-design-featuring-the_U7fgc6INSwC-QPiP-z7mDQ_KE33-hesSouMk1bakN-xUw-removebg-preview (1)_1762877940367.png`.
 - A landing page, room creation/joining interfaces with language and voice gender selection.
 - An active translation interface with a dual-panel layout, connection status indicators, microphone controls, and a share dialog.
 - A `TranscriptionPanel` visually distinguishes interim transcriptions (dashed border, italic) from final translated messages.
 - **Alternative Landing Page**: A business-focused "Voice Translator" marketing page at `/voice-translator` emphasizing global hiring and team collaboration use cases with emotional messaging and simplified testimonial layout.
 - **Header Navigation**: Shows Pricing and Account links for authenticated users. Minutes badge displays remaining translation time. Users click the logo to return home.
-- **Footer Navigation**: Displays Privacy Policy, California Privacy Policy, and Voice Translator links for all users, with Contact Us link visible only for authenticated users.
+- **Footer Navigation**: Displays Privacy Policy, California Privacy Policy, and Voice Translator links for all users (Contact Us visible to everyone). All footer links have minimum 48px touch targets using block-level links, min-h-[48px], py-2, and touch-manipulation classes. Footer includes data-testid attributes for QA testing.
 - **Pricing Page**: Three-tier subscription comparison (Free, Starter, Pro) with feature lists, pricing details, and Stripe checkout integration.
 - **Account/Billing Page**: Displays current subscription plan, remaining minutes with color-coded warnings, billing cycle information, and Stripe billing portal access for paid users.
 - **Upgrade Modal**: Shown when users exhaust credits, presenting Starter and Pro plan options with direct Stripe checkout links.
@@ -25,6 +25,12 @@ The application features a clean, modern design with full light/dark theme suppo
   - **Waiting Webhook**: Production polling for webhook activation (pulsing clock icon)
   - **Timeout**: Shows smart status (activated vs delayed) with retry mechanism, no auto-redirect for user control
   - **Activated**: Success confirmation with plan details and 5-second auto-redirect to account page
+- **Mobile Responsiveness**: Full mobile optimization across all pages:
+  - **Homepage**: Fluid typography (text-3xl sm:text-5xl lg:text-6xl) prevents text overflow, hero headline wraps properly without whitespace-nowrap, stats bar uses responsive grid (grid-cols-1 sm:grid-cols-2 lg:grid-cols-3)
+  - **Room Page**: Mobile-only sticky bottom toolbar (`fixed bottom-0 inset-x-0 z-20`) with backdrop blur and safe area padding. Desktop footer hidden on mobile (`hidden md:block`). Toolbar displays context-aware controls:
+    - **Before conversation**: "Start Conversation" button (always visible, disabled during connecting/quota exceeded/waiting for partner) with contextual status text below
+    - **During conversation**: Mute/Unmute button (circular, 56px) + End Call button (full width). Mute button uses `variant="ghost"` when disabled to match desktop visual state
+  - Main content has `pb-24 md:pb-0` padding to prevent overlap with mobile toolbar
 
 ### Technical Implementations
 - **Frontend**: React with TypeScript, Wouter for routing, TanStack Query for data fetching, WebSocket client, Web Audio API, and Microsoft Cognitive Services Speech SDK.
