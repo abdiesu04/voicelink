@@ -324,6 +324,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(500).json({ error: `Price ID not configured for ${plan} plan` });
       }
 
+      // CRITICAL: Use req.headers.origin to preserve custom domain (getvoztra.com)
+      // This ensures users are redirected back to the same domain they paid from
+      const baseUrl = req.headers.origin || (process.env.REPLIT_DOMAINS ? `https://${process.env.REPLIT_DOMAINS.split(',')[0]}` : 'https://getvoztra.com');
+      
       // Create checkout session
       const session = await stripe.checkout.sessions.create({
         mode: 'subscription',
@@ -332,8 +336,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
           price: priceId,
           quantity: 1,
         }],
-        success_url: `${process.env.REPLIT_DOMAINS ? `https://${process.env.REPLIT_DOMAINS.split(',')[0]}` : req.headers.origin}/payment-success?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${process.env.REPLIT_DOMAINS ? `https://${process.env.REPLIT_DOMAINS.split(',')[0]}` : req.headers.origin}/pricing`,
+        success_url: `${baseUrl}/payment-success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${baseUrl}/pricing`,
         client_reference_id: user.id.toString(),
         metadata: {
           userId: user.id.toString(),
@@ -360,10 +364,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: "No Stripe customer found. Please subscribe first." });
       }
 
+      // CRITICAL: Use req.headers.origin to preserve custom domain (getvoztra.com)
+      const baseUrl = req.headers.origin || (process.env.REPLIT_DOMAINS ? `https://${process.env.REPLIT_DOMAINS.split(',')[0]}` : 'https://getvoztra.com');
+      
       // Create billing portal session
       const session = await stripe.billingPortal.sessions.create({
         customer: user.stripeCustomerId,
-        return_url: `${process.env.REPLIT_DOMAINS ? `https://${process.env.REPLIT_DOMAINS.split(',')[0]}` : req.headers.origin}/account`,
+        return_url: `${baseUrl}/account`,
       });
 
       res.json({ url: session.url });
