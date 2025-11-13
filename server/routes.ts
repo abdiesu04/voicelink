@@ -35,14 +35,19 @@ interface SessionTracking {
   userId: number;
   startTime: number;
   lastDeductionTime: number;
-  intervalId: NodeJS.Timeout;
+  intervalId: NodeJS.Timeout | null;
   isActive: boolean;
+  pausedAt?: number; // Timestamp when session was paused (for credit fairness)
 }
 
 const connections = new Map<WebSocket, RoomConnection>();
 const roomConnections = new Map<string, WebSocket[]>();
 const activeSessions = new Map<string, SessionTracking>(); // roomId -> session tracking
+const roomCleanupTimers = new Map<string, NodeJS.Timeout>(); // roomId -> cleanup timer (lightweight grace period)
 const broadcastedMessageIds = new Map<string, Map<string, number>>(); // roomId -> Map<dedupeKey, timestamp> for TTL-based deduplication
+
+// Grace period constant - keep room alive for mobile backgrounding recovery
+const GRACE_PERIOD_MS = 60 * 1000; // 60 seconds
 
 // Fuzzy matching deduplication: track recent messages per speaker to catch near-identical duplicates
 interface RecentMessage {
@@ -157,15 +162,89 @@ async function getUserIdFromWebSocketSession(req: any): Promise<number | null> {
   }
 }
 
+function pauseSession(roomId: string) {
+  const session = activeSessions.get(roomId);
+  if (session && session.isActive && session.intervalId) {
+    console.log(`[Session] ⏸️ Pausing credit deduction for room ${roomId}`);
+    clearInterval(session.intervalId);
+    session.intervalId = null;
+    session.isActive = false;
+    session.pausedAt = Date.now();
+  }
+}
+
+function resumeSession(roomId: string) {
+  const session = activeSessions.get(roomId);
+  if (session && !session.isActive) {
+    const userId = session.userId; // Get userId from stored session
+    
+    console.log(`[Session] ▶️ Resuming credit deduction for room ${roomId} (user ${userId})`);
+    
+    // Calculate time paused (for logging only - we don't charge during pause)
+    const pausedDuration = session.pausedAt ? Math.floor((Date.now() - session.pausedAt) / 1000) : 0;
+    console.log(`[Session] Was paused for ${pausedDuration}s - no credits deducted during pause`);
+    
+    session.isActive = true;
+    session.pausedAt = undefined;
+    session.lastDeductionTime = Date.now();
+    
+    // Restart credit deduction interval (use existing credit system - storage.consumeCredits)
+    session.intervalId = setInterval(async () => {
+      try {
+        const currentTime = Date.now();
+        const elapsedSeconds = Math.floor((currentTime - session.lastDeductionTime) / 1000);
+        
+        if (elapsedSeconds >= 10) { // Match original 10-second deduction interval
+          // Use storage.consumeCredits like the original code
+          const result = await storage.consumeCredits(userId, 10);
+          session.lastDeductionTime = currentTime;
+          
+          console.log(`[Credit Deduction] Deducted 10 credits from user ${userId}. Remaining: ${result.creditsRemaining}`);
+          
+          // Broadcast credit update to all clients in the room
+          const clients = roomConnections.get(roomId) || [];
+          clients.forEach(client => {
+            if (client.readyState === WebSocket.OPEN) {
+              client.send(JSON.stringify({
+                type: 'credit-update',
+                creditsRemaining: result.creditsRemaining,
+                exhausted: result.exhausted
+              }));
+            }
+          });
+          
+          // If credits exhausted, end the session
+          if (result.exhausted) {
+            console.log(`[Credit Deduction] Credits exhausted for room ${roomId}`);
+            endSession(roomId, 'credits-exhausted');
+          }
+        }
+      } catch (error) {
+        console.error(`[Credit Deduction] Error for room ${roomId}:`, error);
+      }
+    }, 10000); // Check every 10 seconds
+  }
+}
+
 function endSession(roomId: string, reason: 'participant-left' | 'creator-left' | 'credits-exhausted') {
   console.log(`[Session] Ending session for room ${roomId}, reason: ${reason}`);
+  
+  // Cancel any pending grace timer
+  const existingTimer = roomCleanupTimers.get(roomId);
+  if (existingTimer) {
+    console.log(`[Grace Period] ⏹️ Canceling grace timer during endSession for room ${roomId}`);
+    clearTimeout(existingTimer);
+    roomCleanupTimers.delete(roomId);
+  }
   
   const session = activeSessions.get(roomId);
   if (session) {
     const totalDuration = Math.floor((Date.now() - session.startTime) / 1000);
     console.log(`[Session] Total duration: ${totalDuration}s`);
     
-    clearInterval(session.intervalId);
+    if (session.intervalId) {
+      clearInterval(session.intervalId);
+    }
     session.isActive = false;
     activeSessions.delete(roomId);
   }
@@ -925,6 +1004,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
             return;
           }
 
+          // CRITICAL FIX: Cancel grace period cleanup timer if user is reconnecting
+          const existingTimer = roomCleanupTimers.get(roomId);
+          if (existingTimer) {
+            console.log(`[Grace Period] ✅ User reconnected to room ${roomId} - canceling cleanup timer`);
+            clearTimeout(existingTimer);
+            roomCleanupTimers.delete(roomId);
+            
+            // Resume credit deduction (gets userId from existing session)
+            resumeSession(roomId);
+            
+            // Notify any existing clients that peer has reconnected
+            const existingClients = roomConnections.get(roomId) || [];
+            existingClients.forEach(client => {
+              if (client.readyState === WebSocket.OPEN) {
+                client.send(JSON.stringify({
+                  type: 'peer-reconnected'
+                }));
+              }
+            });
+          }
+
           connections.set(ws, { ws, roomId, language, voiceGender, role });
           
           if (!roomConnections.has(roomId)) {
@@ -1272,17 +1372,61 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (connection) {
         const { roomId, role } = connection;
         
-        // End the entire session when ANY user disconnects
-        // This ensures the other user is notified and credits stop immediately
-        const sessionReason = role === 'creator' ? 'creator-left' : 'participant-left';
-        endSession(roomId, sessionReason);
-        
-        // Clean up fuzzy deduplication tracking for this speaker
-        const speakerKey = `${roomId}|${role}`;
-        recentMessagesByRoomSpeaker.delete(speakerKey);
-        console.log(`[Memory Cleanup] 🧹 Cleared recent messages for ${speakerKey}`);
-        
+        // Remove this connection from active connections
         connections.delete(ws);
+        const roomClients = roomConnections.get(roomId) || [];
+        const updatedClients = roomClients.filter(client => client !== ws);
+        roomConnections.set(roomId, updatedClients);
+        
+        // Differentiate intentional exits from accidental disconnects
+        const isIntentionalExit = code === 1000 || code === 4000;
+        
+        if (isIntentionalExit) {
+          // Intentional exit - clean up immediately
+          console.log(`[Grace Period] ⏭️ Intentional exit (code ${code}) - cleaning up immediately`);
+          const sessionReason = role === 'creator' ? 'creator-left' : 'participant-left';
+          endSession(roomId, sessionReason);
+          
+          // Clean up fuzzy deduplication tracking for this speaker
+          const speakerKey = `${roomId}|${role}`;
+          recentMessagesByRoomSpeaker.delete(speakerKey);
+          console.log(`[Memory Cleanup] 🧹 Cleared recent messages for ${speakerKey}`);
+        } else {
+          // Accidental disconnect (network issue, mobile backgrounding, etc.)
+          console.log(`[Grace Period] 🕒 Accidental disconnect (code ${code}) - starting ${GRACE_PERIOD_MS/1000}s grace period`);
+          
+          // Pause credit deduction immediately
+          pauseSession(roomId);
+          
+          // Notify partner that peer disconnected (if they exist and are still connected)
+          const remainingClients = roomConnections.get(roomId) || [];
+          remainingClients.forEach(client => {
+            if (client.readyState === WebSocket.OPEN) {
+              client.send(JSON.stringify({
+                type: 'peer-disconnected',
+                waitingForReconnect: true,
+                graceSeconds: GRACE_PERIOD_MS / 1000
+              }));
+            }
+          });
+          
+          // Set cleanup timer - will be canceled if user reconnects
+          const cleanupTimer = setTimeout(() => {
+            console.log(`[Grace Period] ⏰ Grace period expired for room ${roomId} - cleaning up now`);
+            const sessionReason = role === 'creator' ? 'creator-left' : 'participant-left';
+            endSession(roomId, sessionReason);
+            
+            // Clean up fuzzy deduplication tracking for this speaker
+            const speakerKey = `${roomId}|${role}`;
+            recentMessagesByRoomSpeaker.delete(speakerKey);
+            console.log(`[Memory Cleanup] 🧹 Cleared recent messages for ${speakerKey}`);
+            
+            roomCleanupTimers.delete(roomId);
+          }, GRACE_PERIOD_MS);
+          
+          roomCleanupTimers.set(roomId, cleanupTimer);
+          console.log(`[Grace Period] ⏲️ Grace timer set for room ${roomId}, expires in ${GRACE_PERIOD_MS/1000}s`);
+        }
       }
     });
 
