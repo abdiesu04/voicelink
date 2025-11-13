@@ -1,7 +1,7 @@
 # Voztra - Real-Time Voice Translation App
 
 ## Overview
-Voztra is a real-time voice translation application designed to eliminate language barriers. It enables two users to converse in different languages with instant, high-quality translation using Azure Speech and Translation services. The application leverages WebSocket connections for low-latency communication, providing a natural and seamless cross-lingual interaction experience. It supports 97+ languages, translating voice with preserved tone, emotion, and gender.
+Voztra is a real-time voice translation application enabling seamless, instant, and high-quality voice translation between two users speaking different languages. It supports over 97 languages, preserving tone, emotion, and gender through advanced voice synthesis. The application aims to eliminate language barriers in real-time conversations, leveraging WebSockets for low-latency communication.
 
 ## User Preferences
 I prefer clear and concise explanations. I want an iterative development approach, where I can review changes frequently. Please ask for my approval before implementing any major architectural changes or adding new external dependencies. When making code changes, ensure they align with the existing code style and design patterns.
@@ -9,97 +9,56 @@ I prefer clear and concise explanations. I want an iterative development approac
 ## System Architecture
 
 ### UI/UX Decisions
-The application features a clean, modern design with full light/dark theme support, defaulting to dark mode. It uses a color scheme of Indigo/Blue for interactive elements and Violet/Purple for highlights, with the Inter font. Components are built with Shadcn UI and Tailwind CSS, adhering to a responsive, mobile-first design with minimum 48px touch targets for all interactive elements. The UI includes:
-- **Branding**: Professional Voztra logo with chat bubble "O" design displayed as PNG image in navigation header and on login/registration forms. The logo uses transparent background and works well on both light and dark themes. Component located at `client/src/components/VoztraLogo.tsx`, image asset at `attached_assets/a-clean-modern-logo-design-featuring-the_U7fgc6INSwC-QPiP-z7mDQ_KE33-hesSouMk1bakN-xUw-removebg-preview (1)_1762877940367.png`.
-- A landing page, room creation/joining interfaces with language and voice gender selection.
-- An active translation interface with a dual-panel layout, connection status indicators, microphone controls, and a share dialog.
-- A `TranscriptionPanel` visually distinguishes interim transcriptions (dashed border, italic) from final translated messages.
-- **Alternative Landing Page**: A business-focused "Voice Translator" marketing page at `/voice-translator` emphasizing global hiring and team collaboration use cases with emotional messaging and simplified testimonial layout.
-- **Header Navigation**: Shows Pricing and Account links for authenticated users. Minutes badge displays remaining translation time. Users click the logo to return home.
-- **Footer Navigation**: Displays Privacy Policy, California Privacy Policy, and Voice Translator links for all users (Contact Us visible to everyone). All footer links have minimum 48px touch targets using block-level links, min-h-[48px], py-2, and touch-manipulation classes. Footer includes data-testid attributes for QA testing.
-- **Pricing Page**: Three-tier subscription comparison (Free, Starter, Pro) with feature lists, pricing details, and Stripe checkout integration.
-- **Account/Billing Page**: Displays current subscription plan, remaining minutes with color-coded warnings, billing cycle information, and Stripe billing portal access for paid users.
-- **Upgrade Modal**: Shown when users exhaust credits, presenting Starter and Pro plan options with direct Stripe checkout links.
-- **Payment Success Page**: Intelligent post-checkout confirmation with four states:
-  - **Verifying**: Initial payment verification (shows spinner)
-  - **Waiting Webhook**: Production polling for webhook activation (pulsing clock icon)
-  - **Timeout**: Shows smart status (activated vs delayed) with retry mechanism, no auto-redirect for user control
-  - **Activated**: Success confirmation with plan details and 5-second auto-redirect to account page
-- **Mobile Responsiveness**: Full mobile optimization across all pages:
-  - **Homepage**: Fluid typography (text-3xl sm:text-5xl lg:text-6xl) prevents text overflow, hero headline wraps properly without whitespace-nowrap, stats bar uses responsive grid (grid-cols-1 sm:grid-cols-2 lg:grid-cols-3)
-  - **Room Page**: Mobile-only sticky bottom toolbar (`fixed bottom-0 inset-x-0 z-20`) with backdrop blur and safe area padding. Desktop footer hidden on mobile (`hidden md:block`). Toolbar displays context-aware controls:
-    - **Before conversation**: "Start Conversation" button (always visible, disabled during connecting/quota exceeded/waiting for partner) with contextual status text below
-    - **During conversation**: Mute/Unmute button (circular, 56px) + End Call button (full width). Mute button uses `variant="ghost"` when disabled to match desktop visual state
-  - Main content has `pb-24 md:pb-0` padding to prevent overlap with mobile toolbar
+The application features a modern, responsive UI with full light/dark theme support (defaulting to dark), built with Shadcn UI and Tailwind CSS. Key UI elements include:
+- A professional Voztra logo.
+- Landing, room creation/joining, and active translation interfaces.
+- A `TranscriptionPanel` for distinguishing interim and final translations.
+- An alternative business-focused landing page (`/voice-translator`).
+- Header navigation with Pricing and Account links, and a minutes badge.
+- A comprehensive footer with legal and contact links.
+- A Pricing page detailing Free, Starter, and Pro subscription tiers.
+- An Account/Billing page for subscription management and credit display.
+- An Upgrade Modal for credit exhaustion.
+- A robust Payment Success Page with intelligent status updates and auto-redirect.
+- Full mobile optimization across all pages, including fluid typography, responsive grids, and a mobile-only sticky bottom toolbar with context-aware controls.
 
 ### Technical Implementations
-- **Frontend**: React with TypeScript, Wouter for routing, TanStack Query for data fetching, WebSocket client, Web Audio API, and Microsoft Cognitive Services Speech SDK.
-- **Backend**: Express.js server, WebSocket server (using `ws` package), and in-memory storage for room management.
-- **Production Session Management**: Express is configured to trust Replit's proxy for secure session cookies.
-- **Real-Time Transcription**: A hybrid system uses Azure Speech SDK for throttled interim visual feedback and final translation/Text-to-Speech (TTS).
-- **Voice Selection**: Users select gender (male/female) for TTS, utilizing Azure Premium Multilingual Neural Voices (AndrewMultilingualNeural/AvaMultilingualNeural) that support 47 languages with natural accent and tone preservation.
-- **Audio Overlap Prevention**: A queue-based TTS system using Azure REST API and HTML5 Audio ensures sequential playback, preventing audio overlap. It includes SSML XML escaping, a retry mechanism, and a synchronous boolean flag for race condition prevention.
-- **Mobile Audio Fix**: Comprehensive mobile audio compatibility is implemented through single Audio element reuse, audio unlocking, blob URL management, and a smart timeout fallback for unreliable 'ended' events on mobile browsers.
-- **Message Deduplication**: A three-layer deduplication system (server-side broadcast tracking, client-side atomic deduplication, TTS queue deduplication) prevents duplicate audio playback.
-- **WebSocket Keepalive & Monitoring**: A dual-layer aggressive keepalive system (application-level heartbeat and protocol-level ping/pong) is implemented to prevent idle timeouts. Professional disconnect handling logs all scenarios and provides clear, context-aware UI messages.
-- **Seamless Auto-Reconnect System**: Production-grade automatic reconnection handles random WebSocket disconnects with silent reconnection, state preservation, Azure Speech continuity, and minimal UI feedback. It distinguishes intentional from unintentional disconnects.
-- **Professional Quota Handling**: Comprehensive Azure quota error detection and graceful degradation prevent infinite retry loops. It includes intelligent error detection, immediate retry prevention, clear user communication, graceful degradation (text translations still work), UI state management, and TTS queue protection.
-- **Stripe Payment Integration**: Production-ready subscription billing system with Stripe Checkout for payment processing and Customer Portal for subscription management. Includes webhook handlers for all subscription lifecycle events with signature verification, proper error handling, and automatic credit allocation.
-- **100% Activation Guarantee System**: Production-grade triple-layer subscription activation with ultra-fast credit delivery:
-  - **Layer 1 (Immediate)**: Frontend calls `/api/payments/confirm` endpoint when user lands on success page, verifying payment directly with Stripe API. Requires authentication for security.
-  - **Layer 2 (Fast Polling)**: If confirm fails (e.g., session loss), system polls for webhook activation every 500ms (4x faster detection), typically completes in 10-30 seconds
-  - **Layer 3 (Safety Net)**: Auto reconciliation worker runs every 60 seconds, scanning all Stripe sessions to catch any missed activations
-  - **Session Loss Handling**: Detects 401 errors and redirects users to login with return URL, preventing infinite polling loops
-  - **Reconciliation Safeguards**: Dual safety checks prevent downgrade regressions: (1) only processes active/trialing subscriptions, (2) verifies plan/price consistency to skip old upgraded/downgraded sessions
-  - **Shared Activation Helper**: Idempotent `activateSubscription()` function used by all three layers, checks all three values (plan, subscriptionId, priceId) to prevent duplicate allocations
-  - **Professional UX**: Clean messaging without technical details, 5-minute timeout (reduced false timeouts), clear recovery paths for all error scenarios
-- **Credit Management System**: Real-time credit tracking with WebSocket updates, automatic deduction during translation sessions, and hard enforcement at 0 credits. Displays warning toasts at 10 minutes, 2 minutes, and 1 minute remaining. Triggers upgrade modal when credits are exhausted.
-- **Email Verification System**: Production-grade 2-step registration with security-hardened 6-digit code verification:
-  - **Email Service**: Uses Resend API with verified `noreply@getvoztra.com` sender address
-  - **Verification Flow**: 6-digit code-based verification DURING registration (not post-registration). Users cannot complete account creation without email verification.
-  - **Registration Flow**: Step 1 (enter email/password → send code) → Step 2 (enter 6-digit code → verify and create account) → Step 3 (success)
-  - **Security**: Bcrypt-hashed codes, 15-minute expiry, 5 attempt limit per code, 60-second minimum between resends, max 5 codes per email per day
-  - **Data Storage**: Temporary `pendingRegistrations` table stores verification data before account creation, automatically cleaned up after success or expiry
-  - **Email Status Feedback**: Clear UI feedback showing whether verification email was sent successfully or failed, with fallback messaging for email delivery issues
-  - **Access Control**: Account creation blocked until email verification completes. All authenticated users have verified emails.
-  - **Audit Logging**: Security events logged for monitoring (email partially redacted for privacy)
+- **Frontend**: React with TypeScript, Wouter, TanStack Query, WebSocket client, Web Audio API, and Microsoft Cognitive Services Speech SDK.
+- **Backend**: Express.js server with a WebSocket server (`ws` package) for real-time communication.
+- **Real-Time Transcription**: Hybrid system using Azure Speech SDK for interim feedback and final translation/TTS.
+- **Voice Selection**: Users select gender for TTS, utilizing Azure Premium Multilingual Neural Voices.
+- **Audio Management**: Queue-based TTS system prevents audio overlap. Comprehensive mobile audio compatibility includes single Audio element reuse and audio unlocking.
+- **Message Deduplication**: Three-layer system prevents duplicate audio playback.
+- **WebSocket Stability**: Dual-layer aggressive keepalive, professional disconnect handling, and seamless auto-reconnect system ensure connection reliability.
+- **Quota Handling**: Comprehensive Azure quota error detection and graceful degradation prevent service interruptions.
+- **Stripe Integration**: Production-ready subscription billing with Stripe Checkout and Customer Portal, supported by webhook handlers for lifecycle events.
+- **100% Activation Guarantee System**: Triple-layer subscription activation (immediate frontend confirmation, fast polling, safety net reconciliation worker) ensures ultra-fast credit delivery.
+- **Credit Management**: Real-time credit tracking via WebSocket, automatic deduction, hard enforcement at zero credits, and warning toasts.
+- **Email Verification**: Production-grade 2-step registration with security-hardened 6-digit code verification via Resend API, ensuring all authenticated users have verified emails.
+- **Authentication**: Email/password authentication with bcrypt hashing and Google OAuth integration (auto-linking existing accounts, auto-verification for OAuth users).
 
 ### Feature Specifications
-- **Core Functionality**: Real-time voice translation between two users.
-- **Room Management**: Creation and retrieval of rooms with language and voice gender preferences.
-- **Real-time Communication**: WebSocket server for instant message exchange, interim transcriptions, and final translations.
-- **Microphone Control**: Mute/unmute functionality.
-- **Language Support**: 47 supported languages with flag icons.
-- **Voice Customization**: User-selectable male/female voice gender for TTS output using Azure Premium Multilingual Neural Voices.
-- **Request Monitoring**: Comprehensive Azure API request tracking with logs, token caching, and session cleanup.
+- Real-time voice translation between two users.
+- Room creation and retrieval with language and voice gender preferences.
+- WebSocket server for instant message exchange and transcription.
+- Microphone mute/unmute functionality.
+- Support for 47 languages with flag icons.
+- User-selectable male/female voice gender for TTS.
+- Comprehensive Azure API request tracking.
 
 ### Subscription System
-Voztra implements a three-tier credit-based subscription model:
-
-1. **Free Tier**: 60 minutes lifetime allocation (one-time, non-recurring). Users receive credits upon registration. No monthly reset.
-
-2. **Starter Plan**: $9.99/month for 350 minutes. Monthly recurring subscription with automatic credit reset on billing cycle. Stripe managed.
-
-3. **Pro Plan**: $29.99/month for 1200 minutes with priority support. Monthly recurring subscription with automatic credit reset on billing cycle. Stripe managed.
-
-**Credit Tracking**: Minutes are stored as seconds in the database (`creditsRemaining` field). Real-time updates via WebSocket during translation sessions. Credits automatically deducted per second of active translation.
-
-**Hard Enforcement**: When credits reach 0, translation sessions end immediately, and users see an upgrade modal with direct checkout links to Starter or Pro plans.
-
-**Webhook Events**: Stripe webhooks handle subscription lifecycle: `checkout.session.completed` (initial payment + credit allocation), `invoice.payment_succeeded` (monthly renewals + credit reset), `customer.subscription.updated` (plan changes), `customer.subscription.deleted` (cancellations + credit removal).
-
-**Payment Activation Flow**:
-- **Immediate Confirmation**: Frontend calls `/api/payments/confirm` endpoint directly when user lands on success page, verifying payment with Stripe API
-- **Success Case**: Confirm endpoint activates subscription → Shows success → Auto-redirect (5s)
-- **Fallback Case**: If confirm fails → Falls back to polling for webhook activation (2s intervals, 2min max) → Shows success when webhook completes
-- **Reconciliation**: Auto worker runs every 5 minutes, scanning ALL Stripe sessions to catch any missed activations (no time limit)
-- **Safeguards**: Only processes active/trialing subscriptions with matching plan/price to prevent downgrades from in-place upgrades
-- **No Session ID**: Derives status from actual subscription data. Shows "Unknown" for free tier with pricing link, or "Activated" for existing paid subscriptions.
+Voztra uses a three-tier credit-based subscription model:
+- **Free Tier**: 60 minutes lifetime allocation.
+- **Starter Plan**: $9.99/month for 350 minutes.
+- **Pro Plan**: $29.99/month for 1200 minutes with priority support.
+Credits are tracked in seconds, deducted in real-time, and hard-enforced at zero, triggering an upgrade modal. Stripe webhooks manage subscription lifecycle events (payment, renewals, plan changes, cancellations).
 
 ## External Dependencies
 
-- **Azure Speech Services**: Used for Speech-to-Text (STT) transcription and Text-to-Speech (TTS) synthesis, including gender-specific Neural voices.
-- **Azure Translator API**: Utilized for text translation between spoken languages.
-- **Microsoft Cognitive Services Speech SDK**: Integrated on both client and server for interacting with Azure Speech Services.
-- **Resend**: Modern email API service used for sending transactional emails (verification emails, password resets). Configured via `RESEND_API_KEY` environment variable.
-- **Axios**: Used for making HTTP requests to external APIs.
+- **Azure Speech Services**: For Speech-to-Text (STT) and Text-to-Speech (TTS).
+- **Azure Translator API**: For text translation.
+- **Microsoft Cognitive Services Speech SDK**: Client and server interaction with Azure Speech Services.
+- **Resend**: For transactional email sending (verification, password resets).
+- **Google OAuth 2.0**: For "Continue with Google" authentication.
+- **Passport.js**: Authentication middleware, specifically `passport-google-oauth20`.
+- **Axios**: For making HTTP requests.
