@@ -14,8 +14,11 @@ const db = drizzle(pool, { schema });
 export interface IStorage {
   // User methods
   createUser(email: string, passwordHash: string): Promise<User>;
+  createGoogleUser(email: string, googleId: string, name?: string, profilePictureUrl?: string): Promise<User>;
   getUserByEmail(email: string): Promise<User | undefined>;
   getUserById(id: number): Promise<User | undefined>;
+  getUserByGoogleId(googleId: string): Promise<User | undefined>;
+  linkGoogleAccount(userId: number, googleId: string, name?: string, profilePictureUrl?: string): Promise<User>;
   setUserStripeCustomerId(userId: number, stripeCustomerId: string): Promise<User>;
   
   // Pending registration methods
@@ -59,6 +62,17 @@ export class PgStorage implements IStorage {
     return user;
   }
 
+  async createGoogleUser(email: string, googleId: string, name?: string, profilePictureUrl?: string): Promise<User> {
+    const [user] = await db.insert(schema.users).values({
+      email,
+      googleId,
+      name,
+      profilePictureUrl,
+      isEmailVerified: true,
+    }).returning();
+    return user;
+  }
+
   async getUserByEmail(email: string): Promise<User | undefined> {
     const [user] = await db.select().from(schema.users).where(eq(schema.users.email, email));
     return user;
@@ -66,6 +80,28 @@ export class PgStorage implements IStorage {
 
   async getUserById(id: number): Promise<User | undefined> {
     const [user] = await db.select().from(schema.users).where(eq(schema.users.id, id));
+    return user;
+  }
+
+  async getUserByGoogleId(googleId: string): Promise<User | undefined> {
+    const [user] = await db.select().from(schema.users).where(eq(schema.users.googleId, googleId));
+    return user;
+  }
+
+  async linkGoogleAccount(userId: number, googleId: string, name?: string, profilePictureUrl?: string): Promise<User> {
+    const [user] = await db.update(schema.users)
+      .set({ 
+        googleId,
+        name: name || undefined,
+        profilePictureUrl: profilePictureUrl || undefined,
+      })
+      .where(eq(schema.users.id, userId))
+      .returning();
+    
+    if (!user) {
+      throw new Error(`User with ID ${userId} not found`);
+    }
+    
     return user;
   }
 

@@ -1,5 +1,6 @@
 import type { Express, Request, Response, NextFunction } from "express";
 import bcrypt from "bcryptjs";
+import passport from "passport";
 import { storage } from "./storage";
 import { registerSchema, loginSchema } from "@shared/schema";
 import { fromZodError } from "zod-validation-error";
@@ -279,12 +280,90 @@ export function setupAuth(app: Express) {
         user: {
           id: user.id,
           email: user.email,
+          name: user.name,
+          profilePictureUrl: user.profilePictureUrl,
         },
         subscription: subscription,
       });
     } catch (error) {
       console.error("Get user error:", error);
       res.status(500).json({ error: "Failed to get user" });
+    }
+  });
+
+  app.get("/api/auth/google", 
+    passport.authenticate("google", { 
+      scope: ["profile", "email"] 
+    })
+  );
+
+  app.get("/api/auth/google/callback",
+    passport.authenticate("google", { 
+      failureRedirect: "/login?error=google-auth-failed",
+      session: false
+    }),
+    (req: Request, res: Response) => {
+      const user = req.user as any;
+      if (!user) {
+        return res.redirect("/login?error=google-auth-failed");
+      }
+
+      req.session.regenerate((err) => {
+        if (err) {
+          console.error("Session regeneration error:", err);
+          return res.redirect("/login?error=session-failed");
+        }
+
+        req.session.userId = user.id;
+
+        req.session.save((saveErr) => {
+          if (saveErr) {
+            console.error("Session save error:", saveErr);
+            return res.redirect("/login?error=session-failed");
+          }
+
+          res.redirect("/");
+        });
+      });
+    }
+  );
+
+  app.post("/api/auth/link-google", requireAuth, async (req: Request, res: Response) => {
+    if (!req.session.userId) {
+      return res.status(401).json({ error: "Not authenticated" });
+    }
+
+    try {
+      const { googleId, name, profilePictureUrl } = req.body;
+
+      if (!googleId) {
+        return res.status(400).json({ error: "Google ID is required" });
+      }
+
+      const existingGoogleUser = await storage.getUserByGoogleId(googleId);
+      if (existingGoogleUser && existingGoogleUser.id !== req.session.userId) {
+        return res.status(400).json({ error: "This Google account is already linked to another user" });
+      }
+
+      const user = await storage.linkGoogleAccount(
+        req.session.userId,
+        googleId,
+        name,
+        profilePictureUrl
+      );
+
+      res.json({
+        success: true,
+        user: {
+          id: user.id,
+          email: user.email,
+          name: user.name,
+          profilePictureUrl: user.profilePictureUrl,
+        },
+      });
+    } catch (error) {
+      console.error("Link Google account error:", error);
+      res.status(500).json({ error: "Failed to link Google account" });
     }
   });
 }

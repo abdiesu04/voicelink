@@ -1,10 +1,12 @@
 import express, { type Request, Response, NextFunction } from "express";
 import session from "express-session";
 import connectPg from "connect-pg-simple";
+import passport from "passport";
 import { registerRoutes } from "./routes";
 import { setupAuth, attachUser } from "./auth";
 import { setupSubscriptionRoutes } from "./subscription";
 import { setupVite, serveStatic, log } from "./vite";
+import { setupPassport } from "./passport";
 
 const app = express();
 
@@ -33,6 +35,9 @@ app.use(session({
   },
 }));
 
+setupPassport();
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(attachUser);
 
 declare module 'http' {
