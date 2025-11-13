@@ -2058,16 +2058,27 @@ export default function Room() {
         <div className="flex flex-col items-center gap-3 rounded-t-2xl bg-background/80 dark:bg-slate-900/90 shadow-[0_-8px_30px_rgba(15,23,42,0.35)] backdrop-blur-xl py-4 px-6">
           {!conversationStarted ? (
             <>
-              <Button
-                size="lg"
-                onClick={startConversation}
-                disabled={connectionStatus !== "connected" || quotaExceeded || !partnerConnected}
-                className="h-14 px-8 bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 shadow-lg shadow-primary/25 disabled:opacity-50 disabled:cursor-not-allowed w-full max-w-xs"
-                data-testid="button-start-conversation-mobile"
-              >
-                <Mic className="h-5 w-5 mr-2" />
-                {connectionStatus !== "connected" ? "Connecting..." : quotaExceeded ? "Quota Exceeded" : !partnerConnected ? "Waiting for Partner" : "Start Conversation"}
-              </Button>
+              <div className="flex justify-center gap-3 w-full">
+                <Button
+                  size="lg"
+                  onClick={startConversation}
+                  disabled={connectionStatus !== "connected" || quotaExceeded || !partnerConnected}
+                  className="h-14 px-8 bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 shadow-lg shadow-primary/25 disabled:opacity-50 disabled:cursor-not-allowed flex-1 max-w-xs"
+                  data-testid="button-start-conversation-mobile"
+                >
+                  <Mic className="h-5 w-5 mr-2" />
+                  {connectionStatus !== "connected" ? "Connecting..." : quotaExceeded ? "Quota Exceeded" : !partnerConnected ? "Waiting for Partner" : "Start Conversation"}
+                </Button>
+                <Button
+                  variant="destructive"
+                  size="lg"
+                  onClick={handleEndCall}
+                  className="h-14 w-14 rounded-full shrink-0"
+                  data-testid="button-end-call-mobile"
+                >
+                  <PhoneOff className="h-5 w-5" />
+                </Button>
+              </div>
               {connectionStatus !== "connected" && (
                 <p className="text-xs text-muted-foreground text-center">
                   Establishing connection to the room...
