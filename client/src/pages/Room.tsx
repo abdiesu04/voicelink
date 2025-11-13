@@ -117,6 +117,7 @@ export default function Room() {
   const azureTokenRef = useRef<{ token: string; region: string } | null>(null);
   const spokenMessageIdsRef = useRef<Set<string>>(new Set());
   const processedMessagesRef = useRef<Set<string>>(new Set()); // Track processed server messageIds for deduplication
+  const processedResultIdsRef = useRef<Map<string, number>>(new Map()); // Track Azure Speech SDK resultIds to prevent duplicate rescoring events
   const lastInterimSentRef = useRef<number>(0);
   const activeSynthesizerRef = useRef<SpeechSDK.SpeechSynthesizer | null>(null);
   const ttsQueueRef = useRef<Array<{ text: string; languageCode: string; gender: "male" | "female"; messageId: string; retryCount?: number }>>([]);
@@ -1383,6 +1384,53 @@ export default function Room() {
         
         if (e.result.reason === SpeechSDK.ResultReason.RecognizedSpeech && e.result.text) {
           setIsSpeaking(false);
+          
+          // CRITICAL DUPLICATE PREVENTION: Cache Azure Speech SDK resultIds
+          // Azure fires 'recognized' twice for same utterance: initial final + rescored final (~100ms apart)
+          // This prevents rescored duplicates from reaching server and causing duplicate translations
+          const resultId = e.result.resultId;
+          const now = Date.now();
+          const RESULT_ID_TTL = 5000; // 5 second TTL - match server-side dedupe window
+          
+          // Clean up expired resultIds from cache (older than TTL)
+          const expiredIds: string[] = [];
+          processedResultIdsRef.current.forEach((timestamp, id) => {
+            if (now - timestamp > RESULT_ID_TTL) {
+              expiredIds.push(id);
+            }
+          });
+          expiredIds.forEach(id => processedResultIdsRef.current.delete(id));
+          if (expiredIds.length > 0) {
+            console.log(`[Azure Speech Dedupe] 🧹 Cleaned up ${expiredIds.length} expired resultIds from cache`);
+          }
+          
+          // Check if this resultId was already processed within TTL window
+          const lastProcessedTime = processedResultIdsRef.current.get(resultId);
+          if (lastProcessedTime !== undefined) {
+            const timeSinceLastProcess = now - lastProcessedTime;
+            console.warn(`[Azure Speech Dedupe] ⛔ DUPLICATE RESULTID BLOCKED!`);
+            console.warn(`[Azure Speech Dedupe] 🔍 ResultId: ${resultId}`);
+            console.warn(`[Azure Speech Dedupe] 📝 Text: "${e.result.text}"`);
+            console.warn(`[Azure Speech Dedupe] ⏱️ Last processed: ${timeSinceLastProcess}ms ago (TTL: ${RESULT_ID_TTL}ms)`);
+            console.warn(`[Azure Speech Dedupe] 💡 This is likely Azure Speech SDK's rescoring mechanism`);
+            console.warn(`[Azure Speech Dedupe] ✅ Prevented duplicate from reaching server - no translation cost incurred`);
+            return; // Don't send duplicate - Azure already sent this utterance
+          }
+          
+          // Mark resultId as processed with current timestamp
+          processedResultIdsRef.current.set(resultId, now);
+          console.log(`[Azure Speech Dedupe] ✅ New resultId processed: ${resultId}, cache size: ${processedResultIdsRef.current.size}`);
+          
+          // Additional cleanup: cap cache size to prevent unbounded growth
+          if (processedResultIdsRef.current.size > 100) {
+            const entriesToDelete = Array.from(processedResultIdsRef.current.entries())
+              .sort((a, b) => a[1] - b[1]) // Sort by timestamp, oldest first
+              .slice(0, 50) // Delete oldest 50
+              .map(([id]) => id);
+            
+            entriesToDelete.forEach(id => processedResultIdsRef.current.delete(id));
+            console.log(`[Azure Speech Dedupe] 🧹 Emergency cleanup: removed ${entriesToDelete.length} oldest resultIds. New cache size: ${processedResultIdsRef.current.size}`);
+          }
           
           if (wsRef.current?.readyState === WebSocket.OPEN) {
             wsRef.current.send(JSON.stringify({
