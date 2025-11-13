@@ -40,8 +40,8 @@ export default function Login() {
       setLocation("/create");
     } catch (error) {
       toast({
-        title: "Login failed",
-        description: error instanceof Error ? error.message : "Invalid email or password",
+        title: "Unable to sign in",
+        description: "Please check your email and password and try again.",
         variant: "destructive",
       });
     } finally {

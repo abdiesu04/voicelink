@@ -45,8 +45,8 @@ function AccountContent() {
         window.location.href = data.url;
       } else {
         toast({
-          title: "Error",
-          description: "No billing portal URL received. Please try again.",
+          title: "Unable to open billing portal",
+          description: "Please try again or contact support if the problem continues.",
           variant: "destructive",
         });
         setIsManaging(false);
@@ -54,8 +54,8 @@ function AccountContent() {
     },
     onError: (error: any) => {
       toast({
-        title: "Error",
-        description: error.message || "Failed to open billing portal. Please try again.",
+        title: "Unable to open billing portal",
+        description: "Please try again or contact support if the problem continues.",
         variant: "destructive",
       });
       setIsManaging(false);

@@ -163,8 +163,8 @@ export default function Pricing() {
     },
     onError: (error: any) => {
       toast({
-        title: "Checkout Error",
-        description: error.message || "Failed to start checkout. Please try again.",
+        title: "Unable to start checkout",
+        description: "Please try again or contact support if the problem continues.",
         variant: "destructive",
       });
       setLoadingPlan(null);

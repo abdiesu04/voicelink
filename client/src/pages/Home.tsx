@@ -247,7 +247,7 @@ export default function Home() {
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-3 pt-1 pl-6">
-                <Link href="/create">
+                <Link href={user ? "/create" : "/register"}>
                   <Button 
                     size="lg" 
                     className="text-base px-10 h-14 bg-gradient-to-r from-emerald-500 via-blue-500 to-violet-500 hover:from-emerald-600 hover:via-blue-600 hover:to-violet-600 text-white shadow-xl shadow-blue-500/40 group relative overflow-hidden border-0 w-full sm:w-auto" 
@@ -255,7 +255,7 @@ export default function Home() {
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000" />
                     <Sparkles className="mr-2 h-5 w-5 relative z-10" />
-                    <span className="relative z-10 font-semibold">Get 60 Free Minutes</span>
+                    <span className="relative z-10 font-semibold">{user ? "Create Room" : "Get 60 Free Minutes"}</span>
                   </Button>
                 </Link>
                 <a href="#how-it-works">

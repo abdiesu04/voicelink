@@ -15,13 +15,10 @@ function CreateRoomContent() {
   const { subscription } = useAuth();
   const [selectedLanguage, setSelectedLanguage] = useState("en");
   const [selectedVoiceGender, setSelectedVoiceGender] = useState<VoiceGender | undefined>(undefined);
-  
-  console.log('[CreateRoom] Selected voice gender:', selectedVoiceGender);
   const { toast } = useToast();
 
   const createRoomMutation = useMutation({
     mutationFn: async () => {
-      console.log('[CreateRoom] Creating room with voice gender:', selectedVoiceGender);
       const response = await apiRequest("POST", "/api/rooms/create", { 
         language: selectedLanguage,
         voiceGender: selectedVoiceGender
@@ -29,13 +26,17 @@ function CreateRoomContent() {
       return await response.json();
     },
     onSuccess: (data: any) => {
-      console.log('[CreateRoom] Navigating to room with voiceGender:', selectedVoiceGender);
+      toast({
+        title: "Room created!",
+        description: "Your translation room is ready. Share the link with your conversation partner.",
+        variant: "success",
+      });
       setLocation(`/room/${data.roomId}?role=creator&language=${selectedLanguage}&voiceGender=${selectedVoiceGender}`);
     },
     onError: (error: any) => {
       toast({
-        title: "Error",
-        description: error.message || "Failed to create room. Please try again.",
+        title: "Unable to create room",
+        description: "Please try again or contact support if the problem continues.",
         variant: "destructive",
       });
     },
@@ -45,8 +46,8 @@ function CreateRoomContent() {
     // Check if user has credits remaining
     if (!subscription || subscription.creditsRemaining <= 0) {
       toast({
-        title: "No Credits Remaining",
-        description: "You need credits to start a translation session. Please upgrade your plan to continue.",
+        title: "Out of minutes",
+        description: "Upgrade your plan to continue translating.",
         variant: "destructive",
       });
       return;
@@ -54,16 +55,16 @@ function CreateRoomContent() {
 
     if (!selectedLanguage) {
       toast({
-        title: "Language Required",
-        description: "Please select your preferred language",
+        title: "Language required",
+        description: "Please select your language to continue.",
         variant: "destructive",
       });
       return;
     }
     if (!selectedVoiceGender) {
       toast({
-        title: "Voice Gender Required",
-        description: "Please select your voice gender preference",
+        title: "Voice selection required",
+        description: "Please choose your voice preference to continue.",
         variant: "destructive",
       });
       return;

@@ -12,8 +12,6 @@ export default function JoinRoom() {
   const [, setLocation] = useLocation();
   const [selectedLanguage, setSelectedLanguage] = useState("en");
   const [selectedVoiceGender, setSelectedVoiceGender] = useState<VoiceGender | undefined>(undefined);
-  
-  console.log('[JoinRoom] Selected voice gender:', selectedVoiceGender);
   const [isJoining, setIsJoining] = useState(false);
   const [isValidating, setIsValidating] = useState(true);
   const [roomExists, setRoomExists] = useState(false);
@@ -26,8 +24,8 @@ export default function JoinRoom() {
     const validateRoom = async () => {
       if (!roomId) {
         toast({
-          title: "Invalid Room",
-          description: "No room ID provided",
+          title: "Invalid link",
+          description: "Please ask for a new invitation link.",
           variant: "destructive",
         });
         setLocation("/");
@@ -39,8 +37,8 @@ export default function JoinRoom() {
         
         if (response.status === 404) {
           toast({
-            title: "Room Not Found",
-            description: "This room has expired or doesn't exist. Please ask for a new invitation link.",
+            title: "Room not found",
+            description: "This room has expired. Please ask for a new invitation link.",
             variant: "destructive",
           });
           setTimeout(() => setLocation("/"), 2000);
@@ -53,10 +51,9 @@ export default function JoinRoom() {
 
         setRoomExists(true);
       } catch (error) {
-        console.error("[JoinRoom] Room validation error:", error);
         toast({
-          title: "Room Validation Failed",
-          description: "Unable to verify room. It may have expired.",
+          title: "Unable to join",
+          description: "This room may have expired. Please ask for a new link.",
           variant: "destructive",
         });
         setTimeout(() => setLocation("/"), 2000);
@@ -71,8 +68,8 @@ export default function JoinRoom() {
   const handleJoinRoom = () => {
     if (!roomExists) {
       toast({
-        title: "Room Not Available",
-        description: "This room is no longer available.",
+        title: "Room unavailable",
+        description: "This room is no longer available. Please ask for a new link.",
         variant: "destructive",
       });
       return;
@@ -80,8 +77,8 @@ export default function JoinRoom() {
 
     if (!selectedLanguage) {
       toast({
-        title: "Language Required",
-        description: "Please select your preferred language",
+        title: "Language required",
+        description: "Please select your language to continue.",
         variant: "destructive",
       });
       return;
@@ -89,17 +86,20 @@ export default function JoinRoom() {
 
     if (!selectedVoiceGender) {
       toast({
-        title: "Voice Gender Required",
-        description: "Please select your voice gender preference",
+        title: "Voice selection required",
+        description: "Please choose your voice preference to continue.",
         variant: "destructive",
       });
       return;
     }
 
-    console.log('[JoinRoom] Joining room with voice gender:', selectedVoiceGender);
     setIsJoining(true);
+    toast({
+      title: "Joining room...",
+      description: "You're joining the conversation now.",
+      variant: "success",
+    });
     setTimeout(() => {
-      console.log('[JoinRoom] Navigating to room with voiceGender:', selectedVoiceGender);
       setLocation(`/room/${roomId}?role=participant&language=${selectedLanguage}&voiceGender=${selectedVoiceGender}`);
     }, 500);
   };

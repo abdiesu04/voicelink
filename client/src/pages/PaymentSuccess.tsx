@@ -42,52 +42,45 @@ export default function PaymentSuccess() {
       const response = await apiRequest("POST", "/api/payments/confirm", { sessionId });
       
       if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || "Payment confirmation failed");
+        const error: any = new Error("Unable to confirm payment");
+        error.status = response.status;
+        throw error;
       }
       
       return response.json();
     },
     onSuccess: async (data) => {
-      // Success! Subscription activated via direct Stripe API verification
-      console.log("[Payment] ✓ Subscription activated via confirm endpoint:", data.subscription);
       await queryClient.invalidateQueries({ queryKey: ["/api/auth/me"] });
       await refetchAuth();
-      await refreshUser(); // Sync React Context for Header component
+      await refreshUser();
       setActivationStatus('activated');
     },
     onError: (error: any) => {
-      console.warn("[Payment] Confirm endpoint failed:", error);
-      
-      // Check if error is 401 (session lost) - user needs to log back in
       if (error.status === 401) {
-        console.log("[Payment] Session lost - redirecting to login");
-        // Redirect to login with return URL
         window.location.href = `/login?redirect=/payment-success?session_id=${sessionId}`;
         return;
       }
       
-      // Other errors: fallback to webhook polling
+      toast({
+        title: "Checking payment status",
+        description: "This may take a moment. Please wait...",
+      });
       setActivationStatus('waiting_webhook');
     },
   });
 
-  // Confirm payment on mount ONCE (only when component loads)
   useEffect(() => {
     if (sessionId) {
-      // Has session_id: trigger confirmation via direct Stripe API verification
-      console.log("[Payment] Confirming payment for session:", sessionId);
       confirmMutation.mutate(sessionId);
     } else {
-      // No session_id: derive status from actual subscription data
       if (subscription && subscription.plan !== 'free') {
         setActivationStatus('activated');
       } else {
-        setActivationStatus('timeout'); // Show guidance to get proper redirect link
+        setActivationStatus('timeout');
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []); // Only run once on mount
+  }, []);
 
   // Separate effect: Update activation status when subscription changes (no session_id case only)
   useEffect(() => {
@@ -106,33 +99,28 @@ export default function PaymentSuccess() {
     const pollInterval = setInterval(async () => {
       setPollingAttempts(prev => prev + 1);
       
-      // Timeout after 5 minutes (600 attempts * 500ms)
-      // Most webhooks arrive within 10-30 seconds, but we wait longer to be safe
       if (pollingAttempts >= 600) {
-        console.log("[Payment] Webhook timeout after 5 minutes - showing timeout screen");
+        toast({
+          title: "Taking longer than expected",
+          description: "Your payment is being processed. You can check your account page for updates.",
+        });
         setActivationStatus('timeout');
         clearInterval(pollInterval);
         return;
       }
 
-      // Refetch auth data to check subscription status
       try {
         const result = await refetchAuth();
         const currentPlan = result.data?.subscription?.plan;
 
-        // Check if subscription upgraded from 'free' to paid tier
         if (currentPlan && currentPlan !== 'free') {
-          console.log(`[Payment] Webhook activated subscription to ${currentPlan} plan`);
-          await refreshUser(); // Sync React Context for Header component
+          await refreshUser();
           setActivationStatus('activated');
           clearInterval(pollInterval);
         }
       } catch (error: any) {
-        // If we get 401 (session lost), user needs to log back in
         if (error.status === 401) {
-          console.warn("[Payment] Session lost during activation - redirecting to login");
           clearInterval(pollInterval);
-          // Redirect to login with return URL
           window.location.href = `/login?redirect=/payment-success?session_id=${sessionId}`;
           return;
         }

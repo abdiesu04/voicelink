@@ -35,8 +35,8 @@ export function UpgradeModal({ open, onOpenChange }: UpgradeModalProps) {
         window.location.href = data.url;
       } else {
         toast({
-          title: "Error",
-          description: "No checkout URL received. Please try again.",
+          title: "Unable to start checkout",
+          description: "Please try again or contact support if the problem continues.",
           variant: "destructive",
         });
         setSelectedPlan(null);
@@ -44,8 +44,8 @@ export function UpgradeModal({ open, onOpenChange }: UpgradeModalProps) {
     },
     onError: (error: any) => {
       toast({
-        title: "Error",
-        description: error.message || "Failed to start checkout. Please try again.",
+        title: "Unable to start checkout",
+        description: "Please try again or contact support if the problem continues.",
         variant: "destructive",
       });
       setSelectedPlan(null);

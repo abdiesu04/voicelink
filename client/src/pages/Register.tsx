@@ -89,18 +89,18 @@ export default function Register() {
       setEmailSentStatus(data.emailSent ? 'success' : 'failed');
       
       toast({
-        title: data.emailSent ? "Verification code sent!" : "Code generated",
+        title: data.emailSent ? "Code sent!" : "Email delivery issue",
         description: data.emailSent 
           ? "Check your email for a 6-digit code" 
-          : "Email delivery failed, but you can contact support with your email",
+          : "Code generated but email may not have been delivered. Contact support if needed.",
       });
 
       setStep(2); // Move to verification step
     } catch (error) {
       setEmailSentStatus('failed');
       toast({
-        title: "Failed to send code",
-        description: error instanceof Error ? error.message : "Please try again",
+        title: "Unable to send code",
+        description: "Please try again or contact support if the problem continues.",
         variant: "destructive",
       });
     } finally {
@@ -152,8 +152,8 @@ export default function Register() {
       }, 2000);
     } catch (error) {
       toast({
-        title: "Verification failed",
-        description: error instanceof Error ? error.message : "Please try again",
+        title: "Verification unsuccessful",
+        description: "Please check your code and try again.",
         variant: "destructive",
       });
     } finally {
@@ -181,16 +181,16 @@ export default function Register() {
       setEmailSentStatus(data.emailSent ? 'success' : 'failed');
 
       toast({
-        title: data.emailSent ? "New code sent!" : "Code regenerated",
+        title: data.emailSent ? "New code sent!" : "Email delivery issue",
         description: data.emailSent 
           ? "Check your email for the new 6-digit code" 
-          : "Email delivery failed, but a new code was generated",
+          : "Code generated but email may not have been delivered. Contact support if needed.",
       });
     } catch (error) {
       setEmailSentStatus('failed');
       toast({
-        title: "Failed to resend code",
-        description: error instanceof Error ? error.message : "Please try again",
+        title: "Unable to resend code",
+        description: "Please try again or contact support if the problem continues.",
         variant: "destructive",
       });
     } finally {
