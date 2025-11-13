@@ -1823,16 +1823,16 @@ export default function Room() {
               </div>
             )}
             
-            {/* Right: End Call */}
+            {/* Right: End Call - Desktop Only */}
             <Button
               variant="destructive"
               size="sm"
               onClick={handleEndCall}
-              className="gap-2"
-              data-testid="button-end-call"
+              className="hidden md:flex gap-2"
+              data-testid="button-end-call-desktop"
             >
               <PhoneOff className="h-4 w-4" />
-              <span className="hidden sm:inline text-sm">End Call</span>
+              <span className="text-sm">End Call</span>
             </Button>
           </div>
         </div>
@@ -1908,8 +1908,8 @@ export default function Room() {
         </div>
       )}
 
-      {/* Main Content - Mobile Optimized */}
-      <main className="flex-1 overflow-hidden relative z-10">
+      {/* Main Content - Mobile Optimized with Bottom Padding for Mobile Toolbar */}
+      <main className="flex-1 overflow-hidden relative z-10 pb-24 md:pb-0">
         <div className="h-full container mx-auto px-3 sm:px-6 md:px-12 py-3 sm:py-4 md:py-6">
           <div className="h-full grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 max-w-7xl mx-auto">
             <TranscriptionPanel
@@ -1930,8 +1930,8 @@ export default function Room() {
         </div>
       </main>
 
-      {/* Footer - Mobile Optimized */}
-      <footer className="border-t border-slate-300/50 dark:border-slate-800/50 bg-white/50 dark:bg-slate-900/50 backdrop-blur-xl relative z-10">
+      {/* Footer - Desktop Only (mobile has sticky toolbar instead) */}
+      <footer className="hidden md:block border-t border-slate-300/50 dark:border-slate-800/50 bg-white/50 dark:bg-slate-900/50 backdrop-blur-xl relative z-10">
         <div className="container mx-auto px-3 sm:px-6 md:px-12 py-3 sm:py-4 md:py-6">
           {!conversationStarted && connectionStatus === "connected" ? (
             <div className="flex flex-col items-center gap-2 sm:gap-4">
@@ -2052,6 +2052,66 @@ export default function Room() {
 
       {/* Upgrade Modal */}
       <UpgradeModal open={showUpgradeModal} onOpenChange={setShowUpgradeModal} />
+
+      {/* Mobile Sticky Bottom Toolbar - Only visible on mobile */}
+      <div className="md:hidden fixed bottom-0 inset-x-0 px-4 pt-3 pb-safe z-20">
+        <div className="flex flex-col items-center gap-3 rounded-t-2xl bg-background/80 dark:bg-slate-900/90 shadow-[0_-8px_30px_rgba(15,23,42,0.35)] backdrop-blur-xl py-4 px-6">
+          {!conversationStarted ? (
+            <>
+              <Button
+                size="lg"
+                onClick={startConversation}
+                disabled={connectionStatus !== "connected" || quotaExceeded || !partnerConnected}
+                className="h-14 px-8 bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 shadow-lg shadow-primary/25 disabled:opacity-50 disabled:cursor-not-allowed w-full max-w-xs"
+                data-testid="button-start-conversation-mobile"
+              >
+                <Mic className="h-5 w-5 mr-2" />
+                {connectionStatus !== "connected" ? "Connecting..." : quotaExceeded ? "Quota Exceeded" : !partnerConnected ? "Waiting for Partner" : "Start Conversation"}
+              </Button>
+              {connectionStatus !== "connected" && (
+                <p className="text-xs text-muted-foreground text-center">
+                  Establishing connection to the room...
+                </p>
+              )}
+              {connectionStatus === "connected" && (quotaExceeded || !partnerConnected) && (
+                <p className="text-xs text-muted-foreground text-center">
+                  {quotaExceeded 
+                    ? "Cannot start - service quota limit reached" 
+                    : "Waiting for your partner to join the room..."
+                  }
+                </p>
+              )}
+            </>
+          ) : (
+            <div className="flex justify-center gap-3 w-full">
+              {conversationStarted && (
+                <Button
+                  size="lg"
+                  variant={(quotaExceeded || !partnerConnected) ? "ghost" : (isMuted ? "secondary" : "default")}
+                  onClick={toggleMute}
+                  disabled={quotaExceeded || !partnerConnected}
+                  className={`h-14 w-14 rounded-full shadow-xl ${
+                    !isMuted && !quotaExceeded && partnerConnected ? "bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 shadow-primary/25" : ""
+                  } disabled:opacity-50 disabled:cursor-not-allowed`}
+                  data-testid="button-toggle-mic-mobile"
+                >
+                  {isMuted ? <MicOff className="h-6 w-6" /> : <Mic className="h-6 w-6" />}
+                </Button>
+              )}
+              <Button
+                variant="destructive"
+                size="lg"
+                onClick={handleEndCall}
+                className="gap-2 flex-1 max-w-xs h-14"
+                data-testid="button-end-call-mobile"
+              >
+                <PhoneOff className="h-5 w-5" />
+                <span className="text-base font-semibold">End Call</span>
+              </Button>
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }
