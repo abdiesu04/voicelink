@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useAuth } from "@/lib/auth";
 import { lazy, Suspense, useState, useEffect } from "react";
+import { SEO } from "@/components/SEO";
+import { StructuredData } from "@/components/StructuredData";
 
 // Lazy load the 3D scene for better performance
 const HeroScene3D = lazy(() => import("@/components/HeroScene3D"));
@@ -133,6 +135,13 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-slate-950">
+      <SEO 
+        title="Real-Time Voice Translation for Global Communication"
+        description="Break language barriers instantly with Voztra. Real-time voice translation across 47 languages with natural tone preservation. Perfect for business, travel, and personal connections. Start with 60 free minutes."
+        keywords="voice translator, real-time translation, language barrier, instant translation, 47 languages, voice preservation, global communication, business translation"
+        canonical="https://getvoztra.com"
+      />
+      <StructuredData />
       {/* Hero Section with Flag Collage & Floating Elements */}
       <section className="relative min-h-screen flex items-center overflow-hidden pt-20">
         {/* Gradient Background */}

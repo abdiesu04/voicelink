@@ -1377,10 +1377,60 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   }
 
-  // Run reconciliation immediately on startup, then every 5 minutes
+  // Run reconciliation immediately on startup, then every minute
   runReconciliation();
   setInterval(runReconciliation, RECONCILIATION_INTERVAL);
   console.log("[Auto Reconciliation] ✓ Worker started - running every minute for fast activation");
+
+  // SEO: Sitemap XML
+  app.get("/sitemap.xml", (req, res) => {
+    // Always use production URL for sitemap
+    const baseUrl = 'https://getvoztra.com';
+    
+    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>${baseUrl}/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>${baseUrl}/voice-translator</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>${baseUrl}/pricing</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>${baseUrl}/privacy</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>${baseUrl}/privacy-california</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>${baseUrl}/login</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>${baseUrl}/register</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+</urlset>`;
+
+    res.header('Content-Type', 'application/xml');
+    res.send(sitemap);
+  });
+
+  // SEO: robots.txt is served from public folder automatically
 
   return httpServer;
 }
