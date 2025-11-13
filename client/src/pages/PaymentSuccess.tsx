@@ -57,10 +57,18 @@ export default function PaymentSuccess() {
     },
     onError: (error: any) => {
       if (error.status === 401) {
-        window.location.href = `/login?redirect=/payment-success?session_id=${sessionId}`;
+        toast({
+          title: "Session Expired",
+          description: "Please sign in again to complete your subscription setup.",
+          variant: "destructive",
+        });
+        setTimeout(() => {
+          window.location.href = `/login?redirect=/payment-success?session_id=${sessionId}`;
+        }, 2000);
         return;
       }
       
+      // For other errors, fall back to webhook polling
       toast({
         title: "Checking payment status",
         description: "This may take a moment. Please wait...",
@@ -99,36 +107,48 @@ export default function PaymentSuccess() {
     const pollInterval = setInterval(async () => {
       setPollingAttempts(prev => prev + 1);
       
-      if (pollingAttempts >= 600) {
+      // Timeout after 60 seconds (120 attempts at 500ms intervals)
+      if (pollingAttempts >= 120) {
+        clearInterval(pollInterval);
         toast({
           title: "Taking longer than expected",
           description: "Your payment is being processed. You can check your account page for updates.",
+          variant: "default",
         });
         setActivationStatus('timeout');
-        clearInterval(pollInterval);
         return;
       }
 
-      try {
-        const result = await refetchAuth();
-        const currentPlan = result.data?.subscription?.plan;
-
-        if (currentPlan && currentPlan !== 'free') {
-          await refreshUser();
-          setActivationStatus('activated');
+      const result = await refetchAuth();
+      
+      // Handle authentication errors
+      if (result.error) {
+        const errorResponse = result.error as any;
+        if (errorResponse?.message?.includes('401') || errorResponse?.status === 401) {
           clearInterval(pollInterval);
-        }
-      } catch (error: any) {
-        if (error.status === 401) {
-          clearInterval(pollInterval);
-          window.location.href = `/login?redirect=/payment-success?session_id=${sessionId}`;
+          toast({
+            title: "Session Expired",
+            description: "Please sign in again to complete your subscription setup.",
+            variant: "destructive",
+          });
+          setTimeout(() => {
+            window.location.href = `/login?redirect=/payment-success?session_id=${sessionId}`;
+          }, 2000);
           return;
         }
+      }
+      
+      // Check if subscription is activated
+      const currentPlan = result.data?.subscription?.plan;
+      if (currentPlan && currentPlan !== 'free') {
+        clearInterval(pollInterval);
+        await refreshUser();
+        setActivationStatus('activated');
       }
     }, 500); // Poll every 500ms for faster activation
 
     return () => clearInterval(pollInterval);
-  }, [activationStatus, pollingAttempts, refetchAuth, refreshUser, sessionId]);
+  }, [activationStatus, pollingAttempts, refetchAuth, refreshUser, sessionId, toast]);
 
   useEffect(() => {
     if (activationStatus === 'activated') {

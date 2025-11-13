@@ -1,0 +1,1038 @@
+index-B75cr-1U.js:48  POST https://voztra.replit.app/api/payments/confirm 401 (Unauthorized)
+uh @ index-B75cr-1U.js:48
+mutationFn @ index-B75cr-1U.js:408
+fn @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+execute @ index-B75cr-1U.js:48
+await in execute
+mutate @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+yR @ index-B75cr-1U.js:40
+mo @ index-B75cr-1U.js:38
+wU @ index-B75cr-1U.js:40
+qo @ index-B75cr-1U.js:40
+xD @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+onSubscribe @ index-B75cr-1U.js:48
+subscribe @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:48
+UM @ index-B75cr-1U.js:38
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+yR @ index-B75cr-1U.js:40
+mo @ index-B75cr-1U.js:38
+wU @ index-B75cr-1U.js:40
+qo @ index-B75cr-1U.js:40
+xD @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:313  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+c @ index-B75cr-1U.js:313
+(anonymous) @ index-B75cr-1U.js:313
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+yR @ index-B75cr-1U.js:40
+mo @ index-B75cr-1U.js:38
+wU @ index-B75cr-1U.js:40
+qo @ index-B75cr-1U.js:40
+xD @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
+index-B75cr-1U.js:48  GET https://voztra.replit.app/api/auth/me 401 (Unauthorized)
+(anonymous) @ index-B75cr-1U.js:48
+s @ index-B75cr-1U.js:48
+y @ index-B75cr-1U.js:48
+start @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+zd @ index-B75cr-1U.js:48
+fetch @ index-B75cr-1U.js:48
+refetch @ index-B75cr-1U.js:48
+(anonymous) @ index-B75cr-1U.js:408
+setInterval
+(anonymous) @ index-B75cr-1U.js:408
+uv @ index-B75cr-1U.js:40
+Pc @ index-B75cr-1U.js:40
+(anonymous) @ index-B75cr-1U.js:40
+b @ index-B75cr-1U.js:25
+B @ index-B75cr-1U.js:25
