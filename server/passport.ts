@@ -22,12 +22,18 @@ export function setupPassport() {
   });
 
   if (process.env.GOOGLE_CLIENT_ID && process.env.GOOGLE_CLIENT_SECRET) {
+    const domain = process.env.REPLIT_DOMAINS || process.env.REPLIT_DEV_DOMAIN || 'localhost:5000';
+    const protocol = domain.includes('localhost') ? 'http' : 'https';
+    const callbackURL = `${protocol}://${domain}/api/auth/google/callback`;
+    
+    console.log(`[Google OAuth] Callback URL configured: ${callbackURL}`);
+    
     passport.use(
       new GoogleStrategy(
         {
           clientID: process.env.GOOGLE_CLIENT_ID,
           clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-          callbackURL: "/api/auth/google/callback",
+          callbackURL: callbackURL,
         },
         async (accessToken, refreshToken, profile, done) => {
           try {
