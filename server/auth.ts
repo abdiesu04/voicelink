@@ -295,6 +295,22 @@ export function setupAuth(app: Express) {
     }
   });
 
+  // Debug endpoint to check OAuth configuration
+  app.get("/api/auth/google/debug", (req: Request, res: Response) => {
+    const domain = process.env.REPLIT_DOMAINS || process.env.REPLIT_DEV_DOMAIN || 'localhost:5000';
+    const protocol = domain.includes('localhost') ? 'http' : 'https';
+    const callbackURL = `${protocol}://${domain}/auth/google/callback`;
+    
+    res.json({
+      hasClientId: !!process.env.GOOGLE_CLIENT_ID,
+      hasClientSecret: !!process.env.GOOGLE_CLIENT_SECRET,
+      clientIdPrefix: process.env.GOOGLE_CLIENT_ID?.substring(0, 20) + '...',
+      callbackURL: callbackURL,
+      environment: process.env.NODE_ENV || 'development',
+      instructions: 'Make sure this exact callbackURL is registered in Google Console'
+    });
+  });
+
   app.get("/auth/google", 
     passport.authenticate("google", { 
       scope: ["profile", "email"] 
