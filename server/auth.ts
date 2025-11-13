@@ -214,6 +214,10 @@ export function setupAuth(app: Express) {
         return res.status(401).json({ error: "Invalid email or password" });
       }
 
+      if (!user.passwordHash) {
+        return res.status(401).json({ error: "This account uses Google Sign-In. Please sign in with Google." });
+      }
+
       const isValidPassword = await bcrypt.compare(password, user.passwordHash);
       if (!isValidPassword) {
         return res.status(401).json({ error: "Invalid email or password" });
