@@ -278,9 +278,7 @@ export default function Home() {
             <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white">
               Speak naturally,<br />be understood instantly
             </h2>
-            <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed">
-              Create a room, share the link, and start talking. You speak your language, they speak theirs — both hear each other perfectly translated in real time with natural voice.
-            </p>
+            <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed">Create a room, share the link, and start talking. You speak your language, they speak theirs and you'll hear each other perfectly translated in real time with a natural neural voice.</p>
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
