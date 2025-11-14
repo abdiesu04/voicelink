@@ -186,6 +186,19 @@ export default function Room() {
   const isReconnectingRef = useRef<boolean>(false);
   const shouldReconnectRef = useRef<boolean>(true); // Set to false on intentional disconnect
   
+  // MOBILE FIX: Cache WebSocket URL on mount to prevent mobile browser clearing window.location.host
+  // When mobile apps background, window.location.host can become undefined, causing reconnection to fail
+  // Caching the URL ensures we always have a valid WebSocket endpoint for reconnections
+  const wsUrlRef = useRef<string | null>(null);
+  
+  // Initialize WebSocket URL once on component mount (when window.location is guaranteed valid)
+  if (!wsUrlRef.current) {
+    const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+    const wsUrl = `${protocol}//${window.location.host}/ws`;
+    wsUrlRef.current = wsUrl;
+    console.log('[WebSocket] Cached URL for mobile stability:', wsUrl);
+  }
+  
   // localStorage helpers for room persistence
   const ROOM_STORAGE_KEY = 'voztra_last_room';
   const ROOM_TTL = 15 * 60 * 1000; // 15 minutes
@@ -875,8 +888,8 @@ export default function Room() {
       return;
     }
 
-    const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
-    const wsUrl = `${protocol}//${window.location.host}/ws`;
+    // Use cached WebSocket URL for mobile stability (prevents undefined host on backgrounding)
+    const wsUrl = wsUrlRef.current!;
     console.log('[WebSocket] Creating new WebSocket connection to:', wsUrl);
     const ws = new WebSocket(wsUrl);
     const connectionStartTime = Date.now();
@@ -1049,9 +1062,9 @@ export default function Room() {
         
         console.log('[Auto-Reconnect] Executing reconnection...');
         
-        // Create new WebSocket connection
-        const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
-        const wsUrl = `${protocol}//${window.location.host}/ws`;
+        // Use cached WebSocket URL for mobile stability (prevents undefined host on backgrounding)
+        const wsUrl = wsUrlRef.current!;
+        console.log('[Auto-Reconnect] Using cached WebSocket URL:', wsUrl);
         const newWs = new WebSocket(wsUrl);
         const newConnectionStartTime = Date.now();
         
