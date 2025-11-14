@@ -65,6 +65,9 @@ export default function Room() {
     };
   }, []); // Only calculate once on mount
   
+  // Auto-recreate state management
+  const autoRecreateInProgressRef = useRef(false);
+  
   // Only log on mount, not on every render
   useEffect(() => {
     console.log(`[Room Init] Role: ${role}, Language: ${language}, My Voice Gender: ${voiceGender}`);
@@ -182,6 +185,54 @@ export default function Room() {
   const reconnectTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const isReconnectingRef = useRef<boolean>(false);
   const shouldReconnectRef = useRef<boolean>(true); // Set to false on intentional disconnect
+  
+  // localStorage helpers for room persistence
+  const ROOM_STORAGE_KEY = 'voztra_last_room';
+  const ROOM_TTL = 15 * 60 * 1000; // 15 minutes
+  
+  const saveRoomToStorage = (settings: { roomId: string; language: string; voiceGender: string; role: string }) => {
+    try {
+      const data = {
+        ...settings,
+        createdAt: Date.now()
+      };
+      localStorage.setItem(ROOM_STORAGE_KEY, JSON.stringify(data));
+      console.log('[Room Persistence] Saved room settings to localStorage:', settings.roomId);
+    } catch (error) {
+      console.warn('[Room Persistence] Failed to save to localStorage (private mode?):', error);
+    }
+  };
+  
+  const loadRoomFromStorage = (): { roomId: string; language: string; voiceGender: string; role: string } | null => {
+    try {
+      const data = localStorage.getItem(ROOM_STORAGE_KEY);
+      if (!data) return null;
+      
+      const parsed = JSON.parse(data);
+      const age = Date.now() - parsed.createdAt;
+      
+      if (age > ROOM_TTL) {
+        console.log('[Room Persistence] Stored room expired (age:', Math.floor(age / 1000), 's), clearing');
+        clearRoomFromStorage();
+        return null;
+      }
+      
+      console.log('[Room Persistence] Loaded room from localStorage:', parsed.roomId);
+      return parsed;
+    } catch (error) {
+      console.warn('[Room Persistence] Failed to load from localStorage:', error);
+      return null;
+    }
+  };
+  
+  const clearRoomFromStorage = () => {
+    try {
+      localStorage.removeItem(ROOM_STORAGE_KEY);
+      console.log('[Room Persistence] Cleared room from localStorage');
+    } catch (error) {
+      console.warn('[Room Persistence] Failed to clear localStorage:', error);
+    }
+  };
   
   // Partner join timeout (Google Meet-style behavior)
   const PARTNER_WAIT_TIMEOUT = 5 * 60 * 1000; // 5 minutes
@@ -856,6 +907,16 @@ export default function Room() {
         voiceGender,
         role,
       }));
+      
+      // OPTION 4: Save room settings to localStorage for auto-recreate (creators only)
+      if (role === "creator") {
+        saveRoomToStorage({
+          roomId: stableRoomId,
+          language,
+          voiceGender,
+          role
+        });
+      }
 
       // Only show "Connected" toast for hosts to avoid overlap with "Partner Joined"
       // Participants will see "Partner Joined" immediately after connecting
@@ -1255,24 +1316,119 @@ export default function Room() {
       }
 
       if (message.type === "error") {
+        // Handle room-not-found errors specially
+        if (message.message && message.message.toLowerCase().includes("room not found")) {
+          console.error("[Room] Room not found error received");
+          
+          // OPTION 4: Auto-recreate room for creators only
+          if (role === "creator" && !autoRecreateInProgressRef.current && !isReconnectingRef.current) {
+            console.log('[Auto-Recreate] Room expired - attempting to recreate for creator');
+            autoRecreateInProgressRef.current = true;
+            
+            // Show toast: recreating
+            toast({
+              title: "Room Expired",
+              description: "Creating a new room with the same settings...",
+            });
+            
+            // Try to load saved settings or use current settings
+            const savedSettings = loadRoomFromStorage();
+            const recreateSettings = savedSettings || { language, voiceGender, role };
+            
+            console.log('[Auto-Recreate] Using settings:', recreateSettings);
+            
+            // Call API to create new room
+            fetch('/api/rooms/create', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              credentials: 'include',
+              body: JSON.stringify({
+                language: recreateSettings.language,
+                voiceGender: recreateSettings.voiceGender
+              })
+            })
+            .then(res => {
+              if (!res.ok) throw new Error('Failed to create room');
+              return res.json();
+            })
+            .then(data => {
+              console.log('[Auto-Recreate] ✅ New room created:', data.roomId);
+              
+              // Save new room to storage
+              saveRoomToStorage({
+                roomId: data.roomId,
+                language: recreateSettings.language,
+                voiceGender: recreateSettings.voiceGender,
+                role: 'creator'
+              });
+              
+              // Update URL to new room
+              const newUrl = `/room/${data.roomId}?role=creator&language=${recreateSettings.language}&voiceGender=${recreateSettings.voiceGender}`;
+              console.log('[Auto-Recreate] Navigating to new room:', newUrl);
+              
+              // Close old WebSocket
+              if (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING) {
+                ws.close(1000, "Recreating room");
+              }
+              
+              // Navigate to new room - this will trigger a full page reload with new roomId
+              window.location.href = newUrl;
+              
+              // Show success toast (will display after navigation)
+              toast({
+                title: "New Room Created",
+                description: "Share the new link with your partner",
+              });
+            })
+            .catch(error => {
+              console.error('[Auto-Recreate] ❌ Failed to recreate room:', error);
+              autoRecreateInProgressRef.current = false;
+              
+              toast({
+                title: "Recreation Failed",
+                description: "Could not create a new room. Redirecting home...",
+                variant: "destructive",
+              });
+              
+              // Close WebSocket
+              if (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING) {
+                ws.close(1000, "Recreation failed");
+              }
+              
+              setTimeout(() => setLocation("/"), 2000);
+            });
+            
+            return; // Don't show generic error toast
+          }
+          
+          // Participants can't recreate - show guidance
+          if (role !== "creator") {
+            toast({
+              title: "Room Expired",
+              description: "Please ask the room creator for a new link",
+              variant: "destructive",
+            });
+            
+            // Close WebSocket
+            if (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING) {
+              ws.close(1000, "Room not found");
+            }
+            
+            setTimeout(() => setLocation("/"), 2000);
+            return;
+          }
+          
+          // Fallback: already recreating or is reconnecting
+          console.log('[Auto-Recreate] Skipping - already in progress or reconnecting');
+          return;
+        }
+        
+        // Generic error - show toast
         toast({
           title: "Error",
           description: message.message,
           variant: "destructive",
         });
-
-        // If room not found, redirect to home after showing error
-        if (message.message && message.message.toLowerCase().includes("room not found")) {
-          console.error("[Room] Room not found - redirecting to home");
-          // Close WebSocket connection
-          if (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING) {
-            ws.close(1000, "Room not found");
-          }
-          // Redirect after 2 seconds to let user see the error message
-          setTimeout(() => {
-            setLocation("/");
-          }, 2000);
-        }
       }
     };
 
@@ -1802,6 +1958,9 @@ export default function Room() {
     // Prevent auto-reconnect on intentional disconnect
     shouldReconnectRef.current = false;
     
+    // Clear saved room settings (intentional disconnect = don't auto-recreate)
+    clearRoomFromStorage();
+    
     // CLEANUP 1: Stop Azure Speech recognizer immediately to prevent further API calls
     if (recognizerRef.current) {
       console.log('[End Call] Stopping Azure Speech recognizer...');
@@ -1869,15 +2028,79 @@ export default function Room() {
     setLocation("/");
   };
 
-  const handleCopyLink = () => {
+  // Mobile-first share handler with Web Share API fallback
+  const handleShareLink = async () => {
     const link = `${window.location.origin}/join/${roomId}`;
-    navigator.clipboard.writeText(link);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-    toast({
-      title: "Link Copied",
-      description: "Share this link with your conversation partner",
-    });
+    const shareData = {
+      title: 'Join my Voztra translation room',
+      text: 'Let\'s have a conversation with real-time voice translation!',
+      url: link
+    };
+
+    // Try Web Share API first (mobile native sharing - no app switching!)
+    if (navigator.share && navigator.canShare) {
+      try {
+        // Check if we can share this data
+        if (navigator.canShare(shareData)) {
+          console.log('[Share] Using Web Share API (native mobile share)');
+          await navigator.share(shareData);
+          console.log('[Share] ✅ Share successful via Web Share API');
+          toast({
+            title: "Shared Successfully",
+            description: "Your partner can now join the room",
+          });
+          return;
+        }
+      } catch (error: any) {
+        // AbortError = user cancelled share sheet (not a real error)
+        if (error.name === 'AbortError') {
+          console.log('[Share] User cancelled share sheet');
+          return; // Don't show error, keep dialog open
+        }
+        console.error('[Share] Web Share API failed:', error);
+        // Fall through to clipboard fallback
+      }
+    }
+
+    // Fallback: Copy to clipboard (desktop or unsupported browsers)
+    try {
+      console.log('[Share] Using clipboard fallback');
+      await navigator.clipboard.writeText(link);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+      toast({
+        title: "Link Copied",
+        description: "Share this link with your conversation partner",
+      });
+    } catch (error) {
+      console.error('[Share] Clipboard copy failed:', error);
+      toast({
+        title: "Copy Failed",
+        description: "Please manually copy the link above",
+        variant: "destructive",
+      });
+    }
+  };
+
+  // Legacy copy-only handler (kept for explicit copy button)
+  const handleCopyLink = async () => {
+    const link = `${window.location.origin}/join/${roomId}`;
+    try {
+      await navigator.clipboard.writeText(link);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+      toast({
+        title: "Link Copied",
+        description: "Share this link with your conversation partner",
+      });
+    } catch (error) {
+      console.error('[Copy] Failed:', error);
+      toast({
+        title: "Copy Failed",
+        description: "Please manually copy the link",
+        variant: "destructive",
+      });
+    }
   };
 
   const formatTime = (seconds: number): string => {
@@ -2169,13 +2392,25 @@ export default function Room() {
                 {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
               </Button>
             </div>
+            
+            {/* OPTION 2: Primary Share button - uses Web Share API on mobile, clipboard on desktop */}
+            <Button
+              onClick={handleShareLink}
+              className="w-full h-14 text-base bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 shadow-lg shadow-primary/25"
+              data-testid="button-share"
+            >
+              <Share2 className="mr-2 h-5 w-5" />
+              Share with Partner
+            </Button>
+            
             <Button
               onClick={() => setShowShareDialog(false)}
-              className="w-full h-14 text-base bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 shadow-lg shadow-primary/25"
+              variant="outline"
+              className="w-full h-11 text-sm"
               data-testid="button-close-dialog"
             >
-              <Mic className="mr-2 h-5 w-5" />
-              {partnerConnected ? "Start Conversation" : "Got it"}
+              <Mic className="mr-2 h-4 w-4" />
+              {partnerConnected ? "Start Conversation" : "Got it, I'll share later"}
             </Button>
           </div>
         </DialogContent>
