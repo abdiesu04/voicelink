@@ -177,13 +177,17 @@ export default function Room() {
   // Caching the URL ensures we always have a valid WebSocket endpoint for reconnections
   const wsUrlRef = useRef<string | null>(null);
   
-  // Initialize WebSocket URL once on component mount (when window.location is guaranteed valid)
-  if (!wsUrlRef.current) {
-    const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
-    const wsUrl = `${protocol}//${window.location.host}/ws`;
-    wsUrlRef.current = wsUrl;
-    console.log('[WebSocket] Cached URL for mobile stability:', wsUrl);
-  }
+  // Initialize WebSocket URL in useEffect to ensure window.location is available
+  // Running during render can cause window.location.host to be undefined on mobile
+  useEffect(() => {
+    if (!wsUrlRef.current) {
+      const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+      const host = window.location.host || window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+      const wsUrl = `${protocol}//${host}/ws`;
+      wsUrlRef.current = wsUrl;
+      console.log('[WebSocket] Cached URL for mobile stability:', wsUrl);
+    }
+  }, []);
   
   // localStorage helpers for room persistence
   const ROOM_STORAGE_KEY = 'voztra_last_room';
