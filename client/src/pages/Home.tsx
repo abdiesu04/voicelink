@@ -266,28 +266,6 @@ export default function Home() {
                   </Button>
                 </Link>
               </div>
-
-              {/* Stats Bar - Mobile Responsive Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-6 pt-6 max-w-2xl mx-auto">
-                <div className="flex items-center justify-center gap-2 text-sm">
-                  <CheckCircle className="h-5 w-5 text-emerald-500 flex-shrink-0" />
-                  <span className="text-slate-600 dark:text-slate-400">
-                    <span className="font-semibold text-slate-900 dark:text-white">60 min</span> free trial
-                  </span>
-                </div>
-                <div className="flex items-center justify-center gap-2 text-sm">
-                  <CheckCircle className="h-5 w-5 text-emerald-500 flex-shrink-0" />
-                  <span className="text-slate-600 dark:text-slate-400">
-                    <span className="font-semibold text-slate-900 dark:text-white">No</span> credit card
-                  </span>
-                </div>
-                <div className="flex items-center justify-center gap-2 text-sm">
-                  <CheckCircle className="h-5 w-5 text-emerald-500 flex-shrink-0" />
-                  <span className="text-slate-600 dark:text-slate-400">
-                    <span className="font-semibold text-slate-900 dark:text-white">Instant</span> setup
-                  </span>
-                </div>
-              </div>
             </div>
 
           </div>
