@@ -172,6 +172,12 @@ export default function Room() {
   const isReconnectingRef = useRef<boolean>(false);
   const shouldReconnectRef = useRef<boolean>(true); // Set to false on intentional disconnect
   
+  // MOBILE FIX: Promise-based reconnection coordinator - prevents overlapping WebSocket connections
+  // Multiple triggers (visibility change, network restore, onclose) can call reconnect simultaneously
+  // Coordinator serializes all reconnect requests to prevent race conditions
+  const reconnectPromiseRef = useRef<Promise<WebSocket> | null>(null);
+  const reconnectAbortControllerRef = useRef<AbortController | null>(null);
+  
   // MOBILE FIX: Token-based WebSocket authentication
   // Tokens persist in client memory and survive mobile network switches/backgrounding (unlike cookies)
   const wsTokenRef = useRef<string | null>(null);
@@ -1347,18 +1353,19 @@ export default function Room() {
     
     console.log(`[Auto-Reconnect] Attempt ${reconnectAttemptRef.current}/8, delay: ${delay}ms, close code: ${event.code}`);
     
+    // Clear reconnecting state so coordinator can proceed
+    isReconnectingRef.current = false;
+    
+    // Use coordinator for serialized reconnection with exponential backoff delay
     reconnectTimeoutRef.current = setTimeout(() => {
-      console.log('[Auto-Reconnect] Executing reconnection...');
-      console.log('[Auto-Reconnect] Using WebSocket URL:', wsUrlRef.current);
-      
-      try {
-        const newWs = connectWebSocket(); // Uses cached wsUrlRef with token
-        wsRef.current = newWs;
-      } catch (error) {
-        console.error('[Auto-Reconnect] Failed to create WebSocket:', error);
-        isReconnectingRef.current = false;
-        // Will retry via onclose
-      }
+      coordinateReconnect(0, 'auto-reconnect')
+        .then(() => {
+          console.log('[Auto-Reconnect] ✅ Reconnection successful');
+        })
+        .catch((error) => {
+          console.error('[Auto-Reconnect] ❌ Reconnection failed:', error);
+          // Will retry via onclose
+        });
     }, delay);
   };
 
@@ -1461,6 +1468,88 @@ export default function Room() {
     return ws;
   };
 
+  // MOBILE FIX: Promise-based reconnection coordinator
+  // Serializes all reconnect triggers to prevent overlapping WebSocket connections
+  // Returns existing promise if reconnection already in progress (queues the request)
+  const coordinateReconnect = async (delayMs: number = 0, source: string = "unknown"): Promise<WebSocket> => {
+    console.log(`[Reconnect Coordinator] Request from: ${source}, delay: ${delayMs}ms`);
+    
+    // If reconnection already in progress, return existing promise (queue the request)
+    if (reconnectPromiseRef.current) {
+      console.log(`[Reconnect Coordinator] Reconnection in progress - queueing request from ${source}`);
+      return reconnectPromiseRef.current;
+    }
+    
+    // Create new reconnection promise
+    console.log(`[Reconnect Coordinator] Starting new reconnection from ${source}`);
+    isReconnectingRef.current = true;
+    
+    const reconnectPromise = new Promise<WebSocket>(async (resolve, reject) => {
+      try {
+        // Wait for delay (if any)
+        if (delayMs > 0) {
+          console.log(`[Reconnect Coordinator] Waiting ${delayMs}ms before reconnecting...`);
+          await new Promise(r => setTimeout(r, delayMs));
+        }
+        
+        // Check if reconnect was aborted during delay
+        if (!shouldReconnectRef.current) {
+          console.log('[Reconnect Coordinator] Reconnect aborted (intentional disconnect)');
+          reject(new Error('Reconnect aborted'));
+          return;
+        }
+        
+        // Close old WebSocket if exists
+        const oldWs = wsRef.current;
+        if (oldWs && (oldWs.readyState === WebSocket.OPEN || oldWs.readyState === WebSocket.CONNECTING)) {
+          console.log('[Reconnect Coordinator] Closing old WebSocket before creating new one');
+          oldWs.close();
+        }
+        
+        // Create new WebSocket
+        console.log('[Reconnect Coordinator] Creating new WebSocket connection...');
+        const newWs = connectWebSocket();
+        wsRef.current = newWs;
+        
+        // Wait for connection to open or fail
+        const connectionTimeout = 10000; // 10 second timeout
+        const connectionPromise = new Promise<WebSocket>((resolveConn, rejectConn) => {
+          const timeoutId = setTimeout(() => {
+            rejectConn(new Error('Connection timeout'));
+          }, connectionTimeout);
+          
+          newWs.addEventListener('open', () => {
+            clearTimeout(timeoutId);
+            resolveConn(newWs);
+          }, { once: true });
+          
+          newWs.addEventListener('error', () => {
+            clearTimeout(timeoutId);
+            rejectConn(new Error('Connection failed'));
+          }, { once: true });
+        });
+        
+        const connectedWs = await connectionPromise;
+        console.log('[Reconnect Coordinator] ✅ Connection established successfully');
+        resolve(connectedWs);
+        
+      } catch (error) {
+        console.error('[Reconnect Coordinator] ❌ Reconnection failed:', error);
+        reject(error);
+      } finally {
+        // Clean up coordinator state
+        console.log('[Reconnect Coordinator] Cleaning up coordinator state');
+        reconnectPromiseRef.current = null;
+        isReconnectingRef.current = false;
+      }
+    });
+    
+    // Store promise for subsequent requests
+    reconnectPromiseRef.current = reconnectPromise;
+    
+    return reconnectPromise;
+  };
+
   // MOBILE FIX: Page Visibility API for instant reconnection when app returns from background
   useEffect(() => {
     const handleVisibilityChange = () => {
@@ -1496,23 +1585,20 @@ export default function Room() {
             reconnectTimeoutRef.current = null;
           }
           
-          // Update reconnection state
-          isReconnectingRef.current = true;
+          // Reset reconnection state
           reconnectAttemptRef.current = 0;
           
-          // Immediately create new connection (no delay)
-          try {
-            console.log('[Page Visibility] Creating new WebSocket with URL:', wsUrlRef.current);
-            const newWs = connectWebSocket();
-            wsRef.current = newWs;
-            console.log('[Page Visibility] ✅ Immediate reconnection initiated');
-          } catch (error) {
-            console.error('[Page Visibility] ❌ Failed to reconnect:', error);
-            setConnectionStatus("disconnected");
-            setDisconnectReason("Connection Failed");
-            setDisconnectDetails("Failed to reconnect after returning from background");
-            isReconnectingRef.current = false;
-          }
+          // Use coordinator for serialized reconnection (no delay for immediate reconnect)
+          coordinateReconnect(0, 'page-visibility')
+            .then(() => {
+              console.log('[Page Visibility] ✅ Reconnection successful');
+            })
+            .catch((error) => {
+              console.error('[Page Visibility] ❌ Failed to reconnect:', error);
+              setConnectionStatus("disconnected");
+              setDisconnectReason("Connection Failed");
+              setDisconnectDetails("Failed to reconnect after returning from background");
+            });
         } else {
           console.log('[Page Visibility] ✅ WebSocket already connected, no action needed');
         }
@@ -1550,18 +1636,17 @@ export default function Room() {
           reconnectTimeoutRef.current = null;
         }
         
-        isReconnectingRef.current = true;
         reconnectAttemptRef.current = 0;
         setReconnectAttempt(0);
         
-        try {
-          const newWs = connectWebSocket();
-          wsRef.current = newWs;
-          console.log('[Network] ✅ Reconnection initiated after internet restoration');
-        } catch (error) {
-          console.error('[Network] ❌ Failed to reconnect:', error);
-          isReconnectingRef.current = false;
-        }
+        // Use coordinator for serialized reconnection (no delay for network restore)
+        coordinateReconnect(0, 'network-online')
+          .then(() => {
+            console.log('[Network] ✅ Reconnection successful after internet restoration');
+          })
+          .catch((error) => {
+            console.error('[Network] ❌ Failed to reconnect after internet restoration:', error);
+          });
       }
     };
     
