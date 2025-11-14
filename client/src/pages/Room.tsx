@@ -172,20 +172,48 @@ export default function Room() {
   const isReconnectingRef = useRef<boolean>(false);
   const shouldReconnectRef = useRef<boolean>(true); // Set to false on intentional disconnect
   
-  // MOBILE FIX: Cache WebSocket URL on mount to prevent mobile browser clearing window.location.host
-  // When mobile apps background, window.location.host can become undefined, causing reconnection to fail
-  // Caching the URL ensures we always have a valid WebSocket endpoint for reconnections
+  // MOBILE FIX: Token-based WebSocket authentication
+  // Tokens persist in client memory and survive mobile network switches/backgrounding (unlike cookies)
+  const wsTokenRef = useRef<string | null>(null);
   const wsUrlRef = useRef<string | null>(null);
   
-  // Initialize WebSocket URL in useEffect to ensure window.location is available
-  // Running during render can cause window.location.host to be undefined on mobile
+  // Fetch WebSocket token for mobile-friendly persistent auth
   useEffect(() => {
+    const fetchWsToken = async () => {
+      try {
+        const response = await fetch('/api/ws/token');
+        if (response.ok) {
+          const data = await response.json();
+          wsTokenRef.current = data.token;
+          console.log('[WebSocket Token] ✅ Fetched authentication token');
+          
+          // Build WebSocket URL with token
+          const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+          const host = window.location.host || window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+          const wsUrl = `${protocol}//${host}/ws?token=${data.token}`;
+          wsUrlRef.current = wsUrl;
+          console.log('[WebSocket] Cached authenticated URL for mobile stability');
+        } else {
+          // Not authenticated or error - fall back to cookie-based auth
+          console.log('[WebSocket Token] Not authenticated, using cookie-based auth');
+          const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+          const host = window.location.host || window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+          const wsUrl = `${protocol}//${host}/ws`;
+          wsUrlRef.current = wsUrl;
+          console.log('[WebSocket] Cached URL (cookie auth) for mobile stability:', wsUrl);
+        }
+      } catch (error) {
+        console.error('[WebSocket Token] Failed to fetch token, using cookie-based auth:', error);
+        // Fallback to cookie-based auth
+        const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+        const host = window.location.host || window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+        const wsUrl = `${protocol}//${host}/ws`;
+        wsUrlRef.current = wsUrl;
+      }
+    };
+    
     if (!wsUrlRef.current) {
-      const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
-      const host = window.location.host || window.location.hostname + (window.location.port ? ':' + window.location.port : '');
-      const wsUrl = `${protocol}//${host}/ws`;
-      wsUrlRef.current = wsUrl;
-      console.log('[WebSocket] Cached URL for mobile stability:', wsUrl);
+      fetchWsToken();
     }
   }, []);
   
@@ -1334,7 +1362,22 @@ export default function Room() {
 
   // Create fresh open handler
   const createOpenHandler = (wsInstance: WebSocket) => () => {
-    console.log('[WebSocket] Connected successfully');
+    // DIAGNOSTICS: Log comprehensive connection information
+    const connection = (navigator as any).connection || (navigator as any).mozConnection || (navigator as any).webkitConnection;
+    const diagnostics = {
+      timestamp: new Date().toISOString(),
+      url: wsInstance.url,
+      protocol: wsInstance.protocol,
+      readyState: wsInstance.readyState,
+      networkType: connection?.type || 'unknown',
+      effectiveType: connection?.effectiveType || 'unknown',
+      downlink: connection?.downlink ? `${connection.downlink} Mbps` : 'unknown',
+      rtt: connection?.rtt ? `${connection.rtt}ms` : 'unknown',
+      saveData: connection?.saveData || false,
+      userAgent: navigator.userAgent
+    };
+    
+    console.log('[WebSocket] ✅ Connected successfully:', diagnostics);
     wsRef.current = wsInstance;
     setConnectionStatus("connected");
     reconnectAttemptRef.current = 0; // Reset counter on success
@@ -1461,6 +1504,88 @@ export default function Room() {
     return () => {
       document.removeEventListener('visibilitychange', handleVisibilityChange);
       console.log('[Page Visibility] Listener removed');
+    };
+  }, []); // Empty deps - use refs for current state
+
+  // MOBILE FIX: Network change detection for instant recovery
+  // Detects WiFi ↔ Mobile data switches and internet connection loss/restore
+  useEffect(() => {
+    const handleOnline = () => {
+      console.log('[Network] 🌐 Internet connection restored - checking WebSocket');
+      
+      // Check if WebSocket needs reconnection
+      const currentWs = wsRef.current;
+      const isDisconnected = !currentWs || currentWs.readyState === WebSocket.CLOSED || currentWs.readyState === WebSocket.CLOSING;
+      
+      if (isDisconnected && shouldReconnectRef.current) {
+        console.log('[Network] 🔄 Reconnecting after internet restoration...');
+        setConnectionStatus("connecting");
+        
+        // Clear existing reconnect timers
+        if (reconnectTimeoutRef.current) {
+          clearTimeout(reconnectTimeoutRef.current);
+          reconnectTimeoutRef.current = null;
+        }
+        
+        isReconnectingRef.current = true;
+        reconnectAttemptRef.current = 0;
+        setReconnectAttempt(0);
+        
+        try {
+          const newWs = connectWebSocket();
+          wsRef.current = newWs;
+          console.log('[Network] ✅ Reconnection initiated after internet restoration');
+        } catch (error) {
+          console.error('[Network] ❌ Failed to reconnect:', error);
+          isReconnectingRef.current = false;
+        }
+      }
+    };
+    
+    const handleOffline = () => {
+      console.log('[Network] 📡 Internet connection lost');
+      setConnectionStatus("disconnected");
+      setDisconnectReason("No Internet");
+      setDisconnectDetails("Your internet connection was lost. Will reconnect automatically when restored.");
+    };
+    
+    // Network Information API - detects network type changes (WiFi ↔ Mobile data)
+    const handleNetworkChange = () => {
+      const connection = (navigator as any).connection || (navigator as any).mozConnection || (navigator as any).webkitConnection;
+      if (connection) {
+        const type = connection.effectiveType || connection.type || 'unknown';
+        console.log('[Network] 🔄 Network type changed:', type);
+        
+        // If WebSocket is connected, it will survive the network switch thanks to tokens
+        // If disconnected, the auto-reconnect will handle it
+        const currentWs = wsRef.current;
+        if (currentWs && currentWs.readyState === WebSocket.OPEN) {
+          console.log('[Network] ✅ WebSocket still connected after network change');
+        } else {
+          console.log('[Network] ⚠️ WebSocket disconnected - auto-reconnect will handle');
+        }
+      }
+    };
+    
+    // Add listeners
+    window.addEventListener('online', handleOnline);
+    window.addEventListener('offline', handleOffline);
+    
+    const connection = (navigator as any).connection || (navigator as any).mozConnection || (navigator as any).webkitConnection;
+    if (connection) {
+      connection.addEventListener('change', handleNetworkChange);
+      console.log('[Network] Network change detection enabled (connection type:', connection.effectiveType || connection.type || 'unknown', ')');
+    } else {
+      console.log('[Network] Network Information API not available - online/offline events only');
+    }
+    
+    return () => {
+      window.removeEventListener('online', handleOnline);
+      window.removeEventListener('offline', handleOffline);
+      if (connection) {
+        connection.removeEventListener('change', handleNetworkChange);
+      }
+      console.log('[Network] Event listeners removed');
     };
   }, []); // Empty deps - use refs for current state
 

@@ -46,6 +46,21 @@ const activeSessions = new Map<string, SessionTracking>(); // roomId -> session 
 const roomCleanupTimers = new Map<string, NodeJS.Timeout>(); // roomId -> cleanup timer (lightweight grace period)
 const broadcastedMessageIds = new Map<string, Map<string, number>>(); // roomId -> Map<dedupeKey, timestamp> for TTL-based deduplication
 
+// MOBILE FIX: WebSocket token authentication to replace cookie-based auth
+// Tokens persist in client memory and survive mobile network switches/backgrounding
+interface WebSocketToken {
+  userId: number;
+  createdAt: number;
+}
+const wsTokens = new Map<string, WebSocketToken>(); // token -> userId mapping
+const TOKEN_EXPIRY_MS = 24 * 60 * 60 * 1000; // 24 hours
+
+// Generate cryptographically secure random token
+function generateWebSocketToken(): string {
+  const crypto = require('crypto');
+  return crypto.randomBytes(32).toString('base64url'); // URL-safe base64
+}
+
 // Grace period constant - keep room alive for mobile backgrounding recovery
 const GRACE_PERIOD_MS = 60 * 1000; // 60 seconds
 
@@ -107,15 +122,41 @@ function textSimilarity(text1: string, text2: string): number {
   return 1 - (distance / maxLen);
 }
 
-// Helper function to get userId from WebSocket session
+// MOBILE FIX: Helper function to get userId from WebSocket - checks token first, then cookies
+// Token-based auth survives mobile network switches and backgrounding
 async function getUserIdFromWebSocketSession(req: any): Promise<number | null> {
   try {
+    // PRIORITY 1: Check for token in query params (mobile-friendly, persistent)
+    const url = new URL(req.url || '/', `http://${req.headers.host}`);
+    const token = url.searchParams.get('token');
+    
+    if (token) {
+      const tokenData = wsTokens.get(token);
+      
+      if (tokenData) {
+        // Check if token is expired
+        const age = Date.now() - tokenData.createdAt;
+        if (age > TOKEN_EXPIRY_MS) {
+          console.log('[WebSocket Auth] Token expired, removing');
+          wsTokens.delete(token);
+          // Fall through to cookie auth
+        } else {
+          console.log(`[WebSocket Auth] ✅ Token authenticated user ID: ${tokenData.userId}`);
+          return tokenData.userId;
+        }
+      } else {
+        console.log('[WebSocket Auth] Invalid token provided');
+        // Fall through to cookie auth
+      }
+    }
+    
+    // PRIORITY 2: Fallback to cookie-based auth (for desktop/backwards compatibility)
     const cookies = cookie.parse(req.headers.cookie || '');
     const sessionCookieName = 'connect.sid';
     let signedSessionId = cookies[sessionCookieName];
     
     if (!signedSessionId) {
-      console.log('[WebSocket Auth] No session cookie found');
+      console.log('[WebSocket Auth] No session cookie or token found');
       return null;
     }
     
@@ -150,7 +191,7 @@ async function getUserIdFromWebSocketSession(req: any): Promise<number | null> {
     const userId = sessionData.userId || null;
     
     if (userId) {
-      console.log(`[WebSocket Auth] Authenticated user ID: ${userId}`);
+      console.log(`[WebSocket Auth] 🍪 Cookie authenticated user ID: ${userId}`);
     } else {
       console.log('[WebSocket Auth] No userId in session');
     }
@@ -285,6 +326,32 @@ async function endSession(roomId: string, reason: 'participant-left' | 'creator-
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  // MOBILE FIX: Generate WebSocket authentication token for mobile-friendly persistent auth
+  // Tokens survive network switches and app backgrounding, unlike cookies
+  app.get("/api/ws/token", async (req, res) => {
+    try {
+      if (!req.session.userId) {
+        return res.status(401).json({ error: "Authentication required" });
+      }
+
+      // Generate token
+      const token = generateWebSocketToken();
+      
+      // Store token with userId mapping
+      wsTokens.set(token, {
+        userId: req.session.userId,
+        createdAt: Date.now()
+      });
+      
+      console.log(`[WebSocket Token] ✅ Generated token for user ${req.session.userId}`);
+      
+      res.json({ token });
+    } catch (error) {
+      console.error("Error generating WebSocket token:", error);
+      res.status(500).json({ error: "Failed to generate token" });
+    }
+  });
+
   app.post("/api/rooms/create", async (req, res) => {
     try {
       if (!req.session.userId) {
@@ -939,22 +1006,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
     // Store the HTTP request for session access
     (ws as any).upgradeReq = req;
     
-    // Keep connection alive with ping/pong
+    // MOBILE FIX: Native WebSocket keepalive - prevents mobile carrier proxy timeout
+    // Mobile carriers often terminate idle connections after 15 seconds
+    // Protocol-level pings (ws.ping) are recognized by proxies, unlike application JSON messages
     let isAlive = true;
     
     ws.on('pong', () => {
       isAlive = true;
+      console.log('[Keepalive] 💚 Received pong - connection healthy');
     });
 
     const pingInterval = setInterval(() => {
       if (!isAlive) {
+        console.log('[Keepalive] ❌ No pong received - terminating stale connection');
         clearInterval(pingInterval);
         return ws.terminate();
       }
       
       isAlive = false;
+      console.log('[Keepalive] 💓 Sending protocol-level ping');
       ws.ping();
-    }, 45000); // 45 seconds - aggressive protocol-level pings to prevent proxy timeout
+    }, 10000); // 10 seconds - prevents mobile carrier 15s idle timeout
 
     ws.on('message', async (data: Buffer) => {
       // ANY message from client proves connection is alive (fixes disconnection during heavy Azure operations)
