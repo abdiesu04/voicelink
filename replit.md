@@ -30,6 +30,9 @@ The application features a modern, responsive UI with full light/dark theme supp
 - **Audio Management**: Queue-based TTS system prevents audio overlap. Comprehensive mobile audio compatibility includes single Audio element reuse and audio unlocking.
 - **Message Deduplication**: Three-layer system prevents duplicate audio playback.
 - **WebSocket Stability**: Dual-layer aggressive keepalive, professional disconnect handling, and seamless auto-reconnect system ensure connection reliability.
+- **60-Second Grace Period**: Differentiates intentional exits (codes 1000/4000) from accidental disconnects (1006). Accidental disconnects pause credits and keep rooms alive for 60 seconds to handle mobile backgrounding.
+- **Mobile Share Integration**: Web Share API for native mobile sharing (prevents backgrounding). Falls back to clipboard copy on desktop/unsupported browsers with AbortError handling.
+- **Room Auto-Recreation**: localStorage-based room persistence with 15-minute TTL. Creators automatically recreate expired rooms with same settings. Participants see "ask creator for new link" guidance.
 - **Quota Handling**: Comprehensive Azure quota error detection and graceful degradation prevent service interruptions.
 - **Stripe Integration**: Production-ready subscription billing with Stripe Checkout and Customer Portal, supported by webhook handlers for lifecycle events.
 - **100% Activation Guarantee System**: Triple-layer subscription activation (immediate frontend confirmation, fast polling, safety net reconciliation worker) ensures ultra-fast credit delivery.
