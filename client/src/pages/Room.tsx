@@ -177,9 +177,9 @@ export default function Room() {
   const wsTokenRef = useRef<string | null>(null);
   const wsUrlRef = useRef<string | null>(null);
   
-  // Fetch WebSocket token for mobile-friendly persistent auth
+  // MOBILE FIX: Fetch WebSocket token with retry logic for resilient authentication
   useEffect(() => {
-    const fetchWsToken = async () => {
+    const fetchWsToken = async (retryCount = 0): Promise<void> => {
       try {
         const response = await fetch('/api/ws/token');
         if (response.ok) {
@@ -193,22 +193,43 @@ export default function Room() {
           const wsUrl = `${protocol}//${host}/ws?token=${data.token}`;
           wsUrlRef.current = wsUrl;
           console.log('[WebSocket] Cached authenticated URL for mobile stability');
-        } else {
-          // Not authenticated or error - fall back to cookie-based auth
+        } else if (response.status === 401) {
+          // Not authenticated - fall back to cookie-based auth
           console.log('[WebSocket Token] Not authenticated, using cookie-based auth');
           const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
           const host = window.location.host || window.location.hostname + (window.location.port ? ':' + window.location.port : '');
           const wsUrl = `${protocol}//${host}/ws`;
           wsUrlRef.current = wsUrl;
-          console.log('[WebSocket] Cached URL (cookie auth) for mobile stability:', wsUrl);
+          console.log('[WebSocket] Cached URL (cookie auth) for mobile stability');
+        } else {
+          // Server error - retry up to 3 times
+          if (retryCount < 3) {
+            const delay = Math.min(1000 * Math.pow(2, retryCount), 5000); // Exponential backoff: 1s, 2s, 4s
+            console.log(`[WebSocket Token] Server error (${response.status}), retrying in ${delay}ms (attempt ${retryCount + 1}/3)`);
+            await new Promise(resolve => setTimeout(resolve, delay));
+            return fetchWsToken(retryCount + 1);
+          } else {
+            console.error('[WebSocket Token] Failed after 3 retries, falling back to cookie auth');
+            const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+            const host = window.location.host || window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+            const wsUrl = `${protocol}//${host}/ws`;
+            wsUrlRef.current = wsUrl;
+          }
         }
       } catch (error) {
-        console.error('[WebSocket Token] Failed to fetch token, using cookie-based auth:', error);
-        // Fallback to cookie-based auth
-        const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
-        const host = window.location.host || window.location.hostname + (window.location.port ? ':' + window.location.port : '');
-        const wsUrl = `${protocol}//${host}/ws`;
-        wsUrlRef.current = wsUrl;
+        // Network error - retry up to 3 times
+        if (retryCount < 3) {
+          const delay = Math.min(1000 * Math.pow(2, retryCount), 5000);
+          console.log(`[WebSocket Token] Network error, retrying in ${delay}ms (attempt ${retryCount + 1}/3):`, error);
+          await new Promise(resolve => setTimeout(resolve, delay));
+          return fetchWsToken(retryCount + 1);
+        } else {
+          console.error('[WebSocket Token] Failed after 3 retries, using cookie-based auth:', error);
+          const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
+          const host = window.location.host || window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+          const wsUrl = `${protocol}//${host}/ws`;
+          wsUrlRef.current = wsUrl;
+        }
       }
     };
     
@@ -1328,9 +1349,10 @@ export default function Room() {
     
     reconnectTimeoutRef.current = setTimeout(() => {
       console.log('[Auto-Reconnect] Executing reconnection...');
+      console.log('[Auto-Reconnect] Using WebSocket URL:', wsUrlRef.current);
       
       try {
-        const newWs = connectWebSocket(); // Use the extracted function
+        const newWs = connectWebSocket(); // Uses cached wsUrlRef with token
         wsRef.current = newWs;
       } catch (error) {
         console.error('[Auto-Reconnect] Failed to create WebSocket:', error);
@@ -1480,6 +1502,7 @@ export default function Room() {
           
           // Immediately create new connection (no delay)
           try {
+            console.log('[Page Visibility] Creating new WebSocket with URL:', wsUrlRef.current);
             const newWs = connectWebSocket();
             wsRef.current = newWs;
             console.log('[Page Visibility] ✅ Immediate reconnection initiated');

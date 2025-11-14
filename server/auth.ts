@@ -258,10 +258,19 @@ export function setupAuth(app: Express) {
   });
 
   app.post("/api/auth/logout", (req: Request, res: Response) => {
+    const userId = req.session.userId;
+    
     req.session.destroy((err) => {
       if (err) {
         return res.status(500).json({ error: "Failed to logout" });
       }
+      
+      // SECURITY: Revoke all WebSocket tokens for this user
+      if (userId) {
+        const { revokeUserTokens } = require("./routes");
+        revokeUserTokens(userId);
+      }
+      
       res.json({ success: true });
     });
   });

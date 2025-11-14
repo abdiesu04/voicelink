@@ -52,7 +52,7 @@ interface WebSocketToken {
   userId: number;
   createdAt: number;
 }
-const wsTokens = new Map<string, WebSocketToken>(); // token -> userId mapping
+export const wsTokens = new Map<string, WebSocketToken>(); // token -> userId mapping (exported for token revocation)
 const TOKEN_EXPIRY_MS = 24 * 60 * 60 * 1000; // 24 hours
 
 // Generate cryptographically secure random token
@@ -60,6 +60,34 @@ function generateWebSocketToken(): string {
   const crypto = require('crypto');
   return crypto.randomBytes(32).toString('base64url'); // URL-safe base64
 }
+
+// Revoke all WebSocket tokens for a specific user (called on logout)
+export function revokeUserTokens(userId: number): number {
+  let revokedCount = 0;
+  for (const [token, tokenData] of wsTokens.entries()) {
+    if (tokenData.userId === userId) {
+      wsTokens.delete(token);
+      revokedCount++;
+    }
+  }
+  console.log(`[WebSocket Token] 🔒 Revoked ${revokedCount} tokens for user ${userId}`);
+  return revokedCount;
+}
+
+// Cleanup expired tokens periodically
+setInterval(() => {
+  const now = Date.now();
+  let cleanedCount = 0;
+  for (const [token, tokenData] of wsTokens.entries()) {
+    if (now - tokenData.createdAt > TOKEN_EXPIRY_MS) {
+      wsTokens.delete(token);
+      cleanedCount++;
+    }
+  }
+  if (cleanedCount > 0) {
+    console.log(`[WebSocket Token] 🧹 Cleaned up ${cleanedCount} expired tokens`);
+  }
+}, 60 * 60 * 1000); // Run cleanup every hour
 
 // Grace period constant - keep room alive for mobile backgrounding recovery
 const GRACE_PERIOD_MS = 60 * 1000; // 60 seconds
