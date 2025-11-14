@@ -226,7 +226,7 @@ export default function Home() {
           <div className="max-w-4xl mx-auto text-center py-16 md:py-20">
             
             {/* Text Content */}
-            <div className="space-y-7">
+            <div className="space-y-10">
               {/* Headline */}
               <h1 className="text-5xl sm:text-7xl lg:text-8xl font-extrabold leading-relaxed">
                 <span className="block bg-gradient-to-r from-indigo-600 via-violet-600 to-blue-600 dark:from-indigo-400 dark:via-violet-400 dark:to-blue-400 bg-clip-text text-transparent">
