@@ -221,14 +221,14 @@ export default function Home() {
           <div className="absolute top-1/2 left-1/2 w-96 h-96 bg-blue-500/15 dark:bg-blue-500/25 rounded-full blur-[128px] animate-pulse" style={{ animationDelay: '1s' }} />
         </div>
 
-        {/* Main Content - Modern Split Layout */}
+        {/* Main Content - Centered Layout */}
         <div className="container mx-auto px-6 md:px-12 relative z-10 h-full">
-          <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-y-16 gap-x-12 items-center py-16 md:py-20">
+          <div className="max-w-4xl mx-auto text-center py-16 md:py-20">
             
-            {/* Left Column: Text Content */}
-            <div className="space-y-7 text-left">
+            {/* Text Content */}
+            <div className="space-y-7">
               {/* Headline */}
-              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold leading-snug">
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight">
                 <span className="block bg-gradient-to-r from-indigo-600 via-violet-600 to-blue-600 dark:from-indigo-400 dark:via-violet-400 dark:to-blue-400 bg-clip-text text-transparent">
                   Erase Every
                 </span>
@@ -238,65 +238,55 @@ export default function Home() {
               </h1>
               
               {/* Subtitle */}
-              <h2 className="text-lg sm:text-xl md:text-2xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-xl font-medium">
+              <h2 className="text-lg sm:text-xl md:text-2xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl mx-auto font-medium">
                 Create a room, select your language, and speak in real-time across <span className="font-bold text-indigo-600 dark:text-indigo-400">47 languages</span>.
               </h2>
 
               {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3 pt-1">
+              <div className="flex flex-col sm:flex-row gap-3 pt-4 justify-center">
                 <Link href={user ? "/create" : "/register"}>
                   <Button 
                     size="lg" 
                     className="text-base px-10 h-14 bg-gradient-to-r from-emerald-500 via-blue-500 to-violet-500 hover:from-emerald-600 hover:via-blue-600 hover:to-violet-600 text-white shadow-xl shadow-blue-500/40 group relative overflow-hidden border-0 w-full sm:w-auto" 
-                    data-testid="button-start-translating"
+                    data-testid="button-start-free"
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000" />
                     <Sparkles className="mr-2 h-5 w-5 relative z-10" />
-                    <span className="relative z-10 font-semibold">{user ? "Create Room" : "Get 60 Free Minutes"}</span>
+                    <span className="relative z-10 font-semibold">{user ? "Create Room" : "Start To Try Voztra Free"}</span>
                   </Button>
                 </Link>
-                <a href="#how-it-works">
+                <Link href={user ? "/create" : "/register"}>
                   <Button
-                    variant="outline"
                     size="lg"
-                    className="text-base px-8 h-14 border-2 border-slate-200 dark:border-slate-700 bg-white/60 dark:bg-slate-800/60 backdrop-blur-xl hover:bg-white dark:hover:bg-slate-800 hover:border-indigo-300 dark:hover:border-indigo-600 text-slate-700 dark:text-slate-300 shadow-sm w-full sm:w-auto transition-all"
-                    data-testid="button-watch-demo"
+                    className="text-base px-8 h-14 border-2 border-indigo-500 dark:border-indigo-400 bg-indigo-500 dark:bg-indigo-600 hover:bg-indigo-600 dark:hover:bg-indigo-700 text-white shadow-sm w-full sm:w-auto transition-all"
+                    data-testid="button-start-translating"
                   >
-                    <Volume2 className="mr-2 h-4 w-4" />
-                    Watch Demo
+                    <ArrowRight className="mr-2 h-4 w-4" />
+                    Start Translating
                   </Button>
-                </a>
+                </Link>
               </div>
 
               {/* Stats Bar - Mobile Responsive Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 pt-4 max-w-2xl">
-                <div className="flex items-center gap-2 text-sm">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-6 pt-6 max-w-2xl mx-auto">
+                <div className="flex items-center justify-center gap-2 text-sm">
                   <CheckCircle className="h-5 w-5 text-emerald-500 flex-shrink-0" />
                   <span className="text-slate-600 dark:text-slate-400">
                     <span className="font-semibold text-slate-900 dark:text-white">60 min</span> free trial
                   </span>
                 </div>
-                <div className="flex items-center gap-2 text-sm">
+                <div className="flex items-center justify-center gap-2 text-sm">
                   <CheckCircle className="h-5 w-5 text-emerald-500 flex-shrink-0" />
                   <span className="text-slate-600 dark:text-slate-400">
                     <span className="font-semibold text-slate-900 dark:text-white">No</span> credit card
                   </span>
                 </div>
-                <div className="flex items-center gap-2 text-sm">
+                <div className="flex items-center justify-center gap-2 text-sm">
                   <CheckCircle className="h-5 w-5 text-emerald-500 flex-shrink-0" />
                   <span className="text-slate-600 dark:text-slate-400">
                     <span className="font-semibold text-slate-900 dark:text-white">Instant</span> setup
                   </span>
                 </div>
-              </div>
-            </div>
-
-            {/* Right Column: 3D Translation Animation */}
-            <div className="flex items-center justify-center md:justify-end relative mt-8 md:mt-0">
-              <div className="relative w-full min-h-[360px] md:min-h-[400px] flex items-center justify-center">
-                <Suspense fallback={<Scene3DFallback />}>
-                  <HeroScene3D />
-                </Suspense>
               </div>
             </div>
 
