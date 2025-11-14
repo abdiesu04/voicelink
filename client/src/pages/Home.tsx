@@ -228,7 +228,7 @@ export default function Home() {
             {/* Text Content */}
             <div className="space-y-7">
               {/* Headline */}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold leading-tight">
+              <h1 className="text-5xl sm:text-7xl lg:text-8xl font-extrabold leading-snug">
                 <span className="block bg-gradient-to-r from-indigo-600 via-violet-600 to-blue-600 dark:from-indigo-400 dark:via-violet-400 dark:to-blue-400 bg-clip-text text-transparent">
                   Erase Every
                 </span>
@@ -238,7 +238,7 @@ export default function Home() {
               </h1>
               
               {/* Subtitle */}
-              <h2 className="text-lg sm:text-xl md:text-2xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl mx-auto font-medium">
+              <h2 className="text-xl sm:text-2xl md:text-3xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-3xl mx-auto font-medium">
                 Voztra instantly translates your voice into any language — same tone, same emotion, same gender — so you sound like a native speaker across <span className="font-bold text-indigo-600 dark:text-indigo-400">47 languages</span>.
               </h2>
 
