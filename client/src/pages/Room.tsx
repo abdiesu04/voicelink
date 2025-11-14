@@ -1478,8 +1478,9 @@ export default function Room() {
     const ws = connectWebSocket();
     wsRef.current = ws;
 
-    // Application-level heartbeat to prevent 5-minute timeout
-    // Send ping every 30 seconds to aggressively keep connection alive through proxies
+    // Application-level heartbeat to prevent mobile carrier timeout
+    // MOBILE FIX: Send ping every 10 seconds to prevent carrier/proxy 15-second idle timeout
+    // Mobile carriers often drop idle connections after 15s, so 10s keeps connection alive
     const heartbeatInterval = setInterval(() => {
       // CRITICAL FIX: Use wsRef.current instead of captured 'ws' to handle reconnections
       const currentWs = wsRef.current;
@@ -1489,7 +1490,7 @@ export default function Room() {
       } else {
         console.warn('[Heartbeat] ⚠️ Skipping ping - WebSocket not open, readyState:', currentWs?.readyState || 'null');
       }
-    }, 30000); // 30 seconds - aggressive heartbeat to prevent proxy timeout
+    }, 10000); // 10 seconds - prevents mobile carrier 15s idle timeout
 
     ws.onmessage = (event) => {
       const message = JSON.parse(event.data);
