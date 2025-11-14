@@ -878,6 +878,531 @@ export default function Room() {
     processTTSQueue();
   };
 
+  // Create fresh message handler (no WebSocket closure)
+  const createMessageHandler = (wsInstance: WebSocket) => (event: MessageEvent) => {
+    const message = JSON.parse(event.data);
+
+    // Handle pong response from server (keepalive)
+    if (message.type === "pong") {
+      console.log('[Heartbeat] 💚 Received pong from server - connection alive');
+      return;
+    }
+
+    if (message.type === "participant-joined") {
+      console.log(`[Voice Gender] Partner joined with gender: ${message.voiceGender}`);
+      console.log(`[Voice Gender] My gender: ${voiceGender}`);
+      setPartnerConnected(true);
+      setPartnerLanguage(message.language);
+      setPartnerVoiceGender(message.voiceGender);
+      setShowShareDialog(false);
+      
+      // Delay notification slightly to avoid overlap with connection toast
+      // Show different message based on role
+      setTimeout(() => {
+        toast({
+          title: role === "owner" ? "Partner Joined" : "Connected to Room",
+          description: role === "owner" 
+            ? "Your conversation partner has joined. Click 'Start Conversation' to begin."
+            : "You're now connected. Waiting for host to start the conversation...",
+        });
+      }, 600);
+    }
+
+    if (message.type === "session-started") {
+      console.log('[Session] Session started - beginning timer');
+      setSessionActive(true);
+      setElapsedSeconds(0);
+    }
+
+    if (message.type === "session-ended") {
+      console.log('[Session] Session ended - handling cleanup and navigation');
+      handleSessionEnded(message.reason);
+    }
+
+    if (message.type === "credit-update") {
+      const { creditsRemaining, exhausted } = message;
+      console.log(`[Credits] Update received: ${creditsRemaining} seconds remaining, exhausted: ${exhausted}`);
+      
+      // Update global auth subscription state so Header and other components show live credits
+      updateSubscription({ creditsRemaining });
+      
+      // Show upgrade modal when credits are exhausted
+      if (exhausted || creditsRemaining <= 0) {
+        console.log('[Credits] Credits exhausted, showing upgrade modal');
+        setShowUpgradeModal(true);
+        return;
+      }
+      
+      // Warn at 10 minutes (600 seconds)
+      if (creditsRemaining <= 600 && creditsRemaining > 580 && !exhausted) {
+        toast({
+          title: "10 Minutes Remaining",
+          description: "You have 10 minutes of translation time left. Consider upgrading to continue uninterrupted.",
+          variant: "warning",
+        });
+      }
+      
+      // Warn when less than 2 minutes (120 seconds) remaining  
+      if (creditsRemaining <= 120 && creditsRemaining > 100 && !exhausted) {
+        toast({
+          title: "Low Credits Warning",
+          description: `You have ${(creditsRemaining / 60).toFixed(1)} minutes remaining. Consider upgrading your plan.`,
+          variant: "warning",
+        });
+      }
+      
+      // Warn at 1 minute
+      if (creditsRemaining <= 60 && creditsRemaining > 40 && !exhausted) {
+        toast({
+          title: "Critical - Less Than 1 Minute Remaining",
+          description: "Your call will end soon. Upgrade to continue.",
+          variant: "destructive",
+        });
+      }
+    }
+
+    if (message.type === "transcription") {
+      const isOwn = message.speaker === role;
+      
+      // Handle interim transcriptions (partial results)
+      if (message.interim === true) {
+        if (isOwn) {
+          setMyInterimText(message.text);
+        } else {
+          setPartnerInterimText(message.text);
+          setPartnerSpeaking(true);
+        }
+        return;
+      }
+      
+      // Handle final transcriptions
+      if (isOwn) {
+        setIsSpeaking(false);
+        setMyInterimText(""); // Clear interim text
+      } else {
+        setPartnerSpeaking(false);
+        setPartnerInterimText(""); // Clear interim text
+      }
+    }
+
+    if (message.type === "translation") {
+      const receiveTimestamp = Date.now();
+      const isOwn = message.speaker === role;
+      
+      // DIAGNOSTIC: Log message arrival with precise timestamp
+      console.log(`[Translation Received] ⏱️ Timestamp: ${receiveTimestamp}, MessageId: ${message.messageId}, Speaker: ${message.speaker}, IsOwn: ${isOwn}`);
+      console.log(`[Translation Received] 📊 DeduplicationSet size BEFORE: ${processedMessagesRef.current.size}`);
+      
+      // CRITICAL: Deduplicate based on server-provided messageId
+      // This prevents duplicate WebSocket deliveries while allowing legitimate repeated phrases
+      const serverMessageId = message.messageId;
+      
+      if (!serverMessageId) {
+        console.error('[Deduplication] ❌ Missing messageId from server - this message may duplicate');
+      } else {
+        // ATOMIC DEDUPLICATION FIX: Use Set.add() return value to check if already exists
+        // This prevents race condition where two messages arrive simultaneously
+        const sizeBefore = processedMessagesRef.current.size;
+        processedMessagesRef.current.add(serverMessageId);
+        const sizeAfter = processedMessagesRef.current.size;
+        
+        console.log(`[Deduplication] 🔍 Check: sizeBefore=${sizeBefore}, sizeAfter=${sizeAfter}, messageId=${serverMessageId}`);
+        
+        if (sizeBefore === sizeAfter) {
+          // Set size didn't change = item was already in the set = DUPLICATE
+          const timeSinceReceive = Date.now() - receiveTimestamp;
+          console.warn(`[Deduplication] ⛔ DUPLICATE DETECTED! Skipping already-processed messageId: ${serverMessageId}`);
+          console.warn(`[Deduplication] 📊 Detection took: ${timeSinceReceive}ms, DeduplicationSet size: ${processedMessagesRef.current.size}`);
+          console.warn(`[Deduplication] 📝 Message text: "${message.originalText.substring(0, 50)}..." → "${message.translatedText.substring(0, 50)}..."`);
+          return; // Already processed this exact message
+        }
+        
+        // Successfully added - this is a new message
+        console.log(`[Deduplication] ✅ NEW message added to deduplication set. Set size now: ${sizeAfter}`);
+        
+        // Clean up old entries to prevent memory leak (keep last 200)
+        if (processedMessagesRef.current.size > 200) {
+          const entries = Array.from(processedMessagesRef.current);
+          processedMessagesRef.current = new Set(entries.slice(-200));
+          console.log(`[Deduplication] 🧹 Cleaned up old entries. Set size after cleanup: ${processedMessagesRef.current.size}`);
+        }
+      }
+      
+      // Use server messageId if available, otherwise fall back to client-generated
+      const messageId = serverMessageId || `${message.speaker}-${Date.now()}-${message.originalText.substring(0, 20)}`;
+      
+      // INCREMENT TRANSLATION COUNTER for monitoring
+      translationRequestCounterRef.current += 1;
+      console.log(`[Translation] 📝 Translation #${translationRequestCounterRef.current} received - Original: "${message.originalText.substring(0, 30)}...", Translated: "${message.translatedText.substring(0, 30)}..."`);
+      
+      const newMessage: TranscriptionMessage = {
+        id: messageId,
+        originalText: message.originalText,
+        translatedText: message.translatedText,
+        isOwn,
+      };
+
+      if (isOwn) {
+        setMyMessages(prev => [...prev, newMessage]);
+        setMyInterimText(""); // Clear interim when final arrives
+        console.log(`[Translation] 📤 Added to MY messages (total: ${myMessages.length + 1})`);
+      } else {
+        setPartnerMessages(prev => [...prev, newMessage]);
+        setPartnerInterimText(""); // Clear interim when final arrives
+        console.log(`[Translation] 📥 Added to PARTNER messages (total: ${partnerMessages.length + 1})`);
+        
+        // CORRECT LOGIC: Use PARTNER's voiceGender (what they selected = the voice representing THEM)
+        // "Your Voice" = voice representing YOU (what partner hears when you speak)
+        // "Partner's Voice" = voice representing PARTNER (what you hear when partner speaks)
+        // CRITICAL: Use ref to avoid React closure issue
+        const currentPartnerGender = partnerVoiceGenderRef.current;
+        if (currentPartnerGender) {
+          console.log(`[Voice Gender] Playing partner's translation in PARTNER's voice: ${currentPartnerGender}, My voice (what partner hears): ${voiceGender}`);
+          console.log(`[Voice Gender] Text to speak: "${message.translatedText}", Language: ${language}`);
+          speakText(message.translatedText, language, currentPartnerGender, messageId);
+        } else {
+          console.error('[Voice Gender] Partner voice gender not set (ref value), skipping TTS. State value:', partnerVoiceGender);
+        }
+      }
+      
+      const totalProcessingTime = Date.now() - receiveTimestamp;
+      console.log(`[Translation] ⏱️ Total processing time: ${totalProcessingTime}ms`);
+    }
+
+    if (message.type === "participant-left") {
+      setPartnerConnected(false);
+      toast({
+        title: "Partner Left",
+        description: "Your conversation partner has left the room",
+        variant: "destructive",
+      });
+    }
+
+    if (message.type === "error") {
+      // Handle room-not-found errors specially
+      if (message.message && message.message.toLowerCase().includes("room not found")) {
+        console.error("[Room] Room not found error received");
+        
+        // OPTION 4: Auto-recreate room for creators only
+        if (role === "creator" && !autoRecreateInProgressRef.current && !isReconnectingRef.current) {
+          console.log('[Auto-Recreate] Room expired - attempting to recreate for creator');
+          autoRecreateInProgressRef.current = true;
+          
+          // Show toast: recreating
+          toast({
+            title: "Room Expired",
+            description: "Creating a new room with the same settings...",
+          });
+          
+          // Try to load saved settings or use current settings
+          const savedSettings = loadRoomFromStorage();
+          const recreateSettings = savedSettings || { language, voiceGender, role };
+          
+          console.log('[Auto-Recreate] Using settings:', recreateSettings);
+          
+          // Call API to create new room
+          fetch('/api/rooms/create', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            credentials: 'include',
+            body: JSON.stringify({
+              language: recreateSettings.language,
+              voiceGender: recreateSettings.voiceGender
+            })
+          })
+          .then(res => {
+            if (!res.ok) throw new Error('Failed to create room');
+            return res.json();
+          })
+          .then(data => {
+            console.log('[Auto-Recreate] ✅ New room created:', data.roomId);
+            
+            // Save new room to storage
+            saveRoomToStorage({
+              roomId: data.roomId,
+              language: recreateSettings.language,
+              voiceGender: recreateSettings.voiceGender,
+              role: 'creator'
+            });
+            
+            // Update URL to new room
+            const newUrl = `/room/${data.roomId}?role=creator&language=${recreateSettings.language}&voiceGender=${recreateSettings.voiceGender}`;
+            console.log('[Auto-Recreate] Navigating to new room:', newUrl);
+            
+            // Close old WebSocket
+            if (wsInstance.readyState === WebSocket.OPEN || wsInstance.readyState === WebSocket.CONNECTING) {
+              wsInstance.close(1000, "Recreating room");
+            }
+            
+            // Navigate to new room - this will trigger a full page reload with new roomId
+            window.location.href = newUrl;
+            
+            // Show success toast (will display after navigation)
+            toast({
+              title: "New Room Created",
+              description: "Share the new link with your partner",
+            });
+          })
+          .catch(error => {
+            console.error('[Auto-Recreate] ❌ Failed to recreate room:', error);
+            autoRecreateInProgressRef.current = false;
+            
+            toast({
+              title: "Recreation Failed",
+              description: "Could not create a new room. Redirecting home...",
+              variant: "destructive",
+            });
+            
+            // Close WebSocket
+            if (wsInstance.readyState === WebSocket.OPEN || wsInstance.readyState === WebSocket.CONNECTING) {
+              wsInstance.close(1000, "Recreation failed");
+            }
+            
+            setTimeout(() => setLocation("/"), 2000);
+          });
+          
+          return; // Don't show generic error toast
+        }
+        
+        // Participants can't recreate - show guidance
+        if (role !== "creator") {
+          toast({
+            title: "Room Expired",
+            description: "Please ask the room creator for a new link",
+            variant: "destructive",
+          });
+          
+          // Close WebSocket
+          if (wsInstance.readyState === WebSocket.OPEN || wsInstance.readyState === WebSocket.CONNECTING) {
+            wsInstance.close(1000, "Room not found");
+          }
+          
+          setTimeout(() => setLocation("/"), 2000);
+          return;
+        }
+        
+        // Fallback: already recreating or is reconnecting
+        console.log('[Auto-Recreate] Skipping - already in progress or reconnecting');
+        return;
+      }
+      
+      // Generic error - show toast
+      toast({
+        title: "Error",
+        description: message.message,
+        variant: "destructive",
+      });
+    }
+  };
+
+  // Create fresh close handler (no WebSocket closure)
+  const createCloseHandler = (wsInstance: WebSocket, connectionStartTime: number) => (event: CloseEvent) => {
+    // CRITICAL: Log IMMEDIATELY as first line in handler
+    console.log('[WebSocket] 🔌 ONCLOSE HANDLER FIRED! Code:', event.code, 'wasClean:', event.wasClean);
+    
+    const duration = Math.floor((Date.now() - connectionStartTime) / 1000);
+    const minutes = Math.floor(duration / 60);
+    const seconds = duration % 60;
+    const durationStr = `${minutes}m ${seconds}s`;
+    
+    // Detailed close code explanations for console
+    const closeReasons: Record<number, string> = {
+      1000: "Normal Closure",
+      1001: "Going Away (tab closed/navigated)",
+      1002: "Protocol Error",
+      1003: "Unsupported Data",
+      1005: "No Status Received",
+      1006: "Abnormal Closure (network/proxy timeout)",
+      1007: "Invalid Frame Payload",
+      1008: "Policy Violation",
+      1009: "Message Too Big",
+      1010: "Missing Extension",
+      1011: "Internal Server Error",
+      1012: "Service Restart",
+      1013: "Try Again Later",
+      1014: "Bad Gateway",
+      1015: "TLS Handshake Failure"
+    };
+    
+    const closeReason = closeReasons[event.code] || `Unknown (${event.code})`;
+    const customReason = event.reason || '';
+    
+    // ALWAYS log to console - every disconnect case with MAXIMUM detail
+    const disconnectLog = {
+      code: event.code,
+      reason: closeReason,
+      customMessage: customReason,
+      wasClean: event.wasClean,
+      duration: durationStr,
+      totalSeconds: duration,
+      timestamp: new Date().toISOString(),
+      readyState: wsInstance.readyState,
+      url: wsInstance.url,
+      protocol: wsInstance.protocol,
+      bufferedAmount: wsInstance.bufferedAmount
+    };
+    
+    console.log('[WebSocket] 🔌 DISCONNECTED (FULL DETAILS):', disconnectLog);
+    
+    // Check shouldReconnect FIRST before any logic
+    if (!shouldReconnectRef.current) {
+      console.log('[Auto-Reconnect] Reconnect disabled - not reconnecting');
+      setConnectionStatus("disconnected");
+      setDisconnectReason(closeReason);
+      setDisconnectDetails(`Duration: ${durationStr}. ${customReason || 'No additional details.'}`);
+      return;
+    }
+    
+    // Check if this is an intentional disconnect (user clicked End Call)
+    const isIntentionalDisconnect = event.code === 1000 || event.code === 1001;
+    
+    if (isIntentionalDisconnect) {
+      // User intentionally ended call - don't reconnect
+      console.log('[Auto-Reconnect] Intentional disconnect - not reconnecting');
+      setConnectionStatus("disconnected");
+      setDisconnectReason(closeReason);
+      setDisconnectDetails(`Duration: ${durationStr}. ${customReason || 'No additional details.'}`);
+      return;
+    }
+    
+    // Unintentional disconnect (network issue, timeout, etc.) - auto-reconnect
+    console.log('[Auto-Reconnect] Unintentional disconnect detected - will attempt reconnect');
+    
+    // Set reconnecting status (brief UI feedback)
+    setConnectionStatus("connecting");
+    setDisconnectReason("Reconnecting...");
+    setDisconnectDetails("Connection lost, reconnecting automatically...");
+    
+    // Attempt reconnection with exponential backoff
+    if (isReconnectingRef.current) {
+      console.log('[Auto-Reconnect] Already reconnecting - skipping duplicate');
+      return;
+    }
+    
+    isReconnectingRef.current = true;
+    
+    // Increment counter AFTER determining we need to reconnect
+    reconnectAttemptRef.current += 1;
+    
+    // Check BEFORE scheduling (now allows 8 attempts)
+    if (reconnectAttemptRef.current > 8) {
+      console.error(`[Auto-Reconnect] Max attempts (8) reached - giving up`);
+      setConnectionStatus("disconnected");
+      setDisconnectReason("Connection Failed");
+      setDisconnectDetails(`Failed after ${reconnectAttemptRef.current - 1} attempts. Close code: ${event.code}. ${event.reason || 'No reason provided.'}`);
+      isReconnectingRef.current = false;
+      
+      toast({
+        title: "Connection Failed",
+        description: `Could not reconnect after ${reconnectAttemptRef.current - 1} tries (Close code: ${event.code}). Please refresh.`,
+        variant: "destructive",
+        duration: 15000,
+      });
+      return;
+    }
+    
+    // Exponential backoff: 500ms, 1s, 2s, 3s, 3s, 3s, 3s, 3s (max 3s)
+    const delay = Math.min(500 * Math.pow(2, reconnectAttemptRef.current - 1), 3000);
+    
+    console.log(`[Auto-Reconnect] Attempt ${reconnectAttemptRef.current}/8, delay: ${delay}ms, close code: ${event.code}`);
+    
+    reconnectTimeoutRef.current = setTimeout(() => {
+      console.log('[Auto-Reconnect] Executing reconnection...');
+      
+      try {
+        const newWs = connectWebSocket(); // Use the extracted function
+        wsRef.current = newWs;
+      } catch (error) {
+        console.error('[Auto-Reconnect] Failed to create WebSocket:', error);
+        isReconnectingRef.current = false;
+        // Will retry via onclose
+      }
+    }, delay);
+  };
+
+  // Create fresh error handler
+  const createErrorHandler = (wsInstance: WebSocket, connectionStartTime: number) => (error: Event) => {
+    const duration = Math.floor((Date.now() - connectionStartTime) / 1000);
+    const errorDetails = {
+      type: 'WebSocket Error',
+      duration: `${duration}s`,
+      readyState: wsInstance.readyState,
+      readyStateText: ['CONNECTING', 'OPEN', 'CLOSING', 'CLOSED'][wsInstance.readyState],
+      url: wsInstance.url,
+      timestamp: new Date().toISOString(),
+      error: error
+    };
+    
+    console.error('[WebSocket] ❌ ERROR EVENT FIRED:', errorDetails);
+    
+    // Don't show error UI immediately - let auto-reconnect handle it
+    // The onclose handler will trigger reconnection and only show error if all retries fail
+    console.log('[WebSocket] Error occurred, auto-reconnect will handle this if needed');
+  };
+
+  // Create fresh open handler
+  const createOpenHandler = (wsInstance: WebSocket) => () => {
+    console.log('[WebSocket] Connected successfully');
+    wsRef.current = wsInstance;
+    setConnectionStatus("connected");
+    reconnectAttemptRef.current = 0; // Reset counter on success
+    isReconnectingRef.current = false;
+    
+    const stableRoomId = roomIdRef.current;
+    if (!stableRoomId) {
+      console.error('[WebSocket] Cannot join - roomId undefined');
+      wsInstance.close(1008, "Missing roomId");
+      setLocation("/");
+      return;
+    }
+    
+    // Send join message
+    wsInstance.send(JSON.stringify({
+      type: "join",
+      roomId: stableRoomId,
+      language,
+      voiceGender,
+      role,
+    }));
+    
+    // Save to localStorage for creators
+    if (role === "creator") {
+      saveRoomToStorage({ roomId: stableRoomId, language, voiceGender, role });
+    }
+
+    // Only show "Connected" toast for hosts to avoid overlap with "Partner Joined"
+    // Participants will see "Partner Joined" immediately after connecting
+    if (role === "owner") {
+      toast({
+        title: "Connected",
+        description: "Waiting for your partner to join...",
+      });
+    }
+    
+    // Restart Azure Speech if was running
+    if (!isMutedRef.current && azureTokenRef.current) {
+      console.log('[Auto-Reconnect] Restarting Azure Speech');
+      startConversation();
+    }
+  };
+
+  // Create WebSocket connection with fresh handlers
+  const connectWebSocket = () => {
+    const wsUrl = wsUrlRef.current!;
+    console.log('[WebSocket] Creating connection to:', wsUrl);
+    
+    const ws = new WebSocket(wsUrl);
+    const connectionStartTime = Date.now();
+    
+    // Attach FRESH handlers (no closures from old WebSocket)
+    ws.onopen = createOpenHandler(ws);
+    ws.onerror = createErrorHandler(ws, connectionStartTime);
+    ws.onmessage = createMessageHandler(ws);
+    ws.onclose = createCloseHandler(ws, connectionStartTime);
+    
+    return ws;
+  };
+
   useEffect(() => {
     // Use stable roomIdRef for mobile reliability
     const stableRoomId = roomIdRef.current;
@@ -888,233 +1413,9 @@ export default function Room() {
       return;
     }
 
-    // Use cached WebSocket URL for mobile stability (prevents undefined host on backgrounding)
-    const wsUrl = wsUrlRef.current!;
-    console.log('[WebSocket] Creating new WebSocket connection to:', wsUrl);
-    const ws = new WebSocket(wsUrl);
-    const connectionStartTime = Date.now();
-    wsRef.current = ws; // Store immediately
-
-    ws.onopen = () => {
-      console.log('[WebSocket] Connected successfully, readyState:', ws.readyState);
-      setConnectionStatus("connected");
-      
-      // CRITICAL: Use roomIdRef.current (stable reference) instead of roomId
-      // This prevents sending undefined roomId on mobile browsers during backgrounding
-      const stableRoomId = roomIdRef.current;
-      
-      if (!stableRoomId) {
-        console.error('[WebSocket] ❌ CRITICAL: Cannot join - roomId is undefined!');
-        console.error('[WebSocket] URL:', window.location.href);
-        console.error('[WebSocket] This should never happen due to early return guard');
-        ws.close(1008, "Missing roomId");
-        setLocation("/");
-        return;
-      }
-      
-      console.log('[WebSocket] Sending join message with roomId:', stableRoomId);
-      ws.send(JSON.stringify({
-        type: "join",
-        roomId: stableRoomId,
-        language,
-        voiceGender,
-        role,
-      }));
-      
-      // OPTION 4: Save room settings to localStorage for auto-recreate (creators only)
-      if (role === "creator") {
-        saveRoomToStorage({
-          roomId: stableRoomId,
-          language,
-          voiceGender,
-          role
-        });
-      }
-
-      // Only show "Connected" toast for hosts to avoid overlap with "Partner Joined"
-      // Participants will see "Partner Joined" immediately after connecting
-      if (role === "owner") {
-        toast({
-          title: "Connected",
-          description: "Waiting for your partner to join...",
-        });
-      }
-    };
-    
-    ws.onerror = (error) => {
-      const duration = Math.floor((Date.now() - connectionStartTime) / 1000);
-      const errorDetails = {
-        type: 'WebSocket Error',
-        duration: `${duration}s`,
-        readyState: ws.readyState,
-        readyStateText: ['CONNECTING', 'OPEN', 'CLOSING', 'CLOSED'][ws.readyState],
-        url: ws.url,
-        timestamp: new Date().toISOString(),
-        error: error
-      };
-      
-      console.error('[WebSocket] ❌ ERROR EVENT FIRED:', errorDetails);
-      
-      // Don't show error UI immediately - let auto-reconnect handle it
-      // The onclose handler will trigger reconnection and only show error if all retries fail
-      console.log('[WebSocket] Error occurred, auto-reconnect will handle this if needed');
-    };
-    
-    ws.onclose = (event) => {
-      // CRITICAL: Log IMMEDIATELY as first line in handler
-      console.log('[WebSocket] 🔌 ONCLOSE HANDLER FIRED! Code:', event.code, 'wasClean:', event.wasClean);
-      
-      const duration = Math.floor((Date.now() - connectionStartTime) / 1000);
-      const minutes = Math.floor(duration / 60);
-      const seconds = duration % 60;
-      const durationStr = `${minutes}m ${seconds}s`;
-      
-      // Detailed close code explanations for console
-      const closeReasons: Record<number, string> = {
-        1000: "Normal Closure",
-        1001: "Going Away (tab closed/navigated)",
-        1002: "Protocol Error",
-        1003: "Unsupported Data",
-        1005: "No Status Received",
-        1006: "Abnormal Closure (network/proxy timeout)",
-        1007: "Invalid Frame Payload",
-        1008: "Policy Violation",
-        1009: "Message Too Big",
-        1010: "Missing Extension",
-        1011: "Internal Server Error",
-        1012: "Service Restart",
-        1013: "Try Again Later",
-        1014: "Bad Gateway",
-        1015: "TLS Handshake Failure"
-      };
-      
-      const closeReason = closeReasons[event.code] || `Unknown (${event.code})`;
-      const customReason = event.reason || '';
-      
-      // ALWAYS log to console - every disconnect case with MAXIMUM detail
-      const disconnectLog = {
-        code: event.code,
-        reason: closeReason,
-        customMessage: customReason,
-        wasClean: event.wasClean,
-        duration: durationStr,
-        totalSeconds: duration,
-        timestamp: new Date().toISOString(),
-        readyState: ws.readyState,
-        url: ws.url,
-        protocol: ws.protocol,
-        bufferedAmount: ws.bufferedAmount
-      };
-      
-      console.log('[WebSocket] 🔌 DISCONNECTED (FULL DETAILS):', disconnectLog);
-      
-      // Check if this is an intentional disconnect (user clicked End Call)
-      const isIntentionalDisconnect = !shouldReconnectRef.current || event.code === 1000 || event.code === 1001;
-      
-      if (isIntentionalDisconnect) {
-        // User intentionally ended call - don't reconnect
-        console.log('[Auto-Reconnect] Intentional disconnect - not reconnecting');
-        setConnectionStatus("disconnected");
-        setDisconnectReason(closeReason);
-        setDisconnectDetails(`Duration: ${durationStr}. ${customReason || 'No additional details.'}`);
-        return;
-      }
-      
-      // Unintentional disconnect (network issue, timeout, etc.) - auto-reconnect
-      console.log('[Auto-Reconnect] Unintentional disconnect detected - will attempt reconnect');
-      
-      // Set reconnecting status (brief UI feedback)
-      setConnectionStatus("connecting");
-      setDisconnectReason("Reconnecting...");
-      setDisconnectDetails("Connection lost, reconnecting automatically...");
-      
-      // Attempt reconnection with exponential backoff
-      if (isReconnectingRef.current) {
-        console.log('[Auto-Reconnect] Already reconnecting - skipping duplicate');
-        return;
-      }
-      
-      isReconnectingRef.current = true;
-      reconnectAttemptRef.current += 1;
-      
-      // Exponential backoff: 500ms, 1s, 2s (max 3 attempts)
-      const delay = Math.min(500 * Math.pow(2, reconnectAttemptRef.current - 1), 2000);
-      
-      console.log(`[Auto-Reconnect] Attempt ${reconnectAttemptRef.current}, reconnecting in ${delay}ms...`);
-      
-      reconnectTimeoutRef.current = setTimeout(() => {
-        if (reconnectAttemptRef.current > 3) {
-          // Max attempts reached - show error
-          console.error('[Auto-Reconnect] Max reconnection attempts reached - giving up');
-          setConnectionStatus("disconnected");
-          setDisconnectReason("Connection Failed");
-          setDisconnectDetails(`Failed to reconnect after ${reconnectAttemptRef.current} attempts. Please refresh the page.`);
-          isReconnectingRef.current = false;
-          
-          toast({
-            title: "Connection Failed",
-            description: "Could not reconnect automatically. Please refresh the page and try again.",
-            variant: "destructive",
-            duration: 10000,
-          });
-          return;
-        }
-        
-        console.log('[Auto-Reconnect] Executing reconnection...');
-        
-        // Use cached WebSocket URL for mobile stability (prevents undefined host on backgrounding)
-        const wsUrl = wsUrlRef.current!;
-        console.log('[Auto-Reconnect] Using cached WebSocket URL:', wsUrl);
-        const newWs = new WebSocket(wsUrl);
-        const newConnectionStartTime = Date.now();
-        
-        newWs.onopen = () => {
-          console.log('[Auto-Reconnect] ✅ Reconnection successful!');
-          wsRef.current = newWs;
-          setConnectionStatus("connected");
-          reconnectAttemptRef.current = 0; // Reset counter
-          isReconnectingRef.current = false;
-          
-          // CRITICAL: Use roomIdRef.current for mobile stability
-          const stableRoomId = roomIdRef.current;
-          
-          if (!stableRoomId) {
-            console.error('[Auto-Reconnect] ❌ Cannot rejoin - roomId is undefined!');
-            newWs.close(1008, "Missing roomId on reconnect");
-            setLocation("/");
-            return;
-          }
-          
-          // Rejoin room with same settings
-          console.log('[Auto-Reconnect] Rejoining room with roomId:', stableRoomId);
-          newWs.send(JSON.stringify({
-            type: "join",
-            roomId: stableRoomId,
-            language,
-            voiceGender,
-            role,
-          }));
-          
-          // Restart Azure Speech if it was running
-          if (!isMutedRef.current && azureTokenRef.current) {
-            console.log('[Auto-Reconnect] Restarting Azure Speech recognition...');
-            startConversation();
-          }
-          
-          console.log('[Auto-Reconnect] Reconnection complete - conversation resumed');
-        };
-        
-        newWs.onerror = (error) => {
-          console.error('[Auto-Reconnect] ❌ Reconnection failed:', error);
-          isReconnectingRef.current = false;
-          // Will retry due to onclose firing
-        };
-        
-        newWs.onclose = ws.onclose; // Reuse the same close handler
-        newWs.onmessage = ws.onmessage; // Reuse the same message handler
-        
-      }, delay);
-    };
+    // Create WebSocket connection with fresh handlers
+    const ws = connectWebSocket();
+    wsRef.current = ws;
 
     // Application-level heartbeat to prevent 5-minute timeout
     // Send ping every 30 seconds to aggressively keep connection alive through proxies
