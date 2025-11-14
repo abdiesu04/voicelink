@@ -239,7 +239,7 @@ export default function Home() {
               
               {/* Subtitle */}
               <h2 className="text-lg sm:text-xl md:text-2xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl mx-auto font-medium">
-                Create a room, select your language, and speak in real-time across <span className="font-bold text-indigo-600 dark:text-indigo-400">47 languages</span>.
+                Voztra instantly translates your voice into any language — same tone, same emotion, same gender — so you sound like a native speaker across <span className="font-bold text-indigo-600 dark:text-indigo-400">47 languages</span>.
               </h2>
 
               {/* CTA Buttons */}
