@@ -228,7 +228,7 @@ export default function Home() {
             {/* Text Content */}
             <div className="space-y-10">
               {/* Headline */}
-              <h1 className="text-5xl sm:text-7xl lg:text-8xl font-extrabold leading-relaxed">
+              <h1 className="text-5xl sm:text-7xl lg:text-8xl font-extrabold leading-tight sm:leading-snug">
                 <span className="block bg-gradient-to-r from-indigo-600 via-violet-600 to-blue-600 dark:from-indigo-400 dark:via-violet-400 dark:to-blue-400 bg-clip-text text-transparent">
                   Erase Every
                 </span>
