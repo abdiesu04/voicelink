@@ -339,7 +339,7 @@ export default function Home() {
                 data-testid="button-try-voztra-now"
               >
                 <Mic className="mr-2 h-5 w-5" />
-                Start Free - 60 Minutes
+                Get Started
               </Button>
             </Link>
           </div>
