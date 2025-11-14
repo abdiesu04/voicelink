@@ -1424,7 +1424,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
           
           // Set cleanup timer - will be canceled if user reconnects
           const cleanupTimer = setTimeout(() => {
-            console.log(`[Grace Period] ⏰ Grace period expired for room ${roomId} - cleaning up now`);
+            console.log(`[Grace Period] ⏰ Grace period expired for room ${roomId}`);
+            
+            // MOBILE FIX: Check if partner has joined before ending session
+            // If creator is waiting alone (no partner yet), keep room alive so they can return from backgrounding
+            const roomClients = roomConnections.get(roomId) || [];
+            const hasPartner = roomClients.length > 0;
+            
+            if (role === 'creator' && !hasPartner) {
+              console.log(`[Grace Period] ✓ Creator waiting alone - keeping room alive for partner to join`);
+              console.log(`[Grace Period] Room ${roomId} stays active, creator can return from mobile backgrounding`);
+              
+              // Clean up this specific timer, but DON'T call endSession
+              roomCleanupTimers.delete(roomId);
+              
+              // Clean up fuzzy deduplication tracking for this speaker
+              const speakerKey = `${roomId}|${role}`;
+              recentMessagesByRoomSpeaker.delete(speakerKey);
+              console.log(`[Memory Cleanup] 🧹 Cleared recent messages for ${speakerKey}`);
+              
+              return; // Don't end session - room stays alive
+            }
+            
+            // Normal case: either participant left, or creator left after partner joined
+            console.log(`[Grace Period] Ending session - ${hasPartner ? 'partner was present' : 'participant left'}`);
             const sessionReason = role === 'creator' ? 'creator-left' : 'participant-left';
             void endSession(roomId, sessionReason).catch(err => 
               console.error(`[Session] Failed to end session after grace period:`, err)
