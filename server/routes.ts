@@ -216,7 +216,7 @@ function resumeSession(roomId: string) {
           // If credits exhausted, end the session
           if (result.exhausted) {
             console.log(`[Credit Deduction] Credits exhausted for room ${roomId}`);
-            endSession(roomId, 'credits-exhausted');
+            await endSession(roomId, 'credits-exhausted');
           }
         }
       } catch (error) {
@@ -226,7 +226,7 @@ function resumeSession(roomId: string) {
   }
 }
 
-function endSession(roomId: string, reason: 'participant-left' | 'creator-left' | 'credits-exhausted') {
+async function endSession(roomId: string, reason: 'participant-left' | 'creator-left' | 'credits-exhausted') {
   console.log(`[Session] Ending session for room ${roomId}, reason: ${reason}`);
   
   // Cancel any pending grace timer
@@ -272,7 +272,14 @@ function endSession(roomId: string, reason: 'participant-left' | 'creator-left' 
   recentMessagesByRoomSpeaker.delete(`${roomId}|participant`);
   console.log(`[Memory Cleanup] 🧹 Cleared fuzzy dedup tracking for room ${roomId}`);
   
-  storage.deleteRoom(roomId);
+  // CRITICAL FIX: Mark room as inactive instead of deleting it
+  // Rooms will be cleaned up by background worker after 24h of inactivity
+  try {
+    await storage.updateRoom(roomId, { isActive: false, sessionEndedAt: new Date() });
+    console.log(`[Session] ✅ Room ${roomId} marked as inactive in database`);
+  } catch (error) {
+    console.error(`[Session] ❌ Failed to mark room ${roomId} as inactive:`, error);
+  }
   
   console.log(`[Session] Cleaned up room ${roomId}, notified ${clients.length} clients, cleared deduplication tracking`);
 }
@@ -1106,7 +1113,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
                   // If credits exhausted, end the session for everyone
                   if (result.exhausted) {
                     console.log(`[Credit Tracking] Credits exhausted for room ${roomId}`);
-                    endSession(roomId, 'credits-exhausted');
+                    await endSession(roomId, 'credits-exhausted');
                   }
                 }
               }, 10000); // Check every 10 seconds
@@ -1244,6 +1251,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
               validMessages.shift(); // Remove oldest
             }
             console.log(`[Fuzzy Deduplication] ✅ Message passed fuzzy check. Recent messages for speaker: ${validMessages.length}`);
+
+            // Update room activity timestamp (for 24h cleanup)
+            await storage.updateRoomActivity(roomId);
 
             // SERVER-SIDE DEDUPLICATION: Create content-based stable key WITHOUT timestamp
             // This prevents Azure Speech SDK from triggering duplicate broadcasts if 'recognized' event fires twice
@@ -1385,7 +1395,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
           // Intentional exit - clean up immediately
           console.log(`[Grace Period] ⏭️ Intentional exit (code ${code}) - cleaning up immediately`);
           const sessionReason = role === 'creator' ? 'creator-left' : 'participant-left';
-          endSession(roomId, sessionReason);
+          void endSession(roomId, sessionReason).catch(err => 
+            console.error(`[Session] Failed to end session on intentional exit:`, err)
+          );
           
           // Clean up fuzzy deduplication tracking for this speaker
           const speakerKey = `${roomId}|${role}`;
@@ -1414,7 +1426,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
           const cleanupTimer = setTimeout(() => {
             console.log(`[Grace Period] ⏰ Grace period expired for room ${roomId} - cleaning up now`);
             const sessionReason = role === 'creator' ? 'creator-left' : 'participant-left';
-            endSession(roomId, sessionReason);
+            void endSession(roomId, sessionReason).catch(err => 
+              console.error(`[Session] Failed to end session after grace period:`, err)
+            );
             
             // Clean up fuzzy deduplication tracking for this speaker
             const speakerKey = `${roomId}|${role}`;
@@ -1643,4 +1657,28 @@ function getAzureLanguageCode(code: string): string {
     'tr': 'tr-TR',
   };
   return languageMap[code] || code;
+}
+
+// Background cleanup worker: Deletes inactive rooms after 24 hours
+export function startRoomCleanupWorker() {
+  const CLEANUP_INTERVAL_MS = 60 * 60 * 1000; // Run every hour
+  
+  const runCleanup = async () => {
+    try {
+      const deletedCount = await storage.cleanupInactiveRooms();
+      if (deletedCount > 0) {
+        console.log(`[Room Cleanup] 🧹 Deleted ${deletedCount} inactive room(s) (>24h old)`);
+      }
+    } catch (error) {
+      console.error('[Room Cleanup] Error during cleanup:', error);
+    }
+  };
+
+  // Run immediately on startup
+  runCleanup();
+  
+  // Then run every hour
+  setInterval(runCleanup, CLEANUP_INTERVAL_MS);
+  
+  console.log('[Room Cleanup] ✅ Background worker started (runs every hour)');
 }

@@ -2,7 +2,7 @@ import express, { type Request, Response, NextFunction } from "express";
 import session from "express-session";
 import connectPg from "connect-pg-simple";
 import passport from "passport";
-import { registerRoutes } from "./routes";
+import { registerRoutes, startRoomCleanupWorker } from "./routes";
 import { setupAuth, attachUser } from "./auth";
 import { setupSubscriptionRoutes } from "./subscription";
 import { setupVite, serveStatic, log } from "./vite";
@@ -86,6 +86,9 @@ app.use((req, res, next) => {
   setupAuth(app);
   setupSubscriptionRoutes(app);
   const server = await registerRoutes(app);
+
+  // Start background cleanup worker for inactive rooms
+  startRoomCleanupWorker();
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;

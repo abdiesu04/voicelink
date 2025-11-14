@@ -1,6 +1,6 @@
 import { randomUUID } from "crypto";
 import { drizzle } from "drizzle-orm/neon-serverless";
-import { eq, and, desc } from "drizzle-orm";
+import { eq, and, desc, lt } from "drizzle-orm";
 import * as schema from "@shared/schema";
 import type { User, Subscription, Room, CreditUsage, SubscriptionPlan, PendingRegistration } from "@shared/schema";
 import { Pool, neonConfig } from "@neondatabase/serverless";
@@ -46,6 +46,8 @@ export interface IStorage {
   deleteRoom(id: string): Promise<void>;
   startSession(roomId: string): Promise<void>;
   endSession(roomId: string): Promise<void>;
+  updateRoomActivity(roomId: string): Promise<void>;
+  cleanupInactiveRooms(): Promise<number>;
 
   // Credit usage methods
   recordCreditUsage(userId: number, roomId: string, secondsUsed: number, creditsDeducted: number): Promise<CreditUsage>;
@@ -388,6 +390,24 @@ export class PgStorage implements IStorage {
     await db.update(schema.rooms)
       .set({ sessionEndedAt: new Date() })
       .where(eq(schema.rooms.id, roomId));
+  }
+
+  async updateRoomActivity(roomId: string): Promise<void> {
+    await db.update(schema.rooms)
+      .set({ lastActivityAt: new Date() })
+      .where(eq(schema.rooms.id, roomId));
+  }
+
+  async cleanupInactiveRooms(): Promise<number> {
+    const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
+    const result = await db.delete(schema.rooms)
+      .where(
+        and(
+          eq(schema.rooms.isActive, false),
+          lt(schema.rooms.lastActivityAt, twentyFourHoursAgo)
+        )
+      );
+    return result.rowCount || 0;
   }
 
   // Credit usage methods

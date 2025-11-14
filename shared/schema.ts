@@ -66,6 +66,7 @@ export const rooms = pgTable("rooms", {
   isActive: boolean("is_active").notNull().default(true),
   sessionStartedAt: timestamp("session_started_at"),
   sessionEndedAt: timestamp("session_ended_at"),
+  lastActivityAt: timestamp("last_activity_at").notNull().defaultNow(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
@@ -88,7 +89,7 @@ export const insertPendingRegistrationSchema = createInsertSchema(pendingRegistr
   createdAt: true,
 });
 export const insertSubscriptionSchema = createInsertSchema(subscriptions).omit({ id: true, createdAt: true, updatedAt: true });
-export const insertRoomSchema = createInsertSchema(rooms).omit({ createdAt: true, sessionStartedAt: true, sessionEndedAt: true });
+export const insertRoomSchema = createInsertSchema(rooms).omit({ createdAt: true, sessionStartedAt: true, sessionEndedAt: true, lastActivityAt: true });
 export const insertCreditUsageSchema = createInsertSchema(creditUsage).omit({ id: true, createdAt: true });
 
 // Types
