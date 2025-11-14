@@ -72,30 +72,15 @@ export default function Room() {
   useEffect(() => {
     console.log(`[Room Init] Role: ${role}, Language: ${language}, My Voice Gender: ${voiceGender}`);
     
-    // Track browser tab visibility changes
+    // Track browser tab visibility changes (logging only - reconnection handled by dedicated useEffect below)
     const handleVisibilityChange = () => {
       console.log('[Browser] Visibility changed:', document.hidden ? 'HIDDEN' : 'VISIBLE');
       if (document.hidden) {
         console.log('[Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections');
       } else {
-        console.log('[Browser] ✓ Tab is now visible again - checking WebSocket connection...');
-        
-        // CRITICAL FIX: When tab becomes visible, immediately check WebSocket and reconnect if needed
-        // This handles mobile browsers that close WebSockets when tab is backgrounded (switching to Telegram, etc.)
-        setTimeout(() => {
-          const ws = wsRef.current;
-          if (!ws || ws.readyState === WebSocket.CLOSED || ws.readyState === WebSocket.CLOSING) {
-            console.log('[Browser] 🔄 WebSocket disconnected during backgrounding - triggering immediate reconnection');
-            console.log('[Browser] Current WebSocket state:', ws ? ['CONNECTING', 'OPEN', 'CLOSING', 'CLOSED'][ws.readyState] : 'null');
-            
-            // Trigger the onclose handler manually to start reconnection
-            if (ws && ws.onclose) {
-              ws.onclose(new CloseEvent('close', { code: 1006, reason: 'Tab backgrounded', wasClean: false }));
-            }
-          } else if (ws && ws.readyState === WebSocket.OPEN) {
-            console.log('[Browser] ✅ WebSocket still connected - no action needed');
-          }
-        }, 100); // Small delay to let browser settle
+        console.log('[Browser] ✓ Tab is now visible again');
+        // NOTE: Reconnection logic is handled by dedicated Page Visibility useEffect hook further down
+        // This handler is for logging only to avoid duplicate/conflicting reconnection attempts
       }
     };
     
@@ -148,6 +133,7 @@ export default function Room() {
   const [elapsedSeconds, setElapsedSeconds] = useState(0);
   const [sessionActive, setSessionActive] = useState(false);
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
+  const [reconnectAttempt, setReconnectAttempt] = useState(0); // State for UI updates
 
   const [myMessages, setMyMessages] = useState<TranscriptionMessage[]>([]);
   const [partnerMessages, setPartnerMessages] = useState<TranscriptionMessage[]>([]);
@@ -1283,6 +1269,7 @@ export default function Room() {
     
     // Increment counter AFTER determining we need to reconnect
     reconnectAttemptRef.current += 1;
+    setReconnectAttempt(reconnectAttemptRef.current); // Update state for UI
     
     // Check BEFORE scheduling (now allows 8 attempts)
     if (reconnectAttemptRef.current > 8) {
@@ -1301,8 +1288,9 @@ export default function Room() {
       return;
     }
     
-    // Exponential backoff: 500ms, 1s, 2s, 3s, 3s, 3s, 3s, 3s (max 3s)
-    const delay = Math.min(500 * Math.pow(2, reconnectAttemptRef.current - 1), 3000);
+    // MOBILE FIX: Aggressive backoff for faster mobile reconnection: 100ms, 200ms, 400ms, 800ms, 1s (max 1s)
+    // Faster delays ensure users don't wait long after returning from background
+    const delay = Math.min(100 * Math.pow(2, reconnectAttemptRef.current - 1), 1000);
     
     console.log(`[Auto-Reconnect] Attempt ${reconnectAttemptRef.current}/8, delay: ${delay}ms, close code: ${event.code}`);
     
@@ -1346,6 +1334,7 @@ export default function Room() {
     wsRef.current = wsInstance;
     setConnectionStatus("connected");
     reconnectAttemptRef.current = 0; // Reset counter on success
+    setReconnectAttempt(0); // Update state for UI
     isReconnectingRef.current = false;
     
     const stableRoomId = roomIdRef.current;
@@ -1402,6 +1391,74 @@ export default function Room() {
     
     return ws;
   };
+
+  // MOBILE FIX: Page Visibility API for instant reconnection when app returns from background
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'visible') {
+        console.log('[Page Visibility] 👁️ App became visible (resumed from background)');
+        
+        // SAFETY CHECK: Only reconnect if we should (not after intentional disconnect)
+        if (!shouldReconnectRef.current) {
+          console.log('[Page Visibility] Reconnect disabled (intentional disconnect) - ignoring visibility change');
+          return;
+        }
+        
+        // SAFETY CHECK: Don't create duplicate connections if already reconnecting
+        if (isReconnectingRef.current) {
+          console.log('[Page Visibility] Already reconnecting - ignoring visibility change');
+          return;
+        }
+        
+        // Check if WebSocket is disconnected
+        const currentWs = wsRef.current;
+        const isDisconnected = !currentWs || currentWs.readyState === WebSocket.CLOSED || currentWs.readyState === WebSocket.CLOSING;
+        
+        if (isDisconnected) {
+          console.log('[Page Visibility] 🔄 WebSocket disconnected, attempting immediate reconnection...');
+          
+          // Set UI state FIRST before any async operations
+          setConnectionStatus("connecting");
+          setReconnectAttempt(0); // Reset attempt counter for fresh start
+          
+          // Clear any existing reconnect timers
+          if (reconnectTimeoutRef.current) {
+            clearTimeout(reconnectTimeoutRef.current);
+            reconnectTimeoutRef.current = null;
+          }
+          
+          // Update reconnection state
+          isReconnectingRef.current = true;
+          reconnectAttemptRef.current = 0;
+          
+          // Immediately create new connection (no delay)
+          try {
+            const newWs = connectWebSocket();
+            wsRef.current = newWs;
+            console.log('[Page Visibility] ✅ Immediate reconnection initiated');
+          } catch (error) {
+            console.error('[Page Visibility] ❌ Failed to reconnect:', error);
+            setConnectionStatus("disconnected");
+            setDisconnectReason("Connection Failed");
+            setDisconnectDetails("Failed to reconnect after returning from background");
+            isReconnectingRef.current = false;
+          }
+        } else {
+          console.log('[Page Visibility] ✅ WebSocket already connected, no action needed');
+        }
+      } else {
+        console.log('[Page Visibility] 🌙 App backgrounded (invisible)');
+      }
+    };
+    
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    console.log('[Page Visibility] Listener installed for mobile background/resume detection');
+    
+    return () => {
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      console.log('[Page Visibility] Listener removed');
+    };
+  }, []); // Empty deps - use refs for current state
 
   useEffect(() => {
     // Use stable roomIdRef for mobile reliability
@@ -2746,8 +2803,17 @@ export default function Room() {
                   className="h-14 px-8 bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 shadow-lg shadow-primary/25 disabled:opacity-50 disabled:cursor-not-allowed flex-1 max-w-xs"
                   data-testid="button-start-conversation-mobile"
                 >
-                  <Mic className="h-5 w-5 mr-2" />
-                  {connectionStatus !== "connected" ? "Connecting..." : quotaExceeded ? "Quota Exceeded" : !partnerConnected ? "Waiting for Partner" : "Start Conversation"}
+                  {connectionStatus !== "connected" ? (
+                    <>
+                      <div className="h-4 w-4 mr-2 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                      {reconnectAttempt > 0 ? `Reconnecting (${reconnectAttempt}/8)...` : "Connecting..."}
+                    </>
+                  ) : (
+                    <>
+                      <Mic className="h-5 w-5 mr-2" />
+                      {quotaExceeded ? "Quota Exceeded" : !partnerConnected ? "Waiting for Partner" : "Start Conversation"}
+                    </>
+                  )}
                 </Button>
                 <Button
                   variant="destructive"
