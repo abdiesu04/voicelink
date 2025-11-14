@@ -227,26 +227,23 @@ export default function Home() {
             
             {/* Left Column: Text Content */}
             <div className="space-y-7 text-left">
-              {/* Headline with Accent Line */}
-              <div className="relative max-w-2xl">
-                <div className="absolute -left-1 top-0 w-1 h-full bg-gradient-to-b from-indigo-500 via-violet-500 to-blue-500 rounded-full" />
-                <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold leading-snug pl-6">
-                  <span className="block bg-gradient-to-r from-indigo-600 via-violet-600 to-blue-600 dark:from-indigo-400 dark:via-violet-400 dark:to-blue-400 bg-clip-text text-transparent">
-                    Erase Every
-                  </span>
-                  <span className="block text-slate-900 dark:text-white mt-2">
-                    Language Barrier
-                  </span>
-                </h1>
-              </div>
+              {/* Headline */}
+              <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold leading-snug">
+                <span className="block bg-gradient-to-r from-indigo-600 via-violet-600 to-blue-600 dark:from-indigo-400 dark:via-violet-400 dark:to-blue-400 bg-clip-text text-transparent">
+                  Erase Every
+                </span>
+                <span className="block text-slate-900 dark:text-white mt-2">
+                  Language Barrier
+                </span>
+              </h1>
               
-              {/* Description */}
-              <p className="text-lg sm:text-xl md:text-2xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-xl pl-6 font-medium">
+              {/* Subtitle */}
+              <h2 className="text-lg sm:text-xl md:text-2xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-xl font-medium">
                 Create a room, select your language, and speak in real-time across <span className="font-bold text-indigo-600 dark:text-indigo-400">47 languages</span>.
-              </p>
+              </h2>
 
               {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3 pt-1 pl-6">
+              <div className="flex flex-col sm:flex-row gap-3 pt-1">
                 <Link href={user ? "/create" : "/register"}>
                   <Button 
                     size="lg" 
@@ -272,7 +269,7 @@ export default function Home() {
               </div>
 
               {/* Stats Bar - Mobile Responsive Grid */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 pt-4 pl-6 max-w-2xl">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 pt-4 max-w-2xl">
                 <div className="flex items-center gap-2 text-sm">
                   <CheckCircle className="h-5 w-5 text-emerald-500 flex-shrink-0" />
                   <span className="text-slate-600 dark:text-slate-400">
