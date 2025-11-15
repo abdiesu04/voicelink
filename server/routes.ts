@@ -100,6 +100,27 @@ interface RecentMessage {
 }
 const recentMessagesByRoomSpeaker = new Map<string, RecentMessage[]>(); // key: `${roomId}|${speaker}` -> last N messages
 
+// SEQUENCE-BASED MESSAGE ORDERING: Eliminate reconnection replay duplicates
+// Per-room sequence numbers provide canonical ordering and enable catch-up on reconnect
+interface SequencedMessage {
+  seq: number;
+  messageId: string;
+  originalText: string;
+  translatedText: string;
+  speaker: "creator" | "participant";
+  originalLanguage: string;
+  translatedLanguage: string;
+  timestamp: number;
+}
+
+interface RoomSequenceState {
+  nextSeq: number; // Next sequence number to assign (starts at 1)
+  buffer: SequencedMessage[]; // Circular buffer of last 100 messages for catch-up
+}
+
+const roomSequences = new Map<string, RoomSequenceState>(); // roomId -> sequence state
+const MAX_BUFFER_SIZE = 100; // Keep last 100 messages for reconnection catch-up
+
 // Levenshtein distance for fuzzy text matching
 function levenshteinDistance(a: string, b: string): number {
   if (a.length === 0) return b.length;
@@ -340,6 +361,13 @@ async function endSession(roomId: string, reason: 'participant-left' | 'creator-
   recentMessagesByRoomSpeaker.delete(`${roomId}|creator`);
   recentMessagesByRoomSpeaker.delete(`${roomId}|participant`);
   console.log(`[Memory Cleanup] 🧹 Cleared fuzzy dedup tracking for room ${roomId}`);
+  
+  // Clean up sequence buffer for this room
+  const sequenceState = roomSequences.get(roomId);
+  if (sequenceState) {
+    console.log(`[Memory Cleanup] 🧹 Clearing sequence buffer for room ${roomId} (had ${sequenceState.buffer.length} messages, nextSeq was ${sequenceState.nextSeq})`);
+    roomSequences.delete(roomId);
+  }
   
   // CRITICAL FIX: Mark room as inactive instead of deleting it
   // Rooms will be cleaned up by background worker after 24h of inactivity
@@ -1064,7 +1092,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const message = JSON.parse(data.toString());
         
         if (message.type === 'join') {
-          const { roomId, language, voiceGender, role } = message;
+          const { roomId, language, voiceGender, role, lastReceivedSeq } = message;
+          const clientLastSeq = lastReceivedSeq || 0; // Default to 0 for first-time connections
           
           if (!language) {
             ws.send(JSON.stringify({
@@ -1240,6 +1269,42 @@ export async function registerRoutes(app: Express): Promise<Server> {
               console.log(`[Credit Tracking] Session started with ${initialCredits} credits remaining`);
             }
           }
+          
+          // CATCH-UP LOGIC: Send buffered messages that client hasn't received yet
+          // This prevents duplicate audio on reconnection while ensuring no messages are missed
+          const sequenceState = roomSequences.get(roomId);
+          if (sequenceState && clientLastSeq > 0) {
+            // Find messages with seq > clientLastSeq
+            const missedMessages = sequenceState.buffer.filter(msg => msg.seq > clientLastSeq);
+            
+            if (missedMessages.length > 0) {
+              console.log(`[Sequence Catch-up] 📦 Client reconnected with lastSeq=${clientLastSeq}`);
+              console.log(`[Sequence Catch-up] 📨 Sending ${missedMessages.length} missed messages (seq ${missedMessages[0].seq} to ${missedMessages[missedMessages.length - 1].seq})`);
+              
+              // Send missed messages in order
+              for (const msg of missedMessages) {
+                if (ws.readyState === WebSocket.OPEN) {
+                  ws.send(JSON.stringify({
+                    type: 'translation',
+                    roomId,
+                    seq: msg.seq,
+                    messageId: msg.messageId,
+                    originalText: msg.originalText,
+                    translatedText: msg.translatedText,
+                    speaker: msg.speaker,
+                    originalLanguage: msg.originalLanguage,
+                    translatedLanguage: msg.translatedLanguage
+                  }));
+                }
+              }
+              
+              console.log(`[Sequence Catch-up] ✅ Catch-up complete. Client is now synced to seq=${sequenceState.nextSeq - 1}`);
+            } else {
+              console.log(`[Sequence Catch-up] ✨ Client is up-to-date (lastSeq=${clientLastSeq}, latest=${sequenceState.nextSeq - 1})`);
+            }
+          } else if (clientLastSeq === 0) {
+            console.log(`[Sequence Catch-up] 🆕 First-time connection (lastSeq=0), no catch-up needed`);
+          }
         }
 
         // Application-level ping/pong for keeping connection alive through proxies
@@ -1409,8 +1474,43 @@ export async function registerRoutes(app: Express): Promise<Server> {
               console.log(`[Server Deduplication] 🧹 Emergency cleanup: removed ${entriesToDelete.length} oldest entries. New size: ${roomMessageTracker.size}`);
             }
             
+            // SEQUENCE ASSIGNMENT: Assign incrementing sequence number per room
+            // Initialize room sequence state if needed
+            if (!roomSequences.has(roomId)) {
+              roomSequences.set(roomId, {
+                nextSeq: 1,
+                buffer: []
+              });
+              console.log(`[Sequence] 🎬 Initialized sequence state for room ${roomId}`);
+            }
+            
+            const sequenceState = roomSequences.get(roomId)!;
+            const seq = sequenceState.nextSeq++;
+            
+            // Create sequenced message and add to circular buffer
+            const sequencedMsg: SequencedMessage = {
+              seq,
+              messageId,
+              originalText: text,
+              translatedText,
+              speaker: connection.role,
+              originalLanguage: language,
+              translatedLanguage: targetLanguage,
+              timestamp: now
+            };
+            
+            sequenceState.buffer.push(sequencedMsg);
+            
+            // Maintain circular buffer - keep only last MAX_BUFFER_SIZE messages
+            if (sequenceState.buffer.length > MAX_BUFFER_SIZE) {
+              const removed = sequenceState.buffer.shift();
+              console.log(`[Sequence] 🔄 Buffer full - removed oldest message (seq=${removed?.seq})`);
+            }
+            
+            console.log(`[Sequence] 📊 Assigned seq=${seq} to message. Buffer size: ${sequenceState.buffer.length}/${MAX_BUFFER_SIZE}`);
+            
             const roomClients = roomConnections.get(roomId) || [];
-            console.log(`[Translation Broadcast] 📡 Broadcasting to ${roomClients.length} clients in room ${roomId}, messageId: ${messageId}`);
+            console.log(`[Translation Broadcast] 📡 Broadcasting to ${roomClients.length} clients in room ${roomId}, seq=${seq}, messageId=${messageId}`);
             
             let successfulBroadcasts = 0;
             roomClients.forEach(client => {
@@ -1418,6 +1518,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
                 client.send(JSON.stringify({
                   type: 'translation',
                   roomId,
+                  seq, // Add sequence number to message
                   messageId,
                   originalText: text,
                   translatedText,
