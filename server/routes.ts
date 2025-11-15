@@ -1359,7 +1359,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             // This prevents Azure Speech SDK from triggering duplicate broadcasts if 'recognized' event fires twice
             // Use full text (not truncated) to avoid false positives from long messages with shared prefixes
             const dedupeKey = `${connection.role}|${text}|${translatedText}`;
-            const DEDUPE_TTL_MS = 15000; // 15 second TTL: catches mobile reconnection replays (backgrounding, network switches)
+            const DEDUPE_TTL_MS = 5000; // 5 second TTL: same content within 5s = duplicate, after 5s = legitimate repetition
             
             if (!broadcastedMessageIds.has(roomId)) {
               broadcastedMessageIds.set(roomId, new Map());
