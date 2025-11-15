@@ -1,0 +1,191 @@
+1. Sequence Scope → Per Room (YES, this is correct)
+
+Use per-room sequences.
+Why:
+
+Makes each room independent
+
+Avoids huge global counters
+
+Makes buffering trivial
+
+Prevents collisions
+
+Matches the mental model of “conversation timeline”
+
+So:
+
+Room A: 1, 2, 3, 4...
+Room B: 1, 2, 3...
+
+
+Correct choice.
+
+✅ 2. What Gets Sequenced → ONLY final translations
+
+Do not sequence:
+
+interim transcriptions
+
+emotion packets
+
+heartbeats
+
+credit updates
+
+pings/pongs
+
+control messages
+
+Sequence only the messages that matter for replay prevention:
+
+Final, ready-to-play translation messages.
+
+Reason:
+
+Buffers are small
+
+Avoid clutter
+
+The reconnect logic only cares about what the partner should hear
+
+Everything else will arrive “live” or doesn’t require catch-up
+
+Correct choice.
+
+✅ 3. Server-Side Buffer → 50–100 per room is perfect
+
+Production guidance:
+
+Keep a buffer of the last 50–100 sequenced translation messages per room.
+
+This covers:
+
+reconnections
+
+mobile wakeups
+
+WiFi ↔ LTE network flips
+
+1–2 minutes of conversation history
+
+Memory footprint negligible
+
+When to clean up:
+
+When the room is inactive (e.g., no activity for 5–10 minutes)
+
+When both clients disconnect
+
+Or periodically prune old sequences beyond buffer size
+
+Correct approach.
+
+✅ 4. Client State → Only track partner’s lastReceivedSequence
+
+Perfect.
+
+Why:
+
+You never need to “catch yourself up”
+
+You only risk replay duplicates from partner’s messages
+
+So on the client:
+
+lastReceivedSeqFromPartner
+
+
+This is the only number the client must persist across reconnect.
+
+Correct design.
+
+✅ 5. Reconnection Flow → EXACTLY correct
+
+Your flow is right:
+
+Client → Server:
+"reconnect lastSeq=103"
+
+Server:
+
+Buffer: 101, 102, 103, 104, 105
+
+Server computes:
+
+messagesToSend = all with seq > 103
+
+
+Server sends only:
+
+104, 105
+
+
+Replay problem is eliminated cleanly.
+
+This is the exact architecture used in Kafka, WhatsApp, Signal, Slack, Matrix, WebRTC SCTP, and more.
+
+🔄 Current vs Proposed System
+❌ Current System:
+
+Server sends messageId (random UUID with timestamp)
+
+Client dedupes by Set<string> (content or messageId)
+
+Reconnection replays blow through dedupe because messageId always changes
+
+Server has no way to know what client already received
+
+Not robust for real-time reconnection scenarios
+
+✅ Proposed System:
+
+Add per-room sequence numbers.
+
+Server:
+
+Assigns increasing sequence numbers for translation messages
+
+Stores them in a room buffer
+
+Client:
+
+Stores lastReceivedSeq
+
+Sends it on reconnect
+
+Server:
+
+Only sends messages with seq > lastReceivedSeq
+
+Result:
+Zero duplicates. Zero guesswork. Zero hacks.
+
+This is the proper way to solve your issue.
+
+💭 Final Questions Answered
+❓ Should we replace messageId entirely?
+
+Not yet. Keep both.
+
+Why keep messageId?
+
+messageId is still useful for TTS queue dedupe
+
+messageId is still helpful for debugging and logs
+
+messageId can still uniquely identify a delivery attempt
+
+❓ Should sequence numbers become the primary ordering and dedupe system?
+
+YES.
+Sequence numbers become the canonical ordering system.
+
+❓ Should messageId become secondary?
+
+YES.
+MessageId becomes metadata, not logic.
+
+❓ Does adding sequences require major rewrites?
+
+No — you add them alongside messageId and migrate logic gradually.
