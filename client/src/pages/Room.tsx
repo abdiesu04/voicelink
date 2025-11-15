@@ -248,6 +248,40 @@ export default function Room() {
   const ROOM_STORAGE_KEY = 'voztra_last_room';
   const ROOM_TTL = 15 * 60 * 1000; // 15 minutes
   
+  // SEQUENCE TRACKING: Store last received sequence number per room to prevent replay on reconnect
+  const getLastReceivedSeqKey = (roomId: string) => `voztra_seq_${roomId}`;
+  
+  const getLastReceivedSeq = (roomId: string): number => {
+    try {
+      const stored = localStorage.getItem(getLastReceivedSeqKey(roomId));
+      if (!stored) return 0;
+      const seq = parseInt(stored, 10);
+      console.log(`[Sequence] 📖 Retrieved lastReceivedSeq=${seq} for room ${roomId}`);
+      return isNaN(seq) ? 0 : seq;
+    } catch (error) {
+      console.warn('[Sequence] Failed to get lastReceivedSeq:', error);
+      return 0;
+    }
+  };
+  
+  const saveLastReceivedSeq = (roomId: string, seq: number) => {
+    try {
+      localStorage.setItem(getLastReceivedSeqKey(roomId), seq.toString());
+      console.log(`[Sequence] 💾 Saved lastReceivedSeq=${seq} for room ${roomId}`);
+    } catch (error) {
+      console.warn('[Sequence] Failed to save lastReceivedSeq:', error);
+    }
+  };
+  
+  const clearLastReceivedSeq = (roomId: string) => {
+    try {
+      localStorage.removeItem(getLastReceivedSeqKey(roomId));
+      console.log(`[Sequence] 🧹 Cleared lastReceivedSeq for room ${roomId}`);
+    } catch (error) {
+      console.warn('[Sequence] Failed to clear lastReceivedSeq:', error);
+    }
+  };
+  
   const saveRoomToStorage = (settings: { roomId: string; language: string; voiceGender: string; role: string }) => {
     try {
       const data = {
@@ -1033,10 +1067,17 @@ export default function Room() {
     if (message.type === "translation") {
       const receiveTimestamp = Date.now();
       const isOwn = message.speaker === role;
+      const seq = message.seq; // Server-provided sequence number
       
       // DIAGNOSTIC: Log message arrival with precise timestamp
-      console.log(`[Translation Received] ⏱️ Timestamp: ${receiveTimestamp}, MessageId: ${message.messageId}, Speaker: ${message.speaker}, IsOwn: ${isOwn}`);
+      console.log(`[Translation Received] ⏱️ Timestamp: ${receiveTimestamp}, Seq: ${seq}, MessageId: ${message.messageId}, Speaker: ${message.speaker}, IsOwn: ${isOwn}`);
       console.log(`[Translation Received] 📊 DeduplicationSet size BEFORE: ${processedMessagesRef.current.size}`);
+      
+      // SEQUENCE-BASED DEDUPLICATION: Save sequence number for partner's messages
+      // This prevents duplicate audio on reconnection
+      if (!isOwn && seq && roomIdRef.current) {
+        saveLastReceivedSeq(roomIdRef.current, seq);
+      }
       
       // CRITICAL: Deduplicate based on server-provided messageId
       // This prevents duplicate WebSocket deliveries while allowing legitimate repeated phrases
@@ -1421,14 +1462,20 @@ export default function Room() {
       return;
     }
     
-    // Send join message
+    // Get last received sequence number for catch-up on reconnect
+    const lastReceivedSeq = getLastReceivedSeq(stableRoomId);
+    
+    // Send join message with lastReceivedSeq for server-side catch-up
     wsInstance.send(JSON.stringify({
       type: "join",
       roomId: stableRoomId,
       language,
       voiceGender,
       role,
+      lastReceivedSeq, // Server will send missed messages where seq > this value
     }));
+    
+    console.log(`[Sequence] 📤 Sent join message with lastReceivedSeq=${lastReceivedSeq}`);
     
     // Save to localStorage for creators
     if (role === "creator") {
@@ -1792,6 +1839,11 @@ export default function Room() {
       
       console.log('[WebSocket Cleanup] Clearing heartbeat interval');
       clearInterval(heartbeatInterval);
+      
+      // Clear sequence tracking for this room
+      if (roomIdRef.current) {
+        clearLastReceivedSeq(roomIdRef.current);
+      }
       
       console.log('[WebSocket Cleanup] Cleanup complete');
     };
