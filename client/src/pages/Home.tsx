@@ -527,15 +527,15 @@ export default function Home() {
             </div>
 
             <div className="text-center">
-              <p className="text-lg text-slate-600 dark:text-slate-300 italic mb-8">
+              <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 italic mb-8 px-4">
                 "Language should never be the reason you pass on exceptional talent."
               </p>
               <Link href="/create">
-                <Button size="lg" className="text-base px-10 h-14" data-testid="button-build-team">
+                <Button size="lg" className="text-sm sm:text-base md:text-lg px-4 sm:px-8 md:px-10 h-12 sm:h-14 w-full sm:w-auto max-w-full mx-auto" data-testid="button-build-team">
                   Start Building Your Global Team
                 </Button>
               </Link>
-              <p className="text-sm text-slate-500 dark:text-slate-400 mt-4">
+              <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-4 px-4">
                 Free to try • No credit card required • 47 languages supported
               </p>
             </div>

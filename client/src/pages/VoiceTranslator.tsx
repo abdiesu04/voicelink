@@ -454,13 +454,13 @@ const VoiceTranslator = () => {
                 </div>
 
                 <div className="text-center">
-                  <p className="text-xl font-display font-semibold mb-6">
+                  <p className="text-lg sm:text-xl font-display font-semibold mb-6 px-4">
                     "Language should never be the reason you pass on exceptional talent."
                   </p>
-                  <Button asChild size="lg" className="shadow-glow text-lg px-10 h-14">
-                    <Link href="/create">Start Building Your Global Team <ArrowRight className="ml-2" /></Link>
+                  <Button asChild size="lg" className="shadow-glow text-sm sm:text-base md:text-lg px-4 sm:px-8 md:px-10 h-12 sm:h-14 w-full sm:w-auto max-w-full">
+                    <Link href="/create">Start Building Your Global Team <ArrowRight className="ml-2 flex-shrink-0" /></Link>
                   </Button>
-                  <p className="text-sm text-muted-foreground mt-4">Free to try • No credit card required • 47 languages supported</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground mt-4 px-4">Free to try • No credit card required • 47 languages supported</p>
                 </div>
               </div>
             </Card>
