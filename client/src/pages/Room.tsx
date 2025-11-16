@@ -2465,7 +2465,7 @@ export default function Room() {
       <div className="absolute inset-0 bg-[linear-gradient(rgba(99,102,241,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(99,102,241,0.03)_1px,transparent_1px)] bg-[size:72px_72px]" />
       
       {/* Header - Compact Desktop */}
-      <header className="border-b border-slate-300/50 dark:border-slate-800/50 bg-white/50 dark:bg-slate-900/50 backdrop-blur-xl relative z-10 pt-16 md:pt-20">
+      <header className="border-b border-slate-300/50 dark:border-slate-800/50 bg-white/50 dark:bg-slate-900/50 backdrop-blur-xl relative z-10">
         <div className="container mx-auto px-3 sm:px-6 md:px-12 py-2">
           <div className="flex items-center justify-between gap-4">
             {/* Left: Connection Status & Timer */}

@@ -19,6 +19,11 @@ export function Header() {
   const isPricing = location === "/pricing";
   const { user, subscription } = useAuth();
 
+  // Hide header on Room page (it has its own internal header)
+  if (location.startsWith("/room/")) {
+    return null;
+  }
+
   return (
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-white/10 dark:border-slate-800/30 bg-gradient-to-b from-indigo-50/60 via-violet-50/50 to-transparent dark:from-slate-950/60 dark:via-indigo-950/40 dark:to-transparent backdrop-blur-xl">
       <div className="container mx-auto px-6 md:px-12">
