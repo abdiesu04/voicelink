@@ -333,24 +333,30 @@ export function setupAuth(app: Express) {
     }),
     (req: Request, res: Response) => {
       const user = req.user as any;
+      
+      console.log("[Google OAuth] Callback received, user:", user ? `${user.email?.substring(0, 3)}***` : 'null');
+      
       if (!user) {
+        console.error("[Google OAuth] No user object in callback");
         return res.redirect("/login?error=google-auth-failed");
       }
 
       req.session.regenerate((err) => {
         if (err) {
-          console.error("Session regeneration error:", err);
+          console.error("[Google OAuth] Session regeneration error:", err);
           return res.redirect("/login?error=session-failed");
         }
 
         req.session.userId = user.id;
+        console.log("[Google OAuth] Session userId set to:", user.id);
 
         req.session.save((saveErr) => {
           if (saveErr) {
-            console.error("Session save error:", saveErr);
+            console.error("[Google OAuth] Session save error:", saveErr);
             return res.redirect("/login?error=session-failed");
           }
 
+          console.log("[Google OAuth] Session saved successfully, redirecting to home");
           res.redirect("/");
         });
       });
