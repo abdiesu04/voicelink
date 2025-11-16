@@ -1372,9 +1372,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
             const now = Date.now();
             
-            // FUZZY MATCHING DEDUPLICATION: Check for near-identical messages within time window
-            // This catches Azure Speech SDK producing slightly different transcriptions ("Former" vs "Formal")
-            const FUZZY_SIMILARITY_THRESHOLD = 0.82; // 82% similarity required to be considered duplicate
+            // FUZZY MATCHING DEDUPLICATION: Multi-tier approach to catch all duplicate scenarios
+            // Tier 1: Azure Speech SDK rescoring (same original, different translation due to number/name errors)
+            // Tier 2: Normal duplicates (both original and translated are similar)
+            const ORIGINAL_ONLY_THRESHOLD = 0.95; // 95% - High threshold for catching Azure rescoring with identical source audio
+            const FUZZY_SIMILARITY_THRESHOLD = 0.82; // 82% - Lower threshold when BOTH original and translated match
             const FUZZY_TIME_WINDOW_MS = 2000; // 2 seconds - duplicates arrive within this window
             const MAX_RECENT_MESSAGES = 5; // Compare against last 5 messages per speaker
             
@@ -1393,9 +1395,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
             for (const recentMsg of validMessages) {
               const originalSimilarity = textSimilarity(text, recentMsg.originalText);
               const translatedSimilarity = textSimilarity(translatedText, recentMsg.translatedText);
+              const timeSinceOriginal = now - recentMsg.timestamp;
               
+              // TIER 1: Azure Speech SDK Rescoring Detection (Language-Agnostic)
+              // Blocks when ORIGINAL text is nearly identical, regardless of translation differences
+              // This catches Azure rescoring the same utterance with different interpretations
+              // Example: "16 people killed" → "41016 people killed" (same Bengali source, different number recognition)
+              if (originalSimilarity >= ORIGINAL_ONLY_THRESHOLD) {
+                console.warn(`[Azure Rescoring] ⛔ DUPLICATE BLOCKED - Azure Speech SDK double-fired with same original text!`);
+                console.warn(`[Azure Rescoring] 📝 First:   "${recentMsg.originalText}" → "${recentMsg.translatedText}"`);
+                console.warn(`[Azure Rescoring] 🔁 Second:  "${text}" → "${translatedText}"`);
+                console.warn(`[Azure Rescoring] 📊 Original similarity: ${(originalSimilarity * 100).toFixed(1)}% (threshold: ${(ORIGINAL_ONLY_THRESHOLD * 100).toFixed(0)}%)`);
+                console.warn(`[Azure Rescoring] 📊 Translation similarity: ${(translatedSimilarity * 100).toFixed(1)}% (different due to rescoring)`);
+                console.warn(`[Azure Rescoring] ⏱️ Time between utterances: ${timeSinceOriginal}ms (window: ${FUZZY_TIME_WINDOW_MS}ms)`);
+                console.warn(`[Azure Rescoring] 🔍 This is Azure's rescoring behavior - same speech recognized twice with different accuracy`);
+                return; // Block this Azure-generated duplicate
+              }
+              
+              // TIER 2: Standard Fuzzy Matching (Both Original AND Translated Similar)
+              // Catches normal duplicates where both texts are similar
+              // Example: "Former president" vs "Formal president" (typo/minor differences in both)
               if (originalSimilarity >= FUZZY_SIMILARITY_THRESHOLD && translatedSimilarity >= FUZZY_SIMILARITY_THRESHOLD) {
-                const timeSinceOriginal = now - recentMsg.timestamp;
                 console.warn(`[Fuzzy Deduplication] ⛔ NEAR-DUPLICATE DETECTED AND BLOCKED!`);
                 console.warn(`[Fuzzy Deduplication] 📝 Original: "${recentMsg.originalText}" → "${recentMsg.translatedText}"`);
                 console.warn(`[Fuzzy Deduplication] 🔁 Current:  "${text}" → "${translatedText}"`);

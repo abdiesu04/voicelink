@@ -1,0 +1,710 @@
+Morshed Alam, [11/13/2025 10:22 PM]
+Hi
+The duplicate issue browser console. 
+
+host-console-events.js:1 [TTS Queue] Playback completed (audio ended event)
+host-console-events.js:1 [TTS Queue] Marked messageId as spoken: participant-1763061248301-vwlbxug
+host-console-events.js:1 [TTS Queue] Queue processor finished
+host-console-events.js:1 [Translation Received] ⏱️ Timestamp: 1763061254990, MessageId: participant-1763061264815-rjck7ru, Speaker: participant, IsOwn: false
+host-console-events.js:1 [Translation Received] 📊 DeduplicationSet size BEFORE: 7
+host-console-events.js:1 [Deduplication] 🔍 Check: sizeBefore=7, sizeAfter=8, messageId=participant-1763061264815-rjck7ru
+host-console-events.js:1 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 8
+host-console-events.js:1 [Translation] 📝 Translation #8 received - Original: "দা গ্রীক হেল্ডের খবরে বলা হয়ে...", Translated: "ギリシャの健康によると、ジョコビッチは家族とともにセルビアを..."
+host-console-events.js:1 [Translation] 📥 Added to PARTNER messages (total: 1)
+host-console-events.js:1 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+host-console-events.js:1 [Voice Gender] Text to speak: "ギリシャの健康によると、ジョコビッチは家族とともにセルビアを離れ、ギリシャに定住したという。", Language: ja
+host-console-events.js:1 [TTS Queue] Adding to queue (queue size: 0): ギリシャの健康によると、ジョコビッチは家族とともにセルビアを離れ、ギリシャに定住したという。
+host-console-events.js:1 [TTS Queue] Queue processor started
+host-console-events.js:1 [TTS Queue] Playing: ギリシャの健康によると、ジョコビッチは家族とともにセルビアを離れ、ギリシャに定住したという。 
+host-console-events.js:1 [TTS Queue] Synthesizing audio via REST API...
+host-console-events.js:1 [Azure Token] Using cached token
+host-console-events.js:1 [Translation] ⏱️ Total processing time: 2ms
+host-console-events.js:1 [Azure TTS API] 🎤 REQUEST #7 START - Voice: en-US-AndrewMultilingualNeural, Language: ja, Region: eastus, Text: "ギリシャの健康によると、ジョコビッチは家族とともにセルビアを離れ、ギリシャに定住したという。..."
+host-console-events.js:1 [Translation Received] ⏱️ Timestamp: 1763061255372, MessageId: participant-1763061265197-yy088eg, Speaker: participant, IsOwn: false
+host-console-events.js:1 [Translation Received] 📊 DeduplicationSet size BEFORE: 8
+host-console-events.js:1 [Deduplication] 🔍 Check: sizeBefore=8, sizeAfter=9, messageId=participant-1763061265197-yy088eg
+host-console-events.js:1 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 9
+host-console-events.js:1 [Translation] 📝 Translation #9 received - Original: "দা গ্রীক হেল্ডের খবরে বলা হয়ে...", Translated: "ギリシャ・ヘルド紙によると、ジョコビッチは家族とともにセルビ..."
+host-console-events.js:1 [Translation] 📥 Added to PARTNER messages (total: 1)
+host-console-events.js:1 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+host-console-events.js:1 [Voice Gender] Text to speak: "ギリシャ・ヘルド紙によると、ジョコビッチは家族とともにセルビアを去ったという。", Language: ja
+host-console-events.js:1 [TTS Queue] Adding to queue (queue size: 0): ギリシャ・ヘルド紙によると、ジョコビッチは家族とともにセルビアを去ったという。
+host-console-events.js:1 [Translation] ⏱️ Total processing time: 1ms
+host-console-events.js:1 [Azure TTS API] ✅ REQUEST #7 SUCCESS - Voice: en-US-AndrewMultilingualNeural, Duration: 812ms, Audio size: 113472 bytes
+host-console-events.js:1 [Azure TTS API] 📊 Session Total: 7 TTS requests made
+host-console-events.js:1 [TTS Queue] Synthesis completed in 1557ms, audio size: 113472 bytes
+host-console-events.js:1 [TTS Queue] Setting fallback timeout: 9091.999999999998ms (audio duration: 7.092s)
+host-console-events.js:1 [TTS Queue] Playback started successfully
+host-console-events.js:1 [Credits] Update received: 3090 seconds remaining, exhausted: false
+host-console-events.js:1 [TTS Queue] Playback completed (audio ended event)
+host-console-events.js:1 [TTS Queue] Marked messageId as spoken: participant-1763061264815-rjck7ru
+host-console-events.js:1 [TTS Queue] Playing: ギリシャ・ヘルド紙によると、ジョコビッチは家族とともにセルビアを去ったという。 
+host-console-events.js:1 [TTS Queue] Synthesizing audio via REST API...
+host-console-events.js:1 [Azure Token] Using cached token
+host-console-events.js:1 [Azure TTS API] 🎤 REQUEST #8 START - Voice:
+
+Morshed Alam, [11/13/2025 10:22 PM]
+en-US-AndrewMultilin
+
+Morshed Alam, [11/13/2025 10:22 PM]
+g
+
+Morshed Alam, [11/13/2025 10:22 PM]
+tilingu
+
+Morshed Alam, [11/13/2025 10:22 PM]
+RT - Voice: en-US-AndrewMultilingualNe
+
+Morshed Alam, [11/13/2025 10:22 PM]
+eura
+
+Morshed Alam, [11/13/2025 10:22 PM]
+: en-US-AndrewMultilingualNe
+
+Morshed Alam, [11/13/2025 10:22 PM]
+ualNeural, Language: ja, Region: eastus, Text: "ギリシャ・ヘルド紙によると、ジョコビッチは家族とともにセルビアを去ったという。..."
+host-console-events.js:1 [Azure TTS API] ✅ REQUEST #8 SUCCESS - Voice: en-US-AndrewMultilingualNeural, Duration: 739ms, Audio size: 92160 bytes
+host-console-events.js:1 [Azure TTS API] 📊 Session Total: 8 TTS requests made
+host-console-events.js:1 [TTS Queue] Synthesis completed in 1291ms, audio size: 92160 bytes
+host-console-events.js:1 [TTS Queue] Setting fallback timeout: 7760ms (audio duration: 5.76s)
+host-console-events.js:1 [TTS Queue] Playback started successfully
+host-console-events.js:1 [Credits] Update received: 3080 seconds remaining, exhausted: false
+host-console-events.js:1 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+host-console-events.js:1 [Heartbeat] 💚 Received pong from server - connection alive
+host-console-events.js:1 [TTS Queue] Playback completed (audio ended event)
+host-console-events.js:1 [TTS Queue] Marked messageId as spoken: participant-1763061265197-yy088eg
+host-console-events.js:1 [TTS Queue] Queue processor finished
+host-console-events.js:1 [Credits] Update received: 3070 seconds remaining, exhausted: false
+host-console-events.js:1 [Translation Received] ⏱️ Timestamp: 1763061280587, MessageId: participant-1763061290414-xd7f7ds, Speaker: participant, IsOwn: false
+host-console-events.js:1 [Translation Received] 📊 DeduplicationSet size BEFORE: 9
+host-console-events.js:1 [Deduplication] 🔍 Check: sizeBefore=9, sizeAfter=10, messageId=participant-1763061290414-xd7f7ds
+host-console-events.js:1 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 10
+host-console-events.js:1 [Translation] 📝 Translation #10 received - Original: "এথেন্সের দক্ষিণাঞ্চলের উপশহর গ...", Translated: "ジョコビッチは南郊外のグリフィダに永住権を取得した。..."
+host-console-events.js:1 [Translation] 📥 Added to PARTNER messages (total: 1)
+host-console-events.js:1 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+host-console-events.js:1 [Voice Gender] Text to speak: "ジョコビッチは南郊外のグリフィダに永住権を取得した。", Language: ja
+host-console-events.js:1 [TTS Queue] Adding to queue (queue size: 0): ジョコビッチは南郊外のグリフィダに永住権を取得した。
+host-console-events.js:1 [TTS Queue] Queue processor started
+host-console-events.js:1 [TTS Queue] Playing: ジョコビッチは南郊外のグリフィダに永住権を取得した。 
+host-console-events.js:1 [TTS Queue] Synthesizing audio via REST API...
+host-console-events.js:1 [Azure Token] Using cached token
+host-console-events.js:1 [Translation] ⏱️ Total processing time: 2ms
+host-console-events.js:1 [Azure TTS API] 🎤 REQUEST #9 START - Voice: en-US-AndrewMultilingualNeural, Language: ja, Region: eastus, Text: "ジョコビッチは南郊外のグリフィダに永住権を取得した。..."
+host-console-events.js:1 [Azure TTS API] ✅ REQUEST #9 SUCCESS - Voice: en-US-AndrewMultilingualNeural, Duration: 727ms, Audio size: 70848 bytes
+host-console-events.js:1 [Azure TTS API] 📊 Session Total: 9 TTS requests made
+host-console-events.js:1 [TTS Queue] Synthesis completed in 1223ms, audio size: 70848 bytes
+host-console-events.js:1 [TTS Queue] Setting fallback timeout: 6428ms (audio duration: 4.428s)
+host-console-events.js:1 [TTS Queue] Playback started successfully
+host-console-events.js:1 [TTS Queue] Playback completed (audio ended event)
+host-console-events.js:1 [TTS Queue] Marked messageId as spoken: participant-1763061290414-xd7f7ds
+host-console-events.js:1 [TTS Queue] Queue processor finished
+host-console-events.js:1 [Credits] Update received: 3060 seconds remaining, exhausted: false
+host-console-events.js:1 [Credits] Update received: 3050 seconds remaining, exhausted: false
+host-console-events.js:1 [Translation Received] ⏱️ Timestamp: 1763061299698, MessageId: participant-1763061309524-ndkcoh1, Speaker: participant, IsOwn: false
+host-console-events.js:1 [Translation Received] 📊 DeduplicationSet size BEFORE: 10
+host-console-events.js:1 [Deduplication] 🔍 Check: sizeBefore=10, sizeAfter=11, messageId=participant-1763061309524-ndkcoh1
+host-console-events.js:1 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 11
+host-console-events.js:1 [T
+
+Morshed Alam, [11/13/2025 10:22 PM]
+ranslation] 📝 Translation #11 received - Original: "গত নভেম্বর গত বছর নভেম্বরের রে...", Translated: "セルビアでは、昨年11月に鉄道駅で16人が殺害されて以来、ほ..."
+host-console-events.js:1 [Translation] 📥 Added to PARTNER messages (total: 1)
+host-console-events.js:1 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+host-console-events.js:1 [Voice Gender] Text to speak: "セルビアでは、昨年11月に鉄道駅で16人が殺害されて以来、ほぼ毎日抗議活動が続いている。", Language: ja
+host-console-events.js:1 [TTS Queue] Adding to queue (queue size: 0): セルビアでは、昨年11月に鉄道駅で16人が殺害されて以来、ほぼ毎日抗議活動が続いている。
+host-console-events.js:1 [TTS Queue] Queue processor started
+host-console-events.js:1 [TTS Queue] Playing: セルビアでは、昨年11月に鉄道駅で16人が殺害されて以来、ほぼ毎日抗議活動が続いている。 
+host-console-events.js:1 [TTS Queue] Synthesizing audio via REST API...
+host-console-events.js:1 [Azure Token] Using cached token
+host-console-events.js:1 [Translation] ⏱️ Total processing time: 2ms
+host-console-events.js:1 [Azure TTS API] 🎤 REQUEST #10 START - Voice: en-US-AndrewMultilingualNeural, Language: ja, Region: eastus, Text: "セルビアでは、昨年11月に鉄道駅で16人が殺害されて以来、ほぼ毎日抗議活動が続いている。..."
+host-console-events.js:1 [Translation Received] ⏱️ Timestamp: 1763061299799, MessageId: participant-1763061309617-mmjw1e0, Speaker: participant, IsOwn: false
+host-console-events.js:1 [Translation Received] 📊 DeduplicationSet size BEFORE: 11
+host-console-events.js:1 [Deduplication] 🔍 Check: sizeBefore=11, sizeAfter=12, messageId=participant-1763061309617-mmjw1e0
+host-console-events.js:1 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 12
+host-console-events.js:1 [Translation] 📝 Translation #12 received - Original: "গত নভেম্বর গত বছর নভেম্বরের রে...", Translated: "昨年11月に鉄道駅で41016人が殺害されて以来、セルビアで..."
+host-console-events.js:1 [Translation] 📥 Added to PARTNER messages (total: 1)
+host-console-events.js:1 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+host-console-events.js:1 [Voice Gender] Text to speak: "昨年11月に鉄道駅で41016人が殺害されて以来、セルビアではほぼ毎日抗議活動が続いている。", Language: ja
+host-console-events.js:1 [TTS Queue] Adding to queue (queue size: 0): 昨年11月に鉄道駅で41016人が殺害されて以来、セルビアではほぼ毎日抗議活動が続いている。
+host-console-events.js:1 [Translation] ⏱️ Total processing time: 1ms
+host-console-events.js:1 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+host-console-events.js:1 [Heartbeat] 💚 Received pong from server - connection alive
+host-console-events.js:1 [Azure TTS API] ✅ REQUEST #10 SUCCESS - Voice: en-US-AndrewMultilingualNeural, Duration: 943ms, Audio size: 146304 bytes
+host-console-events.js:1 [Azure TTS API] 📊 Session Total: 10 TTS requests made
+host-console-events.js:1 [TTS Queue] Synthesis completed in 1689ms, audio size: 146304 bytes
+host-console-events.js:1 [TTS Queue] Setting fallback timeout: 11144ms (audio duration: 9.144s)
+host-console-events.js:1 [TTS Queue] Playback started successfully
+host-console-events.js:1 [Credits] Update received: 3040 seconds remaining, exhausted: false
+host-console-events.js:1 [TTS Queue] Playback completed (audio ended event)
+host-console-events.js:1 [TTS Queue] Marked messageId as spoken: participant-1763061309524-ndkcoh1
+host-console-events.js:1 [TTS Queue] Playing: 昨年11月に鉄道駅で41016人が殺害されて以来、セルビアではほぼ毎日抗議活動が続いている。 
+host-console-events.js:1 [TTS Queue] Synthesizing audio via REST API...
+host-console-events.js:1 [Azure Token] Using cached token
+host-console-events.js:1 [Azure TTS API] 🎤 REQUEST #11 START - Voice: en-US-AndrewMultilingualNeural, Language: ja, Region: eastus, Text: "昨年11月に鉄道駅で41016人が殺害されて以来、セルビアではほぼ毎日抗議活動が続いている。..."
+host-console-events.js:1 [Azure TTS API] ✅ REQUEST #11 SUCCESS - Voice: en-US-AndrewMultilingualNeural, Duration: 911ms, Audio size: 158400 bytes
+host-console-events.js:1 [Azure TTS API] 📊 Session Total: 11 TTS requests made
+host-console-events.js:1 [TTS Queue] Synthesis completed in 1661ms, audio size: 158400 bytes
+host-console-events.js:1 [TTS Queue] Setting fallback timeout: 11900ms (audio duration: 9.9s)
+host-console-events.js:1 [TTS Queue] Playback started
+
+Morshed Alam, [11/13/2025 10:22 PM]
+k started successfully
+h
+
+Morshed Alam, [11/13/2025 10:22 PM]
+e] Playback started successfully
+host-
+
+Morshed Alam, [11/13/2025 10:22 PM]
+-con
+
+Morshed Alam, [11/13/2025 10:22 PM]
+k started successfully
+host-
+
+Morshed Alam, [11/13/2025 10:22 PM]
+host-console-events.js:1 [Translation Received] ⏱️ Timestamp: 1763061314251, MessageId: creator-1763061324079-jo2ox8g, Speaker: creator, IsOwn: true
+host-console-events.js:1 [Translation Received] 📊 DeduplicationSet size BEFORE: 12
+host-console-events.js:1 [Deduplication] 🔍 Check: sizeBefore=12, sizeAfter=13, messageId=creator-1763061324079-jo2ox8g
+host-console-events.js:1 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 13
+host-console-events.js:1 [Translation] 📝 Translation #13 received - Original: "新しい文章。...", Translated: "নতুন বাক্য।..."
+host-console-events.js:1 [Translation] 📤 Added to MY messages (total: 1)
+host-console-events.js:1 [Translation] ⏱️ Total processing time: 1ms
+host-console-events.js:1 [Credits] Update received: 3030 seconds remaining, exhausted: false
+host-console-events.js:1 [TTS Queue] Playback completed (audio ended event)
+host-console-events.js:1 [TTS Queue] Marked messageId as spoken: participant-1763061309617-mmjw1e0
+host-console-events.js:1 [TTS Queue] Queue processor finished
+host-console-events.js:1 [Credits] Update received: 3020 seconds remaining, exhausted: false
+host-console-events.js:1 [Translation Received] ⏱️ Timestamp: 1763061330164, MessageId: participant-1763061339993-c8sa07d, Speaker: participant, IsOwn: false
+host-console-events.js:1 [Translation Received] 📊 DeduplicationSet size BEFORE: 13
+host-console-events.js:1 [Deduplication] 🔍 Check: sizeBefore=13, sizeAfter=14, messageId=participant-1763061339993-c8sa07d
+host-console-events.js:1 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 14
+host-console-events.js:1 [Translation] 📝 Translation #14 received - Original: "সামাজিক যোগাযোগ মাধ্যমে সমর্থন...", Translated: "「私は若者の力とより良い未来への希望を深く信じている人です」..."
+host-console-events.js:1 [Translation] 📥 Added to PARTNER messages (total: 1)
+host-console-events.js:1 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+host-console-events.js:1 [Voice Gender] Text to speak: "「私は若者の力とより良い未来への希望を深く信じている人です」とレジェンドは書いた。", Language: ja
+host-console-events.js:1 [TTS Queue] Adding to queue (queue size: 0): 「私は若者の力とより良い未来への希望を深く信じている人です」とレジェンドは書いた。
+host-console-events.js:1 [TTS Queue] Queue processor started
+host-console-events.js:1 [TTS Queue] Playing: 「私は若者の力とより良い未来への希望を深く信じている人です」とレジェンドは書いた。 
+host-console-events.js:1 [TTS Queue] Synthesizing audio via REST API...
+host-console-events.js:1 [Azure Token] Using cached token
+host-console-events.js:1 [Translation] ⏱️ Total processing time: 2ms
+host-console-events.js:1 [Azure TTS API] 🎤 REQUEST #12 START - Voice: en-US-AndrewMultilingualNeural, Language: ja, Region: eastus, Text: "「私は若者の力とより良い未来への希望を深く信じている人です」とレジェンドは書いた。..."
+host-console-events.js:1 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+host-console-events.js:1 [Heartbeat] 💚 Received pong from server - connection alive
+host-console-events.js:1 [Azure TTS API] ✅ REQUEST #12 SUCCESS - Voice: en-US-AndrewMultilingualNeural, Duration: 904ms, Audio size: 111744 bytes
+host-console-events.js:1 [Azure TTS API] 📊 Session Total: 12 TTS requests made
+host-console-events.js:1 [TTS Queue] Synthesis completed in 1645ms, audio size: 111744 bytes
+host-console-events.js:1 [TTS Queue] Setting fallback timeout: 8984ms (audio duration: 6.984s)
+host-console-events.js:1 [TTS Queue] Playback started successfully
+host-console-events.js:1 [Credits] Update received: 3010 seconds remaining, exhausted: false
+host-console-events.js:1 [TTS Queue] Playback completed (audio ended event)
+host-console-events.js:1 [TTS Queue] Marked messageId as spoken: participant-1763061339993-c8sa07d
+host-console-events.js:1 [TTS Queue] Queue processor finished
+host-console-events.js:1 [Translation Received] ⏱️ Timestamp: 1763061344696, MessageId: participant-1763061354525-br0iycz, Speaker: participant, IsOwn: false
+host-console-events.js:1 [Translation Received] 📊 DeduplicationSet size BEFORE: 14
+host-console-events.js:1 [Deduplication] 🔍 Check: sizeBefore=14, sizeAfter=15, messageId=participant-1763061354525-br0iycz
+
+Morshed Alam, [11/13/2025 10:22 PM]
+host-console-events.js:1 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 15
+host-console-events.js:1 [Translation] 📝 Translation #15 received - Original: "আমি বিশ্বাস করি তাঁদের কথা শুন...", Translated: "彼らの話に耳を傾けることが大切だと思います。..."
+host-console-events.js:1 [Translation] 📥 Added to PARTNER messages (total: 1)
+host-console-events.js:1 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+host-console-events.js:1 [Voice Gender] Text to speak: "彼らの話に耳を傾けることが大切だと思います。", Language: ja
+host-console-events.js:1 [TTS Queue] Adding to queue (queue size: 0): 彼らの話に耳を傾けることが大切だと思います。
+host-console-events.js:1 [TTS Queue] Queue processor started
+host-console-events.js:1 [TTS Queue] Playing: 彼らの話に耳を傾けることが大切だと思います。 
+host-console-events.js:1 [TTS Queue] Synthesizing audio via REST API...
+host-console-events.js:1 [Azure Token] Using cached token
+host-console-events.js:1 [Translation] ⏱️ Total processing time: 2ms
+host-console-events.js:1 [Azure TTS API] 🎤 REQUEST #13 START - Voice: en-US-AndrewMultilingualNeural, Language: ja, Region: eastus, Text: "彼らの話に耳を傾けることが大切だと思います。..."
+host-console-events.js:1 [Azure TTS API] ✅ REQUEST #13 SUCCESS - Voice: en-US-AndrewMultilingualNeural, Duration: 806ms, Audio size: 69696 bytes
+host-console-events.js:1 [Azure TTS API] 📊 Session Total: 13 TTS requests made
+host-console-events.js:1 [TTS Queue] Synthesis completed in 1305ms, audio size: 69696 bytes
+host-console-events.js:1 [TTS Queue] Setting fallback timeout: 6356ms (audio duration: 4.356s)
+host-console-events.js:1 [TTS Queue] Playback started successfully
+host-console-events.js:1 [Credits] Update received: 3000 seconds remaining, exhausted: false
+host-console-events.js:1 [TTS Queue] Playback completed (audio ended event)
+host-console-events.js:1 [TTS Queue] Marked messageId as spoken: participant-1763061354525-br0iycz
+host-console-events.js:1 [TTS Queue] Queue processor finished
+host-console-events.js:1 [Credits] Update received: 2990 seconds remaining, exhausted: false
+host-console-events.js:1 [Translation Received] ⏱️ Timestamp: 1763061359466, MessageId: participant-1763061369295-117quw3, Speaker: participant, IsOwn: false
+host-console-events.js:1 [Translation Received] 📊 DeduplicationSet size BEFORE: 15
+host-console-events.js:1 [Deduplication] 🔍 Check: sizeBefore=15, sizeAfter=16, messageId=participant-1763061369295-117quw3
+host-console-events.js:1 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 16
+host-console-events.js:1 [Translation] 📝 Translation #16 received - Original: "পরবর্তী সময় অস্ট্রেলিয়ান ওফে...", Translated: "ジョコビッチはその後、全豪オープンでの勝利を、この運動で負傷..."
+host-console-events.js:1 [Translation] 📥 Added to PARTNER messages (total: 1)
+host-console-events.js:1 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+host-console-events.js:1 [Voice Gender] Text to speak: "ジョコビッチはその後、全豪オープンでの勝利を、この運動で負傷した学生たちに捧げた。", Language: ja
+host-console-events.js:1 [TTS Queue] Adding to queue (queue size: 0): ジョコビッチはその後、全豪オープンでの勝利を、この運動で負傷した学生たちに捧げた。
+host-console-events.js:1 [TTS Queue] Queue processor started
+host-console-events.js:1 [TTS Queue] Playing: ジョコビッチはその後、全豪オープンでの勝利を、この運動で負傷した学生たちに捧げた。 
+host-console-events.js:1 [TTS Queue] Synthesizing audio via REST API...
+host-console-events.js:1 [Azure Token] Using cached token
+host-console-events.js:1 [Translation] ⏱️ Total processing time: 1ms
+host-console-events.js:1 [Azure TTS API] 🎤 REQUEST #14 START - Voice: en-US-AndrewMultilingualNeural, Language: ja, Region: eastus, Text: "ジョコビッチはその後、全豪オープンでの勝利を、この運動で負傷した学生たちに捧げた。..."
+host-console-events.js:1 [Translation Received] ⏱️ Timestamp: 1763061359732, MessageId: participant-1763061369562-8o6h7da, Speaker: participant, IsOwn: false
+host-console-events.js:1 [Translation Received] 📊 DeduplicationSet size BEFORE: 16
+host-console-events.js:1 [Deduplication] 🔍 Check: sizeBefore=16, sizeAfter=17, messageId=participant-1763061369562-8o6h7da
+host-console-events.js:1 [Deduplication] ✅ NEW message added to
+
+Morshed Alam, [11/13/2025 10:22 PM]
+deduplica
+
+Morshed Alam, [11/13/2025 10:22 PM]
+W message added to deduplicat
+
+Morshed Alam, [11/13/2025 10:22 PM]
+deduplic
+
+Morshed Alam, [11/13/2025 10:22 PM]
+dded to deduplica
+
+Morshed Alam, [11/13/2025 10:22 PM]
+i
+
+Morshed Alam, [11/13/2025 10:22 PM]
+cation set. Set size now: 17
+host-console-events.js:1 [Translation] 📝 Translation #17 received - Original: "পরবর্তী সময় অস্ট্রেলিয়ান অফে...", Translated: "ジョコビッチはその後、抗議活動で負傷した学生たちに勝利を捧げ..."
+host-console-events.js:1 [Translation] 📥 Added to PARTNER messages (total: 1)
+host-console-events.js:1 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+host-console-events.js:1 [Voice Gender] Text to speak: "ジョコビッチはその後、抗議活動で負傷した学生たちに勝利を捧げた。", Language: ja
+host-console-events.js:1 [TTS Queue] Adding to queue (queue size: 0): ジョコビッチはその後、抗議活動で負傷した学生たちに勝利を捧げた。
+host-console-events.js:1 [Translation] ⏱️ Total processing time: 1ms
+host-console-events.js:1 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+host-console-events.js:1 [Heartbeat] 💚 Received pong from server - connection alive
+host-console-events.js:1 [Azure TTS API] ✅ REQUEST #14 SUCCESS - Voice: en-US-AndrewMultilingualNeural, Duration: 815ms, Audio size: 109440 bytes
+host-console-events.js:1 [Azure TTS API] 📊 Session Total: 14 TTS requests made
+host-console-events.js:1 [TTS Queue] Synthesis completed in 1557ms, audio size: 109440 bytes
+host-console-events.js:1 [TTS Queue] Setting fallback timeout: 8840ms (audio duration: 6.84s)
+host-console-events.js:1 [TTS Queue] Playback started successfully
+host-console-events.js:1 [Credits] Update received: 2980 seconds remaining, exhausted: false
+host-console-events.js:1 [TTS Queue] Playback completed (audio ended event)
+host-console-events.js:1 [TTS Queue] Marked messageId as spoken: participant-1763061369295-117quw3
+host-console-events.js:1 [TTS Queue] Playing: ジョコビッチはその後、抗議活動で負傷した学生たちに勝利を捧げた。 
+host-console-events.js:1 [TTS Queue] Synthesizing audio via REST API...
+host-console-events.js:1 [Azure Token] Using cached token
+host-console-events.js:1 [Azure TTS API] 🎤 REQUEST #15 START - Voice: en-US-AndrewMultilingualNeural, Language: ja, Region: eastus, Text: "ジョコビッチはその後、抗議活動で負傷した学生たちに勝利を捧げた。..."
+host-console-events.js:1 [Azure TTS API] ✅ REQUEST #15 SUCCESS - Voice: en-US-AndrewMultilingualNeural, Duration: 877ms, Audio size: 89856 bytes
+host-console-events.js:1 [Azure TTS API] 📊 Session Total: 15 TTS requests made
+host-console-events.js:1 [TTS Queue] Synthesis completed in 1379ms, audio size: 89856 bytes
+host-console-events.js:1 [TTS Queue] Setting fallback timeout: 7616ms (audio duration: 5.616s)
+host-console-events.js:1 [TTS Queue] Playback started successfully
+host-console-events.js:1 [TTS Queue] Playback completed (audio ended event)
+host-console-events.js:1 [TTS Queue] Marked messageId as spoken: participant-1763061369562-8o6h7da
+host-console-events.js:1 [TTS Queue] Queue processor finished
+host-console-events.js:1 [Credits] Update received: 2970 seconds remaining, exhausted: false
+host-console-events.js:1 [Translation Received] ⏱️ Timestamp: 1763061379430, MessageId: participant-1763061389261-w5p77su, Speaker: participant, IsOwn: false
+host-console-events.js:1 [Translation Received] 📊 DeduplicationSet size BEFORE: 17
+host-console-events.js:1 [Deduplication] 🔍 Check: sizeBefore=17, sizeAfter=18, messageId=participant-1763061389261-w5p77su
+host-console-events.js:1 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 18
+host-console-events.js:1 [Translation] 📝 Translation #18 received - Original: "বেলগ্রেড এ একটি বাস্কেটবল ম্যা...", Translated: "ベオグラードで行われたバスケットボールの試合で、生徒たちがチ..."
+host-console-events.js:1 [Translation] 📥 Added to PARTNER messages (total: 1)
+host-console-events.js:1 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+host-console-events.js:1 [Voice Gender] Text to speak: "ベオグラードで行われたバスケットボールの試合で、生徒たちがチャンピオンを書いたり、メッセージを送ったりした後、ジョゴビッチが現れた。", Language: ja
+host-console-events.js:1 [TTS Queue] Adding to queue (queue size: 0): ベオグラードで行われたバスケットボールの試合で、生徒たちがチャンピオンを書いたり、メッセージを送った
+host-console-events.js:1 [TTS Queue] Queue processor started
+host-console-events.js:1 [TTS Queue] Playing: ベオグラードで行われたバスケットボールの試合で、生徒たちがチャンピオンを書いたり、メッセージを送った 
+host-console-events.js:1 [TTS Queue
+
+Morshed Alam, [11/13/2025 10:22 PM]
+] Synthesizing audio via REST API...
+host-console-events.js:1 [Azure Token] Using cached token
+host-console-events.js:1 [Translation] ⏱️ Total processing time: 2ms
+host-console-events.js:1 [Azure TTS API] 🎤 REQUEST #16 START - Voice: en-US-AndrewMultilingualNeural, Language: ja, Region: eastus, Text: "ベオグラードで行われたバスケットボールの試合で、生徒たちがチャンピオンを書いたり、メッセージを送った..."
+host-console-events.js:1 [Translation Received] ⏱️ Timestamp: 1763061379632, MessageId: participant-1763061389463-jp4fm12, Speaker: participant, IsOwn: false
+host-console-events.js:1 [Translation Received] 📊 DeduplicationSet size BEFORE: 18
+host-console-events.js:1 [Deduplication] 🔍 Check: sizeBefore=18, sizeAfter=19, messageId=participant-1763061389463-jp4fm12
+host-console-events.js:1 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 19
+host-console-events.js:1 [Translation] 📝 Translation #19 received - Original: "বেলগ্রেডে একটি বাস্কেটবল ম্যাচ...", Translated: "ベオグラードで行われたバスケットボールの試合で、ジョコビッチ..."
+host-console-events.js:1 [Translation] 📥 Added to PARTNER messages (total: 1)
+host-console-events.js:1 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+host-console-events.js:1 [Voice Gender] Text to speak: "ベオグラードで行われたバスケットボールの試合で、ジョコビッチは生徒たちがチャンピオンを書いたり、メッセージを送ってジャンプしたりした後に現れた。", Language: ja
+host-console-events.js:1 [TTS Queue] Adding to queue (queue size: 0): ベオグラードで行われたバスケットボールの試合で、ジョコビッチは生徒たちがチャンピオンを書いたり、メッ
+host-console-events.js:1 [Translation] ⏱️ Total processing time: 1ms
+host-console-events.js:1 [Azure TTS API] ✅ REQUEST #16 SUCCESS - Voice: en-US-AndrewMultilingualNeural, Duration: 849ms, Audio size: 152640 bytes
+host-console-events.js:1 [Azure TTS API] 📊 Session Total: 16 TTS requests made
+host-console-events.js:1 [TTS Queue] Synthesis completed in 1594ms, audio size: 152640 bytes
+host-console-events.js:1 [TTS Queue] Setting fallback timeout: 11540ms (audio duration: 9.54s)
+host-console-events.js:1 [TTS Queue] Playback started successfully
+host-console-events.js:1 [Credits] Update received: 2960 seconds remaining, exhausted: false
+host-console-events.js:1 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+host-console-events.js:1 [TTS Queue] Playback completed (audio ended event)
+host-console-events.js:1 [TTS Queue] Marked messageId as spoken: participant-1763061389261-w5p77su
+host-console-events.js:1 [TTS Queue] Playing: ベオグラードで行われたバスケットボールの試合で、ジョコビッチは生徒たちがチャンピオンを書いたり、メッ 
+host-console-events.js:1 [TTS Queue] Synthesizing audio via REST API...
+host-console-events.js:1 [Azure Token] Using cached token
+host-console-events.js:1 [Azure TTS API] 🎤 REQUEST #17 START - Voice: en-US-AndrewMultilingualNeural, Language: ja, Region: eastus, Text: "ベオグラードで行われたバスケットボールの試合で、ジョコビッチは生徒たちがチャンピオンを書いたり、メッ..."
+host-console-events.js:1 [Heartbeat] 💚 Received pong from server - connection alive
+host-console-events.js:1 [Azure TTS API] ✅ REQUEST #17 SUCCESS - Voice: en-US-AndrewMultilingualNeural, Duration: 1058ms, Audio size: 162432 bytes
+host-console-events.js:1 [Azure TTS API] 📊 Session Total: 17 TTS requests made
+host-console-events.js:1 [TTS Queue] Synthesis completed in 1803ms, audio size: 162432 bytes
+host-console-events.js:1 [TTS Queue] Setting fallback timeout: 12152ms (audio duration: 10.152s)
+host-console-events.js:1 [TTS Queue] Playback started successfully
+host-console-events.js:1 [Credits] Update received: 2950 seconds remaining, exhausted: false
+host-console-events.js:1 [Translation Received] ⏱️ Timestamp: 1763061401277, MessageId: participant-1763061411107-pai6okp, Speaker: participant, IsOwn: false
+host-console-events.js:1 [Translation Received] 📊 DeduplicationSet size BEFORE: 19
+host-console-events.js:1 [Deduplication] 🔍 Check: sizeBefore=19, sizeAfter=20, messageId=participant-1763061411107-pai6okp
+host-console-events.js:1 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 20
+host-console-events.js:1 [Translation] 📝 Translation #20 received - Original: "মেইল অনলাইনের খবর জোকোভিচ গ্রী...", Translated:
+
+Morshed Alam, [11/13/2025 10:22 PM]
+"ジョコビッチはギリシャで金賞に応募する。..."
+host-console-
+
+Morshed Alam, [11/13/2025 10:22 PM]
+t-consol
+
+Morshed Alam, [11/13/2025 10:22 PM]
+..."
+host-console
+
+Morshed Alam, [11/13/2025 10:22 PM]
+o
+
+Morshed Alam, [11/13/2025 10:22 PM]
+le-events.js:1 [Translation] 📥 Added to PARTNER messages (total: 1)
+host-console-events.js:1 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+host-console-events.js:1 [Voice Gender] Text to speak: "ジョコビッチはギリシャで金賞に応募する。", Language: ja
+host-console-events.js:1 [TTS Queue] Adding to queue (queue size: 0): ジョコビッチはギリシャで金賞に応募する。
+host-console-events.js:1 [Translation] ⏱️ Total processing time: 1ms
+host-console-events.js:1 [TTS Queue] Playback completed (audio ended event)
+host-console-events.js:1 [TTS Queue] Marked messageId as spoken: participant-1763061389463-jp4fm12
+host-console-events.js:1 [TTS Queue] Playing: ジョコビッチはギリシャで金賞に応募する。 
+host-console-events.js:1 [TTS Queue] Synthesizing audio via REST API...
+host-console-events.js:1 [Azure Token] Using cached token
+host-console-events.js:1 [Azure TTS API] 🎤 REQUEST #18 START - Voice: en-US-AndrewMultilingualNeural, Language: ja, Region: eastus, Text: "ジョコビッチはギリシャで金賞に応募する。..."
+host-console-events.js:1 [Translation Received] ⏱️ Timestamp: 1763061402992, MessageId: participant-1763061412824-bufb7a7, Speaker: participant, IsOwn: false
+host-console-events.js:1 [Translation Received] 📊 DeduplicationSet size BEFORE: 20
+host-console-events.js:1 [Deduplication] 🔍 Check: sizeBefore=20, sizeAfter=21, messageId=participant-1763061412824-bufb7a7
+host-console-events.js:1 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 21
+host-console-events.js:1 [Translation] 📝 Translation #21 received - Original: "ধারণা করা হচ্ছে।...", Translated: "おそらく。..."
+host-console-events.js:1 [Translation] 📥 Added to PARTNER messages (total: 1)
+host-console-events.js:1 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+host-console-events.js:1 [Voice Gender] Text to speak: "おそらく。", Language: ja
+host-console-events.js:1 [TTS Queue] Adding to queue (queue size: 0): おそらく。
+host-console-events.js:1 [Translation] ⏱️ Total processing time: 1ms
+host-console-events.js:1 [Azure TTS API] ✅ REQUEST #18 SUCCESS - Voice: en-US-AndrewMultilingualNeural, Duration: 731ms, Audio size: 55296 bytes
+host-console-events.js:1 [Azure TTS API] 📊 Session Total: 18 TTS requests made
+host-console-events.js:1 [TTS Queue] Synthesis completed in 1226ms, audio size: 55296 bytes
+host-console-events.js:1 [TTS Queue] Setting fallback timeout: 5455.999999999999ms (audio duration: 3.456s)
+host-console-events.js:1 [TTS Queue] Playback started successfully
+host-console-events.js:1 [TTS Queue] Playback completed (audio ended event)
+host-console-events.js:1 [TTS Queue] Marked messageId as spoken: participant-1763061411107-pai6okp
+host-console-events.js:1 [TTS Queue] Playing: おそらく。 
+host-console-events.js:1 [TTS Queue] Synthesizing audio via REST API...
+host-console-events.js:1 [Azure Token] Using cached token
+host-console-events.js:1 [Azure TTS API] 🎤 REQUEST #19 START - Voice: en-US-AndrewMultilingualNeural, Language: ja, Region: eastus, Text: "おそらく。..."
+host-console-events.js:1 [Credits] Update received: 2940 seconds remaining, exhausted: false
+host-console-events.js:1 [Azure TTS API] ✅ REQUEST #19 SUCCESS - Voice: en-US-AndrewMultilingualNeural, Duration: 794ms, Audio size: 17280 bytes
+host-console-events.js:1 [Azure TTS API] 📊 Session Total: 19 TTS requests made
+host-console-events.js:1 [TTS Queue] Synthesis completed in 1040ms, audio size: 17280 bytes
+host-console-events.js:1 [TTS Queue] Setting fallback timeout: 3080ms (audio duration: 1.08s)
+host-console-events.js:1 [TTS Queue] Playback started successfully
+host-console-events.js:1 [TTS Queue] Playback completed (audio ended event)
+host-console-events.js:1 [TTS Queue] Marked messageId as spoken: participant-1763061412824-bufb7a7
+host-console-events.js:1 [TTS Queue] Queue processor finished
+host-console-events.js:1 [Credits] Update received: 2930 seconds remaining, exhausted: false
+host-console-events.js:1 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+host-console-events.js:1 [Heartbeat] 💚 Received pong from server - connection alive
+ho
+
+Morshed Alam, [11/13/2025 10:22 PM]
+st-console-events.js:1 [Translation Received] ⏱️ Timestamp: 1763061420966, MessageId: participant-1763061430799-ynin97v, Speaker: participant, IsOwn: false
+host-console-events.js:1 [Translation Received] 📊 DeduplicationSet size BEFORE: 21
+host-console-events.js:1 [Deduplication] 🔍 Check: sizeBefore=21, sizeAfter=22, messageId=participant-1763061430799-ynin97v
+host-console-events.js:1 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 22
+host-console-events.js:1 [Translation] 📝 Translation #22 received - Original: "38 বছর বয়সী জোকোভিচ কিছুদিন আ...", Translated: "38歳のジョコビッチは数日前の全米オープン準決勝でカルロス・..."
+host-console-events.js:1 [Translation] 📥 Added to PARTNER messages (total: 1)
+host-console-events.js:1 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+host-console-events.js:1 [Voice Gender] Text to speak: "38歳のジョコビッチは数日前の全米オープン準決勝でカルロス・アルカラスに敗れた。", Language: ja
+host-console-events.js:1 [TTS Queue] Adding to queue (queue size: 0): 38歳のジョコビッチは数日前の全米オープン準決勝でカルロス・アルカラスに敗れた。
+host-console-events.js:1 [TTS Queue] Queue processor started
+host-console-events.js:1 [TTS Queue] Playing: 38歳のジョコビッチは数日前の全米オープン準決勝でカルロス・アルカラスに敗れた。 
+host-console-events.js:1 [TTS Queue] Synthesizing audio via REST API...
+host-console-events.js:1 [Azure Token] Using cached token
+host-console-events.js:1 [Translation] ⏱️ Total processing time: 2ms
+host-console-events.js:1 [Azure TTS API] 🎤 REQUEST #20 START - Voice: en-US-AndrewMultilingualNeural, Language: ja, Region: eastus, Text: "38歳のジョコビッチは数日前の全米オープン準決勝でカルロス・アルカラスに敗れた。..."
+host-console-events.js:1 [Azure Token] Cache expired, will fetch new token on next request
+host-console-events.js:1 [Azure TTS API] ✅ REQUEST #20 SUCCESS - Voice: en-US-AndrewMultilingualNeural, Duration: 871ms, Audio size: 122688 bytes
+host-console-events.js:1 [Azure TTS API] 📊 Session Total: 20 TTS requests made
+host-console-events.js:1 [TTS Queue] Synthesis completed in 1614ms, audio size: 122688 bytes
+host-console-events.js:1 [TTS Queue] Setting fallback timeout: 9668ms (audio duration: 7.668s)
+host-console-events.js:1 [TTS Queue] Playback started successfully
+host-console-events.js:1 [Credits] Update received: 2920 seconds remaining, exhausted: false
+host-console-events.js:1 [TTS Queue] Playback completed (audio ended event)
+host-console-events.js:1 [TTS Queue] Marked messageId as spoken: participant-1763061430799-ynin97v
+host-console-events.js:1 [TTS Queue] Queue processor finished
+host-console-events.js:1 [Credits] Update received: 2910 seconds remaining, exhausted: false
+host-console-events.js:1 [Translation Received] ⏱️ Timestamp: 1763061444826, MessageId: participant-1763061454660-bng9jmy, Speaker: participant, IsOwn: false
+host-console-events.js:1 [Translation Received] 📊 DeduplicationSet size BEFORE: 22
+host-console-events.js:1 [Deduplication] 🔍 Check: sizeBefore=22, sizeAfter=23, messageId=participant-1763061454660-bng9jmy
+host-console-events.js:1 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 23
+host-console-events.js:1 [Translation] 📝 Translation #23 received - Original: "ট্রাম্পের কারণে ফাইনালে আধা ঘণ...", Translated: "ドーニはトランプのせいで決勝戦で30分遅れてギャラリーにいた..."
+host-console-events.js:1 [Translation] 📥 Added to PARTNER messages (total: 1)
+host-console-events.js:1 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+host-console-events.js:1 [Voice Gender] Text to speak: "ドーニはトランプのせいで決勝戦で30分遅れてギャラリーにいた。", Language: ja
+host-console-events.js:1 [TTS Queue] Adding to queue (queue size: 0): ドーニはトランプのせいで決勝戦で30分遅れてギャラリーにいた。
+host-console-events.js:1 [TTS Queue] Queue processor started
+host-console-events.js:1 [TTS Queue] Playing: ドーニはトランプのせいで決勝戦で30分遅れてギャラリーにいた。 
+host-console-events.js:1 [TTS Queue] Synthesizing audio via REST API...
+host-console-events.js:1 [Azure Token] Using cached token
+host-console-events.js:1 [Translation] ⏱️ Total processing time: 1ms
+host-console-events.js:1 [Azure TTS API] 🎤 REQUEST #21 START - Voice: en-US-AndrewMultilingualNeural, Language: ja,
+
+Morshed Alam, [11/13/2025 10:22 PM]
+ja, Re
+
+Morshed Alam, [11/13/2025 10:22 PM]
+AndrewMultilingualNeural, Language: ja
+
+Morshed Alam, [11/13/2025 10:22 PM]
+, Region: eastus, Text: "ドーニはトランプのせいで決勝戦で30分遅れてギャラリーにいた。..."
+host-console-events.js:1 [Azure TTS API] ✅ REQUEST #21 SUCCESS - Voice: en-US-AndrewMultilingualNeural, Duration: 803ms, Audio size: 88128 bytes
+host-console-events.js:1 [Azure TTS API] 📊 Session Total: 21 TTS requests made
+host-console-events.js:1 [TTS Queue] Synthesis completed in 1303ms, audio size: 88128 bytes
+host-console-events.js:1 [TTS Queue] Setting fallback timeout: 7508ms (audio duration: 5.508s)
+host-console-events.js:1 [TTS Queue] Playback started successfully
+host-console-events.js:1 [Credits] Update received: 2900 seconds remaining, exhausted: false
+host-console-events.js:1 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+host-console-events.js:1 [Heartbeat] 💚 Received pong from server - connection alive
+host-console-events.js:1 [TTS Queue] Playback completed (audio ended event)
+host-console-events.js:1 [TTS Queue] Marked messageId as spoken: participant-1763061454660-bng9jmy
+host-console-events.js:1 [TTS Queue] Queue processor finished
+host-console-events.js:1 [Credits] Update received: 2890 seconds remaining, exhausted: false
+host-console-events.js:1 [Translation Received] ⏱️ Timestamp: 1763061461499, MessageId: participant-1763061471331-mo14f4o, Speaker: participant, IsOwn: false
+host-console-events.js:1 [Translation Received] 📊 DeduplicationSet size BEFORE: 23
+host-console-events.js:1 [Deduplication] 🔍 Check: sizeBefore=23, sizeAfter=24, messageId=participant-1763061471331-mo14f4o
+host-console-events.js:1 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 24
+host-console-events.js:1 [Translation] 📝 Translation #24 received - Original: "মার্কিন প্রেসিডেন্ট ডোনাল্ড ট্...", Translated: "মার্কিন প্রেসিডেন্ট ডোনাল্ড ট্..."
+host-console-events.js:1 [Translation] 📥 Added to PARTNER messages (total: 1)
+host-console-events.js:1 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+host-console-events.js:1 [Voice Gender] Text to speak: "মার্কিন প্রেসিডেন্ট ডোনাল্ড ট্রাম্পের কারণে গতকাল ইউএস ওপেন পুরুষ এগোকের ফাইনাল দেরিতে শুরু হয়েছে।", Language: ja
+host-console-events.js:1 [TTS Queue] Adding to queue (queue size: 0): মার্কিন প্রেসিডেন্ট ডোনাল্ড ট্রাম্পের কারণে গতকাল 
+host-console-events.js:1 [TTS Queue] Queue processor started
+host-console-events.js:1 [TTS Queue] Playing: মার্কিন প্রেসিডেন্ট ডোনাল্ড ট্রাম্পের কারণে গতকাল  
+host-console-events.js:1 [TTS Queue] Synthesizing audio via REST API...
+host-console-events.js:1 [Azure Token] Using cached token
+host-console-events.js:1 [Translation] ⏱️ Total processing time: 1ms
+host-console-events.js:1 [Azure TTS API] 🎤 REQUEST #22 START - Voice: en-US-AndrewMultilingualNeural, Language: ja, Region: eastus, Text: "মার্কিন প্রেসিডেন্ট ডোনাল্ড ট্রাম্পের কারণে গতকাল ..."
+host-console-events.js:1 [Azure TTS API] ✅ REQUEST #22 SUCCESS - Voice: en-US-AndrewMultilingualNeural, Duration: 753ms, Audio size: 109440 bytes
+host-console-events.js:1 [Azure TTS API] 📊 Session Total: 22 TTS requests made
+host-console-events.js:1 [TTS Queue] Synthesis completed in 1496ms, audio size: 109440 bytes
+host-console-events.js:1 [TTS Queue] Setting fallback timeout: 8840ms (audio duration: 6.84s)
+host-console-events.js:1 [TTS Queue] Playback started successfully
+host-console-events.js:1 [Translation Received] ⏱️ Timestamp: 1763061463049, MessageId: participant-1763061472883-rm67946, Speaker: participant, IsOwn: false
+host-console-events.js:1 [Translation Received] 📊 DeduplicationSet size BEFORE: 24
+host-console-events.js:1 [Deduplication] 🔍 Check: sizeBefore=24, sizeAfter=25, messageId=participant-1763061472883-rm67946
+host-console-events.js:1 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 25
+host-console-events.js:1 [Translation] 📝 Translation #25 received - Original: "মার্কিন প্রেসিডেন্ট ডোনাল্ড ট্...", Translated: "全米オープン男子トーナメントの決勝は昨日、ドナルド・トランプ..."
+host-console-events.js:1 [Translation] 📥 Added to PARTNER messages (total: 1)
+host-console-events.js:1 [Voice Gender] Playing partner's translation in PARTNER
+
+Morshed Alam, [11/13/2025 10:22 PM]
+'s voice: male, My voice (what partner hears): male
+host-console-events.js:1 [Voice Gender] Text to speak: "全米オープン男子トーナメントの決勝は昨日、ドナルド・トランプ米大統領の影響で延期された。", Language: ja
+host-console-events.js:1 [TTS Queue] Adding to queue (queue size: 0): 全米オープン男子トーナメントの決勝は昨日、ドナルド・トランプ米大統領の影響で延期された。
+host-console-events.js:1 [Translation] ⏱️ Total processing time: 1ms
+host-console-events.js:1 [Credits] Update received: 2880 seconds remaining, exhausted: false
+host-console-events.js:1 [TTS Queue] Playback completed (audio ended event)
+host-console-events.js:1 [TTS Queue] Marked messageId as spoken: participant-1763061471331-mo14f4o
+host-console-events.js:1 [TTS Queue] Playing: 全米オープン男子トーナメントの決勝は昨日、ドナルド・トランプ米大統領の影響で延期された。 
+host-console-events.js:1 [TTS Queue] Synthesizing audio via REST API...
+host-console-events.js:1 [Azure Token] Using cached token
+host-console-events.js:1 [Azure TTS API] 🎤 REQUEST #23 START - Voice: en-US-AndrewMultilingualNeural, Language: ja, Region: eastus, Text: "全米オープン男子トーナメントの決勝は昨日、ドナルド・トランプ米大統領の影響で延期された。..."
+host-console-events.js:1 [Azure TTS API] ✅ REQUEST #23 SUCCESS - Voice: en-US-AndrewMultilingualNeural, Duration: 929ms, Audio size: 133632 bytes
+host-console-events.js:1 [Azure TTS API] 📊 Session Total: 23 TTS requests made
+host-console-events.js:1 [TTS Queue] Synthesis completed in 1674ms, audio size: 133632 bytes
+host-console-events.js:1 [TTS Queue] Setting fallback timeout: 10352ms (audio duration: 8.352s)
+host-console-events.js:1 [TTS Queue] Playback started successfully
+host-console-events.js:1 [Credits] Update received: 2870 seconds remaining, exhausted: false
+host-console-events.js:1 [Translation Received] ⏱️ Timestamp: 1763061479070, MessageId: participant-1763061488906-ib46tvj, Speaker: participant, IsOwn: false
+host-console-events.js:1 [Translation Received] 📊 DeduplicationSet size BEFORE: 25
+host-console-events.js:1 [Deduplication] 🔍 Check: sizeBefore=25, sizeAfter=26, messageId=participant-1763061488906-ib46tvj
+host-console-events.js:1 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 26
+host-console-events.js:1 [Translation] 📝 Translation #26 received - Original: "তবে বিলম্বের পর অনেক দর্শক নির...", Translated: "しかし、遅延後、多くの観客が治安上の懸念から試合開始前にフィ..."
+host-console-events.js:1 [Translation] 📥 Added to PARTNER messages (total: 1)
+host-console-events.js:1 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+host-console-events.js:1 [Voice Gender] Text to speak: "しかし、遅延後、多くの観客が治安上の懸念から試合開始前にフィールドに入ることができなかった。", Language: ja
+host-console-events.js:1 [TTS Queue] Adding to queue (queue size: 0): しかし、遅延後、多くの観客が治安上の懸念から試合開始前にフィールドに入ることができなかった。
+host-console-events.js:1 [Translation] ⏱️ Total processing time: 1ms
+host-console-events.js:1 [TTS Queue] Playback completed (audio ended event)
+host-console-events.js:1 [TTS Queue] Marked messageId as spoken: participant-1763061472883-rm67946
+host-console-events.js:1 [TTS Queue] Playing: しかし、遅延後、多くの観客が治安上の懸念から試合開始前にフィールドに入ることができなかった。 
+host-console-events.js:1 [TTS Queue] Synthesizing audio via REST API...
+host-console-events.js:1 [Azure Token] Using cached token
+host-console-events.js:1 [Azure TTS API] 🎤 REQUEST #24 START - Voice: en-US-AndrewMultilingualNeural, Language: ja, Region: eastus, Text: "しかし、遅延後、多くの観客が治安上の懸念から試合開始前にフィールドに入ることができなかった。..."
+host-console-events.js:1 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+host-console-events.js:1 [Translation Received] ⏱️ Timestamp: 1763061480387, MessageId: creator-1763061490222-aco0jtc, Speaker: creator, IsOwn: true
+host-console-events.js:1 [Translation Received] 📊 DeduplicationSet size BEFORE: 26
+host-console-events.js:1 [Deduplication] 🔍 Check: sizeBefore=26, sizeAfter=27, messageId=creator-1763061490222-aco0jtc
+host-console-events.js:1 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 27
+host-console-events.js:1 [Translation] 📝 Translation #27 received - Original: "多くの人を停止します。お読みください。...", Translated: "অনেককে থামাও। দয়া করে পড়ুন।..."
+host-console-events.js:1 [Translation] 📤 Added to MY
+
+Morshed Alam, [11/13/2025 10:22 PM]
+events.js:1 [Translation] 📤 Added to
+
+Morshed Alam, [11/13/2025 10:22 PM]
+MY messages (total: 1)
+host-console-events.js:1 [Translation] ⏱️ Total processing time: 1ms
+host-console-events.js:1 [Heartbeat] 💚 Received pong from server - connection alive
+host-console-events.js:1 [Translation Received] ⏱️ Timestamp: 1763061481200, MessageId: participant-1763061491036-fha8j03, Speaker: participant, IsOwn: false
+host-console-events.js:1 [Translation Received] 📊 DeduplicationSet size BEFORE: 27
+host-console-events.js:1 [Deduplication] 🔍 Check: sizeBefore=27, sizeAfter=28, messageId=participant-1763061491036-fha8j03
+host-console-events.js:1 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 28
+host-console-events.js:1 [Translation] 📝 Translation #28 received - Original: "তবে বিলম্বের পরে অনেক দর্শক নি...", Translated: "しかし、延期後、保安上の制約により試合開始前に入場できなかっ..."
+host-console-events.js:1 [Translation] 📥 Added to PARTNER messages (total: 1)
+host-console-events.js:1 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+host-console-events.js:1 [Voice Gender] Text to speak: "しかし、延期後、保安上の制約により試合開始前に入場できなかった観客も多かった。", Language: ja
+host-console-events.js:1 [TTS Queue] Adding to queue (queue size: 0): しかし、延期後、保安上の制約により試合開始前に入場できなかった観客も多かった。
+host-console-events.js:1 [Translation] ⏱️ Total processing time: 1ms
+host-console-events.js:1 [Azure TTS API] ✅ REQUEST #24 SUCCESS - Voice: en-US-AndrewMultilingualNeural, Duration: 840ms, Audio size: 120960 bytes
+host-console-events.js:1 [Azure TTS API] 📊 Session Total: 24 TTS requests made
+host-console-events.js:1 [TTS Queue] Synthesis completed in 1585ms, audio size: 120960 bytes
+host-console-events.js:1 [TTS Queue] Setting fallback timeout: 9559.999999999998ms (audio duration: 7.56s)
+host-console-events.js:1 [TTS Queue] Playback started successfully
+host-console-events.js:1 [Translation Received] ⏱️ Timestamp: 1763061486347, MessageId: creator-1763061496182-sh9b18y, Speaker: creator, IsOwn: true
+host-console-events.js:1 [Translation Received] 📊 DeduplicationSet size BEFORE: 28
+host-console-events.js:1 [Deduplication] 🔍 Check: sizeBefore=28, sizeAfter=29, messageId=creator-1763061496182-sh9b18y
+host-console-events.js:1 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 29
+host-console-events.js:1 [Translation] 📝 Translation #29 received - Original: "ちょうど。...", Translated: "পুরোপুরি।..."
+host-console-events.js:1 [Translation] 📤 Added to MY messages (total: 1)
+host-console-events.js:1 [Translation] ⏱️ Total processing time: 0ms
+host-console-events.js:1 [Credits] Update received: 2860 seconds remaining, exhausted: false
+host-console-events.js:1 [TTS Queue] Playback completed (audio ended event)
+host-console-events.js:1 [TTS Queue] Marked messageId as spoken: participant-1763061488906-ib46tvj
+host-console-events.js:1 [TTS Queue] Playing: しかし、延期後、保安上の制約により試合開始前に入場できなかった観客も多かった。 
+host-console-events.js:1 [TTS Queue] Synthesizing audio via REST API...
+host-console-events.js:1 [Azure Token] Using cached token
+host-console-events.js:1 [Azure TTS API] 🎤 REQUEST #25 START - Voice: en-US-AndrewMultilingualNeural, Language: ja, Region: eastus, Text: "しかし、延期後、保安上の制約により試合開始前に入場できなかった観客も多かった。..."
+host-console-events.js:1 [Azure TTS API] ✅ REQUEST #25 SUCCESS - Voice: en-US-AndrewMultilingualNeural, Duration: 811ms, Audio size: 130176 bytes
+host-console-events.js:1 [Azure TTS API] 📊 Session Total: 25 TTS requests made
+host-console-events.js:1 [TTS Queue] Synthesis completed in 1559ms, audio size: 130176 bytes
+host-console-events.js:1 [TTS Queue] Setting fallback timeout: 10136ms (audio duration: 8.136s)
+host-console-events.js:1 [TTS Queue] Playback started successfully
+host-console-events.js:1 [Credits] Update received: 2850 seconds remaining, exhausted: false
+host-console-events.js:1 [TTS Queue] Playback completed (audio ended event)
+host-console-events.js:1 [TTS Queue] Marked messageId as spoken: participant-1763061491036-fha8j03
+host-console-events.js:1 [TTS Queue] Queue processor finished
+host-console-events.js:1 [Credits] Update received: 2840 seconds remaining, exhausted: false
+host-co
+
+Morshed Alam, [11/13/2025 10:22 PM]
+nsole-events.js:1 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+host-console-events.js:1 [Heartbeat] 💚 Received pong from server - connection alive
+host-console-events.js:1 [Translation Received] ⏱️ Timestamp: 1763061511395, MessageId: creator-1763061521232-237p9wx, Speaker: creator, IsOwn: true
+host-console-events.js:1 [Translation Received] 📊 DeduplicationSet size BEFORE: 29
+host-console-events.js:1 [Deduplication] 🔍 Check: sizeBefore=29, sizeAfter=30, messageId=creator-1763061521232-237p9wx
+host-console-events.js:1 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 30
+host-console-events.js:1 [Translation] 📝 Translation #30 received - Original: "重複発生を停止します。お読みください。...", Translated: "ডুপ্লিকেট ঘটনাগুলি বন্ধ করুন। ..."
+host-console-events.js:1 [Translation] 📤 Added to MY messages (total: 1)
+host-console-events.js:1 [Translation] ⏱️ Total processing time: 1ms
+host-console-events.js:1 [Credits] Update received: 2830 seconds remaining, exhausted: false
+content-jam-ui.js:1279 Developers: Jam did not find any metadata on this page. Want to capture custom page metadata with every bug? Visit https://jam.dev/docs/debug-a-jam/devtools/jam.metadata
+wC @ content-jam-ui.js:1279
+onDataTransferRequest @ content-jam-ui.js:508
+n @ content-jam-ui.js:508
+host-console-events.js:1 [Translation Received] ⏱️ Timestamp: 1763061521727, MessageId: participant-1763061531564-72tc28s, Speaker: participant, IsOwn: false
+host-console-events.js:1 [Translation Received] 📊 DeduplicationSet size BEFORE: 30
+host-console-events.js:1 [Deduplication] 🔍 Check: sizeBefore=30, sizeAfter=31, messageId=participant-1763061531564-72tc28s
+host-console-events.js:1 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 31
+host-console-events.js:1 [Translation] 📝 Translation #31 received - Original: "প্রেসিডেন্ট হিসেবে ট্রাম্পের প...", Translated: "トランプ氏が大統領として初めて全米オープン決勝を訪れたのは楽..."
+host-console-events.js:1 [Translation] 📥 Added to PARTNER messages (total: 1)
+host-console-events.js:1 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+host-console-events.js:1 [Voice Gender] Text to speak: "トランプ氏が大統領として初めて全米オープン決勝を訪れたのは楽しいものではなかった。", Language: ja
+host-console-events.js:1 [TTS Queue] Adding to queue (queue size: 0): トランプ氏が大統領として初めて全米オープン決勝を訪れたのは楽しいものではなかった。
+host-console-events.js:1 [TTS Queue] Queue processor started
+host-console-events.js:1 [TTS Queue] Playing: トランプ氏が大統領として初めて全米オープン決勝を訪れたのは楽しいものではなかった。 
+host-console-events.js:1 [TTS Queue] Synthesizing audio via REST API...
+host-console-events.js:1 [Azure Token] Using cached token
+host-console-events.js:1 [Translation] ⏱️ Total processing time: 1ms
+host-console-events.js:1 [Azure TTS API] 🎤 REQUEST #26 START - Voice: en-US-AndrewMultilingualNeural, Language: ja, Region: eastus, Text: "トランプ氏が大統領として初めて全米オープン決勝を訪れたのは楽しいものではなかった。..."
+host-console-events.js:1 [Azure TTS API] ✅ REQUEST #26 SUCCESS - Voice: en-US-AndrewMultilingualNeural, Duration: 845ms, Audio size: 112320 bytes
+host-console-events.js:1 [Azure TTS API] 📊 Session Total: 26 TTS requests made
+host-console-events.js:1 [TTS Queue] Synthesis completed in 1584ms, audio size: 112320 bytes
+host-console-events.js:1 [TTS Queue] Setting fallback timeout: 9020ms (audio duration: 7.02s)
+host-console-events.js:1 [TTS Queue] Playback started successfully
+host-console-events.js:1 [Credits] Update received: 2820 seconds remaining, exhausted: false
+host-console-events.js:1 [TTS Queue] Playback completed (audio ended event)
+host-console-events.js:1 [TTS Queue] Marked messageId as spoken: participant-1763061531564-72tc28s
+host-console-events.js:1 [TTS Queue] Queue processor finished
+host-console-events.js:1 [Translation Received] ⏱️ Timestamp: 1763061532280, MessageId: participant-1763061542118-dq6hfh1, Speaker: participant, IsOwn: false
+host-console-events.js:1 [Translation Received] 📊 DeduplicationSet size BEFORE: 31
+host-console-events.js:1 [Deduplication] 🔍 Check: sizeBefore=31, sizeAfter=32,
+
+Morshed Alam, [11/13/2025 10:22 PM]
+messageId=participant-1763061542118-dq6hfh1
+host-co
+
+Morshed Alam, [11/13/2025 10:22 PM]
+nsole-events.js:1 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 32
+host-console-events.js:1 [Translation] 📝 Translation #32 received - Original: "গ্যালারিতে থাকা মার্কিন প্রেসি...", Translated: "ギャラリーにいた米国大統領はコンを吸った。..."
+host-console-events.js:1 [Translation] 📥 Added to PARTNER messages (total: 1)
+host-console-events.js:1 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+host-console-events.js:1 [Voice Gender] Text to speak: "ギャラリーにいた米国大統領はコンを吸った。", Language: ja
+host-console-events.js:1 [TTS Queue] Adding to queue (queue size: 0): ギャラリーにいた米国大統領はコンを吸った。
+host-console-events.js:1 [TTS Queue] Queue processor started
+host-console-events.js:1 [TTS Queue] Playing: ギャラリーにいた米国大統領はコンを吸った。 
+host-console-events.js:1 [TTS Queue] Synthesizing audio via REST API...
+host-console-events.js:1 [Azure Token] Using cached token
+host-console-events.js:1 [Translation] ⏱️ Total processing time: 3ms
+host-console-events.js:1 [Azure TTS API] 🎤 REQUEST #27 START - Voice: en-US-AndrewMultilingualNeural, Language: ja, Region: eastus, Text: "ギャラリーにいた米国大統領はコンを吸った。..."
+host-console-events.js:1 [Translation Received] ⏱️ Timestamp: 1763061532492, MessageId: participant-1763061542330-o66era6, Speaker: participant, IsOwn: false
+host-console-events.js:1 [Translation Received] 📊 DeduplicationSet size BEFORE: 32
+host-console-events.js:1 [Deduplication] 🔍 Check: sizeBefore=32, sizeAfter=33, messageId=participant-1763061542330-o66era6
+host-console-events.js:1 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 33
+host-console-events.js:1 [Translation] 📝 Translation #33 received - Original: "গ্যালারিতে থাকা মার্কিন প্রেসি...", Translated: "ギャラリーにいた米国大統領は両方をコンに贈った。..."
+host-console-events.js:1 [Translation] 📥 Added to PARTNER messages (total: 1)
+host-console-events.js:1 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+host-console-events.js:1 [Voice Gender] Text to speak: "ギャラリーにいた米国大統領は両方をコンに贈った。", Language: ja
+host-console-events.js:1 [TTS Queue] Adding to queue (queue size: 0): ギャラリーにいた米国大統領は両方をコンに贈った。
+host-console-events.js:1 [Translation] ⏱️ Total processing time: 2ms
+host-console-events.js:1 [Azure TTS API] ✅ REQUEST #27 SUCCESS - Voice: en-US-AndrewMultilingualNeural, Duration: 839ms, Audio size: 57024 bytes
+host-console-events.js:1 [Azure TTS API] 📊 Session Total: 27 TTS requests made
+host-console-events.js:1 [TTS Queue] Synthesis completed in 1333ms, audio size: 57024 bytes
+host-console-events.js:1 [TTS Queue] Setting fallback timeout: 5564ms (audio duration: 3.564s)
+host-console-events.js:1 [TTS Queue] Playback started successfully
+host-console-events.js:1 [TTS Queue] Playback completed (audio ended event)
+host-console-events.js:1 [TTS Queue] Marked messageId as spoken: participant-1763061542118-dq6hfh1
+host-console-events.js:1 [TTS Queue] Playing: ギャラリーにいた米国大統領は両方をコンに贈った。 
+host-console-events.js:1 [TTS Queue] Synthesizing audio via REST API...
+host-console-events.js:1 [Azure Token] Using cached token
+host-console-events.js:1 [Azure TTS API] 🎤 REQUEST #28 START - Voice: en-US-AndrewMultilingualNeural, Language: ja, Region: eastus, Text: "ギャラリーにいた米国大統領は両方をコンに贈った。..."
+host-console-events.js:1 [Credits] Update received: 2810 seconds remaining, exhausted: false
+host-console-events.js:1 [Azure TTS API] ✅ REQUEST #28 SUCCESS - Voice: en-US-AndrewMultilingualNeural, Duration: 486ms, Audio size: 67392 bytes
+host-console-events.js:1 [Azure TTS API] 📊 Session Total: 28 TTS requests made
+host-console-events.js:1 [TTS Queue] Synthesis completed in 980ms, audio size: 67392 bytes
+host-console-events.js:1 [TTS Queue] Setting fallback timeout: 6212ms (audio duration: 4.212s)
+host-console-events.js:1 [TTS Queue] Playback started successfully
+host-console-events.js:1 [Translation Received] ⏱️ Timestamp: 1763061540183, MessageId: participant-1763061550021-omnbbf3, Speaker: participant, IsOwn: false
+host-console-events.js:1 [Translation Received] 📊 DeduplicationSet size BEFORE: 33
+host-console-events.js:1
+
+Morshed Alam, [11/13/2025 10:22 PM]
+[Deduplication] 🔍 Check: sizeBefore=33, sizeAfter=34, messageId=participant-1763061550021-omnbbf3
+host-console-events.js:1 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 34
+host-console-events.js:1 [Translation] 📝 Translation #34 received - Original: "রিপিট হয়তো।...", Translated: "たぶん繰り返す。..."
+host-console-events.js:1 [Translation] 📥 Added to PARTNER messages (total: 1)
+host-console-events.js:1 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+host-console-events.js:1 [Voice Gender] Text to speak: "たぶん繰り返す。", Language: ja
+host-console-events.js:1 [TTS Queue] Adding to queue (queue size: 0): たぶん繰り返す。
+host-console-events.js:1 [Translation] ⏱️ Total processing time: 1ms
+host-console-events.js:1 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+host-console-events.js:1 [Heartbeat] 💚 Received pong from server - connection alive
+host-console-events.js:1 [TTS Queue] Playback completed (audio ended event)
+host-console-events.js:1 [TTS Queue] Marked messageId as spoken: participant-1763061542330-o66era6
+host-console-events.js:1 [TTS Queue] Playing: たぶん繰り返す。 
+host-console-events.js:1 [TTS Queue] Synthesizing audio via REST API...
+host-console-events.js:1 [Azure Token] Using cached token
+host-console-events.js:1 [Azure TTS API] 🎤 REQUEST #29 START - Voice: en-US-AndrewMultilingualNeural, Language: ja, Region: eastus, Text: "たぶん繰り返す。..."
+host-console-events.js:1 [Azure TTS API] ✅ REQUEST #29 SUCCESS - Voice: en-US-AndrewMultilingualNeural, Duration: 773ms, Audio size: 23616 bytes
+host-console-events.js:1 [Azure TTS API] 📊 Session Total: 29 TTS requests made
+host-console-events.js:1 [TTS Queue] Synthesis completed in 1020ms, audio size: 23616 bytes
+host-console-events.js:1 [TTS Queue] Setting fallback timeout: 3476ms (audio duration: 1.476s)
+host-console-events.js:1 [TTS Queue] Playback started successfully
+host-console-events.js:1 [TTS Queue] Playback completed (audio ended event)
+host-console-events.js:1 [TTS Queue] Marked messageId as spoken: participant-1763061550021-omnbbf3
+host-console-events.js:1 [TTS Queue] Queue processor finished
+host-console-events.js:1 [Credits] Update received: 2800 seconds remaining, exhausted: false
