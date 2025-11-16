@@ -131,9 +131,9 @@ export default function JoinRoom() {
       
       <div className="w-full max-w-2xl relative z-10">
         <div className="text-center mb-8 space-y-3 animate-in fade-in slide-in-from-bottom duration-700">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-accent/20 to-cyan-500/20 border border-accent/30 backdrop-blur-sm">
-            <Sparkles className="h-4 w-4 text-accent animate-pulse" />
-            <span className="text-sm font-semibold text-accent">Join Conversation</span>
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-primary/15 to-indigo-500/15 dark:from-accent/20 dark:to-cyan-500/20 border border-primary/40 dark:border-accent/30 backdrop-blur-sm">
+            <Sparkles className="h-4 w-4 text-primary dark:text-accent animate-pulse" />
+            <span className="text-sm font-semibold text-primary dark:text-accent">Join Conversation</span>
           </div>
           
           <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white">
