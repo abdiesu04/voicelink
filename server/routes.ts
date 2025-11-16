@@ -608,18 +608,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
     // Update user's subscription in database
     await storage.setSubscriptionStripeInfo(userId, stripeSubscriptionId, stripePriceId);
     
-    // Upgrade user to paid plan with full minute allocation
+    // Calculate new credits: ADD plan minutes to existing balance (accumulate)
     const planDetails = PLAN_DETAILS[plan];
-    const creditsInSeconds = planDetails.credits * 60;
+    const newCreditsInSeconds = planDetails.credits * 60;
+    const currentCredits = currentSubscription?.creditsRemaining || 0;
+    const totalCredits = currentCredits + newCreditsInSeconds;
     
     await storage.updateSubscription(userId, {
       plan,
-      creditsRemaining: creditsInSeconds,
+      creditsRemaining: totalCredits,
       billingCycleStart: new Date(),
       billingCycleEnd: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
     });
 
-    console.log(`[Subscription] ✓ Activated ${plan} subscription for user ${userId} with ${planDetails.credits} minutes`);
+    console.log(`[Subscription] ✓ Activated ${plan} subscription for user ${userId}: added ${planDetails.credits} minutes to existing ${Math.floor(currentCredits/60)} minutes = ${Math.floor(totalCredits/60)} total minutes`);
     
     return await storage.getSubscription(userId);
   }
