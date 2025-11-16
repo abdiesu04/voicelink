@@ -1375,7 +1375,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             // FUZZY MATCHING DEDUPLICATION: Multi-tier approach to catch all duplicate scenarios
             // Tier 1: Azure Speech SDK rescoring (same original, different translation due to number/name errors)
             // Tier 2: Normal duplicates (both original and translated are similar)
-            const ORIGINAL_ONLY_THRESHOLD = 0.95; // 95% - High threshold for catching Azure rescoring with identical source audio
+            const ORIGINAL_ONLY_THRESHOLD = 0.98; // 98% - High threshold for catching Azure rescoring (typically 100% identical)
             const FUZZY_SIMILARITY_THRESHOLD = 0.82; // 82% - Lower threshold when BOTH original and translated match
             const FUZZY_TIME_WINDOW_MS = 2000; // 2 seconds - duplicates arrive within this window
             const MAX_RECENT_MESSAGES = 5; // Compare against last 5 messages per speaker
@@ -1416,13 +1416,38 @@ export async function registerRoutes(app: Express): Promise<Server> {
               // Catches normal duplicates where both texts are similar
               // Example: "Former president" vs "Formal president" (typo/minor differences in both)
               if (originalSimilarity >= FUZZY_SIMILARITY_THRESHOLD && translatedSimilarity >= FUZZY_SIMILARITY_THRESHOLD) {
-                console.warn(`[Fuzzy Deduplication] ⛔ NEAR-DUPLICATE DETECTED AND BLOCKED!`);
-                console.warn(`[Fuzzy Deduplication] 📝 Original: "${recentMsg.originalText}" → "${recentMsg.translatedText}"`);
-                console.warn(`[Fuzzy Deduplication] 🔁 Current:  "${text}" → "${translatedText}"`);
-                console.warn(`[Fuzzy Deduplication] 📊 Similarity: Original=${(originalSimilarity * 100).toFixed(1)}%, Translated=${(translatedSimilarity * 100).toFixed(1)}%`);
-                console.warn(`[Fuzzy Deduplication] ⏱️ Time since first message: ${timeSinceOriginal}ms (window: ${FUZZY_TIME_WINDOW_MS}ms)`);
-                console.warn(`[Fuzzy Deduplication] 🔍 This is likely Azure Speech SDK producing slightly different transcriptions of the same audio`);
-                return; // Block this duplicate
+                // NUMERIC-DELTA BYPASS: Allow messages where only numbers differ
+                // Extract numbers from all four texts
+                const extractNumbers = (txt: string): string[] => {
+                  return (txt.match(/\d+/g) || []);
+                };
+                
+                const originalNumbers1 = extractNumbers(recentMsg.originalText).join(',');
+                const originalNumbers2 = extractNumbers(text).join(',');
+                const translatedNumbers1 = extractNumbers(recentMsg.translatedText).join(',');
+                const translatedNumbers2 = extractNumbers(translatedText).join(',');
+                
+                // If both original AND translated contain numbers, and those numbers differ, allow it
+                const hasNumbers = (originalNumbers1 || originalNumbers2) && (translatedNumbers1 || translatedNumbers2);
+                const numbersDiffer = originalNumbers1 !== originalNumbers2 || translatedNumbers1 !== translatedNumbers2;
+                
+                if (hasNumbers && numbersDiffer) {
+                  console.log(`[Numeric Bypass] ✅ ALLOWED - Numbers differ (legitimate correction)`);
+                  console.log(`[Numeric Bypass] 📝 Original numbers: "${originalNumbers1}" → "${originalNumbers2}"`);
+                  console.log(`[Numeric Bypass] 📝 Translated numbers: "${translatedNumbers1}" → "${translatedNumbers2}"`);
+                  console.log(`[Numeric Bypass] 📊 Text similarity: Original=${(originalSimilarity * 100).toFixed(1)}%, Translated=${(translatedSimilarity * 100).toFixed(1)}%`);
+                  console.log(`[Numeric Bypass] 🔍 This is likely a legitimate number correction (e.g., "3 PM" → "5 PM")`);
+                  // Don't return - allow this message through
+                } else {
+                  // No number differences - block as duplicate
+                  console.warn(`[Fuzzy Deduplication] ⛔ NEAR-DUPLICATE DETECTED AND BLOCKED!`);
+                  console.warn(`[Fuzzy Deduplication] 📝 Original: "${recentMsg.originalText}" → "${recentMsg.translatedText}"`);
+                  console.warn(`[Fuzzy Deduplication] 🔁 Current:  "${text}" → "${translatedText}"`);
+                  console.warn(`[Fuzzy Deduplication] 📊 Similarity: Original=${(originalSimilarity * 100).toFixed(1)}%, Translated=${(translatedSimilarity * 100).toFixed(1)}%`);
+                  console.warn(`[Fuzzy Deduplication] ⏱️ Time since first message: ${timeSinceOriginal}ms (window: ${FUZZY_TIME_WINDOW_MS}ms)`);
+                  console.warn(`[Fuzzy Deduplication] 🔍 This is likely Azure Speech SDK producing slightly different transcriptions of the same audio`);
+                  return; // Block this duplicate
+                }
               }
             }
             
