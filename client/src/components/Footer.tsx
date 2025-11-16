@@ -42,12 +42,12 @@ export function Footer() {
             
             <div>
               <h4 className="font-semibold text-slate-900 dark:text-white mb-3 md:mb-4">Get Started</h4>
-              <Link href={user ? "/create" : "/register"} data-testid="link-footer-cta">
-                <Button className="w-full min-h-[48px] md:h-auto touch-manipulation" data-testid="button-footer-cta">
+              <Button asChild className="w-full min-h-[48px] md:h-auto touch-manipulation" data-testid="button-footer-cta">
+                <Link href={user ? "/create" : "/register"} data-testid="link-footer-cta">
                   <Mic className="mr-2 h-4 w-4" />
                   {user ? "Create Room" : "Start Free"}
-                </Button>
-              </Link>
+                </Link>
+              </Button>
             </div>
           </div>
           
