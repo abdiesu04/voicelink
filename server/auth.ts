@@ -327,10 +327,30 @@ export function setupAuth(app: Express) {
   );
 
   app.get("/auth/google/callback",
-    passport.authenticate("google", { 
-      failureRedirect: "/login?error=google-auth-failed",
-      session: false
-    }),
+    (req: Request, res: Response, next) => {
+      passport.authenticate("google", { 
+        failureRedirect: "/login?error=google-auth-failed",
+        session: false
+      }, (err: any, user: any, info: any) => {
+        if (err) {
+          console.error("[Google OAuth] Authentication error:", err);
+          console.error("[Google OAuth] Error details:", {
+            message: err.message,
+            code: err.code,
+            statusCode: err.statusCode
+          });
+          return res.redirect("/login?error=google-oauth-error");
+        }
+        
+        if (!user) {
+          console.error("[Google OAuth] No user returned, info:", info);
+          return res.redirect("/login?error=google-auth-failed");
+        }
+        
+        req.user = user;
+        next();
+      })(req, res, next);
+    },
     (req: Request, res: Response) => {
       const user = req.user as any;
       

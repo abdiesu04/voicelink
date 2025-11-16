@@ -36,6 +36,8 @@ export function setupPassport() {
     }
     
     console.log(`[Google OAuth] Callback URL configured: ${callbackURL} (env: ${process.env.NODE_ENV || 'development'})`);
+    console.log(`[Google OAuth] Client ID starts with: ${process.env.GOOGLE_CLIENT_ID.substring(0, 30)}...`);
+    console.log(`[Google OAuth] Client Secret starts with: ${process.env.GOOGLE_CLIENT_SECRET.substring(0, 10)}...`);
     
     passport.use(
       new GoogleStrategy(
