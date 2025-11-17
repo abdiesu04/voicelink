@@ -6,9 +6,9 @@ import testimonialImg1 from "@assets/stock_images/professional_headsho_32cf619f.
 import testimonialImg2 from "@assets/stock_images/professional_headsho_39f9f9b0.jpg";
 import testimonialImg3 from "@assets/stock_images/professional_headsho_d46cf359.jpg";
 import testimonialImg4 from "@assets/stock_images/professional_headsho_742b1763.jpg";
-import testimonialImg5 from "@assets/stock_images/professional_headsho_421e080c.jpg";
 import testimonialImg6 from "@assets/stock_images/professional_headsho_a0928d48.jpg";
 import testimonialImg7 from "@assets/stock_images/professional_headsho_18007542.jpg";
+import enzoMImage from "@assets/generated_images/Enzo_M_testimonial_portrait_e7244e3a.png";
 import teamImg1 from "@assets/stock_images/modern_office_team_c_9f0cd92a.jpg";
 import teamImg2 from "@assets/stock_images/modern_office_team_c_b038df97.jpg";
 import teamImg3 from "@assets/stock_images/modern_office_team_c_a4e7ef71.jpg";
@@ -18,7 +18,7 @@ const VoiceTranslator = () => {
     {
       name: "Sofia M.",
       location: "Los Angeles",
-      quote: "For the first time, my grandmother in Tokyo heard me in Japanese — with my real voice.",
+      quote: "I'm really enjoying using Voztra to talk with friends in South America and learn Spanish",
       image: testimonialImg1
     },
     {
@@ -40,15 +40,15 @@ const VoiceTranslator = () => {
       image: testimonialImg4
     },
     {
-      name: "Carlos G.",
+      name: "Enzo M.",
       location: "Buenos Aires",
-      quote: "Teaching students across continents feels like we're in the same room. The future is here.",
-      image: testimonialImg5
+      quote: "My girlfriend is Japanese so we use this app every single day!",
+      image: enzoMImage
     },
     {
-      name: "Layla A.",
-      location: "Dubai",
-      quote: "Video calls with my family abroad now feel warm and personal, not robotic.",
+      name: "Alexandre P.",
+      location: "Lyon",
+      quote: "We are using this at our company to talk with some of our developers in Asia, it's the most lifelike sounding voices.",
       image: testimonialImg6
     },
     {

@@ -17,6 +17,7 @@ import userImage3 from "@assets/stock_images/young_professional_m_e4947f40.jpg";
 import userImage4 from "@assets/stock_images/professional_busines_6d196ce6.jpg";
 import userImage5 from "@assets/stock_images/professional_busines_5a6cf958.jpg";
 import userImage6 from "@assets/stock_images/professional_busines_6f745289.jpg";
+import enzoMImage from "@assets/generated_images/Enzo_M_testimonial_portrait_e7244e3a.png";
 
 // 75 country flags with ISO codes for real flag images
 const countryFlags = [
@@ -69,19 +70,19 @@ const testimonials = [
   {
     name: "Sofia M.",
     location: "Los Angeles",
-    quote: "For the first time, my grandmother in Tokyo heard me in Japanese — with my real voice.",
+    quote: "I'm really enjoying using Voztra to talk with friends in South America and learn Spanish",
     image: userImage1
   },
   {
-    name: "Carlos G.",
+    name: "Enzo M.",
     location: "Buenos Aires",
-    quote: "Teaching students across continents feels like we're in the same room. The future is here.",
-    image: userImage5
+    quote: "My girlfriend is Japanese so we use this app every single day!",
+    image: enzoMImage
   },
   {
-    name: "Layla A.",
-    location: "Dubai",
-    quote: "Video calls with my family abroad now feel warm and personal, not robotic.",
+    name: "Alexandre P.",
+    location: "Lyon",
+    quote: "We are using this at our company to talk with some of our developers in Asia, it's the most lifelike sounding voices.",
     image: userImage6
   }
 ];
