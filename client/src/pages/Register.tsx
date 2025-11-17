@@ -25,10 +25,12 @@ export default function Register() {
   const [, setLocation] = useLocation();
 
   useEffect(() => {
-    if (user) {
+    // Only redirect to home if user is already logged in and NOT on success step
+    // This allows the success step to complete and redirect to /create instead
+    if (user && step !== 3) {
       setLocation("/");
     }
-  }, [user, setLocation]);
+  }, [user, step, setLocation]);
 
   // Scroll to top whenever step changes (form -> verification -> success)
   useEffect(() => {
@@ -166,7 +168,7 @@ export default function Register() {
 
       setStep(3); // Move to success screen
       setTimeout(() => {
-        window.location.href = "/"; // Force reload to update auth context
+        window.location.href = "/create"; // Redirect to Create Translation Room
       }, 2000);
     } catch (error) {
       toast({
@@ -444,7 +446,7 @@ export default function Register() {
               className="flex items-center justify-center gap-2 text-sm text-slate-600 dark:text-slate-400 mt-6"
             >
               <div className="h-2 w-2 rounded-full bg-indigo-600 dark:bg-indigo-400 animate-pulse" />
-              Redirecting to home page...
+              Taking you to create your first room...
             </motion.div>
           </GlassCard>
         </motion.div>
