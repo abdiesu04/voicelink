@@ -30,6 +30,11 @@ export default function Register() {
     }
   }, [user, setLocation]);
 
+  // Scroll to top whenever step changes (form -> verification -> success)
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [step]);
+
   const getPasswordStrength = (pwd: string) => {
     if (pwd.length === 0) return { score: 0, label: "", color: "" };
     if (pwd.length < 8) return { score: 1, label: "Weak", color: "bg-red-500" };
