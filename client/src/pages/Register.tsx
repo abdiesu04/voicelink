@@ -452,9 +452,9 @@ export default function Register() {
       {/* Split Screen Layout */}
       <div className="flex flex-col lg:flex-row w-full pt-16 pb-8 lg:pt-0 lg:pb-0">
         
-        {/* Left Side: Brand & Benefits */}
+        {/* Left Side: Brand & Benefits - Hidden on mobile */}
         <motion.div 
-          className="relative lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center items-center text-center lg:text-left overflow-hidden"
+          className="relative hidden lg:flex lg:w-1/2 p-8 lg:p-12 flex-col justify-center items-center text-center lg:text-left overflow-hidden"
           initial={{ opacity: 0, x: -50 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
@@ -542,8 +542,8 @@ export default function Register() {
           </div>
         </motion.div>
 
-        {/* Right Side: Registration Form */}
-        <div className="lg:w-1/2 flex items-start lg:items-center justify-center p-8 lg:p-12 bg-white/30 dark:bg-black/20 backdrop-blur-xl">
+        {/* Right Side: Registration Form - Full width on mobile */}
+        <div className="w-full lg:w-1/2 flex items-start lg:items-center justify-center p-8 lg:p-12 bg-white/30 dark:bg-black/20 backdrop-blur-xl">
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
