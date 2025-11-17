@@ -8,7 +8,7 @@ import testimonialImg3 from "@assets/stock_images/professional_headsho_d46cf359.
 import testimonialImg4 from "@assets/stock_images/professional_headsho_742b1763.jpg";
 import testimonialImg6 from "@assets/stock_images/professional_headsho_a0928d48.jpg";
 import testimonialImg7 from "@assets/stock_images/professional_headsho_18007542.jpg";
-import enzoMImage from "@assets/generated_images/Enzo_M_testimonial_portrait_e7244e3a.png";
+import enzoMImage from "@assets/generated_images/Enzo_testimonial_portrait_v2_11a32c0e.png";
 import teamImg1 from "@assets/stock_images/modern_office_team_c_9f0cd92a.jpg";
 import teamImg2 from "@assets/stock_images/modern_office_team_c_b038df97.jpg";
 import teamImg3 from "@assets/stock_images/modern_office_team_c_a4e7ef71.jpg";

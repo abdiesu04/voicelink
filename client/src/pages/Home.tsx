@@ -17,7 +17,7 @@ import userImage3 from "@assets/stock_images/young_professional_m_e4947f40.jpg";
 import userImage4 from "@assets/stock_images/professional_busines_6d196ce6.jpg";
 import userImage5 from "@assets/stock_images/professional_busines_5a6cf958.jpg";
 import userImage6 from "@assets/stock_images/professional_busines_6f745289.jpg";
-import enzoMImage from "@assets/generated_images/Enzo_M_testimonial_portrait_e7244e3a.png";
+import enzoMImage from "@assets/generated_images/Enzo_testimonial_portrait_v2_11a32c0e.png";
 
 // 75 country flags with ISO codes for real flag images
 const countryFlags = [
@@ -428,7 +428,7 @@ export default function Home() {
                 data-testid={`testimonial-${testimonial.name.toLowerCase().replace(/\s+/g, '-')}`}
               >
                 {/* Gradient accent bar at top */}
-                <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-indigo-500 via-violet-500 to-purple-500" />
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-indigo-400/60 via-indigo-500/60 to-blue-500/60" />
                 
                 <CardContent className="p-8 space-y-5 relative">
                   {/* Quote icon background */}
