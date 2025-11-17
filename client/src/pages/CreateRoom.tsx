@@ -73,14 +73,14 @@ function CreateRoomContent() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 pt-24 relative overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center p-4 sm:p-6 pt-20 sm:pt-24 relative overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-slate-100 to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent" />
       <div className="absolute inset-0 bg-[linear-gradient(rgba(99,102,241,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(99,102,241,0.03)_1px,transparent_1px)] bg-[size:72px_72px]" />
       <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse" />
 
-      <div className="w-full max-w-5xl relative z-10 pt-12 sm:pt-16">
+      <div className="w-full max-w-5xl relative z-10 pt-2 sm:pt-16">
         {/* Compact Header */}
         <div className="text-center mb-6 sm:mb-8 space-y-2 sm:space-y-3 animate-in fade-in slide-in-from-bottom duration-700">
           <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-slate-900 dark:text-white">

@@ -1,10 +1,16 @@
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { Mic } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/lib/auth";
 
 export function Footer() {
   const { user } = useAuth();
+  const [location] = useLocation();
+
+  // Hide footer on /create and /room/* pages
+  if (location === "/create" || location.startsWith("/room/")) {
+    return null;
+  }
 
   return (
     <footer className="py-12 md:py-16 bg-slate-100 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800" data-testid="footer-global">
