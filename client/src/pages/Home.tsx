@@ -73,24 +73,6 @@ const testimonials = [
     image: userImage1
   },
   {
-    name: "Julien R.",
-    location: "Paris",
-    quote: "Our global meetings feel human again — no translators, no lag, just genuine connection.",
-    image: userImage2
-  },
-  {
-    name: "Marcus R.",
-    location: "London",
-    quote: "I made friends backpacking across Spain without switching to English once. Life-changing.",
-    image: userImage3
-  },
-  {
-    name: "Yuki T.",
-    location: "Tokyo",
-    quote: "Closing international deals has never been easier. My clients feel truly understood.",
-    image: userImage4
-  },
-  {
     name: "Carlos G.",
     location: "Buenos Aires",
     quote: "Teaching students across continents feels like we're in the same room. The future is here.",
@@ -101,12 +83,6 @@ const testimonials = [
     location: "Dubai",
     quote: "Video calls with my family abroad now feel warm and personal, not robotic.",
     image: userImage6
-  },
-  {
-    name: "Kwame O.",
-    location: "Accra",
-    quote: "Networking at global conferences is effortless. I can be myself in any language.",
-    image: userImage1
   }
 ];
 
@@ -443,26 +419,35 @@ export default function Home() {
             </h2>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {testimonials.map((testimonial, idx) => (
               <Card 
                 key={idx}
-                className="bg-white dark:bg-slate-800 border-slate-200 dark:border-slate-700 hover:shadow-xl transition-shadow"
+                className="relative bg-gradient-to-br from-white via-indigo-50/30 to-violet-50/30 dark:from-slate-800 dark:via-indigo-900/20 dark:to-violet-900/20 border-2 border-indigo-200 dark:border-indigo-700/50 hover:border-indigo-400 dark:hover:border-indigo-500 hover:shadow-2xl hover:shadow-indigo-500/20 dark:hover:shadow-indigo-500/30 transition-all duration-300 hover:scale-105 overflow-hidden group"
                 data-testid={`testimonial-${testimonial.name.toLowerCase().replace(/\s+/g, '-')}`}
               >
-                <CardContent className="p-8 space-y-4">
-                  <div className="flex items-center gap-4">
-                    <img 
-                      src={testimonial.image} 
-                      alt={testimonial.name}
-                      className="h-14 w-14 rounded-full object-cover ring-2 ring-primary/20"
-                    />
+                {/* Gradient accent bar at top */}
+                <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-indigo-500 via-violet-500 to-purple-500" />
+                
+                <CardContent className="p-8 space-y-5 relative">
+                  {/* Quote icon background */}
+                  <div className="absolute top-4 right-4 text-8xl font-serif text-indigo-100 dark:text-indigo-900/30 leading-none select-none">"</div>
+                  
+                  <div className="flex items-center gap-4 relative z-10">
+                    <div className="relative">
+                      <div className="absolute inset-0 rounded-full bg-gradient-to-br from-indigo-400 to-violet-500 blur-md opacity-50 group-hover:opacity-75 transition-opacity" />
+                      <img 
+                        src={testimonial.image} 
+                        alt={testimonial.name}
+                        className="relative h-16 w-16 rounded-full object-cover ring-4 ring-white dark:ring-slate-800 shadow-lg"
+                      />
+                    </div>
                     <div>
-                      <div className="font-semibold text-slate-900 dark:text-white">{testimonial.name}</div>
-                      <div className="text-sm text-slate-500 dark:text-slate-400">{testimonial.location}</div>
+                      <div className="font-bold text-lg text-slate-900 dark:text-white">{testimonial.name}</div>
+                      <div className="text-sm font-medium text-indigo-600 dark:text-indigo-400">{testimonial.location}</div>
                     </div>
                   </div>
-                  <p className="text-slate-600 dark:text-slate-300 italic leading-relaxed">
+                  <p className="text-slate-700 dark:text-slate-200 italic leading-relaxed text-base font-medium relative z-10">
                     "{testimonial.quote}"
                   </p>
                 </CardContent>
