@@ -1,4 +1,5 @@
-import { Switch, Route } from "wouter";
+import { useEffect } from "react";
+import { Switch, Route, useLocation } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -21,6 +22,17 @@ import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import CaliforniaPrivacyPolicy from "@/pages/CaliforniaPrivacyPolicy";
 import VoiceTranslator from "@/pages/VoiceTranslator";
 import NotFound from "@/pages/not-found";
+
+// Scroll to top on route change
+function ScrollToTop() {
+  const [location] = useLocation();
+  
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+  
+  return null;
+}
 
 function Router() {
   return (
@@ -49,6 +61,7 @@ function App() {
       <ThemeProvider defaultTheme="dark" storageKey="voztra-theme">
         <AuthProvider>
           <TooltipProvider>
+            <ScrollToTop />
             <Header />
             <Toaster />
             <Layout>
