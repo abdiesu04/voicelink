@@ -703,6 +703,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       const { roomId, messageId, eventType, eventTypes, startTime, endTime, limit, includeAllUsers } = req.query;
       
+      // SECURITY: If querying a specific room, verify the user owns that room
+      if (roomId) {
+        const room = await storage.getRoom(roomId as string);
+        if (!room) {
+          return res.status(404).json({ error: "Room not found" });
+        }
+        // Only the room creator can view audit logs for their room
+        if (room.createdBy !== req.session.userId) {
+          return res.status(403).json({ error: "Access denied: You can only view audit logs for rooms you created" });
+        }
+      }
+      
       // Parse eventTypes if provided (comma-separated list)
       let eventTypesArray: any[] | undefined;
       if (eventTypes) {
