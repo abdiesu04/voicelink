@@ -8,6 +8,8 @@ import { PLAN_DETAILS } from "@shared/schema";
 import cookie from "cookie";
 import signature from "cookie-signature";
 import { Pool } from "@neondatabase/serverless";
+import nodemailer from "nodemailer";
+import multer from "multer";
 
 const sessionPool = new Pool({ connectionString: process.env.DATABASE_URL });
 const SESSION_SECRET = process.env.SESSION_SECRET;
@@ -21,6 +23,33 @@ if (!process.env.STRIPE_SECRET_KEY) {
   throw new Error('Missing required Stripe secret: STRIPE_SECRET_KEY');
 }
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+
+// Multer configuration for file uploads (in-memory storage for email attachments)
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    fileSize: 5 * 1024 * 1024, // 5MB max file size
+  },
+  fileFilter: (_req, file, cb) => {
+    // Only allow image files
+    if (file.mimetype.startsWith('image/')) {
+      cb(null, true);
+    } else {
+      cb(new Error('Only image files are allowed'));
+    }
+  },
+});
+
+// Nodemailer configuration for sending contact form emails
+const emailTransporter = nodemailer.createTransport({
+  host: process.env.EMAIL_HOST || 'smtp.gmail.com',
+  port: parseInt(process.env.EMAIL_PORT || '587', 10),
+  secure: false, // true for 465, false for other ports
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+});
 
 interface RoomConnection {
   ws: WebSocket;
@@ -490,6 +519,80 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error getting speech token:", error);
       res.status(500).json({ error: "Failed to get speech token" });
+    }
+  });
+
+  // Contact form submission - send email to support
+  app.post("/api/contact", upload.single('screenshot'), async (req, res) => {
+    try {
+      if (!req.session.userId) {
+        return res.status(401).json({ error: "Authentication required" });
+      }
+
+      const { category, message } = req.body;
+      const screenshot = req.file;
+
+      if (!category || !message) {
+        return res.status(400).json({ error: "Category and message are required" });
+      }
+
+      // Get user information
+      const user = await storage.getUserById(req.session.userId);
+      if (!user) {
+        return res.status(404).json({ error: "User not found" });
+      }
+
+      // Prepare email content
+      const categoryLabels: Record<string, string> = {
+        'feature-request': 'Feature Request',
+        'bug-report': 'Bug Report',
+        'language-request': 'Language Request',
+        'billing': 'Billing'
+      };
+
+      const categoryLabel = categoryLabels[category] || category;
+
+      const emailHtml = `
+        <h2>New Contact Form Submission</h2>
+        <p><strong>From:</strong> ${user.email} (User ID: ${user.id})</p>
+        <p><strong>Category:</strong> ${categoryLabel}</p>
+        <p><strong>Message:</strong></p>
+        <p>${message.replace(/\n/g, '<br>')}</p>
+        ${screenshot ? '<p><strong>Screenshot attached</strong></p>' : ''}
+        <hr>
+        <p><em>Submitted via Voztra Contact Form</em></p>
+      `;
+
+      // Prepare email options
+      const mailOptions: any = {
+        from: process.env.EMAIL_USER,
+        to: 'support@getvoztra.com',
+        replyTo: user.email,
+        subject: `[Voztra Contact] ${categoryLabel} from ${user.email}`,
+        html: emailHtml,
+      };
+
+      // Add screenshot attachment if provided
+      if (screenshot) {
+        mailOptions.attachments = [{
+          filename: screenshot.originalname,
+          content: screenshot.buffer,
+          contentType: screenshot.mimetype,
+        }];
+      }
+
+      // Send email
+      await emailTransporter.sendMail(mailOptions);
+
+      console.log(`[Contact Form] Email sent from user ${user.id} (${user.email}), category: ${category}`);
+
+      res.json({ success: true, message: "Your message has been sent successfully" });
+    } catch (error: any) {
+      console.error("[Contact Form] Error sending email:", error);
+      res.status(500).json({ 
+        error: "Failed to send message", 
+        details: error.message 
+      });
     }
   });
 
