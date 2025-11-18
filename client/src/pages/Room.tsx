@@ -29,7 +29,7 @@ export default function Room() {
   const [, params] = useRoute("/room/:roomId");
   const [, setLocation] = useLocation();
   const { toast } = useToast();
-  const { updateSubscription } = useAuth();
+  const { updateSubscription, user, subscription } = useAuth();
 
   // MOBILE STABILITY FIX: Store roomId in ref to prevent undefined during mobile browser backgrounding
   // Mobile browsers (Chrome, Safari, Firefox) can temporarily lose route params when:
@@ -2470,9 +2470,9 @@ export default function Room() {
       {/* Header - Compact Desktop */}
       <header className="border-b border-slate-300/50 dark:border-slate-800/50 bg-white/50 dark:bg-slate-900/50 backdrop-blur-xl relative z-10">
         <div className="container mx-auto px-3 sm:px-6 md:px-12 py-2">
-          <div className="flex items-center justify-between gap-4">
+          <div className="flex items-center justify-between gap-2 sm:gap-4">
             {/* Left: Connection Status & Timer */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
               <ConnectionStatus 
                 status={connectionStatus} 
                 disconnectReason={disconnectReason}
@@ -2481,7 +2481,7 @@ export default function Room() {
               
               {/* Session Timer - show when session is active or has elapsed time */}
               {(sessionActive || elapsedSeconds > 0) && (
-                <div className={`flex items-center gap-2 px-3 py-1.5 rounded-lg ${
+                <div className={`hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg ${
                   sessionActive 
                     ? 'bg-gradient-to-r from-green-500/10 to-emerald-500/10 border border-green-500/30' 
                     : 'bg-gray-500/10 border border-gray-500/30'
@@ -2489,6 +2489,16 @@ export default function Room() {
                   {sessionActive && <div className="h-2 w-2 rounded-full bg-green-500 animate-pulse" />}
                   <span className="text-sm font-mono font-bold text-foreground" data-testid="text-session-timer">
                     {formatTime(elapsedSeconds)}
+                  </span>
+                </div>
+              )}
+              
+              {/* Minutes Remaining Badge - HOST only, mobile and desktop */}
+              {(role === "creator" || role === "owner") && subscription && (
+                <div className="flex items-center gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-primary/10 border border-primary/30">
+                  <Sparkles className="h-3 w-3 text-primary" />
+                  <span className="text-xs sm:text-sm font-bold text-foreground" data-testid="text-minutes-remaining">
+                    {Math.floor((subscription.creditsRemaining || 0) / 60)} min
                   </span>
                 </div>
               )}
@@ -2614,10 +2624,10 @@ export default function Room() {
         </div>
       )}
 
-      {/* Main Content - Mobile Optimized with Bottom Padding for Mobile Toolbar */}
-      <main className="flex-1 overflow-hidden relative z-10 pb-24 md:pb-0">
-        <div className="h-full container mx-auto px-3 sm:px-6 md:px-12 py-3 sm:py-4 md:py-6">
-          <div className="h-full grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 max-w-7xl mx-auto">
+      {/* Main Content - Mobile: 100% fit to frame, no scrolling */}
+      <main className="flex-1 overflow-hidden relative z-10">
+        <div className="h-full container mx-auto px-2 sm:px-6 md:px-12 py-2 sm:py-4 md:py-6">
+          <div className="h-full grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-4 max-w-7xl mx-auto">
             <TranscriptionPanel
               title="You"
               isActive={isSpeaking}
@@ -2771,17 +2781,17 @@ export default function Room() {
       {/* Upgrade Modal */}
       <UpgradeModal open={showUpgradeModal} onOpenChange={setShowUpgradeModal} />
 
-      {/* Mobile Sticky Bottom Toolbar - Only visible on mobile */}
-      <div className="md:hidden fixed bottom-0 inset-x-0 px-4 pt-3 pb-safe z-20">
-        <div className="flex flex-col items-center gap-3 rounded-t-2xl bg-background/80 dark:bg-slate-900/90 shadow-[0_-8px_30px_rgba(15,23,42,0.35)] backdrop-blur-xl py-4 px-6">
+      {/* Mobile Sticky Bottom Toolbar - Compact overlay, doesn't affect layout height */}
+      <div className="md:hidden fixed bottom-0 inset-x-0 px-3 pt-2 pb-safe z-20">
+        <div className="flex flex-col items-center gap-2 rounded-t-2xl bg-background/90 dark:bg-slate-900/95 shadow-[0_-8px_30px_rgba(15,23,42,0.35)] backdrop-blur-xl py-3 px-4">
           {!conversationStarted ? (
             <>
-              <div className="flex justify-center gap-3 w-full">
+              <div className="flex justify-center gap-2 w-full">
                 <Button
                   size="lg"
                   onClick={startConversation}
                   disabled={connectionStatus !== "connected" || quotaExceeded || !partnerConnected}
-                  className="h-14 px-8 bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 shadow-lg shadow-primary/25 disabled:opacity-50 disabled:cursor-not-allowed flex-1 max-w-xs"
+                  className="h-12 px-6 text-sm bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 shadow-lg shadow-primary/25 disabled:opacity-50 disabled:cursor-not-allowed flex-1 max-w-xs"
                   data-testid="button-start-conversation-mobile"
                 >
                   {connectionStatus !== "connected" ? (
@@ -2800,7 +2810,7 @@ export default function Room() {
                   variant="destructive"
                   size="lg"
                   onClick={handleEndCall}
-                  className="h-14 w-14 rounded-full shrink-0"
+                  className="h-12 w-12 rounded-full shrink-0"
                   data-testid="button-end-call-mobile"
                 >
                   <PhoneOff className="h-5 w-5" />
@@ -2821,30 +2831,30 @@ export default function Room() {
               )}
             </>
           ) : (
-            <div className="flex justify-center gap-3 w-full">
+            <div className="flex justify-center gap-2 w-full">
               {conversationStarted && (
                 <Button
                   size="lg"
                   variant={(quotaExceeded || !partnerConnected) ? "ghost" : (isMuted ? "secondary" : "default")}
                   onClick={toggleMute}
                   disabled={quotaExceeded || !partnerConnected}
-                  className={`h-14 w-14 rounded-full shadow-xl ${
+                  className={`h-12 w-12 rounded-full shadow-xl ${
                     !isMuted && !quotaExceeded && partnerConnected ? "bg-gradient-to-r from-primary to-indigo-600 hover:from-primary/90 hover:to-indigo-600/90 shadow-primary/25" : ""
                   } disabled:opacity-50 disabled:cursor-not-allowed`}
                   data-testid="button-toggle-mic-mobile"
                 >
-                  {isMuted ? <MicOff className="h-6 w-6" /> : <Mic className="h-6 w-6" />}
+                  {isMuted ? <MicOff className="h-5 w-5" /> : <Mic className="h-5 w-5" />}
                 </Button>
               )}
               <Button
                 variant="destructive"
                 size="lg"
                 onClick={handleEndCall}
-                className="gap-2 flex-1 max-w-xs h-14"
+                className="gap-2 flex-1 max-w-xs h-12"
                 data-testid="button-end-call-mobile"
               >
-                <PhoneOff className="h-5 w-5" />
-                <span className="text-base font-semibold">End Call</span>
+                <PhoneOff className="h-4 w-4" />
+                <span className="text-sm font-semibold">End Call</span>
               </Button>
             </div>
           )}

@@ -90,21 +90,21 @@ export function TranscriptionPanel({
 
       {/* Messages Area */}
       <ScrollArea className="flex-1" ref={scrollRef}>
-        <div className="p-6 space-y-6">
+        <div className="p-3 sm:p-6 space-y-3 sm:space-y-6">
           {messages.length === 0 && !interimText ? (
-            <div className="flex flex-col items-center justify-center h-[400px] text-center">
+            <div className="flex flex-col items-center justify-center h-[200px] sm:h-[400px] text-center">
               <div className={cn(
-                "h-20 w-20 rounded-2xl flex items-center justify-center mb-4",
+                "h-12 w-12 sm:h-20 sm:w-20 rounded-2xl flex items-center justify-center mb-3 sm:mb-4",
                 isUser 
                   ? "bg-gradient-to-br from-primary/10 to-indigo-500/5" 
                   : "bg-gradient-to-br from-accent/10 to-purple-500/5"
               )}>
-                <Languages className="h-10 w-10 text-muted-foreground" />
+                <Languages className="h-6 w-6 sm:h-10 sm:w-10 text-muted-foreground" />
               </div>
-              <p className="text-base font-medium text-muted-foreground max-w-xs">
+              <p className="text-sm sm:text-base font-medium text-muted-foreground max-w-xs px-4">
                 {isUser ? "Your conversation will appear here" : "Partner's conversation will appear here"}
               </p>
-              <p className="text-sm text-muted-foreground/70 mt-2">
+              <p className="text-xs sm:text-sm text-muted-foreground/70 mt-2">
                 Start speaking to begin
               </p>
             </div>
@@ -113,45 +113,45 @@ export function TranscriptionPanel({
               {messages.map((message) => (
                 <div
                   key={message.id}
-                  className="space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-500"
+                  className="space-y-2 sm:space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-500"
                   data-testid={`message-${message.id}`}
                 >
-                  {/* Original Message - Large and prominent */}
-                  <div className="space-y-2">
-                    <div className="flex items-center gap-2">
+                  {/* Original Message - Compact on mobile */}
+                  <div className="space-y-1 sm:space-y-2">
+                    <div className="flex items-center gap-1.5 sm:gap-2">
                       <div className={cn(
-                        "h-1.5 w-1.5 rounded-full",
+                        "h-1 w-1 sm:h-1.5 sm:w-1.5 rounded-full",
                         message.isOwn ? "bg-primary" : "bg-accent"
                       )} />
-                      <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                      <span className="text-[10px] sm:text-xs font-semibold text-muted-foreground uppercase tracking-wide">
                         Original
                       </span>
                     </div>
                     <div className={cn(
-                      "p-5 rounded-xl shadow-sm border-2",
+                      "p-3 sm:p-5 rounded-lg sm:rounded-xl shadow-sm border sm:border-2",
                       message.isOwn
                         ? "bg-gradient-to-br from-primary/5 to-indigo-500/5 border-primary/20"
                         : "bg-gradient-to-br from-accent/5 to-purple-500/5 border-accent/20"
                     )}>
-                      <p className="text-lg leading-relaxed font-medium text-foreground">
+                      <p className="text-sm sm:text-lg leading-snug sm:leading-relaxed font-medium text-foreground">
                         {message.originalText}
                       </p>
                     </div>
                   </div>
                   
-                  {/* Translation - Slightly smaller but still readable */}
-                  <div className="pl-8 space-y-2">
-                    <div className="flex items-center gap-2">
+                  {/* Translation - Compact on mobile */}
+                  <div className="pl-4 sm:pl-8 space-y-1 sm:space-y-2">
+                    <div className="flex items-center gap-1.5 sm:gap-2">
                       <Sparkles className={cn(
-                        "h-3.5 w-3.5",
+                        "h-2.5 w-2.5 sm:h-3.5 sm:w-3.5",
                         message.isOwn ? "text-primary" : "text-accent"
                       )} />
-                      <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide">
+                      <span className="text-[10px] sm:text-xs font-semibold text-muted-foreground uppercase tracking-wide">
                         Translation
                       </span>
                     </div>
-                    <div className="p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
-                      <p className="text-base leading-relaxed text-muted-foreground">
+                    <div className="p-2.5 sm:p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+                      <p className="text-xs sm:text-base leading-snug sm:leading-relaxed text-muted-foreground">
                         {message.translatedText}
                       </p>
                     </div>
@@ -159,26 +159,26 @@ export function TranscriptionPanel({
                 </div>
               ))}
               
-              {/* Interim Text Display - Live transcription */}
+              {/* Interim Text Display - Compact on mobile */}
               {interimText && (
-                <div className="space-y-3 animate-in fade-in slide-in-from-bottom-2 duration-300">
-                  <div className="flex items-center gap-2">
+                <div className="space-y-2 sm:space-y-3 animate-in fade-in slide-in-from-bottom-2 duration-300">
+                  <div className="flex items-center gap-1.5 sm:gap-2">
                     <div className={cn(
-                      "h-2 w-2 rounded-full animate-pulse",
+                      "h-1.5 w-1.5 sm:h-2 sm:w-2 rounded-full animate-pulse",
                       isUser ? "bg-primary" : "bg-accent"
                     )} />
-                    <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wide flex items-center gap-1.5">
-                      <Languages className="h-3.5 w-3.5 animate-pulse" />
+                    <span className="text-[10px] sm:text-xs font-semibold text-muted-foreground uppercase tracking-wide flex items-center gap-1.5">
+                      <Languages className="h-3 w-3 sm:h-3.5 sm:w-3.5 animate-pulse" />
                       Transcribing...
                     </span>
                   </div>
                   <div className={cn(
-                    "p-5 rounded-xl border-2 border-dashed",
+                    "p-3 sm:p-5 rounded-lg sm:rounded-xl border sm:border-2 border-dashed",
                     isUser
                       ? "bg-primary/5 border-primary/30"
                       : "bg-accent/5 border-accent/30"
                   )}>
-                    <p className="text-lg leading-relaxed text-muted-foreground italic font-medium">
+                    <p className="text-sm sm:text-lg leading-snug sm:leading-relaxed text-muted-foreground italic font-medium">
                       {interimText}
                     </p>
                   </div>
