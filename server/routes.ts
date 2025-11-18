@@ -523,77 +523,125 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Contact form submission - send email to support
-  app.post("/api/contact", upload.single('screenshot'), async (req, res) => {
-    try {
-      if (!req.session.userId) {
-        return res.status(401).json({ error: "Authentication required" });
-      }
-
-      const { category, message } = req.body;
-      const screenshot = req.file;
-
-      if (!category || !message) {
-        return res.status(400).json({ error: "Category and message are required" });
-      }
-
-      // Get user information
-      const user = await storage.getUserById(req.session.userId);
-      if (!user) {
-        return res.status(404).json({ error: "User not found" });
-      }
-
-      // Prepare email content
-      const categoryLabels: Record<string, string> = {
-        'feature-request': 'Feature Request',
-        'bug-report': 'Bug Report',
-        'language-request': 'Language Request',
-        'billing': 'Billing'
-      };
-
-      const categoryLabel = categoryLabels[category] || category;
-
-      const emailHtml = `
-        <h2>New Contact Form Submission</h2>
-        <p><strong>From:</strong> ${user.email} (User ID: ${user.id})</p>
-        <p><strong>Category:</strong> ${categoryLabel}</p>
-        <p><strong>Message:</strong></p>
-        <p>${message.replace(/\n/g, '<br>')}</p>
-        ${screenshot ? '<p><strong>Screenshot attached</strong></p>' : ''}
-        <hr>
-        <p><em>Submitted via Voztra Contact Form</em></p>
-      `;
-
-      // Prepare email options
-      const mailOptions: any = {
-        from: process.env.EMAIL_USER,
-        to: 'support@getvoztra.com',
-        replyTo: user.email,
-        subject: `[Voztra Contact] ${categoryLabel} from ${user.email}`,
-        html: emailHtml,
-      };
-
-      // Add screenshot attachment if provided
-      if (screenshot) {
-        mailOptions.attachments = [{
-          filename: screenshot.originalname,
-          content: screenshot.buffer,
-          contentType: screenshot.mimetype,
-        }];
-      }
-
-      // Send email
-      await emailTransporter.sendMail(mailOptions);
-
-      console.log(`[Contact Form] Email sent from user ${user.id} (${user.email}), category: ${category}`);
-
-      res.json({ success: true, message: "Your message has been sent successfully" });
-    } catch (error: any) {
-      console.error("[Contact Form] Error sending email:", error);
-      res.status(500).json({ 
-        error: "Failed to send message", 
-        details: error.message 
-      });
+  app.post("/api/contact", async (req, res) => {
+    // CRITICAL: Check authentication BEFORE processing uploads to prevent spam
+    if (!req.session.userId) {
+      return res.status(401).json({ error: "Authentication required" });
     }
+
+    // Now that user is authenticated, process the upload
+    upload.single('screenshot')(req, res, async (err) => {
+      try {
+        // Handle multer errors explicitly
+        if (err) {
+          if (err.message === 'Only image files are allowed') {
+            return res.status(400).json({ error: "Only image files (PNG, JPG, etc.) are allowed" });
+          }
+          if (err.code === 'LIMIT_FILE_SIZE') {
+            return res.status(400).json({ error: "File size exceeds 5MB limit" });
+          }
+          return res.status(400).json({ error: err.message || "File upload error" });
+        }
+
+        const { category, message } = req.body;
+        const screenshot = req.file;
+
+        // Validate required fields
+        if (!category || !message?.trim()) {
+          return res.status(400).json({ error: "Category and message are required" });
+        }
+
+        // Validate category is one of the allowed values
+        const validCategories = ['feature-request', 'bug-report', 'language-request', 'billing'];
+        if (!validCategories.includes(category)) {
+          return res.status(400).json({ error: "Invalid category" });
+        }
+
+        // Get user information
+        const user = await storage.getUserById(req.session.userId!);
+        if (!user) {
+          return res.status(404).json({ error: "User not found" });
+        }
+
+        // Verify email configuration before attempting to send
+        if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
+          console.error("[Contact Form] Email not configured - missing EMAIL_USER or EMAIL_PASS");
+          return res.status(503).json({ 
+            error: "Email service not configured. Please contact support directly at support@getvoztra.com" 
+          });
+        }
+
+        // Prepare email content
+        const categoryLabels: Record<string, string> = {
+          'feature-request': 'Feature Request',
+          'bug-report': 'Bug Report',
+          'language-request': 'Language Request',
+          'billing': 'Billing'
+        };
+
+        const categoryLabel = categoryLabels[category] || category;
+
+        // Sanitize all user-controlled strings to prevent HTML injection
+        // CRITICAL: Escape & first to prevent double-encoding attacks (e.g., "&lt;script&gt;" -> "<script>")
+        const escapeHtml = (str: string) => str
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#x27;');
+        const sanitizedMessage = escapeHtml(message).replace(/\n/g, '<br>');
+        const sanitizedFilename = screenshot ? escapeHtml(screenshot.originalname) : '';
+
+        const emailHtml = `
+          <h2>New Contact Form Submission</h2>
+          <p><strong>From:</strong> ${escapeHtml(user.email)} (User ID: ${user.id})</p>
+          <p><strong>Category:</strong> ${categoryLabel}</p>
+          <p><strong>Message:</strong></p>
+          <p>${sanitizedMessage}</p>
+          ${screenshot ? `<p><strong>Screenshot attached:</strong> ${sanitizedFilename}</p>` : ''}
+          <hr>
+          <p><em>Submitted via Voztra Contact Form</em></p>
+        `;
+
+        // Prepare email options
+        const mailOptions: any = {
+          from: process.env.EMAIL_USER,
+          to: 'support@getvoztra.com',
+          replyTo: user.email,
+          subject: `[Voztra Contact] ${categoryLabel} from ${user.email}`,
+          html: emailHtml,
+        };
+
+        // Add screenshot attachment if provided
+        if (screenshot) {
+          mailOptions.attachments = [{
+            filename: screenshot.originalname,
+            content: screenshot.buffer,
+            contentType: screenshot.mimetype,
+          }];
+        }
+
+        // Send email
+        try {
+          await emailTransporter.sendMail(mailOptions);
+          console.log(`[Contact Form] ✅ Email sent from user ${user.id} (${user.email}), category: ${category}`);
+        } catch (emailError: any) {
+          console.error("[Contact Form] ❌ Email sending failed:", emailError);
+          return res.status(503).json({ 
+            error: "Failed to send email. Please try again or contact support@getvoztra.com directly",
+            details: process.env.NODE_ENV === 'development' ? emailError.message : undefined
+          });
+        }
+
+        res.json({ success: true, message: "Your message has been sent successfully" });
+      } catch (error: any) {
+        console.error("[Contact Form] Error processing contact form:", error);
+        res.status(500).json({ 
+          error: "Failed to process your request", 
+          details: process.env.NODE_ENV === 'development' ? error.message : undefined
+        });
+      }
+    });
   });
 
   // Stripe Checkout Session - Create subscription checkout

@@ -14,7 +14,6 @@ import {
 } from "@/components/ui/select";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { apiRequest } from "@/lib/queryClient";
 import { Mail, Upload, Loader2, ArrowLeft } from "lucide-react";
 
 export default function Contact() {
@@ -99,10 +98,16 @@ export default function Contact() {
         formData.append('screenshot', screenshot);
       }
 
-      await apiRequest('/api/contact', {
+      const response = await fetch('/api/contact', {
         method: 'POST',
         body: formData,
+        credentials: 'include',
       });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to send message');
+      }
 
       toast({
         title: "Message sent!",
