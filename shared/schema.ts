@@ -79,6 +79,49 @@ export const creditUsage = pgTable("credit_usage", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
+// Audit log event types
+export const AUDIT_EVENT_TYPES = [
+  "STT_INTERIM",           // Azure Speech SDK interim recognition
+  "STT_FINAL",             // Azure Speech SDK final recognition
+  "STT_RESULT_ID_BLOCK",   // Client-side resultId deduplication blocked
+  "WS_SEND",               // Client sends transcription to server via WebSocket
+  "WS_RECEIVE",            // Server receives transcription
+  "TRANSLATION_REQUEST",   // Request sent to Azure Translator
+  "TRANSLATION_RESPONSE",  // Response from Azure Translator
+  "DEDUP_TIER1_BLOCK",     // Server Tier 1 dedup blocked (98% original similarity)
+  "DEDUP_TIER2_BLOCK",     // Server Tier 2 dedup blocked (82% both texts)
+  "DEDUP_TIER2_BYPASS",    // Server Tier 2 numeric bypass allowed
+  "DEDUP_CONTENT_BLOCK",   // Server content-based dedup blocked
+  "DEDUP_PASSED",          // Message passed all dedup checks
+  "TTS_REQUEST",           // Request sent to Azure TTS
+  "TTS_RESPONSE",          // Response from Azure TTS
+  "TTS_QUEUE_ADD",         // Added to TTS playback queue
+  "TTS_PLAYBACK_START",    // Audio playback started
+  "TTS_PLAYBACK_END",      // Audio playback ended
+  "SEQUENCE_ASSIGNED",     // Server assigned sequence number
+] as const;
+
+export type AuditEventType = typeof AUDIT_EVENT_TYPES[number];
+
+// Audit logs table - tracks complete flow of every utterance through the system
+export const auditLogs = pgTable("audit_logs", {
+  id: serial("id").primaryKey(),
+  eventType: varchar("event_type", { length: 50 }).$type<AuditEventType>().notNull(),
+  timestamp: timestamp("timestamp").notNull().defaultNow(),
+  roomId: varchar("room_id", { length: 255 }),
+  userId: integer("user_id"),
+  messageId: varchar("message_id", { length: 255 }), // Correlate events for same utterance
+  azureResultId: varchar("azure_result_id", { length: 255 }), // Azure Speech SDK resultId
+  sequenceNumber: integer("sequence_number"), // Server-assigned sequence number
+  speaker: varchar("speaker", { length: 20 }), // creator or participant
+  originalText: text("original_text"),
+  translatedText: text("translated_text"),
+  languageFrom: varchar("language_from", { length: 10 }),
+  languageTo: varchar("language_to", { length: 10 }),
+  metadata: text("metadata"), // JSON string for additional context (similarity scores, durations, etc.)
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
 // Insert schemas
 export const insertUserSchema = createInsertSchema(users).omit({ 
   id: true, 
@@ -91,6 +134,7 @@ export const insertPendingRegistrationSchema = createInsertSchema(pendingRegistr
 export const insertSubscriptionSchema = createInsertSchema(subscriptions).omit({ id: true, createdAt: true, updatedAt: true });
 export const insertRoomSchema = createInsertSchema(rooms).omit({ createdAt: true, sessionStartedAt: true, sessionEndedAt: true, lastActivityAt: true });
 export const insertCreditUsageSchema = createInsertSchema(creditUsage).omit({ id: true, createdAt: true });
+export const insertAuditLogSchema = createInsertSchema(auditLogs).omit({ id: true, createdAt: true });
 
 // Types
 export type User = typeof users.$inferSelect;
@@ -103,6 +147,8 @@ export type Room = typeof rooms.$inferSelect;
 export type InsertRoom = z.infer<typeof insertRoomSchema>;
 export type CreditUsage = typeof creditUsage.$inferSelect;
 export type InsertCreditUsage = z.infer<typeof insertCreditUsageSchema>;
+export type AuditLog = typeof auditLogs.$inferSelect;
+export type InsertAuditLog = z.infer<typeof insertAuditLogSchema>;
 
 // Authentication schemas
 export const registerSchema = z.object({

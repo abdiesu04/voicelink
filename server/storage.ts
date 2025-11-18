@@ -52,6 +52,19 @@ export interface IStorage {
   // Credit usage methods
   recordCreditUsage(userId: number, roomId: string, secondsUsed: number, creditsDeducted: number): Promise<CreditUsage>;
   getUserCreditUsage(userId: number): Promise<CreditUsage[]>;
+
+  // Audit log methods
+  createAuditLog(data: schema.InsertAuditLog): Promise<schema.AuditLog>;
+  getAuditLogs(filters: {
+    roomId?: string;
+    userId?: number;
+    messageId?: string;
+    eventTypes?: schema.AuditEventType[];
+    startTime?: Date;
+    endTime?: Date;
+    limit?: number;
+  }): Promise<schema.AuditLog[]>;
+  cleanupOldAuditLogs(): Promise<number>;
 }
 
 export class PgStorage implements IStorage {
@@ -426,6 +439,68 @@ export class PgStorage implements IStorage {
       .from(schema.creditUsage)
       .where(eq(schema.creditUsage.userId, userId))
       .orderBy(schema.creditUsage.createdAt);
+  }
+
+  // Audit log methods
+  async createAuditLog(data: schema.InsertAuditLog): Promise<schema.AuditLog> {
+    const [log] = await db.insert(schema.auditLogs).values(data).returning();
+    return log;
+  }
+
+  async getAuditLogs(filters: {
+    roomId?: string;
+    userId?: number;
+    messageId?: string;
+    eventTypes?: schema.AuditEventType[];
+    startTime?: Date;
+    endTime?: Date;
+    limit?: number;
+  }): Promise<schema.AuditLog[]> {
+    const { inArray, gte, lte } = await import('drizzle-orm');
+    let query = db.select().from(schema.auditLogs);
+    
+    const conditions: any[] = [];
+    
+    if (filters.roomId) {
+      conditions.push(eq(schema.auditLogs.roomId, filters.roomId));
+    }
+    if (filters.userId !== undefined) {
+      conditions.push(eq(schema.auditLogs.userId, filters.userId));
+    }
+    if (filters.messageId) {
+      conditions.push(eq(schema.auditLogs.messageId, filters.messageId));
+    }
+    // FIXED: Implement eventTypes filtering
+    if (filters.eventTypes && filters.eventTypes.length > 0) {
+      conditions.push(inArray(schema.auditLogs.eventType, filters.eventTypes));
+    }
+    // FIXED: Use gte() for startTime (greater than or equal)
+    if (filters.startTime) {
+      conditions.push(gte(schema.auditLogs.timestamp, filters.startTime));
+    }
+    // FIXED: Use lte() for endTime (less than or equal)
+    if (filters.endTime) {
+      conditions.push(lte(schema.auditLogs.timestamp, filters.endTime));
+    }
+    
+    if (conditions.length > 0) {
+      query = query.where(and(...conditions)) as any;
+    }
+    
+    query = query.orderBy(desc(schema.auditLogs.timestamp)) as any;
+    
+    if (filters.limit) {
+      query = query.limit(filters.limit) as any;
+    }
+    
+    return await query;
+  }
+
+  async cleanupOldAuditLogs(): Promise<number> {
+    const tenDaysAgo = new Date(Date.now() - 10 * 24 * 60 * 60 * 1000);
+    const result = await db.delete(schema.auditLogs)
+      .where(lt(schema.auditLogs.createdAt, tenDaysAgo));
+    return result.rowCount || 0;
   }
 }
 

@@ -10,6 +10,7 @@ import signature from "cookie-signature";
 import { Pool } from "@neondatabase/serverless";
 import nodemailer from "nodemailer";
 import multer from "multer";
+import type { AuditEventType, InsertAuditLog } from "@shared/schema";
 
 const sessionPool = new Pool({ connectionString: process.env.DATABASE_URL });
 const SESSION_SECRET = process.env.SESSION_SECRET;
@@ -117,6 +118,21 @@ setInterval(() => {
     console.log(`[WebSocket Token] 🧹 Cleaned up ${cleanedCount} expired tokens`);
   }
 }, 60 * 60 * 1000); // Run cleanup every hour
+
+// AUDIT LOGGING: Non-blocking helper function to log pipeline events
+async function logAudit(data: InsertAuditLog): Promise<void> {
+  try {
+    // Don't await - fire and forget to avoid blocking the main flow
+    storage.createAuditLog({
+      ...data,
+      timestamp: new Date(), // Always set fresh timestamp
+    }).catch((err) => {
+      console.error('[Audit Log] Failed to write audit log:', err);
+    });
+  } catch (error) {
+    console.error('[Audit Log] Error in logAudit helper:', error);
+  }
+}
 
 // Grace period constant - keep room alive for mobile backgrounding recovery
 const GRACE_PERIOD_MS = 60 * 1000; // 60 seconds
@@ -642,6 +658,75 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
     });
+  });
+
+  // Client-side audit logging endpoint
+  app.post("/api/audit-log", async (req, res) => {
+    try {
+      // Authentication is optional for audit logs - we track userId if available
+      const userId = req.session.userId || undefined;
+      
+      const { eventType, roomId, messageId, azureResultId, sequenceNumber, speaker, originalText, translatedText, languageFrom, languageTo, metadata } = req.body;
+      
+      if (!eventType) {
+        return res.status(400).json({ error: "eventType is required" });
+      }
+      
+      await storage.createAuditLog({
+        eventType,
+        roomId,
+        userId,
+        messageId,
+        azureResultId,
+        sequenceNumber,
+        speaker,
+        originalText,
+        translatedText,
+        languageFrom,
+        languageTo,
+        metadata: metadata ? JSON.stringify(metadata) : undefined,
+      });
+      
+      res.json({ success: true });
+    } catch (error: any) {
+      console.error("[Audit Log API] Error creating audit log:", error);
+      res.status(500).json({ error: "Failed to create audit log" });
+    }
+  });
+
+  // Query audit logs (admin/debugging endpoint)
+  app.get("/api/audit-logs", async (req, res) => {
+    try {
+      if (!req.session.userId) {
+        return res.status(401).json({ error: "Authentication required" });
+      }
+      
+      const { roomId, messageId, eventType, eventTypes, startTime, endTime, limit, includeAllUsers } = req.query;
+      
+      // Parse eventTypes if provided (comma-separated list)
+      let eventTypesArray: any[] | undefined;
+      if (eventTypes) {
+        eventTypesArray = (eventTypes as string).split(',');
+      } else if (eventType) {
+        eventTypesArray = [eventType as string];
+      }
+      
+      const logs = await storage.getAuditLogs({
+        roomId: roomId as string | undefined,
+        // Only filter by userId if includeAllUsers is NOT set (for debugging, allow viewing all logs)
+        userId: includeAllUsers === 'true' ? undefined : req.session.userId,
+        messageId: messageId as string | undefined,
+        eventTypes: eventTypesArray,
+        startTime: startTime ? new Date(startTime as string) : undefined,
+        endTime: endTime ? new Date(endTime as string) : undefined,
+        limit: limit ? parseInt(limit as string, 10) : 1000,
+      });
+      
+      res.json({ logs });
+    } catch (error: any) {
+      console.error("[Audit Log API] Error querying audit logs:", error);
+      res.status(500).json({ error: "Failed to query audit logs" });
+    }
   });
 
   // Stripe Checkout Session - Create subscription checkout
@@ -1504,6 +1589,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
             const transcriptionTimestamp = Date.now();
             console.log(`[Transcription-Final] ⏱️ Timestamp: ${transcriptionTimestamp}, Received text: "${text}", language: ${language}, speaker: ${connection.role}`);
             
+            // AUDIT LOG: WebSocket received transcription from client
+            logAudit({
+              eventType: 'WS_RECEIVE',
+              roomId,
+              speaker: connection.role,
+              originalText: text,
+              languageFrom: language,
+              metadata: JSON.stringify({ interim: false }),
+            });
+            
             const room = await storage.getRoom(roomId);
             if (!room) return;
 
@@ -1519,9 +1614,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
               return;
             }
 
+            // AUDIT LOG: Translation request to Azure
+            logAudit({
+              eventType: 'TRANSLATION_REQUEST',
+              roomId,
+              speaker: connection.role,
+              originalText: text,
+              languageFrom: language,
+              languageTo: targetLanguage,
+            });
+
             const translatedText = await translateText(text, language, targetLanguage);
             const translationCompleteTimestamp = Date.now();
             console.log(`[Translation] ⏱️ Translation completed in ${translationCompleteTimestamp - transcriptionTimestamp}ms: "${text}" → "${translatedText}"`);
+            
+            // AUDIT LOG: Translation response received
+            logAudit({
+              eventType: 'TRANSLATION_RESPONSE',
+              roomId,
+              speaker: connection.role,
+              originalText: text,
+              translatedText,
+              languageFrom: language,
+              languageTo: targetLanguage,
+              metadata: JSON.stringify({ durationMs: translationCompleteTimestamp - transcriptionTimestamp }),
+            });
 
             const now = Date.now();
             
@@ -1562,6 +1679,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
                 console.warn(`[Azure Rescoring] 📊 Translation similarity: ${(translatedSimilarity * 100).toFixed(1)}% (different due to rescoring)`);
                 console.warn(`[Azure Rescoring] ⏱️ Time between utterances: ${timeSinceOriginal}ms (window: ${FUZZY_TIME_WINDOW_MS}ms)`);
                 console.warn(`[Azure Rescoring] 🔍 This is Azure's rescoring behavior - same speech recognized twice with different accuracy`);
+                
+                // AUDIT LOG: Tier 1 dedup blocked
+                logAudit({
+                  eventType: 'DEDUP_TIER1_BLOCK',
+                  roomId,
+                  speaker: connection.role,
+                  originalText: text,
+                  translatedText,
+                  languageFrom: language,
+                  languageTo: targetLanguage,
+                  metadata: JSON.stringify({
+                    originalSimilarity,
+                    translatedSimilarity,
+                    timeSinceOriginalMs: timeSinceOriginal,
+                    firstOriginal: recentMsg.originalText,
+                    firstTranslated: recentMsg.translatedText,
+                  }),
+                });
+                
                 return; // Block this Azure-generated duplicate
               }
               
@@ -1590,6 +1726,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
                   console.log(`[Numeric Bypass] 📝 Translated numbers: "${translatedNumbers1}" → "${translatedNumbers2}"`);
                   console.log(`[Numeric Bypass] 📊 Text similarity: Original=${(originalSimilarity * 100).toFixed(1)}%, Translated=${(translatedSimilarity * 100).toFixed(1)}%`);
                   console.log(`[Numeric Bypass] 🔍 This is likely a legitimate number correction (e.g., "3 PM" → "5 PM")`);
+                  
+                  // AUDIT LOG: Tier 2 numeric bypass
+                  logAudit({
+                    eventType: 'DEDUP_TIER2_BYPASS',
+                    roomId,
+                    speaker: connection.role,
+                    originalText: text,
+                    translatedText,
+                    languageFrom: language,
+                    languageTo: targetLanguage,
+                    metadata: JSON.stringify({
+                      originalSimilarity,
+                      translatedSimilarity,
+                      originalNumbers: `${originalNumbers1} → ${originalNumbers2}`,
+                      translatedNumbers: `${translatedNumbers1} → ${translatedNumbers2}`,
+                    }),
+                  });
+                  
                   // Don't return - allow this message through
                 } else {
                   // No number differences - block as duplicate
@@ -1599,6 +1753,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
                   console.warn(`[Fuzzy Deduplication] 📊 Similarity: Original=${(originalSimilarity * 100).toFixed(1)}%, Translated=${(translatedSimilarity * 100).toFixed(1)}%`);
                   console.warn(`[Fuzzy Deduplication] ⏱️ Time since first message: ${timeSinceOriginal}ms (window: ${FUZZY_TIME_WINDOW_MS}ms)`);
                   console.warn(`[Fuzzy Deduplication] 🔍 This is likely Azure Speech SDK producing slightly different transcriptions of the same audio`);
+                  
+                  // AUDIT LOG: Tier 2 dedup blocked
+                  logAudit({
+                    eventType: 'DEDUP_TIER2_BLOCK',
+                    roomId,
+                    speaker: connection.role,
+                    originalText: text,
+                    translatedText,
+                    languageFrom: language,
+                    languageTo: targetLanguage,
+                    metadata: JSON.stringify({
+                      originalSimilarity,
+                      translatedSimilarity,
+                      timeSinceOriginalMs: timeSinceOriginal,
+                      firstOriginal: recentMsg.originalText,
+                      firstTranslated: recentMsg.translatedText,
+                    }),
+                  });
+                  
                   return; // Block this duplicate
                 }
               }
@@ -1614,6 +1787,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
               validMessages.shift(); // Remove oldest
             }
             console.log(`[Fuzzy Deduplication] ✅ Message passed fuzzy check. Recent messages for speaker: ${validMessages.length}`);
+            
+            // AUDIT LOG: Message passed all fuzzy dedup checks
+            logAudit({
+              eventType: 'DEDUP_PASSED',
+              roomId,
+              speaker: connection.role,
+              originalText: text,
+              translatedText,
+              languageFrom: language,
+              languageTo: targetLanguage,
+              metadata: JSON.stringify({ recentMessagesCount: validMessages.length }),
+            });
 
             // Update room activity timestamp (for 24h cleanup)
             await storage.updateRoomActivity(roomId);
@@ -1650,6 +1835,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
               console.warn(`[Server Deduplication] 📝 Text: "${text}" → "${translatedText}"`);
               console.warn(`[Server Deduplication] ⏱️ Last broadcast: ${timeSinceLastBroadcast}ms ago (TTL: ${DEDUPE_TTL_MS}ms)`);
               console.warn(`[Server Deduplication] 🔍 This likely means Azure Speech SDK fired the 'recognized' event twice for the same utterance`);
+              
+              // AUDIT LOG: Content-based dedup blocked
+              logAudit({
+                eventType: 'DEDUP_CONTENT_BLOCK',
+                roomId,
+                speaker: connection.role,
+                originalText: text,
+                translatedText,
+                languageFrom: language,
+                languageTo: targetLanguage,
+                metadata: JSON.stringify({
+                  timeSinceLastBroadcastMs: timeSinceLastBroadcast,
+                  dedupeKey,
+                }),
+              });
+              
               return; // Don't broadcast again - this is a true duplicate from Azure
             }
             
@@ -1706,6 +1907,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
             }
             
             console.log(`[Sequence] 📊 Assigned seq=${seq} to message. Buffer size: ${sequenceState.buffer.length}/${MAX_BUFFER_SIZE}`);
+            
+            // AUDIT LOG: Sequence number assigned
+            logAudit({
+              eventType: 'SEQUENCE_ASSIGNED',
+              roomId,
+              speaker: connection.role,
+              messageId,
+              sequenceNumber: seq,
+              originalText: text,
+              translatedText,
+              languageFrom: language,
+              languageTo: targetLanguage,
+              metadata: JSON.stringify({ bufferSize: sequenceState.buffer.length }),
+            });
             
             const roomClients = roomConnections.get(roomId) || [];
             console.log(`[Translation Broadcast] 📡 Broadcasting to ${roomClients.length} clients in room ${roomId}, seq=${seq}, messageId=${messageId}`);
@@ -2103,4 +2318,28 @@ export function startRoomCleanupWorker() {
   setInterval(runCleanup, CLEANUP_INTERVAL_MS);
   
   console.log('[Room Cleanup] ✅ Background worker started (runs every hour)');
+}
+
+// Background cleanup worker: Deletes audit logs older than 10 days
+export function startAuditLogCleanupWorker() {
+  const CLEANUP_INTERVAL_MS = 24 * 60 * 60 * 1000; // Run every 24 hours
+  
+  const runCleanup = async () => {
+    try {
+      const deletedCount = await storage.cleanupOldAuditLogs();
+      if (deletedCount > 0) {
+        console.log(`[Audit Log Cleanup] 🧹 Deleted ${deletedCount} audit log(s) (>10 days old)`);
+      }
+    } catch (error) {
+      console.error('[Audit Log Cleanup] Error during cleanup:', error);
+    }
+  };
+
+  // Run immediately on startup
+  runCleanup();
+  
+  // Then run every 24 hours
+  setInterval(runCleanup, CLEANUP_INTERVAL_MS);
+  
+  console.log('[Audit Log Cleanup] ✅ Background worker started (runs every 24 hours, keeps logs for 10 days)');
 }
