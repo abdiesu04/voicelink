@@ -2504,35 +2504,35 @@ export default function Room() {
               )}
             </div>
             
-            {/* Center: Language & Voice Info - Compact */}
+            {/* Center: Language Flags - Compact on mobile, full on desktop */}
             {myLanguage && theirLanguage && (
-              <div className="flex items-center gap-4">
-                {/* You */}
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-primary/5 border border-primary/20">
+              <div className="flex items-center gap-1.5 sm:gap-4">
+                {/* You - Compact on mobile */}
+                <div className="flex items-center gap-1 sm:gap-2 px-1.5 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-primary/5 border border-primary/20">
                   <img 
                     src={`https://flagcdn.com/w40/${myLanguage.countryCode.toLowerCase()}.png`}
-                    width="20"
-                    height="15"
+                    width="16"
+                    height="12"
                     alt={myLanguage.code}
-                    className="rounded border border-slate-400 dark:border-slate-600"
+                    className="rounded border border-slate-400 dark:border-slate-600 sm:w-5 sm:h-[15px]"
                   />
-                  <span className="text-xs font-semibold text-foreground capitalize">
+                  <span className="hidden sm:inline text-xs font-semibold text-foreground capitalize">
                     {myLanguage.name} ({voiceGender})
                   </span>
                 </div>
                 
-                <div className="text-muted-foreground">↔</div>
+                <div className="text-muted-foreground text-sm sm:text-base">↔</div>
                 
-                {/* Partner */}
-                <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-accent/5 border border-accent/20">
+                {/* Partner - Compact on mobile */}
+                <div className="flex items-center gap-1 sm:gap-2 px-1.5 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-accent/5 border border-accent/20">
                   <img 
                     src={`https://flagcdn.com/w40/${theirLanguage.countryCode.toLowerCase()}.png`}
-                    width="20"
-                    height="15"
+                    width="16"
+                    height="12"
                     alt={theirLanguage.code}
-                    className="rounded border border-slate-400 dark:border-slate-600"
+                    className="rounded border border-slate-400 dark:border-slate-600 sm:w-5 sm:h-[15px]"
                   />
-                  <span className="text-xs font-semibold text-foreground capitalize">
+                  <span className="hidden sm:inline text-xs font-semibold text-foreground capitalize">
                     {theirLanguage.name} ({partnerVoiceGender || '...'})
                   </span>
                 </div>
@@ -2624,9 +2624,9 @@ export default function Room() {
         </div>
       )}
 
-      {/* Main Content - Mobile: 100% fit to frame, no scrolling */}
+      {/* Main Content - Mobile: fit to frame with bottom padding for toolbar */}
       <main className="flex-1 overflow-hidden relative z-10">
-        <div className="h-full container mx-auto px-2 sm:px-6 md:px-12 py-2 sm:py-4 md:py-6">
+        <div className="h-full container mx-auto px-2 sm:px-6 md:px-12 py-2 sm:py-4 md:py-6 pb-28 md:pb-6">
           <div className="h-full grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-4 max-w-7xl mx-auto">
             <TranscriptionPanel
               title="You"
