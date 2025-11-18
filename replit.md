@@ -21,7 +21,6 @@ The application features a modern, responsive UI with full light/dark theme supp
 - An Upgrade Modal for credit exhaustion.
 - A robust Payment Success Page with intelligent status updates and auto-redirect.
 - Full mobile optimization across all pages, including fluid typography, responsive grids, and a mobile-only sticky bottom toolbar with context-aware controls.
-- Mobile Room layout optimized to fit 100% on screen without scrolling: compact language flags (flags only on mobile, full labels on desktop), reduced text sizes (text-sm/xs on mobile vs text-lg/base on desktop), HOST-only minutes remaining badge, and proper bottom padding (pb-28) to prevent toolbar overlap on Chrome iOS.
 
 ### Technical Implementations
 - **Frontend**: React with TypeScript, Wouter, TanStack Query, WebSocket client, Web Audio API, and Microsoft Cognitive Services Speech SDK.
