@@ -42,7 +42,7 @@ export function Footer() {
                 <li><Link href="/voice-translator" className="block min-h-[48px] py-2 hover:text-primary transition-colors touch-manipulation" data-testid="link-footer-voice-translator">Voice Translator</Link></li>
                 <li><Link href="/privacy-policy" className="block min-h-[48px] py-2 hover:text-primary transition-colors touch-manipulation" data-testid="link-footer-privacy-policy">Privacy Policy</Link></li>
                 <li><Link href="/california-privacy-policy" className="block min-h-[48px] py-2 hover:text-primary transition-colors touch-manipulation" data-testid="link-footer-california-privacy">California Privacy Policy</Link></li>
-                <li><a href="mailto:support@getvoztra.com" className="block min-h-[48px] py-2 hover:text-primary transition-colors touch-manipulation" data-testid="link-footer-contact-us">Contact Us</a></li>
+                <li><Link href="/contact" className="block min-h-[48px] py-2 hover:text-primary transition-colors touch-manipulation" data-testid="link-footer-contact-us">Contact Us</Link></li>
               </ul>
             </div>
             

@@ -21,6 +21,7 @@ import QueueTest from "@/pages/QueueTest";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import CaliforniaPrivacyPolicy from "@/pages/CaliforniaPrivacyPolicy";
 import VoiceTranslator from "@/pages/VoiceTranslator";
+import Contact from "@/pages/Contact";
 import NotFound from "@/pages/not-found";
 
 // Scroll to top on route change
@@ -50,6 +51,7 @@ function Router() {
       <Route path="/privacy-policy" component={PrivacyPolicy} />
       <Route path="/california-privacy-policy" component={CaliforniaPrivacyPolicy} />
       <Route path="/voice-translator" component={VoiceTranslator} />
+      <Route path="/contact" component={Contact} />
       <Route component={NotFound} />
     </Switch>
   );
