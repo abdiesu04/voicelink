@@ -1023,9 +1023,12 @@ export default function Room() {
       
       // Warn when less than 2 minutes (120 seconds) remaining  
       if (creditsRemaining <= 120 && creditsRemaining > 100 && !exhausted) {
+        const minutesText = creditsRemaining < 60 && creditsRemaining > 0 
+          ? "less than 1 minute" 
+          : `${Math.floor(creditsRemaining / 60)} minutes`;
         toast({
           title: "Low Credits Warning",
-          description: `You have ${(creditsRemaining / 60).toFixed(1)} minutes remaining. Consider upgrading your plan.`,
+          description: `You have ${minutesText} remaining. Consider upgrading your plan.`,
           variant: "warning",
         });
       }

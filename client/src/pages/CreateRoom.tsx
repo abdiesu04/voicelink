@@ -96,10 +96,10 @@ function CreateRoomContent() {
         <div className="bg-white/50 dark:bg-slate-800/50 backdrop-blur-xl border border-slate-300/50 dark:border-slate-700/50 rounded-2xl sm:rounded-3xl p-4 sm:p-6 md:p-8 shadow-2xl animate-in fade-in slide-in-from-bottom duration-700 delay-200">
           
           {/* Grid Layout: Stack on mobile, side-by-side on desktop */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 mb-4 sm:mb-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-10 mb-4 sm:mb-6 lg:mb-10">
             
             {/* Language Selection */}
-            <div className="space-y-3 sm:space-y-4">
+            <div className="space-y-3 sm:space-y-4 lg:space-y-6">
               <div className="flex items-center gap-2 sm:gap-3">
                 <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center ring-2 ring-primary/30 flex-shrink-0">
                   <Globe2 className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />
@@ -118,7 +118,7 @@ function CreateRoomContent() {
             </div>
 
             {/* Voice Gender Selection */}
-            <div className="space-y-3 sm:space-y-4">
+            <div className="space-y-3 sm:space-y-4 lg:space-y-6">
               <div className="flex items-center gap-2 sm:gap-3">
                 <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center ring-2 ring-primary/30 flex-shrink-0">
                   <Mic className="h-5 w-5 sm:h-6 sm:w-6 text-primary" />

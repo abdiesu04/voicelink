@@ -78,7 +78,9 @@ export function Header() {
                   <div className="hidden sm:flex items-center gap-2 px-3 py-2 rounded-lg bg-primary/10 dark:bg-primary/20" data-testid="credits-display">
                     <CreditCard className="h-4 w-4 text-primary" />
                     <span className="text-sm font-medium">
-                      {(subscription.creditsRemaining / 60).toFixed(1)} min
+                      {subscription.creditsRemaining < 60 && subscription.creditsRemaining > 0 
+                        ? "< 1 min" 
+                        : `${Math.floor(subscription.creditsRemaining / 60)} min`}
                     </span>
                   </div>
                 )}
@@ -107,7 +109,9 @@ export function Header() {
                         <p className="text-sm font-medium">{user.email}</p>
                         {subscription && (
                           <p className="text-xs text-muted-foreground">
-                            {(subscription.creditsRemaining / 60).toFixed(1)} minutes remaining
+                            {subscription.creditsRemaining < 60 && subscription.creditsRemaining > 0 
+                              ? "< 1 minute remaining" 
+                              : `${Math.floor(subscription.creditsRemaining / 60)} minutes remaining`}
                           </p>
                         )}
                       </div>
