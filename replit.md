@@ -45,6 +45,14 @@ The application features a modern, responsive UI with full light/dark theme supp
 - **Credit Management**: Real-time credit tracking via WebSocket, automatic deduction, hard enforcement at zero credits, and warning toasts.
 - **Email Verification**: Production-grade 2-step registration with security-hardened 6-digit code verification via Resend API, ensuring all authenticated users have verified emails.
 - **Authentication**: Email/password authentication with bcrypt hashing and Google OAuth integration (auto-linking existing accounts, auto-verification for OAuth users).
+- **Comprehensive Audit Logging**: Production-grade audit trail system with 10-day retention for debugging and analysis:
+  - **18 Event Types**: Tracks entire pipeline flow (WS_RECEIVE, TRANSLATION_REQUEST/RESPONSE, all deduplication stages, SEQUENCE_ASSIGNED, TTS events, etc.)
+  - **Millisecond Timestamps**: Precise timing data for performance analysis
+  - **Rich Metadata**: JSON storage for similarity scores, bypass reasons, Azure API responses
+  - **Flexible Queries**: API endpoints support filtering by roomId, eventTypes, time ranges
+  - **Non-blocking Logging**: Fire-and-forget semantics prevent pipeline performance impact
+  - **Auto Cleanup**: Background worker removes logs older than 10 days
+  - **Complete Utterance Journey**: Track every message from STT → translation → deduplication → TTS → playback
 
 ### Feature Specifications
 - Real-time voice translation between two users.
