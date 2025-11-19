@@ -1406,10 +1406,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
     // Send protocol-level pings to prevent carrier proxy timeouts
     // No termination logic - trust browser close events and grace period instead
+    // INCREASED FREQUENCY: 5s interval provides better mobile stability
     const pingInterval = setInterval(() => {
       console.log('[Keepalive] 💓 Sending protocol-level ping');
       ws.ping();
-    }, 10000); // 10 seconds - prevents mobile carrier 15s idle timeout
+    }, 5000); // 5 seconds - more aggressive to prevent carrier/proxy timeouts
 
     ws.on('message', async (data: Buffer) => {
       // Process incoming messages
@@ -2168,6 +2169,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
               }));
             }
           });
+          
+          // CRITICAL FIX: Clear any existing grace timer before starting a new one
+          // When both users disconnect rapidly, we don't want orphaned timers running
+          const existingTimer = roomCleanupTimers.get(roomId);
+          if (existingTimer) {
+            console.log(`[Grace Period] 🔄 Clearing previous grace timer before starting new one for room ${roomId}`);
+            clearTimeout(existingTimer);
+            roomCleanupTimers.delete(roomId);
+          }
           
           // Set cleanup timer - will be canceled if user reconnects
           const cleanupTimer = setTimeout(() => {
