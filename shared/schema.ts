@@ -84,6 +84,7 @@ export const AUDIT_EVENT_TYPES = [
   "STT_INTERIM",           // Azure Speech SDK interim recognition
   "STT_FINAL",             // Azure Speech SDK final recognition
   "STT_RESULT_ID_BLOCK",   // Client-side resultId deduplication blocked
+  "STT_OFFSET_BLOCK",      // Client-side temporal (offset) deduplication blocked
   "WS_SEND",               // Client sends transcription to server via WebSocket
   "WS_RECEIVE",            // Server receives transcription
   "TRANSLATION_REQUEST",   // Request sent to Azure Translator
@@ -112,6 +113,8 @@ export const auditLogs = pgTable("audit_logs", {
   userId: integer("user_id"),
   messageId: varchar("message_id", { length: 255 }), // Correlate events for same utterance
   azureResultId: varchar("azure_result_id", { length: 255 }), // Azure Speech SDK resultId
+  offset: varchar("offset", { length: 50 }), // Azure Speech SDK audio offset in ticks (when utterance starts)
+  duration: varchar("duration", { length: 50 }), // Azure Speech SDK audio duration in ticks
   sequenceNumber: integer("sequence_number"), // Server-assigned sequence number
   speaker: varchar("speaker", { length: 20 }), // creator or participant
   originalText: text("original_text"),

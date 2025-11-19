@@ -1566,7 +1566,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
 
         if (message.type === 'transcription') {
-          const { roomId, text, language, interim } = message;
+          const { roomId, text, language, interim, offset, duration } = message;
           const connection = connections.get(ws);
           
           if (!connection) return;
@@ -1575,6 +1575,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
             if (!text || text.trim().length === 0) {
               return;
             }
+            
+            // Validate and normalize offset/duration - ensure they're valid numbers or undefined
+            const validOffset = (typeof offset === 'number' && !isNaN(offset)) ? offset : undefined;
+            const validDuration = (typeof duration === 'number' && !isNaN(duration)) ? duration : undefined;
             
             // Handle interim transcriptions (partial results)
             if (interim === true) {
@@ -1608,6 +1612,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
               speaker: connection.role,
               originalText: text,
               languageFrom: language,
+              offset: validOffset?.toString(),
+              duration: validDuration?.toString(),
               metadata: JSON.stringify({ interim: false }),
             });
             
@@ -1634,6 +1640,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
               originalText: text,
               languageFrom: language,
               languageTo: targetLanguage,
+              offset: validOffset?.toString(),
+              duration: validDuration?.toString(),
             });
 
             const translatedText = await translateText(text, language, targetLanguage);
@@ -1649,6 +1657,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
               translatedText,
               languageFrom: language,
               languageTo: targetLanguage,
+              offset: validOffset?.toString(),
+              duration: validDuration?.toString(),
               metadata: JSON.stringify({ durationMs: translationCompleteTimestamp - transcriptionTimestamp }),
             });
 
@@ -1809,6 +1819,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
               translatedText,
               languageFrom: language,
               languageTo: targetLanguage,
+              offset: validOffset?.toString(),
+              duration: validDuration?.toString(),
               metadata: JSON.stringify({ recentMessagesCount: validMessages.length }),
             });
 
@@ -1931,6 +1943,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
               translatedText,
               languageFrom: language,
               languageTo: targetLanguage,
+              offset: validOffset?.toString(),
+              duration: validDuration?.toString(),
               metadata: JSON.stringify({ bufferSize: sequenceState.buffer.length }),
             });
             

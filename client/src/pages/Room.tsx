@@ -146,6 +146,7 @@ export default function Room() {
   const spokenMessageIdsRef = useRef<Set<string>>(new Set());
   const processedMessagesRef = useRef<Set<string>>(new Set()); // Track processed server messageIds for deduplication
   const processedResultIdsRef = useRef<Map<string, number>>(new Map()); // Track Azure Speech SDK resultIds to prevent duplicate rescoring events
+  const processedOffsetsRef = useRef<Map<string, { offset: number; text: string; timestamp: number }>>(new Map()); // Track Azure Speech SDK audio offsets + text for temporal deduplication
   const lastInterimSentRef = useRef<number>(0);
   const activeSynthesizerRef = useRef<SpeechSDK.SpeechSynthesizer | null>(null);
   const ttsQueueRef = useRef<Array<{ text: string; languageCode: string; gender: "male" | "female"; messageId: string; retryCount?: number }>>([]);
@@ -2017,6 +2018,73 @@ export default function Room() {
             console.log(`[Azure Speech Dedupe] 🧹 Emergency cleanup: removed ${entriesToDelete.length} oldest resultIds. New cache size: ${processedResultIdsRef.current.size}`);
           }
           
+          // TEMPORAL DEDUPLICATION: Block utterances with duplicate audio offsets AND matching text
+          // Azure sometimes sends different resultIds for the same audio segment (rescoring)
+          // offset = when utterance starts in audio stream (in ticks, 10M ticks = 1 second)
+          // This catches rescores that slip through resultId dedup
+          const offset = e.result.offset;
+          const duration = e.result.duration;
+          const text = e.result.text;
+          const OFFSET_TOLERANCE = 1000000; // 100ms in ticks (10,000 ticks = 1ms) - tight tolerance for rescores only
+          const OFFSET_TTL = 1000; // 1 second TTL for offset tracking - rescores happen within ~300ms
+          
+          // Clean up expired offsets from cache
+          const expiredOffsetKeys: string[] = [];
+          processedOffsetsRef.current.forEach((cacheEntry, cacheKey) => {
+            if (now - cacheEntry.timestamp > OFFSET_TTL) {
+              expiredOffsetKeys.push(cacheKey);
+            }
+          });
+          expiredOffsetKeys.forEach(key => processedOffsetsRef.current.delete(key));
+          if (expiredOffsetKeys.length > 0) {
+            console.log(`[Temporal Dedupe] 🧹 Cleaned up ${expiredOffsetKeys.length} expired offset entries from cache`);
+          }
+          
+          // Check if we've seen this offset + text combination recently (within tolerance)
+          // Only block if BOTH offset AND exact text match - prevents blocking legitimate new speech
+          // Note: Each component instance = one speaker, so cache is auto-scoped per speaker
+          let foundDuplicate = false;
+          for (const [cacheKey, cacheEntry] of Array.from(processedOffsetsRef.current.entries())) {
+            const offsetDiff = Math.abs(offset - cacheEntry.offset);
+            const textMatches = cacheEntry.text.toLowerCase().trim() === text.toLowerCase().trim();
+            
+            // Block only if BOTH offset AND exact text match (case-insensitive, whitespace-normalized)
+            // This catches Azure rescoring (same audio segment, different resultId) while allowing:
+            // - Different text at same offset = allowed (shouldn't happen in practice)
+            // - Same text at different offset = allowed (legitimate repeat)
+            if (offsetDiff < OFFSET_TOLERANCE && textMatches) {
+              const timeSinceProcessed = now - cacheEntry.timestamp;
+              console.warn(`[Temporal Dedupe] ⛔ DUPLICATE BLOCKED (offset + text match)!`);
+              console.warn(`[Temporal Dedupe] 🎯 Offset: ${offset} (cached: ${cacheEntry.offset}, diff: ${offsetDiff} ticks)`);
+              console.warn(`[Temporal Dedupe] 📝 Text: "${text}" (matches cached text)`);
+              console.warn(`[Temporal Dedupe] ⏱️ Last processed: ${timeSinceProcessed}ms ago (TTL: ${OFFSET_TTL}ms)`);
+              console.warn(`[Temporal Dedupe] 💡 Same audio segment - different resultId (Azure rescoring variant)`);
+              console.warn(`[Temporal Dedupe] ✅ Prevented duplicate from reaching server - no translation cost incurred`);
+              foundDuplicate = true;
+              break;
+            }
+          }
+          
+          if (foundDuplicate) {
+            return; // Block duplicate
+          }
+          
+          // Mark this offset + text as processed (use offset as key for uniqueness)
+          const offsetKey = `${offset}`;
+          processedOffsetsRef.current.set(offsetKey, { offset, text, timestamp: now });
+          console.log(`[Temporal Dedupe] ✅ New offset+text processed: offset=${offset}, text="${text.substring(0, 30)}...", cache size: ${processedOffsetsRef.current.size}`);
+          
+          // Cleanup: cap offset cache size
+          if (processedOffsetsRef.current.size > 50) {
+            const oldestKeys = Array.from(processedOffsetsRef.current.entries())
+              .sort((a, b) => a[1].timestamp - b[1].timestamp)
+              .slice(0, 25)
+              .map(([key]) => key);
+            
+            oldestKeys.forEach(key => processedOffsetsRef.current.delete(key));
+            console.log(`[Temporal Dedupe] 🧹 Emergency cleanup: removed ${oldestKeys.length} oldest offset entries. New cache size: ${processedOffsetsRef.current.size}`);
+          }
+          
           if (wsRef.current?.readyState === WebSocket.OPEN) {
             const stableRoomId = roomIdRef.current;
             if (!stableRoomId) {
@@ -2030,6 +2098,8 @@ export default function Room() {
               text: e.result.text,
               language,
               interim: false, // Mark as final result
+              offset, // Audio offset in ticks for temporal deduplication
+              duration, // Audio duration in ticks
             }));
           }
         }
