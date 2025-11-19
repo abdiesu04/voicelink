@@ -186,6 +186,14 @@ export default function Room() {
   const wsTokenRef = useRef<string | null>(null);
   const wsUrlRef = useRef<string | null>(null);
   
+  // Promise-based URL readiness notification (avoids busy-wait loops)
+  const wsUrlReadyResolverRef = useRef<(() => void) | null>(null);
+  const wsUrlReadyPromise = useRef<Promise<void>>(
+    new Promise(resolve => {
+      wsUrlReadyResolverRef.current = resolve;
+    })
+  );
+  
   // MOBILE FIX: Fetch WebSocket token with retry logic for resilient authentication
   useEffect(() => {
     const fetchWsToken = async (retryCount = 0): Promise<void> => {
@@ -202,6 +210,12 @@ export default function Room() {
           const wsUrl = `${protocol}//${host}/ws?token=${data.token}`;
           wsUrlRef.current = wsUrl;
           console.log('[WebSocket] Cached authenticated URL for mobile stability');
+          
+          // Notify waiting connections that URL is ready
+          if (wsUrlReadyResolverRef.current) {
+            wsUrlReadyResolverRef.current();
+            wsUrlReadyResolverRef.current = null;
+          }
         } else if (response.status === 401) {
           // Not authenticated - fall back to cookie-based auth
           console.log('[WebSocket Token] Not authenticated, using cookie-based auth');
@@ -210,6 +224,12 @@ export default function Room() {
           const wsUrl = `${protocol}//${host}/ws`;
           wsUrlRef.current = wsUrl;
           console.log('[WebSocket] Cached URL (cookie auth) for mobile stability');
+          
+          // Notify waiting connections that URL is ready
+          if (wsUrlReadyResolverRef.current) {
+            wsUrlReadyResolverRef.current();
+            wsUrlReadyResolverRef.current = null;
+          }
         } else {
           // Server error - retry up to 3 times
           if (retryCount < 3) {
@@ -223,6 +243,12 @@ export default function Room() {
             const host = window.location.host || window.location.hostname + (window.location.port ? ':' + window.location.port : '');
             const wsUrl = `${protocol}//${host}/ws`;
             wsUrlRef.current = wsUrl;
+            
+            // Notify waiting connections that URL is ready
+            if (wsUrlReadyResolverRef.current) {
+              wsUrlReadyResolverRef.current();
+              wsUrlReadyResolverRef.current = null;
+            }
           }
         }
       } catch (error) {
@@ -238,6 +264,12 @@ export default function Room() {
           const host = window.location.host || window.location.hostname + (window.location.port ? ':' + window.location.port : '');
           const wsUrl = `${protocol}//${host}/ws`;
           wsUrlRef.current = wsUrl;
+          
+          // Notify waiting connections that URL is ready
+          if (wsUrlReadyResolverRef.current) {
+            wsUrlReadyResolverRef.current();
+            wsUrlReadyResolverRef.current = null;
+          }
         }
       }
     };
@@ -1505,8 +1537,32 @@ export default function Room() {
   };
 
   // Create WebSocket connection with fresh handlers
-  const connectWebSocket = () => {
-    const wsUrl = wsUrlRef.current!;
+  // RACE CONDITION FIX: Wait for wsUrlRef using promise (non-blocking)
+  const connectWebSocket = async (): Promise<WebSocket> => {
+    // If URL not ready, await the promise (resolved by fetchWsToken)
+    if (!wsUrlRef.current) {
+      console.log('[WebSocket] ⏳ Waiting for URL to be ready (non-blocking)...');
+      
+      // Wait for promise with timeout
+      const timeoutPromise = new Promise<never>((_, reject) => {
+        setTimeout(() => reject(new Error('Timeout waiting for WebSocket URL')), 15000);
+      });
+      
+      try {
+        await Promise.race([wsUrlReadyPromise.current, timeoutPromise]);
+        console.log('[WebSocket] ✅ URL ready');
+      } catch (error) {
+        console.error('[WebSocket] ❌ Timeout waiting for WebSocket URL');
+        throw error;
+      }
+    }
+    
+    if (!wsUrlRef.current) {
+      console.error('[WebSocket] ❌ URL still not ready after promise resolved');
+      throw new Error('WebSocket URL not ready');
+    }
+    
+    const wsUrl = wsUrlRef.current;
     console.log('[WebSocket] Creating connection to:', wsUrl);
     
     const ws = new WebSocket(wsUrl);
@@ -1559,9 +1615,9 @@ export default function Room() {
           oldWs.close();
         }
         
-        // Create new WebSocket
+        // Create new WebSocket (now async, waits for URL internally)
         console.log('[Reconnect Coordinator] Creating new WebSocket connection...');
-        const newWs = connectWebSocket();
+        const newWs = await connectWebSocket();
         wsRef.current = newWs;
         
         // Wait for connection to open or fail
@@ -1760,33 +1816,41 @@ export default function Room() {
       return;
     }
 
-    // Create WebSocket connection with fresh handlers
-    const ws = connectWebSocket();
-    wsRef.current = ws;
-
-    // Application-level heartbeat to prevent mobile carrier timeout
-    // MOBILE FIX: Send ping every 10 seconds to prevent carrier/proxy 15-second idle timeout
-    // Mobile carriers often drop idle connections after 15s, so 10s keeps connection alive
-    const heartbeatInterval = setInterval(() => {
-      // CRITICAL FIX: Use wsRef.current instead of captured 'ws' to handle reconnections
-      const currentWs = wsRef.current;
-      if (currentWs && currentWs.readyState === WebSocket.OPEN) {
-        console.log('[Heartbeat] 💓 Sending ping to keep connection alive, readyState:', currentWs.readyState);
-        currentWs.send(JSON.stringify({ type: "ping" }));
-      } else {
-        console.warn('[Heartbeat] ⚠️ Skipping ping - WebSocket not open, readyState:', currentWs?.readyState || 'null');
+    let heartbeatInterval: NodeJS.Timeout | null = null;
+    
+    // Helper function to set up WebSocket and heartbeat
+    const setupConnection = async () => {
+      try {
+        // connectWebSocket is now async and waits for URL to be ready
+        const ws = await connectWebSocket();
+        wsRef.current = ws;
+        
+        // Application-level heartbeat to prevent mobile carrier timeout
+        // MOBILE FIX: Send ping every 10 seconds to prevent carrier/proxy 15-second idle timeout
+        // Mobile carriers often drop idle connections after 15s, so 10s keeps connection alive
+        heartbeatInterval = setInterval(() => {
+          // CRITICAL FIX: Use wsRef.current instead of captured 'ws' to handle reconnections
+          const currentWs = wsRef.current;
+          if (currentWs && currentWs.readyState === WebSocket.OPEN) {
+            console.log('[Heartbeat] 💓 Sending ping to keep connection alive, readyState:', currentWs.readyState);
+            currentWs.send(JSON.stringify({ type: "ping" }));
+          } else {
+            console.warn('[Heartbeat] ⚠️ Skipping ping - WebSocket not open, readyState:', currentWs?.readyState || 'null');
+          }
+        }, 10000); // 10 seconds - prevents mobile carrier 15s idle timeout
+      } catch (error) {
+        console.error('[WebSocket Setup] Failed to create connection:', error);
       }
-    }, 10000); // 10 seconds - prevents mobile carrier 15s idle timeout
+    };
 
-    // NOTE: WebSocket onmessage handler is already attached by connectWebSocket()
-    // Don't overwrite it here to ensure consistent behavior across initial and reconnected connections
-
-
-    wsRef.current = ws;
+    // Start connection setup (connectWebSocket now waits for URL internally)
+    setupConnection();
 
     return () => {
       // Clear heartbeat interval
-      clearInterval(heartbeatInterval);
+      if (heartbeatInterval) {
+        clearInterval(heartbeatInterval);
+      }
       
       // Clear the TTS queue and stop any playing audio when leaving the room
       ttsQueueRef.current = [];
@@ -1824,8 +1888,6 @@ export default function Room() {
         }
       }
       
-      console.log('[WebSocket Cleanup] Component unmounting - cleaning up WebSocket, current readyState:', ws.readyState);
-      
       // Clear reconnect timeout if pending
       if (reconnectTimeoutRef.current) {
         console.log('[WebSocket Cleanup] Clearing pending reconnect timeout');
@@ -1836,15 +1898,17 @@ export default function Room() {
       // Prevent reconnect on component unmount
       shouldReconnectRef.current = false;
       
-      if (ws.readyState === WebSocket.OPEN || ws.readyState === WebSocket.CONNECTING) {
-        console.log('[WebSocket Cleanup] Closing WebSocket during component unmount');
-        ws.close(1000, "Component unmount");
-      } else {
-        console.log('[WebSocket Cleanup] WebSocket already closed during unmount, readyState:', ws.readyState);
+      // Use wsRef.current instead of captured ws variable
+      const currentWs = wsRef.current;
+      if (currentWs) {
+        console.log('[WebSocket Cleanup] Component unmounting - cleaning up WebSocket, current readyState:', currentWs.readyState);
+        if (currentWs.readyState === WebSocket.OPEN || currentWs.readyState === WebSocket.CONNECTING) {
+          console.log('[WebSocket Cleanup] Closing WebSocket during component unmount');
+          currentWs.close(1000, "Component unmount");
+        } else {
+          console.log('[WebSocket Cleanup] WebSocket already closed during unmount, readyState:', currentWs.readyState);
+        }
       }
-      
-      console.log('[WebSocket Cleanup] Clearing heartbeat interval');
-      clearInterval(heartbeatInterval);
       
       // Clear sequence tracking for this room
       if (roomIdRef.current) {
@@ -1858,6 +1922,40 @@ export default function Room() {
   }, [roomId, language, voiceGender, role]);
 
   const startConversation = async () => {
+    // CRITICAL: Check WebSocket connection state first
+    const currentWs = wsRef.current;
+    if (!currentWs || currentWs.readyState !== WebSocket.OPEN) {
+      console.warn('[Start Conversation] ⚠️ WebSocket not ready, readyState:', currentWs?.readyState || 'null');
+      
+      // Instead of silently failing, schedule a retry when connection opens
+      toast({
+        title: "Connecting...",
+        description: "Waiting for connection to establish. Will start automatically when ready.",
+        variant: "info",
+      });
+      
+      // Wait for WebSocket to be ready (with timeout)
+      const maxWait = 15000; // 15 seconds max wait
+      const startTime = Date.now();
+      
+      while ((!wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) && (Date.now() - startTime < maxWait)) {
+        await new Promise(resolve => setTimeout(resolve, 500));
+      }
+      
+      // Check again after waiting
+      if (!wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) {
+        console.error('[Start Conversation] ❌ Timeout waiting for WebSocket to be ready');
+        toast({
+          title: "Connection Failed",
+          description: "Could not establish connection. Please try again.",
+          variant: "destructive",
+        });
+        return;
+      }
+      
+      console.log('[Start Conversation] ✅ WebSocket ready after waiting');
+    }
+    
     // Check if partner is connected
     if (!partnerConnected) {
       toast({
@@ -1877,6 +1975,8 @@ export default function Room() {
       });
       return;
     }
+    
+    console.log('[Start Conversation] ✅ All checks passed - WebSocket OPEN, partner connected, quota available');
     
     // MOBILE FIX: Unlock audio on first microphone activation
     await unlockAudioForMobile();

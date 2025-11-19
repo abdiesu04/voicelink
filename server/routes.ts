@@ -431,12 +431,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Tokens survive network switches and app backgrounding, unlike cookies
   app.get("/api/ws/token", async (req, res) => {
     try {
-      if (!req.session.userId) {
+      // Enhanced logging for debugging
+      console.log(`[WebSocket Token] Request received from IP: ${req.ip}, session ID: ${req.sessionID?.substring(0, 8)}...`);
+      
+      if (!req.session || !req.session.userId) {
+        console.log(`[WebSocket Token] ⚠️ No session or userId found - returning 401`);
         return res.status(401).json({ error: "Authentication required" });
       }
 
       // Generate token
       const token = generateWebSocketToken();
+      
+      if (!token) {
+        throw new Error('Token generation failed - returned empty token');
+      }
       
       // Store token with userId mapping
       wsTokens.set(token, {
@@ -444,12 +452,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
         createdAt: Date.now()
       });
       
-      console.log(`[WebSocket Token] ✅ Generated token for user ${req.session.userId}`);
+      console.log(`[WebSocket Token] ✅ Generated token for user ${req.session.userId}, token length: ${token.length}`);
       
       res.json({ token });
-    } catch (error) {
-      console.error("Error generating WebSocket token:", error);
-      res.status(500).json({ error: "Failed to generate token" });
+    } catch (error: any) {
+      console.error("[WebSocket Token] ❌ Error generating token:", {
+        message: error.message,
+        stack: error.stack,
+        sessionExists: !!req.session,
+        userId: req.session?.userId || 'none',
+      });
+      res.status(500).json({ error: "Failed to generate token", details: error.message });
     }
   });
 
