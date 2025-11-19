@@ -27,6 +27,7 @@ export function RatingDialog({ open, onOpenChange, onSubmit }: RatingDialogProps
       onSubmit(rating, rating <= 2 && feedback ? feedback : undefined);
       // Reset state
       setRating(0);
+      setHoveredRating(0);
       setFeedback("");
       onOpenChange(false);
     }
@@ -35,6 +36,7 @@ export function RatingDialog({ open, onOpenChange, onSubmit }: RatingDialogProps
   const handleClose = () => {
     // Reset state
     setRating(0);
+    setHoveredRating(0);
     setFeedback("");
     onOpenChange(false);
   };

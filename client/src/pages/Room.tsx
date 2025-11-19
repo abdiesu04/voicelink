@@ -2466,6 +2466,7 @@ export default function Room() {
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include',
         body: JSON.stringify({
           roomId,
           rating,
@@ -2475,11 +2476,23 @@ export default function Room() {
 
       if (!response.ok) {
         console.error('[Rating] Failed to submit rating');
-      } else {
-        console.log('[Rating] ✅ Rating submitted successfully');
+        toast({
+          title: "Rating Failed",
+          description: "Could not save your rating. Please try again.",
+          variant: "destructive",
+        });
+        return; // Keep dialog open on failure
       }
+      
+      console.log('[Rating] ✅ Rating submitted successfully');
     } catch (error) {
       console.error('[Rating] Error submitting rating:', error);
+      toast({
+        title: "Rating Failed",
+        description: "Could not save your rating. Please try again.",
+        variant: "destructive",
+      });
+      return; // Keep dialog open on failure
     }
 
     // Close dialog and perform actual disconnect
