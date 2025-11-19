@@ -865,8 +865,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       res.json({ url: session.url });
     } catch (error: any) {
-      console.error("Error creating billing portal session:", error);
-      res.status(500).json({ error: "Failed to create billing portal session", details: error.message });
+      // Enhanced error logging for Stripe issues
+      console.error("Error creating billing portal session:", {
+        message: error.message,
+        type: error.type,
+        code: error.code,
+        statusCode: error.statusCode,
+        requestId: error.requestId,
+        raw: error.raw?.message,
+      });
+      res.status(500).json({ 
+        error: "Failed to create billing portal session", 
+        details: error.message,
+        stripeErrorType: error.type,
+        stripeErrorCode: error.code,
+      });
     }
   });
 
