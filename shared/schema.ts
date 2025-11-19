@@ -125,6 +125,16 @@ export const auditLogs = pgTable("audit_logs", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
+// Call ratings table - tracks user satisfaction ratings after calls
+export const callRatings = pgTable("call_ratings", {
+  id: serial("id").primaryKey(),
+  roomId: varchar("room_id", { length: 255 }).notNull().references(() => rooms.id, { onDelete: "cascade" }),
+  userId: integer("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
+  rating: integer("rating").notNull(), // 1-5 stars
+  feedback: text("feedback"), // Optional feedback for low ratings
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
 // Insert schemas
 export const insertUserSchema = createInsertSchema(users).omit({ 
   id: true, 
@@ -138,6 +148,7 @@ export const insertSubscriptionSchema = createInsertSchema(subscriptions).omit({
 export const insertRoomSchema = createInsertSchema(rooms).omit({ createdAt: true, sessionStartedAt: true, sessionEndedAt: true, lastActivityAt: true });
 export const insertCreditUsageSchema = createInsertSchema(creditUsage).omit({ id: true, createdAt: true });
 export const insertAuditLogSchema = createInsertSchema(auditLogs).omit({ id: true, createdAt: true });
+export const insertCallRatingSchema = createInsertSchema(callRatings).omit({ id: true, createdAt: true });
 
 // Types
 export type User = typeof users.$inferSelect;
@@ -152,6 +163,8 @@ export type CreditUsage = typeof creditUsage.$inferSelect;
 export type InsertCreditUsage = z.infer<typeof insertCreditUsageSchema>;
 export type AuditLog = typeof auditLogs.$inferSelect;
 export type InsertAuditLog = z.infer<typeof insertAuditLogSchema>;
+export type CallRating = typeof callRatings.$inferSelect;
+export type InsertCallRating = z.infer<typeof insertCallRatingSchema>;
 
 // Authentication schemas
 export const registerSchema = z.object({
