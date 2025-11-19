@@ -1,10 +1,10 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { WebSocketServer, WebSocket } from "ws";
-import { storage } from "./storage";
+import { storage, db } from "./storage";
 import axios from "axios";
 import Stripe from "stripe";
-import { PLAN_DETAILS } from "@shared/schema";
+import { PLAN_DETAILS, callRatings } from "@shared/schema";
 import cookie from "cookie";
 import signature from "cookie-signature";
 import { Pool } from "@neondatabase/serverless";
@@ -505,6 +505,39 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error fetching room:", error);
       res.status(500).json({ error: "Failed to fetch room" });
+    }
+  });
+
+  // Submit call rating
+  app.post("/api/ratings", async (req, res) => {
+    if (!req.session.userId) {
+      return res.status(401).json({ error: "Not authenticated" });
+    }
+
+    try {
+      const { roomId, rating, feedback } = req.body;
+
+      if (!roomId) {
+        return res.status(400).json({ error: "Room ID is required" });
+      }
+
+      if (!rating || rating < 1 || rating > 5) {
+        return res.status(400).json({ error: "Rating must be between 1 and 5" });
+      }
+
+      // Save rating to database
+      await db.insert(callRatings).values({
+        roomId,
+        userId: req.session.userId,
+        rating,
+        feedback: feedback || null,
+      });
+
+      console.log(`[Call Rating] User ${req.session.userId} rated room ${roomId}: ${rating} stars${feedback ? ' with feedback' : ''}`);
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Error saving call rating:", error);
+      res.status(500).json({ error: "Failed to save rating" });
     }
   });
 
