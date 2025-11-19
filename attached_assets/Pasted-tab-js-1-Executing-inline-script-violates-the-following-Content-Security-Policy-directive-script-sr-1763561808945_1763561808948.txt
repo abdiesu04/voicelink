@@ -1,0 +1,72 @@
+tab.js:1 Executing inline script violates the following Content Security Policy directive 'script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' chrome-extension://422f5f58-35ee-4faf-a508-ef4d960ca56a/'. Either the 'unsafe-inline' keyword, a hash ('sha256-kPx0AsF0oz2kKiZ875xSvv693TBHkQ/0SkMJZnnNpnQ='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked.
+(anonymous) @ tab.js:1
+index-LvA6BRzn.js:376 [Room Init] Role: creator, Language: en, My Voice Gender: male
+index-LvA6BRzn.js:376 [Browser] Network status: ONLINE
+index-LvA6BRzn.js:376 [State Change] partnerVoiceGender updated to: undefined
+index-LvA6BRzn.js:376 [Partner Wait] Starting 5-minute partner join timeout for owner
+index-LvA6BRzn.js:382 [Page Visibility] Listener installed for mobile background/resume detection
+index-LvA6BRzn.js:382 [Network] Network change detection enabled (connection type: 3g )
+index-LvA6BRzn.js:382 [WebSocket] ⏳ Waiting for URL to be ready (non-blocking)...
+/api/ws/token:1  Failed to load resource: the server responded with a status of 500 ()
+index-LvA6BRzn.js:376 [WebSocket Token] Server error (500), retrying in 1000ms (attempt 1/3)
+/api/ws/token:1  Failed to load resource: the server responded with a status of 500 ()
+index-LvA6BRzn.js:376 [WebSocket Token] Server error (500), retrying in 2000ms (attempt 2/3)
+index-LvA6BRzn.js:382 [Share] Using Web Share API (native mobile share)
+index-LvA6BRzn.js:382 [Share] ✅ Share successful via Web Share API
+/api/ws/token:1  Failed to load resource: the server responded with a status of 500 ()
+index-LvA6BRzn.js:376 [WebSocket Token] Server error (500), retrying in 4000ms (attempt 3/3)
+/api/ws/token:1  Failed to load resource: the server responded with a status of 500 ()
+index-LvA6BRzn.js:376 [WebSocket Token] Failed after 3 retries, falling back to cookie auth
+I @ index-LvA6BRzn.js:376
+index-LvA6BRzn.js:376 [Browser] Visibility changed: HIDDEN
+index-LvA6BRzn.js:376 [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+index-LvA6BRzn.js:382 [Page Visibility] 🌙 App backgrounded (invisible)
+index-LvA6BRzn.js:382 [WebSocket] ❌ Timeout waiting for WebSocket URL
+nR @ index-LvA6BRzn.js:382
+index-LvA6BRzn.js:382 [WebSocket Setup] Failed to create connection: Error: Timeout waiting for WebSocket URL
+    at index-LvA6BRzn.js:382:14905
+(anonymous) @ index-LvA6BRzn.js:382
+index-LvA6BRzn.js:376 [Browser] Visibility changed: VISIBLE
+index-LvA6BRzn.js:376 [Browser] ✓ Tab is now visible again
+index-LvA6BRzn.js:382 [Page Visibility] 👁️ App became visible (resumed from background)
+index-LvA6BRzn.js:382 [Page Visibility] 🔄 WebSocket disconnected, attempting immediate reconnection...
+index-LvA6BRzn.js:382 [Reconnect Coordinator] Request from: page-visibility, delay: 0ms
+index-LvA6BRzn.js:382 [Reconnect Coordinator] Starting new reconnection from page-visibility
+index-LvA6BRzn.js:382 [Reconnect Coordinator] Creating new WebSocket connection...
+index-LvA6BRzn.js:382 [WebSocket] Creating connection to: wss://getvoztra.com/ws
+index-LvA6BRzn.js:382 [WebSocket] ✅ Connected successfully: Object
+index-LvA6BRzn.js:382 [Sequence] 📤 Sent join message with lastReceivedSeq=0
+index-LvA6BRzn.js:376 [Room Persistence] Saved room settings to localStorage: 629fa67a-a336-4c23-99dd-1b47a6f38808
+index-LvA6BRzn.js:382 [Reconnect Coordinator] ✅ Connection established successfully
+index-LvA6BRzn.js:382 [Reconnect Coordinator] Cleaning up coordinator state
+index-LvA6BRzn.js:382 [Page Visibility] ✅ Reconnection successful
+index-LvA6BRzn.js:376 [Browser] Visibility changed: HIDDEN
+index-LvA6BRzn.js:376 [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+index-LvA6BRzn.js:382 [Page Visibility] 🌙 App backgrounded (invisible)
+index-LvA6BRzn.js:382 [Credits] Update received: 185120 seconds remaining, exhausted: false
+index-LvA6BRzn.js:382 [Translation Received] ⏱️ Timestamp: 1763561614936, Seq: 1, MessageId: participant-1763561615023-ndh0moi, Speaker: participant, IsOwn: false
+index-LvA6BRzn.js:382 [Translation Received] 📊 DeduplicationSet size BEFORE: 0
+index-LvA6BRzn.js:376 [Sequence] 💾 Saved lastReceivedSeq=1 for room 629fa67a-a336-4c23-99dd-1b47a6f38808
+index-LvA6BRzn.js:382 [Deduplication] 🔍 Check: sizeBefore=0, sizeAfter=1, messageId=participant-1763561615023-ndh0moi
+index-LvA6BRzn.js:382 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 1
+index-LvA6BRzn.js:382 [Translation] 📝 Translation #1 received - Original: "¿Cómo estás?...", Translated: "How are you?..."
+index-LvA6BRzn.js:382 [Translation] 📥 Added to PARTNER messages (total: 1)
+index-LvA6BRzn.js:382 [Voice Gender] Partner voice gender not set (ref value), skipping TTS. State value: undefined
+(anonymous) @ index-LvA6BRzn.js:382
+index-LvA6BRzn.js:382 [Translation] ⏱️ Total processing time: 1ms
+index-LvA6BRzn.js:382 [Credits] Update received: 185110 seconds remaining, exhausted: false
+index-LvA6BRzn.js:376 [Browser] Visibility changed: VISIBLE
+index-LvA6BRzn.js:376 [Browser] ✓ Tab is now visible again
+index-LvA6BRzn.js:382 [Page Visibility] 👁️ App became visible (resumed from background)
+index-LvA6BRzn.js:382 [Page Visibility] ✅ WebSocket already connected, no action needed
+index-LvA6BRzn.js:376 [Browser] Visibility changed: HIDDEN
+index-LvA6BRzn.js:376 [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+index-LvA6BRzn.js:382 [Page Visibility] 🌙 App backgrounded (invisible)
+index-LvA6BRzn.js:376 [Browser] Visibility changed: VISIBLE
+index-LvA6BRzn.js:376 [Browser] ✓ Tab is now visible again
+index-LvA6BRzn.js:382 [Page Visibility] 👁️ App became visible (resumed from background)
+index-LvA6BRzn.js:382 [Page Visibility] ✅ WebSocket already connected, no action needed
+index-LvA6BRzn.js:382 [Credits] Update received: 185100 seconds remaining, exhausted: false
+index-LvA6BRzn.js:382 [Credits] Update received: 185090 seconds remaining, exhausted: false
+index-LvA6BRzn.js:382 [Credits] Update received: 185080 seconds remaining, exhausted: false
+index-LvA6BRzn.js:382 [Credits] Update received: 185070 seconds remaining, exhausted: false

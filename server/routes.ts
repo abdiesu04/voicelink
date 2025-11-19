@@ -431,19 +431,34 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Tokens survive network switches and app backgrounding, unlike cookies
   app.get("/api/ws/token", async (req, res) => {
     try {
-      // Enhanced logging for debugging
-      console.log(`[WebSocket Token] Request received from IP: ${req.ip}, session ID: ${req.sessionID?.substring(0, 8)}...`);
+      // Enhanced logging for debugging - log ALL request details
+      console.log(`[WebSocket Token] Request received:`, {
+        ip: req.ip,
+        sessionID: req.sessionID?.substring(0, 8) + '...',
+        hasSession: !!req.session,
+        userId: req.session?.userId || 'undefined',
+        sessionKeys: req.session ? Object.keys(req.session) : [],
+        cookies: req.cookies ? Object.keys(req.cookies) : [],
+        signedCookies: req.signedCookies ? Object.keys(req.signedCookies) : [],
+      });
       
-      if (!req.session || !req.session.userId) {
-        console.log(`[WebSocket Token] ⚠️ No session or userId found - returning 401`);
-        return res.status(401).json({ error: "Authentication required" });
+      // CRITICAL FIX: Check session existence first
+      if (!req.session) {
+        console.log(`[WebSocket Token] ⚠️ No session object - returning 401`);
+        return res.status(401).json({ error: "No session - authentication required" });
+      }
+      
+      if (!req.session.userId) {
+        console.log(`[WebSocket Token] ⚠️ Session exists but no userId - returning 401`);
+        return res.status(401).json({ error: "Not logged in - authentication required" });
       }
 
       // Generate token
+      console.log(`[WebSocket Token] Generating token for user ${req.session.userId}...`);
       const token = generateWebSocketToken();
       
-      if (!token) {
-        throw new Error('Token generation failed - returned empty token');
+      if (!token || token.length === 0) {
+        throw new Error('Token generation failed - returned empty or null token');
       }
       
       // Store token with userId mapping
@@ -452,17 +467,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
         createdAt: Date.now()
       });
       
-      console.log(`[WebSocket Token] ✅ Generated token for user ${req.session.userId}, token length: ${token.length}`);
+      console.log(`[WebSocket Token] ✅ Generated token for user ${req.session.userId}, token length: ${token.length}, total tokens in memory: ${wsTokens.size}`);
       
       res.json({ token });
     } catch (error: any) {
-      console.error("[WebSocket Token] ❌ Error generating token:", {
+      console.error("[WebSocket Token] ❌ UNHANDLED ERROR:", {
         message: error.message,
         stack: error.stack,
+        name: error.name,
         sessionExists: !!req.session,
         userId: req.session?.userId || 'none',
+        errorType: typeof error,
+        errorKeys: Object.keys(error),
       });
-      res.status(500).json({ error: "Failed to generate token", details: error.message });
+      res.status(500).json({ 
+        error: "Failed to generate token", 
+        details: error.message,
+        code: "TOKEN_GENERATION_ERROR"
+      });
     }
   });
 
@@ -1468,6 +1490,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
                 }));
               }
             });
+            
+            // CRITICAL FIX: Re-send partner info to reconnecting user
+            // This fixes the bug where tab backgrounding causes partnerVoiceGender to stay undefined
+            console.log(`[Reconnection] Re-sending partner info to reconnecting ${role}`);
+            const existingPartners = existingClients.filter(c => c !== ws && c.readyState === WebSocket.OPEN);
+            if (existingPartners.length > 0) {
+              // Get partner's connection data
+              const partnerConnection = connections.get(existingPartners[0]);
+              if (partnerConnection) {
+                console.log(`[Reconnection] Sending partner's voice gender (${partnerConnection.voiceGender}) and language (${partnerConnection.language}) to reconnecting user`);
+                ws.send(JSON.stringify({
+                  type: 'participant-joined',
+                  roomId,
+                  language: partnerConnection.language,
+                  voiceGender: partnerConnection.voiceGender
+                }));
+              }
+            }
           }
 
           connections.set(ws, { ws, roomId, language, voiceGender, role });

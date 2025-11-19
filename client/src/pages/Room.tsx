@@ -194,6 +194,20 @@ export default function Room() {
     })
   );
   
+  // MESSAGE QUEUE: Store transcriptions when WebSocket isn't ready
+  // Prevents messages from being lost during connection delays
+  interface PendingMessage {
+    type: string;
+    roomId: string;
+    text: string;
+    language: string;
+    interim: boolean;
+    offset?: number;
+    duration?: number;
+    timestamp: number;
+  }
+  const pendingMessagesRef = useRef<PendingMessage[]>([]);
+  
   // MOBILE FIX: Fetch WebSocket token with retry logic for resilient authentication
   useEffect(() => {
     const fetchWsToken = async (retryCount = 0): Promise<void> => {
@@ -1010,7 +1024,32 @@ export default function Room() {
       setPartnerVoiceGender(message.voiceGender);
       setShowShareDialog(false);
       
-      // Delay notification slightly to avoid overlap with connection toast
+      // CRITICAL FIX: Flush pending messages queue AFTER server confirms join
+      // This guarantees server has registered the connection before replaying transcriptions
+      if (pendingMessagesRef.current.length > 0) {
+        console.log(`[Message Queue] 📤 Server join confirmed - flushing ${pendingMessagesRef.current.length} pending messages...`);
+        const messages = [...pendingMessagesRef.current];
+        pendingMessagesRef.current = []; // Clear queue
+        
+        messages.forEach((msg, index) => {
+          const age = Date.now() - msg.timestamp;
+          console.log(`[Message Queue] Sending queued message ${index + 1}/${messages.length}: "${msg.text.substring(0, 30)}..." (age: ${age}ms)`);
+          if (wsInstance.readyState === WebSocket.OPEN) {
+            wsInstance.send(JSON.stringify(msg));
+          } else {
+            console.warn(`[Message Queue] ⚠️ WebSocket closed before sending queued message ${index + 1}`);
+          }
+        });
+        
+        toast({
+          title: "Messages Sent",
+          description: `${messages.length} queued message(s) delivered successfully`,
+          variant: "default",
+          duration: 3000,
+        });
+      }
+      
+      // Delay notification slightly to avoid overlap with connection toast and queue flush
       // Show different message based on role
       setTimeout(() => {
         toast({
@@ -1503,7 +1542,8 @@ export default function Room() {
     // Get last received sequence number for catch-up on reconnect
     const lastReceivedSeq = getLastReceivedSeq(stableRoomId);
     
-    // Send join message with lastReceivedSeq for server-side catch-up
+    // CRITICAL: Send join message FIRST to register connection on server
+    // Server will respond with participant-joined which triggers queue flush
     wsInstance.send(JSON.stringify({
       type: "join",
       roomId: stableRoomId,
@@ -1514,6 +1554,7 @@ export default function Room() {
     }));
     
     console.log(`[Sequence] 📤 Sent join message with lastReceivedSeq=${lastReceivedSeq}`);
+    console.log(`[Message Queue] 📝 Waiting for server join acknowledgment before flushing ${pendingMessagesRef.current.length} pending messages...`);
     
     // Save to localStorage for creators
     if (role === "creator") {
@@ -2185,22 +2226,61 @@ export default function Room() {
             console.log(`[Temporal Dedupe] 🧹 Emergency cleanup: removed ${oldestKeys.length} oldest offset entries. New cache size: ${processedOffsetsRef.current.size}`);
           }
           
+          const stableRoomId = roomIdRef.current;
+          if (!stableRoomId) {
+            console.error('[Speech] Cannot send final transcription - roomId undefined');
+            return;
+          }
+          
+          const message = {
+            type: "transcription",
+            roomId: stableRoomId,
+            text: e.result.text,
+            language,
+            interim: false, // Mark as final result
+            offset, // Audio offset in ticks for temporal deduplication
+            duration, // Audio duration in ticks
+            timestamp: Date.now()
+          };
+          
           if (wsRef.current?.readyState === WebSocket.OPEN) {
-            const stableRoomId = roomIdRef.current;
-            if (!stableRoomId) {
-              console.error('[Speech] Cannot send final transcription - roomId undefined');
-              return;
-            }
+            // WebSocket is ready - send immediately
+            wsRef.current.send(JSON.stringify(message));
+            console.log(`[Speech] ✅ Sent final transcription immediately: "${e.result.text.substring(0, 30)}..."`);
+          } else {
+            // WebSocket not ready - queue the message with bounded size
+            const MAX_QUEUE_SIZE = 20; // Limit queue to prevent memory issues
+            const MAX_MESSAGE_AGE = 30000; // 30 seconds max age
             
-            wsRef.current.send(JSON.stringify({
-              type: "transcription",
-              roomId: stableRoomId,
-              text: e.result.text,
-              language,
-              interim: false, // Mark as final result
-              offset, // Audio offset in ticks for temporal deduplication
-              duration, // Audio duration in ticks
-            }));
+            // Clean up old messages from queue first
+            const now = Date.now();
+            pendingMessagesRef.current = pendingMessagesRef.current.filter(msg => {
+              const age = now - msg.timestamp;
+              return age < MAX_MESSAGE_AGE;
+            });
+            
+            // Add new message if queue isn't full
+            if (pendingMessagesRef.current.length < MAX_QUEUE_SIZE) {
+              pendingMessagesRef.current.push(message);
+              console.warn(`[Speech] ⚠️ WebSocket not ready (state: ${wsRef.current?.readyState || 'null'}), queued message: "${e.result.text.substring(0, 30)}..."`);
+              console.warn(`[Speech] 📦 Queue size: ${pendingMessagesRef.current.length}/${MAX_QUEUE_SIZE} pending messages`);
+              
+              // Show toast to user
+              toast({
+                title: "Connecting...",
+                description: "Your message will be sent when connection is ready",
+                variant: "info",
+                duration: 2000,
+              });
+            } else {
+              console.error(`[Speech] ❌ Queue full (${MAX_QUEUE_SIZE} messages) - dropping message: "${e.result.text.substring(0, 30)}..."`);
+              toast({
+                title: "Connection Issue",
+                description: "Message queue full. Please wait for connection to restore.",
+                variant: "destructive",
+                duration: 3000,
+              });
+            }
           }
         }
       };
