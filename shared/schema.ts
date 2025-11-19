@@ -254,7 +254,7 @@ export const SUPPORTED_LANGUAGES = [
   { code: "de-CH", name: "German (Switzerland)", countryCode: "CH", group: "German" },
   
   { code: "pt", name: "Portuguese (Portugal)", countryCode: "PT", group: "Portuguese" },
-  { code: "pt-br", name: "Portuguese (Brazil)", countryCode: "BR", group: "Portuguese" },
+  { code: "pt-BR", name: "Portuguese (Brazil)", countryCode: "BR", group: "Portuguese" },
 
   // Single-variant languages (27 total)
   { code: "it", name: "Italian", countryCode: "IT" },
