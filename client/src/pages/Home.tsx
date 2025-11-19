@@ -229,7 +229,7 @@ export default function Home() {
                   >
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-1000" />
                     <Sparkles className="mr-2 h-5 w-5 relative z-10" />
-                    <span className="relative z-10 font-semibold">{user ? "Create Room" : "Start To Try Voztra Free"}</span>
+                    <span className="relative z-10 font-semibold">{user ? "Create Room" : "Try Voztra Free"}</span>
                   </Button>
                 </Link>
                 <Link href={user ? "/create" : "/register"}>
@@ -242,6 +242,16 @@ export default function Home() {
                     Start Translating
                   </Button>
                 </Link>
+              </div>
+
+              {/* Talk without barriers - moved here */}
+              <div className="space-y-4 pt-8">
+                <h4 className="text-2xl font-semibold text-slate-900 dark:text-white">
+                  Talk without barriers
+                </h4>
+                <p className="text-lg text-slate-600 dark:text-slate-300">
+                  Start your first real-time translated conversation today — free, private, and truly human.
+                </p>
               </div>
             </div>
 
@@ -528,39 +538,26 @@ export default function Home() {
           </div>
         </div>
       </section>
-      {/* Final CTA Section */}
-      <section className="py-20 md:py-32 bg-white dark:bg-slate-950">
+      {/* Final CTA Section - Opening a new world module */}
+      <section className="py-20 md:py-32 bg-gradient-to-br from-slate-50 via-indigo-50/30 to-violet-50/30 dark:from-slate-900 dark:via-indigo-950/30 dark:to-violet-950/30">
         <div className="container mx-auto px-6 md:px-12">
-          <div className="max-w-4xl mx-auto text-center space-y-8">
-            <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white">
-              Opening a new world<br />of understanding
-            </h2>
-            <p className="text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed">
-              Every conversation through Voztra is a door opening — to new friendships, deeper relationships, and global business opportunities. When words flow freely, the world opens wider.
-            </p>
-            <div className="pt-8">
-              <h3 className="text-3xl font-bold text-slate-900 dark:text-white mb-4">
-                Your voice,<br />your gateway to the world
-              </h3>
-              <p className="text-lg text-slate-600 dark:text-slate-300 mb-8">
-                Voztra protects your privacy while expanding your reach. Every translation is encrypted and personal — your voice never becomes data, it becomes a bridge.
-              </p>
-              <p className="text-xl text-slate-700 dark:text-slate-200 italic mb-8">
-                Voztra opens doors — to people, to places, to possibility.
-              </p>
-              <div className="space-y-4">
-                <h4 className="text-2xl font-semibold text-slate-900 dark:text-white">
-                  Talk without barriers
-                </h4>
-                <p className="text-lg text-slate-600 dark:text-slate-300">
-                  Start your first real-time translated conversation today — free, private, and truly human.
+          <div className="max-w-4xl mx-auto">
+            {/* Module Card */}
+            <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-3xl shadow-2xl border border-slate-200/50 dark:border-slate-700/50 p-8 md:p-12 space-y-8">
+              <div className="text-center space-y-6">
+                <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-indigo-600 via-violet-600 to-blue-600 dark:from-indigo-400 dark:via-violet-400 dark:to-blue-400 bg-clip-text text-transparent">
+                  Opening a new world<br />of understanding
+                </h2>
+                <p className="text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto leading-relaxed">
+                  Every conversation through Voztra is a door opening — to new friendships, deeper relationships, and global business opportunities. When words flow freely, the world opens wider.
                 </p>
               </div>
+
               <div className="flex flex-col sm:flex-row gap-4 pt-8 justify-center">
                 <Link href="/create">
                   <Button 
                     size="lg" 
-                    className="text-lg px-12 h-16 shadow-xl"
+                    className="text-lg px-12 h-16 bg-gradient-to-r from-emerald-500 via-blue-500 to-violet-500 hover:from-emerald-600 hover:via-blue-600 hover:to-violet-600 shadow-xl hover:shadow-2xl transition-all"
                     data-testid="button-final-cta"
                   >
                     <Mic className="mr-2 h-6 w-6" />
@@ -571,7 +568,7 @@ export default function Home() {
                   <Button 
                     variant="outline"
                     size="lg" 
-                    className="text-lg px-12 h-16 border-slate-300 dark:border-slate-700"
+                    className="text-lg px-12 h-16 border-2 border-indigo-500 dark:border-indigo-400 hover:bg-indigo-50 dark:hover:bg-indigo-950/50"
                     data-testid="button-start-translating"
                   >
                     Start Translating
