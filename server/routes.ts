@@ -2414,6 +2414,14 @@ async function translateText(text: string, fromLanguage: string, toLanguage: str
 }
 
 function getAzureLanguageCode(code: string): string {
+  // If code is already a BCP-47 locale (contains hyphen), normalize and return
+  if (code.includes('-')) {
+    // Normalize to Azure format (e.g., pt-br → pt-BR, en-gb → en-GB)
+    const [lang, region] = code.split('-');
+    return `${lang.toLowerCase()}-${region.toUpperCase()}`;
+  }
+  
+  // Map short codes to default Azure locales for backward compatibility
   const languageMap: Record<string, string> = {
     'en': 'en-US',
     'es': 'es-ES',
@@ -2430,8 +2438,47 @@ function getAzureLanguageCode(code: string): string {
     'nl': 'nl-NL',
     'pl': 'pl-PL',
     'tr': 'tr-TR',
+    'sv': 'sv-SE',
+    'nb': 'nb-NO',
+    'da': 'da-DK',
+    'fi': 'fi-FI',
+    'el': 'el-GR',
+    'cs': 'cs-CZ',
+    'ro': 'ro-RO',
+    'uk': 'uk-UA',
+    'hu': 'hu-HU',
+    'vi': 'vi-VN',
+    'th': 'th-TH',
+    'id': 'id-ID',
+    'he': 'he-IL',
+    'bn': 'bn-IN',
+    'ta': 'ta-IN',
+    'te': 'te-IN',
+    'mr': 'mr-IN',
+    'bg': 'bg-BG',
+    'hr': 'hr-HR',
+    'sk': 'sk-SK',
+    'sl': 'sl-SI',
+    'ca': 'ca-ES',
+    'ms': 'ms-MY',
+    'af': 'af-ZA',
+    'sw': 'sw-KE',
+    'gu': 'gu-IN',
+    'kn': 'kn-IN',
+    'ml': 'ml-IN',
+    'sr': 'sr-RS',
+    'et': 'et-EE',
+    'lv': 'lv-LV',
   };
-  return languageMap[code] || code;
+  
+  const mapped = languageMap[code];
+  if (!mapped) {
+    // This should never happen if SUPPORTED_LANGUAGES is kept in sync with languageMap
+    const error = `[CRITICAL] No Azure locale mapping for language code "${code}". This language is not supported by Azure services.`;
+    console.error(error);
+    throw new Error(error);
+  }
+  return mapped;
 }
 
 // Background cleanup worker: Deletes inactive rooms after 24 hours

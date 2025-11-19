@@ -184,24 +184,87 @@ export const loginSchema = z.object({
 export type RegisterData = z.infer<typeof registerSchema>;
 export type LoginData = z.infer<typeof loginSchema>;
 
-// Supported languages for translation
+// Supported languages for translation (89 languages total)
+// Hybrid approach: Base languages use short codes, regional variants use BCP-47 locales
+// Backward compatible with existing rooms
 export const SUPPORTED_LANGUAGES = [
-  { code: "en", name: "English", countryCode: "US" },
-  { code: "es", name: "Spanish", countryCode: "ES" },
-  { code: "fr", name: "French", countryCode: "FR" },
-  { code: "de", name: "German", countryCode: "DE" },
+  // English variants (1 base + 12 regional = 13 total)
+  { code: "en", name: "English (US)", countryCode: "US", group: "English" },
+  { code: "en-GB", name: "English (UK)", countryCode: "GB", group: "English" },
+  { code: "en-AU", name: "English (Australia)", countryCode: "AU", group: "English" },
+  { code: "en-CA", name: "English (Canada)", countryCode: "CA", group: "English" },
+  { code: "en-IN", name: "English (India)", countryCode: "IN", group: "English" },
+  { code: "en-IE", name: "English (Ireland)", countryCode: "IE", group: "English" },
+  { code: "en-NZ", name: "English (New Zealand)", countryCode: "NZ", group: "English" },
+  { code: "en-SG", name: "English (Singapore)", countryCode: "SG", group: "English" },
+  { code: "en-HK", name: "English (Hong Kong)", countryCode: "HK", group: "English" },
+  { code: "en-PH", name: "English (Philippines)", countryCode: "PH", group: "English" },
+  { code: "en-NG", name: "English (Nigeria)", countryCode: "NG", group: "English" },
+  { code: "en-ZA", name: "English (South Africa)", countryCode: "ZA", group: "English" },
+  { code: "en-GH", name: "English (Ghana)", countryCode: "GH", group: "English" },
+
+  // Spanish variants (1 base + 19 regional = 20 total)
+  { code: "es", name: "Spanish (Spain)", countryCode: "ES", group: "Spanish" },
+  { code: "es-MX", name: "Spanish (Mexico)", countryCode: "MX", group: "Spanish" },
+  { code: "es-AR", name: "Spanish (Argentina)", countryCode: "AR", group: "Spanish" },
+  { code: "es-CO", name: "Spanish (Colombia)", countryCode: "CO", group: "Spanish" },
+  { code: "es-CL", name: "Spanish (Chile)", countryCode: "CL", group: "Spanish" },
+  { code: "es-PE", name: "Spanish (Peru)", countryCode: "PE", group: "Spanish" },
+  { code: "es-VE", name: "Spanish (Venezuela)", countryCode: "VE", group: "Spanish" },
+  { code: "es-CR", name: "Spanish (Costa Rica)", countryCode: "CR", group: "Spanish" },
+  { code: "es-PA", name: "Spanish (Panama)", countryCode: "PA", group: "Spanish" },
+  { code: "es-GT", name: "Spanish (Guatemala)", countryCode: "GT", group: "Spanish" },
+  { code: "es-HN", name: "Spanish (Honduras)", countryCode: "HN", group: "Spanish" },
+  { code: "es-NI", name: "Spanish (Nicaragua)", countryCode: "NI", group: "Spanish" },
+  { code: "es-SV", name: "Spanish (El Salvador)", countryCode: "SV", group: "Spanish" },
+  { code: "es-BO", name: "Spanish (Bolivia)", countryCode: "BO", group: "Spanish" },
+  { code: "es-PY", name: "Spanish (Paraguay)", countryCode: "PY", group: "Spanish" },
+  { code: "es-UY", name: "Spanish (Uruguay)", countryCode: "UY", group: "Spanish" },
+  { code: "es-DO", name: "Spanish (Dominican Republic)", countryCode: "DO", group: "Spanish" },
+  { code: "es-PR", name: "Spanish (Puerto Rico)", countryCode: "PR", group: "Spanish" },
+  { code: "es-EC", name: "Spanish (Ecuador)", countryCode: "EC", group: "Spanish" },
+  { code: "es-US", name: "Spanish (United States)", countryCode: "US", group: "Spanish" },
+
+  // Arabic variants (1 base + 13 regional = 14 total)
+  { code: "ar", name: "Arabic (Saudi Arabia)", countryCode: "SA", group: "Arabic" },
+  { code: "ar-EG", name: "Arabic (Egypt)", countryCode: "EG", group: "Arabic" },
+  { code: "ar-AE", name: "Arabic (UAE)", countryCode: "AE", group: "Arabic" },
+  { code: "ar-BH", name: "Arabic (Bahrain)", countryCode: "BH", group: "Arabic" },
+  { code: "ar-IQ", name: "Arabic (Iraq)", countryCode: "IQ", group: "Arabic" },
+  { code: "ar-JO", name: "Arabic (Jordan)", countryCode: "JO", group: "Arabic" },
+  { code: "ar-KW", name: "Arabic (Kuwait)", countryCode: "KW", group: "Arabic" },
+  { code: "ar-LB", name: "Arabic (Lebanon)", countryCode: "LB", group: "Arabic" },
+  { code: "ar-OM", name: "Arabic (Oman)", countryCode: "OM", group: "Arabic" },
+  { code: "ar-QA", name: "Arabic (Qatar)", countryCode: "QA", group: "Arabic" },
+  { code: "ar-SY", name: "Arabic (Syria)", countryCode: "SY", group: "Arabic" },
+  { code: "ar-LY", name: "Arabic (Libya)", countryCode: "LY", group: "Arabic" },
+  { code: "ar-MA", name: "Arabic (Morocco)", countryCode: "MA", group: "Arabic" },
+  { code: "ar-DZ", name: "Arabic (Algeria)", countryCode: "DZ", group: "Arabic" },
+
+  // Other major languages with variants
+  { code: "zh", name: "Chinese (Simplified)", countryCode: "CN", group: "Chinese" },
+  { code: "zh-TW", name: "Chinese (Traditional)", countryCode: "TW", group: "Chinese" },
+  { code: "zh-HK", name: "Chinese (Hong Kong)", countryCode: "HK", group: "Chinese" },
+  
+  { code: "fr", name: "French (France)", countryCode: "FR", group: "French" },
+  { code: "fr-CA", name: "French (Canada)", countryCode: "CA", group: "French" },
+  
+  { code: "de", name: "German (Germany)", countryCode: "DE", group: "German" },
+  { code: "de-AT", name: "German (Austria)", countryCode: "AT", group: "German" },
+  { code: "de-CH", name: "German (Switzerland)", countryCode: "CH", group: "German" },
+  
+  { code: "pt", name: "Portuguese (Portugal)", countryCode: "PT", group: "Portuguese" },
+  { code: "pt-br", name: "Portuguese (Brazil)", countryCode: "BR", group: "Portuguese" },
+
+  // Single-variant languages (27 total)
   { code: "it", name: "Italian", countryCode: "IT" },
-  { code: "pt", name: "Portuguese", countryCode: "PT" },
   { code: "ru", name: "Russian", countryCode: "RU" },
   { code: "ja", name: "Japanese", countryCode: "JP" },
   { code: "ko", name: "Korean", countryCode: "KR" },
-  { code: "zh", name: "Chinese", countryCode: "CN" },
-  { code: "ar", name: "Arabic", countryCode: "SA" },
   { code: "hi", name: "Hindi", countryCode: "IN" },
   { code: "nl", name: "Dutch", countryCode: "NL" },
   { code: "pl", name: "Polish", countryCode: "PL" },
   { code: "tr", name: "Turkish", countryCode: "TR" },
-  { code: "pt-br", name: "Portuguese (Brazil)", countryCode: "BR" },
   { code: "sv", name: "Swedish", countryCode: "SE" },
   { code: "nb", name: "Norwegian", countryCode: "NO" },
   { code: "da", name: "Danish", countryCode: "DK" },
@@ -219,6 +282,9 @@ export const SUPPORTED_LANGUAGES = [
   { code: "ta", name: "Tamil", countryCode: "IN" },
   { code: "te", name: "Telugu", countryCode: "IN" },
   { code: "mr", name: "Marathi", countryCode: "IN" },
+  { code: "gu", name: "Gujarati", countryCode: "IN" },
+  { code: "kn", name: "Kannada", countryCode: "IN" },
+  { code: "ml", name: "Malayalam", countryCode: "IN" },
   { code: "bg", name: "Bulgarian", countryCode: "BG" },
   { code: "hr", name: "Croatian", countryCode: "HR" },
   { code: "sk", name: "Slovak", countryCode: "SK" },
@@ -227,9 +293,6 @@ export const SUPPORTED_LANGUAGES = [
   { code: "ms", name: "Malay", countryCode: "MY" },
   { code: "af", name: "Afrikaans", countryCode: "ZA" },
   { code: "sw", name: "Swahili", countryCode: "KE" },
-  { code: "gu", name: "Gujarati", countryCode: "IN" },
-  { code: "kn", name: "Kannada", countryCode: "IN" },
-  { code: "ml", name: "Malayalam", countryCode: "IN" },
   { code: "sr", name: "Serbian", countryCode: "RS" },
   { code: "et", name: "Estonian", countryCode: "EE" },
   { code: "lv", name: "Latvian", countryCode: "LV" },

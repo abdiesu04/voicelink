@@ -38,13 +38,24 @@ function CountryFlag({ countryCode }: { countryCode: string }) {
   );
 }
 
-// Group languages by region for better organization
-const LANGUAGE_GROUPS = {
-  popular: ["en", "es", "fr", "de", "zh", "ja", "ar", "hi", "pt", "ru"],
-  europe: ["en", "es", "fr", "de", "it", "pt", "pt-br", "ru", "nl", "pl", "tr", "sv", "nb", "da", "fi", "el", "cs", "ro", "uk", "hu", "bg", "hr", "sk", "sl", "ca", "sr", "et", "lv"],
-  asia: ["zh", "ja", "ko", "hi", "vi", "th", "id", "bn", "ta", "te", "mr", "gu", "kn", "ml", "ms"],
-  middleEast: ["ar", "he"],
-  africa: ["af", "sw"],
+// Group languages by their language family for better organization
+// Languages with variants will be grouped together (e.g., all English variants)
+const getLanguageGroups = () => {
+  const grouped: Record<string, typeof SUPPORTED_LANGUAGES[number][]> = {};
+  const ungrouped: typeof SUPPORTED_LANGUAGES[number][] = [];
+  
+  SUPPORTED_LANGUAGES.forEach((lang) => {
+    if ('group' in lang && lang.group) {
+      if (!grouped[lang.group]) {
+        grouped[lang.group] = [];
+      }
+      grouped[lang.group].push(lang);
+    } else {
+      ungrouped.push(lang);
+    }
+  });
+  
+  return { grouped, ungrouped };
 };
 
 export function LanguageSelector({ value, onValueChange, disabled }: LanguageSelectorProps) {
@@ -53,25 +64,33 @@ export function LanguageSelector({ value, onValueChange, disabled }: LanguageSel
 
   const selectedLanguage = SUPPORTED_LANGUAGES.find((lang) => lang.code === value);
 
-  // Organize languages by region
-  const languagesByRegion = useMemo(() => {
+  // Organize languages by group (for variants) and search
+  const languagesByGroup = useMemo(() => {
     const filtered = SUPPORTED_LANGUAGES.filter(lang => 
       lang.name.toLowerCase().includes(search.toLowerCase())
     );
 
     if (search) {
       // If searching, show all matching results in one list
-      return { all: filtered };
+      return { searchResults: filtered, grouped: {}, ungrouped: [] };
     }
 
-    // Group by regions when not searching
-    return {
-      popular: filtered.filter(lang => LANGUAGE_GROUPS.popular.includes(lang.code)),
-      europe: filtered.filter(lang => LANGUAGE_GROUPS.europe.includes(lang.code)),
-      asia: filtered.filter(lang => LANGUAGE_GROUPS.asia.includes(lang.code)),
-      middleEast: filtered.filter(lang => LANGUAGE_GROUPS.middleEast.includes(lang.code)),
-      africa: filtered.filter(lang => LANGUAGE_GROUPS.africa.includes(lang.code)),
-    };
+    // Group filtered languages by their language family
+    const grouped: Record<string, typeof SUPPORTED_LANGUAGES[number][]> = {};
+    const ungrouped: typeof SUPPORTED_LANGUAGES[number][] = [];
+    
+    filtered.forEach((lang) => {
+      if ('group' in lang && lang.group) {
+        if (!grouped[lang.group]) {
+          grouped[lang.group] = [];
+        }
+        grouped[lang.group].push(lang);
+      } else {
+        ungrouped.push(lang);
+      }
+    });
+
+    return { searchResults: [], grouped, ungrouped };
   }, [search]);
 
   return (
@@ -107,7 +126,7 @@ export function LanguageSelector({ value, onValueChange, disabled }: LanguageSel
           <div className="flex items-center gap-2 px-3 py-2 border-b border-border/50 bg-muted/30">
             <Globe2 className="h-4 w-4 text-muted-foreground" />
             <CommandInput 
-              placeholder="Search 47 languages..." 
+              placeholder="Search 95 languages..." 
               className="h-10 text-base border-0 focus:ring-0" 
               data-testid="input-language-search"
               value={search}
@@ -124,7 +143,7 @@ export function LanguageSelector({ value, onValueChange, disabled }: LanguageSel
             {search ? (
               // Show all results when searching
               <CommandGroup className="p-2">
-                {languagesByRegion.all?.map((language) => (
+                {languagesByGroup.searchResults?.map((language) => (
                   <CommandItem
                     key={language.code}
                     value={language.name}
@@ -157,188 +176,84 @@ export function LanguageSelector({ value, onValueChange, disabled }: LanguageSel
                 ))}
               </CommandGroup>
             ) : (
-              // Show organized groups when not searching
+              // Show grouped languages when not searching
               <>
-                {/* Popular Languages */}
-                {languagesByRegion.popular && languagesByRegion.popular.length > 0 && (
-                  <CommandGroup heading="Popular" className="p-2">
-                    {languagesByRegion.popular.map((language) => (
-                      <CommandItem
-                        key={language.code}
-                        value={language.name}
-                        onSelect={() => {
-                          onValueChange(language.code);
-                          setOpen(false);
-                        }}
-                        className={cn(
-                          "flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer",
-                          "hover-elevate transition-colors",
-                          value === language.code && "bg-primary/20 dark:bg-primary/30"
-                        )}
-                        data-testid={`option-language-${language.code}`}
-                      >
-                        <Check
+                {/* Language groups with variants (English, Spanish, Arabic, etc.) */}
+                {Object.entries(languagesByGroup.grouped).map(([groupName, languages], groupIndex) => (
+                  <div key={groupName}>
+                    {groupIndex > 0 && <Separator className="my-2" />}
+                    <CommandGroup heading={`${groupName} (${languages.length})`} className="p-2">
+                      {languages.map((language) => (
+                        <CommandItem
+                          key={language.code}
+                          value={language.name}
+                          onSelect={() => {
+                            onValueChange(language.code);
+                            setOpen(false);
+                          }}
                           className={cn(
-                            "h-4 w-4 flex-shrink-0 text-primary",
-                            value === language.code ? "opacity-100" : "opacity-0"
+                            "flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer",
+                            "hover-elevate transition-colors",
+                            value === language.code && "bg-primary/20 dark:bg-primary/30"
                           )}
-                        />
-                        <CountryFlag countryCode={language.countryCode} />
-                        <span className={cn(
-                          "font-medium",
-                          value === language.code ? "text-slate-900 dark:text-white font-semibold" : "text-foreground"
-                        )}>
-                          {language.name}
-                        </span>
-                      </CommandItem>
-                    ))}
-                  </CommandGroup>
-                )}
+                          data-testid={`option-language-${language.code}`}
+                        >
+                          <Check
+                            className={cn(
+                              "h-4 w-4 flex-shrink-0 text-primary",
+                              value === language.code ? "opacity-100" : "opacity-0"
+                            )}
+                          />
+                          <CountryFlag countryCode={language.countryCode} />
+                          <span className={cn(
+                            "font-medium text-sm",
+                            value === language.code ? "text-slate-900 dark:text-white font-semibold" : "text-foreground"
+                          )}>
+                            {language.name}
+                          </span>
+                        </CommandItem>
+                      ))}
+                    </CommandGroup>
+                  </div>
+                ))}
 
-                <Separator className="my-2" />
-
-                {/* Europe */}
-                {languagesByRegion.europe && languagesByRegion.europe.length > 0 && (
-                  <CommandGroup heading="Europe" className="p-2">
-                    {languagesByRegion.europe.map((language) => (
-                      <CommandItem
-                        key={language.code}
-                        value={language.name}
-                        onSelect={() => {
-                          onValueChange(language.code);
-                          setOpen(false);
-                        }}
-                        className={cn(
-                          "flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer",
-                          "hover-elevate transition-colors",
-                          value === language.code && "bg-primary/20 dark:bg-primary/30"
-                        )}
-                        data-testid={`option-language-${language.code}`}
-                      >
-                        <Check
+                {/* Other languages without variants */}
+                {languagesByGroup.ungrouped.length > 0 && (
+                  <>
+                    {Object.keys(languagesByGroup.grouped).length > 0 && <Separator className="my-2" />}
+                    <CommandGroup heading={`Other Languages (${languagesByGroup.ungrouped.length})`} className="p-2">
+                      {languagesByGroup.ungrouped.map((language) => (
+                        <CommandItem
+                          key={language.code}
+                          value={language.name}
+                          onSelect={() => {
+                            onValueChange(language.code);
+                            setOpen(false);
+                          }}
                           className={cn(
-                            "h-4 w-4 flex-shrink-0 text-primary",
-                            value === language.code ? "opacity-100" : "opacity-0"
+                            "flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer",
+                            "hover-elevate transition-colors",
+                            value === language.code && "bg-primary/20 dark:bg-primary/30"
                           )}
-                        />
-                        <CountryFlag countryCode={language.countryCode} />
-                        <span className={cn(
-                          "font-medium text-sm",
-                          value === language.code ? "text-slate-900 dark:text-white font-semibold" : "text-foreground"
-                        )}>
-                          {language.name}
-                        </span>
-                      </CommandItem>
-                    ))}
-                  </CommandGroup>
-                )}
-
-                {/* Asia */}
-                {languagesByRegion.asia && languagesByRegion.asia.length > 0 && (
-                  <CommandGroup heading="Asia" className="p-2">
-                    {languagesByRegion.asia.map((language) => (
-                      <CommandItem
-                        key={language.code}
-                        value={language.name}
-                        onSelect={() => {
-                          onValueChange(language.code);
-                          setOpen(false);
-                        }}
-                        className={cn(
-                          "flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer",
-                          "hover-elevate transition-colors",
-                          value === language.code && "bg-primary/20 dark:bg-primary/30"
-                        )}
-                        data-testid={`option-language-${language.code}`}
-                      >
-                        <Check
-                          className={cn(
-                            "h-4 w-4 flex-shrink-0 text-primary",
-                            value === language.code ? "opacity-100" : "opacity-0"
-                          )}
-                        />
-                        <CountryFlag countryCode={language.countryCode} />
-                        <span className={cn(
-                          "font-medium text-sm",
-                          value === language.code ? "text-slate-900 dark:text-white font-semibold" : "text-foreground"
-                        )}>
-                          {language.name}
-                        </span>
-                      </CommandItem>
-                    ))}
-                  </CommandGroup>
-                )}
-
-                {/* Middle East */}
-                {languagesByRegion.middleEast && languagesByRegion.middleEast.length > 0 && (
-                  <CommandGroup heading="Middle East" className="p-2">
-                    {languagesByRegion.middleEast.map((language) => (
-                      <CommandItem
-                        key={language.code}
-                        value={language.name}
-                        onSelect={() => {
-                          onValueChange(language.code);
-                          setOpen(false);
-                        }}
-                        className={cn(
-                          "flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer",
-                          "hover-elevate transition-colors",
-                          value === language.code && "bg-primary/20 dark:bg-primary/30"
-                        )}
-                        data-testid={`option-language-${language.code}`}
-                      >
-                        <Check
-                          className={cn(
-                            "h-4 w-4 flex-shrink-0 text-primary",
-                            value === language.code ? "opacity-100" : "opacity-0"
-                          )}
-                        />
-                        <CountryFlag countryCode={language.countryCode} />
-                        <span className={cn(
-                          "font-medium text-sm",
-                          value === language.code ? "text-slate-900 dark:text-white font-semibold" : "text-foreground"
-                        )}>
-                          {language.name}
-                        </span>
-                      </CommandItem>
-                    ))}
-                  </CommandGroup>
-                )}
-
-                {/* Africa */}
-                {languagesByRegion.africa && languagesByRegion.africa.length > 0 && (
-                  <CommandGroup heading="Africa" className="p-2">
-                    {languagesByRegion.africa.map((language) => (
-                      <CommandItem
-                        key={language.code}
-                        value={language.name}
-                        onSelect={() => {
-                          onValueChange(language.code);
-                          setOpen(false);
-                        }}
-                        className={cn(
-                          "flex items-center gap-3 px-3 py-2.5 rounded-lg cursor-pointer",
-                          "hover-elevate transition-colors",
-                          value === language.code && "bg-primary/20 dark:bg-primary/30"
-                        )}
-                        data-testid={`option-language-${language.code}`}
-                      >
-                        <Check
-                          className={cn(
-                            "h-4 w-4 flex-shrink-0 text-primary",
-                            value === language.code ? "opacity-100" : "opacity-0"
-                          )}
-                        />
-                        <CountryFlag countryCode={language.countryCode} />
-                        <span className={cn(
-                          "font-medium text-sm",
-                          value === language.code ? "text-slate-900 dark:text-white font-semibold" : "text-foreground"
-                        )}>
-                          {language.name}
-                        </span>
-                      </CommandItem>
-                    ))}
-                  </CommandGroup>
+                          data-testid={`option-language-${language.code}`}
+                        >
+                          <Check
+                            className={cn(
+                              "h-4 w-4 flex-shrink-0 text-primary",
+                              value === language.code ? "opacity-100" : "opacity-0"
+                            )}
+                          />
+                          <CountryFlag countryCode={language.countryCode} />
+                          <span className={cn(
+                            "font-medium text-sm",
+                            value === language.code ? "text-slate-900 dark:text-white font-semibold" : "text-foreground"
+                          )}>
+                            {language.name}
+                          </span>
+                        </CommandItem>
+                      ))}
+                    </CommandGroup>
+                  </>
                 )}
               </>
             )}
