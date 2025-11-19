@@ -2532,14 +2532,14 @@ export default function Room() {
   };
 
   return (
-    <div className="h-screen flex flex-col bg-gradient-to-br from-slate-50 via-slate-100 to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 relative overflow-hidden">
+    <div className="h-[100dvh] md:h-screen flex flex-col bg-gradient-to-br from-slate-50 via-slate-100 to-slate-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 relative overflow-hidden">
       {/* Background effects */}
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent" />
       <div className="absolute inset-0 bg-[linear-gradient(rgba(99,102,241,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(99,102,241,0.03)_1px,transparent_1px)] bg-[size:72px_72px]" />
       
-      {/* Header - Compact Desktop */}
+      {/* Header - Compact Mobile, Full Desktop */}
       <header className="border-b border-slate-300/50 dark:border-slate-800/50 bg-white/50 dark:bg-slate-900/50 backdrop-blur-xl relative z-10">
-        <div className="container mx-auto px-3 sm:px-6 md:px-12 py-2">
+        <div className="container mx-auto px-2 sm:px-6 md:px-12 py-1.5 sm:py-2">
           <div className="flex items-center justify-between gap-2 sm:gap-4">
             {/* Left: Connection Status & Timer */}
             <div className="flex items-center gap-2 sm:gap-3">
@@ -2695,9 +2695,9 @@ export default function Room() {
       )}
 
       {/* Main Content - Mobile: 100% fit to frame, no scrolling */}
-      <main className="flex-1 overflow-hidden relative z-10">
-        <div className="h-full container mx-auto px-2 sm:px-6 md:px-12 py-2 sm:py-4 md:py-6">
-          <div className="h-full grid grid-cols-1 md:grid-cols-2 gap-2 sm:gap-4 max-w-7xl mx-auto">
+      <main className="flex-1 overflow-hidden relative z-10 pb-[140px] md:pb-0">
+        <div className="h-full container mx-auto px-2 sm:px-6 md:px-12 py-1.5 sm:py-4 md:py-6">
+          <div className="h-full grid grid-cols-1 md:grid-cols-2 gap-1.5 sm:gap-4 max-w-7xl mx-auto">
             <TranscriptionPanel
               title="You"
               isActive={isSpeaking}

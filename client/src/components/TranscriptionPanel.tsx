@@ -50,47 +50,47 @@ export function TranscriptionPanel({
       )}
       data-testid={`panel-transcription-${title.toLowerCase()}`}
     >
-      {/* Header - Compact */}
+      {/* Header - Compact Mobile */}
       <div className={cn(
-        "flex items-center justify-between px-4 py-3 border-b",
+        "flex items-center justify-between px-2 sm:px-4 py-2 sm:py-3 border-b",
         isActive 
           ? isUser 
             ? "bg-gradient-to-r from-primary/10 to-indigo-500/5 border-primary/20" 
             : "bg-gradient-to-r from-accent/10 to-purple-500/5 border-accent/20"
           : "bg-slate-50 dark:bg-slate-800/50 border-slate-200 dark:border-slate-800"
       )}>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2">
           <div className={cn(
-            "h-8 w-8 rounded-lg flex items-center justify-center",
+            "h-6 w-6 sm:h-8 sm:w-8 rounded-lg flex items-center justify-center",
             isUser 
               ? "bg-gradient-to-br from-primary to-indigo-600" 
               : "bg-gradient-to-br from-accent to-purple-600"
           )}>
             {isUser ? (
-              <Mic className="h-4 w-4 text-white" />
+              <Mic className="h-3 w-3 sm:h-4 sm:w-4 text-white" />
             ) : (
-              <Volume2 className="h-4 w-4 text-white" />
+              <Volume2 className="h-3 w-3 sm:h-4 sm:w-4 text-white" />
             )}
           </div>
-          <h3 className="text-sm font-bold text-foreground">{title}</h3>
+          <h3 className="text-xs sm:text-sm font-bold text-foreground">{title}</h3>
         </div>
         
         {isSpeaking && (
           <div className={cn(
-            "flex items-center gap-1.5 px-2.5 py-1 rounded-full",
+            "flex items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-full",
             isUser 
               ? "bg-primary text-white" 
               : "bg-accent text-white"
           )}>
             <div className="h-1.5 w-1.5 rounded-full bg-white animate-pulse" />
-            <span className="text-xs font-semibold">Speaking</span>
+            <span className="text-[10px] sm:text-xs font-semibold">Speaking</span>
           </div>
         )}
       </div>
 
       {/* Messages Area */}
       <ScrollArea className="flex-1" ref={scrollRef}>
-        <div className="p-3 sm:p-6 space-y-3 sm:space-y-6">
+        <div className="p-2 sm:p-6 space-y-2 sm:space-y-6">
           {messages.length === 0 && !interimText ? (
             <div className="flex flex-col items-center justify-center h-[200px] sm:h-[400px] text-center">
               <div className={cn(
@@ -128,12 +128,12 @@ export function TranscriptionPanel({
                       </span>
                     </div>
                     <div className={cn(
-                      "p-3 sm:p-5 rounded-lg sm:rounded-xl shadow-sm border sm:border-2",
+                      "p-2 sm:p-5 rounded-lg sm:rounded-xl shadow-sm border sm:border-2",
                       message.isOwn
                         ? "bg-gradient-to-br from-primary/5 to-indigo-500/5 border-primary/20"
                         : "bg-gradient-to-br from-accent/5 to-purple-500/5 border-accent/20"
                     )}>
-                      <p className="text-sm sm:text-lg leading-snug sm:leading-relaxed font-medium text-foreground">
+                      <p className="text-xs sm:text-lg leading-snug sm:leading-relaxed font-medium text-foreground">
                         {message.originalText}
                       </p>
                     </div>
@@ -150,8 +150,8 @@ export function TranscriptionPanel({
                         Translation
                       </span>
                     </div>
-                    <div className="p-2.5 sm:p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
-                      <p className="text-xs sm:text-base leading-snug sm:leading-relaxed text-muted-foreground">
+                    <div className="p-1.5 sm:p-4 rounded-lg bg-slate-50 dark:bg-slate-800/50 border border-slate-200 dark:border-slate-700">
+                      <p className="text-[11px] sm:text-base leading-snug sm:leading-relaxed text-muted-foreground">
                         {message.translatedText}
                       </p>
                     </div>
@@ -173,12 +173,12 @@ export function TranscriptionPanel({
                     </span>
                   </div>
                   <div className={cn(
-                    "p-3 sm:p-5 rounded-lg sm:rounded-xl border sm:border-2 border-dashed",
+                    "p-2 sm:p-5 rounded-lg sm:rounded-xl border sm:border-2 border-dashed",
                     isUser
                       ? "bg-primary/5 border-primary/30"
                       : "bg-accent/5 border-accent/30"
                   )}>
-                    <p className="text-sm sm:text-lg leading-snug sm:leading-relaxed text-muted-foreground italic font-medium">
+                    <p className="text-xs sm:text-lg leading-snug sm:leading-relaxed text-muted-foreground italic font-medium">
                       {interimText}
                     </p>
                   </div>
