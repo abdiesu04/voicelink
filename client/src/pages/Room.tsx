@@ -2457,7 +2457,7 @@ export default function Room() {
     setShowRatingDialog(true);
   };
 
-  const handleRatingSubmit = async (rating: number, feedback?: string) => {
+  const handleRatingSubmit = async (rating: number, feedback?: string): Promise<boolean> => {
     console.log('[Rating] User rated call:', rating, 'stars', feedback ? 'with feedback' : '');
     
     try {
@@ -2481,10 +2481,15 @@ export default function Room() {
           description: "Could not save your rating. Please try again.",
           variant: "destructive",
         });
-        return; // Keep dialog open on failure
+        return false; // Keep dialog open on failure
       }
       
       console.log('[Rating] ✅ Rating submitted successfully');
+      
+      // Success - close dialog and perform actual disconnect
+      setShowRatingDialog(false);
+      performActualDisconnect();
+      return true;
     } catch (error) {
       console.error('[Rating] Error submitting rating:', error);
       toast({
@@ -2492,12 +2497,8 @@ export default function Room() {
         description: "Could not save your rating. Please try again.",
         variant: "destructive",
       });
-      return; // Keep dialog open on failure
+      return false; // Keep dialog open on failure
     }
-
-    // Close dialog and perform actual disconnect
-    setShowRatingDialog(false);
-    performActualDisconnect();
   };
 
   // Mobile-first share handler with Web Share API fallback
