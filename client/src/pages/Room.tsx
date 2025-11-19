@@ -175,6 +175,11 @@ export default function Room() {
   const isReconnectingRef = useRef<boolean>(false);
   const shouldReconnectRef = useRef<boolean>(true); // Set to false on intentional disconnect
   
+  // FIX: Auto-clear interim text timeouts - prevents "Transcribing..." from freezing UI
+  // If Azure doesn't send a final transcription within 3 seconds, auto-clear the interim text
+  const myInterimTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const partnerInterimTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  
   // MOBILE FIX: Promise-based reconnection coordinator - prevents overlapping WebSocket connections
   // Multiple triggers (visibility change, network restore, onclose) can call reconnect simultaneously
   // Coordinator serializes all reconnect requests to prevent race conditions
@@ -391,6 +396,22 @@ export default function Room() {
     partnerVoiceGenderRef.current = partnerVoiceGender;
     console.log('[State Change] partnerVoiceGender updated to:', partnerVoiceGender);
   }, [partnerVoiceGender]);
+
+  // Cleanup interim text timeouts on component unmount
+  // Prevents orphaned callbacks from firing after navigation/unmount
+  useEffect(() => {
+    return () => {
+      console.log('[Cleanup] Clearing interim text timeouts on unmount');
+      if (myInterimTimeoutRef.current) {
+        clearTimeout(myInterimTimeoutRef.current);
+        myInterimTimeoutRef.current = null;
+      }
+      if (partnerInterimTimeoutRef.current) {
+        clearTimeout(partnerInterimTimeoutRef.current);
+        partnerInterimTimeoutRef.current = null;
+      }
+    };
+  }, []); // Empty deps - only run on mount/unmount
 
   // Timer - increment elapsed seconds every second when session is active
   useEffect(() => {
@@ -1124,9 +1145,31 @@ export default function Room() {
       if (message.interim === true) {
         if (isOwn) {
           setMyInterimText(message.text);
+          
+          // AUTO-CLEAR FIX: Clear any existing timeout and set new one
+          // If no final transcription arrives within 3 seconds, auto-clear the interim text
+          // This prevents UI from freezing on "Transcribing..." when Azure doesn't send final result
+          if (myInterimTimeoutRef.current) {
+            clearTimeout(myInterimTimeoutRef.current);
+          }
+          myInterimTimeoutRef.current = setTimeout(() => {
+            console.log('[Interim Timeout] ⏰ Auto-clearing myInterimText after 3s (no final transcription received)');
+            myInterimTimeoutRef.current = null; // Clear ref before mutating state
+            setMyInterimText("");
+          }, 3000);
         } else {
           setPartnerInterimText(message.text);
           setPartnerSpeaking(true);
+          
+          // AUTO-CLEAR FIX: Same for partner
+          if (partnerInterimTimeoutRef.current) {
+            clearTimeout(partnerInterimTimeoutRef.current);
+          }
+          partnerInterimTimeoutRef.current = setTimeout(() => {
+            console.log('[Interim Timeout] ⏰ Auto-clearing partnerInterimText after 3s (no final transcription received)');
+            partnerInterimTimeoutRef.current = null; // Clear ref before mutating state
+            setPartnerInterimText("");
+          }, 3000);
         }
         return;
       }
@@ -1134,9 +1177,23 @@ export default function Room() {
       // Handle final transcriptions
       if (isOwn) {
         setIsSpeaking(false);
+        
+        // Clear the auto-clear timeout BEFORE clearing interim text (prevents race conditions)
+        if (myInterimTimeoutRef.current) {
+          clearTimeout(myInterimTimeoutRef.current);
+          myInterimTimeoutRef.current = null;
+        }
+        
         setMyInterimText(""); // Clear interim text
       } else {
         setPartnerSpeaking(false);
+        
+        // Clear the auto-clear timeout BEFORE clearing interim text (prevents race conditions)
+        if (partnerInterimTimeoutRef.current) {
+          clearTimeout(partnerInterimTimeoutRef.current);
+          partnerInterimTimeoutRef.current = null;
+        }
+        
         setPartnerInterimText(""); // Clear interim text
       }
     }
@@ -1207,11 +1264,27 @@ export default function Room() {
 
       if (isOwn) {
         setMyMessages(prev => [...prev, newMessage]);
+        
+        // Clear the auto-clear timeout BEFORE clearing interim text (prevents race conditions)
+        if (myInterimTimeoutRef.current) {
+          clearTimeout(myInterimTimeoutRef.current);
+          myInterimTimeoutRef.current = null;
+        }
+        
         setMyInterimText(""); // Clear interim when final arrives
+        
         console.log(`[Translation] 📤 Added to MY messages (total: ${myMessages.length + 1})`);
       } else {
         setPartnerMessages(prev => [...prev, newMessage]);
+        
+        // Clear the auto-clear timeout BEFORE clearing interim text (prevents race conditions)
+        if (partnerInterimTimeoutRef.current) {
+          clearTimeout(partnerInterimTimeoutRef.current);
+          partnerInterimTimeoutRef.current = null;
+        }
+        
         setPartnerInterimText(""); // Clear interim when final arrives
+        
         console.log(`[Translation] 📥 Added to PARTNER messages (total: ${partnerMessages.length + 1})`);
         
         // CORRECT LOGIC: Use PARTNER's voiceGender (what they selected = the voice representing THEM)
@@ -2413,6 +2486,13 @@ export default function Room() {
       isMutedRef.current = true;
       setIsMuted(true);
       setIsSpeaking(false); // Clear speaking state immediately
+      
+      // Clear interim text timeouts BEFORE clearing interim text (prevents race conditions)
+      if (myInterimTimeoutRef.current) {
+        clearTimeout(myInterimTimeoutRef.current);
+        myInterimTimeoutRef.current = null;
+      }
+      
       setMyInterimText(""); // Clear interim text
       
       if (recognizerRef.current) {
@@ -2525,6 +2605,17 @@ export default function Room() {
     setSessionActive(false);
     setPartnerConnected(false);
     setConversationStarted(false);
+    
+    // Clear interim text timeouts BEFORE clearing interim text (prevents race conditions)
+    if (myInterimTimeoutRef.current) {
+      clearTimeout(myInterimTimeoutRef.current);
+      myInterimTimeoutRef.current = null;
+    }
+    if (partnerInterimTimeoutRef.current) {
+      clearTimeout(partnerInterimTimeoutRef.current);
+      partnerInterimTimeoutRef.current = null;
+    }
+    
     setMyInterimText("");
     setPartnerInterimText("");
     

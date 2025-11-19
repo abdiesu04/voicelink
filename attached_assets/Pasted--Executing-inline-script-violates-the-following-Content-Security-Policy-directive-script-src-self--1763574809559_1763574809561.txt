@@ -1,0 +1,174 @@
+ Executing inline script violates the following Content Security Policy directive 'script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' chrome-extension://422f5f58-35ee-4faf-a508-ef4d960ca56a/'. Either the 'unsafe-inline' keyword, a hash ('sha256-kPx0AsF0oz2kKiZ875xSvv693TBHkQ/0SkMJZnnNpnQ='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked.
+(anonymous) @ tab.js:1
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Browser] Network status: ONLINE
+ [State Change] partnerVoiceGender updated to: undefined
+ [Partner Wait] Starting 5-minute partner join timeout for owner
+ [Page Visibility] Listener installed for mobile background/resume detection
+ [Network] Network change detection enabled (connection type: 3g )
+ [WebSocket] ⏳ Waiting for URL to be ready (non-blocking)...
+ [Network] 🔄 Network type changed: 3g
+ [Network] ⚠️ WebSocket disconnected - auto-reconnect will handle
+/api/ws/token:1  Failed to load resource: the server responded with a status of 500 ()
+ [WebSocket Token] Server error (500), retrying in 1000ms (attempt 1/3)
+/api/ws/token:1  Failed to load resource: the server responded with a status of 500 ()
+ [WebSocket Token] Server error (500), retrying in 2000ms (attempt 2/3)
+ [Browser] Visibility changed: HIDDEN
+ [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+ [Page Visibility] 🌙 App backgrounded (invisible)
+/api/ws/token:1  Failed to load resource: the server responded with a status of 500 ()
+ [WebSocket Token] Server error (500), retrying in 4000ms (attempt 3/3)
+/api/ws/token:1  Failed to load resource: the server responded with a status of 500 ()
+index-BBAzGKGB.js:376 [WebSocket Token] Failed after 3 retries, falling back to cookie auth
+I @ index-BBAzGKGB.js:376
+index-BBAzGKGB.js:382 [WebSocket] ❌ Timeout waiting for WebSocket URL
+iR @ index-BBAzGKGB.js:382
+index-BBAzGKGB.js:382 [WebSocket Setup] Failed to create connection: Error: Timeout waiting for WebSocket URL
+    at index-BBAzGKGB.js:382:15621
+(anonymous) @ index-BBAzGKGB.js:382
+index-BBAzGKGB.js:376 [Browser] Visibility changed: VISIBLE
+index-BBAzGKGB.js:376 [Browser] ✓ Tab is now visible again
+index-BBAzGKGB.js:382 [Page Visibility] 👁️ App became visible (resumed from background)
+index-BBAzGKGB.js:382 [Page Visibility] 🔄 WebSocket disconnected, attempting immediate reconnection...
+index-BBAzGKGB.js:382 [Reconnect Coordinator] Request from: page-visibility, delay: 0ms
+index-BBAzGKGB.js:382 [Reconnect Coordinator] Starting new reconnection from page-visibility
+index-BBAzGKGB.js:382 [Reconnect Coordinator] Creating new WebSocket connection...
+index-BBAzGKGB.js:382 [WebSocket] Creating connection to: wss://getvoztra.com/ws
+index-BBAzGKGB.js:376 [Browser] Visibility changed: HIDDEN
+index-BBAzGKGB.js:376 [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+index-BBAzGKGB.js:382 [Page Visibility] 🌙 App backgrounded (invisible)
+index-BBAzGKGB.js:382 [WebSocket] ✅ Connected successfully: Object
+index-BBAzGKGB.js:382 [Sequence] 📤 Sent join message with lastReceivedSeq=0
+index-BBAzGKGB.js:382 [Message Queue] 📝 Waiting for server join acknowledgment before flushing 0 pending messages...
+index-BBAzGKGB.js:376 [Room Persistence] Saved room settings to localStorage: be370687-8d8b-4cbc-a0ee-7490468bdbdf
+index-BBAzGKGB.js:382 [Reconnect Coordinator] ✅ Connection established successfully
+index-BBAzGKGB.js:382 [Reconnect Coordinator] Cleaning up coordinator state
+index-BBAzGKGB.js:382 [Page Visibility] ✅ Reconnection successful
+index-BBAzGKGB.js:382 [Voice Gender] Partner joined with gender: female
+index-BBAzGKGB.js:382 [Voice Gender] My gender: male
+index-BBAzGKGB.js:376 [Partner Wait] Cleaning up timeout timers
+index-BBAzGKGB.js:376 [State Change] partnerVoiceGender updated to: female
+index-BBAzGKGB.js:376 [Partner Wait] Partner already connected - clearing all timers
+index-BBAzGKGB.js:376 [Browser] Visibility changed: VISIBLE
+index-BBAzGKGB.js:376 [Browser] ✓ Tab is now visible again
+index-BBAzGKGB.js:382 [Page Visibility] 👁️ App became visible (resumed from background)
+index-BBAzGKGB.js:382 [Page Visibility] ✅ WebSocket already connected, no action needed
+index-BBAzGKGB.js:382 [Start Conversation] ✅ All checks passed - WebSocket OPEN, partner connected, quota available
+index-BBAzGKGB.js:376 [Audio Unlock] Attempting to unlock audio for mobile...
+index-BBAzGKGB.js:376 [Audio Unlock] Audio successfully unlocked for mobile
+index-BBAzGKGB.js:376 [Azure Token API] 🔑 REQUEST #1 START - Fetching new auth token
+index-BBAzGKGB.js:376 [Azure Token API] ✅ REQUEST #1 SUCCESS - Duration: 4259ms, Region: eastus
+index-BBAzGKGB.js:382 [Credits] Update received: 183660 seconds remaining, exhausted: false
+index-BBAzGKGB.js:382 [Azure Speech] ✓ Session started: Object
+index-BBAzGKGB.js:382 [Speech] Recognition started successfully - microphone is now active
+index-BBAzGKGB.js:382 [Speech] Conversation started with microphone already active (no second click needed)
+index-BBAzGKGB.js:382 [Translation Received] ⏱️ Timestamp: 1763574723047, Seq: 1, MessageId: participant-1763574723024-rb5yd6z, Speaker: participant, IsOwn: false
+index-BBAzGKGB.js:382 [Translation Received] 📊 DeduplicationSet size BEFORE: 0
+index-BBAzGKGB.js:376 [Sequence] 💾 Saved lastReceivedSeq=1 for room be370687-8d8b-4cbc-a0ee-7490468bdbdf
+index-BBAzGKGB.js:382 [Deduplication] 🔍 Check: sizeBefore=0, sizeAfter=1, messageId=participant-1763574723024-rb5yd6z
+index-BBAzGKGB.js:382 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 1
+index-BBAzGKGB.js:382 [Translation] 📝 Translation #1 received - Original: "Hola, hola....", Translated: "Hello, hello...."
+index-BBAzGKGB.js:382 [Translation] 📥 Added to PARTNER messages (total: 1)
+index-BBAzGKGB.js:382 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+index-BBAzGKGB.js:382 [Voice Gender] Text to speak: "Hello, hello.", Language: en
+index-BBAzGKGB.js:382 [TTS Queue] Adding to queue (queue size: 0): Hello, hello.
+index-BBAzGKGB.js:382 [TTS Queue] Queue processor started
+index-BBAzGKGB.js:382 [TTS Queue] Playing: Hello, hello. 
+index-BBAzGKGB.js:382 [TTS Queue] Synthesizing audio via REST API...
+index-BBAzGKGB.js:376 [Azure Token] Using cached token
+index-BBAzGKGB.js:382 [Translation] ⏱️ Total processing time: 10ms
+index-BBAzGKGB.js:376 [Azure TTS API] 🎤 REQUEST #1 START - Voice: en-US-AvaMultilingualNeural, Language: en, Region: eastus, Text: "Hello, hello...."
+index-BBAzGKGB.js:382 [Azure TTS API] ✅ REQUEST #1 SUCCESS - Voice: en-US-AvaMultilingualNeural, Duration: 1906ms, Audio size: 20736 bytes
+index-BBAzGKGB.js:382 [Azure TTS API] 📊 Session Total: 1 TTS requests made
+index-BBAzGKGB.js:382 [TTS Queue] Synthesis completed in 2144ms, audio size: 20736 bytes
+index-BBAzGKGB.js:382 [TTS Queue] Setting fallback timeout: 3296.0000000000005ms (audio duration: 1.296s)
+index-BBAzGKGB.js:382 [TTS Queue] Playback started successfully
+index-BBAzGKGB.js:382 [TTS Queue] Playback completed (audio ended event)
+index-BBAzGKGB.js:382 [TTS Queue] Marked messageId as spoken: participant-1763574723024-rb5yd6z
+index-BBAzGKGB.js:382 [TTS Queue] Queue processor finished
+index-BBAzGKGB.js:382 [Azure Speech Dedupe] ✅ New resultId processed: 60B605EF5AA7454FA926485B7491F077, cache size: 1
+index-BBAzGKGB.js:382 [Temporal Dedupe] ✅ New offset+text processed: offset=65900000, text="How are you being?...", cache size: 1
+index-BBAzGKGB.js:382 [Speech] ✅ Sent final transcription immediately: "How are you being?..."
+index-BBAzGKGB.js:382 [Translation Received] ⏱️ Timestamp: 1763574730042, Seq: 2, MessageId: creator-1763574730014-5gsicws, Speaker: creator, IsOwn: true
+index-BBAzGKGB.js:382 [Translation Received] 📊 DeduplicationSet size BEFORE: 1
+index-BBAzGKGB.js:382 [Deduplication] 🔍 Check: sizeBefore=1, sizeAfter=2, messageId=creator-1763574730014-5gsicws
+index-BBAzGKGB.js:382 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 2
+index-BBAzGKGB.js:382 [Translation] 📝 Translation #2 received - Original: "How are you being?...", Translated: "¿Cómo estás?..."
+index-BBAzGKGB.js:382 [Translation] 📤 Added to MY messages (total: 1)
+index-BBAzGKGB.js:382 [Translation] ⏱️ Total processing time: 1ms
+index-BBAzGKGB.js:382 [Credits] Update received: 183650 seconds remaining, exhausted: false
+index-BBAzGKGB.js:382 [Credits] Update received: 183640 seconds remaining, exhausted: false
+index-BBAzGKGB.js:382 [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+index-BBAzGKGB.js:382 [Azure Speech Dedupe] ✅ New resultId processed: 60B605EF5AA7454FA926485B7491F077, cache size: 1
+index-BBAzGKGB.js:382 [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+index-BBAzGKGB.js:382 [Temporal Dedupe] ✅ New offset+text processed: offset=200200000, text="What are you doing right now?...", cache size: 1
+index-BBAzGKGB.js:382 [Speech] ✅ Sent final transcription immediately: "What are you doing right now?..."
+index-BBAzGKGB.js:382 [Translation Received] ⏱️ Timestamp: 1763574744423, Seq: 3, MessageId: creator-1763574745365-5o6ntmn, Speaker: creator, IsOwn: true
+index-BBAzGKGB.js:382 [Translation Received] 📊 DeduplicationSet size BEFORE: 2
+index-BBAzGKGB.js:382 [Deduplication] 🔍 Check: sizeBefore=2, sizeAfter=3, messageId=creator-1763574745365-5o6ntmn
+index-BBAzGKGB.js:382 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 3
+index-BBAzGKGB.js:382 [Translation] 📝 Translation #3 received - Original: "What are you doing right now?...", Translated: "¿Qué estás haciendo ahora mism..."
+index-BBAzGKGB.js:382 [Translation] 📤 Added to MY messages (total: 1)
+index-BBAzGKGB.js:382 [Translation] ⏱️ Total processing time: 1ms
+index-BBAzGKGB.js:382 [Translation Received] ⏱️ Timestamp: 1763574744440, Seq: 4, MessageId: participant-1763574745369-npq9umt, Speaker: participant, IsOwn: false
+index-BBAzGKGB.js:382 [Translation Received] 📊 DeduplicationSet size BEFORE: 3
+index-BBAzGKGB.js:376 [Sequence] 💾 Saved lastReceivedSeq=4 for room be370687-8d8b-4cbc-a0ee-7490468bdbdf
+index-BBAzGKGB.js:382 [Deduplication] 🔍 Check: sizeBefore=3, sizeAfter=4, messageId=participant-1763574745369-npq9umt
+index-BBAzGKGB.js:382 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 4
+index-BBAzGKGB.js:382 [Translation] 📝 Translation #4 received - Original: "¿What are you doing right now?...", Translated: "What are you doing right now?..."
+index-BBAzGKGB.js:382 [Translation] 📥 Added to PARTNER messages (total: 1)
+index-BBAzGKGB.js:382 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+index-BBAzGKGB.js:382 [Voice Gender] Text to speak: "What are you doing right now?", Language: en
+index-BBAzGKGB.js:382 [TTS Queue] Adding to queue (queue size: 0): What are you doing right now?
+index-BBAzGKGB.js:382 [TTS Queue] Queue processor started
+index-BBAzGKGB.js:382 [TTS Queue] Playing: What are you doing right now? 
+index-BBAzGKGB.js:382 [TTS Queue] Synthesizing audio via REST API...
+index-BBAzGKGB.js:376 [Azure Token] Using cached token
+index-BBAzGKGB.js:382 [Translation] ⏱️ Total processing time: 2ms
+index-BBAzGKGB.js:376 [Azure TTS API] 🎤 REQUEST #2 START - Voice: en-US-AvaMultilingualNeural, Language: en, Region: eastus, Text: "What are you doing right now?..."
+index-BBAzGKGB.js:376 [Browser] Visibility changed: HIDDEN
+index-BBAzGKGB.js:376 [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+index-BBAzGKGB.js:382 [Page Visibility] 🌙 App backgrounded (invisible)
+index-BBAzGKGB.js:382 [Azure TTS API] ✅ REQUEST #2 SUCCESS - Voice: en-US-AvaMultilingualNeural, Duration: 989ms, Audio size: 26496 bytes
+index-BBAzGKGB.js:382 [Azure TTS API] 📊 Session Total: 2 TTS requests made
+index-BBAzGKGB.js:382 [TTS Queue] Synthesis completed in 1270ms, audio size: 26496 bytes
+index-BBAzGKGB.js:382 [TTS Queue] Setting fallback timeout: 3655.9999999999995ms (audio duration: 1.656s)
+index-BBAzGKGB.js:382 [TTS Queue] Playback started successfully
+index-BBAzGKGB.js:382 [TTS Queue] Playback completed (audio ended event)
+index-BBAzGKGB.js:382 [TTS Queue] Marked messageId as spoken: participant-1763574745369-npq9umt
+index-BBAzGKGB.js:382 [TTS Queue] Queue processor finished
+index-BBAzGKGB.js:382 [Credits] Update received: 183630 seconds remaining, exhausted: false
+index-BBAzGKGB.js:382 [Credits] Update received: 183620 seconds remaining, exhausted: false
+index-BBAzGKGB.js:376 [Browser] Visibility changed: VISIBLE
+index-BBAzGKGB.js:376 [Browser] ✓ Tab is now visible again
+index-BBAzGKGB.js:382 [Page Visibility] 👁️ App became visible (resumed from background)
+index-BBAzGKGB.js:382 [Page Visibility] ✅ WebSocket already connected, no action needed
+index-BBAzGKGB.js:376 [Browser] Visibility changed: HIDDEN
+index-BBAzGKGB.js:376 [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+index-BBAzGKGB.js:382 [Page Visibility] 🌙 App backgrounded (invisible)
+index-BBAzGKGB.js:382 [Credits] Update received: 183610 seconds remaining, exhausted: false
+index-BBAzGKGB.js:376 [Browser] Visibility changed: VISIBLE
+index-BBAzGKGB.js:376 [Browser] ✓ Tab is now visible again
+index-BBAzGKGB.js:382 [Page Visibility] 👁️ App became visible (resumed from background)
+index-BBAzGKGB.js:382 [Page Visibility] ✅ WebSocket already connected, no action needed
+index-BBAzGKGB.js:376 [Browser] Visibility changed: HIDDEN
+index-BBAzGKGB.js:376 [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+index-BBAzGKGB.js:382 [Page Visibility] 🌙 App backgrounded (invisible)
+index-BBAzGKGB.js:382 [Credits] Update received: 183600 seconds remaining, exhausted: false
+index-BBAzGKGB.js:382 [Credits] Update received: 183590 seconds remaining, exhausted: false
+index-BBAzGKGB.js:376 [Browser] Visibility changed: VISIBLE
+index-BBAzGKGB.js:376 [Browser] ✓ Tab is now visible again
+index-BBAzGKGB.js:382 [Page Visibility] 👁️ App became visible (resumed from background)
+index-BBAzGKGB.js:382 [Page Visibility] ✅ WebSocket already connected, no action needed
+index-BBAzGKGB.js:382 [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+index-BBAzGKGB.js:382 [Azure Speech Dedupe] ✅ New resultId processed: 61A47A779F5549DA87EBF3F151BF758F, cache size: 1
+index-BBAzGKGB.js:382 [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+index-BBAzGKGB.js:382 [Temporal Dedupe] ✅ New offset+text processed: offset=764800000, text="Hello, can you hear me?...", cache size: 1
+index-BBAzGKGB.js:382 [Speech] ✅ Sent final transcription immediately: "Hello, can you hear me?..."
+index-BBAzGKGB.js:382 [Translation Received] ⏱️ Timestamp: 1763574804782, Seq: 5, MessageId: creator-1763574805712-fzg8caj, Speaker: creator, IsOwn: true
+index-BBAzGKGB.js:382 [Translation Received] 📊 DeduplicationSet size BEFORE: 4
+index-BBAzGKGB.js:382 [Deduplication] 🔍 Check: sizeBefore=4, sizeAfter=5, messageId=creator-1763574805712-fzg8caj
+index-BBAzGKGB.js:382 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 5
+index-BBAzGKGB.js:382 [Translation] 📝 Translation #5 received - Original: "Hello, can you hear me?...", Translated: "Hola, ¿me oyes?..."
+index-BBAzGKGB.js:382 [Translation] 📤 Added to MY messages (total: 1)
+index-BBAzGKGB.js:382 [Translation] ⏱️ Total processing time: 1ms
