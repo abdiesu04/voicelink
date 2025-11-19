@@ -614,7 +614,7 @@ export default function Room() {
       "es-VE": { male: "es-VE-SebastianNeural", female: "es-VE-PaolaNeural" },
       "es-CR": { male: "es-CR-JuanNeural", female: "es-CR-MariaNeural" },
       "es-US": { male: "es-US-AlonsoNeural", female: "es-US-PalomaNeural" },
-      "es-PA": { male: "es-PA-MargaritaNeural", female: "es-PA-RobertoNeural" },
+      "es-PA": { male: "es-PA-RobertoNeural", female: "es-PA-MargaritaNeural" },
       "es-GT": { male: "es-GT-AndresNeural", female: "es-GT-MartaNeural" },
       "es-HN": { male: "es-HN-CarlosNeural", female: "es-HN-KarlaNeural" },
       "es-NI": { male: "es-NI-FedericoNeural", female: "es-NI-YolandaNeural" },
