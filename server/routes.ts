@@ -1517,6 +1517,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
           }
           roomConnections.get(roomId)?.push(ws);
 
+          // CRITICAL FIX: Send partner info to joining/reconnecting user from database
+          // This handles cases where partner info wasn't sent during grace period reconnection
+          if (role === 'creator' && room.participantLanguage && room.participantVoiceGender) {
+            console.log(`[Join] Creator joined/reconnected - sending participant info from database`);
+            console.log(`[Join] Participant language: ${room.participantLanguage}, gender: ${room.participantVoiceGender}`);
+            ws.send(JSON.stringify({
+              type: 'participant-joined',
+              roomId,
+              language: room.participantLanguage,
+              voiceGender: room.participantVoiceGender
+            }));
+          }
+
           if (role === 'participant') {
             await storage.updateRoom(roomId, { 
               participantLanguage: language,
