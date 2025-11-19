@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ConnectionStatus } from "@/components/ConnectionStatus";
 import { TranscriptionPanel } from "@/components/TranscriptionPanel";
 import { UpgradeModal } from "@/components/UpgradeModal";
+import { RatingDialog } from "@/components/RatingDialog";
 import { useToast } from "@/hooks/use-toast";
 import { useAuth } from "@/lib/auth";
 import {
@@ -134,6 +135,7 @@ export default function Room() {
   const [sessionActive, setSessionActive] = useState(false);
   const [showUpgradeModal, setShowUpgradeModal] = useState(false);
   const [reconnectAttempt, setReconnectAttempt] = useState(0); // State for UI updates
+  const [showRatingDialog, setShowRatingDialog] = useState(false);
 
   const [myMessages, setMyMessages] = useState<TranscriptionMessage[]>([]);
   const [partnerMessages, setPartnerMessages] = useState<TranscriptionMessage[]>([]);
@@ -2370,8 +2372,8 @@ export default function Room() {
     }, 2500);
   };
 
-  const handleEndCall = () => {
-    console.log('[End Call] 📞 User clicked End Call - initiating comprehensive cleanup');
+  const performActualDisconnect = () => {
+    console.log('[End Call] 📞 Performing actual disconnect after rating');
     console.log(`[End Call] 📊 SESSION STATISTICS:`);
     console.log(`  - Total TTS Requests: ${ttsRequestCounterRef.current}`);
     console.log(`  - Total Token Requests: ${tokenRequestCounterRef.current}`);
@@ -2448,6 +2450,41 @@ export default function Room() {
     
     console.log('[End Call] ✅ All cleanup completed - navigating to home');
     setLocation("/");
+  };
+
+  const handleEndCall = () => {
+    console.log('[End Call] 📞 User clicked End Call - showing rating dialog');
+    setShowRatingDialog(true);
+  };
+
+  const handleRatingSubmit = async (rating: number, feedback?: string) => {
+    console.log('[Rating] User rated call:', rating, 'stars', feedback ? 'with feedback' : '');
+    
+    try {
+      const response = await fetch('/api/ratings', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          roomId,
+          rating,
+          feedback,
+        }),
+      });
+
+      if (!response.ok) {
+        console.error('[Rating] Failed to submit rating');
+      } else {
+        console.log('[Rating] ✅ Rating submitted successfully');
+      }
+    } catch (error) {
+      console.error('[Rating] Error submitting rating:', error);
+    }
+
+    // Close dialog and perform actual disconnect
+    setShowRatingDialog(false);
+    performActualDisconnect();
   };
 
   // Mobile-first share handler with Web Share API fallback
@@ -2852,6 +2889,19 @@ export default function Room() {
 
       {/* Upgrade Modal */}
       <UpgradeModal open={showUpgradeModal} onOpenChange={setShowUpgradeModal} />
+
+      {/* Rating Dialog */}
+      <RatingDialog 
+        open={showRatingDialog} 
+        onOpenChange={(open) => {
+          setShowRatingDialog(open);
+          // If user closes dialog without rating, still disconnect
+          if (!open) {
+            performActualDisconnect();
+          }
+        }} 
+        onSubmit={handleRatingSubmit} 
+      />
 
       {/* Mobile Sticky Bottom Toolbar - Compact overlay, doesn't affect layout height */}
       <div className="md:hidden fixed bottom-0 inset-x-0 px-2 pt-1.5 pb-safe z-20">
