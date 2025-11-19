@@ -1,0 +1,838 @@
+client:536 WebSocket connection to 'wss://b20a4f14-f71f-45ae-8f3b-81c8c6850e76-00-2x6dazivcdm2g.janeway.replit.dev/?token=9cpJYDH55t2D' failed: 
+setupWebSocket @ client:536
+client:536 Uncaught (in promise) SyntaxError: Failed to construct 'WebSocket': The URL 'wss://localhost:undefined/?token=9cpJYDH55t2D' is invalid.
+    at setupWebSocket (client:536:19)
+    at fallback (client:509:16)
+    at WebSocket.<anonymous> (client:555:7)
+chunk-RPCDYKBN.js?v=38e7fc72:21551 Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+ Executing inline script violates the following Content Security Policy directive 'script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' chrome-extension://422f5f58-35ee-4faf-a508-ef4d960ca56a/'. Either the 'unsafe-inline' keyword, a hash ('sha256-kPx0AsF0oz2kKiZ875xSvv693TBHkQ/0SkMJZnnNpnQ='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked.
+(anonymous) @ chrome-extension://a…j/includes/tab.js:1
+Room.tsx:74 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:110 [Browser] Network status: ONLINE
+Room.tsx:392 [State Change] partnerVoiceGender updated to: undefined
+Room.tsx:435 [Partner Wait] Starting 5-minute partner join timeout for owner
+Room.tsx:1761 [Page Visibility] Listener installed for mobile background/resume detection
+Room.tsx:1835 [Network] Network change detection enabled (connection type: 3g )
+Room.tsx:1585 [WebSocket] ⏳ Waiting for URL to be ready (non-blocking)...
+/api/ws/token:1  Failed to load resource: the server responded with a status of 500 (Internal Server Error)
+Room.tsx:251 [WebSocket Token] Server error (500), retrying in 1000ms (attempt 1/3)
+/api/ws/token:1  Failed to load resource: the server responded with a status of 500 (Internal Server Error)
+Room.tsx:251 [WebSocket Token] Server error (500), retrying in 2000ms (attempt 2/3)
+/api/ws/token:1  Failed to load resource: the server responded with a status of 500 (Internal Server Error)
+Room.tsx:251 [WebSocket Token] Server error (500), retrying in 4000ms (attempt 3/3)
+Room.tsx:78 [Browser] Visibility changed: HIDDEN
+Room.tsx:80 [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+Room.tsx:1756 [Page Visibility] 🌙 App backgrounded (invisible)
+Room.tsx:78 [Browser] Visibility changed: VISIBLE
+Room.tsx:82 [Browser] ✓ Tab is now visible again
+Room.tsx:1707 [Page Visibility] 👁️ App became visible (resumed from background)
+Room.tsx:1726 [Page Visibility] 🔄 WebSocket disconnected, attempting immediate reconnection...
+Room.tsx:1625 [Reconnect Coordinator] Request from: page-visibility, delay: 0ms
+Room.tsx:1634 [Reconnect Coordinator] Starting new reconnection from page-visibility
+Room.tsx:1660 [Reconnect Coordinator] Creating new WebSocket connection...
+Room.tsx:1585 [WebSocket] ⏳ Waiting for URL to be ready (non-blocking)...
+/api/ws/token:1  Failed to load resource: the server responded with a status of 500 (Internal Server Error)
+Room.tsx:255 [WebSocket Token] Failed after 3 retries, falling back to cookie auth
+fetchWsToken @ Room.tsx:255
+Room.tsx:78 [Browser] Visibility changed: HIDDEN
+Room.tsx:80 [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+Room.tsx:1756 [Page Visibility] 🌙 App backgrounded (invisible)
+Room.tsx:1596 [WebSocket] ❌ Timeout waiting for WebSocket URL
+connectWebSocket @ Room.tsx:1596
+Room.tsx:1883 [WebSocket Setup] Failed to create connection: Error: Timeout waiting for WebSocket URL
+    at Room.tsx:1589:33
+setupConnection @ Room.tsx:1883
+Room.tsx:1596 [WebSocket] ❌ Timeout waiting for WebSocket URL
+connectWebSocket @ Room.tsx:1596
+Room.tsx:1687 [Reconnect Coordinator] ❌ Reconnection failed: Error: Timeout waiting for WebSocket URL
+    at Room.tsx:1589:33
+(anonymous) @ Room.tsx:1687
+Room.tsx:1691 [Reconnect Coordinator] Cleaning up coordinator state
+Room.tsx:1747 [Page Visibility] ❌ Failed to reconnect: Error: Timeout waiting for WebSocket URL
+    at Room.tsx:1589:33
+(anonymous) @ Room.tsx:1747
+Room.tsx:78 [Browser] Visibility changed: VISIBLE
+Room.tsx:82 [Browser] ✓ Tab is now visible again
+Room.tsx:1707 [Page Visibility] 👁️ App became visible (resumed from background)
+Room.tsx:1726 [Page Visibility] 🔄 WebSocket disconnected, attempting immediate reconnection...
+Room.tsx:1625 [Reconnect Coordinator] Request from: page-visibility, delay: 0ms
+Room.tsx:1634 [Reconnect Coordinator] Starting new reconnection from page-visibility
+Room.tsx:1660 [Reconnect Coordinator] Creating new WebSocket connection...
+Room.tsx:1607 [WebSocket] Creating connection to: wss://b20a4f14-f71f-45ae-8f3b-81c8c6850e76-00-2x6dazivcdm2g.janeway.replit.dev/ws
+Room.tsx:1527 [WebSocket] ✅ Connected successfully: Object
+Room.tsx:1556 [Sequence] 📤 Sent join message with lastReceivedSeq=0
+Room.tsx:1557 [Message Queue] 📝 Waiting for server join acknowledgment before flushing 0 pending messages...
+Room.tsx:341 [Room Persistence] Saved room settings to localStorage: 0d56a8c8-e2c1-47db-b9d0-38b9b499938a
+Room.tsx:1683 [Reconnect Coordinator] ✅ Connection established successfully
+Room.tsx:1691 [Reconnect Coordinator] Cleaning up coordinator state
+Room.tsx:1744 [Page Visibility] ✅ Reconnection successful
+Room.tsx:1020 [Voice Gender] Partner joined with gender: female
+Room.tsx:1021 [Voice Gender] My gender: male
+Room.tsx:500 [Partner Wait] Cleaning up timeout timers
+Room.tsx:392 [State Change] partnerVoiceGender updated to: female
+Room.tsx:416 [Partner Wait] Partner already connected - clearing all timers
+Room.tsx:78 [Browser] Visibility changed: HIDDEN
+Room.tsx:80 [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+Room.tsx:1756 [Page Visibility] 🌙 App backgrounded (invisible)
+Room.tsx:1150 [Translation Received] ⏱️ Timestamp: 1763572348027, Seq: 2, MessageId: participant-1763572348956-qzb4cqd, Speaker: participant, IsOwn: false
+Room.tsx:1151 [Translation Received] 📊 DeduplicationSet size BEFORE: 0
+Room.tsx:319 [Sequence] 💾 Saved lastReceivedSeq=2 for room 0d56a8c8-e2c1-47db-b9d0-38b9b499938a
+Room.tsx:1172 [Deduplication] 🔍 Check: sizeBefore=0, sizeAfter=1, messageId=participant-1763572348956-qzb4cqd
+Room.tsx:1184 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 1
+Room.tsx:1199 [Translation] 📝 Translation #1 received - Original: "Hola....", Translated: "Hello...."
+Room.tsx:1215 [Translation] 📥 Added to PARTNER messages (total: 1)
+Room.tsx:1223 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:1224 [Voice Gender] Text to speak: "Hello.", Language: en
+Room.tsx:999 [TTS Queue] Adding to queue (queue size: 0): Hello.
+Room.tsx:785 [TTS Queue] Queue processor started
+Room.tsx:796 [TTS Queue] Playing: Hello. 
+Room.tsx:801 [TTS Queue] Created single reusable Audio element
+Room.tsx:821 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:578 [Azure Token API] 🔑 REQUEST #1 START - Fetching new auth token
+Room.tsx:1232 [Translation] ⏱️ Total processing time: 5ms
+Room.tsx:590 [Azure Token API] ✅ REQUEST #1 SUCCESS - Duration: 598ms, Region: eastus
+Room.tsx:695 [Azure TTS API] 🎤 REQUEST #1 START - Voice: en-US-AvaMultilingualNeural, Language: en, Region: eastus, Text: "Hello...."
+Room.tsx:78 [Browser] Visibility changed: VISIBLE
+Room.tsx:82 [Browser] ✓ Tab is now visible again
+Room.tsx:1707 [Page Visibility] 👁️ App became visible (resumed from background)
+Room.tsx:1753 [Page Visibility] ✅ WebSocket already connected, no action needed
+Room.tsx:1077 [Credits] Update received: 184670 seconds remaining, exhausted: false
+Room.tsx:745 [Azure TTS API] ✅ REQUEST #1 SUCCESS - Voice: en-US-AvaMultilingualNeural, Duration: 2500ms, Audio size: 16128 bytes
+Room.tsx:759 [Azure TTS API] 📊 Session Total: 1 TTS requests made
+Room.tsx:825 [TTS Queue] Synthesis completed in 2801ms, audio size: 16128 bytes
+Room.tsx:907 [TTS Queue] Setting fallback timeout: 3008ms (audio duration: 1.008s)
+Room.tsx:937 [TTS Queue] Playback started successfully
+Room.tsx:879 [TTS Queue] Playback completed (audio ended event)
+Room.tsx:843 [TTS Queue] Marked messageId as spoken: participant-1763572348956-qzb4cqd
+Room.tsx:980 [TTS Queue] Queue processor finished
+Room.tsx:2020 [Start Conversation] ✅ All checks passed - WebSocket OPEN, partner connected, quota available
+Room.tsx:613 [Audio Unlock] Attempting to unlock audio for mobile...
+Room.tsx:641 [Audio Unlock] Audio successfully unlocked for mobile
+Room.tsx:544 [Azure Token] Using cached token
+Room.tsx:2058 [Azure Speech] ✓ Session started: Object
+Room.tsx:2351 [Speech] Recognition started successfully - microphone is now active
+Room.tsx:2360 [Speech] Conversation started with microphone already active (no second click needed)
+Room.tsx:2149 [Azure Speech Dedupe] ✅ New resultId processed: A7F8F99A0AC14FA9B44D16C479AA8BF7, cache size: 1
+Room.tsx:2216 [Temporal Dedupe] ✅ New offset+text processed: offset=18700000, text="Hello, are you fine?...", cache size: 1
+Room.tsx:2249 [Speech] ✅ Sent final transcription immediately: "Hello, are you fine?..."
+Room.tsx:1150 [Translation Received] ⏱️ Timestamp: 1763572359386, Seq: 3, MessageId: participant-1763572360350-x459d9z, Speaker: participant, IsOwn: false
+Room.tsx:1151 [Translation Received] 📊 DeduplicationSet size BEFORE: 1
+Room.tsx:319 [Sequence] 💾 Saved lastReceivedSeq=3 for room 0d56a8c8-e2c1-47db-b9d0-38b9b499938a
+Room.tsx:1172 [Deduplication] 🔍 Check: sizeBefore=1, sizeAfter=2, messageId=participant-1763572360350-x459d9z
+Room.tsx:1184 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 2
+Room.tsx:1199 [Translation] 📝 Translation #2 received - Original: "¿Hello, are you Fine?...", Translated: "Hello, are you Fine?..."
+Room.tsx:1215 [Translation] 📥 Added to PARTNER messages (total: 1)
+Room.tsx:1223 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:1224 [Voice Gender] Text to speak: "Hello, are you Fine?", Language: en
+Room.tsx:999 [TTS Queue] Adding to queue (queue size: 0): Hello, are you Fine?
+Room.tsx:785 [TTS Queue] Queue processor started
+Room.tsx:796 [TTS Queue] Playing: Hello, are you Fine? 
+Room.tsx:821 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:544 [Azure Token] Using cached token
+Room.tsx:1232 [Translation] ⏱️ Total processing time: 1ms
+Room.tsx:695 [Azure TTS API] 🎤 REQUEST #2 START - Voice: en-US-AvaMultilingualNeural, Language: en, Region: eastus, Text: "Hello, are you Fine?..."
+Room.tsx:1150 [Translation Received] ⏱️ Timestamp: 1763572359502, Seq: 4, MessageId: creator-1763572360435-jfh6f3o, Speaker: creator, IsOwn: true
+Room.tsx:1151 [Translation Received] 📊 DeduplicationSet size BEFORE: 2
+Room.tsx:1172 [Deduplication] 🔍 Check: sizeBefore=2, sizeAfter=3, messageId=creator-1763572360435-jfh6f3o
+Room.tsx:1184 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 3
+Room.tsx:1199 [Translation] 📝 Translation #3 received - Original: "Hello, are you fine?...", Translated: "Hola, ¿estás bien?..."
+Room.tsx:1211 [Translation] 📤 Added to MY messages (total: 1)
+Room.tsx:1232 [Translation] ⏱️ Total processing time: 1ms
+Room.tsx:745 [Azure TTS API] ✅ REQUEST #2 SUCCESS - Voice: en-US-AvaMultilingualNeural, Duration: 686ms, Audio size: 24192 bytes
+Room.tsx:759 [Azure TTS API] 📊 Session Total: 2 TTS requests made
+Room.tsx:825 [TTS Queue] Synthesis completed in 928ms, audio size: 24192 bytes
+Room.tsx:907 [TTS Queue] Setting fallback timeout: 3512ms (audio duration: 1.512s)
+Room.tsx:937 [TTS Queue] Playback started successfully
+Room.tsx:879 [TTS Queue] Playback completed (audio ended event)
+Room.tsx:843 [TTS Queue] Marked messageId as spoken: participant-1763572360350-x459d9z
+Room.tsx:980 [TTS Queue] Queue processor finished
+Room.tsx:2131 [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+Room.tsx:2149 [Azure Speech Dedupe] ✅ New resultId processed: A7F8F99A0AC14FA9B44D16C479AA8BF7, cache size: 1
+Room.tsx:2181 [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+Room.tsx:2216 [Temporal Dedupe] ✅ New offset+text processed: offset=93200000, text="Where are you now?...", cache size: 1
+Room.tsx:2249 [Speech] ✅ Sent final transcription immediately: "Where are you now?..."
+Room.tsx:1150 [Translation Received] ⏱️ Timestamp: 1763572366875, Seq: 5, MessageId: creator-1763572367834-ql1a3ja, Speaker: creator, IsOwn: true
+Room.tsx:1151 [Translation Received] 📊 DeduplicationSet size BEFORE: 3
+Room.tsx:1172 [Deduplication] 🔍 Check: sizeBefore=3, sizeAfter=4, messageId=creator-1763572367834-ql1a3ja
+Room.tsx:1184 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 4
+Room.tsx:1199 [Translation] 📝 Translation #4 received - Original: "Where are you now?...", Translated: "¿Dónde estás?..."
+Room.tsx:1211 [Translation] 📤 Added to MY messages (total: 1)
+Room.tsx:1232 [Translation] ⏱️ Total processing time: 1ms
+Room.tsx:1077 [Credits] Update received: 184660 seconds remaining, exhausted: false
+Room.tsx:2131 [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+Room.tsx:2149 [Azure Speech Dedupe] ✅ New resultId processed: A7F8F99A0AC14FA9B44D16C479AA8BF7, cache size: 1
+Room.tsx:2181 [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+Room.tsx:2216 [Temporal Dedupe] ✅ New offset+text processed: offset=172300000, text="Can you hear my English?...", cache size: 1
+Room.tsx:2249 [Speech] ✅ Sent final transcription immediately: "Can you hear my English?..."
+Room.tsx:1150 [Translation Received] ⏱️ Timestamp: 1763572374745, Seq: 6, MessageId: creator-1763572375708-pg04919, Speaker: creator, IsOwn: true
+Room.tsx:1151 [Translation Received] 📊 DeduplicationSet size BEFORE: 4
+Room.tsx:1172 [Deduplication] 🔍 Check: sizeBefore=4, sizeAfter=5, messageId=creator-1763572375708-pg04919
+Room.tsx:1184 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 5
+Room.tsx:1199 [Translation] 📝 Translation #5 received - Original: "Can you hear my English?...", Translated: "¿Puedes oír mi inglés?..."
+Room.tsx:1211 [Translation] 📤 Added to MY messages (total: 1)
+Room.tsx:1232 [Translation] ⏱️ Total processing time: 0ms
+Room.tsx:1077 [Credits] Update received: 184650 seconds remaining, exhausted: false
+Room.tsx:2131 [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+Room.tsx:2149 [Azure Speech Dedupe] ✅ New resultId processed: A7F8F99A0AC14FA9B44D16C479AA8BF7, cache size: 1
+Room.tsx:2181 [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+Room.tsx:2216 [Temporal Dedupe] ✅ New offset+text processed: offset=242300000, text="That's just really great to he...", cache size: 1
+Room.tsx:2249 [Speech] ✅ Sent final transcription immediately: "That's just really great to he..."
+Room.tsx:1150 [Translation Received] ⏱️ Timestamp: 1763572381859, Seq: 7, MessageId: creator-1763572382821-uyw2184, Speaker: creator, IsOwn: true
+Room.tsx:1151 [Translation Received] 📊 DeduplicationSet size BEFORE: 5
+Room.tsx:1172 [Deduplication] 🔍 Check: sizeBefore=5, sizeAfter=6, messageId=creator-1763572382821-uyw2184
+Room.tsx:1184 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 6
+Room.tsx:1199 [Translation] 📝 Translation #6 received - Original: "That's just really great to he...", Translated: "That's just really great to he..."
+Room.tsx:1211 [Translation] 📤 Added to MY messages (total: 1)
+Room.tsx:1232 [Translation] ⏱️ Total processing time: 0ms
+Room.tsx:1150 [Translation Received] ⏱️ Timestamp: 1763572382013, Seq: 8, MessageId: participant-1763572382978-woyeafk, Speaker: participant, IsOwn: false
+Room.tsx:1151 [Translation Received] 📊 DeduplicationSet size BEFORE: 6
+Room.tsx:319 [Sequence] 💾 Saved lastReceivedSeq=8 for room 0d56a8c8-e2c1-47db-b9d0-38b9b499938a
+Room.tsx:1172 [Deduplication] 🔍 Check: sizeBefore=6, sizeAfter=7, messageId=participant-1763572382978-woyeafk
+Room.tsx:1184 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 7
+Room.tsx:1199 [Translation] 📝 Translation #7 received - Original: "Here....", Translated: "Here...."
+Room.tsx:1215 [Translation] 📥 Added to PARTNER messages (total: 1)
+Room.tsx:1223 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:1224 [Voice Gender] Text to speak: "Here.", Language: en
+Room.tsx:999 [TTS Queue] Adding to queue (queue size: 0): Here.
+Room.tsx:785 [TTS Queue] Queue processor started
+Room.tsx:796 [TTS Queue] Playing: Here. 
+Room.tsx:821 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:544 [Azure Token] Using cached token
+Room.tsx:1232 [Translation] ⏱️ Total processing time: 1ms
+Room.tsx:695 [Azure TTS API] 🎤 REQUEST #3 START - Voice: en-US-AvaMultilingualNeural, Language: en, Region: eastus, Text: "Here...."
+Room.tsx:745 [Azure TTS API] ✅ REQUEST #3 SUCCESS - Voice: en-US-AvaMultilingualNeural, Duration: 763ms, Audio size: 15552 bytes
+Room.tsx:759 [Azure TTS API] 📊 Session Total: 3 TTS requests made
+Room.tsx:825 [TTS Queue] Synthesis completed in 1002ms, audio size: 15552 bytes
+Room.tsx:907 [TTS Queue] Setting fallback timeout: 2972ms (audio duration: 0.972s)
+Room.tsx:937 [TTS Queue] Playback started successfully
+Room.tsx:879 [TTS Queue] Playback completed (audio ended event)
+Room.tsx:843 [TTS Queue] Marked messageId as spoken: participant-1763572382978-woyeafk
+Room.tsx:980 [TTS Queue] Queue processor finished
+Room.tsx:78 [Browser] Visibility changed: HIDDEN
+Room.tsx:80 [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+Room.tsx:1756 [Page Visibility] 🌙 App backgrounded (invisible)
+Room.tsx:2131 [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+Room.tsx:2149 [Azure Speech Dedupe] ✅ New resultId processed: A7F8F99A0AC14FA9B44D16C479AA8BF7, cache size: 1
+Room.tsx:2181 [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+Room.tsx:2216 [Temporal Dedupe] ✅ New offset+text processed: offset=315000000, text="Como estas....", cache size: 1
+Room.tsx:2249 [Speech] ✅ Sent final transcription immediately: "Como estas...."
+Room.tsx:1150 [Translation Received] ⏱️ Timestamp: 1763572388967, Seq: 9, MessageId: creator-1763572389930-j2fwxkc, Speaker: creator, IsOwn: true
+Room.tsx:1151 [Translation Received] 📊 DeduplicationSet size BEFORE: 7
+Room.tsx:1172 [Deduplication] 🔍 Check: sizeBefore=7, sizeAfter=8, messageId=creator-1763572389930-j2fwxkc
+Room.tsx:1184 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 8
+Room.tsx:1199 [Translation] 📝 Translation #8 received - Original: "Como estas....", Translated: "Como estás...."
+Room.tsx:1211 [Translation] 📤 Added to MY messages (total: 1)
+Room.tsx:1232 [Translation] ⏱️ Total processing time: 0ms
+Room.tsx:1150 [Translation Received] ⏱️ Timestamp: 1763572389051, Seq: 10, MessageId: participant-1763572390000-2439hzh, Speaker: participant, IsOwn: false
+Room.tsx:1151 [Translation Received] 📊 DeduplicationSet size BEFORE: 8
+Room.tsx:319 [Sequence] 💾 Saved lastReceivedSeq=10 for room 0d56a8c8-e2c1-47db-b9d0-38b9b499938a
+Room.tsx:1172 [Deduplication] 🔍 Check: sizeBefore=8, sizeAfter=9, messageId=participant-1763572390000-2439hzh
+Room.tsx:1184 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 9
+Room.tsx:1199 [Translation] 📝 Translation #9 received - Original: "Como estos....", Translated: "Like these...."
+Room.tsx:1215 [Translation] 📥 Added to PARTNER messages (total: 1)
+Room.tsx:1223 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:1224 [Voice Gender] Text to speak: "Like these.", Language: en
+Room.tsx:999 [TTS Queue] Adding to queue (queue size: 0): Like these.
+Room.tsx:785 [TTS Queue] Queue processor started
+Room.tsx:796 [TTS Queue] Playing: Like these. 
+Room.tsx:821 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:544 [Azure Token] Using cached token
+Room.tsx:1232 [Translation] ⏱️ Total processing time: 2ms
+Room.tsx:695 [Azure TTS API] 🎤 REQUEST #4 START - Voice: en-US-AvaMultilingualNeural, Language: en, Region: eastus, Text: "Like these...."
+Room.tsx:1077 [Credits] Update received: 184640 seconds remaining, exhausted: false
+Room.tsx:745 [Azure TTS API] ✅ REQUEST #4 SUCCESS - Voice: en-US-AvaMultilingualNeural, Duration: 881ms, Audio size: 21312 bytes
+Room.tsx:759 [Azure TTS API] 📊 Session Total: 4 TTS requests made
+Room.tsx:825 [TTS Queue] Synthesis completed in 1133ms, audio size: 21312 bytes
+Room.tsx:907 [TTS Queue] Setting fallback timeout: 3332ms (audio duration: 1.332s)
+Room.tsx:937 [TTS Queue] Playback started successfully
+Room.tsx:879 [TTS Queue] Playback completed (audio ended event)
+Room.tsx:843 [TTS Queue] Marked messageId as spoken: participant-1763572390000-2439hzh
+Room.tsx:980 [TTS Queue] Queue processor finished
+Room.tsx:2131 [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+Room.tsx:2149 [Azure Speech Dedupe] ✅ New resultId processed: A7F8F99A0AC14FA9B44D16C479AA8BF7, cache size: 1
+Room.tsx:2181 [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+Room.tsx:2216 [Temporal Dedupe] ✅ New offset+text processed: offset=387500000, text="Como estas....", cache size: 1
+Room.tsx:2249 [Speech] ✅ Sent final transcription immediately: "Como estas...."
+Room.tsx:1150 [Translation Received] ⏱️ Timestamp: 1763572396703, Seq: 11, MessageId: participant-1763572397668-gv8ntj6, Speaker: participant, IsOwn: false
+Room.tsx:1151 [Translation Received] 📊 DeduplicationSet size BEFORE: 9
+Room.tsx:319 [Sequence] 💾 Saved lastReceivedSeq=11 for room 0d56a8c8-e2c1-47db-b9d0-38b9b499938a
+Room.tsx:1172 [Deduplication] 🔍 Check: sizeBefore=9, sizeAfter=10, messageId=participant-1763572397668-gv8ntj6
+Room.tsx:1184 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 10
+Room.tsx:1199 [Translation] 📝 Translation #10 received - Original: "¿Cómo estás?...", Translated: "How are you?..."
+Room.tsx:1215 [Translation] 📥 Added to PARTNER messages (total: 1)
+Room.tsx:1223 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:1224 [Voice Gender] Text to speak: "How are you?", Language: en
+Room.tsx:999 [TTS Queue] Adding to queue (queue size: 0): How are you?
+Room.tsx:785 [TTS Queue] Queue processor started
+Room.tsx:796 [TTS Queue] Playing: How are you? 
+Room.tsx:821 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:544 [Azure Token] Using cached token
+Room.tsx:1232 [Translation] ⏱️ Total processing time: 1ms
+Room.tsx:695 [Azure TTS API] 🎤 REQUEST #5 START - Voice: en-US-AvaMultilingualNeural, Language: en, Region: eastus, Text: "How are you?..."
+Room.tsx:1150 [Translation Received] ⏱️ Timestamp: 1763572396835, Seq: 12, MessageId: creator-1763572397710-fw36n8u, Speaker: creator, IsOwn: true
+Room.tsx:1151 [Translation Received] 📊 DeduplicationSet size BEFORE: 10
+Room.tsx:1172 [Deduplication] 🔍 Check: sizeBefore=10, sizeAfter=11, messageId=creator-1763572397710-fw36n8u
+Room.tsx:1184 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 11
+Room.tsx:1199 [Translation] 📝 Translation #11 received - Original: "Como estas....", Translated: "Como estás...."
+Room.tsx:1211 [Translation] 📤 Added to MY messages (total: 1)
+Room.tsx:1232 [Translation] ⏱️ Total processing time: 1ms
+Room.tsx:745 [Azure TTS API] ✅ REQUEST #5 SUCCESS - Voice: en-US-AvaMultilingualNeural, Duration: 1206ms, Audio size: 17280 bytes
+Room.tsx:759 [Azure TTS API] 📊 Session Total: 5 TTS requests made
+Room.tsx:825 [TTS Queue] Synthesis completed in 1432ms, audio size: 17280 bytes
+Room.tsx:907 [TTS Queue] Setting fallback timeout: 3080ms (audio duration: 1.08s)
+Room.tsx:937 [TTS Queue] Playback started successfully
+Room.tsx:879 [TTS Queue] Playback completed (audio ended event)
+Room.tsx:843 [TTS Queue] Marked messageId as spoken: participant-1763572397668-gv8ntj6
+Room.tsx:980 [TTS Queue] Queue processor finished
+Room.tsx:1077 [Credits] Update received: 184630 seconds remaining, exhausted: false
+Room.tsx:2131 [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+Room.tsx:2149 [Azure Speech Dedupe] ✅ New resultId processed: A7F8F99A0AC14FA9B44D16C479AA8BF7, cache size: 1
+Room.tsx:2181 [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+Room.tsx:2216 [Temporal Dedupe] ✅ New offset+text processed: offset=466500000, text="Comoteamas....", cache size: 1
+Room.tsx:2249 [Speech] ✅ Sent final transcription immediately: "Comoteamas...."
+Room.tsx:1150 [Translation Received] ⏱️ Timestamp: 1763572405100, Seq: 13, MessageId: creator-1763572406064-z2i0fk7, Speaker: creator, IsOwn: true
+Room.tsx:1151 [Translation Received] 📊 DeduplicationSet size BEFORE: 11
+Room.tsx:1172 [Deduplication] 🔍 Check: sizeBefore=11, sizeAfter=12, messageId=creator-1763572406064-z2i0fk7
+Room.tsx:1184 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 12
+Room.tsx:1199 [Translation] 📝 Translation #12 received - Original: "Comoteamas....", Translated: "Comoteamas...."
+Room.tsx:1211 [Translation] 📤 Added to MY messages (total: 1)
+Room.tsx:1232 [Translation] ⏱️ Total processing time: 1ms
+Room.tsx:1150 [Translation Received] ⏱️ Timestamp: 1763572405145, Seq: 14, MessageId: participant-1763572406109-w75s9gs, Speaker: participant, IsOwn: false
+Room.tsx:1151 [Translation Received] 📊 DeduplicationSet size BEFORE: 12
+Room.tsx:319 [Sequence] 💾 Saved lastReceivedSeq=14 for room 0d56a8c8-e2c1-47db-b9d0-38b9b499938a
+Room.tsx:1172 [Deduplication] 🔍 Check: sizeBefore=12, sizeAfter=13, messageId=participant-1763572406109-w75s9gs
+Room.tsx:1184 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 13
+Room.tsx:1199 [Translation] 📝 Translation #13 received - Original: "¿Cómo te llamas?...", Translated: "What's your name?..."
+Room.tsx:1215 [Translation] 📥 Added to PARTNER messages (total: 1)
+Room.tsx:1223 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:1224 [Voice Gender] Text to speak: "What's your name?", Language: en
+Room.tsx:999 [TTS Queue] Adding to queue (queue size: 0): What's your name?
+Room.tsx:785 [TTS Queue] Queue processor started
+Room.tsx:796 [TTS Queue] Playing: What's your name? 
+Room.tsx:821 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:544 [Azure Token] Using cached token
+Room.tsx:1232 [Translation] ⏱️ Total processing time: 1ms
+Room.tsx:695 [Azure TTS API] 🎤 REQUEST #6 START - Voice: en-US-AvaMultilingualNeural, Language: en, Region: eastus, Text: "What's your name?..."
+Room.tsx:745 [Azure TTS API] ✅ REQUEST #6 SUCCESS - Voice: en-US-AvaMultilingualNeural, Duration: 948ms, Audio size: 20160 bytes
+Room.tsx:759 [Azure TTS API] 📊 Session Total: 6 TTS requests made
+Room.tsx:825 [TTS Queue] Synthesis completed in 1768ms, audio size: 20160 bytes
+Room.tsx:907 [TTS Queue] Setting fallback timeout: 3260ms (audio duration: 1.26s)
+Room.tsx:937 [TTS Queue] Playback started successfully
+Room.tsx:879 [TTS Queue] Playback completed (audio ended event)
+Room.tsx:843 [TTS Queue] Marked messageId as spoken: participant-1763572406109-w75s9gs
+Room.tsx:980 [TTS Queue] Queue processor finished
+Room.tsx:1077 [Credits] Update received: 184620 seconds remaining, exhausted: false
+Room.tsx:78 [Browser] Visibility changed: VISIBLE
+Room.tsx:82 [Browser] ✓ Tab is now visible again
+Room.tsx:1707 [Page Visibility] 👁️ App became visible (resumed from background)
+Room.tsx:1753 [Page Visibility] ✅ WebSocket already connected, no action needed
+Room.tsx:1077 [Credits] Update received: 184610 seconds remaining, exhausted: false
+Room.tsx:2131 [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+Room.tsx:2149 [Azure Speech Dedupe] ✅ New resultId processed: A7F8F99A0AC14FA9B44D16C479AA8BF7, cache size: 1
+Room.tsx:2181 [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+Room.tsx:2216 [Temporal Dedupe] ✅ New offset+text processed: offset=629500000, text="Laminiyamal....", cache size: 1
+Room.tsx:2249 [Speech] ✅ Sent final transcription immediately: "Laminiyamal...."
+Room.tsx:1150 [Translation Received] ⏱️ Timestamp: 1763572421994, Seq: 15, MessageId: participant-1763572422953-i3kz5qz, Speaker: participant, IsOwn: false
+Room.tsx:1151 [Translation Received] 📊 DeduplicationSet size BEFORE: 13
+Room.tsx:319 [Sequence] 💾 Saved lastReceivedSeq=15 for room 0d56a8c8-e2c1-47db-b9d0-38b9b499938a
+Room.tsx:1172 [Deduplication] 🔍 Check: sizeBefore=13, sizeAfter=14, messageId=participant-1763572422953-i3kz5qz
+Room.tsx:1184 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 14
+Room.tsx:1199 [Translation] 📝 Translation #14 received - Original: "Mal....", Translated: "Not good...."
+Room.tsx:1215 [Translation] 📥 Added to PARTNER messages (total: 1)
+Room.tsx:1223 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:1224 [Voice Gender] Text to speak: "Not good.", Language: en
+Room.tsx:999 [TTS Queue] Adding to queue (queue size: 0): Not good.
+Room.tsx:785 [TTS Queue] Queue processor started
+Room.tsx:796 [TTS Queue] Playing: Not good. 
+Room.tsx:821 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:544 [Azure Token] Using cached token
+Room.tsx:1232 [Translation] ⏱️ Total processing time: 1ms
+Room.tsx:695 [Azure TTS API] 🎤 REQUEST #7 START - Voice: en-US-AvaMultilingualNeural, Language: en, Region: eastus, Text: "Not good...."
+Room.tsx:1150 [Translation Received] ⏱️ Timestamp: 1763572422023, Seq: 16, MessageId: creator-1763572422981-fs5kpch, Speaker: creator, IsOwn: true
+Room.tsx:1151 [Translation Received] 📊 DeduplicationSet size BEFORE: 14
+Room.tsx:1172 [Deduplication] 🔍 Check: sizeBefore=14, sizeAfter=15, messageId=creator-1763572422981-fs5kpch
+Room.tsx:1184 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 15
+Room.tsx:1199 [Translation] 📝 Translation #15 received - Original: "Laminiyamal....", Translated: "Laminiyamal...."
+Room.tsx:1211 [Translation] 📤 Added to MY messages (total: 1)
+Room.tsx:1232 [Translation] ⏱️ Total processing time: 1ms
+Room.tsx:745 [Azure TTS API] ✅ REQUEST #7 SUCCESS - Voice: en-US-AvaMultilingualNeural, Duration: 923ms, Audio size: 17856 bytes
+Room.tsx:759 [Azure TTS API] 📊 Session Total: 7 TTS requests made
+Room.tsx:825 [TTS Queue] Synthesis completed in 1891ms, audio size: 17856 bytes
+Room.tsx:907 [TTS Queue] Setting fallback timeout: 3116ms (audio duration: 1.116s)
+Room.tsx:937 [TTS Queue] Playback started successfully
+Room.tsx:2138 [Azure Speech Dedupe] ⛔ DUPLICATE RESULTID BLOCKED!
+recognizer.recognized @ Room.tsx:2138
+Room.tsx:2139 [Azure Speech Dedupe] 🔍 ResultId: A7F8F99A0AC14FA9B44D16C479AA8BF7
+recognizer.recognized @ Room.tsx:2139
+Room.tsx:2140 [Azure Speech Dedupe] 📝 Text: "He's the best player in Spain, Spain."
+recognizer.recognized @ Room.tsx:2140
+Room.tsx:2141 [Azure Speech Dedupe] ⏱️ Last processed: 3035ms ago (TTL: 5000ms)
+recognizer.recognized @ Room.tsx:2141
+Room.tsx:2142 [Azure Speech Dedupe] 💡 This is likely Azure Speech SDK's rescoring mechanism
+recognizer.recognized @ Room.tsx:2142
+Room.tsx:2143 [Azure Speech Dedupe] ✅ Prevented duplicate from reaching server - no translation cost incurred
+recognizer.recognized @ Room.tsx:2143
+Room.tsx:879 [TTS Queue] Playback completed (audio ended event)
+Room.tsx:843 [TTS Queue] Marked messageId as spoken: participant-1763572422953-i3kz5qz
+Room.tsx:980 [TTS Queue] Queue processor finished
+Room.tsx:2131 [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+Room.tsx:2149 [Azure Speech Dedupe] ✅ New resultId processed: A7F8F99A0AC14FA9B44D16C479AA8BF7, cache size: 1
+Room.tsx:2181 [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+Room.tsx:2216 [Temporal Dedupe] ✅ New offset+text processed: offset=795300000, text="Who are you?...", cache size: 1
+Room.tsx:2249 [Speech] ✅ Sent final transcription immediately: "Who are you?..."
+Room.tsx:1150 [Translation Received] ⏱️ Timestamp: 1763572438913, Seq: 17, MessageId: creator-1763572439874-i3btcow, Speaker: creator, IsOwn: true
+Room.tsx:1151 [Translation Received] 📊 DeduplicationSet size BEFORE: 15
+Room.tsx:1172 [Deduplication] 🔍 Check: sizeBefore=15, sizeAfter=16, messageId=creator-1763572439874-i3btcow
+Room.tsx:1184 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 16
+Room.tsx:1199 [Translation] 📝 Translation #16 received - Original: "Who are you?...", Translated: "¿Quién eres?..."
+Room.tsx:1211 [Translation] 📤 Added to MY messages (total: 1)
+Room.tsx:1232 [Translation] ⏱️ Total processing time: 1ms
+Room.tsx:1077 [Credits] Update received: 184600 seconds remaining, exhausted: false
+Room.tsx:2131 [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+Room.tsx:2149 [Azure Speech Dedupe] ✅ New resultId processed: A7F8F99A0AC14FA9B44D16C479AA8BF7, cache size: 1
+Room.tsx:2181 [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+Room.tsx:2216 [Temporal Dedupe] ✅ New offset+text processed: offset=859100000, text="Laminyaml is the best player i...", cache size: 1
+Room.tsx:2249 [Speech] ✅ Sent final transcription immediately: "Laminyaml is the best player i..."
+Room.tsx:1150 [Translation Received] ⏱️ Timestamp: 1763572447668, Seq: 18, MessageId: creator-1763572448633-emqanm9, Speaker: creator, IsOwn: true
+Room.tsx:1151 [Translation Received] 📊 DeduplicationSet size BEFORE: 16
+Room.tsx:1172 [Deduplication] 🔍 Check: sizeBefore=16, sizeAfter=17, messageId=creator-1763572448633-emqanm9
+Room.tsx:1184 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 17
+Room.tsx:1199 [Translation] 📝 Translation #17 received - Original: "Laminyaml is the best player i...", Translated: "Laminyaml es el mejor jugador ..."
+Room.tsx:1211 [Translation] 📤 Added to MY messages (total: 1)
+Room.tsx:1232 [Translation] ⏱️ Total processing time: 1ms
+Room.tsx:1150 [Translation Received] ⏱️ Timestamp: 1763572447723, Seq: 19, MessageId: participant-1763572448678-3y3n3re, Speaker: participant, IsOwn: false
+Room.tsx:1151 [Translation Received] 📊 DeduplicationSet size BEFORE: 17
+Room.tsx:319 [Sequence] 💾 Saved lastReceivedSeq=19 for room 0d56a8c8-e2c1-47db-b9d0-38b9b499938a
+Room.tsx:1172 [Deduplication] 🔍 Check: sizeBefore=17, sizeAfter=18, messageId=participant-1763572448678-3y3n3re
+Room.tsx:1184 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 18
+Room.tsx:1199 [Translation] 📝 Translation #18 received - Original: "La mini amalys the best best p...", Translated: "The mini amalys the best playi..."
+Room.tsx:1215 [Translation] 📥 Added to PARTNER messages (total: 1)
+Room.tsx:1223 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:1224 [Voice Gender] Text to speak: "The mini amalys the best playing the world.", Language: en
+Room.tsx:999 [TTS Queue] Adding to queue (queue size: 0): The mini amalys the best playing the world.
+Room.tsx:785 [TTS Queue] Queue processor started
+Room.tsx:796 [TTS Queue] Playing: The mini amalys the best playing the world. 
+Room.tsx:821 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:544 [Azure Token] Using cached token
+Room.tsx:1232 [Translation] ⏱️ Total processing time: 1ms
+Room.tsx:695 [Azure TTS API] 🎤 REQUEST #8 START - Voice: en-US-AvaMultilingualNeural, Language: en, Region: eastus, Text: "The mini amalys the best playing the world...."
+Room.tsx:1077 [Credits] Update received: 184590 seconds remaining, exhausted: false
+Room.tsx:745 [Azure TTS API] ✅ REQUEST #8 SUCCESS - Voice: en-US-AvaMultilingualNeural, Duration: 1114ms, Audio size: 44352 bytes
+Room.tsx:759 [Azure TTS API] 📊 Session Total: 8 TTS requests made
+Room.tsx:825 [TTS Queue] Synthesis completed in 2608ms, audio size: 44352 bytes
+Room.tsx:907 [TTS Queue] Setting fallback timeout: 4772ms (audio duration: 2.772s)
+Room.tsx:937 [TTS Queue] Playback started successfully
+Room.tsx:879 [TTS Queue] Playback completed (audio ended event)
+Room.tsx:843 [TTS Queue] Marked messageId as spoken: participant-1763572448678-3y3n3re
+Room.tsx:980 [TTS Queue] Queue processor finished
+Room.tsx:1077 [Credits] Update received: 184580 seconds remaining, exhausted: false
+Room.tsx:2131 [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+Room.tsx:2149 [Azure Speech Dedupe] ✅ New resultId processed: A7F8F99A0AC14FA9B44D16C479AA8BF7, cache size: 1
+Room.tsx:2181 [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+Room.tsx:2216 [Temporal Dedupe] ✅ New offset+text processed: offset=1023500000, text="What are you doing right now?...", cache size: 1
+Room.tsx:2249 [Speech] ✅ Sent final transcription immediately: "What are you doing right now?..."
+Room.tsx:1150 [Translation Received] ⏱️ Timestamp: 1763572463552, Seq: 20, MessageId: creator-1763572464512-qoh4b88, Speaker: creator, IsOwn: true
+Room.tsx:1151 [Translation Received] 📊 DeduplicationSet size BEFORE: 18
+Room.tsx:1172 [Deduplication] 🔍 Check: sizeBefore=18, sizeAfter=19, messageId=creator-1763572464512-qoh4b88
+Room.tsx:1184 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 19
+Room.tsx:1199 [Translation] 📝 Translation #19 received - Original: "What are you doing right now?...", Translated: "¿Qué estás haciendo ahora mism..."
+Room.tsx:1211 [Translation] 📤 Added to MY messages (total: 1)
+Room.tsx:1232 [Translation] ⏱️ Total processing time: 1ms
+Room.tsx:1150 [Translation Received] ⏱️ Timestamp: 1763572463636, Seq: 21, MessageId: participant-1763572464592-vtjzqrz, Speaker: participant, IsOwn: false
+Room.tsx:1151 [Translation Received] 📊 DeduplicationSet size BEFORE: 19
+Room.tsx:319 [Sequence] 💾 Saved lastReceivedSeq=21 for room 0d56a8c8-e2c1-47db-b9d0-38b9b499938a
+Room.tsx:1172 [Deduplication] 🔍 Check: sizeBefore=19, sizeAfter=20, messageId=participant-1763572464592-vtjzqrz
+Room.tsx:1184 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 20
+Room.tsx:1199 [Translation] 📝 Translation #20 received - Original: "¿What are you Rain desnud?...", Translated: "What are you Rain naked?..."
+Room.tsx:1215 [Translation] 📥 Added to PARTNER messages (total: 1)
+Room.tsx:1223 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:1224 [Voice Gender] Text to speak: "What are you Rain naked?", Language: en
+Room.tsx:999 [TTS Queue] Adding to queue (queue size: 0): What are you Rain naked?
+Room.tsx:785 [TTS Queue] Queue processor started
+Room.tsx:796 [TTS Queue] Playing: What are you Rain naked? 
+Room.tsx:821 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:544 [Azure Token] Using cached token
+Room.tsx:1232 [Translation] ⏱️ Total processing time: 3ms
+Room.tsx:695 [Azure TTS API] 🎤 REQUEST #9 START - Voice: en-US-AvaMultilingualNeural, Language: en, Region: eastus, Text: "What are you Rain naked?..."
+Room.tsx:745 [Azure TTS API] ✅ REQUEST #9 SUCCESS - Voice: en-US-AvaMultilingualNeural, Duration: 677ms, Audio size: 26496 bytes
+Room.tsx:759 [Azure TTS API] 📊 Session Total: 9 TTS requests made
+Room.tsx:825 [TTS Queue] Synthesis completed in 1560ms, audio size: 26496 bytes
+Room.tsx:907 [TTS Queue] Setting fallback timeout: 3655.9999999999995ms (audio duration: 1.656s)
+Room.tsx:937 [TTS Queue] Playback started successfully
+Room.tsx:879 [TTS Queue] Playback completed (audio ended event)
+Room.tsx:843 [TTS Queue] Marked messageId as spoken: participant-1763572464592-vtjzqrz
+Room.tsx:980 [TTS Queue] Queue processor finished
+Room.tsx:2131 [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+Room.tsx:2149 [Azure Speech Dedupe] ✅ New resultId processed: A7F8F99A0AC14FA9B44D16C479AA8BF7, cache size: 1
+Room.tsx:2181 [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+Room.tsx:2216 [Temporal Dedupe] ✅ New offset+text processed: offset=1141600000, text="What are you working now?...", cache size: 1
+Room.tsx:2249 [Speech] ✅ Sent final transcription immediately: "What are you working now?..."
+Room.tsx:1150 [Translation Received] ⏱️ Timestamp: 1763572476842, Seq: 22, MessageId: creator-1763572477806-a7cfz7e, Speaker: creator, IsOwn: true
+Room.tsx:1151 [Translation Received] 📊 DeduplicationSet size BEFORE: 20
+Room.tsx:1172 [Deduplication] 🔍 Check: sizeBefore=20, sizeAfter=21, messageId=creator-1763572477806-a7cfz7e
+Room.tsx:1184 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 21
+Room.tsx:1199 [Translation] 📝 Translation #21 received - Original: "What are you working now?...", Translated: "¿En qué trabajas ahora?..."
+Room.tsx:1211 [Translation] 📤 Added to MY messages (total: 1)
+Room.tsx:1232 [Translation] ⏱️ Total processing time: 1ms
+Room.tsx:1150 [Translation Received] ⏱️ Timestamp: 1763572476872, Seq: 23, MessageId: participant-1763572477837-a20syoz, Speaker: participant, IsOwn: false
+Room.tsx:1151 [Translation Received] 📊 DeduplicationSet size BEFORE: 21
+Room.tsx:319 [Sequence] 💾 Saved lastReceivedSeq=23 for room 0d56a8c8-e2c1-47db-b9d0-38b9b499938a
+Room.tsx:1172 [Deduplication] 🔍 Check: sizeBefore=21, sizeAfter=22, messageId=participant-1763572477837-a20syoz
+Room.tsx:1184 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 22
+Room.tsx:1199 [Translation] 📝 Translation #22 received - Original: "¿What are you working now?...", Translated: "What are you working now?..."
+Room.tsx:1215 [Translation] 📥 Added to PARTNER messages (total: 1)
+Room.tsx:1223 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:1224 [Voice Gender] Text to speak: "What are you working now?", Language: en
+Room.tsx:999 [TTS Queue] Adding to queue (queue size: 0): What are you working now?
+Room.tsx:785 [TTS Queue] Queue processor started
+Room.tsx:796 [TTS Queue] Playing: What are you working now? 
+Room.tsx:821 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:544 [Azure Token] Using cached token
+Room.tsx:1232 [Translation] ⏱️ Total processing time: 3ms
+Room.tsx:695 [Azure TTS API] 🎤 REQUEST #10 START - Voice: en-US-AvaMultilingualNeural, Language: en, Region: eastus, Text: "What are you working now?..."
+Room.tsx:745 [Azure TTS API] ✅ REQUEST #10 SUCCESS - Voice: en-US-AvaMultilingualNeural, Duration: 674ms, Audio size: 25344 bytes
+Room.tsx:759 [Azure TTS API] 📊 Session Total: 10 TTS requests made
+Room.tsx:825 [TTS Queue] Synthesis completed in 1240ms, audio size: 25344 bytes
+Room.tsx:907 [TTS Queue] Setting fallback timeout: 3584ms (audio duration: 1.584s)
+Room.tsx:937 [TTS Queue] Playback started successfully
+Room.tsx:1077 [Credits] Update received: 184570 seconds remaining, exhausted: false
+Room.tsx:879 [TTS Queue] Playback completed (audio ended event)
+Room.tsx:843 [TTS Queue] Marked messageId as spoken: participant-1763572477837-a20syoz
+Room.tsx:980 [TTS Queue] Queue processor finished
+Room.tsx:2131 [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+Room.tsx:2149 [Azure Speech Dedupe] ✅ New resultId processed: A7F8F99A0AC14FA9B44D16C479AA8BF7, cache size: 1
+Room.tsx:2181 [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+Room.tsx:2216 [Temporal Dedupe] ✅ New offset+text processed: offset=1220200000, text="Do you have someone?...", cache size: 1
+Room.tsx:2249 [Speech] ✅ Sent final transcription immediately: "Do you have someone?..."
+Room.tsx:1150 [Translation Received] ⏱️ Timestamp: 1763572483915, Seq: 24, MessageId: creator-1763572484878-gy37oey, Speaker: creator, IsOwn: true
+Room.tsx:1151 [Translation Received] 📊 DeduplicationSet size BEFORE: 22
+Room.tsx:1172 [Deduplication] 🔍 Check: sizeBefore=22, sizeAfter=23, messageId=creator-1763572484878-gy37oey
+Room.tsx:1184 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 23
+Room.tsx:1199 [Translation] 📝 Translation #23 received - Original: "Do you have someone?...", Translated: "¿Tienes a alguien?..."
+Room.tsx:1211 [Translation] 📤 Added to MY messages (total: 1)
+Room.tsx:1232 [Translation] ⏱️ Total processing time: 1ms
+Room.tsx:2131 [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+Room.tsx:2149 [Azure Speech Dedupe] ✅ New resultId processed: A7F8F99A0AC14FA9B44D16C479AA8BF7, cache size: 1
+Room.tsx:2181 [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+Room.tsx:2216 [Temporal Dedupe] ✅ New offset+text processed: offset=1302100000, text="He's the best player in the wo...", cache size: 1
+Room.tsx:2249 [Speech] ✅ Sent final transcription immediately: "He's the best player in the wo..."
+Room.tsx:1150 [Translation Received] ⏱️ Timestamp: 1763572492496, Seq: 25, MessageId: creator-1763572493461-p14eb2l, Speaker: creator, IsOwn: true
+Room.tsx:1151 [Translation Received] 📊 DeduplicationSet size BEFORE: 23
+Room.tsx:1172 [Deduplication] 🔍 Check: sizeBefore=23, sizeAfter=24, messageId=creator-1763572493461-p14eb2l
+Room.tsx:1184 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 24
+Room.tsx:1199 [Translation] 📝 Translation #24 received - Original: "He's the best player in the wo...", Translated: "Es el mejor jugador del mundo...."
+Room.tsx:1211 [Translation] 📤 Added to MY messages (total: 1)
+Room.tsx:1232 [Translation] ⏱️ Total processing time: 1ms
+Room.tsx:1150 [Translation Received] ⏱️ Timestamp: 1763572492618, Seq: 26, MessageId: participant-1763572493579-bqo5r0v, Speaker: participant, IsOwn: false
+Room.tsx:1151 [Translation Received] 📊 DeduplicationSet size BEFORE: 24
+Room.tsx:319 [Sequence] 💾 Saved lastReceivedSeq=26 for room 0d56a8c8-e2c1-47db-b9d0-38b9b499938a
+Room.tsx:1172 [Deduplication] 🔍 Check: sizeBefore=24, sizeAfter=25, messageId=participant-1763572493579-bqo5r0v
+Room.tsx:1184 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 25
+Room.tsx:1199 [Translation] 📝 Translation #25 received - Original: "Gwynthes player in the world....", Translated: "Gwynthes player in the world...."
+Room.tsx:1215 [Translation] 📥 Added to PARTNER messages (total: 1)
+Room.tsx:1223 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:1224 [Voice Gender] Text to speak: "Gwynthes player in the world.", Language: en
+Room.tsx:999 [TTS Queue] Adding to queue (queue size: 0): Gwynthes player in the world.
+Room.tsx:785 [TTS Queue] Queue processor started
+Room.tsx:796 [TTS Queue] Playing: Gwynthes player in the world. 
+Room.tsx:821 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:544 [Azure Token] Using cached token
+Room.tsx:1232 [Translation] ⏱️ Total processing time: 4ms
+Room.tsx:695 [Azure TTS API] 🎤 REQUEST #11 START - Voice: en-US-AvaMultilingualNeural, Language: en, Region: eastus, Text: "Gwynthes player in the world...."
+Room.tsx:745 [Azure TTS API] ✅ REQUEST #11 SUCCESS - Voice: en-US-AvaMultilingualNeural, Duration: 776ms, Audio size: 30528 bytes
+Room.tsx:759 [Azure TTS API] 📊 Session Total: 11 TTS requests made
+Room.tsx:825 [TTS Queue] Synthesis completed in 1489ms, audio size: 30528 bytes
+Room.tsx:907 [TTS Queue] Setting fallback timeout: 3908ms (audio duration: 1.908s)
+Room.tsx:937 [TTS Queue] Playback started successfully
+Room.tsx:2138 [Azure Speech Dedupe] ⛔ DUPLICATE RESULTID BLOCKED!
+recognizer.recognized @ Room.tsx:2138
+processTypeSpecificMessages @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:18873
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17249
+Room.tsx:2139 [Azure Speech Dedupe] 🔍 ResultId: A7F8F99A0AC14FA9B44D16C479AA8BF7
+recognizer.recognized @ Room.tsx:2139
+processTypeSpecificMessages @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:18873
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17249
+Room.tsx:2140 [Azure Speech Dedupe] 📝 Text: "He's the best player in the world."
+recognizer.recognized @ Room.tsx:2140
+processTypeSpecificMessages @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:18873
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17249
+Room.tsx:2141 [Azure Speech Dedupe] ⏱️ Last processed: 3339ms ago (TTL: 5000ms)
+recognizer.recognized @ Room.tsx:2141
+processTypeSpecificMessages @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:18873
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17249
+Room.tsx:2142 [Azure Speech Dedupe] 💡 This is likely Azure Speech SDK's rescoring mechanism
+recognizer.recognized @ Room.tsx:2142
+processTypeSpecificMessages @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:18873
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17249
+Room.tsx:2143 [Azure Speech Dedupe] ✅ Prevented duplicate from reaching server - no translation cost incurred
+recognizer.recognized @ Room.tsx:2143
+processTypeSpecificMessages @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:18873
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17249
+Room.tsx:879 [TTS Queue] Playback completed (audio ended event)
+Room.tsx:843 [TTS Queue] Marked messageId as spoken: participant-1763572493579-bqo5r0v
+Room.tsx:980 [TTS Queue] Queue processor finished
+Room.tsx:1077 [Credits] Update received: 184560 seconds remaining, exhausted: false
+Room.tsx:1077 [Credits] Update received: 184550 seconds remaining, exhausted: false
+Room.tsx:2131 [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+Room.tsx:2149 [Azure Speech Dedupe] ✅ New resultId processed: A7F8F99A0AC14FA9B44D16C479AA8BF7, cache size: 1
+Room.tsx:2181 [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+Room.tsx:2216 [Temporal Dedupe] ✅ New offset+text processed: offset=1446400000, text="He is the best player in the w...", cache size: 1
+Room.tsx:2249 [Speech] ✅ Sent final transcription immediately: "He is the best player in the w..."
+Room.tsx:1150 [Translation Received] ⏱️ Timestamp: 1763572512643, Seq: 27, MessageId: participant-1763572513606-cj6vnyd, Speaker: participant, IsOwn: false
+Room.tsx:1151 [Translation Received] 📊 DeduplicationSet size BEFORE: 25
+Room.tsx:319 [Sequence] 💾 Saved lastReceivedSeq=27 for room 0d56a8c8-e2c1-47db-b9d0-38b9b499938a
+Room.tsx:1172 [Deduplication] 🔍 Check: sizeBefore=25, sizeAfter=26, messageId=participant-1763572513606-cj6vnyd
+Room.tsx:1184 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 26
+Room.tsx:1199 [Translation] 📝 Translation #26 received - Original: "He is the best player in the w...", Translated: "He is the best player in the w..."
+Room.tsx:1215 [Translation] 📥 Added to PARTNER messages (total: 1)
+Room.tsx:1223 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:1224 [Voice Gender] Text to speak: "He is the best player in the world LED of Thie tropical hered the best player in Ethiopia.", Language: en
+Room.tsx:999 [TTS Queue] Adding to queue (queue size: 0): He is the best player in the world LED of Thie tro
+Room.tsx:785 [TTS Queue] Queue processor started
+Room.tsx:796 [TTS Queue] Playing: He is the best player in the world LED of Thie tro 
+Room.tsx:821 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:544 [Azure Token] Using cached token
+Room.tsx:1232 [Translation] ⏱️ Total processing time: 3ms
+Room.tsx:695 [Azure TTS API] 🎤 REQUEST #12 START - Voice: en-US-AvaMultilingualNeural, Language: en, Region: eastus, Text: "He is the best player in the world LED of Thie tro..."
+Room.tsx:1150 [Translation Received] ⏱️ Timestamp: 1763572512665, Seq: 28, MessageId: creator-1763572513619-jhvgg6i, Speaker: creator, IsOwn: true
+Room.tsx:1151 [Translation Received] 📊 DeduplicationSet size BEFORE: 26
+Room.tsx:1172 [Deduplication] 🔍 Check: sizeBefore=26, sizeAfter=27, messageId=creator-1763572513619-jhvgg6i
+Room.tsx:1184 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 27
+Room.tsx:1199 [Translation] 📝 Translation #27 received - Original: "He is the best player in the w...", Translated: "Es el mejor jugador del mundo ..."
+Room.tsx:1211 [Translation] 📤 Added to MY messages (total: 1)
+Room.tsx:1232 [Translation] ⏱️ Total processing time: 2ms
+Room.tsx:1077 [Credits] Update received: 184540 seconds remaining, exhausted: false
+Room.tsx:745 [Azure TTS API] ✅ REQUEST #12 SUCCESS - Voice: en-US-AvaMultilingualNeural, Duration: 3017ms, Audio size: 93888 bytes
+Room.tsx:759 [Azure TTS API] 📊 Session Total: 12 TTS requests made
+Room.tsx:825 [TTS Queue] Synthesis completed in 13536ms, audio size: 93888 bytes
+Room.tsx:907 [TTS Queue] Setting fallback timeout: 7868ms (audio duration: 5.868s)
+Room.tsx:937 [TTS Queue] Playback started successfully
+Room.tsx:879 [TTS Queue] Playback completed (audio ended event)
+Room.tsx:843 [TTS Queue] Marked messageId as spoken: participant-1763572513606-cj6vnyd
+Room.tsx:980 [TTS Queue] Queue processor finished
+Room.tsx:1815 [Network] 🔄 Network type changed: 3g
+Room.tsx:1821 [Network] ✅ WebSocket still connected after network change
+Room.tsx:2131 [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+Room.tsx:2149 [Azure Speech Dedupe] ✅ New resultId processed: A7F8F99A0AC14FA9B44D16C479AA8BF7, cache size: 1
+Room.tsx:2181 [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+Room.tsx:2216 [Temporal Dedupe] ✅ New offset+text processed: offset=1752300000, text="Be the best....", cache size: 1
+Room.tsx:2249 [Speech] ✅ Sent final transcription immediately: "Be the best...."
+Room.tsx:1150 [Translation Received] ⏱️ Timestamp: 1763572538504, Seq: 29, MessageId: participant-1763572539472-jw7hrxh, Speaker: participant, IsOwn: false
+Room.tsx:1151 [Translation Received] 📊 DeduplicationSet size BEFORE: 27
+Room.tsx:319 [Sequence] 💾 Saved lastReceivedSeq=29 for room 0d56a8c8-e2c1-47db-b9d0-38b9b499938a
+Room.tsx:1172 [Deduplication] 🔍 Check: sizeBefore=27, sizeAfter=28, messageId=participant-1763572539472-jw7hrxh
+Room.tsx:1184 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 28
+Room.tsx:1199 [Translation] 📝 Translation #28 received - Original: "Y toques....", Translated: "And touches...."
+Room.tsx:1215 [Translation] 📥 Added to PARTNER messages (total: 1)
+Room.tsx:1223 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:1224 [Voice Gender] Text to speak: "And touches.", Language: en
+Room.tsx:999 [TTS Queue] Adding to queue (queue size: 0): And touches.
+Room.tsx:785 [TTS Queue] Queue processor started
+Room.tsx:796 [TTS Queue] Playing: And touches. 
+Room.tsx:821 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:544 [Azure Token] Using cached token
+Room.tsx:1232 [Translation] ⏱️ Total processing time: 1ms
+Room.tsx:695 [Azure TTS API] 🎤 REQUEST #13 START - Voice: en-US-AvaMultilingualNeural, Language: en, Region: eastus, Text: "And touches...."
+Room.tsx:1150 [Translation Received] ⏱️ Timestamp: 1763572538711, Seq: 30, MessageId: creator-1763572539676-vj1xpz4, Speaker: creator, IsOwn: true
+Room.tsx:1151 [Translation Received] 📊 DeduplicationSet size BEFORE: 28
+Room.tsx:1172 [Deduplication] 🔍 Check: sizeBefore=28, sizeAfter=29, messageId=creator-1763572539676-vj1xpz4
+Room.tsx:1184 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 29
+Room.tsx:1199 [Translation] 📝 Translation #29 received - Original: "Be the best....", Translated: "Sé el mejor...."
+Room.tsx:1211 [Translation] 📤 Added to MY messages (total: 1)
+Room.tsx:1232 [Translation] ⏱️ Total processing time: 0ms
+Room.tsx:1077 [Credits] Update received: 184530 seconds remaining, exhausted: false
+Room.tsx:745 [Azure TTS API] ✅ REQUEST #13 SUCCESS - Voice: en-US-AvaMultilingualNeural, Duration: 721ms, Audio size: 22464 bytes
+Room.tsx:759 [Azure TTS API] 📊 Session Total: 13 TTS requests made
+Room.tsx:825 [TTS Queue] Synthesis completed in 1433ms, audio size: 22464 bytes
+Room.tsx:907 [TTS Queue] Setting fallback timeout: 3404ms (audio duration: 1.404s)
+Room.tsx:937 [TTS Queue] Playback started successfully
+Room.tsx:2138 [Azure Speech Dedupe] ⛔ DUPLICATE RESULTID BLOCKED!
+recognizer.recognized @ Room.tsx:2138
+Room.tsx:2139 [Azure Speech Dedupe] 🔍 ResultId: A7F8F99A0AC14FA9B44D16C479AA8BF7
+recognizer.recognized @ Room.tsx:2139
+Room.tsx:2140 [Azure Speech Dedupe] 📝 Text: "He's the best."
+recognizer.recognized @ Room.tsx:2140
+Room.tsx:2141 [Azure Speech Dedupe] ⏱️ Last processed: 2652ms ago (TTL: 5000ms)
+recognizer.recognized @ Room.tsx:2141
+Room.tsx:2142 [Azure Speech Dedupe] 💡 This is likely Azure Speech SDK's rescoring mechanism
+recognizer.recognized @ Room.tsx:2142
+Room.tsx:2143 [Azure Speech Dedupe] ✅ Prevented duplicate from reaching server - no translation cost incurred
+recognizer.recognized @ Room.tsx:2143
+Room.tsx:879 [TTS Queue] Playback completed (audio ended event)
+Room.tsx:843 [TTS Queue] Marked messageId as spoken: participant-1763572539472-jw7hrxh
+Room.tsx:980 [TTS Queue] Queue processor finished
+Room.tsx:2131 [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+Room.tsx:2149 [Azure Speech Dedupe] ✅ New resultId processed: A7F8F99A0AC14FA9B44D16C479AA8BF7, cache size: 1
+Room.tsx:2181 [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+Room.tsx:2216 [Temporal Dedupe] ✅ New offset+text processed: offset=1885900000, text="Who is the best?...", cache size: 1
+Room.tsx:2249 [Speech] ✅ Sent final transcription immediately: "Who is the best?..."
+Room.tsx:2138 [Azure Speech Dedupe] ⛔ DUPLICATE RESULTID BLOCKED!
+recognizer.recognized @ Room.tsx:2138
+processTypeSpecificMessages @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:18873
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17249
+await in receiveMessage
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17256
+await in receiveMessage
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17256
+await in receiveMessage
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17256
+await in receiveMessage
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17256
+await in receiveMessage
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17256
+Room.tsx:2139 [Azure Speech Dedupe] 🔍 ResultId: A7F8F99A0AC14FA9B44D16C479AA8BF7
+recognizer.recognized @ Room.tsx:2139
+processTypeSpecificMessages @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:18873
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17249
+await in receiveMessage
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17256
+await in receiveMessage
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17256
+await in receiveMessage
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17256
+await in receiveMessage
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17256
+await in receiveMessage
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17256
+Room.tsx:2140 [Azure Speech Dedupe] 📝 Text: "She is the best."
+recognizer.recognized @ Room.tsx:2140
+processTypeSpecificMessages @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:18873
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17249
+await in receiveMessage
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17256
+await in receiveMessage
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17256
+await in receiveMessage
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17256
+await in receiveMessage
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17256
+await in receiveMessage
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17256
+Room.tsx:2141 [Azure Speech Dedupe] ⏱️ Last processed: 2859ms ago (TTL: 5000ms)
+recognizer.recognized @ Room.tsx:2141
+processTypeSpecificMessages @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:18873
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17249
+await in receiveMessage
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17256
+await in receiveMessage
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17256
+await in receiveMessage
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17256
+await in receiveMessage
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17256
+await in receiveMessage
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17256
+Room.tsx:2142 [Azure Speech Dedupe] 💡 This is likely Azure Speech SDK's rescoring mechanism
+recognizer.recognized @ Room.tsx:2142
+processTypeSpecificMessages @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:18873
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17249
+await in receiveMessage
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17256
+await in receiveMessage
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17256
+await in receiveMessage
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17256
+await in receiveMessage
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17256
+await in receiveMessage
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17256
+Room.tsx:2143 [Azure Speech Dedupe] ✅ Prevented duplicate from reaching server - no translation cost incurred
+recognizer.recognized @ Room.tsx:2143
+processTypeSpecificMessages @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:18873
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17249
+await in receiveMessage
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17256
+await in receiveMessage
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17256
+await in receiveMessage
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17256
+await in receiveMessage
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17256
+await in receiveMessage
+receiveMessage @ microsoft-cognitiveservices-speech-sdk.js?v=38e7fc72:17256
+Room.tsx:1150 [Translation Received] ⏱️ Timestamp: 1763572562708, Seq: 31, MessageId: participant-1763572560224-soye858, Speaker: participant, IsOwn: false
+Room.tsx:1151 [Translation Received] 📊 DeduplicationSet size BEFORE: 29
+Room.tsx:319 [Sequence] 💾 Saved lastReceivedSeq=31 for room 0d56a8c8-e2c1-47db-b9d0-38b9b499938a
+Room.tsx:1172 [Deduplication] 🔍 Check: sizeBefore=29, sizeAfter=30, messageId=participant-1763572560224-soye858
+Room.tsx:1184 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 30
+Room.tsx:1199 [Translation] 📝 Translation #30 received - Original: "Who interpest....", Translated: "Who interpest...."
+Room.tsx:1215 [Translation] 📥 Added to PARTNER messages (total: 1)
+Room.tsx:1223 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:1224 [Voice Gender] Text to speak: "Who interpest.", Language: en
+Room.tsx:999 [TTS Queue] Adding to queue (queue size: 0): Who interpest.
+Room.tsx:785 [TTS Queue] Queue processor started
+Room.tsx:796 [TTS Queue] Playing: Who interpest. 
+Room.tsx:821 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:544 [Azure Token] Using cached token
+Room.tsx:1232 [Translation] ⏱️ Total processing time: 4ms
+Room.tsx:695 [Azure TTS API] 🎤 REQUEST #14 START - Voice: en-US-AvaMultilingualNeural, Language: en, Region: eastus, Text: "Who interpest...."
+Room.tsx:1077 [Credits] Update received: 184520 seconds remaining, exhausted: false
+Room.tsx:1150 [Translation Received] ⏱️ Timestamp: 1763572564184, Seq: 32, MessageId: creator-1763572564372-yyar99f, Speaker: creator, IsOwn: true
+Room.tsx:1151 [Translation Received] 📊 DeduplicationSet size BEFORE: 30
+Room.tsx:1172 [Deduplication] 🔍 Check: sizeBefore=30, sizeAfter=31, messageId=creator-1763572564372-yyar99f
+Room.tsx:1184 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 31
+Room.tsx:1199 [Translation] 📝 Translation #31 received - Original: "Who is the best?...", Translated: "¿Quién es el mejor?..."
+Room.tsx:1211 [Translation] 📤 Added to MY messages (total: 1)
+Room.tsx:1232 [Translation] ⏱️ Total processing time: 1ms
+Room.tsx:1150 [Translation Received] ⏱️ Timestamp: 1763572568962, Seq: 33, MessageId: participant-1763572569931-2bjrr5o, Speaker: participant, IsOwn: false
+Room.tsx:1151 [Translation Received] 📊 DeduplicationSet size BEFORE: 31
+Room.tsx:319 [Sequence] 💾 Saved lastReceivedSeq=33 for room 0d56a8c8-e2c1-47db-b9d0-38b9b499938a
+Room.tsx:1172 [Deduplication] 🔍 Check: sizeBefore=31, sizeAfter=32, messageId=participant-1763572569931-2bjrr5o
+Room.tsx:1184 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 32
+Room.tsx:1199 [Translation] 📝 Translation #32 received - Original: "She is the best....", Translated: "She is the best...."
+Room.tsx:1215 [Translation] 📥 Added to PARTNER messages (total: 1)
+Room.tsx:1223 [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+Room.tsx:1224 [Voice Gender] Text to speak: "She is the best.", Language: en
+Room.tsx:999 [TTS Queue] Adding to queue (queue size: 0): She is the best.
+Room.tsx:1232 [Translation] ⏱️ Total processing time: 1ms
+Room.tsx:1077 [Credits] Update received: 184510 seconds remaining, exhausted: false
+Room.tsx:1077 [Credits] Update received: 184500 seconds remaining, exhausted: false
+Room.tsx:1364 [WebSocket] 🔌 ONCLOSE HANDLER FIRED! Code: 1006 wasClean: false
+Room.tsx:1408 [WebSocket] 🔌 DISCONNECTED (FULL DETAILS): {code: 1006, reason: 'Abnormal Closure (network/proxy timeout)', customMessage: '', wasClean: false, duration: '4m 1s', …}
+Room.tsx:1432 [Auto-Reconnect] Unintentional disconnect detected - will attempt reconnect
+Room.tsx:1472 [Auto-Reconnect] Attempt 1/8, delay: 100ms, close code: 1006
+Room.tsx:1625 [Reconnect Coordinator] Request from: auto-reconnect, delay: 0ms
+Room.tsx:1634 [Reconnect Coordinator] Starting new reconnection from auto-reconnect
+Room.tsx:1660 [Reconnect Coordinator] Creating new WebSocket connection...
+Room.tsx:1607 [WebSocket] Creating connection to: wss://b20a4f14-f71f-45ae-8f3b-81c8c6850e76-00-2x6dazivcdm2g.janeway.replit.dev/ws
+Room.tsx:745 [Azure TTS API] ✅ REQUEST #14 SUCCESS - Voice: en-US-AvaMultilingualNeural, Duration: 13427ms, Audio size: 22464 bytes
+Room.tsx:759 [Azure TTS API] 📊 Session Total: 14 TTS requests made
+Room.tsx:825 [TTS Queue] Synthesis completed in 25593ms, audio size: 22464 bytes
+Room.tsx:907 [TTS Queue] Setting fallback timeout: 3404ms (audio duration: 1.404s)
+Room.tsx:937 [TTS Queue] Playback started successfully
+Room.tsx:879 [TTS Queue] Playback completed (audio ended event)
+Room.tsx:843 [TTS Queue] Marked messageId as spoken: participant-1763572560224-soye858
+Room.tsx:796 [TTS Queue] Playing: She is the best. 
+Room.tsx:821 [TTS Queue] Synthesizing audio via REST API...
+Room.tsx:544 [Azure Token] Using cached token
+Room.tsx:695 [Azure TTS API] 🎤 REQUEST #15 START - Voice: en-US-AvaMultilingualNeural, Language: en, Region: eastus, Text: "She is the best...."
+Room.tsx:1687 [Reconnect Coordinator] ❌ Reconnection failed: Error: Connection timeout
+    at Room.tsx:1668:24
+(anonymous) @ Room.tsx:1687
+await in (anonymous)
+coordinateReconnect @ Room.tsx:1637
+(anonymous) @ Room.tsx:1479
+setTimeout
+(anonymous) @ Room.tsx:1478
+Room.tsx:1691 [Reconnect Coordinator] Cleaning up coordinator state
+Room.tsx:1484 [Auto-Reconnect] ❌ Reconnection failed: Error: Connection timeout
+    at Room.tsx:1668:24
+(anonymous) @ Room.tsx:1484
+Promise.catch
+(anonymous) @ Room.tsx:1483
+setTimeout
+(anonymous) @ Room.tsx:1478
+Room.tsx:78 [Browser] Visibility changed: HIDDEN
+Room.tsx:80 [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+Room.tsx:1756 [Page Visibility] 🌙 App backgrounded (invisible)
+Room.tsx:78 [Browser] Visibility changed: VISIBLE
+Room.tsx:82 [Browser] ✓ Tab is now visible again
+Room.tsx:1707 [Page Visibility] 👁️ App became visible (resumed from background)
+Room.tsx:1753 [Page Visibility] ✅ WebSocket already connected, no action needed
+Room.tsx:78 [Browser] Visibility changed: HIDDEN
+Room.tsx:80 [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+Room.tsx:1756 [Page Visibility] 🌙 App backgrounded (invisible)
+Room.tsx:78 [Browser] Visibility changed: VISIBLE
+Room.tsx:82 [Browser] ✓ Tab is now visible again
+Room.tsx:1707 [Page Visibility] 👁️ App became visible (resumed from background)
+Room.tsx:1753 [Page Visibility] ✅ WebSocket already connected, no action needed

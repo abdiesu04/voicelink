@@ -1393,31 +1393,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
     // Store the HTTP request for session access
     (ws as any).upgradeReq = req;
     
-    // MOBILE FIX: Native WebSocket keepalive - prevents mobile carrier proxy timeout
+    // MOBILE FIX: Protocol-level pings to keep carrier proxies happy
     // Mobile carriers often terminate idle connections after 15 seconds
-    // Protocol-level pings (ws.ping) are recognized by proxies, unlike application JSON messages
-    let isAlive = true;
+    // We send protocol pings but DON'T terminate on missing pongs because:
+    // 1. Backgrounded mobile browsers don't reliably respond to pings
+    // 2. The 60-second grace period handles truly dead connections
+    // 3. Browser close events handle network failures
     
     ws.on('pong', () => {
-      isAlive = true;
-      console.log('[Keepalive] 💚 Received pong - connection healthy');
+      console.log('[Keepalive] 💚 Received protocol pong - connection healthy');
     });
 
+    // Send protocol-level pings to prevent carrier proxy timeouts
+    // No termination logic - trust browser close events and grace period instead
     const pingInterval = setInterval(() => {
-      if (!isAlive) {
-        console.log('[Keepalive] ❌ No pong received - terminating stale connection');
-        clearInterval(pingInterval);
-        return ws.terminate();
-      }
-      
-      isAlive = false;
       console.log('[Keepalive] 💓 Sending protocol-level ping');
       ws.ping();
     }, 10000); // 10 seconds - prevents mobile carrier 15s idle timeout
 
     ws.on('message', async (data: Buffer) => {
-      // ANY message from client proves connection is alive (fixes disconnection during heavy Azure operations)
-      isAlive = true;
+      // Process incoming messages
       
       try {
         const message = JSON.parse(data.toString());
