@@ -1,0 +1,88 @@
+client:536 WebSocket connection to 'wss://b20a4f14-f71f-45ae-8f3b-81c8c6850e76-00-2x6dazivcdm2g.janeway.replit.dev/?token=AkzEY25guB3k' failed: 
+setupWebSocket @ client:536
+client:536 Uncaught (in promise) SyntaxError: Failed to construct 'WebSocket': The URL 'wss://localhost:undefined/?token=AkzEY25guB3k' is invalid.
+    at setupWebSocket (client:536:19)
+    at fallback (client:509:16)
+    at WebSocket.<anonymous> (client:555:7)
+chunk-RPCDYKBN.js?v=38e7fc72:21551 Download the React DevTools for a better development experience: https://reactjs.org/link/react-devtools
+tab.js:1 Executing inline script violates the following Content Security Policy directive 'script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' chrome-extension://422f5f58-35ee-4faf-a508-ef4d960ca56a/'. Either the 'unsafe-inline' keyword, a hash ('sha256-kPx0AsF0oz2kKiZ875xSvv693TBHkQ/0SkMJZnnNpnQ='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked.
+(anonymous) @ tab.js:1
+Room.tsx:74 [Room Init] Role: creator, Language: en, My Voice Gender: male
+Room.tsx:110 [Browser] Network status: ONLINE
+Room.tsx:392 [State Change] partnerVoiceGender updated to: undefined
+Room.tsx:435 [Partner Wait] Starting 5-minute partner join timeout for owner
+Room.tsx:1761 [Page Visibility] Listener installed for mobile background/resume detection
+Room.tsx:1835 [Network] Network change detection enabled (connection type: 3g )
+Room.tsx:1585 [WebSocket] ⏳ Waiting for URL to be ready (non-blocking)...
+token:1  Failed to load resource: the server responded with a status of 500 (Internal Server Error)
+Room.tsx:251 [WebSocket Token] Server error (500), retrying in 1000ms (attempt 1/3)
+token:1  Failed to load resource: the server responded with a status of 500 (Internal Server Error)
+Room.tsx:251 [WebSocket Token] Server error (500), retrying in 2000ms (attempt 2/3)
+token:1  Failed to load resource: the server responded with a status of 500 (Internal Server Error)
+Room.tsx:251 [WebSocket Token] Server error (500), retrying in 4000ms (attempt 3/3)
+token:1  Failed to load resource: the server responded with a status of 500 (Internal Server Error)
+Room.tsx:255 [WebSocket Token] Failed after 3 retries, falling back to cookie auth
+fetchWsToken @ Room.tsx:255
+Room.tsx:1596 [WebSocket] ❌ Timeout waiting for WebSocket URL
+connectWebSocket @ Room.tsx:1596
+Room.tsx:1883 [WebSocket Setup] Failed to create connection: Error: Timeout waiting for WebSocket URL
+    at Room.tsx:1589:33
+setupConnection @ Room.tsx:1883
+Room.tsx:78 [Browser] Visibility changed: HIDDEN
+Room.tsx:80 [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+Room.tsx:1756 [Page Visibility] 🌙 App backgrounded (invisible)
+Room.tsx:1815 [Network] 🔄 Network type changed: 3g
+Room.tsx:1823 [Network] ⚠️ WebSocket disconnected - auto-reconnect will handle
+Room.tsx:1815 [Network] 🔄 Network type changed: 3g
+Room.tsx:1823 [Network] ⚠️ WebSocket disconnected - auto-reconnect will handle
+Room.tsx:1815 [Network] 🔄 Network type changed: 3g
+Room.tsx:1823 [Network] ⚠️ WebSocket disconnected - auto-reconnect will handle
+Room.tsx:1815 [Network] 🔄 Network type changed: 3g
+Room.tsx:1823 [Network] ⚠️ WebSocket disconnected - auto-reconnect will handle
+Room.tsx:1815 [Network] 🔄 Network type changed: 3g
+Room.tsx:1823 [Network] ⚠️ WebSocket disconnected - auto-reconnect will handle
+Room.tsx:78 [Browser] Visibility changed: VISIBLE
+Room.tsx:82 [Browser] ✓ Tab is now visible again
+Room.tsx:1707 [Page Visibility] 👁️ App became visible (resumed from background)
+Room.tsx:1726 [Page Visibility] 🔄 WebSocket disconnected, attempting immediate reconnection...
+Room.tsx:1625 [Reconnect Coordinator] Request from: page-visibility, delay: 0ms
+Room.tsx:1634 [Reconnect Coordinator] Starting new reconnection from page-visibility
+Room.tsx:1660 [Reconnect Coordinator] Creating new WebSocket connection...
+Room.tsx:1607 [WebSocket] Creating connection to: wss://b20a4f14-f71f-45ae-8f3b-81c8c6850e76-00-2x6dazivcdm2g.janeway.replit.dev/ws
+Room.tsx:1527 [WebSocket] ✅ Connected successfully: {timestamp: '2025-11-19T17:03:19.997Z', url: 'wss://b20a4f14-f71f-45ae-8f3b-81c8c6850e76-00-2x6dazivcdm2g.janeway.replit.dev/ws', protocol: '', readyState: 1, networkType: 'unknown', …}
+Room.tsx:1556 [Sequence] 📤 Sent join message with lastReceivedSeq=0
+Room.tsx:1557 [Message Queue] 📝 Waiting for server join acknowledgment before flushing 0 pending messages...
+Room.tsx:341 [Room Persistence] Saved room settings to localStorage: f2aacfd6-6f2f-4b97-95bd-2a01ebc5d359
+Room.tsx:1683 [Reconnect Coordinator] ✅ Connection established successfully
+Room.tsx:1691 [Reconnect Coordinator] Cleaning up coordinator state
+Room.tsx:1744 [Page Visibility] ✅ Reconnection successful
+Room.tsx:78 [Browser] Visibility changed: HIDDEN
+Room.tsx:80 [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+Room.tsx:1756 [Page Visibility] 🌙 App backgrounded (invisible)
+Room.tsx:1077 [Credits] Update received: 184870 seconds remaining, exhausted: false
+Room.tsx:1150 [Translation Received] ⏱️ Timestamp: 1763571813367, Seq: 1, MessageId: participant-1763571814314-0x1oqxq, Speaker: participant, IsOwn: false
+Room.tsx:1151 [Translation Received] 📊 DeduplicationSet size BEFORE: 0
+Room.tsx:319 [Sequence] 💾 Saved lastReceivedSeq=1 for room f2aacfd6-6f2f-4b97-95bd-2a01ebc5d359
+Room.tsx:1172 [Deduplication] 🔍 Check: sizeBefore=0, sizeAfter=1, messageId=participant-1763571814314-0x1oqxq
+Room.tsx:1184 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 1
+Room.tsx:1199 [Translation] 📝 Translation #1 received - Original: "Como estas....", Translated: "How are you...."
+Room.tsx:1215 [Translation] 📥 Added to PARTNER messages (total: 1)
+Room.tsx:1227 [Voice Gender] Partner voice gender not set (ref value), skipping TTS. State value: undefined
+(anonymous) @ Room.tsx:1227
+Room.tsx:1232 [Translation] ⏱️ Total processing time: 2ms
+Room.tsx:1077 [Credits] Update received: 184860 seconds remaining, exhausted: false
+Room.tsx:78 [Browser] Visibility changed: VISIBLE
+Room.tsx:82 [Browser] ✓ Tab is now visible again
+Room.tsx:1707 [Page Visibility] 👁️ App became visible (resumed from background)
+Room.tsx:1753 [Page Visibility] ✅ WebSocket already connected, no action needed
+Room.tsx:1150 [Translation Received] ⏱️ Timestamp: 1763571821672, Seq: 2, MessageId: participant-1763571822622-qiq99oy, Speaker: participant, IsOwn: false
+Room.tsx:1151 [Translation Received] 📊 DeduplicationSet size BEFORE: 1
+Room.tsx:319 [Sequence] 💾 Saved lastReceivedSeq=2 for room f2aacfd6-6f2f-4b97-95bd-2a01ebc5d359
+Room.tsx:1172 [Deduplication] 🔍 Check: sizeBefore=1, sizeAfter=2, messageId=participant-1763571822622-qiq99oy
+Room.tsx:1184 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 2
+Room.tsx:1199 [Translation] 📝 Translation #2 received - Original: "Hello....", Translated: "Hello...."
+Room.tsx:1215 [Translation] 📥 Added to PARTNER messages (total: 1)
+Room.tsx:1227 [Voice Gender] Partner voice gender not set (ref value), skipping TTS. State value: undefined
+(anonymous) @ Room.tsx:1227
+Room.tsx:1232 [Translation] ⏱️ Total processing time: 2ms
+Room.tsx:1077 [Credits] Update received: 184850 seconds remaining, exhausted: false
