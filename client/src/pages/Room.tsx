@@ -535,27 +535,225 @@ export default function Room() {
   }, [role, partnerConnected, toast, setLocation, PARTNER_WAIT_TIMEOUT, PARTNER_WAIT_WARNING_TIME]);
 
   const azureLanguageMap: Record<string, string> = {
+    // Base languages (short codes mapped to default locales)
     'en': 'en-US', 'es': 'es-ES', 'fr': 'fr-FR', 'de': 'de-DE',
     'it': 'it-IT', 'pt': 'pt-PT', 'ru': 'ru-RU', 'ja': 'ja-JP',
     'ko': 'ko-KR', 'zh': 'zh-CN', 'ar': 'ar-SA', 'hi': 'hi-IN',
-    'nl': 'nl-NL', 'pl': 'pl-PL', 'tr': 'tr-TR',
-    'pt-br': 'pt-BR', 'sv': 'sv-SE', 'nb': 'nb-NO', 'da': 'da-DK',
-    'fi': 'fi-FI', 'el': 'el-GR', 'cs': 'cs-CZ', 'ro': 'ro-RO',
-    'uk': 'uk-UA', 'hu': 'hu-HU', 'vi': 'vi-VN', 'th': 'th-TH',
-    'id': 'id-ID', 'he': 'he-IL', 'bn': 'bn-IN',
-    'ta': 'ta-IN', 'te': 'te-IN', 'mr': 'mr-IN',
-    'bg': 'bg-BG', 'hr': 'hr-HR', 'sk': 'sk-SK',
-    'sl': 'sl-SI', 'ca': 'ca-ES', 'ms': 'ms-MY', 'af': 'af-ZA',
-    'sw': 'sw-KE', 'gu': 'gu-IN', 'kn': 'kn-IN', 'ml': 'ml-IN',
-    'sr': 'sr-RS', 'et': 'et-EE', 'lv': 'lv-LV',
+    'nl': 'nl-NL', 'pl': 'pl-PL', 'tr': 'tr-TR', 'sv': 'sv-SE',
+    'nb': 'nb-NO', 'da': 'da-DK', 'fi': 'fi-FI', 'el': 'el-GR',
+    'cs': 'cs-CZ', 'ro': 'ro-RO', 'uk': 'uk-UA', 'hu': 'hu-HU',
+    'vi': 'vi-VN', 'th': 'th-TH', 'id': 'id-ID', 'he': 'he-IL',
+    'bn': 'bn-IN', 'ta': 'ta-IN', 'te': 'te-IN', 'mr': 'mr-IN',
+    'bg': 'bg-BG', 'hr': 'hr-HR', 'sk': 'sk-SK', 'sl': 'sl-SI',
+    'ca': 'ca-ES', 'ms': 'ms-MY', 'af': 'af-ZA', 'sw': 'sw-KE',
+    'gu': 'gu-IN', 'kn': 'kn-IN', 'ml': 'ml-IN', 'sr': 'sr-RS',
+    'et': 'et-EE', 'lv': 'lv-LV',
+    
+    // English regional variants (13 total)
+    'en-US': 'en-US', 'en-GB': 'en-GB', 'en-AU': 'en-AU', 'en-CA': 'en-CA',
+    'en-IN': 'en-IN', 'en-IE': 'en-IE', 'en-NZ': 'en-NZ', 'en-SG': 'en-SG',
+    'en-HK': 'en-HK', 'en-PH': 'en-PH', 'en-NG': 'en-NG', 'en-ZA': 'en-ZA', 'en-GH': 'en-GH',
+    
+    // Spanish regional variants (20 total)
+    'es-ES': 'es-ES', 'es-MX': 'es-MX', 'es-AR': 'es-AR', 'es-CO': 'es-CO',
+    'es-CL': 'es-CL', 'es-PE': 'es-PE', 'es-VE': 'es-VE', 'es-CR': 'es-CR',
+    'es-PA': 'es-PA', 'es-GT': 'es-GT', 'es-HN': 'es-HN', 'es-NI': 'es-NI',
+    'es-SV': 'es-SV', 'es-BO': 'es-BO', 'es-PY': 'es-PY', 'es-UY': 'es-UY',
+    'es-DO': 'es-DO', 'es-PR': 'es-PR', 'es-EC': 'es-EC', 'es-US': 'es-US',
+    
+    // Arabic regional variants (14 total)
+    'ar-SA': 'ar-SA', 'ar-EG': 'ar-EG', 'ar-AE': 'ar-AE', 'ar-BH': 'ar-BH',
+    'ar-IQ': 'ar-IQ', 'ar-JO': 'ar-JO', 'ar-KW': 'ar-KW', 'ar-LB': 'ar-LB',
+    'ar-OM': 'ar-OM', 'ar-QA': 'ar-QA', 'ar-SY': 'ar-SY', 'ar-LY': 'ar-LY',
+    'ar-MA': 'ar-MA', 'ar-DZ': 'ar-DZ',
+    
+    // Chinese variants (3 total)
+    'zh-CN': 'zh-CN', 'zh-TW': 'zh-TW', 'zh-HK': 'zh-HK',
+    
+    // French variants (2 total)
+    'fr-FR': 'fr-FR', 'fr-CA': 'fr-CA',
+    
+    // German variants (3 total)
+    'de-DE': 'de-DE', 'de-AT': 'de-AT', 'de-CH': 'de-CH',
+    
+    // Portuguese variants (2 total)
+    'pt-PT': 'pt-PT', 'pt-BR': 'pt-BR', 'pt-br': 'pt-BR', // backward compat
   };
 
-  // Azure TTS voice names - using premium multilingual voices for ALL languages
-  // AndrewMultilingualNeural (male) and AvaMultilingualNeural (female) support 47+ languages
-  // NOTE: Premium multilingual voices have lower quota limits (~20 req/min default on Pay-As-You-Go)
-  // If hitting quota errors, request quota increase via Azure support ticket or use standard neural voices
+  // Azure TTS voice mapping - hybrid approach for best quality across 95 languages
+  // Priority: Use region-specific voices for major variants, fall back to multilingual voices
+  // NOTE: Regional voices provide authentic native accents (⭐⭐⭐⭐⭐ quality)
+  // NOTE: Multilingual voices (Andrew/Ava) support 91 language variants (⭐⭐⭐⭐ quality, good but may lack accent nuance)
   const getAzureVoiceName = (languageCode: string, gender: "male" | "female"): string => {
-    // Premium multilingual voices work across ALL 47 languages with natural accent and tone
+    // Comprehensive voice mappings for all 95 supported languages
+    const regionalVoices: Record<string, { male: string; female: string }> = {
+      // English variants (13 total) - authentic US, British, Australian, Canadian, Indian accents
+      "en": { male: "en-US-GuyNeural", female: "en-US-JennyNeural" },
+      "en-US": { male: "en-US-GuyNeural", female: "en-US-JennyNeural" },
+      "en-GB": { male: "en-GB-RyanNeural", female: "en-GB-SoniaNeural" },
+      "en-AU": { male: "en-AU-WilliamNeural", female: "en-AU-NatashaNeural" },
+      "en-CA": { male: "en-CA-LiamNeural", female: "en-CA-ClaraNeural" },
+      "en-IN": { male: "en-IN-PrabhatNeural", female: "en-IN-NeerjaNeural" },
+      "en-IE": { male: "en-IE-ConnorNeural", female: "en-IE-EmilyNeural" },
+      "en-NZ": { male: "en-NZ-MitchellNeural", female: "en-NZ-MollyNeural" },
+      "en-SG": { male: "en-SG-WayneNeural", female: "en-SG-LunaNeural" },
+      "en-HK": { male: "en-HK-SamNeural", female: "en-HK-YanNeural" },
+      "en-PH": { male: "en-PH-JamesNeural", female: "en-PH-RosaNeural" },
+      "en-ZA": { male: "en-ZA-LukeNeural", female: "en-ZA-LeahNeural" },
+      "en-NG": { male: "en-NG-AbeoNeural", female: "en-NG-EzinneNeural" },
+      "en-GH": { male: "en-GH-FiifiNeural", female: "en-GH-AmaNeural" },
+      
+      // Spanish variants (20 total) - authentic Spain, Mexican, Argentine, Colombian accents
+      "es": { male: "es-ES-AlvaroNeural", female: "es-ES-ElviraNeural" },
+      "es-ES": { male: "es-ES-AlvaroNeural", female: "es-ES-ElviraNeural" },
+      "es-MX": { male: "es-MX-JorgeNeural", female: "es-MX-DaliaNeural" },
+      "es-AR": { male: "es-AR-TomasNeural", female: "es-AR-ElenaNeural" },
+      "es-CO": { male: "es-CO-GonzaloNeural", female: "es-CO-SalomeNeural" },
+      "es-CL": { male: "es-CL-LorenzoNeural", female: "es-CL-CatalinaNeural" },
+      "es-PE": { male: "es-PE-AlexNeural", female: "es-PE-CamilaNeural" },
+      "es-VE": { male: "es-VE-SebastianNeural", female: "es-VE-PaolaNeural" },
+      "es-CR": { male: "es-CR-JuanNeural", female: "es-CR-MariaNeural" },
+      "es-US": { male: "es-US-AlonsoNeural", female: "es-US-PalomaNeural" },
+      "es-PA": { male: "es-PA-MargaritaNeural", female: "es-PA-RobertoNeural" },
+      "es-GT": { male: "es-GT-AndresNeural", female: "es-GT-MartaNeural" },
+      "es-HN": { male: "es-HN-CarlosNeural", female: "es-HN-KarlaNeural" },
+      "es-NI": { male: "es-NI-FedericoNeural", female: "es-NI-YolandaNeural" },
+      "es-SV": { male: "es-SV-RodrigoNeural", female: "es-SV-LorenaNeural" },
+      "es-BO": { male: "es-BO-MarceloNeural", female: "es-BO-SofiaNeural" },
+      "es-PY": { male: "es-PY-MarioNeural", female: "es-PY-TaniaNeural" },
+      "es-UY": { male: "es-UY-MateoNeural", female: "es-UY-ValentinaNeural" },
+      "es-DO": { male: "es-DO-EmilioNeural", female: "es-DO-RamonaNeural" },
+      "es-PR": { male: "es-PR-VictorNeural", female: "es-PR-KarinaNeural" },
+      "es-EC": { male: "es-EC-LuisNeural", female: "es-EC-AndreaNeural" },
+      
+      // Arabic variants (14 total) - authentic Saudi, Egyptian, UAE, Levantine accents
+      "ar": { male: "ar-SA-HamedNeural", female: "ar-SA-ZariyahNeural" },
+      "ar-SA": { male: "ar-SA-HamedNeural", female: "ar-SA-ZariyahNeural" },
+      "ar-EG": { male: "ar-EG-ShakirNeural", female: "ar-EG-SalmaNeural" },
+      "ar-AE": { male: "ar-AE-HamdanNeural", female: "ar-AE-FatimaNeural" },
+      "ar-BH": { male: "ar-BH-AliNeural", female: "ar-BH-LailaNeural" },
+      "ar-JO": { male: "ar-JO-TaimNeural", female: "ar-JO-SanaNeural" },
+      "ar-KW": { male: "ar-KW-FahedNeural", female: "ar-KW-NouraNeural" },
+      "ar-LB": { male: "ar-LB-RamiNeural", female: "ar-LB-LaylaNeural" },
+      "ar-OM": { male: "ar-OM-AbdullahNeural", female: "ar-OM-AyshaNeural" },
+      "ar-QA": { male: "ar-QA-MoazNeural", female: "ar-QA-AmalNeural" },
+      "ar-SY": { male: "ar-SY-LaithNeural", female: "ar-SY-AmanyNeural" },
+      "ar-MA": { male: "ar-MA-JamalNeural", female: "ar-MA-MounaNeural" },
+      "ar-DZ": { male: "ar-DZ-IsmaelNeural", female: "ar-DZ-AminaNeural" },
+      "ar-IQ": { male: "ar-IQ-BasselNeural", female: "ar-IQ-RanaNeural" },
+      "ar-LY": { male: "ar-LY-OmarNeural", female: "ar-LY-ImanNeural" },
+      
+      // Chinese variants (3 total) - Simplified, Traditional, Hong Kong Cantonese
+      "zh": { male: "zh-CN-YunxiNeural", female: "zh-CN-XiaoxiaoNeural" },
+      "zh-CN": { male: "zh-CN-YunxiNeural", female: "zh-CN-XiaoxiaoNeural" },
+      "zh-TW": { male: "zh-TW-YunJheNeural", female: "zh-TW-HsiaoChenNeural" },
+      "zh-HK": { male: "zh-HK-WanLungNeural", female: "zh-HK-HiuGaaiNeural" },
+      
+      // French variants (2 total) - France and Canadian accents
+      "fr": { male: "fr-FR-HenriNeural", female: "fr-FR-DeniseNeural" },
+      "fr-FR": { male: "fr-FR-HenriNeural", female: "fr-FR-DeniseNeural" },
+      "fr-CA": { male: "fr-CA-AntoineNeural", female: "fr-CA-SylvieNeural" },
+      
+      // German variants (3 total) - Germany, Austrian, Swiss accents
+      "de": { male: "de-DE-ConradNeural", female: "de-DE-KatjaNeural" },
+      "de-DE": { male: "de-DE-ConradNeural", female: "de-DE-KatjaNeural" },
+      "de-AT": { male: "de-AT-JonasNeural", female: "de-AT-IngridNeural" },
+      "de-CH": { male: "de-CH-JanNeural", female: "de-CH-LeniNeural" },
+      
+      // Portuguese variants (2 total) - Portugal and Brazilian accents
+      "pt": { male: "pt-PT-DuarteNeural", female: "pt-PT-RaquelNeural" },
+      "pt-PT": { male: "pt-PT-DuarteNeural", female: "pt-PT-RaquelNeural" },
+      "pt-BR": { male: "pt-BR-AntonioNeural", female: "pt-BR-FranciscaNeural" },
+      
+      // Single-variant languages (38 total) - major global languages
+      "it": { male: "it-IT-DiegoNeural", female: "it-IT-ElsaNeural" },
+      "it-IT": { male: "it-IT-DiegoNeural", female: "it-IT-ElsaNeural" },
+      "ru": { male: "ru-RU-DmitryNeural", female: "ru-RU-SvetlanaNeural" },
+      "ru-RU": { male: "ru-RU-DmitryNeural", female: "ru-RU-SvetlanaNeural" },
+      "ja": { male: "ja-JP-KeitaNeural", female: "ja-JP-NanamiNeural" },
+      "ja-JP": { male: "ja-JP-KeitaNeural", female: "ja-JP-NanamiNeural" },
+      "ko": { male: "ko-KR-InJoonNeural", female: "ko-KR-SunHiNeural" },
+      "ko-KR": { male: "ko-KR-InJoonNeural", female: "ko-KR-SunHiNeural" },
+      "hi": { male: "hi-IN-MadhurNeural", female: "hi-IN-SwaraNeural" },
+      "hi-IN": { male: "hi-IN-MadhurNeural", female: "hi-IN-SwaraNeural" },
+      "nl": { male: "nl-NL-MaartenNeural", female: "nl-NL-ColetteNeural" },
+      "nl-NL": { male: "nl-NL-MaartenNeural", female: "nl-NL-ColetteNeural" },
+      "pl": { male: "pl-PL-MarekNeural", female: "pl-PL-ZofiaNeural" },
+      "pl-PL": { male: "pl-PL-MarekNeural", female: "pl-PL-ZofiaNeural" },
+      "tr": { male: "tr-TR-AhmetNeural", female: "tr-TR-EmelNeural" },
+      "tr-TR": { male: "tr-TR-AhmetNeural", female: "tr-TR-EmelNeural" },
+      "sv": { male: "sv-SE-MattiasNeural", female: "sv-SE-SofieNeural" },
+      "sv-SE": { male: "sv-SE-MattiasNeural", female: "sv-SE-SofieNeural" },
+      "nb": { male: "nb-NO-FinnNeural", female: "nb-NO-PernilleNeural" },
+      "nb-NO": { male: "nb-NO-FinnNeural", female: "nb-NO-PernilleNeural" },
+      "da": { male: "da-DK-JeppeNeural", female: "da-DK-ChristelNeural" },
+      "da-DK": { male: "da-DK-JeppeNeural", female: "da-DK-ChristelNeural" },
+      "fi": { male: "fi-FI-HarriNeural", female: "fi-FI-NooraNeural" },
+      "fi-FI": { male: "fi-FI-HarriNeural", female: "fi-FI-NooraNeural" },
+      "el": { male: "el-GR-NestorasNeural", female: "el-GR-AthinaNeural" },
+      "el-GR": { male: "el-GR-NestorasNeural", female: "el-GR-AthinaNeural" },
+      "cs": { male: "cs-CZ-AntoninNeural", female: "cs-CZ-VlastaNeural" },
+      "cs-CZ": { male: "cs-CZ-AntoninNeural", female: "cs-CZ-VlastaNeural" },
+      "ro": { male: "ro-RO-EmilNeural", female: "ro-RO-AlinaNeural" },
+      "ro-RO": { male: "ro-RO-EmilNeural", female: "ro-RO-AlinaNeural" },
+      "uk": { male: "uk-UA-OstapNeural", female: "uk-UA-PolinaNeural" },
+      "uk-UA": { male: "uk-UA-OstapNeural", female: "uk-UA-PolinaNeural" },
+      "hu": { male: "hu-HU-TamasNeural", female: "hu-HU-NoemiNeural" },
+      "hu-HU": { male: "hu-HU-TamasNeural", female: "hu-HU-NoemiNeural" },
+      "vi": { male: "vi-VN-NamMinhNeural", female: "vi-VN-HoaiMyNeural" },
+      "vi-VN": { male: "vi-VN-NamMinhNeural", female: "vi-VN-HoaiMyNeural" },
+      "th": { male: "th-TH-NiwatNeural", female: "th-TH-PremwadeeNeural" },
+      "th-TH": { male: "th-TH-NiwatNeural", female: "th-TH-PremwadeeNeural" },
+      "id": { male: "id-ID-ArdiNeural", female: "id-ID-GadisNeural" },
+      "id-ID": { male: "id-ID-ArdiNeural", female: "id-ID-GadisNeural" },
+      "he": { male: "he-IL-AvriNeural", female: "he-IL-HilaNeural" },
+      "he-IL": { male: "he-IL-AvriNeural", female: "he-IL-HilaNeural" },
+      "bn": { male: "bn-IN-BashkarNeural", female: "bn-IN-TanishaaNeural" },
+      "bn-IN": { male: "bn-IN-BashkarNeural", female: "bn-IN-TanishaaNeural" },
+      "ta": { male: "ta-IN-ValluvarNeural", female: "ta-IN-PallaviNeural" },
+      "ta-IN": { male: "ta-IN-ValluvarNeural", female: "ta-IN-PallaviNeural" },
+      "te": { male: "te-IN-MohanNeural", female: "te-IN-ShrutiNeural" },
+      "te-IN": { male: "te-IN-MohanNeural", female: "te-IN-ShrutiNeural" },
+      "mr": { male: "mr-IN-ManoharNeural", female: "mr-IN-AarohiNeural" },
+      "mr-IN": { male: "mr-IN-ManoharNeural", female: "mr-IN-AarohiNeural" },
+      "gu": { male: "gu-IN-NiranjanNeural", female: "gu-IN-DhwaniNeural" },
+      "gu-IN": { male: "gu-IN-NiranjanNeural", female: "gu-IN-DhwaniNeural" },
+      "kn": { male: "kn-IN-GaganNeural", female: "kn-IN-SapnaNeural" },
+      "kn-IN": { male: "kn-IN-GaganNeural", female: "kn-IN-SapnaNeural" },
+      "ml": { male: "ml-IN-MidhunNeural", female: "ml-IN-SobhanaNeural" },
+      "ml-IN": { male: "ml-IN-MidhunNeural", female: "ml-IN-SobhanaNeural" },
+      "bg": { male: "bg-BG-BorislavNeural", female: "bg-BG-KalinaNeural" },
+      "bg-BG": { male: "bg-BG-BorislavNeural", female: "bg-BG-KalinaNeural" },
+      "hr": { male: "hr-HR-SreckoNeural", female: "hr-HR-GabrijelaNeural" },
+      "hr-HR": { male: "hr-HR-SreckoNeural", female: "hr-HR-GabrijelaNeural" },
+      "sk": { male: "sk-SK-LukasNeural", female: "sk-SK-ViktoriaNeural" },
+      "sk-SK": { male: "sk-SK-LukasNeural", female: "sk-SK-ViktoriaNeural" },
+      "sl": { male: "sl-SI-RokNeural", female: "sl-SI-PetraNeural" },
+      "sl-SI": { male: "sl-SI-RokNeural", female: "sl-SI-PetraNeural" },
+      "ca": { male: "ca-ES-EnricNeural", female: "ca-ES-JoanaNeural" },
+      "ca-ES": { male: "ca-ES-EnricNeural", female: "ca-ES-JoanaNeural" },
+      "ms": { male: "ms-MY-OsmanNeural", female: "ms-MY-YasminNeural" },
+      "ms-MY": { male: "ms-MY-OsmanNeural", female: "ms-MY-YasminNeural" },
+      "af": { male: "af-ZA-WillemNeural", female: "af-ZA-AdriNeural" },
+      "af-ZA": { male: "af-ZA-WillemNeural", female: "af-ZA-AdriNeural" },
+      "sw": { male: "sw-KE-RafikiNeural", female: "sw-KE-ZuriNeural" },
+      "sw-KE": { male: "sw-KE-RafikiNeural", female: "sw-KE-ZuriNeural" },
+      "sr": { male: "sr-RS-NicholasNeural", female: "sr-RS-SophieNeural" },
+      "sr-RS": { male: "sr-RS-NicholasNeural", female: "sr-RS-SophieNeural" },
+      "et": { male: "et-EE-KertNeural", female: "et-EE-AnuNeural" },
+      "et-EE": { male: "et-EE-KertNeural", female: "et-EE-AnuNeural" },
+      "lv": { male: "lv-LV-NilsNeural", female: "lv-LV-EveritaNeural" },
+      "lv-LV": { male: "lv-LV-NilsNeural", female: "lv-LV-EveritaNeural" },
+    };
+    
+    // Check if regional voice exists for this language
+    const regionalVoice = regionalVoices[languageCode];
+    if (regionalVoice) {
+      return gender === "male" ? regionalVoice.male : regionalVoice.female;
+    }
+    
+    // Fall back to premium multilingual voices (Andrew/Ava) for all other languages
+    // These support 91 language/accent variants with auto language detection and neutral accent
     return gender === "male" ? "en-US-AndrewMultilingualNeural" : "en-US-AvaMultilingualNeural";
   };
 
