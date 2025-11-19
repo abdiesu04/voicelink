@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useMemo } from "react";
-import { useRoute, useLocation } from "wouter";
+import { useRoute, useLocation, Link } from "wouter";
 import { Mic, MicOff, PhoneOff, Copy, Check, Share2, Volume2, Sparkles, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { ConnectionStatus } from "@/components/ConnectionStatus";
@@ -2563,14 +2563,16 @@ export default function Room() {
                 </div>
               )}
               
-              {/* Minutes Remaining Badge - HOST only, mobile and desktop */}
+              {/* Minutes Remaining Badge - HOST only, mobile and desktop - Clickable */}
               {(role === "creator" || role === "owner") && subscription && (
-                <div className="flex items-center gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-primary/10 border border-primary/30">
-                  <Sparkles className="h-3 w-3 text-primary" />
-                  <span className="text-xs sm:text-sm font-bold text-foreground" data-testid="text-minutes-remaining">
-                    {Math.floor((subscription.creditsRemaining || 0) / 60)} min
-                  </span>
-                </div>
+                <Link href="/account">
+                  <div className="flex items-center gap-1.5 px-2 sm:px-3 py-1 sm:py-1.5 rounded-lg bg-primary/10 border border-primary/30 cursor-pointer hover:bg-primary/20 transition-colors">
+                    <Sparkles className="h-3 w-3 text-primary" />
+                    <span className="text-xs sm:text-sm font-bold text-foreground" data-testid="text-minutes-remaining">
+                      {Math.floor((subscription.creditsRemaining || 0) / 60)} min
+                    </span>
+                  </div>
+                </Link>
               )}
             </div>
             

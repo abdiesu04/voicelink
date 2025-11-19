@@ -20,7 +20,6 @@ import PaymentSuccess from "@/pages/PaymentSuccess";
 import QueueTest from "@/pages/QueueTest";
 import PrivacyPolicy from "@/pages/PrivacyPolicy";
 import CaliforniaPrivacyPolicy from "@/pages/CaliforniaPrivacyPolicy";
-import VoiceTranslator from "@/pages/VoiceTranslator";
 import Contact from "@/pages/Contact";
 import NotFound from "@/pages/not-found";
 
@@ -50,7 +49,6 @@ function Router() {
       <Route path="/test/queue" component={QueueTest} />
       <Route path="/privacy-policy" component={PrivacyPolicy} />
       <Route path="/california-privacy-policy" component={CaliforniaPrivacyPolicy} />
-      <Route path="/voice-translator" component={VoiceTranslator} />
       <Route path="/contact" component={Contact} />
       <Route component={NotFound} />
     </Switch>

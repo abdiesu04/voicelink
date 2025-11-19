@@ -39,7 +39,6 @@ export function Footer() {
             <div>
               <h4 className="font-semibold text-slate-900 dark:text-white mb-3 md:mb-4">Company</h4>
               <ul className="space-y-1 text-sm md:text-base text-slate-600 dark:text-slate-300">
-                <li><Link href="/voice-translator" className="block min-h-[48px] py-2 hover:text-primary transition-colors touch-manipulation" data-testid="link-footer-voice-translator">Voice Translator</Link></li>
                 <li><Link href="/privacy-policy" className="block min-h-[48px] py-2 hover:text-primary transition-colors touch-manipulation" data-testid="link-footer-privacy-policy">Privacy Policy</Link></li>
                 <li><Link href="/california-privacy-policy" className="block min-h-[48px] py-2 hover:text-primary transition-colors touch-manipulation" data-testid="link-footer-california-privacy">California Privacy Policy</Link></li>
                 <li><Link href="/contact" className="block min-h-[48px] py-2 hover:text-primary transition-colors touch-manipulation" data-testid="link-footer-contact-us">Contact Us</Link></li>
