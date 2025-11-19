@@ -1878,8 +1878,6 @@ export default function Room() {
       return;
     }
     
-    setConversationStarted(true);
-    
     // MOBILE FIX: Unlock audio on first microphone activation
     await unlockAudioForMobile();
     
@@ -2170,10 +2168,16 @@ export default function Room() {
       
       recognizer.startContinuousRecognitionAsync(
         () => {
-          console.log('[Speech] Recognition started successfully');
+          console.log('[Speech] Recognition started successfully - microphone is now active');
           recognizerRef.current = recognizer;
           isMutedRef.current = false; // Update ref to allow event processing
           setIsMuted(false);
+          
+          // MOBILE UX FIX: Only set conversation as started AFTER mic permission is granted and recognizer is active
+          // This prevents showing the mic controls before permission is granted, eliminating the need for a second click
+          setConversationStarted(true);
+          
+          console.log('[Speech] Conversation started with microphone already active (no second click needed)');
         },
         (err) => {
           console.error('[Speech] Failed to start recognition:', err);
