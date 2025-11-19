@@ -2695,9 +2695,9 @@ export default function Room() {
       )}
 
       {/* Main Content - Mobile: 100% fit to frame, no scrolling */}
-      <main className="flex-1 overflow-hidden relative z-10 pb-[140px] md:pb-0">
-        <div className="h-full container mx-auto px-2 sm:px-6 md:px-12 py-1.5 sm:py-4 md:py-6">
-          <div className="h-full grid grid-cols-1 md:grid-cols-2 gap-1.5 sm:gap-4 max-w-7xl mx-auto">
+      <main className="flex-1 overflow-hidden relative z-10 pb-[90px] md:pb-0">
+        <div className="h-full container mx-auto px-2 sm:px-6 md:px-12 py-0.5 sm:py-4 md:py-6">
+          <div className="h-full grid grid-cols-1 md:grid-cols-2 gap-0.5 sm:gap-4 max-w-7xl mx-auto">
             <TranscriptionPanel
               title="You"
               isActive={isSpeaking}
@@ -2852,11 +2852,11 @@ export default function Room() {
       <UpgradeModal open={showUpgradeModal} onOpenChange={setShowUpgradeModal} />
 
       {/* Mobile Sticky Bottom Toolbar - Compact overlay, doesn't affect layout height */}
-      <div className="md:hidden fixed bottom-0 inset-x-0 px-3 pt-2 pb-safe z-20">
-        <div className="flex flex-col items-center gap-2 rounded-t-2xl bg-background/90 dark:bg-slate-900/95 shadow-[0_-8px_30px_rgba(15,23,42,0.35)] backdrop-blur-xl py-3 px-4">
+      <div className="md:hidden fixed bottom-0 inset-x-0 px-2 pt-1.5 pb-safe z-20">
+        <div className="flex flex-col items-center gap-1.5 rounded-t-2xl bg-background/90 dark:bg-slate-900/95 shadow-[0_-8px_30px_rgba(15,23,42,0.35)] backdrop-blur-xl py-2 px-3">
           {!conversationStarted ? (
             <>
-              <div className="flex justify-center gap-2 w-full">
+              <div className="flex justify-center gap-1.5 w-full">
                 <Button
                   size="lg"
                   onClick={startConversation}
@@ -2901,7 +2901,7 @@ export default function Room() {
               )}
             </>
           ) : (
-            <div className="flex justify-center gap-2 w-full">
+            <div className="flex justify-center gap-1.5 w-full">
               {conversationStarted && (
                 <Button
                   size="lg"
