@@ -243,16 +243,6 @@ export default function Home() {
                   </Button>
                 </Link>
               </div>
-
-              {/* Talk without barriers - moved here */}
-              <div className="space-y-4 pt-8">
-                <h4 className="text-2xl font-semibold text-slate-900 dark:text-white">
-                  Talk without barriers
-                </h4>
-                <p className="text-lg text-slate-600 dark:text-slate-300">
-                  Start your first real-time translated conversation today — free, private, and truly human.
-                </p>
-              </div>
             </div>
 
           </div>
@@ -574,6 +564,16 @@ export default function Home() {
                     Start Translating
                   </Button>
                 </Link>
+              </div>
+
+              {/* Talk without barriers - positioned below buttons in bottom module */}
+              <div className="space-y-4 pt-8 text-center">
+                <h4 className="text-2xl font-semibold text-slate-900 dark:text-white">
+                  Talk without barriers
+                </h4>
+                <p className="text-lg text-slate-600 dark:text-slate-300">
+                  Start your first real-time translated conversation today — free, private, and truly human.
+                </p>
               </div>
             </div>
           </div>
