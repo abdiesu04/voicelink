@@ -1,0 +1,1003 @@
+voicelink:1 [Intervention] Slow network is detected. See https://www.chromestatus.com/feature/5636954674692096 for more details. Fallback font will be used while loading: https://replit.com/public/fonts/ibm-plex-sans-v8-latin-regular.woff2
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+voicelink:1 The source list for the Content Security Policy directive 'default-src' contains an invalid source: ''unsafe-dynamic''. It will be ignored.
+voicelink:1 The Content-Security-Policy directive 'default-src' contains 'report-uri' as a source expression. Did you want to add it as a directive and forget a semicolon?
+voicelink:1 The source list for Content Security Policy directive 'default-src' contains a source with an invalid path: '/api/4509669501698048/security/?sentry_key=7eb3d90eb4660416caf507087367e67e'. The query component, including the '?', will be ignored.
+ Executing inline script violates the following Content Security Policy directive 'script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' chrome-extension://422f5f58-35ee-4faf-a508-ef4d960ca56a/'. Either the 'unsafe-inline' keyword, a hash ('sha256-kPx0AsF0oz2kKiZ875xSvv693TBHkQ/0SkMJZnnNpnQ='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked.
+(anonymous) @ chrome-extension://a…j/includes/tab.js:1
+ [Coframe] Replit Enterprise watcher loaded
+ 
+      /////////////////////
+   ///////////////////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////        Curious and driven?
+  ///////////////@@@@@@@///////        Work with us!
+  ///////////////@@@@@@@///////
+  ///////////////@@@@@@@///////        https://join.replit.com/hack.with.us
+  ////////@@@@@@@//////////////
+  ////////@@@@@@@//////////////
+  ////////@@@@@@#//////////////
+   ///////////////////////////
+      /////////////////////
+      
+ Download the Apollo DevTools for a better development experience: https://chrome.google.com/webstore/detail/apollo-client-developer-t/jdkknkkbebbapilgoeccciglkfbmbnfm
+ [LaunchDarkly] LaunchDarkly client initialized
+ Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'ambient-light-sensor'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'battery'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'execution-while-not-rendered'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'execution-while-out-of-viewport'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'layout-animations'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'legacy-image-formats'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'navigation-override'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'oversized-images'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'publickey-credentials'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'speaker-selection'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'unoptimized-images'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'unsized-media'.
+z @ ed1e693c96a75807.js:2
+ Unrecognized feature: 'pointer-lock'.
+z @ ed1e693c96a75807.js:2
+ Allow attribute will take precedence over 'allowfullscreen'.
+z @ ed1e693c96a75807.js:2
+ Allow attribute will take precedence over 'allowpaymentrequest'.
+z @ ed1e693c96a75807.js:2
+workspace_iframe.html?initialPath=%2F&id=%3Ar4i%3A:32 Error while parsing the 'sandbox' attribute: 'allow-downloads-without-user-activation' is an invalid sandbox flag.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4i%3A:32 Unrecognized feature: 'ambient-light-sensor'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4i%3A:32 Unrecognized feature: 'battery'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4i%3A:32 Unrecognized feature: 'execution-while-not-rendered'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4i%3A:32 Unrecognized feature: 'execution-while-out-of-viewport'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4i%3A:32 Unrecognized feature: 'layout-animations'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4i%3A:32 Unrecognized feature: 'legacy-image-formats'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4i%3A:32 Unrecognized feature: 'navigation-override'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4i%3A:32 Unrecognized feature: 'oversized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4i%3A:32 Unrecognized feature: 'publickey-credentials'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4i%3A:32 Unrecognized feature: 'speaker-selection'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4i%3A:32 Unrecognized feature: 'unoptimized-images'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4i%3A:32 Unrecognized feature: 'unsized-media'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4i%3A:32 Allow attribute will take precedence over 'allowfullscreen'.
+workspace_iframe.html?initialPath=%2F&id=%3Ar4i%3A:32 Allow attribute will take precedence over 'allowpaymentrequest'.
+ WebSocket connection to 'wss://b20a4f14-f71f-45ae-8f3b-81c8c6850e76-00-2x6dazivcdm2g.janeway.replit.dev/?token=wm2BpipCzDFO' failed: 
+setupWebSocket @ client:536
+client:536 Uncaught (in promise) 
+voicelink:1 Banner not shown: beforeinstallpromptevent.preventDefault() called. The page must call beforeinstallpromptevent.prompt() to show the banner.
+ [Room Init] Role: creator, Language: en-GB, My Voice Gender: male
+ [Browser] Network status: ONLINE
+ [State Change] partnerVoiceGender updated to: undefined
+ [Partner Wait] Starting 5-minute partner join timeout for owner
+ [Page Visibility] Listener installed for mobile background/resume detection
+ [Network] Network change detection enabled (connection type: 3g )
+ [WebSocket] ⏳ Waiting for URL to be ready (non-blocking)...
+b20a4f14-f71f-45ae-8f3b-81c8c6850e76-00-2x6dazivcdm2g.janeway.replit.dev/api/ws/token:1  Failed to load resource: the server responded with a status of 500 (Internal Server Error)
+ [WebSocket Token] Server error (500), retrying in 1000ms (attempt 1/3)
+b20a4f14-f71f-45ae-8f3b-81c8c6850e76-00-2x6dazivcdm2g.janeway.replit.dev/api/ws/token:1  Failed to load resource: the server responded with a status of 500 (Internal Server Error)
+ [WebSocket Token] Server error (500), retrying in 2000ms (attempt 2/3)
+b20a4f14-f71f-45ae-8f3b-81c8c6850e76-00-2x6dazivcdm2g.janeway.replit.dev/api/ws/token:1  Failed to load resource: the server responded with a status of 500 (Internal Server Error)
+ [WebSocket Token] Server error (500), retrying in 4000ms (attempt 3/3)
+ [Browser] Visibility changed: HIDDEN
+ [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+ [Page Visibility] 🌙 App backgrounded (invisible)
+b20a4f14-f71f-45ae-8f3b-81c8c6850e76-00-2x6dazivcdm2g.janeway.replit.dev/api/ws/token:1  Failed to load resource: the server responded with a status of 500 (Internal Server Error)
+ [WebSocket Token] Failed after 3 retries, falling back to cookie auth
+(anonymous) @ injected.js:37
+ [WebSocket] ❌ Timeout waiting for WebSocket URL
+(anonymous) @ injected.js:37
+ [WebSocket Setup] Failed to create connection: 
+(anonymous) @ injected.js:37
+ [Network] 🔄 Network type changed: 3g
+ [Network] ⚠️ WebSocket disconnected - auto-reconnect will handle
+ [Network] 🔄 Network type changed: 4g
+ [Network] ⚠️ WebSocket disconnected - auto-reconnect will handle
+ [Browser] Visibility changed: VISIBLE
+ [Browser] ✓ Tab is now visible again
+ [Page Visibility] 👁️ App became visible (resumed from background)
+ [Page Visibility] 🔄 WebSocket disconnected, attempting immediate reconnection...
+ [Reconnect Coordinator] Request from: page-visibility, delay: 0ms
+ [Reconnect Coordinator] Starting new reconnection from page-visibility
+ [Reconnect Coordinator] Creating new WebSocket connection...
+ [WebSocket] Creating connection to: wss://b20a4f14-f71f-45ae-8f3b-81c8c6850e76-00-2x6dazivcdm2g.janeway.replit.dev/ws
+ [WebSocket] ✅ Connected successfully: Object
+ [Sequence] 📤 Sent join message with lastReceivedSeq=0
+ [Message Queue] 📝 Waiting for server join acknowledgment before flushing 0 pending messages...
+ [Room Persistence] Saved room settings to localStorage: 181b2826-8379-4d5b-baee-61e33cb714c3
+ [Reconnect Coordinator] ✅ Connection established successfully
+ [Reconnect Coordinator] Cleaning up coordinator state
+ [Page Visibility] ✅ Reconnection successful
+ [Voice Gender] Partner joined with gender: female
+ [Voice Gender] My gender: male
+ [Partner Wait] Cleaning up timeout timers
+ [State Change] partnerVoiceGender updated to: female
+ [Partner Wait] Partner already connected - clearing all timers
+ [Browser] Visibility changed: HIDDEN
+ [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+ [Page Visibility] 🌙 App backgrounded (invisible)
+ [Browser] Visibility changed: VISIBLE
+ [Browser] ✓ Tab is now visible again
+ [Page Visibility] 👁️ App became visible (resumed from background)
+ [Page Visibility] ✅ WebSocket already connected, no action needed
+ [Start Conversation] ✅ All checks passed - WebSocket OPEN, partner connected, quota available
+ [Audio Unlock] Attempting to unlock audio for mobile...
+ [Audio Unlock] Audio successfully unlocked for mobile
+ [Azure Token API] 🔑 REQUEST #1 START - Fetching new auth token
+ [Azure Token API] ✅ REQUEST #1 SUCCESS - Duration: 613ms, Region: eastus
+ [Azure Speech] ✓ Session started: Object
+ [Speech] Recognition started successfully - microphone is now active
+ [Speech] Conversation started with microphone already active (no second click needed)
+ [Credits] Update received: 180240 seconds remaining, exhausted: false
+ [Browser] Visibility changed: HIDDEN
+ [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+ [Page Visibility] 🌙 App backgrounded (invisible)
+ [Browser] Visibility changed: VISIBLE
+ [Browser] ✓ Tab is now visible again
+ [Page Visibility] 👁️ App became visible (resumed from background)
+ [Page Visibility] ✅ WebSocket already connected, no action needed
+ [Azure Speech Dedupe] ✅ New resultId processed: 850E6E6CB3A04FF99A8EE1A8C11752DF, cache size: 1
+ [Temporal Dedupe] ✅ New offset+text processed: offset=67900000, text="Hi....", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "Hi...."
+ [Translation Received] ⏱️ Timestamp: 1763588725630, Seq: 1, MessageId: participant-1763588726917-pnjhwn5, Speaker: participant, IsOwn: false
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 0
+ [Sequence] 💾 Saved lastReceivedSeq=1 for room 181b2826-8379-4d5b-baee-61e33cb714c3
+ [Deduplication] 🔍 Check: sizeBefore=0, sizeAfter=1, messageId=participant-1763588726917-pnjhwn5
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 1
+ [Translation] 📝 Translation #1 received - Original: "Hi....", Translated: "Hi...."
+ [Translation] 📥 Added to PARTNER messages (total: 1)
+ [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+ [Voice Gender] Text to speak: "Hi.", Language: en-GB
+ [TTS Queue] Adding to queue (queue size: 0): Hi.
+ [TTS Queue] Queue processor started
+ [TTS Queue] Playing: Hi. 
+ [TTS Queue] Synthesizing audio via REST API...
+ [Azure Token] Using cached token
+ [Translation] ⏱️ Total processing time: 9ms
+ [Azure TTS API] 🎤 REQUEST #1 START - Voice: en-GB-SoniaNeural, Language: en-GB, Region: eastus, Text: "Hi...."
+ [Translation Received] ⏱️ Timestamp: 1763588725856, Seq: 2, MessageId: creator-1763588727158-eubnym0, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 1
+ [Deduplication] 🔍 Check: sizeBefore=1, sizeAfter=2, messageId=creator-1763588727158-eubnym0
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 2
+ [Translation] 📝 Translation #2 received - Original: "Hi....", Translated: "Hi...."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 0ms
+ [Browser] Visibility changed: HIDDEN
+ [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+ [Page Visibility] 🌙 App backgrounded (invisible)
+ [Azure TTS API] ✅ REQUEST #1 SUCCESS - Voice: en-GB-SoniaNeural, Duration: 2271ms, Audio size: 15552 bytes
+ [Azure TTS API] 📊 Session Total: 1 TTS requests made
+ [TTS Queue] Synthesis completed in 2275ms, audio size: 15552 bytes
+ [TTS Queue] Setting fallback timeout: 2972ms (audio duration: 0.972s)
+ [TTS Queue] Playback started successfully
+ [TTS Queue] Playback completed (audio ended event)
+ [TTS Queue] Marked messageId as spoken: participant-1763588726917-pnjhwn5
+ [TTS Queue] Queue processor finished
+ [Credits] Update received: 180230 seconds remaining, exhausted: false
+ [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 850E6E6CB3A04FF99A8EE1A8C11752DF, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=193200000, text="How are you doing?...", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "How are you doing?..."
+ [Translation Received] ⏱️ Timestamp: 1763588740307, Seq: 3, MessageId: creator-1763588741608-9vha4vj, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 2
+ [Deduplication] 🔍 Check: sizeBefore=2, sizeAfter=3, messageId=creator-1763588741608-9vha4vj
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 3
+ [Translation] 📝 Translation #3 received - Original: "How are you doing?...", Translated: "How are you doing?..."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 1ms
+ [Translation Received] ⏱️ Timestamp: 1763588740793, Seq: 4, MessageId: participant-1763588742081-zg2pn2n, Speaker: participant, IsOwn: false
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 3
+ [Sequence] 💾 Saved lastReceivedSeq=4 for room 181b2826-8379-4d5b-baee-61e33cb714c3
+ [Deduplication] 🔍 Check: sizeBefore=3, sizeAfter=4, messageId=participant-1763588742081-zg2pn2n
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 4
+ [Translation] 📝 Translation #4 received - Original: "How are you doing?...", Translated: "How are you doing?..."
+ [Translation] 📥 Added to PARTNER messages (total: 1)
+ [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+ [Voice Gender] Text to speak: "How are you doing?", Language: en-GB
+ [TTS Queue] Adding to queue (queue size: 0): How are you doing?
+ [TTS Queue] Queue processor started
+ [TTS Queue] Playing: How are you doing? 
+ [TTS Queue] Synthesizing audio via REST API...
+ [Azure Token] Using cached token
+ [Translation] ⏱️ Total processing time: 2ms
+ [Azure TTS API] 🎤 REQUEST #2 START - Voice: en-GB-SoniaNeural, Language: en-GB, Region: eastus, Text: "How are you doing?..."
+ [Azure TTS API] ✅ REQUEST #2 SUCCESS - Voice: en-GB-SoniaNeural, Duration: 954ms, Audio size: 24192 bytes
+ [Azure TTS API] 📊 Session Total: 2 TTS requests made
+ [TTS Queue] Synthesis completed in 959ms, audio size: 24192 bytes
+ [TTS Queue] Setting fallback timeout: 3512ms (audio duration: 1.512s)
+ [TTS Queue] Playback started successfully
+ [TTS Queue] Playback completed (audio ended event)
+ [TTS Queue] Marked messageId as spoken: participant-1763588742081-zg2pn2n
+ [TTS Queue] Queue processor finished
+ [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 850E6E6CB3A04FF99A8EE1A8C11752DF, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=261900000, text="Where do you live?...", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "Where do you live?..."
+ [Translation Received] ⏱️ Timestamp: 1763588746272, Seq: 5, MessageId: creator-1763588747572-6e50pwk, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 4
+ [Deduplication] 🔍 Check: sizeBefore=4, sizeAfter=5, messageId=creator-1763588747572-6e50pwk
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 5
+ [Translation] 📝 Translation #5 received - Original: "Where do you live?...", Translated: "Where do you live?..."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 2ms
+ [Browser] Visibility changed: VISIBLE
+ [Browser] ✓ Tab is now visible again
+ [Page Visibility] 👁️ App became visible (resumed from background)
+ [Page Visibility] ✅ WebSocket already connected, no action needed
+ [Translation Received] ⏱️ Timestamp: 1763588747280, Seq: 6, MessageId: participant-1763588748583-1xnksei, Speaker: participant, IsOwn: false
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 5
+ [Sequence] 💾 Saved lastReceivedSeq=6 for room 181b2826-8379-4d5b-baee-61e33cb714c3
+ [Deduplication] 🔍 Check: sizeBefore=5, sizeAfter=6, messageId=participant-1763588748583-1xnksei
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 6
+ [Translation] 📝 Translation #6 received - Original: "Where do you live?...", Translated: "Where do you live?..."
+ [Translation] 📥 Added to PARTNER messages (total: 1)
+ [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+ [Voice Gender] Text to speak: "Where do you live?", Language: en-GB
+ [TTS Queue] Adding to queue (queue size: 0): Where do you live?
+ [TTS Queue] Queue processor started
+ [TTS Queue] Playing: Where do you live? 
+ [TTS Queue] Synthesizing audio via REST API...
+ [Azure Token] Using cached token
+ [Translation] ⏱️ Total processing time: 3ms
+ [Azure TTS API] 🎤 REQUEST #3 START - Voice: en-GB-SoniaNeural, Language: en-GB, Region: eastus, Text: "Where do you live?..."
+ [Azure TTS API] ✅ REQUEST #3 SUCCESS - Voice: en-GB-SoniaNeural, Duration: 1078ms, Audio size: 24768 bytes
+ [Azure TTS API] 📊 Session Total: 3 TTS requests made
+ [TTS Queue] Synthesis completed in 1082ms, audio size: 24768 bytes
+ [TTS Queue] Setting fallback timeout: 3548ms (audio duration: 1.548s)
+ [TTS Queue] Playback started successfully
+ [Credits] Update received: 180220 seconds remaining, exhausted: false
+ [TTS Queue] Playback completed (audio ended event)
+ [TTS Queue] Marked messageId as spoken: participant-1763588748583-1xnksei
+ [TTS Queue] Queue processor finished
+ [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 850E6E6CB3A04FF99A8EE1A8C11752DF, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=332000000, text="Are you fine?...", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "Are you fine?..."
+ [Translation Received] ⏱️ Timestamp: 1763588754179, Seq: 7, MessageId: creator-1763588755481-zwhp1od, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 6
+ [Deduplication] 🔍 Check: sizeBefore=6, sizeAfter=7, messageId=creator-1763588755481-zwhp1od
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 7
+ [Translation] 📝 Translation #7 received - Original: "Are you fine?...", Translated: "Are you fine?..."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 1ms
+ [Translation Received] ⏱️ Timestamp: 1763588754370, Seq: 8, MessageId: participant-1763588755660-jyrjqlw, Speaker: participant, IsOwn: false
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 7
+ [Sequence] 💾 Saved lastReceivedSeq=8 for room 181b2826-8379-4d5b-baee-61e33cb714c3
+ [Deduplication] 🔍 Check: sizeBefore=7, sizeAfter=8, messageId=participant-1763588755660-jyrjqlw
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 8
+ [Translation] 📝 Translation #8 received - Original: "Are you fine?...", Translated: "Are you fine?..."
+ [Translation] 📥 Added to PARTNER messages (total: 1)
+ [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+ [Voice Gender] Text to speak: "Are you fine?", Language: en-GB
+ [TTS Queue] Adding to queue (queue size: 0): Are you fine?
+ [TTS Queue] Queue processor started
+ [TTS Queue] Playing: Are you fine? 
+ [TTS Queue] Synthesizing audio via REST API...
+ [Azure Token] Using cached token
+ [Translation] ⏱️ Total processing time: 1ms
+ [Azure TTS API] 🎤 REQUEST #4 START - Voice: en-GB-SoniaNeural, Language: en-GB, Region: eastus, Text: "Are you fine?..."
+ [Azure TTS API] ✅ REQUEST #4 SUCCESS - Voice: en-GB-SoniaNeural, Duration: 1040ms, Audio size: 21888 bytes
+ [Azure TTS API] 📊 Session Total: 4 TTS requests made
+ [TTS Queue] Synthesis completed in 1068ms, audio size: 21888 bytes
+ [TTS Queue] Setting fallback timeout: 3368.0000000000005ms (audio duration: 1.368s)
+ [TTS Queue] Playback started successfully
+ [TTS Queue] Playback completed (audio ended event)
+ [TTS Queue] Marked messageId as spoken: participant-1763588755660-jyrjqlw
+ [TTS Queue] Queue processor finished
+ [Credits] Update received: 180210 seconds remaining, exhausted: false
+ [Browser] Visibility changed: HIDDEN
+ [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+ [Page Visibility] 🌙 App backgrounded (invisible)
+ [Browser] Visibility changed: VISIBLE
+ [Browser] ✓ Tab is now visible again
+ [Page Visibility] 👁️ App became visible (resumed from background)
+ [Page Visibility] ✅ WebSocket already connected, no action needed
+ [Credits] Update received: 180200 seconds remaining, exhausted: false
+ [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 850E6E6CB3A04FF99A8EE1A8C11752DF, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=449300000, text="It is very important to have s...", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "It is very important to have s..."
+ [Translation Received] ⏱️ Timestamp: 1763588774492, Seq: 9, MessageId: creator-1763588775788-7w5z8ci, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 8
+ [Deduplication] 🔍 Check: sizeBefore=8, sizeAfter=9, messageId=creator-1763588775788-7w5z8ci
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 9
+ [Translation] 📝 Translation #9 received - Original: "It is very important to have s...", Translated: "It is very important to have s..."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 1ms
+ [Credits] Update received: 180190 seconds remaining, exhausted: false
+ [Credits] Update received: 180180 seconds remaining, exhausted: false
+ [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 850E6E6CB3A04FF99A8EE1A8C11752DF, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=632400000, text="Alright, that's really interes...", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "Alright, that's really interes..."
+ [Translation Received] ⏱️ Timestamp: 1763588799187, Seq: 10, MessageId: creator-1763588800488-k6ckdcl, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 9
+ [Deduplication] 🔍 Check: sizeBefore=9, sizeAfter=10, messageId=creator-1763588800488-k6ckdcl
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 10
+ [Translation] 📝 Translation #10 received - Original: "Alright, that's really interes...", Translated: "Alright, that's really interes..."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 1ms
+ [Credits] Update received: 180170 seconds remaining, exhausted: false
+ [Credits] Update received: 180160 seconds remaining, exhausted: false
+ [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 850E6E6CB3A04FF99A8EE1A8C11752DF, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=866700000, text="How long have you lived in Ind...", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "How long have you lived in Ind..."
+ [Translation Received] ⏱️ Timestamp: 1763588819903, Seq: 11, MessageId: creator-1763588821195-z3n25sf, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 10
+ [Deduplication] 🔍 Check: sizeBefore=10, sizeAfter=11, messageId=creator-1763588821195-z3n25sf
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 11
+ [Translation] 📝 Translation #11 received - Original: "How long have you lived in Ind...", Translated: "How long have you lived in Ind..."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 2ms
+ [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 850E6E6CB3A04FF99A8EE1A8C11752DF, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=943700000, text="33 years....", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "33 years...."
+ [Translation Received] ⏱️ Timestamp: 1763588827716, Seq: 12, MessageId: creator-1763588829020-q16lvbw, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 11
+ [Deduplication] 🔍 Check: sizeBefore=11, sizeAfter=12, messageId=creator-1763588829020-q16lvbw
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 12
+ [Translation] 📝 Translation #12 received - Original: "33 years....", Translated: "33 years...."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 1ms
+ [Credits] Update received: 180150 seconds remaining, exhausted: false
+ [Credits] Update received: 180140 seconds remaining, exhausted: false
+ [Browser] Visibility changed: HIDDEN
+ [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+ [Page Visibility] 🌙 App backgrounded (invisible)
+ [Browser] Visibility changed: VISIBLE
+ [Browser] ✓ Tab is now visible again
+ [Page Visibility] 👁️ App became visible (resumed from background)
+ [Page Visibility] ✅ WebSocket already connected, no action needed
+ [Mic] Muting microphone - stopping recognition
+ [Speech] Session stopped - will restart if not muted
+ [Mic] Recognition stopped successfully
+ [Mic] Recognizer closed and cleaned up
+ [Browser] Visibility changed: HIDDEN
+ [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+ [Page Visibility] 🌙 App backgrounded (invisible)
+ [Credits] Update received: 180130 seconds remaining, exhausted: false
+ [Browser] Visibility changed: VISIBLE
+ [Browser] ✓ Tab is now visible again
+ [Page Visibility] 👁️ App became visible (resumed from background)
+ [Page Visibility] ✅ WebSocket already connected, no action needed
+ [Mic] Unmuting microphone - starting recognition
+ [Start Conversation] ✅ All checks passed - WebSocket OPEN, partner connected, quota available
+ [Azure Token] Using cached token
+ [Azure Speech] ✓ Session started: Object
+ [Speech] Recognition started successfully - microphone is now active
+ [Speech] Conversation started with microphone already active (no second click needed)
+ [Credits] Update received: 180120 seconds remaining, exhausted: false
+ [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 4CDA25D51AE34A169E8CC4AACE57619E, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=15600000, text="How many years have you lived ...", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "How many years have you lived ..."
+ [Translation Received] ⏱️ Timestamp: 1763588863672, Seq: 13, MessageId: creator-1763588864908-mt8d71s, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 12
+ [Deduplication] 🔍 Check: sizeBefore=12, sizeAfter=13, messageId=creator-1763588864908-mt8d71s
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 13
+ [Translation] 📝 Translation #13 received - Original: "How many years have you lived ...", Translated: "How many years have you lived ..."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 1ms
+ [Credits] Update received: 180110 seconds remaining, exhausted: false
+ [Mic] Muting microphone - stopping recognition
+ [Speech] Session stopped - will restart if not muted
+ [Mic] Recognition stopped successfully
+ [Mic] Recognizer closed and cleaned up
+ [Browser] Visibility changed: HIDDEN
+ [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+ [Page Visibility] 🌙 App backgrounded (invisible)
+ [Credits] Update received: 180100 seconds remaining, exhausted: false
+ [Translation Received] ⏱️ Timestamp: 1763588882843, Seq: 14, MessageId: participant-1763588884140-9cgsbcg, Speaker: participant, IsOwn: false
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 13
+ [Sequence] 💾 Saved lastReceivedSeq=14 for room 181b2826-8379-4d5b-baee-61e33cb714c3
+ [Deduplication] 🔍 Check: sizeBefore=13, sizeAfter=14, messageId=participant-1763588884140-9cgsbcg
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 14
+ [Translation] 📝 Translation #14 received - Original: "Give me a bottle of water....", Translated: "Give me a bottle of water...."
+ [Translation] 📥 Added to PARTNER messages (total: 1)
+ [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+ [Voice Gender] Text to speak: "Give me a bottle of water.", Language: en-GB
+ [TTS Queue] Adding to queue (queue size: 0): Give me a bottle of water.
+ [TTS Queue] Queue processor started
+ [TTS Queue] Playing: Give me a bottle of water. 
+ [TTS Queue] Synthesizing audio via REST API...
+ [Azure Token] Using cached token
+ [Translation] ⏱️ Total processing time: 4ms
+ [Azure TTS API] 🎤 REQUEST #5 START - Voice: en-GB-SoniaNeural, Language: en-GB, Region: eastus, Text: "Give me a bottle of water...."
+ [Azure TTS API] ✅ REQUEST #5 SUCCESS - Voice: en-GB-SoniaNeural, Duration: 1885ms, Audio size: 32256 bytes
+ [Azure TTS API] 📊 Session Total: 5 TTS requests made
+ [TTS Queue] Synthesis completed in 1893ms, audio size: 32256 bytes
+ [TTS Queue] Setting fallback timeout: 4016ms (audio duration: 2.016s)
+ [TTS Queue] Playback started successfully
+ [TTS Queue] Playback completed (audio ended event)
+ [TTS Queue] Marked messageId as spoken: participant-1763588884140-9cgsbcg
+ [TTS Queue] Queue processor finished
+ [Browser] Visibility changed: VISIBLE
+ [Browser] ✓ Tab is now visible again
+ [Page Visibility] 👁️ App became visible (resumed from background)
+ [Page Visibility] ✅ WebSocket already connected, no action needed
+ [Credits] Update received: 180090 seconds remaining, exhausted: false
+ [Browser] Visibility changed: HIDDEN
+ [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+ [Page Visibility] 🌙 App backgrounded (invisible)
+ [Credits] Update received: 180080 seconds remaining, exhausted: false
+ [Translation Received] ⏱️ Timestamp: 1763588901133, Seq: 15, MessageId: participant-1763588902437-yjv0ew0, Speaker: participant, IsOwn: false
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 14
+ [Sequence] 💾 Saved lastReceivedSeq=15 for room 181b2826-8379-4d5b-baee-61e33cb714c3
+ [Deduplication] 🔍 Check: sizeBefore=14, sizeAfter=15, messageId=participant-1763588902437-yjv0ew0
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 15
+ [Translation] 📝 Translation #15 received - Original: "Manchester United....", Translated: "Manchester United...."
+ [Translation] 📥 Added to PARTNER messages (total: 1)
+ [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+ [Voice Gender] Text to speak: "Manchester United.", Language: en-GB
+ [TTS Queue] Adding to queue (queue size: 0): Manchester United.
+ [TTS Queue] Queue processor started
+ [TTS Queue] Playing: Manchester United. 
+ [TTS Queue] Synthesizing audio via REST API...
+ [Azure Token] Using cached token
+ [Translation] ⏱️ Total processing time: 4ms
+ [Azure TTS API] 🎤 REQUEST #6 START - Voice: en-GB-SoniaNeural, Language: en-GB, Region: eastus, Text: "Manchester United...."
+ [Azure TTS API] ✅ REQUEST #6 SUCCESS - Voice: en-GB-SoniaNeural, Duration: 1139ms, Audio size: 32256 bytes
+ [Azure TTS API] 📊 Session Total: 6 TTS requests made
+ [TTS Queue] Synthesis completed in 1143ms, audio size: 32256 bytes
+ [TTS Queue] Setting fallback timeout: 4016ms (audio duration: 2.016s)
+ [TTS Queue] Playback started successfully
+ [TTS Queue] Playback completed (audio ended event)
+ [TTS Queue] Marked messageId as spoken: participant-1763588902437-yjv0ew0
+ [TTS Queue] Queue processor finished
+ [Credits] Update received: 180070 seconds remaining, exhausted: false
+ [Translation Received] ⏱️ Timestamp: 1763588910049, Seq: 16, MessageId: participant-1763588911337-q99uqs7, Speaker: participant, IsOwn: false
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 15
+ [Sequence] 💾 Saved lastReceivedSeq=16 for room 181b2826-8379-4d5b-baee-61e33cb714c3
+ [Deduplication] 🔍 Check: sizeBefore=15, sizeAfter=16, messageId=participant-1763588911337-q99uqs7
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 16
+ [Translation] 📝 Translation #16 received - Original: "That is very interesting....", Translated: "That is very interesting...."
+ [Translation] 📥 Added to PARTNER messages (total: 1)
+ [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+ [Voice Gender] Text to speak: "That is very interesting.", Language: en-GB
+ [TTS Queue] Adding to queue (queue size: 0): That is very interesting.
+ [TTS Queue] Queue processor started
+ [TTS Queue] Playing: That is very interesting. 
+ [TTS Queue] Synthesizing audio via REST API...
+ [Azure Token] Using cached token
+ [Translation] ⏱️ Total processing time: 3ms
+ [Azure TTS API] 🎤 REQUEST #7 START - Voice: en-GB-SoniaNeural, Language: en-GB, Region: eastus, Text: "That is very interesting...."
+ [Azure TTS API] ✅ REQUEST #7 SUCCESS - Voice: en-GB-SoniaNeural, Duration: 1091ms, Audio size: 32256 bytes
+ [Azure TTS API] 📊 Session Total: 7 TTS requests made
+ [TTS Queue] Synthesis completed in 1096ms, audio size: 32256 bytes
+ [TTS Queue] Setting fallback timeout: 4016ms (audio duration: 2.016s)
+ [TTS Queue] Playback started successfully
+ [TTS Queue] Playback completed (audio ended event)
+ [TTS Queue] Marked messageId as spoken: participant-1763588911337-q99uqs7
+ [TTS Queue] Queue processor finished
+ [Browser] Visibility changed: VISIBLE
+ [Browser] ✓ Tab is now visible again
+ [Page Visibility] 👁️ App became visible (resumed from background)
+ [Page Visibility] ✅ WebSocket already connected, no action needed
+ [Browser] Visibility changed: HIDDEN
+ [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+ [Page Visibility] 🌙 App backgrounded (invisible)
+ [Credits] Update received: 180060 seconds remaining, exhausted: false
+ [Translation Received] ⏱️ Timestamp: 1763588918685, Seq: 17, MessageId: participant-1763588919991-o23js1r, Speaker: participant, IsOwn: false
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 16
+ [Sequence] 💾 Saved lastReceivedSeq=17 for room 181b2826-8379-4d5b-baee-61e33cb714c3
+ [Deduplication] 🔍 Check: sizeBefore=16, sizeAfter=17, messageId=participant-1763588919991-o23js1r
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 17
+ [Translation] 📝 Translation #17 received - Original: "Tesco....", Translated: "Tesco...."
+ [Translation] 📥 Added to PARTNER messages (total: 1)
+ [Voice Gender] Playing partner's translation in PARTNER's voice: female, My voice (what partner hears): male
+ [Voice Gender] Text to speak: "Tesco.", Language: en-GB
+ [TTS Queue] Adding to queue (queue size: 0): Tesco.
+ [TTS Queue] Queue processor started
+ [TTS Queue] Playing: Tesco. 
+ [TTS Queue] Synthesizing audio via REST API...
+ [Azure Token] Using cached token
+ [Translation] ⏱️ Total processing time: 6ms
+ [Azure TTS API] 🎤 REQUEST #8 START - Voice: en-GB-SoniaNeural, Language: en-GB, Region: eastus, Text: "Tesco...."
+ [Browser] Visibility changed: VISIBLE
+ [Browser] ✓ Tab is now visible again
+ [Page Visibility] 👁️ App became visible (resumed from background)
+ [Page Visibility] ✅ WebSocket already connected, no action needed
+ [Azure TTS API] ✅ REQUEST #8 SUCCESS - Voice: en-GB-SoniaNeural, Duration: 1189ms, Audio size: 19584 bytes
+ [Azure TTS API] 📊 Session Total: 8 TTS requests made
+ [TTS Queue] Synthesis completed in 1191ms, audio size: 19584 bytes
+ [TTS Queue] Setting fallback timeout: 3224ms (audio duration: 1.224s)
+ [TTS Queue] Playback started successfully
+ [Browser] Visibility changed: HIDDEN
+ [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+ [Page Visibility] 🌙 App backgrounded (invisible)
+ [TTS Queue] Playback completed (audio ended event)
+ [TTS Queue] Marked messageId as spoken: participant-1763588919991-o23js1r
+ [TTS Queue] Queue processor finished
+ [Session] Session ended - handling cleanup and navigation
+ [Session] Handling session end, reason: participant-left
+ [Partner Wait] Starting 5-minute partner join timeout for owner
+ [WebSocket] 🔌 ONCLOSE HANDLER FIRED! Code: 1000 wasClean: true
+ [WebSocket] 🔌 DISCONNECTED (FULL DETAILS): Object
+ [Auto-Reconnect] Reconnect disabled - not reconnecting
+ [Browser] Visibility changed: VISIBLE
+ [Browser] ✓ Tab is now visible again
+ [Page Visibility] 👁️ App became visible (resumed from background)
+ [Page Visibility] Reconnect disabled (intentional disconnect) - ignoring visibility change
+ [Session] Navigating to dashboard after session end
+ [Cleanup] Clearing interim text timeouts on unmount
+ [Partner Wait] Cleaning up timeout timers
+ [Page Visibility] Listener removed
+ [Network] Event listeners removed
+ [WebSocket Cleanup] Component unmounting - cleaning up WebSocket, current readyState: 3
+ [WebSocket Cleanup] WebSocket already closed during unmount, readyState: 3
+ [Sequence] 🧹 Cleared lastReceivedSeq for room 181b2826-8379-4d5b-baee-61e33cb714c3
+ [WebSocket Cleanup] Cleanup complete
+ [Room Init] Role: creator, Language: en-GH, My Voice Gender: male
+ [Browser] Network status: ONLINE
+ [State Change] partnerVoiceGender updated to: undefined
+ [Partner Wait] Starting 5-minute partner join timeout for owner
+ [Page Visibility] Listener installed for mobile background/resume detection
+ [Network] Network change detection enabled (connection type: 4g )
+ [WebSocket] ⏳ Waiting for URL to be ready (non-blocking)...
+b20a4f14-f71f-45ae-8f3b-81c8c6850e76-00-2x6dazivcdm2g.janeway.replit.dev/api/ws/token:1  Failed to load resource: the server responded with a status of 500 (Internal Server Error)
+ [WebSocket Token] Server error (500), retrying in 1000ms (attempt 1/3)
+b20a4f14-f71f-45ae-8f3b-81c8c6850e76-00-2x6dazivcdm2g.janeway.replit.dev/api/ws/token:1  Failed to load resource: the server responded with a status of 500 (Internal Server Error)
+ [WebSocket Token] Server error (500), retrying in 2000ms (attempt 2/3)
+b20a4f14-f71f-45ae-8f3b-81c8c6850e76-00-2x6dazivcdm2g.janeway.replit.dev/api/ws/token:1  Failed to load resource: the server responded with a status of 500 (Internal Server Error)
+ [WebSocket Token] Server error (500), retrying in 4000ms (attempt 3/3)
+ [Browser] Visibility changed: HIDDEN
+ [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+ [Page Visibility] 🌙 App backgrounded (invisible)
+b20a4f14-f71f-45ae-8f3b-81c8c6850e76-00-2x6dazivcdm2g.janeway.replit.dev/api/ws/token:1  Failed to load resource: the server responded with a status of 500 (Internal Server Error)
+ [WebSocket Token] Failed after 3 retries, falling back to cookie auth
+(anonymous) @ injected.js:37
+ [WebSocket] ❌ Timeout waiting for WebSocket URL
+(anonymous) @ injected.js:37
+ [WebSocket Setup] Failed to create connection: 
+(anonymous) @ injected.js:37
+ [Browser] Visibility changed: VISIBLE
+ [Browser] ✓ Tab is now visible again
+ [Page Visibility] 👁️ App became visible (resumed from background)
+ [Page Visibility] 🔄 WebSocket disconnected, attempting immediate reconnection...
+ [Reconnect Coordinator] Request from: page-visibility, delay: 0ms
+ [Reconnect Coordinator] Starting new reconnection from page-visibility
+ [Reconnect Coordinator] Creating new WebSocket connection...
+ [WebSocket] Creating connection to: wss://b20a4f14-f71f-45ae-8f3b-81c8c6850e76-00-2x6dazivcdm2g.janeway.replit.dev/ws
+ [WebSocket] ✅ Connected successfully: Object
+ [Sequence] 📤 Sent join message with lastReceivedSeq=0
+ [Message Queue] 📝 Waiting for server join acknowledgment before flushing 0 pending messages...
+ [Room Persistence] Saved room settings to localStorage: 14b5d2ba-23d0-4770-b061-16e13bb66287
+ [Reconnect Coordinator] ✅ Connection established successfully
+ [Reconnect Coordinator] Cleaning up coordinator state
+ [Page Visibility] ✅ Reconnection successful
+ [Voice Gender] Partner joined with gender: male
+ [Voice Gender] My gender: male
+ [Partner Wait] Cleaning up timeout timers
+ [State Change] partnerVoiceGender updated to: male
+ [Partner Wait] Partner already connected - clearing all timers
+ [Start Conversation] ✅ All checks passed - WebSocket OPEN, partner connected, quota available
+ [Audio Unlock] Attempting to unlock audio for mobile...
+ [Audio Unlock] Audio successfully unlocked for mobile
+ [Azure Token API] 🔑 REQUEST #1 START - Fetching new auth token
+ [Azure Token API] ✅ REQUEST #1 SUCCESS - Duration: 538ms, Region: eastus
+ [Azure Speech] ✓ Session started: Object
+ [Speech] Recognition started successfully - microphone is now active
+ [Speech] Conversation started with microphone already active (no second click needed)
+ [Credits] Update received: 180050 seconds remaining, exhausted: false
+ [Browser] Visibility changed: HIDDEN
+ [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+ [Page Visibility] 🌙 App backgrounded (invisible)
+ [Azure Speech Dedupe] ✅ New resultId processed: F7B9290B75FB493198A1DB409ABCFE44, cache size: 1
+ [Temporal Dedupe] ✅ New offset+text processed: offset=32000000, text="Call Moteyama....", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "Call Moteyama...."
+ [Translation Received] ⏱️ Timestamp: 1763588985873, Seq: 1, MessageId: participant-1763588987180-goaiced, Speaker: participant, IsOwn: false
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 0
+ [Sequence] 💾 Saved lastReceivedSeq=1 for room 14b5d2ba-23d0-4770-b061-16e13bb66287
+ [Deduplication] 🔍 Check: sizeBefore=0, sizeAfter=1, messageId=participant-1763588987180-goaiced
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 1
+ [Translation] 📝 Translation #1 received - Original: "¿Cómo te llamas?...", Translated: "What's your name?..."
+ [Translation] 📥 Added to PARTNER messages (total: 1)
+ [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+ [Voice Gender] Text to speak: "What's your name?", Language: en-GH
+ [TTS Queue] Adding to queue (queue size: 0): What's your name?
+ [TTS Queue] Queue processor started
+ [TTS Queue] Playing: What's your name? 
+ [TTS Queue] Synthesizing audio via REST API...
+ [Azure Token] Using cached token
+ [Translation] ⏱️ Total processing time: 3ms
+ [Azure TTS API] 🎤 REQUEST #1 START - Voice: en-GH-FiifiNeural, Language: en-GH, Region: eastus, Text: "What's your name?..."
+ [Translation Received] ⏱️ Timestamp: 1763588985897, Seq: 2, MessageId: creator-1763588987199-v8vfgmg, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 1
+ [Deduplication] 🔍 Check: sizeBefore=1, sizeAfter=2, messageId=creator-1763588987199-v8vfgmg
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 2
+ [Translation] 📝 Translation #2 received - Original: "Call Moteyama....", Translated: "Llama a Moteyama...."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 1ms
+eastus.tts.speech.microsoft.com/cognitiveservices/v1:1  Failed to load resource: the server responded with a status of 400 ()
+ [Azure TTS API] ❌ REQUEST #1 FAILED - Status: 400, Duration: 538ms, Error: 
+(anonymous) @ injected.js:37
+ [Azure TTS API] ❌ REQUEST #1 ERROR - Duration: 539ms, Error: 
+(anonymous) @ injected.js:37
+ [Azure TTS API] 📊 Session Total: 1 TTS requests made
+ [TTS Queue] Failed to speak text: 
+(anonymous) @ injected.js:37
+ [TTS Queue] Retrying in 1000ms (1/3)...
+ [TTS Queue] Playing: What's your name? (retry 1/3)
+ [TTS Queue] Synthesizing audio via REST API...
+ [Azure Token] Using cached token
+ [Azure TTS API] 🎤 REQUEST #2 START - Voice: en-GH-FiifiNeural, Language: en-GH, Region: eastus, Text: "What's your name?..."
+eastus.tts.speech.microsoft.com/cognitiveservices/v1:1  Failed to load resource: the server responded with a status of 400 ()
+ [Azure TTS API] ❌ REQUEST #2 FAILED - Status: 400, Duration: 313ms, Error: 
+(anonymous) @ injected.js:37
+ [Azure TTS API] ❌ REQUEST #2 ERROR - Duration: 313ms, Error: 
+(anonymous) @ injected.js:37
+ [Azure TTS API] 📊 Session Total: 2 TTS requests made
+ [TTS Queue] Failed to speak text: 
+(anonymous) @ injected.js:37
+ [TTS Queue] Retrying in 2000ms (2/3)...
+ [TTS Queue] Playing: What's your name? (retry 2/3)
+ [TTS Queue] Synthesizing audio via REST API...
+ [Azure Token] Using cached token
+ [Azure TTS API] 🎤 REQUEST #3 START - Voice: en-GH-FiifiNeural, Language: en-GH, Region: eastus, Text: "What's your name?..."
+eastus.tts.speech.microsoft.com/cognitiveservices/v1:1  Failed to load resource: the server responded with a status of 400 ()
+ [Azure TTS API] ❌ REQUEST #3 FAILED - Status: 400, Duration: 535ms, Error: 
+(anonymous) @ injected.js:37
+ [Azure TTS API] ❌ REQUEST #3 ERROR - Duration: 536ms, Error: 
+(anonymous) @ injected.js:37
+ [Azure TTS API] 📊 Session Total: 3 TTS requests made
+injected.js:37 [TTS Queue] Failed to speak text: Error: Azure TTS failed: 400 
+    at synthesizeSpeechToBlob (Room.tsx:960:15)
+    at async processTTSQueue (Room.tsx:1042:29)
+(anonymous) @ injected.js:37
+injected.js:37 [TTS Queue] Retrying in 4000ms (3/3)...
+injected.js:37 [Browser] Visibility changed: VISIBLE
+injected.js:37 [Browser] ✓ Tab is now visible again
+injected.js:37 [Page Visibility] 👁️ App became visible (resumed from background)
+injected.js:37 [Page Visibility] ✅ WebSocket already connected, no action needed
+injected.js:37 [TTS Queue] Playing: What's your name? (retry 3/3)
+injected.js:37 [TTS Queue] Synthesizing audio via REST API...
+injected.js:37 [Azure Token] Using cached token
+injected.js:37 [Azure TTS API] 🎤 REQUEST #4 START - Voice: en-GH-FiifiNeural, Language: en-GH, Region: eastus, Text: "What's your name?..."
+eastus.tts.speech.microsoft.com/cognitiveservices/v1:1  Failed to load resource: the server responded with a status of 400 ()
+injected.js:37 [Azure TTS API] ❌ REQUEST #4 FAILED - Status: 400, Duration: 301ms, Error: 
+(anonymous) @ injected.js:37
+injected.js:37 [Azure TTS API] ❌ REQUEST #4 ERROR - Duration: 301ms, Error: Error: Azure TTS failed: 400 
+    at synthesizeSpeechToBlob (Room.tsx:960:15)
+    at async processTTSQueue (Room.tsx:1042:29)
+(anonymous) @ injected.js:37
+injected.js:37 [Azure TTS API] 📊 Session Total: 4 TTS requests made
+injected.js:37 [TTS Queue] Failed to speak text: Error: Azure TTS failed: 400 
+    at synthesizeSpeechToBlob (Room.tsx:960:15)
+    at async processTTSQueue (Room.tsx:1042:29)
+(anonymous) @ injected.js:37
+injected.js:37 [TTS Queue] Max retries (3) exceeded, skipping message: What's your name?
+(anonymous) @ injected.js:37
+injected.js:37 [TTS Queue] Continuing to next item in queue...
+injected.js:37 [TTS Queue] Queue processor finished
+injected.js:37 [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+injected.js:37 [Azure Speech Dedupe] ✅ New resultId processed: F7B9290B75FB493198A1DB409ABCFE44, cache size: 1
+injected.js:37 [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+injected.js:37 [Temporal Dedupe] ✅ New offset+text processed: offset=147100000, text="Komotayama....", cache size: 1
+injected.js:37 [Speech] ✅ Sent final transcription immediately: "Komotayama...."
+injected.js:37 [Translation Received] ⏱️ Timestamp: 1763588997228, Seq: 3, MessageId: creator-1763588998536-nv18vjg, Speaker: creator, IsOwn: true
+injected.js:37 [Translation Received] 📊 DeduplicationSet size BEFORE: 2
+injected.js:37 [Deduplication] 🔍 Check: sizeBefore=2, sizeAfter=3, messageId=creator-1763588998536-nv18vjg
+injected.js:37 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 3
+injected.js:37 [Translation] 📝 Translation #3 received - Original: "Komotayama....", Translated: "Komotayama...."
+injected.js:37 [Translation] 📤 Added to MY messages (total: 1)
+injected.js:37 [Translation] ⏱️ Total processing time: 1ms
+injected.js:37 [Translation Received] ⏱️ Timestamp: 1763588997333, Seq: 4, MessageId: participant-1763588998632-916p6do, Speaker: participant, IsOwn: false
+injected.js:37 [Translation Received] 📊 DeduplicationSet size BEFORE: 3
+injected.js:37 [Sequence] 💾 Saved lastReceivedSeq=4 for room 14b5d2ba-23d0-4770-b061-16e13bb66287
+injected.js:37 [Deduplication] 🔍 Check: sizeBefore=3, sizeAfter=4, messageId=participant-1763588998632-916p6do
+injected.js:37 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 4
+injected.js:37 [Translation] 📝 Translation #4 received - Original: "¿Cómo te llamas?...", Translated: "What's your name?..."
+injected.js:37 [Translation] 📥 Added to PARTNER messages (total: 1)
+injected.js:37 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+injected.js:37 [Voice Gender] Text to speak: "What's your name?", Language: en-GH
+injected.js:37 [TTS Queue] Adding to queue (queue size: 0): What's your name?
+injected.js:37 [TTS Queue] Queue processor started
+injected.js:37 [TTS Queue] Playing: What's your name? 
+injected.js:37 [TTS Queue] Synthesizing audio via REST API...
+injected.js:37 [Azure Token] Using cached token
+injected.js:37 [Translation] ⏱️ Total processing time: 2ms
+injected.js:37 [Azure TTS API] 🎤 REQUEST #5 START - Voice: en-GH-FiifiNeural, Language: en-GH, Region: eastus, Text: "What's your name?..."
+eastus.tts.speech.microsoft.com/cognitiveservices/v1:1  Failed to load resource: the server responded with a status of 400 ()
+injected.js:37 [Azure TTS API] ❌ REQUEST #5 FAILED - Status: 400, Duration: 508ms, Error: 
+(anonymous) @ injected.js:37
+injected.js:37 [Azure TTS API] ❌ REQUEST #5 ERROR - Duration: 509ms, Error: Error: Azure TTS failed: 400 
+    at synthesizeSpeechToBlob (Room.tsx:960:15)
+    at async processTTSQueue (Room.tsx:1042:29)
+(anonymous) @ injected.js:37
+injected.js:37 [Azure TTS API] 📊 Session Total: 5 TTS requests made
+injected.js:37 [TTS Queue] Failed to speak text: Error: Azure TTS failed: 400 
+    at synthesizeSpeechToBlob (Room.tsx:960:15)
+    at async processTTSQueue (Room.tsx:1042:29)
+(anonymous) @ injected.js:37
+injected.js:37 [TTS Queue] Retrying in 1000ms (1/3)...
+injected.js:37 [TTS Queue] Playing: What's your name? (retry 1/3)
+injected.js:37 [TTS Queue] Synthesizing audio via REST API...
+injected.js:37 [Azure Token] Using cached token
+injected.js:37 [Azure TTS API] 🎤 REQUEST #6 START - Voice: en-GH-FiifiNeural, Language: en-GH, Region: eastus, Text: "What's your name?..."
+eastus.tts.speech.microsoft.com/cognitiveservices/v1:1  Failed to load resource: the server responded with a status of 400 ()
+injected.js:37 [Azure TTS API] ❌ REQUEST #6 FAILED - Status: 400, Duration: 262ms, Error: 
+(anonymous) @ injected.js:37
+injected.js:37 [Azure TTS API] ❌ REQUEST #6 ERROR - Duration: 263ms, Error: Error: Azure TTS failed: 400 
+    at synthesizeSpeechToBlob (Room.tsx:960:15)
+    at async processTTSQueue (Room.tsx:1042:29)
+(anonymous) @ injected.js:37
+injected.js:37 [Azure TTS API] 📊 Session Total: 6 TTS requests made
+injected.js:37 [TTS Queue] Failed to speak text: Error: Azure TTS failed: 400 
+    at synthesizeSpeechToBlob (Room.tsx:960:15)
+    at async processTTSQueue (Room.tsx:1042:29)
+(anonymous) @ injected.js:37
+injected.js:37 [TTS Queue] Retrying in 2000ms (2/3)...
+injected.js:37 [TTS Queue] Playing: What's your name? (retry 2/3)
+injected.js:37 [TTS Queue] Synthesizing audio via REST API...
+injected.js:37 [Azure Token] Using cached token
+injected.js:37 [Azure TTS API] 🎤 REQUEST #7 START - Voice: en-GH-FiifiNeural, Language: en-GH, Region: eastus, Text: "What's your name?..."
+injected.js:37 [Browser] Visibility changed: HIDDEN
+injected.js:37 [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+injected.js:37 [Page Visibility] 🌙 App backgrounded (invisible)
+eastus.tts.speech.microsoft.com/cognitiveservices/v1:1  Failed to load resource: the server responded with a status of 400 ()
+injected.js:37 [Azure TTS API] ❌ REQUEST #7 FAILED - Status: 400, Duration: 300ms, Error: 
+(anonymous) @ injected.js:37
+injected.js:37 [Azure TTS API] ❌ REQUEST #7 ERROR - Duration: 300ms, Error: Error: Azure TTS failed: 400 
+    at synthesizeSpeechToBlob (Room.tsx:960:15)
+    at async processTTSQueue (Room.tsx:1042:29)
+(anonymous) @ injected.js:37
+injected.js:37 [Azure TTS API] 📊 Session Total: 7 TTS requests made
+injected.js:37 [TTS Queue] Failed to speak text: Error: Azure TTS failed: 400 
+    at synthesizeSpeechToBlob (Room.tsx:960:15)
+    at async processTTSQueue (Room.tsx:1042:29)
+(anonymous) @ injected.js:37
+injected.js:37 [TTS Queue] Retrying in 4000ms (3/3)...
+injected.js:37 [Credits] Update received: 180040 seconds remaining, exhausted: false
+injected.js:37 [Browser] Visibility changed: VISIBLE
+injected.js:37 [Browser] ✓ Tab is now visible again
+ [Page Visibility] 👁️ App became visible (resumed from background)
+ [Page Visibility] ✅ WebSocket already connected, no action needed
+ [Mic] Muting microphone - stopping recognition
+ [Speech] Session stopped - will restart if not muted
+ [Mic] Recognition stopped successfully
+ [Mic] Recognizer closed and cleaned up
+ [TTS Queue] Playing: What's your name? (retry 3/3)
+ [TTS Queue] Synthesizing audio via REST API...
+ [Azure Token] Using cached token
+ [Azure TTS API] 🎤 REQUEST #8 START - Voice: en-GH-FiifiNeural, Language: en-GH, Region: eastus, Text: "What's your name?..."
+ [Browser] Visibility changed: HIDDEN
+ [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+ [Page Visibility] 🌙 App backgrounded (invisible)
+eastus.tts.speech.microsoft.com/cognitiveservices/v1:1  Failed to load resource: the server responded with a status of 400 ()
+ [Azure TTS API] ❌ REQUEST #8 FAILED - Status: 400, Duration: 523ms, Error: 
+(anonymous) @ injected.js:37
+ [Azure TTS API] ❌ REQUEST #8 ERROR - Duration: 524ms, Error: 
+(anonymous) @ injected.js:37
+ [Azure TTS API] 📊 Session Total: 8 TTS requests made
+ [TTS Queue] Failed to speak text: 
+(anonymous) @ injected.js:37
+ [TTS Queue] Max retries (3) exceeded, skipping message: What's your name?
+(anonymous) @ injected.js:37
+ [TTS Queue] Continuing to next item in queue...
+ [TTS Queue] Queue processor finished
+ [Translation Received] ⏱️ Timestamp: 1763589008850, Seq: 5, MessageId: participant-1763589010157-fpz8m1l, Speaker: participant, IsOwn: false
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 4
+ [Sequence] 💾 Saved lastReceivedSeq=5 for room 14b5d2ba-23d0-4770-b061-16e13bb66287
+ [Deduplication] 🔍 Check: sizeBefore=4, sizeAfter=5, messageId=participant-1763589010157-fpz8m1l
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 5
+ [Translation] 📝 Translation #5 received - Original: "Hola hola....", Translated: "Hello, hello...."
+ [Translation] 📥 Added to PARTNER messages (total: 1)
+ [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+ [Voice Gender] Text to speak: "Hello, hello.", Language: en-GH
+ [TTS Queue] Adding to queue (queue size: 0): Hello, hello.
+ [TTS Queue] Queue processor started
+ [TTS Queue] Playing: Hello, hello. 
+ [TTS Queue] Synthesizing audio via REST API...
+ [Azure Token] Using cached token
+ [Translation] ⏱️ Total processing time: 7ms
+ [Azure TTS API] 🎤 REQUEST #9 START - Voice: en-GH-FiifiNeural, Language: en-GH, Region: eastus, Text: "Hello, hello...."
+eastus.tts.speech.microsoft.com/cognitiveservices/v1:1  Failed to load resource: the server responded with a status of 400 ()
+ [Azure TTS API] ❌ REQUEST #9 FAILED - Status: 400, Duration: 298ms, Error: 
+(anonymous) @ injected.js:37
+ [Azure TTS API] ❌ REQUEST #9 ERROR - Duration: 300ms, Error: 
+(anonymous) @ injected.js:37
+ [Azure TTS API] 📊 Session Total: 9 TTS requests made
+ [TTS Queue] Failed to speak text: 
+(anonymous) @ injected.js:37
+ [TTS Queue] Retrying in 1000ms (1/3)...
+ [TTS Queue] Playing: Hello, hello. (retry 1/3)
+ [TTS Queue] Synthesizing audio via REST API...
+ [Azure Token] Using cached token
+ [Azure TTS API] 🎤 REQUEST #10 START - Voice: en-GH-FiifiNeural, Language: en-GH, Region: eastus, Text: "Hello, hello...."
+eastus.tts.speech.microsoft.com/cognitiveservices/v1:1  Failed to load resource: the server responded with a status of 400 ()
+ [Azure TTS API] ❌ REQUEST #10 FAILED - Status: 400, Duration: 262ms, Error: 
+(anonymous) @ injected.js:37
+ [Azure TTS API] ❌ REQUEST #10 ERROR - Duration: 263ms, Error: 
+(anonymous) @ injected.js:37
+ [Azure TTS API] 📊 Session Total: 10 TTS requests made
+ [TTS Queue] Failed to speak text: 
+(anonymous) @ injected.js:37
+ [TTS Queue] Retrying in 2000ms (2/3)...
+ [Browser] Visibility changed: VISIBLE
+ [Browser] ✓ Tab is now visible again
+ [Page Visibility] 👁️ App became visible (resumed from background)
+ [Page Visibility] ✅ WebSocket already connected, no action needed
+ [Credits] Update received: 180030 seconds remaining, exhausted: false
+injected.js:37 [TTS Queue] Playing: Hello, hello. (retry 2/3)
+injected.js:37 [TTS Queue] Synthesizing audio via REST API...
+injected.js:37 [Azure Token] Using cached token
+injected.js:37 [Azure TTS API] 🎤 REQUEST #11 START - Voice: en-GH-FiifiNeural, Language: en-GH, Region: eastus, Text: "Hello, hello...."
+eastus.tts.speech.microsoft.com/cognitiveservices/v1:1  Failed to load resource: the server responded with a status of 400 ()
+injected.js:37 [Azure TTS API] ❌ REQUEST #11 FAILED - Status: 400, Duration: 501ms, Error: 
+(anonymous) @ injected.js:37
+injected.js:37 [Azure TTS API] ❌ REQUEST #11 ERROR - Duration: 524ms, Error: Error: Azure TTS failed: 400 
+    at synthesizeSpeechToBlob (Room.tsx:960:15)
+    at async processTTSQueue (Room.tsx:1042:29)
+(anonymous) @ injected.js:37
+injected.js:37 [Azure TTS API] 📊 Session Total: 11 TTS requests made
+injected.js:37 [TTS Queue] Failed to speak text: Error: Azure TTS failed: 400 
+    at synthesizeSpeechToBlob (Room.tsx:960:15)
+    at async processTTSQueue (Room.tsx:1042:29)
+(anonymous) @ injected.js:37
+injected.js:37 [TTS Queue] Retrying in 4000ms (3/3)...
+injected.js:37 [TTS Queue] Playing: Hello, hello. (retry 3/3)
+injected.js:37 [TTS Queue] Synthesizing audio via REST API...
+injected.js:37 [Azure Token] Using cached token
+injected.js:37 [Azure TTS API] 🎤 REQUEST #12 START - Voice: en-GH-FiifiNeural, Language: en-GH, Region: eastus, Text: "Hello, hello...."
+eastus.tts.speech.microsoft.com/cognitiveservices/v1:1  Failed to load resource: the server responded with a status of 400 ()
+injected.js:37 [Azure TTS API] ❌ REQUEST #12 FAILED - Status: 400, Duration: 286ms, Error: 
+(anonymous) @ injected.js:37
+injected.js:37 [Azure TTS API] ❌ REQUEST #12 ERROR - Duration: 287ms, Error: Error: Azure TTS failed: 400 
+    at synthesizeSpeechToBlob (Room.tsx:960:15)
+    at async processTTSQueue (Room.tsx:1042:29)
+(anonymous) @ injected.js:37
+injected.js:37 [Azure TTS API] 📊 Session Total: 12 TTS requests made
+injected.js:37 [TTS Queue] Failed to speak text: Error: Azure TTS failed: 400 
+    at synthesizeSpeechToBlob (Room.tsx:960:15)
+    at async processTTSQueue (Room.tsx:1042:29)
+(anonymous) @ injected.js:37
+injected.js:37 [TTS Queue] Max retries (3) exceeded, skipping message: Hello, hello.
+(anonymous) @ injected.js:37
+injected.js:37 [TTS Queue] Continuing to next item in queue...
+injected.js:37 [TTS Queue] Queue processor finished
+injected.js:37 [Translation Received] ⏱️ Timestamp: 1763589030430, Seq: 6, MessageId: participant-1763589031737-van4mtl, Speaker: participant, IsOwn: false
+injected.js:37 [Translation Received] 📊 DeduplicationSet size BEFORE: 5
+injected.js:37 [Sequence] 💾 Saved lastReceivedSeq=6 for room 14b5d2ba-23d0-4770-b061-16e13bb66287
+injected.js:37 [Deduplication] 🔍 Check: sizeBefore=5, sizeAfter=6, messageId=participant-1763589031737-van4mtl
+injected.js:37 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 6
+injected.js:37 [Translation] 📝 Translation #6 received - Original: "Hola....", Translated: "Hello...."
+injected.js:37 [Translation] 📥 Added to PARTNER messages (total: 1)
+injected.js:37 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+injected.js:37 [Voice Gender] Text to speak: "Hello.", Language: en-GH
+injected.js:37 [TTS Queue] Adding to queue (queue size: 0): Hello.
+injected.js:37 [TTS Queue] Queue processor started
+injected.js:37 [TTS Queue] Playing: Hello. 
+injected.js:37 [TTS Queue] Synthesizing audio via REST API...
+injected.js:37 [Azure Token] Using cached token
+injected.js:37 [Translation] ⏱️ Total processing time: 2ms
+injected.js:37 [Azure TTS API] 🎤 REQUEST #13 START - Voice: en-GH-FiifiNeural, Language: en-GH, Region: eastus, Text: "Hello...."
+eastus.tts.speech.microsoft.com/cognitiveservices/v1:1  Failed to load resource: the server responded with a status of 400 ()
+injected.js:37 [Azure TTS API] ❌ REQUEST #13 FAILED - Status: 400, Duration: 499ms, Error: 
+(anonymous) @ injected.js:37
+injected.js:37 [Azure TTS API] ❌ REQUEST #13 ERROR - Duration: 499ms, Error: Error: Azure TTS failed: 400 
+    at synthesizeSpeechToBlob (Room.tsx:960:15)
+    at async processTTSQueue (Room.tsx:1042:29)
+(anonymous) @ injected.js:37
+injected.js:37 [Azure TTS API] 📊 Session Total: 13 TTS requests made
+injected.js:37 [TTS Queue] Failed to speak text: Error: Azure TTS failed: 400 
+    at synthesizeSpeechToBlob (Room.tsx:960:15)
+    at async processTTSQueue (Room.tsx:1042:29)
+(anonymous) @ injected.js:37
+injected.js:37 [TTS Queue] Retrying in 1000ms (1/3)...
+injected.js:37 [Credits] Update received: 180020 seconds remaining, exhausted: false
+injected.js:37 [TTS Queue] Playing: Hello. (retry 1/3)
+injected.js:37 [TTS Queue] Synthesizing audio via REST API...
+injected.js:37 [Azure Token] Using cached token
+injected.js:37 [Azure TTS API] 🎤 REQUEST #14 START - Voice: en-GH-FiifiNeural, Language: en-GH, Region: eastus, Text: "Hello...."
+eastus.tts.speech.microsoft.com/cognitiveservices/v1:1  Failed to load resource: the server responded with a status of 400 ()
+injected.js:37 [Azure TTS API] ❌ REQUEST #14 FAILED - Status: 400, Duration: 252ms, Error: 
+(anonymous) @ injected.js:37
+injected.js:37 [Azure TTS API] ❌ REQUEST #14 ERROR - Duration: 253ms, Error: Error: Azure TTS failed: 400 
+    at synthesizeSpeechToBlob (Room.tsx:960:15)
+    at async processTTSQueue (Room.tsx:1042:29)
+(anonymous) @ injected.js:37
+injected.js:37 [Azure TTS API] 📊 Session Total: 14 TTS requests made
+injected.js:37 [TTS Queue] Failed to speak text: Error: Azure TTS failed: 400 
+    at synthesizeSpeechToBlob (Room.tsx:960:15)
+    at async processTTSQueue (Room.tsx:1042:29)
+(anonymous) @ injected.js:37
+injected.js:37 [TTS Queue] Retrying in 2000ms (2/3)...
+injected.js:37 [TTS Queue] Playing: Hello. (retry 2/3)
+injected.js:37 [TTS Queue] Synthesizing audio via REST API...
+injected.js:37 [Azure Token] Using cached token
+injected.js:37 [Azure TTS API] 🎤 REQUEST #15 START - Voice: en-GH-FiifiNeural, Language: en-GH, Region: eastus, Text: "Hello...."
+eastus.tts.speech.microsoft.com/cognitiveservices/v1:1  Failed to load resource: the server responded with a status of 400 ()
+injected.js:37 [Azure TTS API] ❌ REQUEST #15 FAILED - Status: 400, Duration: 287ms, Error: 
+(anonymous) @ injected.js:37
+injected.js:37 [Azure TTS API] ❌ REQUEST #15 ERROR - Duration: 288ms, Error: Error: Azure TTS failed: 400 
+    at synthesizeSpeechToBlob (Room.tsx:960:15)
+    at async processTTSQueue (Room.tsx:1042:29)
+(anonymous) @ injected.js:37
+injected.js:37 [Azure TTS API] 📊 Session Total: 15 TTS requests made
+injected.js:37 [TTS Queue] Failed to speak text: Error: Azure TTS failed: 400 
+    at synthesizeSpeechToBlob (Room.tsx:960:15)
+    at async processTTSQueue (Room.tsx:1042:29)
+(anonymous) @ injected.js:37
+injected.js:37 [TTS Queue] Retrying in 4000ms (3/3)...
+injected.js:37 [TTS Queue] Playing: Hello. (retry 3/3)
+injected.js:37 [TTS Queue] Synthesizing audio via REST API...
+injected.js:37 [Azure Token] Using cached token
+injected.js:37 [Azure TTS API] 🎤 REQUEST #16 START - Voice: en-GH-FiifiNeural, Language: en-GH, Region: eastus, Text: "Hello...."
+eastus.tts.speech.microsoft.com/cognitiveservices/v1:1  Failed to load resource: the server responded with a status of 400 ()
+injected.js:37 [Azure TTS API] ❌ REQUEST #16 FAILED - Status: 400, Duration: 537ms, Error: 
+(anonymous) @ injected.js:37
+injected.js:37 [Azure TTS API] ❌ REQUEST #16 ERROR - Duration: 538ms, Error: Error: Azure TTS failed: 400 
+    at synthesizeSpeechToBlob (Room.tsx:960:15)
+    at async processTTSQueue (Room.tsx:1042:29)
+(anonymous) @ injected.js:37
+injected.js:37 [Azure TTS API] 📊 Session Total: 16 TTS requests made
+injected.js:37 [TTS Queue] Failed to speak text: Error: Azure TTS failed: 400 
+    at synthesizeSpeechToBlob (Room.tsx:960:15)
+    at async processTTSQueue (Room.tsx:1042:29)
+(anonymous) @ injected.js:37
+injected.js:37 [TTS Queue] Max retries (3) exceeded, skipping message: Hello.
+(anonymous) @ injected.js:37
+injected.js:37 [TTS Queue] Continuing to next item in queue...
+injected.js:37 [TTS Queue] Queue processor finished
+injected.js:37 [Credits] Update received: 180010 seconds remaining, exhausted: false
+injected.js:37 [Credits] Update received: 180000 seconds remaining, exhausted: false
+injected.js:37 [Credits] Update received: 179990 seconds remaining, exhausted: false
+injected.js:37 [Network] 🔄 Network type changed: 3g
+injected.js:37 [Network] ✅ WebSocket still connected after network change
+injected.js:37 [Network] 🔄 Network type changed: 4g
+injected.js:37 [Network] ✅ WebSocket still connected after network change
+injected.js:37 [Network] 🔄 Network type changed: 4g
+injected.js:37 [Network] ✅ WebSocket still connected after network change

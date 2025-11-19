@@ -601,7 +601,7 @@ export default function Room() {
       "en-PH": { male: "en-PH-JamesNeural", female: "en-PH-RosaNeural" },
       "en-ZA": { male: "en-ZA-LukeNeural", female: "en-ZA-LeahNeural" },
       "en-NG": { male: "en-NG-AbeoNeural", female: "en-NG-EzinneNeural" },
-      "en-GH": { male: "en-GH-FiifiNeural", female: "en-GH-AmaNeural" },
+      "en-GH": { male: "en-GH-KwameDrummerNeural", female: "en-GH-AkoaNeural" },
       
       // Spanish variants (20 total) - authentic Spain, Mexican, Argentine, Colombian accents
       "es": { male: "es-ES-AlvaroNeural", female: "es-ES-ElviraNeural" },
