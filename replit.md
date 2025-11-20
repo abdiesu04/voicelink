@@ -1,7 +1,7 @@
 # Voztra - Real-Time Voice Translation App
 
 ## Overview
-Voztra is a real-time voice translation application enabling seamless, instant, and high-quality voice translation between two users speaking different languages. It supports over 97 languages, preserving tone, emotion, and gender through advanced voice synthesis. The application aims to eliminate language barriers in real-time conversations, leveraging WebSockets for low-latency communication.
+Voztra is a real-time voice translation application enabling seamless, instant, and high-quality voice translation between two users speaking different languages. It supports 96 languages, preserving tone, emotion, and gender through advanced voice synthesis. The application aims to eliminate language barriers in real-time conversations, leveraging WebSockets for low-latency communication.
 
 ## User Preferences
 I prefer clear and concise explanations. I want an iterative development approach, where I can review changes frequently. Please ask for my approval before implementing any major architectural changes or adding new external dependencies. When making code changes, ensure they align with the existing code style and design patterns.
@@ -30,7 +30,7 @@ The application features a modern, responsive UI with full light/dark theme supp
 - **Audio Management**: Queue-based TTS system prevents audio overlap. Comprehensive mobile audio compatibility includes single Audio element reuse and audio unlocking.
 - **Message Deduplication**: Multi-layered system prevents duplicate audio playback across all scenarios:
   - **Sequence-based ordering** (inspired by WhatsApp/Signal/Kafka): Server assigns monotonic sequence numbers to each translation, maintains a 100-message buffer per room, and implements catch-up logic to send only missed messages (seq > lastReceivedSeq) when clients reconnect. Client tracks lastReceivedSeq in localStorage.
-  - **Azure rescoring protection** (Tier 1): Language-agnostic fuzzy matching blocks duplicates when Azure Speech SDK double-fires the same utterance with different translations (e.g., "16 people" vs "41016 people"). Uses 98% original-text similarity threshold within 2-second window to catch Azure's rescoring behavior (typically 100% identical) across all 47+ languages.
+  - **Azure rescoring protection** (Tier 1): Language-agnostic fuzzy matching blocks duplicates when Azure Speech SDK double-fires the same utterance with different translations (e.g., "16 people" vs "41016 people"). Uses 98% original-text similarity threshold within 2-second window to catch Azure's rescoring behavior (typically 100% identical) across all 96+ languages.
   - **Standard fuzzy matching** (Tier 2): Blocks duplicates where both original and translated texts are 82%+ similar, catching minor transcription variations. Includes numeric-delta bypass that allows messages where only numbers differ (e.g., "3 PM" → "5 PM"), enabling legitimate corrections while blocking true duplicates.
   - **Client-side messageId deduplication**: Set-based defense-in-depth layer prevents duplicate audio playback.
   - **Comprehensive testing**: 100% success rate across 15 real-world scenarios covering 12+ languages (Bengali, Spanish, Arabic, Japanese, Chinese, English, Russian, Korean, German, French, Hindi, Thai). Successfully blocks all Azure rescoring duplicates while allowing legitimate number corrections and different messages.
@@ -59,7 +59,7 @@ The application features a modern, responsive UI with full light/dark theme supp
 - Room creation and retrieval with language and voice gender preferences.
 - WebSocket server for instant message exchange and transcription.
 - Microphone mute/unmute functionality.
-- Support for 47 languages with flag icons.
+- Support for 96 languages with flag icons.
 - User-selectable male/female voice gender for TTS.
 - Comprehensive Azure API request tracking.
 

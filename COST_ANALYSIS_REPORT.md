@@ -55,7 +55,7 @@ User A (English) ──> [1] Speech-to-Text ──> "Hello, how are you?"
 | Stage | Service | Provider | Purpose |
 |-------|---------|----------|---------|
 | **1. STT** | Azure Speech-to-Text | Microsoft Azure | Convert speech to text in real-time |
-| **2. Translation** | Azure Translator API | Microsoft Azure | Translate text between 47 languages |
+| **2. Translation** | Azure Translator API | Microsoft Azure | Translate text between 96 languages |
 | **3. TTS** | Azure TTS / Amazon Polly | Azure or AWS | Convert translated text back to speech |
 
 ---
@@ -431,7 +431,7 @@ First Month Savings: $12.25 (40% off)
 | Component | Recommended Service | Rationale |
 |-----------|-------------------|-----------|
 | **Speech-to-Text** | Azure Speech Services | Best real-time STT quality, no alternative |
-| **Translation** | Azure Translator API | Industry-leading accuracy, 47 languages |
+| **Translation** | Azure Translator API | Industry-leading accuracy, 96 languages |
 | **Text-to-Speech** | **Amazon Polly Standard** | 75% cost savings, excellent quality ⭐ |
 
 **Expected Cost:** **$1.03/hour** (with optimizations)
@@ -564,7 +564,7 @@ if (audioLevel < SILENCE_THRESHOLD) {
 - Charged per second of audio processed
 - Minimum charge: 1 second
 - Includes real-time streaming recognition
-- Supports 47 languages
+- Supports 96 languages
 
 **Optimizations:**
 - Voice Activity Detection: -33% cost

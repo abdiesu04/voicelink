@@ -109,7 +109,7 @@ export function UpgradeModal({ open, onOpenChange }: UpgradeModalProps) {
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="h-5 w-5 text-violet-400 shrink-0 mt-0.5" />
-                  <span className="text-sm">47+ languages</span>
+                  <span className="text-sm">96+ languages</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="h-5 w-5 text-violet-400 shrink-0 mt-0.5" />
@@ -168,7 +168,7 @@ export function UpgradeModal({ open, onOpenChange }: UpgradeModalProps) {
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="h-5 w-5 text-amber-400 shrink-0 mt-0.5" />
-                  <span className="text-sm">47+ languages</span>
+                  <span className="text-sm">96+ languages</span>
                 </li>
                 <li className="flex items-start gap-2">
                   <Check className="h-5 w-5 text-amber-400 shrink-0 mt-0.5" />

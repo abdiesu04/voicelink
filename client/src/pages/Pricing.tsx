@@ -40,7 +40,7 @@ const pricingTiers: PricingTier[] = [
     resetPeriod: "Lifetime allocation",
     features: [
       "60 minutes total usage",
-      "47+ supported languages",
+      "96+ supported languages",
       "Premium neural voices",
       "Real-time translation",
       "No credit card required",
@@ -58,7 +58,7 @@ const pricingTiers: PricingTier[] = [
     resetPeriod: "Monthly reset",
     features: [
       "350 minutes per month",
-      "47+ supported languages",
+      "96+ supported languages",
       "Premium neural voices",
       "Real-time translation",
       "Priority support",
@@ -79,7 +79,7 @@ const pricingTiers: PricingTier[] = [
     resetPeriod: "Monthly reset",
     features: [
       "1,200 minutes per month",
-      "47+ supported languages",
+      "96+ supported languages",
       "Premium neural voices",
       "Real-time translation",
       "Priority support",
@@ -126,7 +126,7 @@ const faqs = [
   },
   {
     question: "What languages are supported?",
-    answer: "Voztra supports 47+ languages with premium neural voices that preserve tone, emotion, and gender. We use Azure's advanced speech technology for the highest quality translations."
+    answer: "Voztra supports 96+ languages with premium neural voices that preserve tone, emotion, and gender. We use Azure's advanced speech technology for the highest quality translations."
   },
   {
     question: "Is there a free trial for paid plans?",

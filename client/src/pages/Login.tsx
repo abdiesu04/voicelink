@@ -52,7 +52,7 @@ export default function Login() {
   };
 
   const features = [
-    { icon: Globe, text: "47+ languages supported" },
+    { icon: Globe, text: "96+ languages supported" },
     { icon: Zap, text: "Real-time translation" },
     { icon: Shield, text: "Secure & encrypted" },
     { icon: Users, text: "Two-person conversations" },

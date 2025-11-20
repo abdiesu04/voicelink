@@ -226,7 +226,7 @@ export default function Register() {
   };
 
   const features = [
-    { icon: Globe, text: "47+ languages" },
+    { icon: Globe, text: "96+ languages" },
     { icon: Gift, text: "60 minutes free" },
     { icon: Shield, text: "Secure & private" },
     { icon: Zap, text: "Instant translation" },
