@@ -1,0 +1,849 @@
+ Executing inline script violates the following Content Security Policy directive 'script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' chrome-extension://7c9a4858-e35f-426c-ba8a-c86ff670d2b7/'. Either the 'unsafe-inline' keyword, a hash ('sha256-kPx0AsF0oz2kKiZ875xSvv693TBHkQ/0SkMJZnnNpnQ='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked.
+(anonymous) @ chrome-extension://a…j/includes/tab.js:1
+ [Room Init] Role: creator, Language: en, My Voice Gender: male
+ [Browser] Network status: ONLINE
+ [State Change] partnerVoiceGender updated to: undefined
+ [Partner Wait] Starting 5-minute partner join timeout for owner
+ [Page Visibility] Listener installed for mobile background/resume detection
+ [Network] Network change detection enabled (connection type: 3g )
+ [WebSocket] ⏳ Waiting for URL to be ready (non-blocking)...
+/api/ws/token:1  Failed to load resource: the server responded with a status of 500 ()
+ [WebSocket Token] Server error (500), retrying in 1000ms (attempt 1/3)
+/api/ws/token:1  Failed to load resource: the server responded with a status of 500 ()
+ [WebSocket Token] Server error (500), retrying in 2000ms (attempt 2/3)
+ [Browser] Visibility changed: HIDDEN
+ [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+ [Page Visibility] 🌙 App backgrounded (invisible)
+/api/ws/token:1  Failed to load resource: the server responded with a status of 500 ()
+ [WebSocket Token] Server error (500), retrying in 4000ms (attempt 3/3)
+/api/ws/token:1  Failed to load resource: the server responded with a status of 500 ()
+ [WebSocket Token] Failed after 3 retries, falling back to cookie auth
+I @ index-C1EZIQFo.js:376
+ [WebSocket] ❌ Timeout waiting for WebSocket URL
+iR @ index-C1EZIQFo.js:382
+ [WebSocket Setup] Failed to create connection: 
+(anonymous) @ index-C1EZIQFo.js:382
+ [Browser] Visibility changed: VISIBLE
+ [Browser] ✓ Tab is now visible again
+ [Page Visibility] 👁️ App became visible (resumed from background)
+ [Page Visibility] 🔄 WebSocket disconnected, attempting immediate reconnection...
+ [Reconnect Coordinator] Request from: page-visibility, delay: 0ms
+ [Reconnect Coordinator] Starting new reconnection from page-visibility
+ [Reconnect Coordinator] Creating new WebSocket connection...
+ [WebSocket] Creating connection to: wss://getvoztra.com/ws
+ [WebSocket] ✅ Connected successfully: Object
+ [Sequence] 📤 Sent join message with lastReceivedSeq=0
+ [Message Queue] 📝 Waiting for server join acknowledgment before flushing 0 pending messages...
+ [Room Persistence] Saved room settings to localStorage: b7ef4690-894e-4da6-bcb1-404f5a3bf898
+ [Reconnect Coordinator] ✅ Connection established successfully
+ [Reconnect Coordinator] Cleaning up coordinator state
+ [Page Visibility] ✅ Reconnection successful
+ [Voice Gender] Partner joined with gender: male
+ [Voice Gender] My gender: male
+ [Partner Wait] Cleaning up timeout timers
+ [State Change] partnerVoiceGender updated to: male
+ [Partner Wait] Partner already connected - clearing all timers
+ [Start Conversation] ✅ All checks passed - WebSocket OPEN, partner connected, quota available
+ [Audio Unlock] Attempting to unlock audio for mobile...
+ [Audio Unlock] Audio successfully unlocked for mobile
+ [Azure Token API] 🔑 REQUEST #1 START - Fetching new auth token
+ [Azure Token API] ✅ REQUEST #1 SUCCESS - Duration: 830ms, Region: eastus
+ [Browser] Visibility changed: HIDDEN
+ [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+ [Page Visibility] 🌙 App backgrounded (invisible)
+ [Browser] Visibility changed: VISIBLE
+ [Browser] ✓ Tab is now visible again
+ [Page Visibility] 👁️ App became visible (resumed from background)
+ [Page Visibility] ✅ WebSocket already connected, no action needed
+ [Credits] Update received: 179440 seconds remaining, exhausted: false
+ [Start Conversation] ✅ All checks passed - WebSocket OPEN, partner connected, quota available
+ [Azure Token] Using cached token
+ [Translation Received] ⏱️ Timestamp: 1763646801268, Seq: 1, MessageId: participant-1763646801300-thmlqz8, Speaker: participant, IsOwn: false
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 0
+ [Sequence] 💾 Saved lastReceivedSeq=1 for room b7ef4690-894e-4da6-bcb1-404f5a3bf898
+ [Deduplication] 🔍 Check: sizeBefore=0, sizeAfter=1, messageId=participant-1763646801300-thmlqz8
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 1
+ [Translation] 📝 Translation #1 received - Original: "¿Cómo te llamas?...", Translated: "What's your name?..."
+ [Translation] 📥 Added to PARTNER messages (total: 1)
+ [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+ [Voice Gender] Text to speak: "What's your name?", Language: en
+ [TTS Queue] Adding to queue (queue size: 0): What's your name?
+ [TTS Queue] Queue processor started
+ [TTS Queue] Playing: What's your name? 
+ [TTS Queue] Synthesizing audio via REST API...
+ [Azure Token] Using cached token
+ [Translation] ⏱️ Total processing time: 4ms
+ [Azure TTS API] 🎤 REQUEST #1 START - Voice: en-US-AndrewMultilingualNeural, Language: en, Region: eastus, Text: "What's your name?..."
+ [Azure TTS API] ✅ REQUEST #1 SUCCESS - Voice: en-US-AndrewMultilingualNeural, Duration: 3102ms, Audio size: 15552 bytes
+ [Azure TTS API] 📊 Session Total: 1 TTS requests made
+ [TTS Queue] Synthesis completed in 3433ms, audio size: 15552 bytes
+ [TTS Queue] Setting fallback timeout: 2972ms (audio duration: 0.972s)
+ [TTS Queue] Playback started successfully
+ [Browser] Visibility changed: HIDDEN
+ [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+ [Page Visibility] 🌙 App backgrounded (invisible)
+ [TTS Queue] Playback completed (audio ended event)
+ [TTS Queue] Marked messageId as spoken: participant-1763646801300-thmlqz8
+ [TTS Queue] Queue processor finished
+ [Browser] Visibility changed: VISIBLE
+ [Browser] ✓ Tab is now visible again
+ [Page Visibility] 👁️ App became visible (resumed from background)
+ [Page Visibility] ✅ WebSocket already connected, no action needed
+ [Credits] Update received: 179430 seconds remaining, exhausted: false
+ [Start Conversation] ✅ All checks passed - WebSocket OPEN, partner connected, quota available
+ [Azure Token] Using cached token
+ [Browser] Visibility changed: HIDDEN
+ [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+ [Page Visibility] 🌙 App backgrounded (invisible)
+ WebSocket connection to 'wss://eastus.stt.speech.microsoft.com/stt/speech/universal/v2?language=en-US&format=simple&Authorization=Bearer%20eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleTEiLCJ0eXAiOiJKV1QifQ.eyJyZWdpb24iOiJlYXN0dXMiLCJzdWJzY3JpcHRpb24taWQiOiJiYWM5MmJiNDIzZWU0NzRkYmE0YWE2NWIwMjhmN2ZmYyIsInByb2R1Y3QtaWQiOiJTcGVlY2hTZXJ2aWNlcy5TMCIsImNvZ25pdGl2ZS1zZXJ2aWNlcy1lbmRwb2ludCI6Imh0dHBzOi8vYXBpLmNvZ25pdGl2ZS5taWNyb3NvZnQuY29tL2ludGVybmFsL3YxLjAvIiwiYXp1cmUtcmVzb3VyY2UtaWQiOiIvc3Vic2NyaXB0aW9ucy82NjJhZWU4ZS03NjBmLTQ0OWYtYWUxOS0xYTlkMjMzNDNhMTgvcmVzb3VyY2VHcm91cHMvVm96dHJhL3Byb3ZpZGVycy9NaWNyb3NvZnQuQ29nbml0aXZlU2VydmljZXMvYWNjb3VudHMvVm96dHJhIiwic2NvcGUiOiJzcGVlY2hzZXJ2aWNlcyIsImF1ZCI6InVybjptcy5zcGVlY2hzZXJ2aWNlcy5lYXN0dXMiLCJleHAiOjE3NjM2NDczOTYsImlzcyI6InVybjptcy5jb2duaXRpdmVzZXJ2aWNlcyJ9.Cj2LwOGMGWVW4pjjIhnnQu8KoDSd1Pj0rfbnAdDOYXpjzNNgHgRVqqo8dPvKEWAA6Qg3TbpA1KZeqrYBtUF5tQ&X-ConnectionId=BF2373FC486B455B89F7D8C213A06B9C&connectionId=BF2373FC486B455B89F7D8C213A06B9C' failed: 
+open @ index-C1EZIQFo.js:370
+ [Credits] Update received: 179420 seconds remaining, exhausted: false
+ [Translation Received] ⏱️ Timestamp: 1763646818653, Seq: 2, MessageId: participant-1763646818953-wuawreg, Speaker: participant, IsOwn: false
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 1
+ [Sequence] 💾 Saved lastReceivedSeq=2 for room b7ef4690-894e-4da6-bcb1-404f5a3bf898
+ [Deduplication] 🔍 Check: sizeBefore=1, sizeAfter=2, messageId=participant-1763646818953-wuawreg
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 2
+ [Translation] 📝 Translation #2 received - Original: "Como estas....", Translated: "How are you...."
+ [Translation] 📥 Added to PARTNER messages (total: 1)
+ [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+ [Voice Gender] Text to speak: "How are you.", Language: en
+ [TTS Queue] Adding to queue (queue size: 0): How are you.
+ [TTS Queue] Queue processor started
+ [TTS Queue] Playing: How are you. 
+ [TTS Queue] Synthesizing audio via REST API...
+ [Azure Token] Using cached token
+ [Translation] ⏱️ Total processing time: 2ms
+ [Azure TTS API] 🎤 REQUEST #2 START - Voice: en-US-AndrewMultilingualNeural, Language: en, Region: eastus, Text: "How are you...."
+ [Azure TTS API] ✅ REQUEST #2 SUCCESS - Voice: en-US-AndrewMultilingualNeural, Duration: 851ms, Audio size: 16128 bytes
+ [Azure TTS API] 📊 Session Total: 2 TTS requests made
+ [TTS Queue] Synthesis completed in 1096ms, audio size: 16128 bytes
+ [TTS Queue] Setting fallback timeout: 3008ms (audio duration: 1.008s)
+ [TTS Queue] Playback started successfully
+ [Browser] Visibility changed: VISIBLE
+ [Browser] ✓ Tab is now visible again
+ [Page Visibility] 👁️ App became visible (resumed from background)
+ [Page Visibility] ✅ WebSocket already connected, no action needed
+ [TTS Queue] Playback completed (audio ended event)
+ [TTS Queue] Marked messageId as spoken: participant-1763646818953-wuawreg
+ [TTS Queue] Queue processor finished
+ [Start Conversation] ✅ All checks passed - WebSocket OPEN, partner connected, quota available
+ [Azure Token] Using cached token
+ [Start Conversation] ✅ All checks passed - WebSocket OPEN, partner connected, quota available
+ [Azure Token] Using cached token
+ [Start Conversation] ✅ All checks passed - WebSocket OPEN, partner connected, quota available
+ [Azure Token] Using cached token
+ [Start Conversation] ✅ All checks passed - WebSocket OPEN, partner connected, quota available
+ [Azure Token] Using cached token
+ [Start Conversation] ✅ All checks passed - WebSocket OPEN, partner connected, quota available
+ [Azure Token] Using cached token
+ [Start Conversation] ✅ All checks passed - WebSocket OPEN, partner connected, quota available
+ [Azure Token] Using cached token
+ [Start Conversation] ✅ All checks passed - WebSocket OPEN, partner connected, quota available
+ [Azure Token] Using cached token
+ [Start Conversation] ✅ All checks passed - WebSocket OPEN, partner connected, quota available
+ [Azure Token] Using cached token
+ [Azure Speech] ✓ Session started: Object
+ [Speech] Recognition started successfully - microphone is now active
+ [Speech] Conversation started with microphone already active (no second click needed)
+ [Azure Speech] ✓ Session started: Object
+ [Speech] Recognition started successfully - microphone is now active
+ [Speech] Conversation started with microphone already active (no second click needed)
+ [Credits] Update received: 179410 seconds remaining, exhausted: false
+ [Browser] Visibility changed: HIDDEN
+ [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+ [Page Visibility] 🌙 App backgrounded (invisible)
+ [Azure Speech] ✓ Session started: Object
+ [Speech] Recognition started successfully - microphone is now active
+ [Speech] Conversation started with microphone already active (no second click needed)
+ [Azure Speech Dedupe] ✅ New resultId processed: F985798B714E48119193D236E59B868C, cache size: 1
+ [Temporal Dedupe] ✅ New offset+text processed: offset=13300000, text="Comatayamus....", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "Comatayamus...."
+ [Azure Speech Dedupe] ✅ New resultId processed: 54A3698AEA7947F3835839E5614656F7, cache size: 2
+ [Temporal Dedupe] ✅ New offset+text processed: offset=79900000, text="What is your name?...", cache size: 2
+ [Speech] ✅ Sent final transcription immediately: "What is your name?..."
+ [Azure Speech Dedupe] ✅ New resultId processed: 58B1562989E74CF6BB7C27AB9770FC1C, cache size: 3
+ [Temporal Dedupe] ✅ New offset+text processed: offset=63000000, text="Como estas....", cache size: 3
+ [Speech] ✅ Sent final transcription immediately: "Como estas...."
+ [Translation Received] ⏱️ Timestamp: 1763646830318, Seq: 3, MessageId: creator-1763646830622-ej2th0x, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 2
+ [Deduplication] 🔍 Check: sizeBefore=2, sizeAfter=3, messageId=creator-1763646830622-ej2th0x
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 3
+ [Translation] 📝 Translation #3 received - Original: "Comatayamus....", Translated: "Comatayamus...."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 1ms
+ [Translation Received] ⏱️ Timestamp: 1763646830734, Seq: 4, MessageId: creator-1763646831037-kla8z97, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 3
+ [Deduplication] 🔍 Check: sizeBefore=3, sizeAfter=4, messageId=creator-1763646831037-kla8z97
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 4
+ [Translation] 📝 Translation #4 received - Original: "What is your name?...", Translated: "¿Cómo te llamas?..."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 1ms
+ [Translation Received] ⏱️ Timestamp: 1763646830847, Seq: 5, MessageId: creator-1763646831147-2k430wu, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 4
+ [Deduplication] 🔍 Check: sizeBefore=4, sizeAfter=5, messageId=creator-1763646831147-2k430wu
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 5
+ [Translation] 📝 Translation #5 received - Original: "Como estas....", Translated: "Como estás...."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 2ms
+ [Azure Speech Dedupe] ⛔ DUPLICATE RESULTID BLOCKED!
+Z.recognized @ index-C1EZIQFo.js:382
+ [Azure Speech Dedupe] 🔍 ResultId: F985798B714E48119193D236E59B868C
+Z.recognized @ index-C1EZIQFo.js:382
+ [Azure Speech Dedupe] 📝 Text: "What is your name?"
+Z.recognized @ index-C1EZIQFo.js:382
+ [Azure Speech Dedupe] ⏱️ Last processed: 3253ms ago (TTL: 5000ms)
+Z.recognized @ index-C1EZIQFo.js:382
+ [Azure Speech Dedupe] 💡 This is likely Azure Speech SDK's rescoring mechanism
+Z.recognized @ index-C1EZIQFo.js:382
+ [Azure Speech Dedupe] ✅ Prevented duplicate from reaching server - no translation cost incurred
+Z.recognized @ index-C1EZIQFo.js:382
+ [Azure Speech Dedupe] ⛔ DUPLICATE RESULTID BLOCKED!
+Z.recognized @ index-C1EZIQFo.js:382
+ [Azure Speech Dedupe] 🔍 ResultId: 54A3698AEA7947F3835839E5614656F7
+Z.recognized @ index-C1EZIQFo.js:382
+ [Azure Speech Dedupe] 📝 Text: "Como estas."
+Z.recognized @ index-C1EZIQFo.js:382
+ [Azure Speech Dedupe] ⏱️ Last processed: 3975ms ago (TTL: 5000ms)
+Z.recognized @ index-C1EZIQFo.js:382
+ [Azure Speech Dedupe] 💡 This is likely Azure Speech SDK's rescoring mechanism
+Z.recognized @ index-C1EZIQFo.js:382
+ [Azure Speech Dedupe] ✅ Prevented duplicate from reaching server - no translation cost incurred
+Z.recognized @ index-C1EZIQFo.js:382
+ [Interim Timeout] ⏰ Auto-clearing myInterimText after 3s (no final transcription received)
+ [Azure Speech Dedupe] 🧹 Cleaned up 3 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: F985798B714E48119193D236E59B868C, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 3 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=189100000, text="Como estas....", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "Como estas...."
+ [Translation Received] ⏱️ Timestamp: 1763646837747, Seq: 6, MessageId: creator-1763646838046-mx88hke, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 5
+ [Deduplication] 🔍 Check: sizeBefore=5, sizeAfter=6, messageId=creator-1763646838046-mx88hke
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 6
+ [Translation] 📝 Translation #6 received - Original: "Como estas....", Translated: "Como estás...."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 0ms
+ [Credits] Update received: 179400 seconds remaining, exhausted: false
+ [Azure Speech] ✓ Session started: Object
+ [Speech] Recognition started successfully - microphone is now active
+ [Speech] Conversation started with microphone already active (no second click needed)
+ [Azure Speech] ✓ Session started: Object
+ [Speech] Recognition started successfully - microphone is now active
+ [Speech] Conversation started with microphone already active (no second click needed)
+ [Credits] Update received: 179390 seconds remaining, exhausted: false
+ [Azure Speech] ✓ Session started: Object
+ [Speech] Recognition started successfully - microphone is now active
+ [Speech] Conversation started with microphone already active (no second click needed)
+ [Azure Speech] ✓ Session started: Object
+ [Speech] Recognition started successfully - microphone is now active
+ [Speech] Conversation started with microphone already active (no second click needed)
+ [Browser] Visibility changed: VISIBLE
+ [Browser] ✓ Tab is now visible again
+ [Page Visibility] 👁️ App became visible (resumed from background)
+ [Page Visibility] ✅ WebSocket already connected, no action needed
+ [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 54A3698AEA7947F3835839E5614656F7, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=523900000, text="How are you doing?...", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "How are you doing?..."
+ [Azure Speech Dedupe] ✅ New resultId processed: 58B1562989E74CF6BB7C27AB9770FC1C, cache size: 2
+ [Temporal Dedupe] ✅ New offset+text processed: offset=436700000, text="How are you doing?...", cache size: 2
+ [Speech] ✅ Sent final transcription immediately: "How are you doing?..."
+ [Translation Received] ⏱️ Timestamp: 1763646856376, Seq: 7, MessageId: creator-1763646856588-ig8mgdc, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 6
+ [Deduplication] 🔍 Check: sizeBefore=6, sizeAfter=7, messageId=creator-1763646856588-ig8mgdc
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 7
+ [Translation] 📝 Translation #7 received - Original: "How are you doing?...", Translated: "¿Cómo te va?..."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 1ms
+ [Azure Speech Dedupe] ✅ New resultId processed: F985798B714E48119193D236E59B868C, cache size: 3
+ [Temporal Dedupe] 🧹 Cleaned up 2 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=548300000, text="How are you doing?...", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "How are you doing?..."
+ [Credits] Update received: 179380 seconds remaining, exhausted: false
+ [Interim Timeout] ⏰ Auto-clearing myInterimText after 3s (no final transcription received)
+ [Azure Speech Dedupe] ✅ New resultId processed: 54C01362AD234456A011CCF3D2914ACC, cache size: 4
+ [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=322300000, text="How are you doing?...", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "How are you doing?..."
+ [Interim Timeout] ⏰ Auto-clearing myInterimText after 3s (no final transcription received)
+ [Azure Speech Dedupe] 🧹 Cleaned up 3 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: DB1565ADF49A49C79A96258240C96B7B, cache size: 2
+ [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=320700000, text="How are you doing?...", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "How are you doing?..."
+ [Translation Received] ⏱️ Timestamp: 1763646864785, Seq: 8, MessageId: creator-1763646865065-6nsv8gm, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 7
+ [Deduplication] 🔍 Check: sizeBefore=7, sizeAfter=8, messageId=creator-1763646865065-6nsv8gm
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 8
+ [Translation] 📝 Translation #8 received - Original: "How are you doing?...", Translated: "¿Cómo te va?..."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 1ms
+ [Azure Speech Dedupe] ✅ New resultId processed: E8B9D9150D72490AA649B0D56DBBE7CD, cache size: 3
+ [Temporal Dedupe] ✅ New offset+text processed: offset=318700000, text="How are you doing?...", cache size: 2
+ [Speech] ✅ Sent final transcription immediately: "How are you doing?..."
+ [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: A83B98241F6441CCAE81492749E02353, cache size: 3
+ [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=316700000, text="How are you doing?...", cache size: 2
+ [Speech] ✅ Sent final transcription immediately: "How are you doing?..."
+ [Network] 🔄 Network type changed: 3g
+ [Network] ✅ WebSocket still connected after network change
+ [Credits] Update received: 179370 seconds remaining, exhausted: false
+ [Interim Timeout] ⏰ Auto-clearing myInterimText after 3s (no final transcription received)
+ WebSocket connection to 'wss://eastus.stt.speech.microsoft.com/stt/speech/universal/v2?language=en-US&format=simple&Authorization=Bearer%20eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleTEiLCJ0eXAiOiJKV1QifQ.eyJyZWdpb24iOiJlYXN0dXMiLCJzdWJzY3JpcHRpb24taWQiOiJiYWM5MmJiNDIzZWU0NzRkYmE0YWE2NWIwMjhmN2ZmYyIsInByb2R1Y3QtaWQiOiJTcGVlY2hTZXJ2aWNlcy5TMCIsImNvZ25pdGl2ZS1zZXJ2aWNlcy1lbmRwb2ludCI6Imh0dHBzOi8vYXBpLmNvZ25pdGl2ZS5taWNyb3NvZnQuY29tL2ludGVybmFsL3YxLjAvIiwiYXp1cmUtcmVzb3VyY2UtaWQiOiIvc3Vic2NyaXB0aW9ucy82NjJhZWU4ZS03NjBmLTQ0OWYtYWUxOS0xYTlkMjMzNDNhMTgvcmVzb3VyY2VHcm91cHMvVm96dHJhL3Byb3ZpZGVycy9NaWNyb3NvZnQuQ29nbml0aXZlU2VydmljZXMvYWNjb3VudHMvVm96dHJhIiwic2NvcGUiOiJzcGVlY2hzZXJ2aWNlcyIsImF1ZCI6InVybjptcy5zcGVlY2hzZXJ2aWNlcy5lYXN0dXMiLCJleHAiOjE3NjM2NDczOTYsImlzcyI6InVybjptcy5jb2duaXRpdmVzZXJ2aWNlcyJ9.Cj2LwOGMGWVW4pjjIhnnQu8KoDSd1Pj0rfbnAdDOYXpjzNNgHgRVqqo8dPvKEWAA6Qg3TbpA1KZeqrYBtUF5tQ&X-ConnectionId=29A22CD1520F4E1BA70C1F3247FD4AD7&connectionId=29A22CD1520F4E1BA70C1F3247FD4AD7' failed: 
+open @ index-C1EZIQFo.js:370
+ [Credits] Update received: 179360 seconds remaining, exhausted: false
+ [Azure Speech Dedupe] 🧹 Cleaned up 3 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: A83B98241F6441CCAE81492749E02353, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 2 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=514000000, text="Wiki leaks....", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "Wiki leaks...."
+ [Azure Speech Dedupe] ✅ New resultId processed: 54A3698AEA7947F3835839E5614656F7, cache size: 2
+ [Temporal Dedupe] ✅ New offset+text processed: offset=714700000, text="Wiki leaks....", cache size: 2
+ [Speech] ✅ Sent final transcription immediately: "Wiki leaks...."
+ [Azure Speech Dedupe] ✅ New resultId processed: 58B1562989E74CF6BB7C27AB9770FC1C, cache size: 3
+ [Temporal Dedupe] ✅ New offset+text processed: offset=635100000, text="Wiki leaks....", cache size: 3
+ [Speech] ✅ Sent final transcription immediately: "Wiki leaks...."
+ [Translation Received] ⏱️ Timestamp: 1763646878626, Seq: 9, MessageId: participant-1763646878929-astfbjw, Speaker: participant, IsOwn: false
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 8
+ [Sequence] 💾 Saved lastReceivedSeq=9 for room b7ef4690-894e-4da6-bcb1-404f5a3bf898
+ [Deduplication] 🔍 Check: sizeBefore=8, sizeAfter=9, messageId=participant-1763646878929-astfbjw
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 9
+ [Translation] 📝 Translation #9 received - Original: "Waiting....", Translated: "Waiting...."
+ [Translation] 📥 Added to PARTNER messages (total: 1)
+ [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+ [Voice Gender] Text to speak: "Waiting.", Language: en
+ [TTS Queue] Adding to queue (queue size: 0): Waiting.
+ [TTS Queue] Queue processor started
+ [TTS Queue] Playing: Waiting. 
+ [TTS Queue] Synthesizing audio via REST API...
+ [Azure Token] Using cached token
+ [Translation] ⏱️ Total processing time: 2ms
+ [Azure TTS API] 🎤 REQUEST #3 START - Voice: en-US-AndrewMultilingualNeural, Language: en, Region: eastus, Text: "Waiting...."
+ [Translation Received] ⏱️ Timestamp: 1763646878700, Seq: 10, MessageId: creator-1763646878996-ndd2ljz, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 9
+ [Deduplication] 🔍 Check: sizeBefore=9, sizeAfter=10, messageId=creator-1763646878996-ndd2ljz
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 10
+ [Translation] 📝 Translation #10 received - Original: "Wiki leaks....", Translated: "Filtraciones de la wiki...."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 0ms
+ [Azure TTS API] ✅ REQUEST #3 SUCCESS - Voice: en-US-AndrewMultilingualNeural, Duration: 689ms, Audio size: 13248 bytes
+ [Azure TTS API] 📊 Session Total: 3 TTS requests made
+ [TTS Queue] Synthesis completed in 925ms, audio size: 13248 bytes
+ [TTS Queue] Setting fallback timeout: 2828ms (audio duration: 0.828s)
+ [TTS Queue] Playback started successfully
+ [Azure Speech Dedupe] ✅ New resultId processed: E8B9D9150D72490AA649B0D56DBBE7CD, cache size: 4
+ [Temporal Dedupe] 🧹 Cleaned up 3 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=508700000, text="Wiki leaks....", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "Wiki leaks...."
+ [TTS Queue] Playback completed (audio ended event)
+ [TTS Queue] Marked messageId as spoken: participant-1763646878929-astfbjw
+ [TTS Queue] Queue processor finished
+ [Interim Timeout] ⏰ Auto-clearing myInterimText after 3s (no final transcription received)
+ [Azure Speech Dedupe] 🧹 Cleaned up 4 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 54A3698AEA7947F3835839E5614656F7, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=781900000, text="Where do you live?...", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "Where do you live?..."
+ [Azure Speech Dedupe] ✅ New resultId processed: 58B1562989E74CF6BB7C27AB9770FC1C, cache size: 2
+ [Temporal Dedupe] ✅ New offset+text processed: offset=703100000, text="Where do you live?...", cache size: 2
+ [Speech] ✅ Sent final transcription immediately: "Where do you live?..."
+ [Azure Speech Dedupe] ✅ New resultId processed: E8B9D9150D72490AA649B0D56DBBE7CD, cache size: 3
+ [Temporal Dedupe] ✅ New offset+text processed: offset=575100000, text="Where do you live?...", cache size: 3
+ [Speech] ✅ Sent final transcription immediately: "Where do you live?..."
+ [Azure Speech Dedupe] ✅ New resultId processed: F985798B714E48119193D236E59B868C, cache size: 4
+ [Temporal Dedupe] ✅ New offset+text processed: offset=803500000, text="Where do you live?...", cache size: 4
+ [Speech] ✅ Sent final transcription immediately: "Where do you live?..."
+ [Azure Speech Dedupe] ✅ New resultId processed: DB1565ADF49A49C79A96258240C96B7B, cache size: 5
+ [Temporal Dedupe] ✅ New offset+text processed: offset=577700000, text="Where do you live?...", cache size: 5
+ [Speech] ✅ Sent final transcription immediately: "Where do you live?..."
+ [Azure Speech Dedupe] ✅ New resultId processed: 54C01362AD234456A011CCF3D2914ACC, cache size: 6
+ [Temporal Dedupe] ✅ New offset+text processed: offset=580700000, text="Where do you live?...", cache size: 6
+ [Speech] ✅ Sent final transcription immediately: "Where do you live?..."
+ [Azure Speech Dedupe] ✅ New resultId processed: A83B98241F6441CCAE81492749E02353, cache size: 7
+ [Temporal Dedupe] ✅ New offset+text processed: offset=582000000, text="Where do you live?...", cache size: 7
+ [Speech] ✅ Sent final transcription immediately: "Where do you live?..."
+ [Translation Received] ⏱️ Timestamp: 1763646886092, Seq: 11, MessageId: creator-1763646886046-1ro5ne3, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 10
+ [Deduplication] 🔍 Check: sizeBefore=10, sizeAfter=11, messageId=creator-1763646886046-1ro5ne3
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 11
+ [Translation] 📝 Translation #11 received - Original: "Where do you live?...", Translated: "¿En dónde vives?..."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 0ms
+ [Translation Received] ⏱️ Timestamp: 1763646886398, Seq: 12, MessageId: participant-1763646886518-weim6vs, Speaker: participant, IsOwn: false
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 11
+ [Sequence] 💾 Saved lastReceivedSeq=12 for room b7ef4690-894e-4da6-bcb1-404f5a3bf898
+ [Deduplication] 🔍 Check: sizeBefore=11, sizeAfter=12, messageId=participant-1763646886518-weim6vs
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 12
+ [Translation] 📝 Translation #12 received - Original: "¿Where are you Live?...", Translated: "Where are you Live?..."
+ [Translation] 📥 Added to PARTNER messages (total: 1)
+ [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+ [Voice Gender] Text to speak: "Where are you Live?", Language: en
+ [TTS Queue] Adding to queue (queue size: 0): Where are you Live?
+ [TTS Queue] Queue processor started
+ [TTS Queue] Playing: Where are you Live? 
+ [TTS Queue] Synthesizing audio via REST API...
+ [Azure Token] Using cached token
+ [Translation] ⏱️ Total processing time: 2ms
+ [Azure TTS API] 🎤 REQUEST #4 START - Voice: en-US-AndrewMultilingualNeural, Language: en, Region: eastus, Text: "Where are you Live?..."
+ [Azure TTS API] ✅ REQUEST #4 SUCCESS - Voice: en-US-AndrewMultilingualNeural, Duration: 719ms, Audio size: 17856 bytes
+ [Azure TTS API] 📊 Session Total: 4 TTS requests made
+ [TTS Queue] Synthesis completed in 935ms, audio size: 17856 bytes
+ [TTS Queue] Setting fallback timeout: 3116ms (audio duration: 1.116s)
+ [TTS Queue] Playback started successfully
+ [Credits] Update received: 179350 seconds remaining, exhausted: false
+ [TTS Queue] Playback completed (audio ended event)
+ [TTS Queue] Marked messageId as spoken: participant-1763646886518-weim6vs
+ [TTS Queue] Queue processor finished
+ WebSocket connection to 'wss://eastus.stt.speech.microsoft.com/stt/speech/universal/v2?language=en-US&format=simple&Authorization=Bearer%20eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleTEiLCJ0eXAiOiJKV1QifQ.eyJyZWdpb24iOiJlYXN0dXMiLCJzdWJzY3JpcHRpb24taWQiOiJiYWM5MmJiNDIzZWU0NzRkYmE0YWE2NWIwMjhmN2ZmYyIsInByb2R1Y3QtaWQiOiJTcGVlY2hTZXJ2aWNlcy5TMCIsImNvZ25pdGl2ZS1zZXJ2aWNlcy1lbmRwb2ludCI6Imh0dHBzOi8vYXBpLmNvZ25pdGl2ZS5taWNyb3NvZnQuY29tL2ludGVybmFsL3YxLjAvIiwiYXp1cmUtcmVzb3VyY2UtaWQiOiIvc3Vic2NyaXB0aW9ucy82NjJhZWU4ZS03NjBmLTQ0OWYtYWUxOS0xYTlkMjMzNDNhMTgvcmVzb3VyY2VHcm91cHMvVm96dHJhL3Byb3ZpZGVycy9NaWNyb3NvZnQuQ29nbml0aXZlU2VydmljZXMvYWNjb3VudHMvVm96dHJhIiwic2NvcGUiOiJzcGVlY2hzZXJ2aWNlcyIsImF1ZCI6InVybjptcy5zcGVlY2hzZXJ2aWNlcy5lYXN0dXMiLCJleHAiOjE3NjM2NDczOTYsImlzcyI6InVybjptcy5jb2duaXRpdmVzZXJ2aWNlcyJ9.Cj2LwOGMGWVW4pjjIhnnQu8KoDSd1Pj0rfbnAdDOYXpjzNNgHgRVqqo8dPvKEWAA6Qg3TbpA1KZeqrYBtUF5tQ&X-ConnectionId=1FE4E845BB664B19AD13657D125F14BD&connectionId=1FE4E845BB664B19AD13657D125F14BD' failed: 
+open @ index-C1EZIQFo.js:370
+ [Azure Speech] ✓ Session started: Object
+ [Speech] Recognition started successfully - microphone is now active
+ [Speech] Conversation started with microphone already active (no second click needed)
+ [Browser] Visibility changed: HIDDEN
+ [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+ [Page Visibility] 🌙 App backgrounded (invisible)
+ [Azure Speech] ✓ Session started: Object
+ [Speech] Recognition started successfully - microphone is now active
+ [Speech] Conversation started with microphone already active (no second click needed)
+ [Credits] Update received: 179340 seconds remaining, exhausted: false
+ [Azure Speech Dedupe] 🧹 Cleaned up 7 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: EB7D0884A3AD4A7B9F13BDBA22C23F46, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 7 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=131100000, text="Cortana....", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "Cortana...."
+ [Translation Received] ⏱️ Timestamp: 1763646900982, Seq: 13, MessageId: creator-1763646901289-0wfq75k, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 12
+ [Deduplication] 🔍 Check: sizeBefore=12, sizeAfter=13, messageId=creator-1763646901289-0wfq75k
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 13
+ [Translation] 📝 Translation #13 received - Original: "Cortana....", Translated: "Cortana...."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 1ms
+ [Credits] Update received: 179330 seconds remaining, exhausted: false
+ [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: A55EA2BB3B9A41EDAADFBB95F7053E8B, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=306700000, text="How are you doing?...", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "How are you doing?..."
+ [Translation Received] ⏱️ Timestamp: 1763646909341, Seq: 14, MessageId: creator-1763646909543-8gfbyk4, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 13
+ [Deduplication] 🔍 Check: sizeBefore=13, sizeAfter=14, messageId=creator-1763646909543-8gfbyk4
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 14
+ [Translation] 📝 Translation #14 received - Original: "How are you doing?...", Translated: "¿Cómo te va?..."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 2ms
+ [Azure Speech Dedupe] ✅ New resultId processed: EB7D0884A3AD4A7B9F13BDBA22C23F46, cache size: 2
+ [Temporal Dedupe] ✅ New offset+text processed: offset=303900000, text="How are you doing?...", cache size: 2
+ [Speech] ✅ Sent final transcription immediately: "How are you doing?..."
+ [Interim Timeout] ⏰ Auto-clearing myInterimText after 3s (no final transcription received)
+ WebSocket connection to 'wss://eastus.stt.speech.microsoft.com/stt/speech/universal/v2?language=en-US&format=simple&Authorization=Bearer%20eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleTEiLCJ0eXAiOiJKV1QifQ.eyJyZWdpb24iOiJlYXN0dXMiLCJzdWJzY3JpcHRpb24taWQiOiJiYWM5MmJiNDIzZWU0NzRkYmE0YWE2NWIwMjhmN2ZmYyIsInByb2R1Y3QtaWQiOiJTcGVlY2hTZXJ2aWNlcy5TMCIsImNvZ25pdGl2ZS1zZXJ2aWNlcy1lbmRwb2ludCI6Imh0dHBzOi8vYXBpLmNvZ25pdGl2ZS5taWNyb3NvZnQuY29tL2ludGVybmFsL3YxLjAvIiwiYXp1cmUtcmVzb3VyY2UtaWQiOiIvc3Vic2NyaXB0aW9ucy82NjJhZWU4ZS03NjBmLTQ0OWYtYWUxOS0xYTlkMjMzNDNhMTgvcmVzb3VyY2VHcm91cHMvVm96dHJhL3Byb3ZpZGVycy9NaWNyb3NvZnQuQ29nbml0aXZlU2VydmljZXMvYWNjb3VudHMvVm96dHJhIiwic2NvcGUiOiJzcGVlY2hzZXJ2aWNlcyIsImF1ZCI6InVybjptcy5zcGVlY2hzZXJ2aWNlcy5lYXN0dXMiLCJleHAiOjE3NjM2NDczOTYsImlzcyI6InVybjptcy5jb2duaXRpdmVzZXJ2aWNlcyJ9.Cj2LwOGMGWVW4pjjIhnnQu8KoDSd1Pj0rfbnAdDOYXpjzNNgHgRVqqo8dPvKEWAA6Qg3TbpA1KZeqrYBtUF5tQ&X-ConnectionId=29A22CD1520F4E1BA70C1F3247FD4AD7&connectionId=29A22CD1520F4E1BA70C1F3247FD4AD7' failed: 
+open @ index-C1EZIQFo.js:370
+ [Credits] Update received: 179320 seconds remaining, exhausted: false
+ [Azure Speech Dedupe] 🧹 Cleaned up 2 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: A55EA2BB3B9A41EDAADFBB95F7053E8B, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 2 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=497900000, text="Wiki leaks....", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "Wiki leaks...."
+ [Translation Received] ⏱️ Timestamp: 1763646919997, Seq: 15, MessageId: creator-1763646920303-po8j3d3, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 14
+ [Deduplication] 🔍 Check: sizeBefore=14, sizeAfter=15, messageId=creator-1763646920303-po8j3d3
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 15
+ [Translation] 📝 Translation #15 received - Original: "Wiki leaks....", Translated: "Filtraciones de la wiki...."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 1ms
+ [Azure Speech Dedupe] ✅ New resultId processed: EB7D0884A3AD4A7B9F13BDBA22C23F46, cache size: 2
+ [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=501200000, text="Wiki leaks....", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "Wiki leaks...."
+ [Azure Speech Dedupe] ⛔ DUPLICATE RESULTID BLOCKED!
+Z.recognized @ index-C1EZIQFo.js:382
+ [Azure Speech Dedupe] 🔍 ResultId: A55EA2BB3B9A41EDAADFBB95F7053E8B
+Z.recognized @ index-C1EZIQFo.js:382
+ [Azure Speech Dedupe] 📝 Text: "Where do you live?"
+Z.recognized @ index-C1EZIQFo.js:382
+ [Azure Speech Dedupe] ⏱️ Last processed: 3988ms ago (TTL: 5000ms)
+Z.recognized @ index-C1EZIQFo.js:382
+ [Azure Speech Dedupe] 💡 This is likely Azure Speech SDK's rescoring mechanism
+Z.recognized @ index-C1EZIQFo.js:382
+ [Azure Speech Dedupe] ✅ Prevented duplicate from reaching server - no translation cost incurred
+Z.recognized @ index-C1EZIQFo.js:382
+ [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+ [Azure Speech Dedupe] ⛔ DUPLICATE RESULTID BLOCKED!
+Z.recognized @ index-C1EZIQFo.js:382
+ [Azure Speech Dedupe] 🔍 ResultId: EB7D0884A3AD4A7B9F13BDBA22C23F46
+Z.recognized @ index-C1EZIQFo.js:382
+ [Azure Speech Dedupe] 📝 Text: "Where do you live?"
+Z.recognized @ index-C1EZIQFo.js:382
+ [Azure Speech Dedupe] ⏱️ Last processed: 3878ms ago (TTL: 5000ms)
+Z.recognized @ index-C1EZIQFo.js:382
+ [Azure Speech Dedupe] 💡 This is likely Azure Speech SDK's rescoring mechanism
+Z.recognized @ index-C1EZIQFo.js:382
+ [Azure Speech Dedupe] ✅ Prevented duplicate from reaching server - no translation cost incurred
+Z.recognized @ index-C1EZIQFo.js:382
+ [Credits] Update received: 179310 seconds remaining, exhausted: false
+ [Interim Timeout] ⏰ Auto-clearing myInterimText after 3s (no final transcription received)
+ WebSocket connection to 'wss://eastus.stt.speech.microsoft.com/stt/speech/universal/v2?language=en-US&format=simple&Authorization=Bearer%20eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleTEiLCJ0eXAiOiJKV1QifQ.eyJyZWdpb24iOiJlYXN0dXMiLCJzdWJzY3JpcHRpb24taWQiOiJiYWM5MmJiNDIzZWU0NzRkYmE0YWE2NWIwMjhmN2ZmYyIsInByb2R1Y3QtaWQiOiJTcGVlY2hTZXJ2aWNlcy5TMCIsImNvZ25pdGl2ZS1zZXJ2aWNlcy1lbmRwb2ludCI6Imh0dHBzOi8vYXBpLmNvZ25pdGl2ZS5taWNyb3NvZnQuY29tL2ludGVybmFsL3YxLjAvIiwiYXp1cmUtcmVzb3VyY2UtaWQiOiIvc3Vic2NyaXB0aW9ucy82NjJhZWU4ZS03NjBmLTQ0OWYtYWUxOS0xYTlkMjMzNDNhMTgvcmVzb3VyY2VHcm91cHMvVm96dHJhL3Byb3ZpZGVycy9NaWNyb3NvZnQuQ29nbml0aXZlU2VydmljZXMvYWNjb3VudHMvVm96dHJhIiwic2NvcGUiOiJzcGVlY2hzZXJ2aWNlcyIsImF1ZCI6InVybjptcy5zcGVlY2hzZXJ2aWNlcy5lYXN0dXMiLCJleHAiOjE3NjM2NDczOTYsImlzcyI6InVybjptcy5jb2duaXRpdmVzZXJ2aWNlcyJ9.Cj2LwOGMGWVW4pjjIhnnQu8KoDSd1Pj0rfbnAdDOYXpjzNNgHgRVqqo8dPvKEWAA6Qg3TbpA1KZeqrYBtUF5tQ&X-ConnectionId=1FE4E845BB664B19AD13657D125F14BD&connectionId=1FE4E845BB664B19AD13657D125F14BD' failed: 
+open @ index-C1EZIQFo.js:370
+ [Credits] Update received: 179300 seconds remaining, exhausted: false
+ [Azure Speech] ✓ Session started: Object
+ [Speech] Recognition started successfully - microphone is now active
+ [Speech] Conversation started with microphone already active (no second click needed)
+ [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 8090FFF8139847E79229DCAD746C87FF, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=314700000, text="How are you doing?...", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "How are you doing?..."
+ [Translation Received] ⏱️ Timestamp: 1763646955674, Seq: 16, MessageId: creator-1763646955978-0jd40g9, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 15
+ [Deduplication] 🔍 Check: sizeBefore=15, sizeAfter=16, messageId=creator-1763646955978-0jd40g9
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 16
+ [Translation] 📝 Translation #16 received - Original: "How are you doing?...", Translated: "¿Cómo te va?..."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 0ms
+ [Credits] Update received: 179290 seconds remaining, exhausted: false
+ [Azure Speech Dedupe] ✅ New resultId processed: BC7F6425931D4D25830E63305A7A2CD2, cache size: 2
+ [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=1201500000, text="Hey, Cortana....", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "Hey, Cortana...."
+ [Azure Speech Dedupe] ✅ New resultId processed: 25189EFB49AD4677BC770FB8DB617366, cache size: 3
+ [Temporal Dedupe] ✅ New offset+text processed: offset=1195800000, text="Hey, Cortana....", cache size: 2
+ [Speech] ✅ Sent final transcription immediately: "Hey, Cortana...."
+ [Translation Received] ⏱️ Timestamp: 1763646959610, Seq: 17, MessageId: creator-1763646959913-pq14epy, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 16
+ [Deduplication] 🔍 Check: sizeBefore=16, sizeAfter=17, messageId=creator-1763646959913-pq14epy
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 17
+ [Translation] 📝 Translation #17 received - Original: "Hey, Cortana....", Translated: "Hola, Cortana...."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 1ms
+ WebSocket connection to 'wss://eastus.stt.speech.microsoft.com/stt/speech/universal/v2?language=en-US&format=simple&Authorization=Bearer%20eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleTEiLCJ0eXAiOiJKV1QifQ.eyJyZWdpb24iOiJlYXN0dXMiLCJzdWJzY3JpcHRpb24taWQiOiJiYWM5MmJiNDIzZWU0NzRkYmE0YWE2NWIwMjhmN2ZmYyIsInByb2R1Y3QtaWQiOiJTcGVlY2hTZXJ2aWNlcy5TMCIsImNvZ25pdGl2ZS1zZXJ2aWNlcy1lbmRwb2ludCI6Imh0dHBzOi8vYXBpLmNvZ25pdGl2ZS5taWNyb3NvZnQuY29tL2ludGVybmFsL3YxLjAvIiwiYXp1cmUtcmVzb3VyY2UtaWQiOiIvc3Vic2NyaXB0aW9ucy82NjJhZWU4ZS03NjBmLTQ0OWYtYWUxOS0xYTlkMjMzNDNhMTgvcmVzb3VyY2VHcm91cHMvVm96dHJhL3Byb3ZpZGVycy9NaWNyb3NvZnQuQ29nbml0aXZlU2VydmljZXMvYWNjb3VudHMvVm96dHJhIiwic2NvcGUiOiJzcGVlY2hzZXJ2aWNlcyIsImF1ZCI6InVybjptcy5zcGVlY2hzZXJ2aWNlcy5lYXN0dXMiLCJleHAiOjE3NjM2NDczOTYsImlzcyI6InVybjptcy5jb2duaXRpdmVzZXJ2aWNlcyJ9.Cj2LwOGMGWVW4pjjIhnnQu8KoDSd1Pj0rfbnAdDOYXpjzNNgHgRVqqo8dPvKEWAA6Qg3TbpA1KZeqrYBtUF5tQ&X-ConnectionId=1FE4E845BB664B19AD13657D125F14BD&connectionId=1FE4E845BB664B19AD13657D125F14BD' failed: 
+open @ index-C1EZIQFo.js:370
+ [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+ [Azure Speech Dedupe] ⛔ DUPLICATE RESULTID BLOCKED!
+Z.recognized @ index-C1EZIQFo.js:382
+ [Azure Speech Dedupe] 🔍 ResultId: BC7F6425931D4D25830E63305A7A2CD2
+Z.recognized @ index-C1EZIQFo.js:382
+ [Azure Speech Dedupe] 📝 Text: "1."
+Z.recognized @ index-C1EZIQFo.js:382
+ [Azure Speech Dedupe] ⏱️ Last processed: 3750ms ago (TTL: 5000ms)
+Z.recognized @ index-C1EZIQFo.js:382
+ [Azure Speech Dedupe] 💡 This is likely Azure Speech SDK's rescoring mechanism
+Z.recognized @ index-C1EZIQFo.js:382
+ [Azure Speech Dedupe] ✅ Prevented duplicate from reaching server - no translation cost incurred
+Z.recognized @ index-C1EZIQFo.js:382
+ [Azure Speech] ✓ Session started: Object
+ [Speech] Recognition started successfully - microphone is now active
+ [Speech] Conversation started with microphone already active (no second click needed)
+ [Interim Timeout] ⏰ Auto-clearing myInterimText after 3s (no final transcription received)
+ [Credits] Update received: 179280 seconds remaining, exhausted: false
+ [Azure Speech Dedupe] 🧹 Cleaned up 2 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 8090FFF8139847E79229DCAD746C87FF, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 2 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=570900000, text="Where do you live?...", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "Where do you live?..."
+ [Translation Received] ⏱️ Timestamp: 1763646970373, Seq: 18, MessageId: creator-1763646970674-l62xdtd, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 17
+ [Deduplication] 🔍 Check: sizeBefore=17, sizeAfter=18, messageId=creator-1763646970674-l62xdtd
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 18
+ [Translation] 📝 Translation #18 received - Original: "Where do you live?...", Translated: "¿En dónde vives?..."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 0ms
+ [Browser] Visibility changed: VISIBLE
+ [Browser] ✓ Tab is now visible again
+ [Page Visibility] 👁️ App became visible (resumed from background)
+ [Page Visibility] ✅ WebSocket already connected, no action needed
+ [Credits] Update received: 179270 seconds remaining, exhausted: false
+ [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 430E70C778C84D259812A330F30E389A, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=309100000, text="How are you doing?...", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "How are you doing?..."
+ [Translation Received] ⏱️ Timestamp: 1763646980180, Seq: 19, MessageId: creator-1763646980430-i3lssnl, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 18
+ [Deduplication] 🔍 Check: sizeBefore=18, sizeAfter=19, messageId=creator-1763646980430-i3lssnl
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 19
+ [Translation] 📝 Translation #19 received - Original: "How are you doing?...", Translated: "¿Cómo te va?..."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 1ms
+ [End Call] 📞 User clicked End Call - showing rating dialog
+ [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: D0408BE4979E4F5080869A628D3CCB6A, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=1475200000, text="Find quickest 800 AM time....", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "Find quickest 800 AM time...."
+ [Credits] Update received: 179260 seconds remaining, exhausted: false
+ [Translation Received] ⏱️ Timestamp: 1763646988162, Seq: 20, MessageId: creator-1763646988448-fyitodj, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 19
+ [Deduplication] 🔍 Check: sizeBefore=19, sizeAfter=20, messageId=creator-1763646988448-fyitodj
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 20
+ [Translation] 📝 Translation #20 received - Original: "Find quickest 800 AM time....", Translated: "Encuentra la hora más rápida d..."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 0ms
+ [End Call] 📞 Performing actual disconnect after rating
+index-C1EZIQFo.js:382 [End Call] 📊 SESSION STATISTICS:
+index-C1EZIQFo.js:382   - Total TTS Requests: 4
+index-C1EZIQFo.js:382   - Total Token Requests: 1
+index-C1EZIQFo.js:382   - Total Translation Requests: 20
+index-C1EZIQFo.js:376 [Room Persistence] Cleared room from localStorage
+index-C1EZIQFo.js:382 [End Call] Stopping Azure Speech recognizer...
+index-C1EZIQFo.js:382 [End Call] Stopping current audio playback...
+index-C1EZIQFo.js:382 [End Call] Revoking blob URL...
+index-C1EZIQFo.js:382 [End Call] Clearing Azure token cache
+index-C1EZIQFo.js:382 [End Call] Closing WebSocket connection...
+index-C1EZIQFo.js:382 [End Call] ✅ All cleanup completed - navigating to home
+index-C1EZIQFo.js:376 [Cleanup] Clearing interim text timeouts on unmount
+index-C1EZIQFo.js:382 [Page Visibility] Listener removed
+index-C1EZIQFo.js:382 [Network] Event listeners removed
+index-C1EZIQFo.js:382 [WebSocket Cleanup] Component unmounting - cleaning up WebSocket, current readyState: 2
+index-C1EZIQFo.js:382 [WebSocket Cleanup] WebSocket already closed during unmount, readyState: 2
+index-C1EZIQFo.js:376 [Sequence] 🧹 Cleared lastReceivedSeq for room b7ef4690-894e-4da6-bcb1-404f5a3bf898
+index-C1EZIQFo.js:382 [WebSocket Cleanup] Cleanup complete
+index-C1EZIQFo.js:382 [WebSocket] 🔌 ONCLOSE HANDLER FIRED! Code: 1006 wasClean: false
+index-C1EZIQFo.js:382 [WebSocket] 🔌 DISCONNECTED (FULL DETAILS): Object
+index-C1EZIQFo.js:382 [Auto-Reconnect] Reconnect disabled - not reconnecting
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] ✅ New resultId processed: 430E70C778C84D259812A330F30E389A, cache size: 2
+index-C1EZIQFo.js:382 [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+index-C1EZIQFo.js:382 [Temporal Dedupe] ✅ New offset+text processed: offset=498800000, text="Wiki leaks....", cache size: 1
+index-C1EZIQFo.js:382 [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Wiki leaks...."
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Speech] 📦 Queue size: 1/20 pending messages
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Speech] Session stopped - will restart if not muted
+index-C1EZIQFo.js:382 [End Call] ✅ Speech recognizer stopped successfully
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] 🧹 Cleaned up 2 expired resultIds from cache
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] ✅ New resultId processed: B500F05D965F46F9BCEEF694438F6AA8, cache size: 1
+index-C1EZIQFo.js:382 [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+index-C1EZIQFo.js:382 [Temporal Dedupe] ✅ New offset+text processed: offset=1191600000, text="Hey, Cortana....", cache size: 1
+index-C1EZIQFo.js:382 [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Hey, Cortana...."
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Speech] 📦 Queue size: 2/20 pending messages
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] ✅ New resultId processed: CFCCDE64E91B448F90A7DD165FB8CF51, cache size: 1
+index-C1EZIQFo.js:382 [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+index-C1EZIQFo.js:382 [Temporal Dedupe] ✅ New offset+text processed: offset=2193300000, text="You know....", cache size: 1
+index-C1EZIQFo.js:382 [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "You know...."
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Speech] 📦 Queue size: 1/20 pending messages
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] ✅ New resultId processed: CC6B0FAA8FE6438CB6AE01049DCC9FAD, cache size: 2
+index-C1EZIQFo.js:382 [Temporal Dedupe] ✅ New offset+text processed: offset=1974400000, text="Gonna be....", cache size: 2
+index-C1EZIQFo.js:382 [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Gonna be...."
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Speech] 📦 Queue size: 2/20 pending messages
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] 🧹 Cleaned up 2 expired resultIds from cache
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] ✅ New resultId processed: CC6B0FAA8FE6438CB6AE01049DCC9FAD, cache size: 1
+index-C1EZIQFo.js:382 [Temporal Dedupe] 🧹 Cleaned up 2 expired offset entries from cache
+index-C1EZIQFo.js:382 [Temporal Dedupe] ✅ New offset+text processed: offset=2114500000, text="An approach....", cache size: 1
+index-C1EZIQFo.js:382 [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "An approach...."
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Speech] 📦 Queue size: 3/20 pending messages
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:370 WebSocket connection to 'wss://eastus.stt.speech.microsoft.com/stt/speech/universal/v2?language=en-US&format=simple&Authorization=Bearer%20eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleTEiLCJ0eXAiOiJKV1QifQ.eyJyZWdpb24iOiJlYXN0dXMiLCJzdWJzY3JpcHRpb24taWQiOiJiYWM5MmJiNDIzZWU0NzRkYmE0YWE2NWIwMjhmN2ZmYyIsInByb2R1Y3QtaWQiOiJTcGVlY2hTZXJ2aWNlcy5TMCIsImNvZ25pdGl2ZS1zZXJ2aWNlcy1lbmRwb2ludCI6Imh0dHBzOi8vYXBpLmNvZ25pdGl2ZS5taWNyb3NvZnQuY29tL2ludGVybmFsL3YxLjAvIiwiYXp1cmUtcmVzb3VyY2UtaWQiOiIvc3Vic2NyaXB0aW9ucy82NjJhZWU4ZS03NjBmLTQ0OWYtYWUxOS0xYTlkMjMzNDNhMTgvcmVzb3VyY2VHcm91cHMvVm96dHJhL3Byb3ZpZGVycy9NaWNyb3NvZnQuQ29nbml0aXZlU2VydmljZXMvYWNjb3VudHMvVm96dHJhIiwic2NvcGUiOiJzcGVlY2hzZXJ2aWNlcyIsImF1ZCI6InVybjptcy5zcGVlY2hzZXJ2aWNlcy5lYXN0dXMiLCJleHAiOjE3NjM2NDczOTYsImlzcyI6InVybjptcy5jb2duaXRpdmVzZXJ2aWNlcyJ9.Cj2LwOGMGWVW4pjjIhnnQu8KoDSd1Pj0rfbnAdDOYXpjzNNgHgRVqqo8dPvKEWAA6Qg3TbpA1KZeqrYBtUF5tQ&X-ConnectionId=2E1666FD4A514DF5B276BBA7C848D821&connectionId=2E1666FD4A514DF5B276BBA7C848D821' failed: 
+open @ index-C1EZIQFo.js:370
+index-C1EZIQFo.js:370 WebSocket connection to 'wss://eastus.stt.speech.microsoft.com/stt/speech/universal/v2?language=en-US&format=simple&Authorization=Bearer%20eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleTEiLCJ0eXAiOiJKV1QifQ.eyJyZWdpb24iOiJlYXN0dXMiLCJzdWJzY3JpcHRpb24taWQiOiJiYWM5MmJiNDIzZWU0NzRkYmE0YWE2NWIwMjhmN2ZmYyIsInByb2R1Y3QtaWQiOiJTcGVlY2hTZXJ2aWNlcy5TMCIsImNvZ25pdGl2ZS1zZXJ2aWNlcy1lbmRwb2ludCI6Imh0dHBzOi8vYXBpLmNvZ25pdGl2ZS5taWNyb3NvZnQuY29tL2ludGVybmFsL3YxLjAvIiwiYXp1cmUtcmVzb3VyY2UtaWQiOiIvc3Vic2NyaXB0aW9ucy82NjJhZWU4ZS03NjBmLTQ0OWYtYWUxOS0xYTlkMjMzNDNhMTgvcmVzb3VyY2VHcm91cHMvVm96dHJhL3Byb3ZpZGVycy9NaWNyb3NvZnQuQ29nbml0aXZlU2VydmljZXMvYWNjb3VudHMvVm96dHJhIiwic2NvcGUiOiJzcGVlY2hzZXJ2aWNlcyIsImF1ZCI6InVybjptcy5zcGVlY2hzZXJ2aWNlcy5lYXN0dXMiLCJleHAiOjE3NjM2NDczOTYsImlzcyI6InVybjptcy5jb2duaXRpdmVzZXJ2aWNlcyJ9.Cj2LwOGMGWVW4pjjIhnnQu8KoDSd1Pj0rfbnAdDOYXpjzNNgHgRVqqo8dPvKEWAA6Qg3TbpA1KZeqrYBtUF5tQ&X-ConnectionId=843EDD7DDF8147708FB95F1D09BEE969&connectionId=843EDD7DDF8147708FB95F1D09BEE969' failed: 
+open @ index-C1EZIQFo.js:370
+index-C1EZIQFo.js:370 WebSocket connection to 'wss://eastus.stt.speech.microsoft.com/stt/speech/universal/v2?language=en-US&format=simple&Authorization=Bearer%20eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleTEiLCJ0eXAiOiJKV1QifQ.eyJyZWdpb24iOiJlYXN0dXMiLCJzdWJzY3JpcHRpb24taWQiOiJiYWM5MmJiNDIzZWU0NzRkYmE0YWE2NWIwMjhmN2ZmYyIsInByb2R1Y3QtaWQiOiJTcGVlY2hTZXJ2aWNlcy5TMCIsImNvZ25pdGl2ZS1zZXJ2aWNlcy1lbmRwb2ludCI6Imh0dHBzOi8vYXBpLmNvZ25pdGl2ZS5taWNyb3NvZnQuY29tL2ludGVybmFsL3YxLjAvIiwiYXp1cmUtcmVzb3VyY2UtaWQiOiIvc3Vic2NyaXB0aW9ucy82NjJhZWU4ZS03NjBmLTQ0OWYtYWUxOS0xYTlkMjMzNDNhMTgvcmVzb3VyY2VHcm91cHMvVm96dHJhL3Byb3ZpZGVycy9NaWNyb3NvZnQuQ29nbml0aXZlU2VydmljZXMvYWNjb3VudHMvVm96dHJhIiwic2NvcGUiOiJzcGVlY2hzZXJ2aWNlcyIsImF1ZCI6InVybjptcy5zcGVlY2hzZXJ2aWNlcy5lYXN0dXMiLCJleHAiOjE3NjM2NDczOTYsImlzcyI6InVybjptcy5jb2duaXRpdmVzZXJ2aWNlcyJ9.Cj2LwOGMGWVW4pjjIhnnQu8KoDSd1Pj0rfbnAdDOYXpjzNNgHgRVqqo8dPvKEWAA6Qg3TbpA1KZeqrYBtUF5tQ&X-ConnectionId=42DB5F9FF5454781B5BF7754A5E07291&connectionId=42DB5F9FF5454781B5BF7754A5E07291' failed: 
+open @ index-C1EZIQFo.js:370
+index-C1EZIQFo.js:370 WebSocket connection to 'wss://eastus.stt.speech.microsoft.com/stt/speech/universal/v2?language=en-US&format=simple&Authorization=Bearer%20eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleTEiLCJ0eXAiOiJKV1QifQ.eyJyZWdpb24iOiJlYXN0dXMiLCJzdWJzY3JpcHRpb24taWQiOiJiYWM5MmJiNDIzZWU0NzRkYmE0YWE2NWIwMjhmN2ZmYyIsInByb2R1Y3QtaWQiOiJTcGVlY2hTZXJ2aWNlcy5TMCIsImNvZ25pdGl2ZS1zZXJ2aWNlcy1lbmRwb2ludCI6Imh0dHBzOi8vYXBpLmNvZ25pdGl2ZS5taWNyb3NvZnQuY29tL2ludGVybmFsL3YxLjAvIiwiYXp1cmUtcmVzb3VyY2UtaWQiOiIvc3Vic2NyaXB0aW9ucy82NjJhZWU4ZS03NjBmLTQ0OWYtYWUxOS0xYTlkMjMzNDNhMTgvcmVzb3VyY2VHcm91cHMvVm96dHJhL3Byb3ZpZGVycy9NaWNyb3NvZnQuQ29nbml0aXZlU2VydmljZXMvYWNjb3VudHMvVm96dHJhIiwic2NvcGUiOiJzcGVlY2hzZXJ2aWNlcyIsImF1ZCI6InVybjptcy5zcGVlY2hzZXJ2aWNlcy5lYXN0dXMiLCJleHAiOjE3NjM2NDczOTYsImlzcyI6InVybjptcy5jb2duaXRpdmVzZXJ2aWNlcyJ9.Cj2LwOGMGWVW4pjjIhnnQu8KoDSd1Pj0rfbnAdDOYXpjzNNgHgRVqqo8dPvKEWAA6Qg3TbpA1KZeqrYBtUF5tQ&X-ConnectionId=BF2373FC486B455B89F7D8C213A06B9C&connectionId=BF2373FC486B455B89F7D8C213A06B9C' failed: 
+open @ index-C1EZIQFo.js:370
+index-C1EZIQFo.js:370 WebSocket connection to 'wss://eastus.stt.speech.microsoft.com/stt/speech/universal/v2?language=en-US&format=simple&Authorization=Bearer%20eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleTEiLCJ0eXAiOiJKV1QifQ.eyJyZWdpb24iOiJlYXN0dXMiLCJzdWJzY3JpcHRpb24taWQiOiJiYWM5MmJiNDIzZWU0NzRkYmE0YWE2NWIwMjhmN2ZmYyIsInByb2R1Y3QtaWQiOiJTcGVlY2hTZXJ2aWNlcy5TMCIsImNvZ25pdGl2ZS1zZXJ2aWNlcy1lbmRwb2ludCI6Imh0dHBzOi8vYXBpLmNvZ25pdGl2ZS5taWNyb3NvZnQuY29tL2ludGVybmFsL3YxLjAvIiwiYXp1cmUtcmVzb3VyY2UtaWQiOiIvc3Vic2NyaXB0aW9ucy82NjJhZWU4ZS03NjBmLTQ0OWYtYWUxOS0xYTlkMjMzNDNhMTgvcmVzb3VyY2VHcm91cHMvVm96dHJhL3Byb3ZpZGVycy9NaWNyb3NvZnQuQ29nbml0aXZlU2VydmljZXMvYWNjb3VudHMvVm96dHJhIiwic2NvcGUiOiJzcGVlY2hzZXJ2aWNlcyIsImF1ZCI6InVybjptcy5zcGVlY2hzZXJ2aWNlcy5lYXN0dXMiLCJleHAiOjE3NjM2NDczOTYsImlzcyI6InVybjptcy5jb2duaXRpdmVzZXJ2aWNlcyJ9.Cj2LwOGMGWVW4pjjIhnnQu8KoDSd1Pj0rfbnAdDOYXpjzNNgHgRVqqo8dPvKEWAA6Qg3TbpA1KZeqrYBtUF5tQ&X-ConnectionId=0F33754F669B44FFB4E9064483150DCF&connectionId=0F33754F669B44FFB4E9064483150DCF' failed: 
+open @ index-C1EZIQFo.js:370
+index-C1EZIQFo.js:370 WebSocket connection to 'wss://eastus.stt.speech.microsoft.com/stt/speech/universal/v2?language=en-US&format=simple&Authorization=Bearer%20eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleTEiLCJ0eXAiOiJKV1QifQ.eyJyZWdpb24iOiJlYXN0dXMiLCJzdWJzY3JpcHRpb24taWQiOiJiYWM5MmJiNDIzZWU0NzRkYmE0YWE2NWIwMjhmN2ZmYyIsInByb2R1Y3QtaWQiOiJTcGVlY2hTZXJ2aWNlcy5TMCIsImNvZ25pdGl2ZS1zZXJ2aWNlcy1lbmRwb2ludCI6Imh0dHBzOi8vYXBpLmNvZ25pdGl2ZS5taWNyb3NvZnQuY29tL2ludGVybmFsL3YxLjAvIiwiYXp1cmUtcmVzb3VyY2UtaWQiOiIvc3Vic2NyaXB0aW9ucy82NjJhZWU4ZS03NjBmLTQ0OWYtYWUxOS0xYTlkMjMzNDNhMTgvcmVzb3VyY2VHcm91cHMvVm96dHJhL3Byb3ZpZGVycy9NaWNyb3NvZnQuQ29nbml0aXZlU2VydmljZXMvYWNjb3VudHMvVm96dHJhIiwic2NvcGUiOiJzcGVlY2hzZXJ2aWNlcyIsImF1ZCI6InVybjptcy5zcGVlY2hzZXJ2aWNlcy5lYXN0dXMiLCJleHAiOjE3NjM2NDczOTYsImlzcyI6InVybjptcy5jb2duaXRpdmVzZXJ2aWNlcyJ9.Cj2LwOGMGWVW4pjjIhnnQu8KoDSd1Pj0rfbnAdDOYXpjzNNgHgRVqqo8dPvKEWAA6Qg3TbpA1KZeqrYBtUF5tQ&X-ConnectionId=38C11344748B44B2B64E5DC822F1D07E&connectionId=38C11344748B44B2B64E5DC822F1D07E' failed: 
+open @ index-C1EZIQFo.js:370
+index-C1EZIQFo.js:370 WebSocket connection to 'wss://eastus.stt.speech.microsoft.com/stt/speech/universal/v2?language=en-US&format=simple&Authorization=Bearer%20eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleTEiLCJ0eXAiOiJKV1QifQ.eyJyZWdpb24iOiJlYXN0dXMiLCJzdWJzY3JpcHRpb24taWQiOiJiYWM5MmJiNDIzZWU0NzRkYmE0YWE2NWIwMjhmN2ZmYyIsInByb2R1Y3QtaWQiOiJTcGVlY2hTZXJ2aWNlcy5TMCIsImNvZ25pdGl2ZS1zZXJ2aWNlcy1lbmRwb2ludCI6Imh0dHBzOi8vYXBpLmNvZ25pdGl2ZS5taWNyb3NvZnQuY29tL2ludGVybmFsL3YxLjAvIiwiYXp1cmUtcmVzb3VyY2UtaWQiOiIvc3Vic2NyaXB0aW9ucy82NjJhZWU4ZS03NjBmLTQ0OWYtYWUxOS0xYTlkMjMzNDNhMTgvcmVzb3VyY2VHcm91cHMvVm96dHJhL3Byb3ZpZGVycy9NaWNyb3NvZnQuQ29nbml0aXZlU2VydmljZXMvYWNjb3VudHMvVm96dHJhIiwic2NvcGUiOiJzcGVlY2hzZXJ2aWNlcyIsImF1ZCI6InVybjptcy5zcGVlY2hzZXJ2aWNlcy5lYXN0dXMiLCJleHAiOjE3NjM2NDczOTYsImlzcyI6InVybjptcy5jb2duaXRpdmVzZXJ2aWNlcyJ9.Cj2LwOGMGWVW4pjjIhnnQu8KoDSd1Pj0rfbnAdDOYXpjzNNgHgRVqqo8dPvKEWAA6Qg3TbpA1KZeqrYBtUF5tQ&X-ConnectionId=29A22CD1520F4E1BA70C1F3247FD4AD7&connectionId=29A22CD1520F4E1BA70C1F3247FD4AD7' failed: 
+open @ index-C1EZIQFo.js:370
+index-C1EZIQFo.js:370 WebSocket connection to 'wss://eastus.stt.speech.microsoft.com/stt/speech/universal/v2?language=en-US&format=simple&Authorization=Bearer%20eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleTEiLCJ0eXAiOiJKV1QifQ.eyJyZWdpb24iOiJlYXN0dXMiLCJzdWJzY3JpcHRpb24taWQiOiJiYWM5MmJiNDIzZWU0NzRkYmE0YWE2NWIwMjhmN2ZmYyIsInByb2R1Y3QtaWQiOiJTcGVlY2hTZXJ2aWNlcy5TMCIsImNvZ25pdGl2ZS1zZXJ2aWNlcy1lbmRwb2ludCI6Imh0dHBzOi8vYXBpLmNvZ25pdGl2ZS5taWNyb3NvZnQuY29tL2ludGVybmFsL3YxLjAvIiwiYXp1cmUtcmVzb3VyY2UtaWQiOiIvc3Vic2NyaXB0aW9ucy82NjJhZWU4ZS03NjBmLTQ0OWYtYWUxOS0xYTlkMjMzNDNhMTgvcmVzb3VyY2VHcm91cHMvVm96dHJhL3Byb3ZpZGVycy9NaWNyb3NvZnQuQ29nbml0aXZlU2VydmljZXMvYWNjb3VudHMvVm96dHJhIiwic2NvcGUiOiJzcGVlY2hzZXJ2aWNlcyIsImF1ZCI6InVybjptcy5zcGVlY2hzZXJ2aWNlcy5lYXN0dXMiLCJleHAiOjE3NjM2NDczOTYsImlzcyI6InVybjptcy5jb2duaXRpdmVzZXJ2aWNlcyJ9.Cj2LwOGMGWVW4pjjIhnnQu8KoDSd1Pj0rfbnAdDOYXpjzNNgHgRVqqo8dPvKEWAA6Qg3TbpA1KZeqrYBtUF5tQ&X-ConnectionId=849D27DC900A4D939B1452D66E9F1A25&connectionId=849D27DC900A4D939B1452D66E9F1A25' failed: 
+open @ index-C1EZIQFo.js:370
+index-C1EZIQFo.js:370 WebSocket connection to 'wss://eastus.stt.speech.microsoft.com/stt/speech/universal/v2?language=en-US&format=simple&Authorization=Bearer%20eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleTEiLCJ0eXAiOiJKV1QifQ.eyJyZWdpb24iOiJlYXN0dXMiLCJzdWJzY3JpcHRpb24taWQiOiJiYWM5MmJiNDIzZWU0NzRkYmE0YWE2NWIwMjhmN2ZmYyIsInByb2R1Y3QtaWQiOiJTcGVlY2hTZXJ2aWNlcy5TMCIsImNvZ25pdGl2ZS1zZXJ2aWNlcy1lbmRwb2ludCI6Imh0dHBzOi8vYXBpLmNvZ25pdGl2ZS5taWNyb3NvZnQuY29tL2ludGVybmFsL3YxLjAvIiwiYXp1cmUtcmVzb3VyY2UtaWQiOiIvc3Vic2NyaXB0aW9ucy82NjJhZWU4ZS03NjBmLTQ0OWYtYWUxOS0xYTlkMjMzNDNhMTgvcmVzb3VyY2VHcm91cHMvVm96dHJhL3Byb3ZpZGVycy9NaWNyb3NvZnQuQ29nbml0aXZlU2VydmljZXMvYWNjb3VudHMvVm96dHJhIiwic2NvcGUiOiJzcGVlY2hzZXJ2aWNlcyIsImF1ZCI6InVybjptcy5zcGVlY2hzZXJ2aWNlcy5lYXN0dXMiLCJleHAiOjE3NjM2NDczOTYsImlzcyI6InVybjptcy5jb2duaXRpdmVzZXJ2aWNlcyJ9.Cj2LwOGMGWVW4pjjIhnnQu8KoDSd1Pj0rfbnAdDOYXpjzNNgHgRVqqo8dPvKEWAA6Qg3TbpA1KZeqrYBtUF5tQ&X-ConnectionId=E282C642787B4FE3A71F151D4DEB68EB&connectionId=E282C642787B4FE3A71F151D4DEB68EB' failed: 
+open @ index-C1EZIQFo.js:370
+index-C1EZIQFo.js:370 WebSocket connection to 'wss://eastus.stt.speech.microsoft.com/stt/speech/universal/v2?language=en-US&format=simple&Authorization=Bearer%20eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleTEiLCJ0eXAiOiJKV1QifQ.eyJyZWdpb24iOiJlYXN0dXMiLCJzdWJzY3JpcHRpb24taWQiOiJiYWM5MmJiNDIzZWU0NzRkYmE0YWE2NWIwMjhmN2ZmYyIsInByb2R1Y3QtaWQiOiJTcGVlY2hTZXJ2aWNlcy5TMCIsImNvZ25pdGl2ZS1zZXJ2aWNlcy1lbmRwb2ludCI6Imh0dHBzOi8vYXBpLmNvZ25pdGl2ZS5taWNyb3NvZnQuY29tL2ludGVybmFsL3YxLjAvIiwiYXp1cmUtcmVzb3VyY2UtaWQiOiIvc3Vic2NyaXB0aW9ucy82NjJhZWU4ZS03NjBmLTQ0OWYtYWUxOS0xYTlkMjMzNDNhMTgvcmVzb3VyY2VHcm91cHMvVm96dHJhL3Byb3ZpZGVycy9NaWNyb3NvZnQuQ29nbml0aXZlU2VydmljZXMvYWNjb3VudHMvVm96dHJhIiwic2NvcGUiOiJzcGVlY2hzZXJ2aWNlcyIsImF1ZCI6InVybjptcy5zcGVlY2hzZXJ2aWNlcy5lYXN0dXMiLCJleHAiOjE3NjM2NDczOTYsImlzcyI6InVybjptcy5jb2duaXRpdmVzZXJ2aWNlcyJ9.Cj2LwOGMGWVW4pjjIhnnQu8KoDSd1Pj0rfbnAdDOYXpjzNNgHgRVqqo8dPvKEWAA6Qg3TbpA1KZeqrYBtUF5tQ&X-ConnectionId=4B4D86DF5B574FB0A696A5339344A622&connectionId=4B4D86DF5B574FB0A696A5339344A622' failed: 
+open @ index-C1EZIQFo.js:370
+index-C1EZIQFo.js:370 WebSocket connection to 'wss://eastus.stt.speech.microsoft.com/stt/speech/universal/v2?language=en-US&format=simple&Authorization=Bearer%20eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleTEiLCJ0eXAiOiJKV1QifQ.eyJyZWdpb24iOiJlYXN0dXMiLCJzdWJzY3JpcHRpb24taWQiOiJiYWM5MmJiNDIzZWU0NzRkYmE0YWE2NWIwMjhmN2ZmYyIsInByb2R1Y3QtaWQiOiJTcGVlY2hTZXJ2aWNlcy5TMCIsImNvZ25pdGl2ZS1zZXJ2aWNlcy1lbmRwb2ludCI6Imh0dHBzOi8vYXBpLmNvZ25pdGl2ZS5taWNyb3NvZnQuY29tL2ludGVybmFsL3YxLjAvIiwiYXp1cmUtcmVzb3VyY2UtaWQiOiIvc3Vic2NyaXB0aW9ucy82NjJhZWU4ZS03NjBmLTQ0OWYtYWUxOS0xYTlkMjMzNDNhMTgvcmVzb3VyY2VHcm91cHMvVm96dHJhL3Byb3ZpZGVycy9NaWNyb3NvZnQuQ29nbml0aXZlU2VydmljZXMvYWNjb3VudHMvVm96dHJhIiwic2NvcGUiOiJzcGVlY2hzZXJ2aWNlcyIsImF1ZCI6InVybjptcy5zcGVlY2hzZXJ2aWNlcy5lYXN0dXMiLCJleHAiOjE3NjM2NDczOTYsImlzcyI6InVybjptcy5jb2duaXRpdmVzZXJ2aWNlcyJ9.Cj2LwOGMGWVW4pjjIhnnQu8KoDSd1Pj0rfbnAdDOYXpjzNNgHgRVqqo8dPvKEWAA6Qg3TbpA1KZeqrYBtUF5tQ&X-ConnectionId=2E1666FD4A514DF5B276BBA7C848D821&connectionId=2E1666FD4A514DF5B276BBA7C848D821' failed: 
+open @ index-C1EZIQFo.js:370
+index-C1EZIQFo.js:370 WebSocket connection to 'wss://eastus.stt.speech.microsoft.com/stt/speech/universal/v2?language=en-US&format=simple&Authorization=Bearer%20eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleTEiLCJ0eXAiOiJKV1QifQ.eyJyZWdpb24iOiJlYXN0dXMiLCJzdWJzY3JpcHRpb24taWQiOiJiYWM5MmJiNDIzZWU0NzRkYmE0YWE2NWIwMjhmN2ZmYyIsInByb2R1Y3QtaWQiOiJTcGVlY2hTZXJ2aWNlcy5TMCIsImNvZ25pdGl2ZS1zZXJ2aWNlcy1lbmRwb2ludCI6Imh0dHBzOi8vYXBpLmNvZ25pdGl2ZS5taWNyb3NvZnQuY29tL2ludGVybmFsL3YxLjAvIiwiYXp1cmUtcmVzb3VyY2UtaWQiOiIvc3Vic2NyaXB0aW9ucy82NjJhZWU4ZS03NjBmLTQ0OWYtYWUxOS0xYTlkMjMzNDNhMTgvcmVzb3VyY2VHcm91cHMvVm96dHJhL3Byb3ZpZGVycy9NaWNyb3NvZnQuQ29nbml0aXZlU2VydmljZXMvYWNjb3VudHMvVm96dHJhIiwic2NvcGUiOiJzcGVlY2hzZXJ2aWNlcyIsImF1ZCI6InVybjptcy5zcGVlY2hzZXJ2aWNlcy5lYXN0dXMiLCJleHAiOjE3NjM2NDczOTYsImlzcyI6InVybjptcy5jb2duaXRpdmVzZXJ2aWNlcyJ9.Cj2LwOGMGWVW4pjjIhnnQu8KoDSd1Pj0rfbnAdDOYXpjzNNgHgRVqqo8dPvKEWAA6Qg3TbpA1KZeqrYBtUF5tQ&X-ConnectionId=2E1666FD4A514DF5B276BBA7C848D821&connectionId=2E1666FD4A514DF5B276BBA7C848D821' failed: 
+open @ index-C1EZIQFo.js:370
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] ✅ New resultId processed: 50AD020188644956A6CAFA9B54DC1376, cache size: 1
+index-C1EZIQFo.js:382 [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+index-C1EZIQFo.js:382 [Temporal Dedupe] ✅ New offset+text processed: offset=2057300000, text="It's reminding me of sports I ...", cache size: 1
+index-C1EZIQFo.js:382 [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "It's reminding me of sports I ..."
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Speech] 📦 Queue size: 1/20 pending messages
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] ✅ New resultId processed: 8B8203717B294B80808117891C4E5AC3, cache size: 2
+index-C1EZIQFo.js:382 [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+index-C1EZIQFo.js:382 [Temporal Dedupe] ✅ New offset+text processed: offset=2320300000, text="Sports....", cache size: 1
+index-C1EZIQFo.js:382 [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Sports...."
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Speech] 📦 Queue size: 2/20 pending messages
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] ✅ New resultId processed: 50AD020188644956A6CAFA9B54DC1376, cache size: 2
+index-C1EZIQFo.js:382 [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+index-C1EZIQFo.js:382 [Temporal Dedupe] ✅ New offset+text processed: offset=2125000000, text="Of my trouble for my coach....", cache size: 1
+index-C1EZIQFo.js:382 [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Of my trouble for my coach...."
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Speech] 📦 Queue size: 3/20 pending messages
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] 🧹 Cleaned up 2 expired resultIds from cache
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] ✅ New resultId processed: 8B8203717B294B80808117891C4E5AC3, cache size: 1
+index-C1EZIQFo.js:382 [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+index-C1EZIQFo.js:382 [Temporal Dedupe] ✅ New offset+text processed: offset=2493200000, text="Yeah....", cache size: 1
+index-C1EZIQFo.js:382 [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Yeah...."
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Speech] 📦 Queue size: 4/20 pending messages
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] ✅ New resultId processed: 83AAF2522FC44960886F75A896F5AD5A, cache size: 2
+index-C1EZIQFo.js:382 [Temporal Dedupe] ✅ New offset+text processed: offset=2317100000, text="Yeah....", cache size: 2
+index-C1EZIQFo.js:382 [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Yeah...."
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Speech] 📦 Queue size: 5/20 pending messages
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] 🧹 Cleaned up 2 expired resultIds from cache
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] ✅ New resultId processed: 232047A2A83640EDAB81701F5132A9D3, cache size: 1
+index-C1EZIQFo.js:382 [Temporal Dedupe] 🧹 Cleaned up 2 expired offset entries from cache
+index-C1EZIQFo.js:382 [Temporal Dedupe] ✅ New offset+text processed: offset=2176000000, text="Sports....", cache size: 1
+index-C1EZIQFo.js:382 [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Sports...."
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Speech] 📦 Queue size: 6/20 pending messages
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:370 WebSocket connection to 'wss://eastus.stt.speech.microsoft.com/stt/speech/universal/v2?language=en-US&format=simple&Authorization=Bearer%20eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleTEiLCJ0eXAiOiJKV1QifQ.eyJyZWdpb24iOiJlYXN0dXMiLCJzdWJzY3JpcHRpb24taWQiOiJiYWM5MmJiNDIzZWU0NzRkYmE0YWE2NWIwMjhmN2ZmYyIsInByb2R1Y3QtaWQiOiJTcGVlY2hTZXJ2aWNlcy5TMCIsImNvZ25pdGl2ZS1zZXJ2aWNlcy1lbmRwb2ludCI6Imh0dHBzOi8vYXBpLmNvZ25pdGl2ZS5taWNyb3NvZnQuY29tL2ludGVybmFsL3YxLjAvIiwiYXp1cmUtcmVzb3VyY2UtaWQiOiIvc3Vic2NyaXB0aW9ucy82NjJhZWU4ZS03NjBmLTQ0OWYtYWUxOS0xYTlkMjMzNDNhMTgvcmVzb3VyY2VHcm91cHMvVm96dHJhL3Byb3ZpZGVycy9NaWNyb3NvZnQuQ29nbml0aXZlU2VydmljZXMvYWNjb3VudHMvVm96dHJhIiwic2NvcGUiOiJzcGVlY2hzZXJ2aWNlcyIsImF1ZCI6InVybjptcy5zcGVlY2hzZXJ2aWNlcy5lYXN0dXMiLCJleHAiOjE3NjM2NDczOTYsImlzcyI6InVybjptcy5jb2duaXRpdmVzZXJ2aWNlcyJ9.Cj2LwOGMGWVW4pjjIhnnQu8KoDSd1Pj0rfbnAdDOYXpjzNNgHgRVqqo8dPvKEWAA6Qg3TbpA1KZeqrYBtUF5tQ&X-ConnectionId=38C11344748B44B2B64E5DC822F1D07E&connectionId=38C11344748B44B2B64E5DC822F1D07E' failed: 
+open @ index-C1EZIQFo.js:370
+index-C1EZIQFo.js:370 WebSocket connection to 'wss://eastus.stt.speech.microsoft.com/stt/speech/universal/v2?language=en-US&format=simple&Authorization=Bearer%20eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleTEiLCJ0eXAiOiJKV1QifQ.eyJyZWdpb24iOiJlYXN0dXMiLCJzdWJzY3JpcHRpb24taWQiOiJiYWM5MmJiNDIzZWU0NzRkYmE0YWE2NWIwMjhmN2ZmYyIsInByb2R1Y3QtaWQiOiJTcGVlY2hTZXJ2aWNlcy5TMCIsImNvZ25pdGl2ZS1zZXJ2aWNlcy1lbmRwb2ludCI6Imh0dHBzOi8vYXBpLmNvZ25pdGl2ZS5taWNyb3NvZnQuY29tL2ludGVybmFsL3YxLjAvIiwiYXp1cmUtcmVzb3VyY2UtaWQiOiIvc3Vic2NyaXB0aW9ucy82NjJhZWU4ZS03NjBmLTQ0OWYtYWUxOS0xYTlkMjMzNDNhMTgvcmVzb3VyY2VHcm91cHMvVm96dHJhL3Byb3ZpZGVycy9NaWNyb3NvZnQuQ29nbml0aXZlU2VydmljZXMvYWNjb3VudHMvVm96dHJhIiwic2NvcGUiOiJzcGVlY2hzZXJ2aWNlcyIsImF1ZCI6InVybjptcy5zcGVlY2hzZXJ2aWNlcy5lYXN0dXMiLCJleHAiOjE3NjM2NDczOTYsImlzcyI6InVybjptcy5jb2duaXRpdmVzZXJ2aWNlcyJ9.Cj2LwOGMGWVW4pjjIhnnQu8KoDSd1Pj0rfbnAdDOYXpjzNNgHgRVqqo8dPvKEWAA6Qg3TbpA1KZeqrYBtUF5tQ&X-ConnectionId=BF2373FC486B455B89F7D8C213A06B9C&connectionId=BF2373FC486B455B89F7D8C213A06B9C' failed: 
+open @ index-C1EZIQFo.js:370
+index-C1EZIQFo.js:370 WebSocket connection to 'wss://eastus.stt.speech.microsoft.com/stt/speech/universal/v2?language=en-US&format=simple&Authorization=Bearer%20eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleTEiLCJ0eXAiOiJKV1QifQ.eyJyZWdpb24iOiJlYXN0dXMiLCJzdWJzY3JpcHRpb24taWQiOiJiYWM5MmJiNDIzZWU0NzRkYmE0YWE2NWIwMjhmN2ZmYyIsInByb2R1Y3QtaWQiOiJTcGVlY2hTZXJ2aWNlcy5TMCIsImNvZ25pdGl2ZS1zZXJ2aWNlcy1lbmRwb2ludCI6Imh0dHBzOi8vYXBpLmNvZ25pdGl2ZS5taWNyb3NvZnQuY29tL2ludGVybmFsL3YxLjAvIiwiYXp1cmUtcmVzb3VyY2UtaWQiOiIvc3Vic2NyaXB0aW9ucy82NjJhZWU4ZS03NjBmLTQ0OWYtYWUxOS0xYTlkMjMzNDNhMTgvcmVzb3VyY2VHcm91cHMvVm96dHJhL3Byb3ZpZGVycy9NaWNyb3NvZnQuQ29nbml0aXZlU2VydmljZXMvYWNjb3VudHMvVm96dHJhIiwic2NvcGUiOiJzcGVlY2hzZXJ2aWNlcyIsImF1ZCI6InVybjptcy5zcGVlY2hzZXJ2aWNlcy5lYXN0dXMiLCJleHAiOjE3NjM2NDczOTYsImlzcyI6InVybjptcy5jb2duaXRpdmVzZXJ2aWNlcyJ9.Cj2LwOGMGWVW4pjjIhnnQu8KoDSd1Pj0rfbnAdDOYXpjzNNgHgRVqqo8dPvKEWAA6Qg3TbpA1KZeqrYBtUF5tQ&X-ConnectionId=4B4D86DF5B574FB0A696A5339344A622&connectionId=4B4D86DF5B574FB0A696A5339344A622' failed: 
+open @ index-C1EZIQFo.js:370
+index-C1EZIQFo.js:370 WebSocket connection to 'wss://eastus.stt.speech.microsoft.com/stt/speech/universal/v2?language=en-US&format=simple&Authorization=Bearer%20eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleTEiLCJ0eXAiOiJKV1QifQ.eyJyZWdpb24iOiJlYXN0dXMiLCJzdWJzY3JpcHRpb24taWQiOiJiYWM5MmJiNDIzZWU0NzRkYmE0YWE2NWIwMjhmN2ZmYyIsInByb2R1Y3QtaWQiOiJTcGVlY2hTZXJ2aWNlcy5TMCIsImNvZ25pdGl2ZS1zZXJ2aWNlcy1lbmRwb2ludCI6Imh0dHBzOi8vYXBpLmNvZ25pdGl2ZS5taWNyb3NvZnQuY29tL2ludGVybmFsL3YxLjAvIiwiYXp1cmUtcmVzb3VyY2UtaWQiOiIvc3Vic2NyaXB0aW9ucy82NjJhZWU4ZS03NjBmLTQ0OWYtYWUxOS0xYTlkMjMzNDNhMTgvcmVzb3VyY2VHcm91cHMvVm96dHJhL3Byb3ZpZGVycy9NaWNyb3NvZnQuQ29nbml0aXZlU2VydmljZXMvYWNjb3VudHMvVm96dHJhIiwic2NvcGUiOiJzcGVlY2hzZXJ2aWNlcyIsImF1ZCI6InVybjptcy5zcGVlY2hzZXJ2aWNlcy5lYXN0dXMiLCJleHAiOjE3NjM2NDczOTYsImlzcyI6InVybjptcy5jb2duaXRpdmVzZXJ2aWNlcyJ9.Cj2LwOGMGWVW4pjjIhnnQu8KoDSd1Pj0rfbnAdDOYXpjzNNgHgRVqqo8dPvKEWAA6Qg3TbpA1KZeqrYBtUF5tQ&X-ConnectionId=38C11344748B44B2B64E5DC822F1D07E&connectionId=38C11344748B44B2B64E5DC822F1D07E' failed: 
+open @ index-C1EZIQFo.js:370
+index-C1EZIQFo.js:370 WebSocket connection to 'wss://eastus.stt.speech.microsoft.com/stt/speech/universal/v2?language=en-US&format=simple&Authorization=Bearer%20eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleTEiLCJ0eXAiOiJKV1QifQ.eyJyZWdpb24iOiJlYXN0dXMiLCJzdWJzY3JpcHRpb24taWQiOiJiYWM5MmJiNDIzZWU0NzRkYmE0YWE2NWIwMjhmN2ZmYyIsInByb2R1Y3QtaWQiOiJTcGVlY2hTZXJ2aWNlcy5TMCIsImNvZ25pdGl2ZS1zZXJ2aWNlcy1lbmRwb2ludCI6Imh0dHBzOi8vYXBpLmNvZ25pdGl2ZS5taWNyb3NvZnQuY29tL2ludGVybmFsL3YxLjAvIiwiYXp1cmUtcmVzb3VyY2UtaWQiOiIvc3Vic2NyaXB0aW9ucy82NjJhZWU4ZS03NjBmLTQ0OWYtYWUxOS0xYTlkMjMzNDNhMTgvcmVzb3VyY2VHcm91cHMvVm96dHJhL3Byb3ZpZGVycy9NaWNyb3NvZnQuQ29nbml0aXZlU2VydmljZXMvYWNjb3VudHMvVm96dHJhIiwic2NvcGUiOiJzcGVlY2hzZXJ2aWNlcyIsImF1ZCI6InVybjptcy5zcGVlY2hzZXJ2aWNlcy5lYXN0dXMiLCJleHAiOjE3NjM2NDczOTYsImlzcyI6InVybjptcy5jb2duaXRpdmVzZXJ2aWNlcyJ9.Cj2LwOGMGWVW4pjjIhnnQu8KoDSd1Pj0rfbnAdDOYXpjzNNgHgRVqqo8dPvKEWAA6Qg3TbpA1KZeqrYBtUF5tQ&X-ConnectionId=2E1666FD4A514DF5B276BBA7C848D821&connectionId=2E1666FD4A514DF5B276BBA7C848D821' failed: 
+open @ index-C1EZIQFo.js:370
+index-C1EZIQFo.js:370 WebSocket connection to 'wss://eastus.stt.speech.microsoft.com/stt/speech/universal/v2?language=en-US&format=simple&Authorization=Bearer%20eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleTEiLCJ0eXAiOiJKV1QifQ.eyJyZWdpb24iOiJlYXN0dXMiLCJzdWJzY3JpcHRpb24taWQiOiJiYWM5MmJiNDIzZWU0NzRkYmE0YWE2NWIwMjhmN2ZmYyIsInByb2R1Y3QtaWQiOiJTcGVlY2hTZXJ2aWNlcy5TMCIsImNvZ25pdGl2ZS1zZXJ2aWNlcy1lbmRwb2ludCI6Imh0dHBzOi8vYXBpLmNvZ25pdGl2ZS5taWNyb3NvZnQuY29tL2ludGVybmFsL3YxLjAvIiwiYXp1cmUtcmVzb3VyY2UtaWQiOiIvc3Vic2NyaXB0aW9ucy82NjJhZWU4ZS03NjBmLTQ0OWYtYWUxOS0xYTlkMjMzNDNhMTgvcmVzb3VyY2VHcm91cHMvVm96dHJhL3Byb3ZpZGVycy9NaWNyb3NvZnQuQ29nbml0aXZlU2VydmljZXMvYWNjb3VudHMvVm96dHJhIiwic2NvcGUiOiJzcGVlY2hzZXJ2aWNlcyIsImF1ZCI6InVybjptcy5zcGVlY2hzZXJ2aWNlcy5lYXN0dXMiLCJleHAiOjE3NjM2NDczOTYsImlzcyI6InVybjptcy5jb2duaXRpdmVzZXJ2aWNlcyJ9.Cj2LwOGMGWVW4pjjIhnnQu8KoDSd1Pj0rfbnAdDOYXpjzNNgHgRVqqo8dPvKEWAA6Qg3TbpA1KZeqrYBtUF5tQ&X-ConnectionId=BF2373FC486B455B89F7D8C213A06B9C&connectionId=BF2373FC486B455B89F7D8C213A06B9C' failed: 
+open @ index-C1EZIQFo.js:370
+index-C1EZIQFo.js:370 WebSocket connection to 'wss://eastus.stt.speech.microsoft.com/stt/speech/universal/v2?language=en-US&format=simple&Authorization=Bearer%20eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleTEiLCJ0eXAiOiJKV1QifQ.eyJyZWdpb24iOiJlYXN0dXMiLCJzdWJzY3JpcHRpb24taWQiOiJiYWM5MmJiNDIzZWU0NzRkYmE0YWE2NWIwMjhmN2ZmYyIsInByb2R1Y3QtaWQiOiJTcGVlY2hTZXJ2aWNlcy5TMCIsImNvZ25pdGl2ZS1zZXJ2aWNlcy1lbmRwb2ludCI6Imh0dHBzOi8vYXBpLmNvZ25pdGl2ZS5taWNyb3NvZnQuY29tL2ludGVybmFsL3YxLjAvIiwiYXp1cmUtcmVzb3VyY2UtaWQiOiIvc3Vic2NyaXB0aW9ucy82NjJhZWU4ZS03NjBmLTQ0OWYtYWUxOS0xYTlkMjMzNDNhMTgvcmVzb3VyY2VHcm91cHMvVm96dHJhL3Byb3ZpZGVycy9NaWNyb3NvZnQuQ29nbml0aXZlU2VydmljZXMvYWNjb3VudHMvVm96dHJhIiwic2NvcGUiOiJzcGVlY2hzZXJ2aWNlcyIsImF1ZCI6InVybjptcy5zcGVlY2hzZXJ2aWNlcy5lYXN0dXMiLCJleHAiOjE3NjM2NDczOTYsImlzcyI6InVybjptcy5jb2duaXRpdmVzZXJ2aWNlcyJ9.Cj2LwOGMGWVW4pjjIhnnQu8KoDSd1Pj0rfbnAdDOYXpjzNNgHgRVqqo8dPvKEWAA6Qg3TbpA1KZeqrYBtUF5tQ&X-ConnectionId=4B4D86DF5B574FB0A696A5339344A622&connectionId=4B4D86DF5B574FB0A696A5339344A622' failed: 
+open @ index-C1EZIQFo.js:370
+index-C1EZIQFo.js:370 WebSocket connection to 'wss://eastus.stt.speech.microsoft.com/stt/speech/universal/v2?language=en-US&format=simple&Authorization=Bearer%20eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleTEiLCJ0eXAiOiJKV1QifQ.eyJyZWdpb24iOiJlYXN0dXMiLCJzdWJzY3JpcHRpb24taWQiOiJiYWM5MmJiNDIzZWU0NzRkYmE0YWE2NWIwMjhmN2ZmYyIsInByb2R1Y3QtaWQiOiJTcGVlY2hTZXJ2aWNlcy5TMCIsImNvZ25pdGl2ZS1zZXJ2aWNlcy1lbmRwb2ludCI6Imh0dHBzOi8vYXBpLmNvZ25pdGl2ZS5taWNyb3NvZnQuY29tL2ludGVybmFsL3YxLjAvIiwiYXp1cmUtcmVzb3VyY2UtaWQiOiIvc3Vic2NyaXB0aW9ucy82NjJhZWU4ZS03NjBmLTQ0OWYtYWUxOS0xYTlkMjMzNDNhMTgvcmVzb3VyY2VHcm91cHMvVm96dHJhL3Byb3ZpZGVycy9NaWNyb3NvZnQuQ29nbml0aXZlU2VydmljZXMvYWNjb3VudHMvVm96dHJhIiwic2NvcGUiOiJzcGVlY2hzZXJ2aWNlcyIsImF1ZCI6InVybjptcy5zcGVlY2hzZXJ2aWNlcy5lYXN0dXMiLCJleHAiOjE3NjM2NDczOTYsImlzcyI6InVybjptcy5jb2duaXRpdmVzZXJ2aWNlcyJ9.Cj2LwOGMGWVW4pjjIhnnQu8KoDSd1Pj0rfbnAdDOYXpjzNNgHgRVqqo8dPvKEWAA6Qg3TbpA1KZeqrYBtUF5tQ&X-ConnectionId=38C11344748B44B2B64E5DC822F1D07E&connectionId=38C11344748B44B2B64E5DC822F1D07E' failed: 
+open @ index-C1EZIQFo.js:370
+index-C1EZIQFo.js:370 WebSocket connection to 'wss://eastus.stt.speech.microsoft.com/stt/speech/universal/v2?language=en-US&format=simple&Authorization=Bearer%20eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleTEiLCJ0eXAiOiJKV1QifQ.eyJyZWdpb24iOiJlYXN0dXMiLCJzdWJzY3JpcHRpb24taWQiOiJiYWM5MmJiNDIzZWU0NzRkYmE0YWE2NWIwMjhmN2ZmYyIsInByb2R1Y3QtaWQiOiJTcGVlY2hTZXJ2aWNlcy5TMCIsImNvZ25pdGl2ZS1zZXJ2aWNlcy1lbmRwb2ludCI6Imh0dHBzOi8vYXBpLmNvZ25pdGl2ZS5taWNyb3NvZnQuY29tL2ludGVybmFsL3YxLjAvIiwiYXp1cmUtcmVzb3VyY2UtaWQiOiIvc3Vic2NyaXB0aW9ucy82NjJhZWU4ZS03NjBmLTQ0OWYtYWUxOS0xYTlkMjMzNDNhMTgvcmVzb3VyY2VHcm91cHMvVm96dHJhL3Byb3ZpZGVycy9NaWNyb3NvZnQuQ29nbml0aXZlU2VydmljZXMvYWNjb3VudHMvVm96dHJhIiwic2NvcGUiOiJzcGVlY2hzZXJ2aWNlcyIsImF1ZCI6InVybjptcy5zcGVlY2hzZXJ2aWNlcy5lYXN0dXMiLCJleHAiOjE3NjM2NDczOTYsImlzcyI6InVybjptcy5jb2duaXRpdmVzZXJ2aWNlcyJ9.Cj2LwOGMGWVW4pjjIhnnQu8KoDSd1Pj0rfbnAdDOYXpjzNNgHgRVqqo8dPvKEWAA6Qg3TbpA1KZeqrYBtUF5tQ&X-ConnectionId=E282C642787B4FE3A71F151D4DEB68EB&connectionId=E282C642787B4FE3A71F151D4DEB68EB' failed: 
+open @ index-C1EZIQFo.js:370
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] ✅ New resultId processed: EECA3E9B56514D8EA62AE7D7AF8DA3A7, cache size: 1
+index-C1EZIQFo.js:382 [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+index-C1EZIQFo.js:382 [Temporal Dedupe] ✅ New offset+text processed: offset=2164000000, text="Sports....", cache size: 1
+index-C1EZIQFo.js:382 [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Sports...."
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Speech] 📦 Queue size: 1/20 pending messages
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] ✅ New resultId processed: 6317728F49264A389202C8343E2DA21D, cache size: 1
+index-C1EZIQFo.js:382 [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+index-C1EZIQFo.js:382 [Temporal Dedupe] ✅ New offset+text processed: offset=2174900000, text="Sports....", cache size: 1
+index-C1EZIQFo.js:382 [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Sports...."
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Speech] 📦 Queue size: 2/20 pending messages
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] ✅ New resultId processed: 5BFCE02DEE7F42109A8F19DA0685674B, cache size: 1
+index-C1EZIQFo.js:382 [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+index-C1EZIQFo.js:382 [Temporal Dedupe] ✅ New offset+text processed: offset=2351000000, text="And....", cache size: 1
+index-C1EZIQFo.js:382 [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "And...."
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Speech] 📦 Queue size: 3/20 pending messages
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] ⛔ DUPLICATE RESULTID BLOCKED!
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] 🔍 ResultId: 5BFCE02DEE7F42109A8F19DA0685674B
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] 📝 Text: "Sports."
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] ⏱️ Last processed: 2769ms ago (TTL: 5000ms)
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] 💡 This is likely Azure Speech SDK's rescoring mechanism
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] ✅ Prevented duplicate from reaching server - no translation cost incurred
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:370 WebSocket connection to 'wss://eastus.stt.speech.microsoft.com/stt/speech/universal/v2?language=en-US&format=simple&Authorization=Bearer%20eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleTEiLCJ0eXAiOiJKV1QifQ.eyJyZWdpb24iOiJlYXN0dXMiLCJzdWJzY3JpcHRpb24taWQiOiJiYWM5MmJiNDIzZWU0NzRkYmE0YWE2NWIwMjhmN2ZmYyIsInByb2R1Y3QtaWQiOiJTcGVlY2hTZXJ2aWNlcy5TMCIsImNvZ25pdGl2ZS1zZXJ2aWNlcy1lbmRwb2ludCI6Imh0dHBzOi8vYXBpLmNvZ25pdGl2ZS5taWNyb3NvZnQuY29tL2ludGVybmFsL3YxLjAvIiwiYXp1cmUtcmVzb3VyY2UtaWQiOiIvc3Vic2NyaXB0aW9ucy82NjJhZWU4ZS03NjBmLTQ0OWYtYWUxOS0xYTlkMjMzNDNhMTgvcmVzb3VyY2VHcm91cHMvVm96dHJhL3Byb3ZpZGVycy9NaWNyb3NvZnQuQ29nbml0aXZlU2VydmljZXMvYWNjb3VudHMvVm96dHJhIiwic2NvcGUiOiJzcGVlY2hzZXJ2aWNlcyIsImF1ZCI6InVybjptcy5zcGVlY2hzZXJ2aWNlcy5lYXN0dXMiLCJleHAiOjE3NjM2NDczOTYsImlzcyI6InVybjptcy5jb2duaXRpdmVzZXJ2aWNlcyJ9.Cj2LwOGMGWVW4pjjIhnnQu8KoDSd1Pj0rfbnAdDOYXpjzNNgHgRVqqo8dPvKEWAA6Qg3TbpA1KZeqrYBtUF5tQ&X-ConnectionId=42DB5F9FF5454781B5BF7754A5E07291&connectionId=42DB5F9FF5454781B5BF7754A5E07291' failed: 
+open @ index-C1EZIQFo.js:370
+index-C1EZIQFo.js:370 WebSocket connection to 'wss://eastus.stt.speech.microsoft.com/stt/speech/universal/v2?language=en-US&format=simple&Authorization=Bearer%20eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleTEiLCJ0eXAiOiJKV1QifQ.eyJyZWdpb24iOiJlYXN0dXMiLCJzdWJzY3JpcHRpb24taWQiOiJiYWM5MmJiNDIzZWU0NzRkYmE0YWE2NWIwMjhmN2ZmYyIsInByb2R1Y3QtaWQiOiJTcGVlY2hTZXJ2aWNlcy5TMCIsImNvZ25pdGl2ZS1zZXJ2aWNlcy1lbmRwb2ludCI6Imh0dHBzOi8vYXBpLmNvZ25pdGl2ZS5taWNyb3NvZnQuY29tL2ludGVybmFsL3YxLjAvIiwiYXp1cmUtcmVzb3VyY2UtaWQiOiIvc3Vic2NyaXB0aW9ucy82NjJhZWU4ZS03NjBmLTQ0OWYtYWUxOS0xYTlkMjMzNDNhMTgvcmVzb3VyY2VHcm91cHMvVm96dHJhL3Byb3ZpZGVycy9NaWNyb3NvZnQuQ29nbml0aXZlU2VydmljZXMvYWNjb3VudHMvVm96dHJhIiwic2NvcGUiOiJzcGVlY2hzZXJ2aWNlcyIsImF1ZCI6InVybjptcy5zcGVlY2hzZXJ2aWNlcy5lYXN0dXMiLCJleHAiOjE3NjM2NDczOTYsImlzcyI6InVybjptcy5jb2duaXRpdmVzZXJ2aWNlcyJ9.Cj2LwOGMGWVW4pjjIhnnQu8KoDSd1Pj0rfbnAdDOYXpjzNNgHgRVqqo8dPvKEWAA6Qg3TbpA1KZeqrYBtUF5tQ&X-ConnectionId=0F33754F669B44FFB4E9064483150DCF&connectionId=0F33754F669B44FFB4E9064483150DCF' failed: 
+open @ index-C1EZIQFo.js:370
+index-C1EZIQFo.js:376 [Azure Token] Cache expired, will fetch new token on next request
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] ✅ New resultId processed: 6BC8DCD2AA4E40E6B6D25AF9B16C73A4, cache size: 1
+index-C1EZIQFo.js:382 [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+index-C1EZIQFo.js:382 [Temporal Dedupe] ✅ New offset+text processed: offset=3986100000, text="Go....", cache size: 1
+index-C1EZIQFo.js:382 [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Go...."
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Speech] 📦 Queue size: 1/20 pending messages
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] ✅ New resultId processed: 93E74283AA424E24BE095C1A0FE44E8C, cache size: 2
+index-C1EZIQFo.js:382 [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+index-C1EZIQFo.js:382 [Temporal Dedupe] ✅ New offset+text processed: offset=3667800000, text="Lemonade....", cache size: 1
+index-C1EZIQFo.js:382 [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Lemonade...."
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Speech] 📦 Queue size: 2/20 pending messages
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] 🧹 Cleaned up 2 expired resultIds from cache
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] ✅ New resultId processed: 5374BDB4105649E7858B6A82065E8577, cache size: 1
+index-C1EZIQFo.js:382 [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+index-C1EZIQFo.js:382 [Temporal Dedupe] ✅ New offset+text processed: offset=3771400000, text="There go....", cache size: 1
+index-C1EZIQFo.js:382 [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "There go...."
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Speech] 📦 Queue size: 3/20 pending messages
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] ✅ New resultId processed: 6BC8DCD2AA4E40E6B6D25AF9B16C73A4, cache size: 2
+index-C1EZIQFo.js:382 [Temporal Dedupe] ✅ New offset+text processed: offset=4264100000, text="Yeah....", cache size: 2
+index-C1EZIQFo.js:382 [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Yeah...."
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Speech] 📦 Queue size: 4/20 pending messages
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] 🧹 Cleaned up 2 expired resultIds from cache
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] ✅ New resultId processed: 6BC8DCD2AA4E40E6B6D25AF9B16C73A4, cache size: 1
+index-C1EZIQFo.js:382 [Temporal Dedupe] 🧹 Cleaned up 2 expired offset entries from cache
+index-C1EZIQFo.js:382 [Temporal Dedupe] ✅ New offset+text processed: offset=4360700000, text="Yeah....", cache size: 1
+index-C1EZIQFo.js:382 [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Yeah...."
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Speech] 📦 Queue size: 5/20 pending messages
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] ✅ New resultId processed: 5374BDB4105649E7858B6A82065E8577, cache size: 2
+index-C1EZIQFo.js:382 [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+index-C1EZIQFo.js:382 [Temporal Dedupe] ✅ New offset+text processed: offset=4045700000, text="Yeah....", cache size: 1
+index-C1EZIQFo.js:382 [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Yeah...."
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Speech] 📦 Queue size: 6/20 pending messages
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] ✅ New resultId processed: 42B09B12E7594F858B7F04377A31C406, cache size: 2
+index-C1EZIQFo.js:382 [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+index-C1EZIQFo.js:382 [Temporal Dedupe] ✅ New offset+text processed: offset=4025100000, text="Yeah....", cache size: 1
+index-C1EZIQFo.js:382 [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Yeah...."
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Speech] 📦 Queue size: 7/20 pending messages
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] 🧹 Cleaned up 2 expired resultIds from cache
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] ✅ New resultId processed: 0751608C975D43EA97D3C377A41406DA, cache size: 1
+index-C1EZIQFo.js:382 [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+index-C1EZIQFo.js:382 [Temporal Dedupe] ✅ New offset+text processed: offset=3973500000, text="Yeah....", cache size: 1
+index-C1EZIQFo.js:382 [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Yeah...."
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Speech] 📦 Queue size: 7/20 pending messages
+Z.recognized @ index-C1EZIQFo.js:382
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+index-C1EZIQFo.js:382 [Azure Speech Dedupe] ✅ New resultId processed: F11D44DF9D0F4EFC8B7B9616B7ABBD5B, cache size: 1
+index-C1EZIQFo.js:382 [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+index-C1EZIQFo.js:382 [Temporal Dedupe] ✅ New offset+text processed: offset=3807600000, text="Slipping lemon....", cache size: 1
+index-C1EZIQFo.js:382 [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Slipping lemon...."
+Z.recognized @ index-C1EZIQFo.js:382
+processTypeSpecificMessages @ index-C1EZIQFo.js:375
+receiveMessage @ index-C1EZIQFo.js:371
+await in receiveMessage
+receiveMessage @ index-C1EZIQFo.js:371
+await in receiveMessage
+receiveMessage @ index-C1EZIQFo.js:371
+index-C1EZIQFo.js:382 [Speech] 📦 Queue size: 4/20 pending messages
+Z.recognized @ index-C1EZIQFo.js:382
+processTypeSpecificMessages @ index-C1EZIQFo.js:375
+receiveMessage @ index-C1EZIQFo.js:371
+await in receiveMessage
+receiveMessage @ index-C1EZIQFo.js:371
+await in receiveMessage
+receiveMessage @ index-C1EZIQFo.js:371
