@@ -10,6 +10,7 @@ import signature from "cookie-signature";
 import { Pool } from "@neondatabase/serverless";
 import nodemailer from "nodemailer";
 import multer from "multer";
+import crypto from "crypto";
 import type { AuditEventType, InsertAuditLog } from "@shared/schema";
 
 const sessionPool = new Pool({ connectionString: process.env.DATABASE_URL });
@@ -87,7 +88,6 @@ const TOKEN_EXPIRY_MS = 24 * 60 * 60 * 1000; // 24 hours
 
 // Generate cryptographically secure random token
 function generateWebSocketToken(): string {
-  const crypto = require('crypto');
   return crypto.randomBytes(32).toString('base64url'); // URL-safe base64
 }
 
