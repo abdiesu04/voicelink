@@ -50,12 +50,19 @@ const countryFlags = [
 ];
 
 const allLanguages = [
-  "Arabic", "Bengali", "Bulgarian", "Catalan", "Chinese", "Croatian", "Czech", "Danish",
-  "Dutch", "English", "Estonian", "Finnish", "French", "German", "Greek", "Gujarati",
-  "Hebrew", "Hindi", "Hungarian", "Indonesian", "Italian", "Japanese", "Kannada", "Korean",
-  "Latvian", "Malay", "Malayalam", "Marathi", "Norwegian", "Polish", "Portuguese", "Romanian",
-  "Russian", "Serbian", "Slovak", "Slovenian", "Spanish", "Swahili", "Swedish", "Tamil",
-  "Telugu", "Thai", "Turkish", "Ukrainian", "Vietnamese"
+  "Afrikaans", "Albanian", "Amharic", "Arabic", "Armenian", "Assamese", "Azerbaijani", "Bashkir",
+  "Basque", "Belarusian", "Bengali", "Bosnian", "Breton", "Bulgarian", "Cantonese", "Catalan",
+  "Chinese", "Croatian", "Czech", "Danish", "Dutch", "English", "Estonian", "Faroese",
+  "Finnish", "French", "Galician", "Georgian", "German", "Greek", "Gujarati", "Haitian Creole",
+  "Hausa", "Hawaiian", "Hebrew", "Hindi", "Hungarian", "Icelandic", "Indonesian", "Italian",
+  "Japanese", "Javanese", "Kannada", "Kazakh", "Khmer", "Korean", "Lao", "Latin",
+  "Latvian", "Lingala", "Lithuanian", "Luxembourgish", "Macedonian", "Malagasy", "Malay", "Malayalam",
+  "Maltese", "Mandarin", "Maori", "Marathi", "Mongolian", "Myanmar", "Nepali", "Norwegian",
+  "Nynorsk", "Occitan", "Pashto", "Persian", "Polish", "Portuguese", "Punjabi", "Romanian",
+  "Russian", "Sanskrit", "Serbian", "Shona", "Sindhi", "Sinhala", "Slovak", "Slovenian",
+  "Somali", "Spanish", "Sundanese", "Swahili", "Swedish", "Tagalog", "Tajik", "Tamil",
+  "Tatar", "Telugu", "Thai", "Tibetan", "Turkish", "Turkmen", "Ukrainian", "Urdu",
+  "Uzbek", "Vietnamese", "Welsh", "Yiddish", "Yoruba"
 ];
 
 const testimonials = [
