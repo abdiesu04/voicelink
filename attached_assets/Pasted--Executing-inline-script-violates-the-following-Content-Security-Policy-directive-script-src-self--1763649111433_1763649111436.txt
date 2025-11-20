@@ -1,0 +1,1208 @@
+ Executing inline script violates the following Content Security Policy directive 'script-src 'self' 'wasm-unsafe-eval' 'inline-speculation-rules' chrome-extension://7c9a4858-e35f-426c-ba8a-c86ff670d2b7/'. Either the 'unsafe-inline' keyword, a hash ('sha256-kPx0AsF0oz2kKiZ875xSvv693TBHkQ/0SkMJZnnNpnQ='), or a nonce ('nonce-...') is required to enable inline execution. The action has been blocked.
+(anonymous) @ chrome-extension://a…j/includes/tab.js:1
+ [Network] 🔄 Network type changed: 3g
+ [Network] ✅ WebSocket still connected after network change
+ [Translation Received] ⏱️ Timestamp: 1763648748157, Seq: 33, MessageId: participant-1763648748479-fs0alwx, Speaker: participant, IsOwn: false
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 32
+ [Sequence] 💾 Saved lastReceivedSeq=33 for room 92781299-9c07-491a-a0a3-834b38434c76
+ [Deduplication] 🔍 Check: sizeBefore=32, sizeAfter=33, messageId=participant-1763648748479-fs0alwx
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 33
+ [Translation] 📝 Translation #33 received - Original: "This everything find now....", Translated: "This everything find now...."
+ [Translation] 📥 Added to PARTNER messages (total: 1)
+ [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+ [Voice Gender] Text to speak: "This everything find now.", Language: en
+ [TTS Queue] Adding to queue (queue size: 0): This everything find now.
+ [TTS Queue] Queue processor started
+ [TTS Queue] Playing: This everything find now. 
+ [TTS Queue] Synthesizing audio via REST API...
+ [Azure Token] Using cached token
+ [Translation] ⏱️ Total processing time: 2ms
+ [Azure TTS API] 🎤 REQUEST #13 START - Voice: en-US-GuyNeural, Language: en, Region: eastus, Text: "This everything find now...."
+ [Azure TTS API] ✅ REQUEST #13 SUCCESS - Voice: en-US-GuyNeural, Duration: 797ms, Audio size: 38592 bytes
+ [Azure TTS API] 📊 Session Total: 13 TTS requests made
+ [TTS Queue] Synthesis completed in 2350ms, audio size: 38592 bytes
+ [TTS Queue] Setting fallback timeout: 4412ms (audio duration: 2.412s)
+ [TTS Queue] Playback started successfully
+ [TTS Queue] Playback completed (audio ended event)
+ [TTS Queue] Marked messageId as spoken: participant-1763648748479-fs0alwx
+ [TTS Queue] Queue processor finished
+ [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+ [Heartbeat] 💚 Received pong from server - connection alive
+ [Credits] Update received: 178710 seconds remaining, exhausted: false
+ [Azure Speech Dedupe] 🧹 Cleaned up 3 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 6CFE65C0E96C47C59E82E182613FF993, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 3 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=4540100000, text="OK. Thank you so much for your...", cache size: 1
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "OK. Thank you so much for your..."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 7/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] ✅ New resultId processed: EB1AE92D135F4B388D0AC611B2C7DD9D, cache size: 2
+ [Temporal Dedupe] ✅ New offset+text processed: offset=4397600000, text="OK. Thank you so much for your...", cache size: 2
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "OK. Thank you so much for your..."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 8/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] ✅ New resultId processed: C4673B5DB8704C5C9C6A20053BB9ACFD, cache size: 3
+ [Temporal Dedupe] ✅ New offset+text processed: offset=4380000000, text="OK. Thank you so much for your...", cache size: 3
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "OK. Thank you so much for your..."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 9/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 081F792F29054479BFAE44DC13E79AD5, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=2939500000, text="OK. Thank you so much for your...", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "OK. Thank you so much for your..."
+ [Translation Received] ⏱️ Timestamp: 1763648761256, Seq: 34, MessageId: participant-1763648761582-t5ggfk1, Speaker: participant, IsOwn: false
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 33
+ [Sequence] 💾 Saved lastReceivedSeq=34 for room 92781299-9c07-491a-a0a3-834b38434c76
+ [Deduplication] 🔍 Check: sizeBefore=33, sizeAfter=34, messageId=participant-1763648761582-t5ggfk1
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 34
+ [Translation] 📝 Translation #34 received - Original: "Lo que thinking son match for ...", Translated: "What thinking are match for lu..."
+ [Translation] 📥 Added to PARTNER messages (total: 1)
+ [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+ [Voice Gender] Text to speak: "What thinking are match for luz time.", Language: en
+ [TTS Queue] Adding to queue (queue size: 0): What thinking are match for luz time.
+ [TTS Queue] Queue processor started
+ [TTS Queue] Playing: What thinking are match for luz time. 
+ [TTS Queue] Synthesizing audio via REST API...
+ [Azure Token] Using cached token
+ [Translation] ⏱️ Total processing time: 2ms
+ [Azure TTS API] 🎤 REQUEST #14 START - Voice: en-US-GuyNeural, Language: en, Region: eastus, Text: "What thinking are match for luz time...."
+ [Translation Received] ⏱️ Timestamp: 1763648761415, Seq: 35, MessageId: creator-1763648761746-7zkt9m7, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 34
+ [Deduplication] 🔍 Check: sizeBefore=34, sizeAfter=35, messageId=creator-1763648761746-7zkt9m7
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 35
+ [Translation] 📝 Translation #35 received - Original: "OK. Thank you so much for your...", Translated: "Vale. Muchas gracias por vuest..."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 0ms
+ [Azure TTS API] ✅ REQUEST #14 SUCCESS - Voice: en-US-GuyNeural, Duration: 582ms, Audio size: 44352 bytes
+ [Azure TTS API] 📊 Session Total: 14 TTS requests made
+ [TTS Queue] Synthesis completed in 1734ms, audio size: 44352 bytes
+ [TTS Queue] Setting fallback timeout: 4772ms (audio duration: 2.772s)
+ [TTS Queue] Playback started successfully
+ [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+ [Heartbeat] 💚 Received pong from server - connection alive
+ [TTS Queue] Playback completed (audio ended event)
+ [TTS Queue] Marked messageId as spoken: participant-1763648761582-t5ggfk1
+ [TTS Queue] Queue processor finished
+ [Credits] Update received: 178700 seconds remaining, exhausted: false
+ [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+ [Heartbeat] 💚 Received pong from server - connection alive
+ [Credits] Update received: 178690 seconds remaining, exhausted: false
+ [Azure Speech Dedupe] 🧹 Cleaned up 3 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: EB1AE92D135F4B388D0AC611B2C7DD9D, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 3 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=4580700000, text="Do you have a time for a meeti...", cache size: 1
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Do you have a time for a meeti..."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 4/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 081F792F29054479BFAE44DC13E79AD5, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=3119300000, text="Do you have a time for a meeti...", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "Do you have a time for a meeti..."
+ [Azure Speech Dedupe] ✅ New resultId processed: 6CFE65C0E96C47C59E82E182613FF993, cache size: 2
+ [Temporal Dedupe] ✅ New offset+text processed: offset=4723200000, text="Do you have a time for a meeti...", cache size: 2
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Do you have a time for a meeti..."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 5/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] ✅ New resultId processed: C4673B5DB8704C5C9C6A20053BB9ACFD, cache size: 3
+ [Temporal Dedupe] ✅ New offset+text processed: offset=4559300000, text="Do you have a time or a meetin...", cache size: 3
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Do you have a time or a meetin..."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 6/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Translation Received] ⏱️ Timestamp: 1763648780067, Seq: 36, MessageId: creator-1763648780343-lv36sm5, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 35
+ [Deduplication] 🔍 Check: sizeBefore=35, sizeAfter=36, messageId=creator-1763648780343-lv36sm5
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 36
+ [Translation] 📝 Translation #36 received - Original: "Do you have a time for a meeti...", Translated: "¿Tienes una hora para una reun..."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 1ms
+ [Translation Received] ⏱️ Timestamp: 1763648780266, Seq: 37, MessageId: participant-1763648780450-ifxo49k, Speaker: participant, IsOwn: false
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 36
+ [Sequence] 💾 Saved lastReceivedSeq=37 for room 92781299-9c07-491a-a0a3-834b38434c76
+ [Deduplication] 🔍 Check: sizeBefore=36, sizeAfter=37, messageId=participant-1763648780450-ifxo49k
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 37
+ [Translation] 📝 Translation #37 received - Original: "¿Do you have a time for emitin...", Translated: "Do you have a time for emiting..."
+ [Translation] 📥 Added to PARTNER messages (total: 1)
+ [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+ [Voice Gender] Text to speak: "Do you have a time for emiting?", Language: en
+ [TTS Queue] Adding to queue (queue size: 0): Do you have a time for emiting?
+ [TTS Queue] Queue processor started
+ [TTS Queue] Playing: Do you have a time for emiting? 
+ [TTS Queue] Synthesizing audio via REST API...
+ [Azure Token] Using cached token
+ [Translation] ⏱️ Total processing time: 2ms
+ [Azure TTS API] 🎤 REQUEST #15 START - Voice: en-US-GuyNeural, Language: en, Region: eastus, Text: "Do you have a time for emiting?..."
+ [Azure TTS API] ✅ REQUEST #15 SUCCESS - Voice: en-US-GuyNeural, Duration: 982ms, Audio size: 40896 bytes
+ [Azure TTS API] 📊 Session Total: 15 TTS requests made
+ [TTS Queue] Synthesis completed in 2150ms, audio size: 40896 bytes
+ [TTS Queue] Setting fallback timeout: 4556ms (audio duration: 2.556s)
+ [TTS Queue] Playback started successfully
+ [TTS Queue] Playback completed (audio ended event)
+ [TTS Queue] Marked messageId as spoken: participant-1763648780450-ifxo49k
+ [TTS Queue] Queue processor finished
+ [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+ [Heartbeat] 💚 Received pong from server - connection alive
+ [Credits] Update received: 178680 seconds remaining, exhausted: false
+ [Azure Speech Dedupe] 🧹 Cleaned up 3 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: C4673B5DB8704C5C9C6A20053BB9ACFD, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 3 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=4666500000, text="Tines unohora para or reunion?...", cache size: 1
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Tines unohora para or reunion?..."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 7/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] ✅ New resultId processed: EB1AE92D135F4B388D0AC611B2C7DD9D, cache size: 2
+ [Temporal Dedupe] ✅ New offset+text processed: offset=4689800000, text="Tines unohora para or reunion?...", cache size: 2
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Tines unohora para or reunion?..."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 6/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 081F792F29054479BFAE44DC13E79AD5, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=3227100000, text="Tiness, unohora, para or reuni...", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "Tiness, unohora, para or reuni..."
+ [Azure Speech Dedupe] ✅ New resultId processed: 6CFE65C0E96C47C59E82E182613FF993, cache size: 3
+ [Temporal Dedupe] ✅ New offset+text processed: offset=4833000000, text="Tiness, unohora, para or reuni...", cache size: 3
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Tiness, unohora, para or reuni..."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 7/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Translation Received] ⏱️ Timestamp: 1763648791118, Seq: 38, MessageId: participant-1763648791447-5nszrcx, Speaker: participant, IsOwn: false
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 37
+ [Sequence] 💾 Saved lastReceivedSeq=38 for room 92781299-9c07-491a-a0a3-834b38434c76
+ [Deduplication] 🔍 Check: sizeBefore=37, sizeAfter=38, messageId=participant-1763648791447-5nszrcx
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 38
+ [Translation] 📝 Translation #38 received - Original: "¿Tienes 1 hora para reunion?...", Translated: "Do you have 1 hour for a meeti..."
+ [Translation] 📥 Added to PARTNER messages (total: 1)
+ [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+ [Voice Gender] Text to speak: "Do you have 1 hour for a meeting?", Language: en
+ [TTS Queue] Adding to queue (queue size: 0): Do you have 1 hour for a meeting?
+ [TTS Queue] Queue processor started
+ [TTS Queue] Playing: Do you have 1 hour for a meeting? 
+ [TTS Queue] Synthesizing audio via REST API...
+ [Azure Token] Using cached token
+ [Translation] ⏱️ Total processing time: 4ms
+ [Azure TTS API] 🎤 REQUEST #16 START - Voice: en-US-GuyNeural, Language: en, Region: eastus, Text: "Do you have 1 hour for a meeting?..."
+ [Translation Received] ⏱️ Timestamp: 1763648791302, Seq: 39, MessageId: creator-1763648791633-5lh211x, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 38
+ [Deduplication] 🔍 Check: sizeBefore=38, sizeAfter=39, messageId=creator-1763648791633-5lh211x
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 39
+ [Translation] 📝 Translation #39 received - Original: "Tiness, unohora, para or reuni...", Translated: "¿Tiness, unohora, para o reuni..."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 1ms
+ [Azure TTS API] ✅ REQUEST #16 SUCCESS - Voice: en-US-GuyNeural, Duration: 621ms, Audio size: 44352 bytes
+ [Azure TTS API] 📊 Session Total: 16 TTS requests made
+ [TTS Queue] Synthesis completed in 1383ms, audio size: 44352 bytes
+ [TTS Queue] Setting fallback timeout: 4772ms (audio duration: 2.772s)
+ [TTS Queue] Playback started successfully
+ [TTS Queue] Playback completed (audio ended event)
+ [TTS Queue] Marked messageId as spoken: participant-1763648791447-5nszrcx
+ [TTS Queue] Queue processor finished
+ [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+ [Heartbeat] 💚 Received pong from server - connection alive
+ [Credits] Update received: 178670 seconds remaining, exhausted: false
+ [Azure Speech Dedupe] 🧹 Cleaned up 3 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 6CFE65C0E96C47C59E82E182613FF993, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 3 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=4941300000, text="Tines honora paraorionia....", cache size: 1
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Tines honora paraorionia...."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 7/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] ✅ New resultId processed: EB1AE92D135F4B388D0AC611B2C7DD9D, cache size: 2
+ [Temporal Dedupe] ✅ New offset+text processed: offset=4797700000, text="Tines honora para Orionia....", cache size: 2
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Tines honora para Orionia...."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 8/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 081F792F29054479BFAE44DC13E79AD5, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=3332700000, text="Tines honora para Orionia....", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "Tines honora para Orionia...."
+ [Azure Speech Dedupe] ✅ New resultId processed: C4673B5DB8704C5C9C6A20053BB9ACFD, cache size: 3
+ [Temporal Dedupe] ✅ New offset+text processed: offset=4771400000, text="Tines onora para Orionia....", cache size: 3
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Tines onora para Orionia...."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 9/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Translation Received] ⏱️ Timestamp: 1763648802207, Seq: 40, MessageId: creator-1763648802535-ruhrj3o, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 39
+ [Deduplication] 🔍 Check: sizeBefore=39, sizeAfter=40, messageId=creator-1763648802535-ruhrj3o
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 40
+ [Translation] 📝 Translation #40 received - Original: "Tines honora para Orionia....", Translated: "Tines honora para Orionia...."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 1ms
+ [Translation Received] ⏱️ Timestamp: 1763648802323, Seq: 41, MessageId: participant-1763648802647-cvafckh, Speaker: participant, IsOwn: false
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 40
+ [Sequence] 💾 Saved lastReceivedSeq=41 for room 92781299-9c07-491a-a0a3-834b38434c76
+ [Deduplication] 🔍 Check: sizeBefore=40, sizeAfter=41, messageId=participant-1763648802647-cvafckh
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 41
+ [Translation] 📝 Translation #41 received - Original: "¿Tienes honora para orione?...", Translated: "Do you have honor for Orione?..."
+ [Translation] 📥 Added to PARTNER messages (total: 1)
+ [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+ [Voice Gender] Text to speak: "Do you have honor for Orione?", Language: en
+ [TTS Queue] Adding to queue (queue size: 0): Do you have honor for Orione?
+ [TTS Queue] Queue processor started
+ [TTS Queue] Playing: Do you have honor for Orione? 
+ [TTS Queue] Synthesizing audio via REST API...
+ [Azure Token] Using cached token
+ [Translation] ⏱️ Total processing time: 2ms
+ [Azure TTS API] 🎤 REQUEST #17 START - Voice: en-US-GuyNeural, Language: en, Region: eastus, Text: "Do you have honor for Orione?..."
+ [Azure TTS API] ✅ REQUEST #17 SUCCESS - Voice: en-US-GuyNeural, Duration: 734ms, Audio size: 41472 bytes
+ [Azure TTS API] 📊 Session Total: 17 TTS requests made
+ [TTS Queue] Synthesis completed in 2148ms, audio size: 41472 bytes
+ [TTS Queue] Setting fallback timeout: 4592.000000000001ms (audio duration: 2.592s)
+ [TTS Queue] Playback started successfully
+ [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+ [Heartbeat] 💚 Received pong from server - connection alive
+ [Credits] Update received: 178660 seconds remaining, exhausted: false
+ [TTS Queue] Playback completed (audio ended event)
+ [TTS Queue] Marked messageId as spoken: participant-1763648802647-cvafckh
+ [TTS Queue] Queue processor finished
+ [Azure Token] Cache expired, will fetch new token on next request
+ [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 081F792F29054479BFAE44DC13E79AD5, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=3447300000, text="Where do you live right now?...", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "Where do you live right now?..."
+ [Azure Speech Dedupe] 🧹 Cleaned up 3 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 6CFE65C0E96C47C59E82E182613FF993, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 3 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=5058500000, text="Where do you live right now?...", cache size: 1
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Where do you live right now?..."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 7/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] ✅ New resultId processed: C4673B5DB8704C5C9C6A20053BB9ACFD, cache size: 2
+ [Temporal Dedupe] ✅ New offset+text processed: offset=4885200000, text="Where do you live right now?...", cache size: 2
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Where do you live right now?..."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 8/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] ✅ New resultId processed: EB1AE92D135F4B388D0AC611B2C7DD9D, cache size: 3
+ [Temporal Dedupe] ✅ New offset+text processed: offset=4912300000, text="Where do you live right now?...", cache size: 3
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Where do you live right now?..."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 9/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Translation Received] ⏱️ Timestamp: 1763648813777, Seq: 42, MessageId: creator-1763648814108-wmljfog, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 41
+ [Deduplication] 🔍 Check: sizeBefore=41, sizeAfter=42, messageId=creator-1763648814108-wmljfog
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 42
+ [Translation] 📝 Translation #42 received - Original: "Where do you live right now?...", Translated: "¿Dónde vives ahora mismo?..."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 1ms
+ [Translation Received] ⏱️ Timestamp: 1763648814972, Seq: 43, MessageId: participant-1763648815304-4e6djot, Speaker: participant, IsOwn: false
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 42
+ [Sequence] 💾 Saved lastReceivedSeq=43 for room 92781299-9c07-491a-a0a3-834b38434c76
+ [Deduplication] 🔍 Check: sizeBefore=42, sizeAfter=43, messageId=participant-1763648815304-4e6djot
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 43
+ [Translation] 📝 Translation #43 received - Original: "Where you Live ration....", Translated: "Where you Live ration...."
+ [Translation] 📥 Added to PARTNER messages (total: 1)
+ [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+ [Voice Gender] Text to speak: "Where you Live ration.", Language: en
+ [TTS Queue] Adding to queue (queue size: 0): Where you Live ration.
+ [TTS Queue] Queue processor started
+ [TTS Queue] Playing: Where you Live ration. 
+ [TTS Queue] Synthesizing audio via REST API...
+ [Azure Token] Using cached token
+ [Translation] ⏱️ Total processing time: 2ms
+ [Azure TTS API] 🎤 REQUEST #18 START - Voice: en-US-GuyNeural, Language: en, Region: eastus, Text: "Where you Live ration...."
+ [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+ [Heartbeat] 💚 Received pong from server - connection alive
+ [Credits] Update received: 178650 seconds remaining, exhausted: false
+ [Azure TTS API] ✅ REQUEST #18 SUCCESS - Voice: en-US-GuyNeural, Duration: 723ms, Audio size: 33984 bytes
+ [Azure TTS API] 📊 Session Total: 18 TTS requests made
+ [TTS Queue] Synthesis completed in 2000ms, audio size: 33984 bytes
+ [TTS Queue] Setting fallback timeout: 4124.000000000001ms (audio duration: 2.124s)
+ [TTS Queue] Playback started successfully
+ [TTS Queue] Playback completed (audio ended event)
+ [TTS Queue] Marked messageId as spoken: participant-1763648815304-4e6djot
+ [TTS Queue] Queue processor finished
+ [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 081F792F29054479BFAE44DC13E79AD5, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=3537800000, text="Donde Vive Sahara mismo....", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "Donde Vive Sahara mismo...."
+ [Azure Speech Dedupe] 🧹 Cleaned up 3 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 6CFE65C0E96C47C59E82E182613FF993, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 3 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=5151300000, text="Dondevi VE sahora mismo....", cache size: 1
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Dondevi VE sahora mismo...."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 7/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] ✅ New resultId processed: C4673B5DB8704C5C9C6A20053BB9ACFD, cache size: 2
+ [Temporal Dedupe] ✅ New offset+text processed: offset=4975800000, text="Dondevi VE sahora mismo....", cache size: 2
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Dondevi VE sahora mismo...."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 8/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] ✅ New resultId processed: EB1AE92D135F4B388D0AC611B2C7DD9D, cache size: 3
+ [Temporal Dedupe] ✅ New offset+text processed: offset=5004600000, text="Donde Vive Sahara mismo....", cache size: 3
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Donde Vive Sahara mismo...."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 9/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Translation Received] ⏱️ Timestamp: 1763648822440, Seq: 44, MessageId: creator-1763648822765-xrinrh5, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 43
+ [Deduplication] 🔍 Check: sizeBefore=43, sizeAfter=44, messageId=creator-1763648822765-xrinrh5
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 44
+ [Translation] 📝 Translation #44 received - Original: "Donde Vive Sahara mismo....", Translated: "Donde Vive Sahara mismo...."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 1ms
+ [Translation Received] ⏱️ Timestamp: 1763648822578, Seq: 45, MessageId: participant-1763648822912-cd9vm4j, Speaker: participant, IsOwn: false
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 44
+ [Sequence] 💾 Saved lastReceivedSeq=45 for room 92781299-9c07-491a-a0a3-834b38434c76
+ [Deduplication] 🔍 Check: sizeBefore=44, sizeAfter=45, messageId=participant-1763648822912-cd9vm4j
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 45
+ [Translation] 📝 Translation #45 received - Original: "¿Dónde vive Sahara mismo?...", Translated: "Where does Sahara itself live?..."
+ [Translation] 📥 Added to PARTNER messages (total: 1)
+ [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+ [Voice Gender] Text to speak: "Where does Sahara itself live?", Language: en
+ [TTS Queue] Adding to queue (queue size: 0): Where does Sahara itself live?
+ [TTS Queue] Queue processor started
+ [TTS Queue] Playing: Where does Sahara itself live? 
+ [TTS Queue] Synthesizing audio via REST API...
+ [Azure Token] Using cached token
+ [Translation] ⏱️ Total processing time: 1ms
+ [Azure TTS API] 🎤 REQUEST #19 START - Voice: en-US-GuyNeural, Language: en, Region: eastus, Text: "Where does Sahara itself live?..."
+ [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+ [Heartbeat] 💚 Received pong from server - connection alive
+ [Credits] Update received: 178640 seconds remaining, exhausted: false
+ [Azure TTS API] ✅ REQUEST #19 SUCCESS - Voice: en-US-GuyNeural, Duration: 1577ms, Audio size: 44928 bytes
+ [Azure TTS API] 📊 Session Total: 19 TTS requests made
+ [TTS Queue] Synthesis completed in 4978ms, audio size: 44928 bytes
+ [TTS Queue] Setting fallback timeout: 4808ms (audio duration: 2.808s)
+ [TTS Queue] Playback started successfully
+ [TTS Queue] Playback completed (audio ended event)
+ [TTS Queue] Marked messageId as spoken: participant-1763648822912-cd9vm4j
+ [TTS Queue] Queue processor finished
+ [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 081F792F29054479BFAE44DC13E79AD5, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=3666200000, text="If you have a friend living ab...", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "If you have a friend living ab..."
+ [Azure Speech Dedupe] 🧹 Cleaned up 3 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 6CFE65C0E96C47C59E82E182613FF993, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 3 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=5282100000, text="If you have a friend living ab...", cache size: 1
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "If you have a friend living ab..."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 7/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+ [Azure Speech Dedupe] ✅ New resultId processed: EB1AE92D135F4B388D0AC611B2C7DD9D, cache size: 2
+ [Temporal Dedupe] ✅ New offset+text processed: offset=5134700000, text="You have a friend living abroa...", cache size: 2
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "You have a friend living abroa..."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 8/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Heartbeat] 💚 Received pong from server - connection alive
+ [Azure Speech Dedupe] ✅ New resultId processed: C4673B5DB8704C5C9C6A20053BB9ACFD, cache size: 3
+ [Temporal Dedupe] ✅ New offset+text processed: offset=5103400000, text="You have a friend living abroa...", cache size: 3
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "You have a friend living abroa..."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 9/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Translation Received] ⏱️ Timestamp: 1763648836282, Seq: 46, MessageId: creator-1763648836604-wbjcfdu, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 45
+ [Deduplication] 🔍 Check: sizeBefore=45, sizeAfter=46, messageId=creator-1763648836604-wbjcfdu
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 46
+ [Translation] 📝 Translation #46 received - Original: "If you have a friend living ab...", Translated: "Si tienes un amigo viviendo en..."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 0ms
+ [Credits] Update received: 178630 seconds remaining, exhausted: false
+ [Interim Timeout] ⏰ Auto-clearing partnerInterimText after 3s (no final transcription received)
+ [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+ [Heartbeat] 💚 Received pong from server - connection alive
+ [Credits] Update received: 178620 seconds remaining, exhausted: false
+ [Browser] Visibility changed: HIDDEN
+ [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+ [Page Visibility] 🌙 App backgrounded (invisible)
+ [Browser] Visibility changed: VISIBLE
+ [Browser] ✓ Tab is now visible again
+ [Page Visibility] 👁️ App became visible (resumed from background)
+ [Page Visibility] ✅ WebSocket already connected, no action needed
+ [Browser] Visibility changed: HIDDEN
+ [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+ [Page Visibility] 🌙 App backgrounded (invisible)
+ [Azure Speech Dedupe] 🧹 Cleaned up 3 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: EB1AE92D135F4B388D0AC611B2C7DD9D, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 3 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=5291900000, text="That's really interesting....", cache size: 1
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "That's really interesting...."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 7/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] ✅ New resultId processed: 6CFE65C0E96C47C59E82E182613FF993, cache size: 2
+ [Temporal Dedupe] ✅ New offset+text processed: offset=5440600000, text="That's really interesting....", cache size: 2
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "That's really interesting...."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 8/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 081F792F29054479BFAE44DC13E79AD5, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=3823200000, text="That's really interesting....", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "That's really interesting...."
+ [Azure Speech Dedupe] ✅ New resultId processed: C4673B5DB8704C5C9C6A20053BB9ACFD, cache size: 3
+ [Temporal Dedupe] ✅ New offset+text processed: offset=5259100000, text="That's really interesting....", cache size: 3
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "That's really interesting...."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 9/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Translation Received] ⏱️ Timestamp: 1763648852147, Seq: 47, MessageId: creator-1763648852479-v9qfswb, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 46
+ [Deduplication] 🔍 Check: sizeBefore=46, sizeAfter=47, messageId=creator-1763648852479-v9qfswb
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 47
+ [Translation] 📝 Translation #47 received - Original: "That's really interesting....", Translated: "Eso es realmente interesante...."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 1ms
+ [Translation Received] ⏱️ Timestamp: 1763648852201, Seq: 48, MessageId: participant-1763648852526-cbjtu2h, Speaker: participant, IsOwn: false
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 47
+ [Sequence] 💾 Saved lastReceivedSeq=48 for room 92781299-9c07-491a-a0a3-834b38434c76
+ [Deduplication] 🔍 Check: sizeBefore=47, sizeAfter=48, messageId=participant-1763648852526-cbjtu2h
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 48
+ [Translation] 📝 Translation #48 received - Original: "That streety intersting....", Translated: "That streety intersting...."
+ [Translation] 📥 Added to PARTNER messages (total: 1)
+ [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+ [Voice Gender] Text to speak: "That streety intersting.", Language: en
+ [TTS Queue] Adding to queue (queue size: 0): That streety intersting.
+ [TTS Queue] Queue processor started
+ [TTS Queue] Playing: That streety intersting. 
+ [TTS Queue] Synthesizing audio via REST API...
+ [Azure Token] Using cached token
+ [Translation] ⏱️ Total processing time: 2ms
+ [Azure TTS API] 🎤 REQUEST #20 START - Voice: en-US-GuyNeural, Language: en, Region: eastus, Text: "That streety intersting...."
+ [Azure TTS API] ✅ REQUEST #20 SUCCESS - Voice: en-US-GuyNeural, Duration: 788ms, Audio size: 38592 bytes
+ [Azure TTS API] 📊 Session Total: 20 TTS requests made
+ [TTS Queue] Synthesis completed in 1900ms, audio size: 38592 bytes
+ [TTS Queue] Setting fallback timeout: 4412ms (audio duration: 2.412s)
+ [TTS Queue] Playback started successfully
+ [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+ [Heartbeat] 💚 Received pong from server - connection alive
+ [TTS Queue] Playback completed (audio ended event)
+ [TTS Queue] Marked messageId as spoken: participant-1763648852526-cbjtu2h
+ [TTS Queue] Queue processor finished
+ [Credits] Update received: 178610 seconds remaining, exhausted: false
+ [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+ [Heartbeat] 💚 Received pong from server - connection alive
+ [Credits] Update received: 178600 seconds remaining, exhausted: false
+ [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+ [Heartbeat] 💚 Received pong from server - connection alive
+ [Credits] Update received: 178590 seconds remaining, exhausted: false
+ [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+ [Heartbeat] 💚 Received pong from server - connection alive
+ [Browser] Visibility changed: VISIBLE
+ [Browser] ✓ Tab is now visible again
+ [Page Visibility] 👁️ App became visible (resumed from background)
+ [Page Visibility] ✅ WebSocket already connected, no action needed
+ [Credits] Update received: 178580 seconds remaining, exhausted: false
+ [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 081F792F29054479BFAE44DC13E79AD5, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=4211000000, text="Do you have a child?...", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "Do you have a child?..."
+ [Azure Speech Dedupe] 🧹 Cleaned up 3 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: EB1AE92D135F4B388D0AC611B2C7DD9D, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 3 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=5686900000, text="Do you have a child?...", cache size: 1
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Do you have a child?..."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 1/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] ✅ New resultId processed: C4673B5DB8704C5C9C6A20053BB9ACFD, cache size: 2
+ [Temporal Dedupe] ✅ New offset+text processed: offset=5646000000, text="Do you have a child?...", cache size: 2
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Do you have a child?..."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 2/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Translation Received] ⏱️ Timestamp: 1763648892900, Seq: 49, MessageId: creator-1763648893220-77y449p, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 48
+ [Deduplication] 🔍 Check: sizeBefore=48, sizeAfter=49, messageId=creator-1763648893220-77y449p
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 49
+ [Translation] 📝 Translation #49 received - Original: "Do you have a child?...", Translated: "¿Tienes un hijo?..."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 0ms
+ [Azure Speech Dedupe] ✅ New resultId processed: 6603A6A2651B4A118B26E5EB91A2AF84, cache size: 3
+ [Temporal Dedupe] 🧹 Cleaned up 2 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=5837000000, text="Do you have a child?...", cache size: 1
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Do you have a child?..."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 3/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Token] Cache expired, will fetch new token on next request
+ [Interim Timeout] ⏰ Auto-clearing partnerInterimText after 3s (no final transcription received)
+ [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+ [Heartbeat] 💚 Received pong from server - connection alive
+ [Credits] Update received: 178570 seconds remaining, exhausted: false
+ [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+ [Heartbeat] 💚 Received pong from server - connection alive
+ [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 081F792F29054479BFAE44DC13E79AD5, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=4358700000, text="Intersanti....", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "Intersanti...."
+ [Azure Speech Dedupe] 🧹 Cleaned up 3 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: CC103B07D74C46AAB5779E4BDBC7A4AD, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=5835800000, text="Intersanti....", cache size: 1
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Intersanti...."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 4/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] ✅ New resultId processed: 6603A6A2651B4A118B26E5EB91A2AF84, cache size: 2
+ [Temporal Dedupe] ✅ New offset+text processed: offset=5987300000, text="Interstanti....", cache size: 2
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Interstanti...."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 5/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] ✅ New resultId processed: 6B95E911C2E9489492A6C0E7B9595D0F, cache size: 3
+ [Temporal Dedupe] ✅ New offset+text processed: offset=5792800000, text="Intersanti....", cache size: 3
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Intersanti...."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 6/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Credits] Update received: 178560 seconds remaining, exhausted: false
+ [Translation Received] ⏱️ Timestamp: 1763648907515, Seq: 50, MessageId: creator-1763648907808-l334yu5, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 49
+ [Deduplication] 🔍 Check: sizeBefore=49, sizeAfter=50, messageId=creator-1763648907808-l334yu5
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 50
+ [Translation] 📝 Translation #50 received - Original: "Intersanti....", Translated: "Intersanti...."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 1ms
+ [Interim Timeout] ⏰ Auto-clearing partnerInterimText after 3s (no final transcription received)
+ [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 081F792F29054479BFAE44DC13E79AD5, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=4429900000, text="Intersante....", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "Intersante...."
+ [Azure Speech Dedupe] 🧹 Cleaned up 3 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: CC103B07D74C46AAB5779E4BDBC7A4AD, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 3 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=5907700000, text="Intersante....", cache size: 1
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Intersante...."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 7/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] ✅ New resultId processed: 6B95E911C2E9489492A6C0E7B9595D0F, cache size: 2
+ [Temporal Dedupe] ✅ New offset+text processed: offset=5863900000, text="Intersanti....", cache size: 2
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Intersanti...."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 8/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] ✅ New resultId processed: 6603A6A2651B4A118B26E5EB91A2AF84, cache size: 3
+ [Temporal Dedupe] ✅ New offset+text processed: offset=6059300000, text="Intersanti....", cache size: 3
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Intersanti...."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 9/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Translation Received] ⏱️ Timestamp: 1763648914095, Seq: 51, MessageId: creator-1763648914431-d7hl8c0, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 50
+ [Deduplication] 🔍 Check: sizeBefore=50, sizeAfter=51, messageId=creator-1763648914431-d7hl8c0
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 51
+ [Translation] 📝 Translation #51 received - Original: "Intersante....", Translated: "Intersante...."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 1ms
+ [Translation Received] ⏱️ Timestamp: 1763648914218, Seq: 52, MessageId: participant-1763648914545-6840d9f, Speaker: participant, IsOwn: false
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 51
+ [Sequence] 💾 Saved lastReceivedSeq=52 for room 92781299-9c07-491a-a0a3-834b38434c76
+ [Deduplication] 🔍 Check: sizeBefore=51, sizeAfter=52, messageId=participant-1763648914545-6840d9f
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 52
+ [Translation] 📝 Translation #52 received - Original: "Interesante....", Translated: "Interesting...."
+ [Translation] 📥 Added to PARTNER messages (total: 1)
+ [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+ [Voice Gender] Text to speak: "Interesting.", Language: en
+ [TTS Queue] Adding to queue (queue size: 0): Interesting.
+ [TTS Queue] Queue processor started
+ [TTS Queue] Playing: Interesting. 
+ [TTS Queue] Synthesizing audio via REST API...
+ [Azure Token] Using cached token
+ [Translation] ⏱️ Total processing time: 1ms
+ [Azure TTS API] 🎤 REQUEST #21 START - Voice: en-US-GuyNeural, Language: en, Region: eastus, Text: "Interesting...."
+ [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+ [Azure TTS API] ✅ REQUEST #21 SUCCESS - Voice: en-US-GuyNeural, Duration: 650ms, Audio size: 28800 bytes
+ [Azure TTS API] 📊 Session Total: 21 TTS requests made
+ [TTS Queue] Synthesis completed in 1575ms, audio size: 28800 bytes
+ [TTS Queue] Setting fallback timeout: 3800ms (audio duration: 1.8s)
+ [Heartbeat] 💚 Received pong from server - connection alive
+ [TTS Queue] Playback started successfully
+ [TTS Queue] Playback completed (audio ended event)
+ [TTS Queue] Marked messageId as spoken: participant-1763648914545-6840d9f
+ [TTS Queue] Queue processor finished
+ [Azure Speech Dedupe] 🧹 Cleaned up 3 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 6603A6A2651B4A118B26E5EB91A2AF84, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 3 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=6137400000, text="Fantastico....", cache size: 1
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Fantastico...."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 10/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] ✅ New resultId processed: 6B95E911C2E9489492A6C0E7B9595D0F, cache size: 2
+ [Temporal Dedupe] ✅ New offset+text processed: offset=5941400000, text="Fantastico....", cache size: 2
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Fantastico...."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 11/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 081F792F29054479BFAE44DC13E79AD5, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=4507800000, text="Fantastical....", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "Fantastical...."
+ [Azure Speech Dedupe] ✅ New resultId processed: CC103B07D74C46AAB5779E4BDBC7A4AD, cache size: 3
+ [Temporal Dedupe] ✅ New offset+text processed: offset=5986300000, text="Fantastical....", cache size: 3
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Fantastical...."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 12/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Translation Received] ⏱️ Timestamp: 1763648922006, Seq: 53, MessageId: participant-1763648922336-qffuwls, Speaker: participant, IsOwn: false
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 52
+ [Sequence] 💾 Saved lastReceivedSeq=53 for room 92781299-9c07-491a-a0a3-834b38434c76
+ [Deduplication] 🔍 Check: sizeBefore=52, sizeAfter=53, messageId=participant-1763648922336-qffuwls
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 53
+ [Translation] 📝 Translation #53 received - Original: "Fantástico....", Translated: "Fantastic...."
+ [Translation] 📥 Added to PARTNER messages (total: 1)
+ [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+ [Voice Gender] Text to speak: "Fantastic.", Language: en
+ [TTS Queue] Adding to queue (queue size: 0): Fantastic.
+ [TTS Queue] Queue processor started
+ [TTS Queue] Playing: Fantastic. 
+ [TTS Queue] Synthesizing audio via REST API...
+ [Azure Token] Using cached token
+ [Translation] ⏱️ Total processing time: 2ms
+ [Azure TTS API] 🎤 REQUEST #22 START - Voice: en-US-GuyNeural, Language: en, Region: eastus, Text: "Fantastic...."
+ [Translation Received] ⏱️ Timestamp: 1763648922147, Seq: 54, MessageId: creator-1763648922482-kefn5d3, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 53
+ [Deduplication] 🔍 Check: sizeBefore=53, sizeAfter=54, messageId=creator-1763648922482-kefn5d3
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 54
+ [Translation] 📝 Translation #54 received - Original: "Fantastical....", Translated: "Fantástica...."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 0ms
+ [Azure TTS API] ✅ REQUEST #22 SUCCESS - Voice: en-US-GuyNeural, Duration: 567ms, Audio size: 30528 bytes
+ [Azure TTS API] 📊 Session Total: 22 TTS requests made
+ [TTS Queue] Synthesis completed in 1681ms, audio size: 30528 bytes
+ [TTS Queue] Setting fallback timeout: 3908ms (audio duration: 1.908s)
+ [TTS Queue] Playback started successfully
+ [Network] 🔄 Network type changed: 4g
+ [Network] ✅ WebSocket still connected after network change
+ [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+ [TTS Queue] Playback completed (audio ended event)
+ [TTS Queue] Marked messageId as spoken: participant-1763648922336-qffuwls
+ [TTS Queue] Queue processor finished
+ [Heartbeat] 💚 Received pong from server - connection alive
+ [Credits] Update received: 178550 seconds remaining, exhausted: false
+ [Translation Received] ⏱️ Timestamp: 1763648929463, Seq: 55, MessageId: participant-1763648929796-q8t7rqo, Speaker: participant, IsOwn: false
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 54
+ [Sequence] 💾 Saved lastReceivedSeq=55 for room 92781299-9c07-491a-a0a3-834b38434c76
+ [Deduplication] 🔍 Check: sizeBefore=54, sizeAfter=55, messageId=participant-1763648929796-q8t7rqo
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 55
+ [Translation] 📝 Translation #55 received - Original: "And Music....", Translated: "And Music...."
+ [Translation] 📥 Added to PARTNER messages (total: 1)
+ [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+ [Voice Gender] Text to speak: "And Music.", Language: en
+ [TTS Queue] Adding to queue (queue size: 0): And Music.
+ [TTS Queue] Queue processor started
+ [TTS Queue] Playing: And Music. 
+ [TTS Queue] Synthesizing audio via REST API...
+ [Azure Token] Using cached token
+ [Translation] ⏱️ Total processing time: 2ms
+ [Azure TTS API] 🎤 REQUEST #23 START - Voice: en-US-GuyNeural, Language: en, Region: eastus, Text: "And Music...."
+ [Azure Speech Dedupe] 🧹 Cleaned up 3 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 6603A6A2651B4A118B26E5EB91A2AF84, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 3 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=6212700000, text="Amazing....", cache size: 1
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Amazing...."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 10/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 081F792F29054479BFAE44DC13E79AD5, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=4582300000, text="Amazing....", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "Amazing...."
+ [Azure Speech Dedupe] ✅ New resultId processed: CC103B07D74C46AAB5779E4BDBC7A4AD, cache size: 2
+ [Temporal Dedupe] ✅ New offset+text processed: offset=6061200000, text="Amazing....", cache size: 2
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Amazing...."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 11/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Translation Received] ⏱️ Timestamp: 1763648930348, Seq: 56, MessageId: creator-1763648930682-0b0z5fx, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 55
+ [Deduplication] 🔍 Check: sizeBefore=55, sizeAfter=56, messageId=creator-1763648930682-0b0z5fx
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 56
+ [Translation] 📝 Translation #56 received - Original: "Amazing....", Translated: "Asombroso...."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 0ms
+ [Azure TTS API] ✅ REQUEST #23 SUCCESS - Voice: en-US-GuyNeural, Duration: 612ms, Audio size: 28224 bytes
+ [Azure TTS API] 📊 Session Total: 23 TTS requests made
+ [TTS Queue] Synthesis completed in 1524ms, audio size: 28224 bytes
+ [TTS Queue] Setting fallback timeout: 3764.0000000000005ms (audio duration: 1.764s)
+ [TTS Queue] Playback started successfully
+ [TTS Queue] Playback completed (audio ended event)
+ [TTS Queue] Marked messageId as spoken: participant-1763648929796-q8t7rqo
+ [TTS Queue] Queue processor finished
+ [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+ [Heartbeat] 💚 Received pong from server - connection alive
+ [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 081F792F29054479BFAE44DC13E79AD5, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=4652500000, text="Assam, Russell....", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "Assam, Russell...."
+ [Azure Speech Dedupe] 🧹 Cleaned up 2 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 6603A6A2651B4A118B26E5EB91A2AF84, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 2 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=6283000000, text="Assam, Russell....", cache size: 1
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Assam, Russell...."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 12/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] ✅ New resultId processed: 6B95E911C2E9489492A6C0E7B9595D0F, cache size: 2
+ [Temporal Dedupe] ✅ New offset+text processed: offset=6085900000, text="Assam, Russell....", cache size: 2
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Assam, Russell...."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 13/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] ✅ New resultId processed: CC103B07D74C46AAB5779E4BDBC7A4AD, cache size: 3
+ [Temporal Dedupe] ✅ New offset+text processed: offset=6131700000, text="Assam, Russell....", cache size: 3
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Assam, Russell...."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 14/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Translation Received] ⏱️ Timestamp: 1763648936658, Seq: 57, MessageId: participant-1763648936985-v7uuupo, Speaker: participant, IsOwn: false
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 56
+ [Sequence] 💾 Saved lastReceivedSeq=57 for room 92781299-9c07-491a-a0a3-834b38434c76
+ [Deduplication] 🔍 Check: sizeBefore=56, sizeAfter=57, messageId=participant-1763648936985-v7uuupo
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 57
+ [Translation] 📝 Translation #57 received - Original: "Asombroso....", Translated: "Amazing...."
+ [Translation] 📥 Added to PARTNER messages (total: 1)
+ [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+ [Voice Gender] Text to speak: "Amazing.", Language: en
+ [TTS Queue] Adding to queue (queue size: 0): Amazing.
+ [TTS Queue] Queue processor started
+ [TTS Queue] Playing: Amazing. 
+ [TTS Queue] Synthesizing audio via REST API...
+ [Azure Token] Using cached token
+ [Translation] ⏱️ Total processing time: 2ms
+ [Azure TTS API] 🎤 REQUEST #24 START - Voice: en-US-GuyNeural, Language: en, Region: eastus, Text: "Amazing...."
+ [Translation Received] ⏱️ Timestamp: 1763648936733, Seq: 58, MessageId: creator-1763648937067-oz6mndb, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 57
+ [Deduplication] 🔍 Check: sizeBefore=57, sizeAfter=58, messageId=creator-1763648937067-oz6mndb
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 58
+ [Translation] 📝 Translation #58 received - Original: "Assam, Russell....", Translated: "Assam, Russell...."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 0ms
+ [Credits] Update received: 178540 seconds remaining, exhausted: false
+ [Azure TTS API] ✅ REQUEST #24 SUCCESS - Voice: en-US-GuyNeural, Duration: 962ms, Audio size: 27648 bytes
+ [Azure TTS API] 📊 Session Total: 24 TTS requests made
+ [TTS Queue] Synthesis completed in 1848ms, audio size: 27648 bytes
+ [TTS Queue] Setting fallback timeout: 3727.9999999999995ms (audio duration: 1.728s)
+ [TTS Queue] Playback started successfully
+ [TTS Queue] Playback completed (audio ended event)
+ [TTS Queue] Marked messageId as spoken: participant-1763648936985-v7uuupo
+ [TTS Queue] Queue processor finished
+ [Mic] Muting microphone - stopping recognition
+ [Speech] Session stopped - will restart if not muted
+ [Mic] Recognition stopped successfully
+ [Mic] Recognizer closed and cleaned up
+ [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+ [Heartbeat] 💚 Received pong from server - connection alive
+ [Credits] Update received: 178530 seconds remaining, exhausted: false
+ [Azure Speech Dedupe] 🧹 Cleaned up 3 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 6603A6A2651B4A118B26E5EB91A2AF84, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 3 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=6395700000, text="What do you have?...", cache size: 1
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "What do you have?..."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 9/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] ✅ New resultId processed: CC103B07D74C46AAB5779E4BDBC7A4AD, cache size: 2
+ [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=6242500000, text="What do you have now?...", cache size: 1
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "What do you have now?..."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 10/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] ✅ New resultId processed: 6B95E911C2E9489492A6C0E7B9595D0F, cache size: 3
+ [Temporal Dedupe] ✅ New offset+text processed: offset=6195400000, text="What do you have now?...", cache size: 2
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "What do you have now?..."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 11/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Translation Received] ⏱️ Timestamp: 1763648949901, Seq: 59, MessageId: participant-1763648950238-lse9rm8, Speaker: participant, IsOwn: false
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 58
+ [Sequence] 💾 Saved lastReceivedSeq=59 for room 92781299-9c07-491a-a0a3-834b38434c76
+ [Deduplication] 🔍 Check: sizeBefore=58, sizeAfter=59, messageId=participant-1763648950238-lse9rm8
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 59
+ [Translation] 📝 Translation #59 received - Original: "Nada....", Translated: "Nothing...."
+ [Translation] 📥 Added to PARTNER messages (total: 1)
+ [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+ [Voice Gender] Text to speak: "Nothing.", Language: en
+ [TTS Queue] Adding to queue (queue size: 0): Nothing.
+ [TTS Queue] Queue processor started
+ [TTS Queue] Playing: Nothing. 
+ [TTS Queue] Synthesizing audio via REST API...
+ [Azure Token] Using cached token
+ [Translation] ⏱️ Total processing time: 2ms
+ [Azure TTS API] 🎤 REQUEST #25 START - Voice: en-US-GuyNeural, Language: en, Region: eastus, Text: "Nothing...."
+ [Network] 🔄 Network type changed: 3g
+ [Network] ✅ WebSocket still connected after network change
+ [Azure Speech Dedupe] ⛔ DUPLICATE RESULTID BLOCKED!
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] 🔍 ResultId: 6603A6A2651B4A118B26E5EB91A2AF84
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] 📝 Text: "Now."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] ⏱️ Last processed: 3020ms ago (TTL: 5000ms)
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] 💡 This is likely Azure Speech SDK's rescoring mechanism
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] ✅ Prevented duplicate from reaching server - no translation cost incurred
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure TTS API] ✅ REQUEST #25 SUCCESS - Voice: en-US-GuyNeural, Duration: 558ms, Audio size: 25920 bytes
+ [Azure TTS API] 📊 Session Total: 25 TTS requests made
+ [TTS Queue] Synthesis completed in 1694ms, audio size: 25920 bytes
+ [TTS Queue] Setting fallback timeout: 3620ms (audio duration: 1.62s)
+ [TTS Queue] Playback started successfully
+ [TTS Queue] Playback completed (audio ended event)
+ [TTS Queue] Marked messageId as spoken: participant-1763648950238-lse9rm8
+ [TTS Queue] Queue processor finished
+ [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+ [Heartbeat] 💚 Received pong from server - connection alive
+ [Credits] Update received: 178520 seconds remaining, exhausted: false
+ [Mic] Unmuting microphone - starting recognition
+ [Start Conversation] ✅ All checks passed - WebSocket OPEN, partner connected, quota available
+ [Azure Token] Using cached token
+ [Azure Speech] ✓ Session started: Object
+ [Speech] Recognition started successfully - microphone is now active
+ [Speech] Conversation started with microphone already active (no second click needed)
+ [Browser] Visibility changed: HIDDEN
+ [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+ [Page Visibility] 🌙 App backgrounded (invisible)
+ [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+ [Heartbeat] 💚 Received pong from server - connection alive
+ [Credits] Update received: 178510 seconds remaining, exhausted: false
+ [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 8D0CAC3F88E04327BA927B6C6EA91FB2, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=40000000, text="What do you have now?...", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "What do you have now?..."
+ [Azure Speech Dedupe] 🧹 Cleaned up 3 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 6603A6A2651B4A118B26E5EB91A2AF84, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 2 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=6599100000, text="What do you have now?...", cache size: 1
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "What do you have now?..."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 4/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] ✅ New resultId processed: CC103B07D74C46AAB5779E4BDBC7A4AD, cache size: 2
+ [Temporal Dedupe] ✅ New offset+text processed: offset=6446500000, text="What do you have now?...", cache size: 2
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "What do you have now?..."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 5/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] ✅ New resultId processed: 6B95E911C2E9489492A6C0E7B9595D0F, cache size: 3
+ [Temporal Dedupe] ✅ New offset+text processed: offset=6397600000, text="What do you have now?...", cache size: 3
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "What do you have now?..."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 6/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Browser] Visibility changed: VISIBLE
+ [Browser] ✓ Tab is now visible again
+ [Page Visibility] 👁️ App became visible (resumed from background)
+ [Page Visibility] ✅ WebSocket already connected, no action needed
+ [Azure Token] Cache expired, will fetch new token on next request
+ [Translation Received] ⏱️ Timestamp: 1763648969475, Seq: 60, MessageId: creator-1763648969799-2ru4dml, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 59
+ [Deduplication] 🔍 Check: sizeBefore=59, sizeAfter=60, messageId=creator-1763648969799-2ru4dml
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 60
+ [Translation] 📝 Translation #60 received - Original: "What do you have now?...", Translated: "¿Qué tienes ahora?..."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 1ms
+ [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+ [Heartbeat] 💚 Received pong from server - connection alive
+ [Credits] Update received: 178500 seconds remaining, exhausted: false
+ [Network] 🔄 Network type changed: 4g
+ [Network] ✅ WebSocket still connected after network change
+ [Azure Speech Dedupe] 🧹 Cleaned up 1 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 8D0CAC3F88E04327BA927B6C6EA91FB2, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 1 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=135000000, text="I like the fact that we are to...", cache size: 1
+ [Speech] ✅ Sent final transcription immediately: "I like the fact that we are to..."
+ [Azure Speech Dedupe] 🧹 Cleaned up 3 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 6603A6A2651B4A118B26E5EB91A2AF84, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 3 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=6693700000, text="I like the fact that we are to...", cache size: 1
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "I like the fact that we are to..."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 5/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] ✅ New resultId processed: 6B95E911C2E9489492A6C0E7B9595D0F, cache size: 2
+ [Temporal Dedupe] ✅ New offset+text processed: offset=6490300000, text="I like the fact that we are to...", cache size: 2
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "I like the fact that we are to..."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 6/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] ✅ New resultId processed: CC103B07D74C46AAB5779E4BDBC7A4AD, cache size: 3
+ [Temporal Dedupe] ✅ New offset+text processed: offset=6540700000, text="I like the fact that we are to...", cache size: 3
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "I like the fact that we are to..."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 7/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Translation Received] ⏱️ Timestamp: 1763648979903, Seq: 61, MessageId: creator-1763648980240-mh1eeuw, Speaker: creator, IsOwn: true
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 60
+ [Deduplication] 🔍 Check: sizeBefore=60, sizeAfter=61, messageId=creator-1763648980240-mh1eeuw
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 61
+ [Translation] 📝 Translation #61 received - Original: "I like the fact that we are to...", Translated: "Me gusta que ahora estemos jun..."
+ [Translation] 📤 Added to MY messages (total: 1)
+ [Translation] ⏱️ Total processing time: 1ms
+ [Mic] Muting microphone - stopping recognition
+ [Speech] Session stopped - will restart if not muted
+ [Mic] Recognition stopped successfully
+ [Mic] Recognizer closed and cleaned up
+ [Browser] Visibility changed: HIDDEN
+ [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+ [Page Visibility] 🌙 App backgrounded (invisible)
+ [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+ [Heartbeat] 💚 Received pong from server - connection alive
+ [Credits] Update received: 178490 seconds remaining, exhausted: false
+ [Azure Speech Dedupe] 🧹 Cleaned up 3 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 6603A6A2651B4A118B26E5EB91A2AF84, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 3 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=6815300000, text="Mehusta quehara estamos juntos...", cache size: 1
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Mehusta quehara estamos juntos..."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 7/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] ✅ New resultId processed: CC103B07D74C46AAB5779E4BDBC7A4AD, cache size: 2
+ [Temporal Dedupe] ✅ New offset+text processed: offset=6661500000, text="Mehusta quehara estamos juntos...", cache size: 2
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Mehusta quehara estamos juntos..."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 8/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] ✅ New resultId processed: 6B95E911C2E9489492A6C0E7B9595D0F, cache size: 3
+ [Temporal Dedupe] ✅ New offset+text processed: offset=6609200000, text="Mehus takahara estamos juntos ...", cache size: 3
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Mehus takahara estamos juntos ..."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 9/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+ [Heartbeat] 💚 Received pong from server - connection alive
+ [Credits] Update received: 178480 seconds remaining, exhausted: false
+ [Network] 🔄 Network type changed: 3g
+ [Network] ✅ WebSocket still connected after network change
+ [Azure Speech Dedupe] 🧹 Cleaned up 3 expired resultIds from cache
+ [Azure Speech Dedupe] ✅ New resultId processed: 6603A6A2651B4A118B26E5EB91A2AF84, cache size: 1
+ [Temporal Dedupe] 🧹 Cleaned up 3 expired offset entries from cache
+ [Temporal Dedupe] ✅ New offset+text processed: offset=6943400000, text="Mekusto koi ahora estamos junt...", cache size: 1
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Mekusto koi ahora estamos junt..."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 7/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] ✅ New resultId processed: CC103B07D74C46AAB5779E4BDBC7A4AD, cache size: 2
+ [Temporal Dedupe] ✅ New offset+text processed: offset=6790300000, text="Mekusto koi ahora estamos junt...", cache size: 2
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Mekusto koi ahora estamos junt..."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 8/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Azure Speech Dedupe] ✅ New resultId processed: 6B95E911C2E9489492A6C0E7B9595D0F, cache size: 3
+ [Temporal Dedupe] ✅ New offset+text processed: offset=6736700000, text="Main kusto koi ahora estamos j...", cache size: 3
+ [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Main kusto koi ahora estamos j..."
+Z.recognized @ index-DuCPrvEV.js:382
+ [Speech] 📦 Queue size: 9/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+ [Translation Received] ⏱️ Timestamp: 1763649005837, Seq: 62, MessageId: participant-1763649006171-8px304t, Speaker: participant, IsOwn: false
+ [Translation Received] 📊 DeduplicationSet size BEFORE: 61
+ [Sequence] 💾 Saved lastReceivedSeq=62 for room 92781299-9c07-491a-a0a3-834b38434c76
+ [Deduplication] 🔍 Check: sizeBefore=61, sizeAfter=62, messageId=participant-1763649006171-8px304t
+ [Deduplication] ✅ NEW message added to deduplication set. Set size now: 62
+ [Translation] 📝 Translation #62 received - Original: "Me gustó que ahora estamos jun...", Translated: "I liked that we are together n..."
+ [Translation] 📥 Added to PARTNER messages (total: 1)
+ [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+ [Voice Gender] Text to speak: "I liked that we are together now.", Language: en
+ [TTS Queue] Adding to queue (queue size: 0): I liked that we are together now.
+ [TTS Queue] Queue processor started
+ [TTS Queue] Playing: I liked that we are together now. 
+ [TTS Queue] Synthesizing audio via REST API...
+ [Azure Token API] 🔑 REQUEST #2 START - Fetching new auth token
+ [Translation] ⏱️ Total processing time: 2ms
+ [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+ [Heartbeat] 💚 Received pong from server - connection alive
+ [Credits] Update received: 178470 seconds remaining, exhausted: false
+ [Azure Token API] ✅ REQUEST #2 SUCCESS - Duration: 1237ms, Region: eastus
+ [Azure TTS API] 🎤 REQUEST #26 START - Voice: en-US-GuyNeural, Language: en, Region: eastus, Text: "I liked that we are together now...."
+ [Azure TTS API] ✅ REQUEST #26 SUCCESS - Voice: en-US-GuyNeural, Duration: 1843ms, Audio size: 44928 bytes
+index-DuCPrvEV.js:382 [Azure TTS API] 📊 Session Total: 26 TTS requests made
+index-DuCPrvEV.js:382 [TTS Queue] Synthesis completed in 3953ms, audio size: 44928 bytes
+index-DuCPrvEV.js:382 [TTS Queue] Setting fallback timeout: 4808ms (audio duration: 2.808s)
+index-DuCPrvEV.js:382 [TTS Queue] Playback started successfully
+index-DuCPrvEV.js:376 [Browser] Visibility changed: VISIBLE
+index-DuCPrvEV.js:376 [Browser] ✓ Tab is now visible again
+index-DuCPrvEV.js:382 [Page Visibility] 👁️ App became visible (resumed from background)
+index-DuCPrvEV.js:382 [Page Visibility] ✅ WebSocket already connected, no action needed
+index-DuCPrvEV.js:382 [TTS Queue] Playback completed (audio ended event)
+index-DuCPrvEV.js:382 [TTS Queue] Marked messageId as spoken: participant-1763649006171-8px304t
+index-DuCPrvEV.js:382 [TTS Queue] Queue processor finished
+index-DuCPrvEV.js:382 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+index-DuCPrvEV.js:382 [Heartbeat] 💚 Received pong from server - connection alive
+index-DuCPrvEV.js:382 [Azure Speech Dedupe] 🧹 Cleaned up 3 expired resultIds from cache
+index-DuCPrvEV.js:382 [Azure Speech Dedupe] ✅ New resultId processed: 6B95E911C2E9489492A6C0E7B9595D0F, cache size: 1
+index-DuCPrvEV.js:382 [Temporal Dedupe] 🧹 Cleaned up 3 expired offset entries from cache
+index-DuCPrvEV.js:382 [Temporal Dedupe] ✅ New offset+text processed: offset=6862400000, text="Thank you so much....", cache size: 1
+index-DuCPrvEV.js:382 [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Thank you so much...."
+Z.recognized @ index-DuCPrvEV.js:382
+index-DuCPrvEV.js:382 [Speech] 📦 Queue size: 7/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+index-DuCPrvEV.js:382 [Azure Speech Dedupe] ✅ New resultId processed: 6603A6A2651B4A118B26E5EB91A2AF84, cache size: 2
+index-DuCPrvEV.js:382 [Temporal Dedupe] ✅ New offset+text processed: offset=7071000000, text="Thank you so much....", cache size: 2
+index-DuCPrvEV.js:382 [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Thank you so much...."
+Z.recognized @ index-DuCPrvEV.js:382
+index-DuCPrvEV.js:382 [Speech] 📦 Queue size: 8/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+index-DuCPrvEV.js:382 [Azure Speech Dedupe] ✅ New resultId processed: CC103B07D74C46AAB5779E4BDBC7A4AD, cache size: 3
+index-DuCPrvEV.js:382 [Temporal Dedupe] ✅ New offset+text processed: offset=6918500000, text="Thank you so much....", cache size: 3
+index-DuCPrvEV.js:382 [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Thank you so much...."
+Z.recognized @ index-DuCPrvEV.js:382
+index-DuCPrvEV.js:382 [Speech] 📦 Queue size: 9/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+index-DuCPrvEV.js:382 [Translation Received] ⏱️ Timestamp: 1763649016644, Seq: 63, MessageId: participant-1763649016955-vnug71o, Speaker: participant, IsOwn: false
+index-DuCPrvEV.js:382 [Translation Received] 📊 DeduplicationSet size BEFORE: 62
+index-DuCPrvEV.js:376 [Sequence] 💾 Saved lastReceivedSeq=63 for room 92781299-9c07-491a-a0a3-834b38434c76
+index-DuCPrvEV.js:382 [Deduplication] 🔍 Check: sizeBefore=62, sizeAfter=63, messageId=participant-1763649016955-vnug71o
+index-DuCPrvEV.js:382 [Deduplication] ✅ NEW message added to deduplication set. Set size now: 63
+index-DuCPrvEV.js:382 [Translation] 📝 Translation #63 received - Original: "Thank you so mach....", Translated: "Thank you so mach...."
+index-DuCPrvEV.js:382 [Translation] 📥 Added to PARTNER messages (total: 1)
+index-DuCPrvEV.js:382 [Voice Gender] Playing partner's translation in PARTNER's voice: male, My voice (what partner hears): male
+index-DuCPrvEV.js:382 [Voice Gender] Text to speak: "Thank you so mach.", Language: en
+index-DuCPrvEV.js:382 [TTS Queue] Adding to queue (queue size: 0): Thank you so mach.
+index-DuCPrvEV.js:382 [TTS Queue] Queue processor started
+index-DuCPrvEV.js:382 [TTS Queue] Playing: Thank you so mach. 
+index-DuCPrvEV.js:382 [TTS Queue] Synthesizing audio via REST API...
+index-DuCPrvEV.js:376 [Azure Token] Using cached token
+index-DuCPrvEV.js:382 [Translation] ⏱️ Total processing time: 2ms
+index-DuCPrvEV.js:376 [Azure TTS API] 🎤 REQUEST #27 START - Voice: en-US-GuyNeural, Language: en, Region: eastus, Text: "Thank you so mach...."
+index-DuCPrvEV.js:382 [Credits] Update received: 178460 seconds remaining, exhausted: false
+index-DuCPrvEV.js:382 [Azure TTS API] ✅ REQUEST #27 SUCCESS - Voice: en-US-GuyNeural, Duration: 605ms, Audio size: 33984 bytes
+index-DuCPrvEV.js:382 [Azure TTS API] 📊 Session Total: 27 TTS requests made
+index-DuCPrvEV.js:382 [TTS Queue] Synthesis completed in 1781ms, audio size: 33984 bytes
+index-DuCPrvEV.js:382 [TTS Queue] Setting fallback timeout: 4124.000000000001ms (audio duration: 2.124s)
+index-DuCPrvEV.js:382 [TTS Queue] Playback started successfully
+index-DuCPrvEV.js:382 [TTS Queue] Playback completed (audio ended event)
+index-DuCPrvEV.js:382 [TTS Queue] Marked messageId as spoken: participant-1763649016955-vnug71o
+index-DuCPrvEV.js:382 [TTS Queue] Queue processor finished
+index-DuCPrvEV.js:382 [Mic] Unmuting microphone - starting recognition
+index-DuCPrvEV.js:382 [Start Conversation] ✅ All checks passed - WebSocket OPEN, partner connected, quota available
+index-DuCPrvEV.js:376 [Azure Token] Using cached token
+index-DuCPrvEV.js:382 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+index-DuCPrvEV.js:382 [Heartbeat] 💚 Received pong from server - connection alive
+index-DuCPrvEV.js:382 [Credits] Update received: 178450 seconds remaining, exhausted: false
+index-DuCPrvEV.js:382 [Mic] Unmuting microphone - starting recognition
+index-DuCPrvEV.js:382 [Start Conversation] ✅ All checks passed - WebSocket OPEN, partner connected, quota available
+index-DuCPrvEV.js:376 [Azure Token] Using cached token
+index-DuCPrvEV.js:382 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+index-DuCPrvEV.js:382 [Heartbeat] 💚 Received pong from server - connection alive
+index-DuCPrvEV.js:382 [Credits] Update received: 178440 seconds remaining, exhausted: false
+index-DuCPrvEV.js:382 [Mic] Unmuting microphone - starting recognition
+index-DuCPrvEV.js:382 [Start Conversation] ✅ All checks passed - WebSocket OPEN, partner connected, quota available
+index-DuCPrvEV.js:376 [Azure Token] Using cached token
+index-DuCPrvEV.js:376 [Browser] Visibility changed: HIDDEN
+index-DuCPrvEV.js:376 [Browser] ⚠️ Tab is now hidden - this may affect WebSocket/Azure connections
+index-DuCPrvEV.js:382 [Page Visibility] 🌙 App backgrounded (invisible)
+index-DuCPrvEV.js:376 [Browser] Visibility changed: VISIBLE
+index-DuCPrvEV.js:376 [Browser] ✓ Tab is now visible again
+index-DuCPrvEV.js:382 [Page Visibility] 👁️ App became visible (resumed from background)
+index-DuCPrvEV.js:382 [Page Visibility] ✅ WebSocket already connected, no action needed
+index-DuCPrvEV.js:382 [Mic] Unmuting microphone - starting recognition
+index-DuCPrvEV.js:382 [Start Conversation] ✅ All checks passed - WebSocket OPEN, partner connected, quota available
+index-DuCPrvEV.js:376 [Azure Token] Using cached token
+index-DuCPrvEV.js:370 WebSocket connection to 'wss://eastus.stt.speech.microsoft.com/stt/speech/universal/v2?language=en-US&format=simple&Authorization=Bearer%20eyJhbGciOiJFUzI1NiIsImtpZCI6ImtleTEiLCJ0eXAiOiJKV1QifQ.eyJyZWdpb24iOiJlYXN0dXMiLCJzdWJzY3JpcHRpb24taWQiOiJiYWM5MmJiNDIzZWU0NzRkYmE0YWE2NWIwMjhmN2ZmYyIsInByb2R1Y3QtaWQiOiJTcGVlY2hTZXJ2aWNlcy5TMCIsImNvZ25pdGl2ZS1zZXJ2aWNlcy1lbmRwb2ludCI6Imh0dHBzOi8vYXBpLmNvZ25pdGl2ZS5taWNyb3NvZnQuY29tL2ludGVybmFsL3YxLjAvIiwiYXp1cmUtcmVzb3VyY2UtaWQiOiIvc3Vic2NyaXB0aW9ucy82NjJhZWU4ZS03NjBmLTQ0OWYtYWUxOS0xYTlkMjMzNDNhMTgvcmVzb3VyY2VHcm91cHMvVm96dHJhL3Byb3ZpZGVycy9NaWNyb3NvZnQuQ29nbml0aXZlU2VydmljZXMvYWNjb3VudHMvVm96dHJhIiwic2NvcGUiOiJzcGVlY2hzZXJ2aWNlcyIsImF1ZCI6InVybjptcy5zcGVlY2hzZXJ2aWNlcy5lYXN0dXMiLCJleHAiOjE3NjM2NDk2MDcsImlzcyI6InVybjptcy5jb2duaXRpdmVzZXJ2aWNlcyJ9.Uyd5L7e3TXq90sZfMXzsUV-LjxN9kuhdtA-9VCKRM47LAYSk0MZRIp8DMUvWWjuaAiLViFH_Rhy-9Y1crUGYTQ&X-ConnectionId=73D1DECF701540128C8B9CB99FBCC9ED&connectionId=73D1DECF701540128C8B9CB99FBCC9ED' failed: 
+open @ index-DuCPrvEV.js:370
+index-DuCPrvEV.js:382 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+index-DuCPrvEV.js:382 [Heartbeat] 💚 Received pong from server - connection alive
+index-DuCPrvEV.js:382 [Credits] Update received: 178430 seconds remaining, exhausted: false
+index-DuCPrvEV.js:382 [Azure Speech Dedupe] 🧹 Cleaned up 3 expired resultIds from cache
+index-DuCPrvEV.js:382 [Azure Speech Dedupe] ✅ New resultId processed: CC103B07D74C46AAB5779E4BDBC7A4AD, cache size: 1
+index-DuCPrvEV.js:382 [Temporal Dedupe] 🧹 Cleaned up 3 expired offset entries from cache
+index-DuCPrvEV.js:382 [Temporal Dedupe] ✅ New offset+text processed: offset=7229300000, text="Where do you live now?...", cache size: 1
+index-DuCPrvEV.js:382 [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Where do you live now?..."
+Z.recognized @ index-DuCPrvEV.js:382
+processTypeSpecificMessages @ index-DuCPrvEV.js:375
+receiveMessage @ index-DuCPrvEV.js:371
+await in receiveMessage
+receiveMessage @ index-DuCPrvEV.js:371
+await in receiveMessage
+receiveMessage @ index-DuCPrvEV.js:371
+index-DuCPrvEV.js:382 [Speech] 📦 Queue size: 1/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+processTypeSpecificMessages @ index-DuCPrvEV.js:375
+receiveMessage @ index-DuCPrvEV.js:371
+await in receiveMessage
+receiveMessage @ index-DuCPrvEV.js:371
+await in receiveMessage
+receiveMessage @ index-DuCPrvEV.js:371
+index-DuCPrvEV.js:382 [Mic] Unmuting microphone - starting recognition
+index-DuCPrvEV.js:382 [Start Conversation] ✅ All checks passed - WebSocket OPEN, partner connected, quota available
+index-DuCPrvEV.js:376 [Azure Token] Using cached token
+index-DuCPrvEV.js:382 [Azure Speech Dedupe] ✅ New resultId processed: 6603A6A2651B4A118B26E5EB91A2AF84, cache size: 2
+index-DuCPrvEV.js:382 [Temporal Dedupe] ✅ New offset+text processed: offset=7384500000, text="Where do you live now?...", cache size: 2
+index-DuCPrvEV.js:382 [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Where do you live now?..."
+Z.recognized @ index-DuCPrvEV.js:382
+processTypeSpecificMessages @ index-DuCPrvEV.js:375
+receiveMessage @ index-DuCPrvEV.js:371
+await in receiveMessage
+receiveMessage @ index-DuCPrvEV.js:371
+await in receiveMessage
+receiveMessage @ index-DuCPrvEV.js:371
+index-DuCPrvEV.js:382 [Speech] 📦 Queue size: 2/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+processTypeSpecificMessages @ index-DuCPrvEV.js:375
+receiveMessage @ index-DuCPrvEV.js:371
+await in receiveMessage
+receiveMessage @ index-DuCPrvEV.js:371
+await in receiveMessage
+receiveMessage @ index-DuCPrvEV.js:371
+index-DuCPrvEV.js:382 [Azure Speech Dedupe] ✅ New resultId processed: 6B95E911C2E9489492A6C0E7B9595D0F, cache size: 3
+index-DuCPrvEV.js:382 [Temporal Dedupe] ✅ New offset+text processed: offset=7169200000, text="Where do you live now?...", cache size: 3
+index-DuCPrvEV.js:382 [Speech] ⚠️ WebSocket not ready (state: 3), queued message: "Where do you live now?..."
+Z.recognized @ index-DuCPrvEV.js:382
+processTypeSpecificMessages @ index-DuCPrvEV.js:375
+receiveMessage @ index-DuCPrvEV.js:371
+await in receiveMessage
+receiveMessage @ index-DuCPrvEV.js:371
+await in receiveMessage
+receiveMessage @ index-DuCPrvEV.js:371
+index-DuCPrvEV.js:382 [Speech] 📦 Queue size: 3/20 pending messages
+Z.recognized @ index-DuCPrvEV.js:382
+processTypeSpecificMessages @ index-DuCPrvEV.js:375
+receiveMessage @ index-DuCPrvEV.js:371
+await in receiveMessage
+receiveMessage @ index-DuCPrvEV.js:371
+await in receiveMessage
+receiveMessage @ index-DuCPrvEV.js:371
+index-DuCPrvEV.js:382 [Interim Timeout] ⏰ Auto-clearing partnerInterimText after 3s (no final transcription received)
+index-DuCPrvEV.js:382 [Azure Speech] ✓ Session started: {sessionId: '6CA843F05737470B9F965CB8073BC38E', timestamp: '2025-11-20T14:30:52.084Z'}
+index-DuCPrvEV.js:382 [Speech] Recognition started successfully - microphone is now active
+index-DuCPrvEV.js:382 [Speech] Conversation started with microphone already active (no second click needed)
+index-DuCPrvEV.js:382 [Network] 🔄 Network type changed: 4g
+index-DuCPrvEV.js:382 [Network] ✅ WebSocket still connected after network change
+index-DuCPrvEV.js:382 [Azure Speech] ✓ Session started: {sessionId: '1DDEE0B2E33441FAB529F17C7E41D4C6', timestamp: '2025-11-20T14:30:52.878Z'}
+index-DuCPrvEV.js:382 [Speech] Recognition started successfully - microphone is now active
+index-DuCPrvEV.js:382 [Speech] Conversation started with microphone already active (no second click needed)
+index-DuCPrvEV.js:382 [Azure Speech] ✓ Session started: {sessionId: '8056689394584656A4C7E80421087DDE', timestamp: '2025-11-20T14:30:53.957Z'}
+index-DuCPrvEV.js:382 [Speech] Recognition started successfully - microphone is now active
+index-DuCPrvEV.js:382 [Speech] Conversation started with microphone already active (no second click needed)
+index-DuCPrvEV.js:382 [Heartbeat] 💓 Sending ping to keep connection alive, readyState: 1
+index-DuCPrvEV.js:382 [Azure Speech] ✓ Session started: {sessionId: '73D1DECF701540128C8B9CB99FBCC9ED', timestamp: '2025-11-20T14:30:55.898Z'}
+index-DuCPrvEV.js:382 [Speech] Recognition started successfully - microphone is now active
+index-DuCPrvEV.js:382 [Speech] Conversation started with microphone already active (no second click needed)
+index-DuCPrvEV.js:382 [Heartbeat] 💚 Received pong from server - connection alive
+index-DuCPrvEV.js:382 [Credits] Update received: 178420 seconds remaining, exhausted: false
