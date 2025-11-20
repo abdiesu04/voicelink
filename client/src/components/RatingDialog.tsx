@@ -14,17 +14,24 @@ import { cn } from "@/lib/utils";
 interface RatingDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onSubmit: (rating: number, feedback?: string) => Promise<boolean>;
+  onSubmit: (rating: number, feedback?: string, metadata?: { userAgent?: string; language?: string; voiceGender?: string }) => Promise<boolean>;
+  language?: string;
+  voiceGender?: string;
+  userAgent?: string;
 }
 
-export function RatingDialog({ open, onOpenChange, onSubmit }: RatingDialogProps) {
+export function RatingDialog({ open, onOpenChange, onSubmit, language, voiceGender, userAgent }: RatingDialogProps) {
   const [rating, setRating] = useState<number>(0);
   const [hoveredRating, setHoveredRating] = useState<number>(0);
   const [feedback, setFeedback] = useState("");
 
   const handleSubmit = async () => {
     if (rating > 0) {
-      const success = await onSubmit(rating, rating <= 2 && feedback ? feedback : undefined);
+      const success = await onSubmit(
+        rating, 
+        rating <= 2 && feedback ? feedback : undefined,
+        { userAgent, language, voiceGender }
+      );
       
       // Only close and reset if submission was successful
       if (success) {

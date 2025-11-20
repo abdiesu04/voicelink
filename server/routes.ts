@@ -550,7 +550,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
 
     try {
-      const { roomId, rating, feedback } = req.body;
+      const { roomId, rating, feedback, userAgent, language, voiceGender } = req.body;
 
       if (!roomId) {
         return res.status(400).json({ error: "Room ID is required" });
@@ -560,15 +560,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: "Rating must be between 1 and 5" });
       }
 
-      // Save rating to database
+      // Save rating to database with device/language/gender metadata
       await db.insert(callRatings).values({
         roomId,
         userId: req.session.userId,
         rating,
         feedback: feedback || null,
+        userAgent: userAgent || null,
+        language: language || null,
+        voiceGender: voiceGender || null,
       });
 
-      console.log(`[Call Rating] User ${req.session.userId} rated room ${roomId}: ${rating} stars${feedback ? ' with feedback' : ''}`);
+      console.log(`[Call Rating] User ${req.session.userId} rated room ${roomId}: ${rating} stars${feedback ? ' with feedback' : ''} [${language || 'unknown'}, ${voiceGender || 'unknown'} voice, ${userAgent ? userAgent.substring(0, 50) + '...' : 'unknown device'}]`);
       res.json({ success: true });
     } catch (error) {
       console.error("Error saving call rating:", error);

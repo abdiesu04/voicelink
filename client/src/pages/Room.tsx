@@ -2932,7 +2932,7 @@ export default function Room() {
     setShowRatingDialog(true);
   };
 
-  const handleRatingSubmit = async (rating: number, feedback?: string): Promise<boolean> => {
+  const handleRatingSubmit = async (rating: number, feedback?: string, metadata?: { userAgent?: string; language?: string; voiceGender?: string }): Promise<boolean> => {
     console.log('[Rating] User rated call:', rating, 'stars', feedback ? 'with feedback' : '');
     
     try {
@@ -2946,6 +2946,9 @@ export default function Room() {
           roomId,
           rating,
           feedback,
+          userAgent: metadata?.userAgent,
+          language: metadata?.language,
+          voiceGender: metadata?.voiceGender,
         }),
       });
 
@@ -3389,7 +3392,10 @@ export default function Room() {
             performActualDisconnect();
           }
         }} 
-        onSubmit={handleRatingSubmit} 
+        onSubmit={handleRatingSubmit}
+        language={language}
+        voiceGender={voiceGender}
+        userAgent={typeof navigator !== 'undefined' ? navigator.userAgent : undefined}
       />
 
       {/* Mobile Sticky Bottom Toolbar - Compact overlay, doesn't affect layout height */}

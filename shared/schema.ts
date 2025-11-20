@@ -132,6 +132,9 @@ export const callRatings = pgTable("call_ratings", {
   userId: integer("user_id").notNull().references(() => users.id, { onDelete: "cascade" }),
   rating: integer("rating").notNull(), // 1-5 stars
   feedback: text("feedback"), // Optional feedback for low ratings
+  userAgent: text("user_agent"), // Browser/device info (captured automatically)
+  language: varchar("language", { length: 50 }), // User's language during call
+  voiceGender: varchar("voice_gender", { length: 10 }), // User's selected voice gender
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
