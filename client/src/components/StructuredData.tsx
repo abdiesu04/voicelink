@@ -6,7 +6,7 @@ export function StructuredData() {
     "name": "Voztra",
     "url": "https://getvoztra.com",
     "logo": "https://getvoztra.com/favicon.png",
-    "description": "Real-time voice translation service breaking language barriers across 47 languages with natural tone preservation",
+    "description": "Real-time voice translation service breaking language barriers across 96 languages with natural tone preservation",
     "contactPoint": {
       "@type": "ContactPoint",
       "contactType": "customer service",
@@ -22,7 +22,7 @@ export function StructuredData() {
     "url": "https://getvoztra.com",
     "applicationCategory": "CommunicationApplication",
     "operatingSystem": "Web",
-    "description": "Real-time voice translation across 47 languages with natural tone preservation",
+    "description": "Real-time voice translation across 96 languages with natural tone preservation",
     "offers": [
       {
         "@type": "Offer",
@@ -54,7 +54,7 @@ export function StructuredData() {
     ],
     "featureList": [
       "Real-time voice translation",
-      "47 languages supported",
+      "96 languages supported",
       "Natural tone and emotion preservation",
       "Gender-specific voice options",
       "Instant communication",

@@ -104,7 +104,7 @@ export async function sendVerificationCodeEmail(
               <p>After verification, you'll receive:</p>
               <ul>
                 <li><strong>60 minutes of free translation time</strong></li>
-                <li>Access to 47 languages</li>
+                <li>Access to 96 languages</li>
                 <li>Real-time voice translation with natural accents</li>
               </ul>
               
@@ -131,7 +131,7 @@ This code expires in 15 minutes.
 
 After verification, you'll receive:
 - 60 minutes of free translation time
-- Access to 47 languages
+- Access to 96 languages
 - Real-time voice translation with natural accents
 
 If you didn't request this code, you can safely ignore this email.

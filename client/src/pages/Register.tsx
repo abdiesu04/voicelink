@@ -500,7 +500,7 @@ export default function Register() {
               transition={{ delay: 0.4 }}
               className="text-lg lg:text-xl text-slate-600 dark:text-slate-300 mb-8"
             >
-              Translate conversations in real-time across 47 languages with voice preservation
+              Translate conversations in real-time across 96 languages with voice preservation
             </motion.p>
 
             {/* Benefits */}

@@ -106,7 +106,7 @@ function CreateRoomContent() {
                 </div>
                 <div>
                   <h2 className="text-lg sm:text-xl font-bold text-foreground">My Language</h2>
-                  <p className="text-xs sm:text-sm text-muted-foreground">47 languages supported</p>
+                  <p className="text-xs sm:text-sm text-muted-foreground">96 languages supported</p>
                 </div>
               </div>
               

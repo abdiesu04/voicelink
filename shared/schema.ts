@@ -184,7 +184,7 @@ export const loginSchema = z.object({
 export type RegisterData = z.infer<typeof registerSchema>;
 export type LoginData = z.infer<typeof loginSchema>;
 
-// Supported languages for translation (89 languages total)
+// Supported languages for translation (96 languages total)
 // Hybrid approach: Base languages use short codes, regional variants use BCP-47 locales
 // Backward compatible with existing rooms
 export const SUPPORTED_LANGUAGES = [

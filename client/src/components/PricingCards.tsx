@@ -44,20 +44,20 @@ const plans: PricingPlan[] = [
 const planFeatures = {
   free: [
     "60 minutes of translation",
-    "47 languages",
+    "96 languages",
     "Basic voice quality",
     "No rollover",
   ],
   starter: [
     "350 minutes per month",
-    "47 languages",
+    "96 languages",
     "Premium voice quality",
     "Up to 350 min rollover",
     "Priority support",
   ],
   pro: [
     "1,200 minutes per month",
-    "47 languages",
+    "96 languages",
     "Premium voice quality",
     "Up to 1,200 min rollover",
     "Priority support",

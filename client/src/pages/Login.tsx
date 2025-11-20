@@ -144,7 +144,7 @@ export default function Login() {
                   Break language barriers instantly
                 </p>
                 <p className="text-xs text-slate-600 dark:text-slate-400">
-                  Voice translation across 47 languages
+                  Voice translation across 96 languages
                 </p>
               </div>
             </motion.div>
