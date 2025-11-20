@@ -1306,34 +1306,37 @@ export default function Room() {
         return;
       }
       
-      // Warn at 10 minutes (600 seconds)
-      if (creditsRemaining <= 600 && creditsRemaining > 580 && !exhausted) {
-        toast({
-          title: "10 Minutes Remaining",
-          description: "You have 10 minutes of translation time left. Consider upgrading to continue uninterrupted.",
-          variant: "warning",
-        });
-      }
-      
-      // Warn when less than 2 minutes (120 seconds) remaining  
-      if (creditsRemaining <= 120 && creditsRemaining > 100 && !exhausted) {
-        const minutesText = creditsRemaining < 60 && creditsRemaining > 0 
-          ? "less than 1 minute" 
-          : `${Math.floor(creditsRemaining / 60)} minutes`;
-        toast({
-          title: "Low Credits Warning",
-          description: `You have ${minutesText} remaining. Consider upgrading your plan.`,
-          variant: "warning",
-        });
-      }
-      
-      // Warn at 1 minute
-      if (creditsRemaining <= 60 && creditsRemaining > 40 && !exhausted) {
-        toast({
-          title: "Critical - Less Than 1 Minute Remaining",
-          description: "Your call will end soon. Upgrade to continue.",
-          variant: "destructive",
-        });
+      // LOW-CREDIT WARNINGS: Only show to HOST (creator/owner), not to partner
+      if (role === "creator" || role === "owner") {
+        // Warn at 10 minutes (600 seconds)
+        if (creditsRemaining <= 600 && creditsRemaining > 580 && !exhausted) {
+          toast({
+            title: "10 Minutes Remaining",
+            description: "You have 10 minutes of translation time left. Consider upgrading to continue uninterrupted.",
+            variant: "warning",
+          });
+        }
+        
+        // Warn when less than 2 minutes (120 seconds) remaining  
+        if (creditsRemaining <= 120 && creditsRemaining > 100 && !exhausted) {
+          const minutesText = creditsRemaining < 60 && creditsRemaining > 0 
+            ? "less than 1 minute" 
+            : `${Math.floor(creditsRemaining / 60)} minutes`;
+          toast({
+            title: "Low Credits Warning",
+            description: `You have ${minutesText} remaining. Consider upgrading your plan.`,
+            variant: "warning",
+          });
+        }
+        
+        // Warn at 1 minute
+        if (creditsRemaining <= 60 && creditsRemaining > 40 && !exhausted) {
+          toast({
+            title: "Critical - Less Than 1 Minute Remaining",
+            description: "Your call will end soon. Upgrade to continue.",
+            variant: "destructive",
+          });
+        }
       }
     }
 
