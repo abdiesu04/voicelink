@@ -144,6 +144,7 @@ export default function Room() {
 
   const wsRef = useRef<WebSocket | null>(null);
   const recognizerRef = useRef<SpeechSDK.SpeechRecognizer | null>(null);
+  const azureSessionReadyRef = useRef<boolean>(false); // Track if Azure Speech SDK session is ready
   const azureTokenRef = useRef<{ token: string; region: string } | null>(null);
   const spokenMessageIdsRef = useRef<Set<string>>(new Set());
   const processedMessagesRef = useRef<Set<string>>(new Set()); // Track processed server messageIds for deduplication
@@ -2294,6 +2295,9 @@ export default function Room() {
     await unlockAudioForMobile();
     
     try {
+      // Reset session ready flag before creating new recognizer
+      azureSessionReadyRef.current = false;
+      
       const { token, region } = await getAzureToken();
       
       const speechConfig = SpeechSDK.SpeechConfig.fromAuthorizationToken(token, region);
@@ -2330,6 +2334,9 @@ export default function Room() {
           sessionId: e.sessionId,
           timestamp: new Date().toISOString()
         });
+        // Mark session as ready - WebSocket is now connected
+        azureSessionReadyRef.current = true;
+        console.log('[Azure Speech] ✅ Session ready - WebSocket connected');
       };
       
       recognizer.sessionStopped = (s, e) => {
@@ -2337,6 +2344,9 @@ export default function Room() {
           sessionId: e.sessionId,
           timestamp: new Date().toISOString()
         });
+        // Mark session as not ready
+        azureSessionReadyRef.current = false;
+        console.log('[Azure Speech] ⚠️ Session not ready - WebSocket disconnected');
       };
       
       recognizer.recognizing = (s, e) => {
@@ -2535,14 +2545,6 @@ export default function Room() {
               pendingMessagesRef.current.push(message);
               console.warn(`[Speech] ⚠️ WebSocket not ready (state: ${wsRef.current?.readyState || 'null'}), queued message: "${e.result.text.substring(0, 30)}..."`);
               console.warn(`[Speech] 📦 Queue size: ${pendingMessagesRef.current.length}/${MAX_QUEUE_SIZE} pending messages`);
-              
-              // Show toast to user
-              toast({
-                title: "Connecting...",
-                description: "Your message will be sent when connection is ready",
-                variant: "info",
-                duration: 2000,
-              });
             } else {
               console.error(`[Speech] ❌ Queue full (${MAX_QUEUE_SIZE} messages) - dropping message: "${e.result.text.substring(0, 30)}..."`);
               toast({
@@ -2666,13 +2668,9 @@ export default function Room() {
       return;
     }
 
-    // Prevent unmuting if partner hasn't joined yet
+    // Prevent unmuting if partner hasn't joined yet (silent check - no toast)
     if (isMuted && !partnerConnected) {
-      toast({
-        title: "Partner Not Connected",
-        description: "Please wait for your partner to join before starting the conversation.",
-        variant: "info",
-      });
+      console.log('[Mic] Cannot unmute - partner not connected yet');
       return;
     }
     
@@ -2684,6 +2682,7 @@ export default function Room() {
       isMutedRef.current = true;
       setIsMuted(true);
       setIsSpeaking(false); // Clear speaking state immediately
+      azureSessionReadyRef.current = false; // Mark Azure session as not ready
       
       // Clear interim text timeouts BEFORE clearing interim text (prevents race conditions)
       if (myInterimTimeoutRef.current) {
