@@ -114,8 +114,8 @@ export default function Home() {
     <div className="min-h-screen bg-white dark:bg-slate-950">
       <SEO 
         title="Real-Time Voice Translation for Global Communication"
-        description="Break language barriers instantly with Voztra. Real-time voice translation across 96 languages with natural tone preservation. Perfect for business, travel, and personal connections. Start with 60 free minutes."
-        keywords="voice translator, real-time translation, language barrier, instant translation, 96 languages, voice preservation, global communication, business translation"
+        description="Break language barriers instantly with Voztra. Real-time voice translation across 100+ languages with natural tone preservation. Perfect for business, travel, and personal connections. Start with 60 free minutes."
+        keywords="voice translator, real-time translation, language barrier, instant translation, 100+ languages, voice preservation, global communication, business translation"
         canonical="https://getvoztra.com"
       />
       <StructuredData />
@@ -216,7 +216,7 @@ export default function Home() {
               
               {/* Subtitle */}
               <h2 className="text-lg sm:text-xl md:text-2xl text-slate-600 dark:text-slate-300 leading-relaxed max-w-3xl mx-auto font-medium">
-                Voztra instantly translates your voice into any language (same tone, same emotion, same gender) so you sound like a native speaker across <span className="font-bold text-indigo-600 dark:text-indigo-400">96 languages</span>.
+                Voztra instantly translates your voice into any language (same tone, same emotion, same gender) so you sound like a native speaker across <span className="font-bold text-indigo-600 dark:text-indigo-400">100+ languages</span>.
               </h2>
 
               {/* CTA Buttons */}
@@ -372,7 +372,7 @@ export default function Home() {
               Speak with the world
             </h2>
             <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto">
-              Supporting <span className="text-primary font-semibold">96 languages</span> with neural AI voices that match your tone, emotion, and gender.
+              Supporting <span className="text-primary font-semibold">100+ languages</span> with neural AI voices that match your tone, emotion, and gender.
             </p>
           </div>
 
@@ -382,13 +382,13 @@ export default function Home() {
               <div className="text-center mb-8">
                 <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-primary/10 dark:bg-primary/20 mb-4">
                   <Sparkles className="h-5 w-5 text-primary" />
-                  <span className="font-semibold text-slate-900 dark:text-white">96 Supported Languages</span>
+                  <span className="font-semibold text-slate-900 dark:text-white">100+ Supported Languages</span>
                 </div>
                 <h3 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-4">
                   Talk to anyone in their language
                 </h3>
                 <p className="text-slate-600 dark:text-slate-300">
-                  Each language includes male and female neural voices (280 total voices) that preserve your natural tone and emotion during translation.
+                  Each language includes male and female neural voices that preserve your natural tone and emotion during translation.
                 </p>
               </div>
               
@@ -486,7 +486,7 @@ export default function Home() {
                   <Users className="h-10 w-10 text-violet-500" />
                   <h3 className="text-xl font-semibold text-slate-900 dark:text-white">Build truly diverse teams</h3>
                   <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
-                    Connect with talent across 96 languages. Interview candidates in their native language while speaking yours — no interpreters needed.
+                    Connect with talent across 100+ languages. Interview candidates in their native language while speaking yours — no interpreters needed.
                   </p>
                 </CardContent>
               </Card>
@@ -522,7 +522,7 @@ export default function Home() {
                 </Button>
               </Link>
               <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 mt-4 px-4">
-                Free to try • No credit card required • 96 languages supported
+                Free to try • No credit card required • 100+ languages supported
               </p>
             </div>
           </div>
