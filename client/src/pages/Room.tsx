@@ -1299,17 +1299,9 @@ export default function Room() {
       // Update global auth subscription state so Header and other components show live credits
       updateSubscription({ creditsRemaining });
       
-      // Show upgrade modal when credits are exhausted (ONLY TO CREATOR/OWNER)
+      // When credits are exhausted, session will end and handleSessionEnded will redirect to pricing
       if (exhausted || creditsRemaining <= 0) {
-        console.log('[Credits] Credits exhausted');
-        // Only show upgrade modal to the creator/owner (who pays for credits)
-        // Participant sees generic "call ended" message when session ends
-        if (role === "creator" || role === "owner") {
-          console.log('[Credits] Showing upgrade modal to creator/owner');
-          setShowUpgradeModal(true);
-        } else {
-          console.log('[Credits] Participant will see call ended message when session ends');
-        }
+        console.log('[Credits] Credits exhausted - session will end and redirect to pricing page');
         return;
       }
       
@@ -2855,19 +2847,18 @@ export default function Room() {
       variant: "destructive",
     });
     
-    // CRITICAL FIX: Don't auto-navigate away if creator ran out of credits
-    // Let them see and interact with the upgrade modal without it disappearing
-    // Only auto-navigate for other end reasons or if user is participant
-    const shouldAutoNavigate = reason !== 'credits-exhausted' || !isCreator;
-    
-    if (shouldAutoNavigate) {
-      setTimeout(() => {
+    // Navigate after showing toast
+    // For creator with exhausted credits: redirect to pricing page
+    // For others: redirect to home page
+    setTimeout(() => {
+      if (reason === 'credits-exhausted' && isCreator) {
+        console.log('[Session] Navigating to pricing page after credits exhausted');
+        setLocation("/pricing");
+      } else {
         console.log('[Session] Navigating to dashboard after session end');
         setLocation("/");
-      }, 2500);
-    } else {
-      console.log('[Session] Credits exhausted for creator - staying on page to show upgrade modal');
-    }
+      }
+    }, 2500);
   };
 
   const performActualDisconnect = () => {
