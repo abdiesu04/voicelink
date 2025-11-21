@@ -1299,10 +1299,17 @@ export default function Room() {
       // Update global auth subscription state so Header and other components show live credits
       updateSubscription({ creditsRemaining });
       
-      // Show upgrade modal when credits are exhausted
+      // Show upgrade modal when credits are exhausted (ONLY TO CREATOR/OWNER)
       if (exhausted || creditsRemaining <= 0) {
-        console.log('[Credits] Credits exhausted, showing upgrade modal');
-        setShowUpgradeModal(true);
+        console.log('[Credits] Credits exhausted');
+        // Only show upgrade modal to the creator/owner (who pays for credits)
+        // Participant sees generic "call ended" message when session ends
+        if (role === "creator" || role === "owner") {
+          console.log('[Credits] Showing upgrade modal to creator/owner');
+          setShowUpgradeModal(true);
+        } else {
+          console.log('[Credits] Participant will see call ended message when session ends');
+        }
         return;
       }
       
@@ -2819,6 +2826,11 @@ export default function Room() {
     setMyInterimText("");
     setPartnerInterimText("");
     
+    // Role-specific messages for credits exhausted
+    // Creator sees upgrade modal (already shown via credit-update handler)
+    // Participant sees generic call ended message
+    const isCreator = role === "creator" || role === "owner";
+    
     const reasonMessages = {
       'creator-left': {
         title: "Call Ended - Room Owner Left",
@@ -2829,8 +2841,10 @@ export default function Room() {
         description: "Your conversation partner has left the room."
       },
       'credits-exhausted': {
-        title: "Call Ended - No Credits Remaining",
-        description: "Your credits have been exhausted. Please upgrade your plan to continue."
+        title: "Call Ended",
+        description: isCreator 
+          ? "Your translation minutes have run out. Upgrade to continue." 
+          : "The call has ended. Thank you for using Voztra!"
       }
     };
     
@@ -2841,10 +2855,19 @@ export default function Room() {
       variant: "destructive",
     });
     
-    setTimeout(() => {
-      console.log('[Session] Navigating to dashboard after session end');
-      setLocation("/");
-    }, 2500);
+    // CRITICAL FIX: Don't auto-navigate away if creator ran out of credits
+    // Let them see and interact with the upgrade modal without it disappearing
+    // Only auto-navigate for other end reasons or if user is participant
+    const shouldAutoNavigate = reason !== 'credits-exhausted' || !isCreator;
+    
+    if (shouldAutoNavigate) {
+      setTimeout(() => {
+        console.log('[Session] Navigating to dashboard after session end');
+        setLocation("/");
+      }, 2500);
+    } else {
+      console.log('[Session] Credits exhausted for creator - staying on page to show upgrade modal');
+    }
   };
 
   const performActualDisconnect = () => {
